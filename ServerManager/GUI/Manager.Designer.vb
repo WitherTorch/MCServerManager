@@ -1137,6 +1137,7 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.AutoArrange = False
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 11.0!)
+        Me.ServerSoftwareLinkList.HideSelection = False
         ListViewItem1.Checked = True
         ListViewItem1.StateImageIndex = 2
         ListViewItem1.Tag = "https://www.minecraft.net/zh-hant/"
@@ -1224,14 +1225,14 @@ Partial Class Manager
         '
         'Label10
         '
-        Me.Label10.AutoSize = True
+        Me.Label10.AutoEllipsis = True
         Me.Label10.Font = New System.Drawing.Font("微軟正黑體", 11.0!)
         Me.Label10.Location = New System.Drawing.Point(159, 57)
         Me.Label10.Margin = New System.Windows.Forms.Padding(3, 5, 3, 3)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(168, 19)
+        Me.Label10.Size = New System.Drawing.Size(213, 96)
         Me.Label10.TabIndex = 3
-        Me.Label10.Text = "作者：Error_404、冰霜"
+        Me.Label10.Text = "作者：Error_404、冰霜、asd7766zxc"
         '
         'Label9
         '

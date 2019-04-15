@@ -11,7 +11,7 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("Minecraft 伺服器管理員")>
 <Assembly: AssemblyDescription("管理Minecraft 伺服器")>
-<Assembly: AssemblyCompany("Error_404")>
+<Assembly: AssemblyCompany("Error_404,冰霜,asd7766zxc")>
 <Assembly: AssemblyProduct("Minecraft 伺服器管理員")>
 <Assembly: AssemblyCopyright("Copyright © Error_404 2019")>
 <Assembly: AssemblyTrademark("")>
@@ -32,6 +32,6 @@ Imports System.Runtime.InteropServices
 ' 指定為預設值: 
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.5.1.0")>
-<Assembly: AssemblyFileVersion("1.5.1.0")>
+<Assembly: AssemblyVersion("1.6.0.0")>
+<Assembly: AssemblyFileVersion("1.6.0.0")>
 <Assembly: NeutralResourcesLanguage("zh-TW")>
