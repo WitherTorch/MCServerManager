@@ -49,7 +49,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>false</DefineTrace>
     <Optimize>false</Optimize>
-    <OutputPath>Release4\</OutputPath>
+    <OutputPath>Release\</OutputPath>
     <DocumentationFile>ServerManager.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>true</Prefer32Bit>
@@ -71,19 +71,19 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>7BFBF18C3914DBC21D44750C0B81AA285622D61C</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>F9BE8AD56E1E16171F45561202FBFF83BD8CACA6</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ServerLauncher_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>ServerManager_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>ReleaseKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>SecureKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <DelaySign>false</DelaySign>
@@ -446,8 +446,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="ReleaseKey.pfx" />
-    <None Include="ServerLauncher_TemporaryKey.pfx" />
+    <None Include="SecureKey.snk" />
+    <None Include="ServerManager_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Charcoal\NukkitPluginExplorer.resx">
