@@ -441,7 +441,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="json1.json" />
     <None Include="My Project\app.manifest">
       <SubType>Designer</SubType>
     </None>
