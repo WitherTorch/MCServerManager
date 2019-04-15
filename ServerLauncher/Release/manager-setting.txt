@@ -1,2 +1,0 @@
-﻿memory-min=1024
-memory-max=1024
