@@ -1,0 +1,1 @@
+﻿This library is a simplized library from https://www.codeproject.com/articles/380769/creating-an-ftp-server-in-csharp-with-ipv6-support

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>BedrockServerConsole</RootNamespace>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <StartupObject>BedrockServerConsole.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="MiNET">
+      <HintPath>..\..\..\SDK\MiNET\MiNET.dll</HintPath>
+    </Reference>
+    <Reference Include="MiNET.Console">
+      <HintPath>..\..\..\SDK\MiNET\MiNET.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>System</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>System.Drawing</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

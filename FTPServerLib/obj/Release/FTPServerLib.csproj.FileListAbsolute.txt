@@ -1,0 +1,6 @@
+F:\程式\ServerLauncher\FTPServerLib\bin\Release\FTPServerLib.dll
+F:\程式\ServerLauncher\FTPServerLib\bin\Release\FTPServerLib.pdb
+F:\程式\ServerLauncher\FTPServerLib\obj\Release\FTPServerLib.csprojAssemblyReference.cache
+F:\程式\ServerLauncher\FTPServerLib\obj\Release\FTPServerLib.csproj.CoreCompileInputs.cache
+F:\程式\ServerLauncher\FTPServerLib\obj\Release\FTPServerLib.dll
+F:\程式\ServerLauncher\FTPServerLib\obj\Release\FTPServerLib.pdb

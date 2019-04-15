@@ -1,0 +1,6 @@
+C:\Users\user\Downloads\NATUPnP\bin\Release\NATUPnP.exe
+C:\Users\user\Downloads\NATUPnP\bin\Release\NATUPnP.pdb
+C:\Users\user\Downloads\NATUPnP\obj\Release\NATUPnP.csprojAssemblyReference.cache
+C:\Users\user\Downloads\NATUPnP\obj\Release\NATUPnP.csproj.CoreCompileInputs.cache
+C:\Users\user\Downloads\NATUPnP\obj\Release\NATUPnP.exe
+C:\Users\user\Downloads\NATUPnP\obj\Release\NATUPnP.pdb

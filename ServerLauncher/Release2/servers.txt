@@ -1,0 +1,1 @@
+﻿["C:\\Users\\new12\\Desktop\\伺服器相關\\pop4","F:\\Spigot 1.12.2","C:\\Users\\new12\\Desktop\\伺服器相關\\1.13 Server","C:\\Users\\new12\\Desktop\\伺服器相關\\sp1.13","C:\\Users\\new12\\Desktop\\伺服器相關\\Forge Test 5","D:\\Minecraft Live\\伺服器","F:\\1.12 Server","E:\\Spigot 1.12.2","C:\\Users\\USER\\Desktop\\YYY"]

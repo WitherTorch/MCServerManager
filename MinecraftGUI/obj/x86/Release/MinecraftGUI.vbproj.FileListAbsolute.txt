@@ -1,0 +1,13 @@
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\bin\x86\Release\MinecraftGUI.dll
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\bin\x86\Release\MinecraftGUI.pdb
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\bin\x86\Release\MinecraftGUI.xml
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.vbprojAssemblyReference.cache
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.Button.resources
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.CheckBox.resources
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.MinecraftFormTemplate.resources
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.Resources.resources
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.vbproj.GenerateResource.cache
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.vbproj.CoreCompileInputs.cache
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.dll
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.xml
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Release\MinecraftGUI.pdb

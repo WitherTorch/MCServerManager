@@ -1,0 +1,1 @@
+﻿["C:\\Users\\new12\\Desktop\\伺服器相關\\Spigot Test","D:\\Minecraft Live\\伺服器","C:\\Users\\new12\\Desktop\\伺服器相關\\pop","C:\\Users\\new12\\Desktop\\伺服器相關\\pop2","C:\\Users\\new12\\Desktop\\伺服器相關\\1.13 Server","C:\\Users\\new12\\Desktop\\伺服器相關\\pop3","D:\\Minecraft Live\\快照伺服器","C:\\Users\\new12\\Desktop\\伺服器相關\\pop5","C:\\Users\\new12\\Desktop\\伺服器相關\\Forge Server"]

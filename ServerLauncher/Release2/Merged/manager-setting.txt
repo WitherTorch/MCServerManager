@@ -1,0 +1,4 @@
+﻿memory-min=2048
+memory-max=2048
+java-arguments=
+java-path=

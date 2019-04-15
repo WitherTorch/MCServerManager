@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Build.Tasks.Git.1.0.0-beta-63102-01\build\Microsoft.Build.Tasks.Git.props" Condition="Exists('..\packages\Microsoft.Build.Tasks.Git.1.0.0-beta-63102-01\build\Microsoft.Build.Tasks.Git.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65C8EA07-ADCC-41B9-B7B6-F8A358132571}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>ServerManager.My.MyApplication</StartupObject>
+    <RootNamespace>ServerManager</RootNamespace>
+    <AssemblyName>ServerManager</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ServerManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>Release\</OutputPath>
+    <DocumentationFile>ServerManager.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Text</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>7BFBF18C3914DBC21D44750C0B81AA285622D61C</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ServerLauncher_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ReleaseKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>normalProgram.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.8.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.4\lib\Net40\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Bedrock Server\BedrockServer.Designer.vb">
+      <DependentUpon>BedrockServer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Bedrock Server\BedrockServer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Bedrock Server\BedrockChangeMapForm.Designer.vb">
+      <DependentUpon>BedrockChangeMapForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Bedrock Server\BedrockChangeMapForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Java Server\JavaChangeMapForm.Designer.vb">
+      <DependentUpon>JavaChangeMapForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Java Server\JavaChangeMapForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseResourcePack.Designer.vb">
+      <DependentUpon>ChooseResourcePack.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseResourcePack.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bedrock Server\CreateBedrockServerDialog.Designer.vb">
+      <DependentUpon>CreateBedrockServerDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Bedrock Server\CreateBedrockServerDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Java Server\CreateJavaServerDialog.Designer.vb">
+      <DependentUpon>CreateJavaServerDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Java Server\CreateJavaServerDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CryptoProvider.vb" />
+    <Compile Include="CustomComboBox.Designer.vb">
+      <DependentUpon>CustomComboBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CustomComboBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <None Include="app.config" />
+    <Compile Include="Bedrock Server\BedrockCommander.Designer.vb">
+      <DependentUpon>BedrockCommander.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Bedrock Server\BedrockCommander.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Java Server\JavaCommander.Designer.vb">
+      <DependentUpon>JavaCommander.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Java Server\JavaCommander.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForgeUtil.vb" />
+    <Compile Include="UPnPMapper.vb" />
+    <Compile Include="ProcessWatcher.Designer.vb">
+      <DependentUpon>ProcessWatcher.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessWatcher.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalModule.vb" />
+    <Compile Include="Launcher.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Launcher.Designer.vb">
+      <DependentUpon>Launcher.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Java Server\JavaServer.Designer.vb">
+      <DependentUpon>JavaServer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Java Server\JavaServer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Bedrock Server\BedrockServerCreator.Designer.vb">
+      <DependentUpon>BedrockServerCreator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Bedrock Server\BedrockServerCreator.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Java Server\JavaServerCreator.Designer.vb">
+      <DependentUpon>JavaServerCreator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Java Server\JavaServerCreator.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <None Include="ReleaseKey.pfx" />
+    <None Include="ServerLauncher_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Bedrock Server\BedrockServer.resx">
+      <DependentUpon>BedrockServer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bedrock Server\BedrockChangeMapForm.resx">
+      <DependentUpon>BedrockChangeMapForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Java Server\JavaChangeMapForm.resx">
+      <DependentUpon>JavaChangeMapForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseResourcePack.resx">
+      <DependentUpon>ChooseResourcePack.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bedrock Server\CreateBedrockServerDialog.resx">
+      <DependentUpon>CreateBedrockServerDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Java Server\CreateJavaServerDialog.resx">
+      <DependentUpon>CreateJavaServerDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bedrock Server\BedrockCommander.resx">
+      <DependentUpon>BedrockCommander.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Java Server\JavaCommander.resx">
+      <DependentUpon>JavaCommander.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessWatcher.resx">
+      <DependentUpon>ProcessWatcher.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Launcher.resx">
+      <DependentUpon>Launcher.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Java Server\JavaServer.resx">
+      <DependentUpon>JavaServer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bedrock Server\BedrockServerCreator.resx">
+      <DependentUpon>BedrockServerCreator.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Java Server\JavaServerCreator.resx">
+      <DependentUpon>JavaServerCreator.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="normalProgram.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Charcoal\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\SDK\NATUPNP\NATUPnP.csproj">
+      <Project>{4cfbd924-c768-4610-bd2f-510f2d7e3b3c}</Project>
+      <Name>NATUPnP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll FastColoredTextBox.dll NATUPnP.dll</PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 封裝。請啟用 NuGet 封裝還原，以下載該封裝。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Build.Tasks.Git.1.0.0-beta-63102-01\build\Microsoft.Build.Tasks.Git.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Build.Tasks.Git.1.0.0-beta-63102-01\build\Microsoft.Build.Tasks.Git.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Build.Tasks.Git.1.0.0-beta-63102-01\build\Microsoft.Build.Tasks.Git.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Build.Tasks.Git.1.0.0-beta-63102-01\build\Microsoft.Build.Tasks.Git.props'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Build.Tasks.Git.1.0.0-beta-63102-01\build\Microsoft.Build.Tasks.Git.targets" Condition="Exists('..\packages\Microsoft.Build.Tasks.Git.1.0.0-beta-63102-01\build\Microsoft.Build.Tasks.Git.targets')" />
+</Project>

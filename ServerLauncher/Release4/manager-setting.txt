@@ -1,0 +1,10 @@
+﻿memory-min=1024
+memory-max=1024
+bungee-memory-min=16
+bungee-memory-max=16
+java-arguments=
+java-path=C:\Program Files (x86)\Java\jre1.8.0_201\bin
+noip-username=
+noip-password=
+noip-hosts= 
+git-bash-path=

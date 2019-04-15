@@ -1,0 +1,17 @@
+F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.exe.config
+F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.exe
+F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.pdb
+F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.xml
+F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\FTPServerLib.dll
+F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\FTPServerLib.pdb
+F:\程式\ServerLauncher\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbprojAssemblyReference.cache
+F:\程式\ServerLauncher\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.Resources.resources
+F:\程式\ServerLauncher\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.GenerateResource.cache
+F:\程式\ServerLauncher\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.CoreCompileInputs.cache
+F:\程式\ServerLauncher\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.CopyComplete
+F:\程式\ServerLauncher\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.exe
+F:\程式\ServerLauncher\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.xml
+F:\程式\ServerLauncher\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.pdb
+F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.dll
+F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.pdb
+F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.xml

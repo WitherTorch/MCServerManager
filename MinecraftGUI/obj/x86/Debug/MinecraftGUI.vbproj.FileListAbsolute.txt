@@ -1,0 +1,37 @@
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\bin\x86\Debug\MinecraftGUI.dll
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\bin\x86\Debug\MinecraftGUI.pdb
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\bin\x86\Debug\MinecraftGUI.xml
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbprojAssemblyReference.cache
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.Button.resources
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.CheckBox.resources
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.MinecraftFormTemplate.resources
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.Resources.resources
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbproj.GenerateResource.cache
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbproj.CoreCompileInputs.cache
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.dll
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.xml
+D:\Minecraft Live\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.pdb
+E:\程式\ServerLauncher\MinecraftGUI\bin\x86\Debug\MinecraftGUI.dll
+E:\程式\ServerLauncher\MinecraftGUI\bin\x86\Debug\MinecraftGUI.pdb
+E:\程式\ServerLauncher\MinecraftGUI\bin\x86\Debug\MinecraftGUI.xml
+E:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbprojResolveAssemblyReference.cache
+E:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.Button.resources
+E:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.CheckBox.resources
+E:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.MinecraftFormTemplate.resources
+E:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.Resources.resources
+E:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbproj.GenerateResource.Cache
+E:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.dll
+E:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.xml
+E:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.pdb
+F:\程式\ServerLauncher\MinecraftGUI\bin\x86\Debug\MinecraftGUI.dll
+F:\程式\ServerLauncher\MinecraftGUI\bin\x86\Debug\MinecraftGUI.pdb
+F:\程式\ServerLauncher\MinecraftGUI\bin\x86\Debug\MinecraftGUI.xml
+F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbprojResolveAssemblyReference.cache
+F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.Button.resources
+F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.CheckBox.resources
+F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.MinecraftFormTemplate.resources
+F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.Resources.resources
+F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbproj.GenerateResource.Cache
+F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.dll
+F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.xml
+F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.pdb
