@@ -71,10 +71,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>F9BE8AD56E1E16171F45561202FBFF83BD8CACA6</ManifestCertificateThumbprint>

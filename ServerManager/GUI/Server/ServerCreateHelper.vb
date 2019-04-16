@@ -260,6 +260,7 @@ Public Class ServerCreateHelper
                     downloadURL = "https://circleci.com/api/v1.1/project/github/Akarin-project/Akarin/tree/master" & "?filter=%22successful%22&limit=1"
                 Else
                     downloadURL = "https://circleci.com/api/v1.1/project/github/Akarin-project/Akarin/tree/ver/" & server.ServerVersion & "?filter=%22successful%22&limit=1"
+                    server.SetVersion("ver/" & server.ServerVersion)
                 End If
                 Dim subDocHtml = subClient.DownloadString(downloadURL)
                 Dim subJsonObject As JObject = JsonConvert.DeserializeObject(Of JArray)(subDocHtml)(0)
@@ -274,7 +275,7 @@ Public Class ServerCreateHelper
                         matchString = matchString.Remove(0, 7)
                         matchString = matchString.Substring(0, matchString.Length - 4)
                         If Version.TryParse(matchString, Nothing) Then
-                            server.SetVersion(matchString, buildNum)
+                            server.SetVersion(matchString, buildNum, server.ServerVersion)
                             DownloadFile(targetURL, IO.Path.Combine(path, "akarin-" & matchString & ".jar"), Server.EServerVersionType.Akarin, matchString)
                             Exit For
                         End If

@@ -1,4 +1,5 @@
 ﻿Imports System.IO.Compression
+Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports System.Threading.Tasks
 Imports Newtonsoft.Json
@@ -148,6 +149,8 @@ Public NotInheritable Class Server
                                         server._Server2ndVersion = info(1)
                                     Case "akarin-build-version"
                                         server._Server2ndVersion = info(1)
+                                    Case "akarin-branch-name"
+                                        server._Server3rdVersion = info(1)
                                     Case "vanilla-build-version"
                                         server._Server2ndVersion = info(1)
                                     Case "tasks"
@@ -175,6 +178,18 @@ Public NotInheritable Class Server
                     End Using
                 End If
                 server.ServerTasks = taskList.ToArray
+                If server.ServerVersionType = EServerVersionType.Akarin Then
+                    If server.Server3rdVersion = "" Then
+                        If server.ServerVersion = "1.13" OrElse
+                                server.ServerVersion = "1.13.1" Then
+                            server._Server3rdVersion = "ver/1.13"
+                        ElseIf server.ServerVersion.StartsWith("1.12") Then
+                            server._Server3rdVersion = "ver/1.12.2"
+                        Else
+                            server._Server3rdVersion = "master"
+                        End If
+                    End If
+                End If
             Catch ex As IO.FileNotFoundException
                 server._ServerVersionType = EServerVersionType.Error
                 server._ServerType = EServerType.Error
@@ -439,6 +454,19 @@ Public NotInheritable Class Server
             thread.Name = "Spigot Git GetUpdate Thread"
             thread.IsBackground = True
             thread.Start()
+        ElseIf _ServerVersionType = EServerVersionType.Akarin And _Server2ndVersion <> "" And _Server3rdVersion <> "" Then
+            _CanUpdate = False
+            Dim thread As New Threading.Thread(Sub()
+                                                   If AkarinUpdateCheck() = True Then
+                                                       _CanUpdate = True
+                                                   Else
+                                                       _CanUpdate = False
+                                                   End If
+                                                   RaiseEvent ServerInfoUpdated()
+                                               End Sub)
+            thread.Name = "Akarin GetUpdate Thread"
+            thread.IsBackground = True
+            thread.Start()
         End If
     End Sub
     Private Function ForgeUpdateCheck() As Boolean
@@ -464,6 +492,15 @@ Public NotInheritable Class Server
     Private Function SpigotGitUpdateCheck() As Boolean
         Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(New Net.WebClient().DownloadString("https://hub.spigotmc.org/versions/" & ServerVersion & ".json"))
         Return Server2ndVersion < jsonObject.GetValue("name").ToString
+    End Function
+    Private Function AkarinUpdateCheck() As Boolean
+        Dim webClient As New Net.WebClient
+        webClient.Headers.Add(Net.HttpRequestHeader.Accept, "application/json")
+        Dim downloadURL = "https://circleci.com/api/v1.1/project/github/Akarin-project/Akarin/tree/" & Server3rdVersion & "?filter=%22successful%22&limit=1"
+        Dim docHtml = webClient.DownloadString(downloadURL)
+        Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JArray)(docHtml)(0)
+        Dim buildNum As Integer = jsonObject.GetValue("build_num")
+        Return Server2ndVersion < buildNum
     End Function
     Sub LoadPlugins()
         ServerPlugins.Clear()
@@ -713,6 +750,49 @@ Public NotInheritable Class Server
                                                              End If
                                                          End Sub
                 client.DownloadFileAsync(New Uri("https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"), IO.Path.Combine(ServerPath, "BuildTools.jar"))
+            Case EServerVersionType.Akarin
+                RaiseEvent ServerUpdateStart()
+                Dim subClient As New Net.WebClient
+                subClient.Headers.Add(Net.HttpRequestHeader.Accept, "application/json")
+                Dim downloadURL = "https://circleci.com/api/v1.1/project/github/Akarin-project/Akarin/tree/" & Server3rdVersion & "?filter=%22successful%22&limit=1"
+                Dim subDocHtml = subClient.DownloadString(downloadURL)
+                Dim subJsonObject As JObject = JsonConvert.DeserializeObject(Of JArray)(subDocHtml)(0)
+                Dim buildNum As Integer = subJsonObject.GetValue("build_num")
+                subClient.Headers.Add(Net.HttpRequestHeader.Accept, "application/json")
+                Dim anotherDocHTML = subClient.DownloadString("https://circleci.com/api/v1.1/project/github/Akarin-project/Akarin/" & buildNum & "/artifacts")
+                Dim regex As New Regex("akarin-[0-9].[0-9]{1,2}.[0-9]{1,2}.jar")
+                For Each anotherJSONObject As JObject In JsonConvert.DeserializeObject(Of JArray)(anotherDocHTML)
+                    Dim targetURL As String = anotherJSONObject.GetValue("url")
+                    If regex.IsMatch(targetURL) Then
+                        Dim matchString As String = regex.Match(targetURL).Value
+                        matchString = matchString.Remove(0, 7)
+                        matchString = matchString.Substring(0, matchString.Length - 4)
+                        If Version.TryParse(matchString, Nothing) Then
+                            SetVersion(matchString, buildNum, Server3rdVersion)
+                            RaiseEvent ServerUpdating(10)
+                            Dim client As New Net.WebClient
+                            AddHandler client.DownloadProgressChanged, Sub(obj, args)
+                                                                           RaiseEvent ServerUpdating(10 + args.ProgressPercentage * 0.9)
+                                                                       End Sub
+                            AddHandler client.DownloadFileCompleted, Sub()
+                                                                         Try
+                                                                             GenerateServerInfo(NukkitVersion)
+                                                                             RaiseEvent ServerUpdateEnd()
+                                                                             _Server2ndVersion = buildNum
+                                                                             _CanUpdate = False
+                                                                             RaiseEvent ServerInfoUpdated()
+                                                                             client.Dispose()
+                                                                         Catch ex As Exception
+
+                                                                         End Try
+                                                                     End Sub
+
+                            client.DownloadFileAsync(New Uri(targetURL), IO.Path.Combine(ServerPath, "akarin-" & matchString & ".jar"))
+                            Exit For
+                        End If
+                    End If
+                Next
+
         End Select
     End Sub
     Private Overloads Sub GenerateServerInfo()
@@ -737,6 +817,7 @@ Public NotInheritable Class Server
                     writer.WriteLine("paper-build-version=" & secondVersion)
                 Case EServerVersionType.Akarin
                     writer.WriteLine("akarin-build-version=" & secondVersion)
+                    writer.WriteLine("akarin-branch-name=" & Server3rdVersion)
                 Case EServerVersionType.Nukkit
                     writer.WriteLine("nukkit-build-version=" & secondVersion)
                 Case EServerVersionType.Spigot_Git
