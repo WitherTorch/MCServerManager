@@ -2,7 +2,6 @@
 Imports System.Net.Sockets
 Imports System.Security.Cryptography
 Imports System.Text
-' https://www.youtube.com/watch?v=vGc31AoqdoE by MIGUEL GALANG
 Public Class CryptoProvider
     Friend Shared Function GetSHA1(filename As String) As String
         Dim SHA1 As New SHA1CryptoServiceProvider
