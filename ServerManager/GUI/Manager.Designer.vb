@@ -31,7 +31,8 @@ Partial Class Manager
         Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
         Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
         Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
-        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
+        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
+        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
@@ -1160,10 +1161,15 @@ Partial Class Manager
         ListViewItem7.Checked = True
         ListViewItem7.StateImageIndex = 6
         ListViewItem7.Tag = "https://akarin.io/"
+        ListViewItem8.Checked = True
+        ListViewItem8.StateImageIndex = 9
         ListViewItem9.Checked = True
-        ListViewItem9.StateImageIndex = 7
-        ListViewItem9.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9})
+        ListViewItem9.StateImageIndex = 8
+        ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
+        ListViewItem10.Checked = True
+        ListViewItem10.StateImageIndex = 7
+        ListViewItem10.Tag = "https://nukkitx.com/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1185,6 +1191,8 @@ Partial Class Manager
         Me.ServerSoftwareImageList.Images.SetKeyName(5, "paper.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(6, "akarin.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(7, "Nukkit.png")
+        Me.ServerSoftwareImageList.Images.SetKeyName(8, "thermos_icon.png")
+        Me.ServerSoftwareImageList.Images.SetKeyName(9, "cauldron.png")
         '
         'Panel3
         '

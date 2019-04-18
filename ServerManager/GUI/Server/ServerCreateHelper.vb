@@ -89,18 +89,18 @@ Public Class ServerCreateHelper
 
                 '   My.Computer.Network.DownloadFile(
                 'New Uri(String.Format("http://s3.amazonaws.com/Minecraft.Download/versions/{0}/minecraft_server.{0}.jar", server.ServerVersion)),
-                'IO.Path.Combine(path, "minecraft_server." & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
+                'IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server." & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
                 Dim URL = GetVanillaServerURL()
                 If vanilla_isPre Then
-                    DownloadFile(URL, IO.Path.Combine(path, "minecraft_server." & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Vanilla, server.Server2ndVersion)
+                    DownloadFile(URL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server." & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Vanilla, server.Server2ndVersion)
                 ElseIf vanilla_isSnap Then
-                    DownloadFile(URL, IO.Path.Combine(path, "minecraft_server." & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Vanilla, server.Server2ndVersion)
+                    DownloadFile(URL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server." & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Vanilla, server.Server2ndVersion)
                 Else
-                    DownloadFile(URL, IO.Path.Combine(path, "minecraft_server." & server.ServerVersion & ".jar"), Server.EServerVersionType.Vanilla, server.ServerVersion)
+                    DownloadFile(URL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server." & server.ServerVersion & ".jar"), Server.EServerVersionType.Vanilla, server.ServerVersion)
                 End If
             Case Server.EServerVersionType.Forge
 
-                downloader = New ForgeUpdater(path, Me)
+                downloader = New ForgeUpdater(IIf(path.EndsWith("\"), path, path & "\"), Me)
                 Dim craftVersion = server.ServerVersion
                 Dim v As New Version(craftVersion)
                 BeginInvoke(New Action(Sub()
@@ -147,8 +147,8 @@ Public Class ServerCreateHelper
                                                                 'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
                                                                 server.SaveServer(False)
                                                                 GenerateServerEULA()
-                                                                GlobalModule.Manager.BeginInvoke(Sub() GlobalModule.Manager.AddServer(Me.path, True))
-                                                                'GlobalModule.Manager.ServerPathList.Add(path)
+                                                                GlobalModule.Manager.BeginInvoke(Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith("\"), path, path & "\"), True))
+                                                                'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith("\"), path, path & "\"))
                                                                 BeginInvoke(Sub()
                                                                                 StatusLabel.Text = "狀態：完成!"
                                                                                 ProgressBar.Value = 100
@@ -168,8 +168,8 @@ Public Class ServerCreateHelper
                 Dim url = (New HtmlAgilityPack.HtmlWeb).Load(targetURL).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[4]/div[1]/div[1]/div[1]/div[1]/h2[1]/a[1]").GetAttributeValue("href", "")
                 'My.Computer.Network.DownloadFile(
                 'New Uri(String.Format("https://cdn.getbukkit.org/spigot/spigot-{0}.jar", server.ServerVersion)),
-                'IO.Path.Combine(path, "spigot-" & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
-                DownloadFile(url, IO.Path.Combine(path, "spigot-" & server.ServerVersion & ".jar"), Server.EServerVersionType.Spigot, server.ServerVersion)
+                'IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "spigot-" & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
+                DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "spigot-" & server.ServerVersion & ".jar"), Server.EServerVersionType.Spigot, server.ServerVersion)
             Case Server.EServerVersionType.Spigot_Git
                 BeginInvoke(New Action(Sub()
                                            StatusLabel.Text = "狀態：正在下載 Spigot 建置工具 " & "......"
@@ -199,7 +199,7 @@ Public Class ServerCreateHelper
                                                                                         ProgressBar.Value = 50
                                                                                     End Sub))
                                                              Dim watcher As New SpigotGitBuildWindow()
-                                                             watcher.Run(GitBashPath, "--login -i -c """ & IO.Path.Combine(JavaPath, "java.exe") & " -jar BuildTools.jar --rev " & server.ServerVersion & """", path)
+                                                             watcher.Run(GitBashPath, "--login -i -c """ & IO.Path.Combine(JavaPath, "java.exe") & " -jar BuildTools.jar --rev " & server.ServerVersion & """", IIf(path.EndsWith("\"), path, path & "\"))
                                                              BeginInvoke(Sub()
                                                                              If watcher.ShowDialog(Me) = DialogResult.OK Then
                                                                                  'Try
@@ -211,8 +211,8 @@ Public Class ServerCreateHelper
                                                                                  'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
                                                                                  server.SaveServer(False)
                                                                                  GenerateServerEULA()
-                                                                                 GlobalModule.Manager.BeginInvoke(Sub() GlobalModule.Manager.AddServer(Me.path, True))
-                                                                                 'GlobalModule.Manager.ServerPathList.Add(path)
+                                                                                 GlobalModule.Manager.BeginInvoke(Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith("\"), path, path & "\"), True))
+                                                                                 'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith("\"), path, path & "\"))
                                                                                  BeginInvoke(Sub()
                                                                                                  StatusLabel.Text = "狀態：完成!"
                                                                                                  ProgressBar.Value = 100
@@ -224,17 +224,17 @@ Public Class ServerCreateHelper
                                                                              End If
                                                                          End Sub)
                                                          End Sub
-                client.DownloadFileAsync(New Uri("https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"), IO.Path.Combine(path, "BuildTools.jar"))
+                client.DownloadFileAsync(New Uri("https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "BuildTools.jar"))
 
             Case Server.EServerVersionType.CraftBukkit
                 Dim targetURL As String = CraftBukkitVersionDict(server.ServerVersion)
                 Dim url = (New HtmlAgilityPack.HtmlWeb).Load(targetURL).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[4]/div[1]/div[1]/div[1]/div[1]/h2[1]/a[1]").GetAttributeValue("href", "")
                 ' My.Computer.Network.DownloadFile(
                 'New Uri(String.Format("https://cdn.getbukkit.org/craftbukkit/craftbukkit-{0}.jar", server.ServerVersion)),
-                'IO.Path.Combine(path, "craftbukkit-" & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
-                DownloadFile(url, IO.Path.Combine(path, "craftbukkit-" & server.ServerVersion & ".jar"), Server.EServerVersionType.CraftBukkit, server.ServerVersion)
+                'IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "craftbukkit-" & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
+                DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "craftbukkit-" & server.ServerVersion & ".jar"), Server.EServerVersionType.CraftBukkit, server.ServerVersion)
             Case Server.EServerVersionType.SpongeVanilla
-                DownloadFile(SpongeVanillaVersionList(server.ServerVersion).GetDownloadUrl, IO.Path.Combine(path, "spongeVanilla-" & server.ServerVersion & ".jar"), Server.EServerVersionType.SpongeVanilla, server.ServerVersion)
+                DownloadFile(SpongeVanillaVersionList(server.ServerVersion).GetDownloadUrl, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "spongeVanilla-" & server.ServerVersion & ".jar"), Server.EServerVersionType.SpongeVanilla, server.ServerVersion)
             Case Server.EServerVersionType.Paper
                 BeginInvoke(New Action(Sub()
                                            StatusLabel.Text = "狀態：正在擷取安裝檔案 ……"
@@ -248,7 +248,7 @@ Public Class ServerCreateHelper
                 'Dim request As Net.HttpWebRequest = Net.WebRequest.Create(targetURL)
                 'Dim OSVersion = System.Environment.OSVersion.Version
                 'request.UserAgent = "Mozilla/5.0 (Windows NT " & OSVersion.Major & "." & OSVersion.Minor & ") ServerManager/" & Application.ProductVersion
-                DownloadFile(targetURL, IO.Path.Combine(path, "paper-" & server.ServerVersion & ".jar"), Server.EServerVersionType.Paper, server.ServerVersion)
+                DownloadFile(targetURL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "paper-" & server.ServerVersion & ".jar"), Server.EServerVersionType.Paper, server.ServerVersion)
             Case Server.EServerVersionType.Akarin
                 BeginInvoke(New Action(Sub()
                                            StatusLabel.Text = "狀態：正在擷取安裝檔案 ……"
@@ -276,28 +276,28 @@ Public Class ServerCreateHelper
                         matchString = matchString.Substring(0, matchString.Length - 4)
                         If Version.TryParse(matchString, Nothing) Then
                             server.SetVersion(matchString, buildNum, server.ServerVersion)
-                            DownloadFile(targetURL, IO.Path.Combine(path, "akarin-" & matchString & ".jar"), Server.EServerVersionType.Akarin, matchString)
+                            DownloadFile(targetURL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "akarin-" & matchString & ".jar"), Server.EServerVersionType.Akarin, matchString)
                             Exit For
                         End If
                     End If
                 Next
             Case Server.EServerVersionType.Nukkit
-                DownloadFile(GetNukkitDownloadURL(NukkitVersionUrl), IO.Path.Combine(path, "nukkit-" & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Nukkit, "#" & server.Server2ndVersion)
+                DownloadFile(GetNukkitDownloadURL(NukkitVersionUrl), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "nukkit-" & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Nukkit, "#" & server.Server2ndVersion)
             Case Server.EServerVersionType.VanillaBedrock
-                DownloadFile("https://minecraft.azureedge.net/bin-win/bedrock-server-" & VanillaBedrockVersion.ToString & ".zip", IO.Path.Combine(path, "bedrock-" & VanillaBedrockVersion.ToString & ".zip"), Server.EServerVersionType.VanillaBedrock, server.ServerVersion)
+                DownloadFile("https://minecraft.azureedge.net/bin-win/bedrock-server-" & VanillaBedrockVersion.ToString & ".zip", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "bedrock-" & VanillaBedrockVersion.ToString & ".zip"), Server.EServerVersionType.VanillaBedrock, server.ServerVersion)
             Case Server.EServerVersionType.Cauldron
                 Select Case server.ServerVersion
                     Case "1.7.10"
-                        DownloadFile("https://www.dropbox.com/s/flfkgznkmagikrd/server-1.7.10.zip?raw=1", IO.Path.Combine(path, "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
+                        DownloadFile("https://www.dropbox.com/s/flfkgznkmagikrd/server-1.7.10.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
                     Case "1.7.2"
-                        DownloadFile("https://www.dropbox.com/s/w730znj2y1lskt3/server-1.7.2.zip?raw=1", IO.Path.Combine(path, "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
+                        DownloadFile("https://www.dropbox.com/s/w730znj2y1lskt3/server-1.7.2.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
                     Case "1.6.4"
-                        DownloadFile("https://www.dropbox.com/s/ey01pirj7fw0fk6/server-1.6.4.zip?raw=1", IO.Path.Combine(path, "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
+                        DownloadFile("https://www.dropbox.com/s/ey01pirj7fw0fk6/server-1.6.4.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
                     Case "1.5.2"
-                        DownloadFile("https://www.dropbox.com/s/jediu69o1sgmmcg/server-1.5.2.zip?raw=1", IO.Path.Combine(path, "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
+                        DownloadFile("https://www.dropbox.com/s/jediu69o1sgmmcg/server-1.5.2.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
                 End Select
             Case Server.EServerVersionType.Thermos
-                DownloadFile("https://www.dropbox.com/s/zgo0fmbm0kfkjlp/Thermos.zip?raw=1", IO.Path.Combine(path, "thermos-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
+                DownloadFile("https://www.dropbox.com/s/zgo0fmbm0kfkjlp/Thermos.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "thermos-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Thermos, server.ServerVersion)
         End Select
     End Sub
 
@@ -313,7 +313,7 @@ Public Class ServerCreateHelper
                                                                                           ProgressBar.Style = ProgressBarStyle.Marquee
                                                                                           ProgressBar.Value = 10
                                                                                       Else
-                                                                                          If versionType = Server.EServerVersionType.VanillaBedrock Then
+                                                                                          If versionType = Server.EServerVersionType.VanillaBedrock OrElse versionType = Server.EServerVersionType.Cauldron OrElse versionType = Server.EServerVersionType.Thermos Then
                                                                                               ProgressBar.Value = e.ProgressPercentage * 0.8
                                                                                           Else
                                                                                               ProgressBar.Value = e.ProgressPercentage
@@ -333,15 +333,19 @@ Public Class ServerCreateHelper
                                                              Using archive As ZipArchive = ZipFile.OpenRead(dist)
                                                                  For Each entry As ZipArchiveEntry In archive.Entries
                                                                      If entry.FullName.EndsWith("\") OrElse entry.FullName.EndsWith("/") Then
-                                                                         If New IO.DirectoryInfo(IO.Path.Combine(Me.path, entry.FullName)).Exists = False Then
-                                                                             IO.Directory.CreateDirectory(IO.Path.Combine(Me.path, entry.FullName))
+                                                                         If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
+                                                                             IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
                                                                          End If
                                                                      Else
-                                                                         If New IO.FileInfo(IO.Path.Combine(Me.path, entry.FullName)).Directory.Exists = False Then
-                                                                             Dim info = New IO.FileInfo(IO.Path.Combine(Me.path, entry.FullName))
+                                                                         If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Directory.Exists = False Then
+                                                                             Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
                                                                              info.Directory.Create()
-                                                                             entry.ExtractToFile(IO.Path.Combine(Me.path, entry.FullName), True)
                                                                          End If
+                                                                         If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
+                                                                             Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                             info.Delete()
+                                                                         End If
+                                                                         entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName), True)
                                                                      End If
                                                                  Next
                                                              End Using

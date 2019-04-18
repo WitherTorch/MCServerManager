@@ -22,6 +22,7 @@ Partial Class ServerCreateDialog
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerCreateDialog))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -33,7 +34,6 @@ Partial Class ServerCreateDialog
         Me.Label10 = New System.Windows.Forms.Label()
         Me.VersionBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.IPBox = New System.Windows.Forms.TextBox()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
@@ -49,6 +49,8 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CreateButton = New System.Windows.Forms.Button()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.將連接埠設成預設值ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -59,6 +61,7 @@ Partial Class ServerCreateDialog
         Me.TabPage2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -172,7 +175,6 @@ Partial Class ServerCreateDialog
         '
         Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.GroupBox1)
         Me.GroupBox2.Controls.Add(Me.PortBox)
         Me.GroupBox2.Controls.Add(Me.Label2)
@@ -182,15 +184,6 @@ Partial Class ServerCreateDialog
         Me.GroupBox2.TabIndex = 43
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "連接"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(188, 21)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(127, 22)
-        Me.Button1.TabIndex = 43
-        Me.Button1.Text = "將連接埠設為預設值"
-        Me.Button1.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -250,6 +243,7 @@ Partial Class ServerCreateDialog
         '
         'PortBox
         '
+        Me.PortBox.ContextMenuStrip = Me.ContextMenuStrip1
         Me.PortBox.Location = New System.Drawing.Point(62, 21)
         Me.PortBox.Maximum = New Decimal(New Integer() {65534, 0, 0, 0})
         Me.PortBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
@@ -355,6 +349,18 @@ Partial Class ServerCreateDialog
         Me.CreateButton.Text = "建立"
         Me.CreateButton.UseVisualStyleBackColor = True
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.將連接埠設成預設值ToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(183, 48)
+        '
+        '將連接埠設成預設值ToolStripMenuItem
+        '
+        Me.將連接埠設成預設值ToolStripMenuItem.Name = "將連接埠設成預設值ToolStripMenuItem"
+        Me.將連接埠設成預設值ToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
+        Me.將連接埠設成預設值ToolStripMenuItem.Text = "將連接埠設成預設值"
+        '
         'ServerCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -381,6 +387,7 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -409,5 +416,6 @@ Partial Class ServerCreateDialog
     Friend WithEvents CreateButton As Button
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents AdvancedPropertyGrid As PropertyGrid
-    Friend WithEvents Button1 As Button
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents 將連接埠設成預設值ToolStripMenuItem As ToolStripMenuItem
 End Class

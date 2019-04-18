@@ -259,11 +259,12 @@ Public Class ServerCreateDialog
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+    Private Sub 將連接埠設成預設值ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 將連接埠設成預設值ToolStripMenuItem.Click
         Select Case VersionTypeBox.SelectedIndex
-            Case 0 To 4
+            Case 0 To 9
                 PortBox.Value = 25565
-            Case 5 To 6
+            Case 10 To 11
                 PortBox.Value = 19132
         End Select
     End Sub

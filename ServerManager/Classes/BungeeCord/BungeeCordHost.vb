@@ -183,6 +183,8 @@ Public Class BungeeCordHost
                                 Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "akarin-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                             Case Server.EServerVersionType.Cauldron
                                 Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "server.jar") & """", Server.ServerPath)
+                            Case Server.EServerVersionType.Thermos
+                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Thermos-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                             Case Else
                                 Return Nothing
                         End Select

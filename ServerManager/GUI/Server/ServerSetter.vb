@@ -152,6 +152,17 @@ Public Class ServerSetter
                         cauldronTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.CauldronOptions})
                         SettingTabControl.TabPages.Add(cauldronTab)
                 End Select
+            Case Server.EServerVersionType.Thermos
+                AdvancedTabPage.Text = "伺服器主設定檔"
+                Dim bukkitTab As New TabPage("Bukkit 設定")
+                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
+                SettingTabControl.TabPages.Add(bukkitTab)
+                Dim spigotTab As New TabPage("Spigot 設定")
+                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
+                SettingTabControl.TabPages.Add(spigotTab)
+                Dim cauldronTab As New TabPage("Cauldron 設定")
+                cauldronTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.CauldronOptions})
+                SettingTabControl.TabPages.Add(cauldronTab)
             Case Else
                 AdvancedTabPage.Text = "伺服器設定檔"
         End Select

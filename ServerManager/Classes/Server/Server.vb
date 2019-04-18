@@ -698,15 +698,19 @@ Public NotInheritable Class Server
                                                                      ((entry.FullName.Contains("/") OrElse entry.FullName.Contains("\")) = False) Then
                                                                      Else
                                                                          If entry.FullName.EndsWith("\") OrElse entry.FullName.EndsWith("/") Then
-                                                                             If New IO.DirectoryInfo(IO.Path.Combine(ServerPath, entry.FullName)).Exists = False Then
-                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(ServerPath, entry.FullName))
+                                                                             If New IO.DirectoryInfo(IO.Path.Combine(IIf(ServerPath.EndsWith("\"), ServerPath, ServerPath & "\"), entry.FullName)).Exists = False Then
+                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(IIf(ServerPath.EndsWith("\"), ServerPath, ServerPath & "\"), entry.FullName))
                                                                              End If
                                                                          Else
                                                                              If New IO.FileInfo(IO.Path.Combine(ServerPath, entry.FullName)).Directory.Exists = False Then
-                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(ServerPath, entry.FullName))
+                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(ServerPath.EndsWith("\"), ServerPath, ServerPath & "\"), entry.FullName))
                                                                                  info.Directory.Create()
-                                                                                 entry.ExtractToFile(IO.Path.Combine(ServerPath, entry.FullName), True)
                                                                              End If
+                                                                             If New IO.FileInfo(IO.Path.Combine(ServerPath, entry.FullName)).Exists = False Then
+                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(ServerPath.EndsWith("\"), ServerPath, ServerPath & "\"), entry.FullName))
+                                                                                 info.Delete()
+                                                                             End If
+                                                                             entry.ExtractToFile(IO.Path.Combine(IIf(ServerPath.EndsWith("\"), ServerPath, ServerPath & "\"), entry.FullName), True)
                                                                          End If
                                                                      End If
                                                                  Next
