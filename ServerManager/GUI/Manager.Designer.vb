@@ -128,6 +128,11 @@ Partial Class Manager
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.Label17 = New System.Windows.Forms.Label()
+        Me.PackServerListPage = New System.Windows.Forms.TabPage()
+        Me.PackServerListPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -162,12 +167,15 @@ Partial Class Manager
         Me.Panel3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PackServerListPage.SuspendLayout()
+        Me.TableLayoutPanel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainTabControl
         '
         Me.MainTabControl.Controls.Add(Me.MainPage)
         Me.MainTabControl.Controls.Add(Me.ServerListPage)
+        Me.MainTabControl.Controls.Add(Me.PackServerListPage)
         Me.MainTabControl.Controls.Add(Me.BungeeCordPage)
         Me.MainTabControl.Controls.Add(Me.ConnectionTabPage)
         Me.MainTabControl.Controls.Add(Me.SettingTabPage)
@@ -1298,6 +1306,71 @@ Partial Class Manager
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ToolTip1.SetToolTip(Me.Label17, "已經停止開發的Minecraft伺服器版本，可同時使用插件及模組。")
         '
+        'PackServerListPage
+        '
+        Me.PackServerListPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.PackServerListPage.Controls.Add(Me.PackServerListPanel)
+        Me.PackServerListPage.Controls.Add(Me.TableLayoutPanel5)
+        Me.PackServerListPage.Location = New System.Drawing.Point(4, 22)
+        Me.PackServerListPage.Name = "PackServerListPage"
+        Me.PackServerListPage.Padding = New System.Windows.Forms.Padding(3)
+        Me.PackServerListPage.Size = New System.Drawing.Size(776, 489)
+        Me.PackServerListPage.TabIndex = 7
+        Me.PackServerListPage.Text = "套裝伺服器列表"
+        '
+        'PackServerListPanel
+        '
+        Me.PackServerListPanel.AutoScroll = True
+        Me.PackServerListPanel.ColumnCount = 1
+        Me.PackServerListPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.PackServerListPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PackServerListPanel.Location = New System.Drawing.Point(3, 3)
+        Me.PackServerListPanel.Name = "PackServerListPanel"
+        Me.PackServerListPanel.RowCount = 1
+        Me.PackServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.PackServerListPanel.Size = New System.Drawing.Size(770, 447)
+        Me.PackServerListPanel.TabIndex = 7
+        '
+        'TableLayoutPanel5
+        '
+        Me.TableLayoutPanel5.AutoSize = True
+        Me.TableLayoutPanel5.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.[Single]
+        Me.TableLayoutPanel5.ColumnCount = 2
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.Controls.Add(Me.Button6, 0, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.Button7, 1, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 450)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 1
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(770, 36)
+        Me.TableLayoutPanel5.TabIndex = 8
+        '
+        'Button6
+        '
+        Me.Button6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button6.Location = New System.Drawing.Point(11, 4)
+        Me.Button6.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(363, 28)
+        Me.Button6.TabIndex = 3
+        Me.Button6.Text = "建立伺服器"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'Button7
+        '
+        Me.Button7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button7.Location = New System.Drawing.Point(395, 4)
+        Me.Button7.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(364, 28)
+        Me.Button7.TabIndex = 2
+        Me.Button7.Text = "加入伺服器"
+        Me.Button7.UseVisualStyleBackColor = True
+        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1356,6 +1429,9 @@ Partial Class Manager
         Me.Panel3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PackServerListPage.ResumeLayout(False)
+        Me.PackServerListPage.PerformLayout()
+        Me.TableLayoutPanel5.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1454,4 +1530,9 @@ Partial Class Manager
     Friend WithEvents Label15 As Label
     Friend WithEvents CauldronLoadingLabel As Label
     Friend WithEvents Label17 As Label
+    Friend WithEvents PackServerListPage As TabPage
+    Friend WithEvents PackServerListPanel As TableLayoutPanel
+    Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Button7 As Button
 End Class

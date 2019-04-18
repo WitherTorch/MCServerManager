@@ -302,6 +302,12 @@
     <Compile Include="GUI\BungeeCord\BungeeCordConsole.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.Designer.vb">
+      <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GUI\Server\SpigotGitStatus.Designer.vb">
       <DependentUpon>SpigotGitStatus.vb</DependentUpon>
     </Compile>
@@ -494,6 +500,9 @@
     <EmbeddedResource Include="GUI\BungeeCord\BungeeCordConsole.resx">
       <DependentUpon>BungeeCordConsole.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.resx">
+      <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Server\SpigotGitStatus.resx">
       <DependentUpon>SpigotGitStatus.vb</DependentUpon>
     </EmbeddedResource>
@@ -614,6 +623,10 @@
     <None Include="Resources\bukkit.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MinecraftGUI\MinecraftGUI.vbproj">
+      <Project>{7DF77D20-FCBA-4EE4-A5E8-1883F4876261}</Project>
+      <Name>MinecraftGUI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

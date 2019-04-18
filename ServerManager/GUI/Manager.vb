@@ -531,6 +531,7 @@ Public Class Manager
         If My.Computer.Network.IsAvailable = False Then
             Button1.Enabled = False
             Button3.Enabled = False
+            Button6.Enabled = False
         End If
         'UpdateVersionLists() <--Moved to Shown Event
         Dim tooltip As New ToolTip
@@ -1060,8 +1061,10 @@ Public Class Manager
         Static dialog As New FolderBrowserDialog
         dialog.ShowNewFolderButton = False
         If dialog.ShowDialog = DialogResult.OK Then
-            If ServerPathList.Contains(dialog.SelectedPath) OrElse IO.File.Exists(IO.Path.Combine(dialog.SelectedPath, "server.info")) = False Then
+            If IO.File.Exists(IO.Path.Combine(dialog.SelectedPath, "server.info")) = False Then
                 MsgBox("匯入時發生錯誤" & vbNewLine & "原因：找不到伺服器資訊檔案(server.info)。",, Application.ProductName)
+            ElseIf ServerPathList.Contains(dialog.SelectedPath) Then
+                MsgBox("匯入時發生錯誤" & vbNewLine & "原因：伺服器已經存在於伺服器列表。",, Application.ProductName)
             Else
                 AddServer(dialog.SelectedPath, True)
             End If
@@ -1475,4 +1478,11 @@ Public Class Manager
         If IO.File.Exists(GitBashPathBox.Text) Then GitBashPath = GitBashPathBox.Text
     End Sub
 
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+
+    End Sub
 End Class
