@@ -20,6 +20,8 @@ Public Class Manager
     Dim SpongeVanillaGetVersionThread As Thread
     Dim PaperGetVersionThread As Thread
     Dim AkarinGetVersionThread As Thread
+    Dim FeedTheBeastGetPackThread As Thread
+    Dim ATGetPackThread As Thread
     Friend ServerPathList As New List(Of String)
     Friend BungeePathList As New List(Of String)
     Friend upnpProvider As New UPnPMapper
@@ -497,8 +499,41 @@ Public Class Manager
         End If
         GC.Collect()
     End Sub
+    Sub GetFeedTheBeastPackList()
 
-
+    End Sub
+    Sub GetATPackList()
+        ATGetPackThread = New Thread(Sub()
+                                         AkarinVersionList.Clear()
+                                         Dim manifestListURL As String = "https://api.github.com/repos/Akarin-project/Akarin/branches"
+                                         Try
+                                             Dim client As New Net.WebClient()
+                                             client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
+                                             'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "下載列表中..."))
+                                             Dim docHtml = client.DownloadString(manifestListURL)
+                                             'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入列表中..."))
+                                             Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
+                                             For Each jsonObject As JObject In jsonArray
+                                                 Dim versionString As String = jsonObject.GetValue("name").ToString()
+                                                 If versionString.StartsWith("ver/") AndAlso Version.TryParse(versionString.Substring(4), New Version()) Then
+                                                     AkarinVersionList.Add(Version.Parse(versionString.Substring(4)))
+                                                 ElseIf versionString = "master" Then
+                                                     AkarinVersionList.Add(New Version(100, 100))
+                                                 End If
+                                             Next
+                                             AkarinVersionList.Sort()
+                                             AkarinVersionList.Reverse()
+                                             docHtml = Nothing
+                                             client.Dispose()
+                                             'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入完成"))
+                                         Catch ex As Exception
+                                             'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "(無)"))
+                                         End Try
+                                     End Sub)
+        ATGetPackThread.Name = "AT GetModPack Thread"
+        ATGetPackThread.IsBackground = True
+        ATGetPackThread.Start()
+    End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
         If CanEnabledUPnP Then

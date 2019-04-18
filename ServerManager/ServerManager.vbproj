@@ -251,6 +251,7 @@
     <Compile Include="Classes\JavaPathsProvider.vb" />
     <Compile Include="Classes\MinecraftLogParser.vb" />
     <Compile Include="Classes\MinecraftUUIDProvider.vb" />
+    <Compile Include="Classes\ModPack Server %28W.I.P%29\ModPackServer.vb" />
     <Compile Include="Classes\Server\AkarinOptions.vb" />
     <Compile Include="Classes\Server\BukkitOptions.vb" />
     <Compile Include="Classes\Server\CauldronOptions.vb" />
@@ -306,6 +307,12 @@
       <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
     </Compile>
     <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateHelper.Designer.vb">
+      <DependentUpon>ModPackServerCreateHelper.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateHelper.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\Server\SpigotGitStatus.Designer.vb">
@@ -502,6 +509,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.resx">
       <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateHelper.resx">
+      <DependentUpon>ModPackServerCreateHelper.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Server\SpigotGitStatus.resx">
       <DependentUpon>SpigotGitStatus.vb</DependentUpon>

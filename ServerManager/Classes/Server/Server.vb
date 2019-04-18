@@ -44,18 +44,12 @@ Public NotInheritable Class Server
     Public Property ServerMods As New List(Of ForgeMod)
     Public ReadOnly Property SpongeVersionType As String
     Public ReadOnly Property Server3rdVersion As String
-    Private owner As ServerStatus
     Private _IsRunning As Boolean
 
     Private Sub New()
     End Sub
     Private Sub New(serverPath As String)
         _ServerPath = serverPath
-        owner = Nothing
-    End Sub
-    Private Sub New(serverPath As String, owner As ServerStatus)
-        _ServerPath = serverPath
-        Me.owner = owner
     End Sub
     Public Enum EServerType
         [Error]
@@ -80,10 +74,10 @@ Public NotInheritable Class Server
     Friend Shared Function CreateServer() As Server
         Return New Server
     End Function
-    Friend Overloads Shared Function GetServer(serverPath As String, owner As ServerStatus) As Server
+    Friend Overloads Shared Function GetServer(serverPath As String) As Server
         Dim ForgeUpdateCheck As Boolean = True
         If serverPath <> "" Then
-            Dim server As New Server(serverPath, owner)
+            Dim server As New Server(serverPath)
             Try
                 Dim taskList As New List(Of ServerTask)
                 If My.Computer.FileSystem.FileExists(IO.Path.Combine(serverPath, "server.info")) Then
@@ -208,9 +202,6 @@ Public NotInheritable Class Server
         Else
             Return Nothing
         End If
-    End Function
-    Friend Overloads Shared Function GetServer(serverPath As String) As Server
-        Return GetServer(serverPath, Nothing)
     End Function
     Friend Sub AddOrSetOption(optionName As String, optionValue As String)
         If ServerOptions Is Nothing Then ServerOptions = New Dictionary(Of String, String)
