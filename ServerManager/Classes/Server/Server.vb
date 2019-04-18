@@ -75,6 +75,7 @@ Public NotInheritable Class Server
         Nukkit
         Spigot_Git
         Cauldron
+        Thermos
     End Enum
     Friend Shared Function CreateServer() As Server
         Return New Server
@@ -128,6 +129,9 @@ Public NotInheritable Class Server
                                                 server._ServerType = EServerType.Java
                                             Case "cauldron"
                                                 server._ServerVersionType = EServerVersionType.Cauldron
+                                                server._ServerType = EServerType.Java
+                                            Case "thermos"
+                                                server._ServerVersionType = EServerVersionType.Thermos
                                                 server._ServerType = EServerType.Java
                                             Case Else
                                                 server._ServerVersionType = EServerVersionType.Error

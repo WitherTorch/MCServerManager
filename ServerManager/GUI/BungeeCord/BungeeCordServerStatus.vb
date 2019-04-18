@@ -56,32 +56,38 @@ Public Class BungeeCordServerStatus
     End Sub
     Friend Overloads Sub SetVersionLabel(Optional updating As Boolean = False, Optional updatingPercent As Integer = 0)
         If Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Forge Then
-            If updating Then
-                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion & " (Forge 版本：" & Server.Server.Server2ndVersion & ") [更新進度：" & updatingPercent & " %]"
-            Else
-                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion & " (Forge 版本：" & Server.Server.Server2ndVersion & ")"
-            End If
+            ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion & " (Forge 版本：" & Server.Server.Server2ndVersion & ")"
         ElseIf Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Vanilla Then
-            ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion
+            If Server.Server.Server2ndVersion <> "" Then
+                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.Server2ndVersion
+            Else
+                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion
+            End If
         ElseIf Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Nukkit Then
-            ServerVersion.Text = "伺服器版本：" & Server.Server.ServerVersionType.ToString & " " & Server.Server.ServerVersion & " (" & Server.Server.Server2ndVersion & ")"
+            ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.Server.ServerVersionType, Server.Server.ServerVersion) & " " & Server.Server.ServerVersion & " (" & Server.Server.Server2ndVersion & ")"
         Else
-            ServerVersion.Text = "伺服器版本：" & Server.Server.ServerVersionType.ToString & " " & Server.Server.ServerVersion
+            ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.Server.ServerVersionType, Server.Server.ServerVersion) & " " & Server.Server.ServerVersion
+        End If
+        If updating Then
+            ServerVersion.Text &= " [更新進度：" & updatingPercent & " %]"
         End If
     End Sub
     Friend Overloads Sub SetVersionLabel(addtionText As String)
         If Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Forge Then
-            If addtionText <> "" Then
-                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion & " (Forge 版本：" & Server.Server.Server2ndVersion & ") " & addtionText
-            Else
-                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion & " (Forge 版本：" & Server.Server.Server2ndVersion & ")"
-            End If
+            ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion & " (Forge 版本：" & Server.Server.Server2ndVersion & ")"
         ElseIf Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Vanilla Then
-            ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion
+            If Server.Server.Server2ndVersion <> "" Then
+                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.Server2ndVersion
+            Else
+                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion
+            End If
         ElseIf Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Nukkit Then
-            ServerVersion.Text = "伺服器版本：" & Server.Server.ServerVersionType.ToString & " " & Server.Server.ServerVersion & " (" & Server.Server.Server2ndVersion & ")"
+            ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.Server.ServerVersionType, Server.Server.ServerVersion) & " " & Server.Server.ServerVersion & " (#" & Server.Server.Server2ndVersion & ")"
         Else
-            ServerVersion.Text = "伺服器版本：" & Server.Server.ServerVersionType.ToString & " " & Server.Server.ServerVersion
+            ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.Server.ServerVersionType, Server.Server.ServerVersion) & " " & Server.Server.ServerVersion
+        End If
+        If addtionText <> "" Then
+            ServerVersion.Text &= (" " & addtionText)
         End If
     End Sub
 

@@ -200,6 +200,8 @@ Module GlobalModule
                 Else
                     Return "MCPC / Cauldron"
                 End If
+            Case Server.EServerVersionType.Thermos
+                Return "Thermos"
             Case Else
                 Return type.ToString
         End Select

@@ -296,6 +296,8 @@ Public Class ServerCreateHelper
                     Case "1.5.2"
                         DownloadFile("https://www.dropbox.com/s/jediu69o1sgmmcg/server-1.5.2.zip?raw=1", IO.Path.Combine(path, "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
                 End Select
+            Case Server.EServerVersionType.Thermos
+                DownloadFile("https://www.dropbox.com/s/zgo0fmbm0kfkjlp/Thermos.zip?raw=1", IO.Path.Combine(path, "thermos-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
         End Select
     End Sub
 
@@ -323,7 +325,7 @@ Public Class ServerCreateHelper
                                                    End Sub
         AddHandler client.DownloadFileCompleted, Sub(sender, e)
                                                      If e.Cancelled = False Then
-                                                         If versionType = Server.EServerVersionType.VanillaBedrock OrElse versionType = Server.EServerVersionType.Cauldron Then
+                                                         If versionType = Server.EServerVersionType.VanillaBedrock OrElse versionType = Server.EServerVersionType.Cauldron OrElse versionType = Server.EServerVersionType.Thermos Then
                                                              Invoke(Sub()
                                                                         StatusLabel.Text = "狀態：正在解壓縮伺服器軟體 ......"
                                                                         ProgressBar.Value = 80

@@ -210,6 +210,7 @@ Public Class BungeeCordConsole
                                                                                    Case Server.EServerVersionType.Akarin
                                                                                    Case Server.EServerVersionType.Spigot_Git
                                                                                    Case Server.EServerVersionType.Cauldron
+                                                                                   Case Server.EServerVersionType.Thermos
                                                                                    Case Else
                                                                                        item.SubItems.Add("")
                                                                                End Select
@@ -274,6 +275,7 @@ Public Class BungeeCordConsole
                                                                                     Case Server.EServerVersionType.Akarin
                                                                                     Case Server.EServerVersionType.Spigot_Git
                                                                                     Case Server.EServerVersionType.Cauldron
+                                                                                    Case Server.EServerVersionType.Thermos
                                                                                     Case Else
                                                                                         item.SubItems.Add(msg.Thread)
                                                                                 End Select

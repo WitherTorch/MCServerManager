@@ -126,6 +126,7 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -210,6 +211,7 @@ Partial Class Manager
         Me.VListLoadingBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.VListLoadingBox.BackColor = System.Drawing.Color.Transparent
+        Me.VListLoadingBox.Controls.Add(Me.Label17)
         Me.VListLoadingBox.Controls.Add(Me.CauldronLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.SpigotGitLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.AkarinLoadingLabel)
@@ -281,7 +283,7 @@ Partial Class Manager
         '
         Me.VanillaBedrockLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(207, 64)
+        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(207, 87)
         Me.VanillaBedrockLoadingLabel.Name = "VanillaBedrockLoadingLabel"
         Me.VanillaBedrockLoadingLabel.Size = New System.Drawing.Size(195, 23)
         Me.VanillaBedrockLoadingLabel.TabIndex = 7
@@ -306,7 +308,7 @@ Partial Class Manager
         '
         Me.NukkitLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(207, 87)
+        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(207, 110)
         Me.NukkitLoadingLabel.Name = "NukkitLoadingLabel"
         Me.NukkitLoadingLabel.Size = New System.Drawing.Size(195, 23)
         Me.NukkitLoadingLabel.TabIndex = 5
@@ -1276,6 +1278,18 @@ Partial Class Manager
         '
         Me.NoIPTimer.Interval = 1000
         '
+        'Label17
+        '
+        Me.Label17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label17.Location = New System.Drawing.Point(207, 64)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(195, 23)
+        Me.Label17.TabIndex = 12
+        Me.Label17.Text = "Thermos：載入完成"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.Label17, "已經停止開發的Minecraft伺服器版本，可同時使用插件及模組。")
+        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1431,4 +1445,5 @@ Partial Class Manager
     Friend WithEvents Label16 As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents CauldronLoadingLabel As Label
+    Friend WithEvents Label17 As Label
 End Class

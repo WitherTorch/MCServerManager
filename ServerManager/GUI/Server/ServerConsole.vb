@@ -72,6 +72,8 @@ Public Class ServerConsole
                 DataListView.Columns.Remove(ColumnHeader2)
             Case Server.EServerVersionType.Cauldron
                 DataListView.Columns.Remove(ColumnHeader2)
+            Case Server.EServerVersionType.Thermos
+                DataListView.Columns.Remove(ColumnHeader2)
         End Select
         TaskTimer.Enabled = True
         TaskTimer.Start()
@@ -180,6 +182,7 @@ Public Class ServerConsole
                                                                                                  Case Server.EServerVersionType.Akarin
                                                                                                  Case Server.EServerVersionType.Spigot_Git
                                                                                                  Case Server.EServerVersionType.Cauldron
+                                                                                                 Case Server.EServerVersionType.Thermos
                                                                                                  Case Else
                                                                                                      item.SubItems.Add("")
                                                                                              End Select
@@ -246,6 +249,7 @@ Public Class ServerConsole
                                                                                                   Case Server.EServerVersionType.Akarin
                                                                                                   Case Server.EServerVersionType.Spigot_Git
                                                                                                   Case Server.EServerVersionType.Cauldron
+                                                                                                  Case Server.EServerVersionType.Thermos
                                                                                                   Case Else
                                                                                                       item.SubItems.Add(msg.Thread)
                                                                                               End Select
@@ -517,6 +521,9 @@ Public Class ServerConsole
                 Case Server.EServerVersionType.VanillaBedrock
                 Case Server.EServerVersionType.Paper
                 Case Server.EServerVersionType.Akarin
+                Case Server.EServerVersionType.Spigot_Git
+                Case Server.EServerVersionType.Cauldron
+                Case Server.EServerVersionType.Thermos
                 Case Else
                     spItem1.SubItems.Add(Application.ProductName)
             End Select
@@ -540,6 +547,9 @@ Public Class ServerConsole
                 Case Server.EServerVersionType.VanillaBedrock
                 Case Server.EServerVersionType.Paper
                 Case Server.EServerVersionType.Akarin
+                Case Server.EServerVersionType.Spigot_Git
+                Case Server.EServerVersionType.Cauldron
+                Case Server.EServerVersionType.Thermos
                 Case Else
                     item.SubItems.Add(msg.Thread)
             End Select
@@ -559,6 +569,9 @@ Public Class ServerConsole
                 Case Server.EServerVersionType.VanillaBedrock
                 Case Server.EServerVersionType.Paper
                 Case Server.EServerVersionType.Akarin
+                Case Server.EServerVersionType.Spigot_Git
+                Case Server.EServerVersionType.Cauldron
+                Case Server.EServerVersionType.Thermos
                 Case Else
                     spItem2.SubItems.Add(Application.ProductName)
             End Select
