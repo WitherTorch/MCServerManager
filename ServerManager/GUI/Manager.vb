@@ -24,6 +24,7 @@ Public Class Manager
     Dim ATGetPackThread As Thread
     Friend ServerPathList As New List(Of String)
     Friend BungeePathList As New List(Of String)
+    Friend ModpackServerPathList As New List(Of String)
     Friend upnpProvider As New UPnPMapper
     Friend NoIPProvider As NoIPProvider
     Dim sharer As String = ""
@@ -1139,6 +1140,7 @@ Public Class Manager
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), JavaServerDirs)
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"), BedrockServerDirs)
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"), SolutionDirs)
+                                         WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"), ModpackServerDirs)
                                      End Sub) With {.IsBackground = False, .Name = "ServerManager Save Setting Thread"}
         saveThread.Start()
         Dim serverCloseThread As New Thread(Sub()

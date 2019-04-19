@@ -38,6 +38,7 @@ Partial Class Manager
         Me.MainPage = New System.Windows.Forms.TabPage()
         Me.MainPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.CauldronLoadingLabel = New System.Windows.Forms.Label()
         Me.SpigotGitLoadingLabel = New System.Windows.Forms.Label()
         Me.AkarinLoadingLabel = New System.Windows.Forms.Label()
@@ -59,6 +60,11 @@ Partial Class Manager
         Me.BottomButtons = New System.Windows.Forms.TableLayoutPanel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.PackServerListPage = New System.Windows.Forms.TabPage()
+        Me.PackServerListPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
         Me.BungeeCordPage = New System.Windows.Forms.TabPage()
         Me.SolutionListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
@@ -70,7 +76,6 @@ Partial Class Manager
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -105,7 +110,6 @@ Partial Class Manager
         Me.ArguLabel = New System.Windows.Forms.Label()
         Me.JavaVersionLabel = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GitGroupBox = New System.Windows.Forms.GroupBox()
         Me.GitBashBrowseButton = New System.Windows.Forms.Button()
@@ -127,12 +131,8 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.PackServerListPage = New System.Windows.Forms.TabPage()
-        Me.PackServerListPanel = New System.Windows.Forms.TableLayoutPanel()
-        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Button7 = New System.Windows.Forms.Button()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -140,6 +140,8 @@ Partial Class Manager
         Me.NetworkGroupBox.SuspendLayout()
         Me.ServerListPage.SuspendLayout()
         Me.BottomButtons.SuspendLayout()
+        Me.PackServerListPage.SuspendLayout()
+        Me.TableLayoutPanel5.SuspendLayout()
         Me.BungeeCordPage.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.ConnectionTabPage.SuspendLayout()
@@ -167,8 +169,6 @@ Partial Class Manager
         Me.Panel3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PackServerListPage.SuspendLayout()
-        Me.TableLayoutPanel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainTabControl
@@ -239,6 +239,18 @@ Partial Class Manager
         Me.VListLoadingBox.TabIndex = 30
         Me.VListLoadingBox.TabStop = False
         Me.VListLoadingBox.Text = "版本列表載入進度"
+        '
+        'Label17
+        '
+        Me.Label17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label17.Location = New System.Drawing.Point(207, 64)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(195, 23)
+        Me.Label17.TabIndex = 12
+        Me.Label17.Text = "Thermos：載入完成"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.Label17, "已經停止開發的Minecraft伺服器版本，可同時使用插件及模組。")
         '
         'CauldronLoadingLabel
         '
@@ -495,6 +507,71 @@ Partial Class Manager
         Me.Button2.Text = "加入伺服器"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'PackServerListPage
+        '
+        Me.PackServerListPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.PackServerListPage.Controls.Add(Me.PackServerListPanel)
+        Me.PackServerListPage.Controls.Add(Me.TableLayoutPanel5)
+        Me.PackServerListPage.Location = New System.Drawing.Point(4, 22)
+        Me.PackServerListPage.Name = "PackServerListPage"
+        Me.PackServerListPage.Padding = New System.Windows.Forms.Padding(3)
+        Me.PackServerListPage.Size = New System.Drawing.Size(776, 489)
+        Me.PackServerListPage.TabIndex = 7
+        Me.PackServerListPage.Text = "模組包伺服器列表"
+        '
+        'PackServerListPanel
+        '
+        Me.PackServerListPanel.AutoScroll = True
+        Me.PackServerListPanel.ColumnCount = 1
+        Me.PackServerListPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.PackServerListPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PackServerListPanel.Location = New System.Drawing.Point(3, 3)
+        Me.PackServerListPanel.Name = "PackServerListPanel"
+        Me.PackServerListPanel.RowCount = 1
+        Me.PackServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.PackServerListPanel.Size = New System.Drawing.Size(770, 447)
+        Me.PackServerListPanel.TabIndex = 7
+        '
+        'TableLayoutPanel5
+        '
+        Me.TableLayoutPanel5.AutoSize = True
+        Me.TableLayoutPanel5.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.[Single]
+        Me.TableLayoutPanel5.ColumnCount = 2
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.Controls.Add(Me.Button6, 0, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.Button7, 1, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 450)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 1
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(770, 36)
+        Me.TableLayoutPanel5.TabIndex = 8
+        '
+        'Button6
+        '
+        Me.Button6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button6.Location = New System.Drawing.Point(11, 4)
+        Me.Button6.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(363, 28)
+        Me.Button6.TabIndex = 3
+        Me.Button6.Text = "建立伺服器"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'Button7
+        '
+        Me.Button7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Button7.Location = New System.Drawing.Point(395, 4)
+        Me.Button7.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(364, 28)
+        Me.Button7.TabIndex = 2
+        Me.Button7.Text = "加入伺服器"
+        Me.Button7.UseVisualStyleBackColor = True
+        '
         'BungeeCordPage
         '
         Me.BungeeCordPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
@@ -636,18 +713,6 @@ Partial Class Manager
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(249, 98)
         Me.Panel1.TabIndex = 17
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = Global.ServerManager.My.MySettings.Default.NoIPPasswordViewChecked
-        Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "NoIPPasswordViewChecked", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.CheckBox2.Location = New System.Drawing.Point(50, 67)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
-        Me.CheckBox2.TabIndex = 17
-        Me.CheckBox2.Text = "顯示密碼"
-        Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'Button4
         '
@@ -1023,19 +1088,6 @@ Partial Class Manager
         Me.TabPage2.Text = "版本列表"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'SnapshotCheckBox
-        '
-        Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.SnapshotCheckBox.AutoSize = True
-        Me.SnapshotCheckBox.Checked = Global.ServerManager.My.MySettings.Default.ShowSnapshot
-        Me.SnapshotCheckBox.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "ShowSnapshot", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
-        Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
-        Me.SnapshotCheckBox.Size = New System.Drawing.Size(120, 16)
-        Me.SnapshotCheckBox.TabIndex = 32
-        Me.SnapshotCheckBox.Text = "顯示原版快照版本"
-        Me.SnapshotCheckBox.UseVisualStyleBackColor = True
-        '
         'TabPage3
         '
         Me.TabPage3.Controls.Add(Me.GitGroupBox)
@@ -1294,82 +1346,30 @@ Partial Class Manager
         '
         Me.NoIPTimer.Interval = 1000
         '
-        'Label17
+        'CheckBox2
         '
-        Me.Label17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label17.Location = New System.Drawing.Point(207, 64)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(195, 23)
-        Me.Label17.TabIndex = 12
-        Me.Label17.Text = "Thermos：載入完成"
-        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.Label17, "已經停止開發的Minecraft伺服器版本，可同時使用插件及模組。")
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Checked = Global.ServerManager.My.MySettings.Default.NoIPPasswordViewChecked
+        Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "NoIPPasswordViewChecked", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.CheckBox2.Location = New System.Drawing.Point(50, 67)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
+        Me.CheckBox2.TabIndex = 17
+        Me.CheckBox2.Text = "顯示密碼"
+        Me.CheckBox2.UseVisualStyleBackColor = True
         '
-        'PackServerListPage
+        'SnapshotCheckBox
         '
-        Me.PackServerListPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.PackServerListPage.Controls.Add(Me.PackServerListPanel)
-        Me.PackServerListPage.Controls.Add(Me.TableLayoutPanel5)
-        Me.PackServerListPage.Location = New System.Drawing.Point(4, 22)
-        Me.PackServerListPage.Name = "PackServerListPage"
-        Me.PackServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.PackServerListPage.Size = New System.Drawing.Size(776, 489)
-        Me.PackServerListPage.TabIndex = 7
-        Me.PackServerListPage.Text = "套裝伺服器列表"
-        '
-        'PackServerListPanel
-        '
-        Me.PackServerListPanel.AutoScroll = True
-        Me.PackServerListPanel.ColumnCount = 1
-        Me.PackServerListPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.PackServerListPanel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PackServerListPanel.Location = New System.Drawing.Point(3, 3)
-        Me.PackServerListPanel.Name = "PackServerListPanel"
-        Me.PackServerListPanel.RowCount = 1
-        Me.PackServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.PackServerListPanel.Size = New System.Drawing.Size(770, 447)
-        Me.PackServerListPanel.TabIndex = 7
-        '
-        'TableLayoutPanel5
-        '
-        Me.TableLayoutPanel5.AutoSize = True
-        Me.TableLayoutPanel5.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.[Single]
-        Me.TableLayoutPanel5.ColumnCount = 2
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.Button6, 0, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.Button7, 1, 0)
-        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 450)
-        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
-        Me.TableLayoutPanel5.RowCount = 1
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(770, 36)
-        Me.TableLayoutPanel5.TabIndex = 8
-        '
-        'Button6
-        '
-        Me.Button6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Button6.Location = New System.Drawing.Point(11, 4)
-        Me.Button6.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(363, 28)
-        Me.Button6.TabIndex = 3
-        Me.Button6.Text = "建立伺服器"
-        Me.Button6.UseVisualStyleBackColor = True
-        '
-        'Button7
-        '
-        Me.Button7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Button7.Location = New System.Drawing.Point(395, 4)
-        Me.Button7.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(364, 28)
-        Me.Button7.TabIndex = 2
-        Me.Button7.Text = "加入伺服器"
-        Me.Button7.UseVisualStyleBackColor = True
+        Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.SnapshotCheckBox.AutoSize = True
+        Me.SnapshotCheckBox.Checked = Global.ServerManager.My.MySettings.Default.ShowSnapshot
+        Me.SnapshotCheckBox.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "ShowSnapshot", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
+        Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
+        Me.SnapshotCheckBox.Size = New System.Drawing.Size(120, 16)
+        Me.SnapshotCheckBox.TabIndex = 32
+        Me.SnapshotCheckBox.Text = "顯示原版快照版本"
+        Me.SnapshotCheckBox.UseVisualStyleBackColor = True
         '
         'Manager
         '
@@ -1392,6 +1392,9 @@ Partial Class Manager
         Me.ServerListPage.ResumeLayout(False)
         Me.ServerListPage.PerformLayout()
         Me.BottomButtons.ResumeLayout(False)
+        Me.PackServerListPage.ResumeLayout(False)
+        Me.PackServerListPage.PerformLayout()
+        Me.TableLayoutPanel5.ResumeLayout(False)
         Me.BungeeCordPage.ResumeLayout(False)
         Me.BungeeCordPage.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
@@ -1429,9 +1432,6 @@ Partial Class Manager
         Me.Panel3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PackServerListPage.ResumeLayout(False)
-        Me.PackServerListPage.PerformLayout()
-        Me.TableLayoutPanel5.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

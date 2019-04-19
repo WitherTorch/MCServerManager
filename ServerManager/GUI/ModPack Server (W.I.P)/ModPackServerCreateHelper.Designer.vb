@@ -58,7 +58,7 @@ Partial Class ModPackServerCreateHelper
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "ModPackServerCreateHelper"
         Me.ShowIcon = False
-        Me.Text = "建立套裝伺服器"
+        Me.Text = "建立模組包伺服器"
         Me.ResumeLayout(False)
 
     End Sub

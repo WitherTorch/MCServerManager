@@ -8,6 +8,7 @@ Public Class ModPackServer
     Public Event Initallised()
     Public Event ServerInfoUpdated()
     Public Event ServerIconUpdated()
+    Public Property IsRunning As Boolean = False
     Public ReadOnly Property IsInitallised As Boolean = False
     Public ReadOnly Property PackName As String
     Public ReadOnly Property PackVersion As String
@@ -16,6 +17,8 @@ Public Class ModPackServer
     Public ReadOnly Property ServerPathName As String
     Public Property ServerOptions As New Dictionary(Of String, String)
     Public ReadOnly Property ServerIcon As Image = New Bitmap(64, 64)
+    Public Property ProcessID As Integer = 0
+
     Sub SetPackInfo(name As String, Version As String, Type As ModPackType)
         _PackName = name
         _PackVersion = Version
@@ -105,5 +108,29 @@ Public Class ModPackServer
         mainThread.IsBackground = True
         mainThread.Start()
     End Sub
+    Private Overloads Sub GenerateServerInfo()
+        My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.info"), "", False)
+        Using writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.info"), IO.FileMode.Truncate, IO.FileAccess.Write), System.Text.Encoding.UTF8)
+            writer.AutoFlush = True
+            writer.WriteLine("pack-name=" & PackName)
+            writer.WriteLine("pack-type=" & PackType.ToString)
+            writer.WriteLine("pack-version=" & PackVersion)
+            writer.Flush()
+            writer.Close()
+        End Using
+    End Sub
 
+    Friend Sub SaveServer()
+        My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
+        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), System.Text.Encoding.UTF8)
+        writer.WriteLine("# Minecraft server properties")
+        writer.WriteLine("#" & Now.ToString("ddd MMM dd HH:mm:ss K yyyy", System.Globalization.CultureInfo.CurrentUICulture))
+        For Each [option] In ServerOptions
+            writer.WriteLine(String.Format("{0}={1}", [option].Key, [option].Value))
+        Next
+        writer.WriteLine()
+        writer.Flush()
+        writer.Close()
+        GenerateServerInfo()
+    End Sub
 End Class

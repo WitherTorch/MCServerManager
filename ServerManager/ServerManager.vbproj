@@ -137,8 +137,8 @@
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.2.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.2\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.3.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.3\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="HtmlRenderer, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlRenderer.Core.1.5.1-beta1\lib\net45\HtmlRenderer.dll</HintPath>
@@ -306,6 +306,12 @@
     <Compile Include="GUI\BungeeCord\BungeeCordConsole.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerConsole.Designer.vb">
+      <DependentUpon>ModPackServerConsole.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerConsole.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.Designer.vb">
       <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
     </Compile>
@@ -317,6 +323,12 @@
     </Compile>
     <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateHelper.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerStatus.Designer.vb">
+      <DependentUpon>ModPackServerStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerStatus.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\Server\SpigotGitStatus.Designer.vb">
       <DependentUpon>SpigotGitStatus.vb</DependentUpon>
@@ -511,11 +523,17 @@
     <EmbeddedResource Include="GUI\BungeeCord\BungeeCordConsole.resx">
       <DependentUpon>BungeeCordConsole.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerConsole.resx">
+      <DependentUpon>ModPackServerConsole.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.resx">
       <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateHelper.resx">
       <DependentUpon>ModPackServerCreateHelper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerStatus.resx">
+      <DependentUpon>ModPackServerStatus.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Server\SpigotGitStatus.resx">
       <DependentUpon>SpigotGitStatus.vb</DependentUpon>
@@ -644,7 +662,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll</PostBuildEvent>
+    <PostBuildEvent>C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -12,6 +12,7 @@ Module GlobalModule
     Friend JavaServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"))
     Friend BedrockServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"))
     Friend SolutionDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"))
+    Friend ModpackServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"))
 #End Region
 #Region "Version List"
     Friend VanillaVersionDict As New Dictionary(Of String, String)

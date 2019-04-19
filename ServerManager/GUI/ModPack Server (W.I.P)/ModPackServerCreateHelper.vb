@@ -99,12 +99,12 @@ Public Class ModPackServerCreateHelper
                                                          End If
                                                          BeginInvoke(New Action(Sub()
                                                                                     StatusLabel.Text = "狀態：正在配置伺服器 ......"
-                                                                                    ' server.SaveServer(False)
+                                                                                    server.SaveServer()
                                                                                     GenerateServerEULA()
                                                                                     StatusLabel.Text = "狀態：完成!"
                                                                                     ProgressBar.Value = 100
                                                                                     ' GlobalModule.Manager.AddServer(Me.path, True)
-                                                                                    'GlobalModule.Manager.ServerPathList.Add(Me.path)
+                                                                                    'GlobalModule.Manager.ModpackServerPathList.Add(Me.path)
                                                                                     Me.Close()
                                                                                 End Sub))
                                                      End If
