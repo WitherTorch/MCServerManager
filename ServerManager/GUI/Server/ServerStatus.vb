@@ -22,7 +22,7 @@ Public Class ServerStatus
         ' 設計工具需要此呼叫。
         InitializeComponent()
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
-        _Server = Server.GetServer(serverDir, Me)
+        _Server = Server.GetServer(serverDir)
         AddHandler _Server.Initallised, AddressOf UpdateComponentOnFirstRun
         GlobalModule.Manager.ServerEntityList.Add(_Server)
     End Sub

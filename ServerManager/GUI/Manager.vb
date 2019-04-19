@@ -500,41 +500,37 @@ Public Class Manager
         GC.Collect()
     End Sub
     Sub GetFeedTheBeastPackList()
-
+        FeedTheBeastGetPackThread = New Thread(Sub()
+                                                   FeedTheBeastPackDict.Clear()
+                                                   Dim manifestListURL As String = "https://api.feed-the-beast.com/ss/api/JSON/pack"
+                                                   Try
+                                                       Dim client As New Net.WebClient()
+                                                       'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "下載列表中..."))
+                                                       Dim docHtml = client.DownloadString(manifestListURL)
+                                                       'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入列表中..."))
+                                                       Dim jsonMotherObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
+                                                       For Each jsonProperty As JProperty In jsonMotherObject.Children
+                                                           Dim jsonObject As JObject = jsonProperty.Value
+                                                           Dim packInfo As (Dictionary(Of String, String), String, String) ' Version List , Directory Name , File Name
+                                                           packInfo.Item1 = New Dictionary(Of String, String)()
+                                                           packInfo.Item2 = jsonObject.GetValue("dir")
+                                                           packInfo.Item3 = jsonObject.GetValue("serverPack")
+                                                           For Each jsonChildObject As JObject In CType(jsonObject.GetValue("versions"), JArray)
+                                                               packInfo.Item1.Add(jsonChildObject.GetValue("version"), jsonChildObject.GetValue("mcVersion"))
+                                                           Next
+                                                           FeedTheBeastPackDict.Add(jsonObject.GetValue("title"), packInfo)
+                                                       Next
+                                                       docHtml = Nothing
+                                                       client.Dispose()
+                                                       'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入完成"))
+                                                   Catch ex As Exception
+                                                       'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "(無)"))
+                                                   End Try
+                                               End Sub)
+        FeedTheBeastGetPackThread.Name = "FeedTheBeast GetModpack Thread"
+        FeedTheBeastGetPackThread.IsBackground = True
+        FeedTheBeastGetPackThread.Start()
     End Sub
-    Sub GetATPackList()
-        ATGetPackThread = New Thread(Sub()
-                                         AkarinVersionList.Clear()
-                                         Dim manifestListURL As String = "https://api.github.com/repos/Akarin-project/Akarin/branches"
-                                         Try
-                                             Dim client As New Net.WebClient()
-                                             client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
-                                             'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "下載列表中..."))
-                                             Dim docHtml = client.DownloadString(manifestListURL)
-                                             'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入列表中..."))
-                                             Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
-                                             For Each jsonObject As JObject In jsonArray
-                                                 Dim versionString As String = jsonObject.GetValue("name").ToString()
-                                                 If versionString.StartsWith("ver/") AndAlso Version.TryParse(versionString.Substring(4), New Version()) Then
-                                                     AkarinVersionList.Add(Version.Parse(versionString.Substring(4)))
-                                                 ElseIf versionString = "master" Then
-                                                     AkarinVersionList.Add(New Version(100, 100))
-                                                 End If
-                                             Next
-                                             AkarinVersionList.Sort()
-                                             AkarinVersionList.Reverse()
-                                             docHtml = Nothing
-                                             client.Dispose()
-                                             'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入完成"))
-                                         Catch ex As Exception
-                                             'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "(無)"))
-                                         End Try
-                                     End Sub)
-        ATGetPackThread.Name = "AT GetModPack Thread"
-        ATGetPackThread.IsBackground = True
-        ATGetPackThread.Start()
-    End Sub
-
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
         If CanEnabledUPnP Then
             Select Case CheckBox1.Checked
@@ -1484,6 +1480,7 @@ Public Class Manager
         End Select
         r = Nothing
         UpdateVersionLists()
+        GetFeedTheBeastPackList()
         CheckBox2_CheckedChanged(CheckBox2, New EventArgs)
         GC.Collect()
     End Sub
@@ -1518,6 +1515,7 @@ Public Class Manager
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-
+        Dim create As New ModPackServerCreateDialog()
+        create.Show(Me)
     End Sub
 End Class

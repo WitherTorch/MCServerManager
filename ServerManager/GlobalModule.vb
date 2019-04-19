@@ -1,6 +1,7 @@
 ﻿Imports System.Text.RegularExpressions
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
+Imports System
 Imports ServerManager
 
 Module GlobalModule
@@ -26,8 +27,7 @@ Module GlobalModule
     Friend AkarinVersionList As New List(Of Version)
 #End Region
 #Region "Modpack List"
-    Friend FeedTheBeastPackList As New Dictionary(Of String, String)
-    Friend ATPackList As New Dictionary(Of String, String)
+    Friend FeedTheBeastPackDict As New Dictionary(Of String, (Dictionary(Of String, String), String, String))
 #End Region
 #Region "General Settings"
     Friend ServerMemoryMin As Decimal = 1024
@@ -214,6 +214,14 @@ Module GlobalModule
                 End If
             Case Server.EServerVersionType.Thermos
                 Return "Thermos"
+            Case Else
+                Return type.ToString
+        End Select
+    End Function
+    Function GetSimplePackSourceName(type As ModPackServer.ModPackType) As String
+        Select Case type
+            Case ModPackServer.ModPackType.FeedTheBeast
+                Return "Feed The Beast"
             Case Else
                 Return type.ToString
         End Select

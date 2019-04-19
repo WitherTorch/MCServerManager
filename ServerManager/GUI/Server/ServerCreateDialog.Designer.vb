@@ -40,6 +40,8 @@ Partial Class ServerCreateDialog
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.PortBox = New System.Windows.Forms.NumericUpDown()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.將連接埠設成預設值ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ServerDirBrowseBtn = New System.Windows.Forms.Button()
         Me.ServerDirBox = New System.Windows.Forms.TextBox()
@@ -49,20 +51,18 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CreateButton = New System.Windows.Forms.Button()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.將連接埠設成預設值ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TabControl1.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.TabControl1.SuspendLayout
+        Me.TabPage1.SuspendLayout
+        Me.GroupBox3.SuspendLayout
+        Me.GroupBox4.SuspendLayout
+        Me.GroupBox2.SuspendLayout
+        Me.GroupBox1.SuspendLayout
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage2.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        Me.ContextMenuStrip1.SuspendLayout()
-        Me.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout
+        Me.TabPage2.SuspendLayout
+        Me.TableLayoutPanel1.SuspendLayout
+        Me.Panel1.SuspendLayout
+        Me.SuspendLayout
         '
         'TabControl1
         '
@@ -187,13 +187,15 @@ Partial Class ServerCreateDialog
         '
         'GroupBox1
         '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.IPBox)
         Me.GroupBox1.Controls.Add(Me.RadioButton3)
         Me.GroupBox1.Controls.Add(Me.RadioButton1)
         Me.GroupBox1.Controls.Add(Me.RadioButton2)
         Me.GroupBox1.Location = New System.Drawing.Point(6, 52)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(473, 89)
+        Me.GroupBox1.Size = New System.Drawing.Size(467, 89)
         Me.GroupBox1.TabIndex = 40
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "IP 選項"
@@ -205,7 +207,7 @@ Partial Class ServerCreateDialog
         Me.IPBox.Location = New System.Drawing.Point(77, 58)
         Me.IPBox.Name = "IPBox"
         Me.IPBox.ReadOnly = True
-        Me.IPBox.Size = New System.Drawing.Size(389, 22)
+        Me.IPBox.Size = New System.Drawing.Size(383, 22)
         Me.IPBox.TabIndex = 34
         '
         'RadioButton3
@@ -251,6 +253,18 @@ Partial Class ServerCreateDialog
         Me.PortBox.Size = New System.Drawing.Size(120, 22)
         Me.PortBox.TabIndex = 42
         Me.PortBox.Value = New Decimal(New Integer() {25565, 0, 0, 0})
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.將連接埠設成預設值ToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(183, 26)
+        '
+        '將連接埠設成預設值ToolStripMenuItem
+        '
+        Me.將連接埠設成預設值ToolStripMenuItem.Name = "將連接埠設成預設值ToolStripMenuItem"
+        Me.將連接埠設成預設值ToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
+        Me.將連接埠設成預設值ToolStripMenuItem.Text = "將連接埠設成預設值"
         '
         'Label2
         '
@@ -349,18 +363,6 @@ Partial Class ServerCreateDialog
         Me.CreateButton.Text = "建立"
         Me.CreateButton.UseVisualStyleBackColor = True
         '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.將連接埠設成預設值ToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(183, 48)
-        '
-        '將連接埠設成預設值ToolStripMenuItem
-        '
-        Me.將連接埠設成預設值ToolStripMenuItem.Name = "將連接埠設成預設值ToolStripMenuItem"
-        Me.將連接埠設成預設值ToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
-        Me.將連接埠設成預設值ToolStripMenuItem.Text = "將連接埠設成預設值"
-        '
         'ServerCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -369,25 +371,27 @@ Partial Class ServerCreateDialog
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "ServerCreateDialog"
         Me.ShowIcon = False
         Me.Text = "建立伺服器"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout()
+        Me.TabPage1.PerformLayout
         Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        Me.GroupBox3.PerformLayout
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.GroupBox2.PerformLayout
         Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.GroupBox1.PerformLayout
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
+        Me.TableLayoutPanel1.PerformLayout
         Me.Panel1.ResumeLayout(False)
-        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

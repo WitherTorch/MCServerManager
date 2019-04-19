@@ -377,8 +377,8 @@ Public NotInheritable Class Server
                                          ElseIf _ServerVersionType = EServerVersionType.Nukkit Then
                                              LoadPlugins()
                                          End If
-                                         RaiseEvent Initallised()
                                          _IsInitallised = True
+                                         RaiseEvent Initallised()
                                      End Sub)
         mainThread.IsBackground = True
         mainThread.Start()

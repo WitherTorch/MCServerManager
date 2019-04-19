@@ -25,13 +25,11 @@ Partial Class ModPackServerCreateDialog
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ModPackServerCreateDialog))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.ListView1 = New System.Windows.Forms.ListView()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.VersionTypeBox = New System.Windows.Forms.ComboBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.VersionBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.IPBox = New System.Windows.Forms.TextBox()
@@ -46,14 +44,20 @@ Partial Class ModPackServerCreateDialog
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CreateButton = New System.Windows.Forms.Button()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -63,40 +67,65 @@ Partial Class ModPackServerCreateDialog
         Me.TabControl1.Location = New System.Drawing.Point(3, 3)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(509, 338)
+        Me.TabControl1.Size = New System.Drawing.Size(807, 496)
         Me.TabControl1.TabIndex = 1
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.GroupBox3)
-        Me.TabPage1.Controls.Add(Me.GroupBox2)
+        Me.TabPage1.Controls.Add(Me.TableLayoutPanel2)
         Me.TabPage1.Controls.Add(Me.ServerDirBrowseBtn)
         Me.TabPage1.Controls.Add(Me.ServerDirBox)
         Me.TabPage1.Controls.Add(Me.Label1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(501, 312)
+        Me.TabPage1.Size = New System.Drawing.Size(799, 470)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "伺服器"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel2.Controls.Add(Me.GroupBox3, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.GroupBox2, 0, 0)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(12, 34)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(781, 430)
+        Me.TableLayoutPanel2.TabIndex = 45
+        '
         'GroupBox3
         '
-        Me.GroupBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox3.Controls.Add(Me.TableLayoutPanel3)
         Me.GroupBox3.Controls.Add(Me.Label4)
         Me.GroupBox3.Controls.Add(Me.ComboBox1)
-        Me.GroupBox3.Controls.Add(Me.Label3)
-        Me.GroupBox3.Controls.Add(Me.VersionTypeBox)
-        Me.GroupBox3.Controls.Add(Me.Label10)
-        Me.GroupBox3.Controls.Add(Me.VersionBox)
-        Me.GroupBox3.Location = New System.Drawing.Point(12, 187)
+        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox3.Location = New System.Drawing.Point(303, 3)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(479, 106)
+        Me.GroupBox3.Size = New System.Drawing.Size(475, 424)
         Me.GroupBox3.TabIndex = 44
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "模組包"
+        '
+        'ListView1
+        '
+        Me.ListView1.Alignment = System.Windows.Forms.ListViewAlignment.Left
+        Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListView1.Font = New System.Drawing.Font("新細明體", 11.0!)
+        Me.ListView1.Location = New System.Drawing.Point(3, 3)
+        Me.ListView1.MultiSelect = False
+        Me.ListView1.Name = "ListView1"
+        Me.ListView1.Size = New System.Drawing.Size(294, 371)
+        Me.ListView1.TabIndex = 32
+        Me.ListView1.UseCompatibleStateImageBehavior = False
+        Me.ListView1.View = System.Windows.Forms.View.List
         '
         'Label4
         '
@@ -111,80 +140,40 @@ Partial Class ModPackServerCreateDialog
         '
         'ComboBox1
         '
+        Me.ComboBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Java - 原版", "Java - Forge", "Java - Spigot", "Java - Spigot (Git 手動建置)", "Java - CraftBukkit", "Java - Paper", "Java - Akarin", "Java - SpongeVanilla", "Java - Cauldron (MCPC+)", "Java - Thermos", "Bedrock - 原版", "Bedrock - Nukkit"})
+        Me.ComboBox1.Items.AddRange(New Object() {"Feed The Beast"})
         Me.ComboBox1.Location = New System.Drawing.Point(52, 21)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(420, 20)
+        Me.ComboBox1.Size = New System.Drawing.Size(417, 20)
         Me.ComboBox1.TabIndex = 31
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(5, 51)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(3)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(41, 12)
-        Me.Label3.TabIndex = 25
-        Me.Label3.Text = "名稱："
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'VersionTypeBox
-        '
-        Me.VersionTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.VersionTypeBox.FormattingEnabled = True
-        Me.VersionTypeBox.Items.AddRange(New Object() {"Java - 原版", "Java - Forge", "Java - Spigot", "Java - Spigot (Git 手動建置)", "Java - CraftBukkit", "Java - Paper", "Java - Akarin", "Java - SpongeVanilla", "Java - Cauldron (MCPC+)", "Java - Thermos", "Bedrock - 原版", "Bedrock - Nukkit"})
-        Me.VersionTypeBox.Location = New System.Drawing.Point(52, 47)
-        Me.VersionTypeBox.Name = "VersionTypeBox"
-        Me.VersionTypeBox.Size = New System.Drawing.Size(420, 20)
-        Me.VersionTypeBox.TabIndex = 26
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(5, 77)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(3)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(41, 12)
-        Me.Label10.TabIndex = 28
-        Me.Label10.Text = "版本："
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'VersionBox
-        '
-        Me.VersionBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.VersionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.VersionBox.FormattingEnabled = True
-        Me.VersionBox.Location = New System.Drawing.Point(52, 73)
-        Me.VersionBox.Name = "VersionBox"
-        Me.VersionBox.Size = New System.Drawing.Size(420, 20)
-        Me.VersionBox.TabIndex = 29
         '
         'GroupBox2
         '
-        Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.GroupBox1)
         Me.GroupBox2.Controls.Add(Me.PortBox)
         Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 34)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(479, 147)
+        Me.GroupBox2.Size = New System.Drawing.Size(294, 424)
         Me.GroupBox2.TabIndex = 43
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "連接"
         '
         'GroupBox1
         '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.IPBox)
         Me.GroupBox1.Controls.Add(Me.RadioButton3)
         Me.GroupBox1.Controls.Add(Me.RadioButton1)
         Me.GroupBox1.Controls.Add(Me.RadioButton2)
         Me.GroupBox1.Location = New System.Drawing.Point(6, 52)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(473, 89)
+        Me.GroupBox1.Size = New System.Drawing.Size(282, 89)
         Me.GroupBox1.TabIndex = 40
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "IP 選項"
@@ -196,7 +185,7 @@ Partial Class ModPackServerCreateDialog
         Me.IPBox.Location = New System.Drawing.Point(77, 58)
         Me.IPBox.Name = "IPBox"
         Me.IPBox.ReadOnly = True
-        Me.IPBox.Size = New System.Drawing.Size(389, 22)
+        Me.IPBox.Size = New System.Drawing.Size(198, 22)
         Me.IPBox.TabIndex = 34
         '
         'RadioButton3
@@ -238,7 +227,7 @@ Partial Class ModPackServerCreateDialog
         Me.PortBox.Maximum = New Decimal(New Integer() {65534, 0, 0, 0})
         Me.PortBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.PortBox.Name = "PortBox"
-        Me.PortBox.Size = New System.Drawing.Size(120, 22)
+        Me.PortBox.Size = New System.Drawing.Size(80, 22)
         Me.PortBox.TabIndex = 42
         Me.PortBox.Value = New Decimal(New Integer() {25565, 0, 0, 0})
         '
@@ -256,7 +245,7 @@ Partial Class ModPackServerCreateDialog
         'ServerDirBrowseBtn
         '
         Me.ServerDirBrowseBtn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ServerDirBrowseBtn.Location = New System.Drawing.Point(442, 5)
+        Me.ServerDirBrowseBtn.Location = New System.Drawing.Point(742, 6)
         Me.ServerDirBrowseBtn.Name = "ServerDirBrowseBtn"
         Me.ServerDirBrowseBtn.Size = New System.Drawing.Size(51, 23)
         Me.ServerDirBrowseBtn.TabIndex = 39
@@ -269,7 +258,7 @@ Partial Class ModPackServerCreateDialog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ServerDirBox.Location = New System.Drawing.Point(90, 6)
         Me.ServerDirBox.Name = "ServerDirBox"
-        Me.ServerDirBox.Size = New System.Drawing.Size(346, 22)
+        Me.ServerDirBox.Size = New System.Drawing.Size(646, 22)
         Me.ServerDirBox.TabIndex = 38
         '
         'Label1
@@ -295,7 +284,7 @@ Partial Class ModPackServerCreateDialog
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(515, 379)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(813, 537)
         Me.TableLayoutPanel1.TabIndex = 2
         '
         'Panel1
@@ -303,35 +292,77 @@ Partial Class ModPackServerCreateDialog
         Me.Panel1.AutoSize = True
         Me.Panel1.Controls.Add(Me.CreateButton)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 347)
+        Me.Panel1.Location = New System.Drawing.Point(3, 505)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(509, 29)
+        Me.Panel1.Size = New System.Drawing.Size(807, 29)
         Me.Panel1.TabIndex = 0
         '
         'CreateButton
         '
         Me.CreateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CreateButton.Location = New System.Drawing.Point(425, 3)
+        Me.CreateButton.Location = New System.Drawing.Point(723, 3)
         Me.CreateButton.Name = "CreateButton"
         Me.CreateButton.Size = New System.Drawing.Size(75, 23)
         Me.CreateButton.TabIndex = 0
         Me.CreateButton.Text = "建立"
         Me.CreateButton.UseVisualStyleBackColor = True
         '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.ListBox1)
+        Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox4.Location = New System.Drawing.Point(303, 3)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(156, 371)
+        Me.GroupBox4.TabIndex = 33
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "版本"
+        '
+        'ListBox1
+        '
+        Me.ListBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListBox1.Font = New System.Drawing.Font("新細明體", 11.0!)
+        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.ItemHeight = 15
+        Me.ListBox1.Location = New System.Drawing.Point(3, 18)
+        Me.ListBox1.Name = "ListBox1"
+        Me.ListBox1.Size = New System.Drawing.Size(150, 350)
+        Me.ListBox1.TabIndex = 0
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.GroupBox4, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.ListView1, 0, 0)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(7, 47)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(462, 377)
+        Me.TableLayoutPanel3.TabIndex = 34
+        '
         'ModPackServerCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(515, 379)
+        Me.ClientSize = New System.Drawing.Size(813, 537)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "ModPackServerCreateDialog"
         Me.ShowIcon = False
         Me.Text = "建立模組包伺服器"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        Me.TableLayoutPanel2.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -342,15 +373,13 @@ Partial Class ModPackServerCreateDialog
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
+        Me.GroupBox4.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents VersionBox As ComboBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents VersionTypeBox As ComboBox
-    Friend WithEvents Label3 As Label
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents GroupBox1 As GroupBox
@@ -368,4 +397,9 @@ Partial Class ModPackServerCreateDialog
     Friend WithEvents CreateButton As Button
     Friend WithEvents Label4 As Label
     Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents ListView1 As ListView
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents ListBox1 As ListBox
+    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
 End Class

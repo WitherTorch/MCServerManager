@@ -24,38 +24,13 @@ Public Class ModPackServerCreateDialog
     End Sub
 
 
-    Private Sub Version_SelectedIndexChanged(sender As Object, e As EventArgs) Handles VersionBox.SelectedIndexChanged, VersionTypeBox.SelectedIndexChanged
-        If sender Is VersionBox Then
-            Select Case server.PackType
-                Case ModPackServer.ModPackType.FeedTheBeast
 
-                Case Else
-                    server.SetPackInfo(server.PackName, VersionBox.Text, server.PackType)
-            End Select
-        End If
-        If sender Is VersionTypeBox Then
-            VersionBox.Items.Clear()
-            VersionBox.Enabled = True
-            Select Case VersionTypeBox.SelectedIndex
-                Case 0 'Feed The Beast
-
-                Case 1 'AT
-
-                Case Else
-                    MsgBox("非法操作!")
-                    server.SetPackInfo(server.PackName, "", ModPackServer.ModPackType.Error)
-                    VersionTypeBox.SelectedIndex = -1
-            End Select
-
-        End If
-
-    End Sub
     Private Sub CreateButton_Click(sender As Object, e As EventArgs) Handles CreateButton.Click
         If ServerDirBox.Text.Trim <> "" Then
             If (ipType <> ServerIPType.Custom) OrElse
         (ipType = ServerIPType.Custom AndAlso
         (IPBox.Text.Trim <> "" AndAlso IsNumeric(IPBox.Text.Replace(".", "")))) Then
-                If VersionTypeBox.SelectedIndex <> -1 And VersionBox.SelectedIndex <> -1 Then
+                If ListView1.SelectedIndices.Count = 1 Then
                     server.SetPath(ServerDirBox.Text)
                     If serverOptions Is Nothing Then
                         serverOptions = New JavaServerOptions
@@ -70,7 +45,7 @@ Public Class ModPackServerCreateDialog
                         Case ServerIPType.Custom
                             server.ServerOptions("server-ip") = IPBox.Text
                     End Select
-                    Dim helper As New ModPackServerCreateHelper(server, ServerDirBox.Text)
+                    Dim helper As New ModPackServerCreateHelper(server, ServerDirBox.Text, FeedTheBeastPackDict.Values.ToArray(ListView1.SelectedIndices(0)).Item3, FeedTheBeastPackDict.Values.ToArray(ListView1.SelectedIndices(0)).Item2)
                     helper.Show()
                     Close()
                 End If
@@ -103,5 +78,35 @@ Public Class ModPackServerCreateDialog
         End If
     End Sub
 
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+        ListView1.Clear()
+        Select Case ComboBox1.SelectedIndex
+            Case 0
+                For Each key In FeedTheBeastPackDict.Keys
+                    ListView1.Items.Add(key)
+                Next
+        End Select
+    End Sub
+
+    Private Sub ListView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListView1.SelectedIndexChanged
+        ListBox1.Items.Clear()
+        If ListView1.SelectedIndices.Count > 0 Then
+            Select Case ComboBox1.SelectedIndex
+                Case 0
+                    For Each pair In FeedTheBeastPackDict.Values.ToArray(ListView1.SelectedIndices(0)).Item1
+                        ListBox1.Items.Add(String.Format("{0} (Minecraft {1})", pair.Key, IIf(pair.Value.Contains(";"), pair.Value.Split(";")(0), pair.Value)))
+                    Next
+            End Select
+        End If
+    End Sub
+
+    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
+        If ListBox1.SelectedIndex > -1 Then
+            Select Case ComboBox1.SelectedIndex
+                Case 0 ' Feed The Beast
+                    server.SetPackInfo(FeedTheBeastPackDict.Keys.ToArray(ListView1.SelectedIndices(0)), FeedTheBeastPackDict.Values.ToArray(ListView1.SelectedIndices(0)).Item1.Keys.ToArray(ListBox1.SelectedIndex), ModPackServer.ModPackType.FeedTheBeast)
+            End Select
+        End If
+    End Sub
 End Class
 
