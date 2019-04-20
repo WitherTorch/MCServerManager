@@ -516,6 +516,7 @@ Public Class Manager
                                                            packInfo.Item1 = New Dictionary(Of String, String)()
                                                            packInfo.Item2 = jsonObject.GetValue("dir")
                                                            packInfo.Item3 = jsonObject.GetValue("serverPack")
+                                                           If String.IsNullOrEmpty(packInfo.Item3) Then Continue For
                                                            For Each jsonChildObject As JObject In CType(jsonObject.GetValue("versions"), JArray)
                                                                packInfo.Item1.Add(jsonChildObject.GetValue("version"), jsonChildObject.GetValue("mcVersion"))
                                                            Next
@@ -677,6 +678,14 @@ Public Class Manager
                 Task.Run(Sub()
                              AddBungeeSolution(s.ToString)
                              BungeePathList.Add(s.ToString)
+                         End Sub)
+            Next
+        End If
+        If ModpackServerDirs <> "" Then
+            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(ModpackServerDirs), Newtonsoft.Json.Linq.JArray)
+                Task.Run(Sub()
+                             AddModpackServer(s.ToString)
+                             ModpackServerPathList.Add(s.ToString)
                          End Sub)
             Next
         End If
@@ -1003,35 +1012,31 @@ Public Class Manager
                                                         If IsNothing(status) = False Then
                                                             UnRegisterServer(status)
                                                             status.CloseServer()
-                                                            ServerListPanel.Controls.Remove(status)
-                                                            ServerPathList.Remove(status.Server.ServerPath)
                                                         End If
                                                     Catch ex As Exception
+                                                    Finally
+                                                        ServerListPanel.Controls.Remove(status)
+                                                        ServerPathList.Remove(status.Server.ServerPath)
                                                     End Try
                                                 Else
                                                     Try
                                                         Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
                                                             Case MsgBoxResult.Yes
-                                                                If IsNothing(status) = False Then
-                                                                    UnRegisterServer(status)
-                                                                    status.CloseServer()
-                                                                    If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
-                                                                        My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                                                                    End If
-                                                                    ServerListPanel.Controls.Remove(status)
-                                                                    ServerPathList.Remove(status.Server.ServerPath)
+                                                                If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
+                                                                    My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
                                                                 End If
                                                             Case MsgBoxResult.No
-                                                                If IsNothing(status) = False Then
-                                                                    UnRegisterServer(status)
-                                                                    status.CloseServer()
-                                                                    ServerListPanel.Controls.Remove(status)
-                                                                    ServerPathList.Remove(status.Server.ServerPath)
-                                                                End If
                                                             Case MsgBoxResult.Cancel
                                                                 Exit Sub
                                                         End Select
                                                     Catch ex As Exception
+                                                    Finally
+                                                        ServerListPanel.Controls.Remove(status)
+                                                        ServerPathList.Remove(status.Server.ServerPath)
+                                                        If IsNothing(status) = False Then
+                                                            UnRegisterServer(status)
+                                                            status.CloseServer()
+                                                        End If
                                                     End Try
                                                 End If
                                             End Sub
@@ -1079,6 +1084,92 @@ Public Class Manager
                         BedrockServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
                     End If
             End Select
+        Catch ex As Exception
+        End Try
+    End Sub
+    Friend Sub AddModpackServer(serverDirectory As String, Optional Register As Boolean = False)
+        If ModpackServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then
+            Dim status As New ModPackServerStatus(serverDirectory)
+            status.Dock = DockStyle.Fill
+            AddHandler status.ServerLoaded, Sub()
+                                                If Register Then
+                                                    RegisterModpackServer(status.Server)
+                                                End If
+                                                If status.InvokeRequired Then
+                                                    status.BeginInvoke(Sub() status.Update())
+                                                Else
+                                                    status.Update()
+                                                End If
+                                                If ModpackServerListPanel.InvokeRequired Then
+                                                    ModpackServerListPanel.BeginInvoke(Sub()
+                                                                                           Dim index = ModpackServerListPanel.RowStyles.Count
+                                                                                           ModpackServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                                                           ModpackServerListPanel.Controls.Add(status, 0, index)
+                                                                                           ModpackServerListPanel.Update()
+                                                                                       End Sub)
+                                                Else
+                                                    Dim index = ModpackServerListPanel.RowStyles.Count
+                                                    ModpackServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                    ModpackServerListPanel.Controls.Add(status, 0, index)
+                                                End If
+                                            End Sub
+            status.LoadStatus()
+            ModpackServerPathList.Add(serverDirectory)
+            AddHandler status.DeleteServer, Sub(NoUI)
+                                                If NoUI Then
+                                                    Try
+                                                        If IsNothing(status) = False Then
+                                                            UnRegisterModpackServer(status)
+                                                            status.CloseServer()
+                                                        End If
+                                                    Catch ex As Exception
+                                                    Finally
+                                                        ModpackServerPathList.Remove(status.Server.ServerPath)
+                                                        ModpackServerListPanel.Controls.Remove(status)
+                                                    End Try
+                                                Else
+                                                    Try
+                                                        Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
+                                                            Case MsgBoxResult.Yes
+                                                                If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
+                                                                    My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                                                                End If
+                                                            Case MsgBoxResult.No
+                                                            Case MsgBoxResult.Cancel
+                                                                Exit Sub
+                                                        End Select
+                                                    Catch ex As Exception
+                                                    Finally
+                                                        ModpackServerPathList.Remove(status.Server.ServerPath)
+                                                        ModpackServerListPanel.Controls.Remove(status)
+                                                        If IsNothing(status) = False Then
+                                                            UnRegisterModpackServer(status)
+                                                            status.CloseServer()
+                                                        End If
+                                                    End Try
+                                                End If
+                                            End Sub
+        End If
+    End Sub
+
+    Sub RegisterModpackServer(server As ModPackServer)
+        If ModpackServerDirs <> "" Then
+            Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ModpackServerDirs)
+            array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
+            ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
+        Else
+            Dim array = New Newtonsoft.Json.Linq.JArray()
+            array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
+            ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
+        End If
+    End Sub
+    Sub UnRegisterModpackServer(status As ModPackServerStatus)
+        Try
+            If ModpackServerDirs <> "" Then
+                Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ModpackServerDirs)
+                array.Remove(status.Server.ServerPath)
+                ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
+            End If
         Catch ex As Exception
         End Try
     End Sub
@@ -1161,6 +1252,15 @@ Public Class Manager
                                                 End Try
                                             End Sub) With {.IsBackground = False, .Name = "Solutions Close Thread"}
         bungeeCloseThread.Start()
+        Dim modpackCloseThread As New Thread(Sub()
+                                                 Try
+                                                     For Each item In ModpackServerListPanel.Controls
+                                                         If item IsNot Nothing Then CType(item, ModPackServerStatus).CloseServer()
+                                                     Next
+                                                 Catch ex As Exception
+                                                 End Try
+                                             End Sub) With {.IsBackground = False, .Name = "Solutions Close Thread"}
+        modpackCloseThread.Start()
     End Sub
 
     Private Sub MainTabControl_Selecting(sender As Object, e As TabControlCancelEventArgs) Handles MainTabControl.Selecting
@@ -1202,35 +1302,30 @@ Public Class Manager
                                                                     If IsNothing(status) = False Then
                                                                         UnRegisterSolution(status)
                                                                         status.CloseSolution()
-                                                                        SolutionListPanel.Controls.Remove(status)
-                                                                        BungeePathList.Remove(status.Host.BungeePath)
                                                                     End If
                                                                 Catch ex As Exception
+                                                                Finally
+                                                                    SolutionListPanel.Controls.Remove(status)
+                                                                    BungeePathList.Remove(status.Host.BungeePath)
                                                                 End Try
                                                             Else
                                                                 Try
                                                                     Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
                                                                         Case MsgBoxResult.Yes
-                                                                            If IsNothing(status) = False Then
-                                                                                UnRegisterSolution(status)
-                                                                                status.CloseSolution()
-                                                                                If My.Computer.FileSystem.DirectoryExists(status.Host.BungeePath) Then
-                                                                                    My.Computer.FileSystem.DeleteDirectory(status.Host.BungeePath, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                                                                                End If
-                                                                                SolutionListPanel.Controls.Remove(status)
-                                                                                BungeePathList.Remove(status.Host.BungeePath)
-                                                                            End If
-                                                                        Case MsgBoxResult.No
-                                                                            If IsNothing(status) = False Then
-                                                                                UnRegisterSolution(status)
-                                                                                status.CloseSolution()
-                                                                                SolutionListPanel.Controls.Remove(status)
-                                                                                BungeePathList.Remove(status.Host.BungeePath)
+                                                                            If My.Computer.FileSystem.DirectoryExists(status.Host.BungeePath) Then
+                                                                                My.Computer.FileSystem.DeleteDirectory(status.Host.BungeePath, FileIO.DeleteDirectoryOption.DeleteAllContents)
                                                                             End If
                                                                         Case MsgBoxResult.Cancel
                                                                             Exit Sub
                                                                     End Select
                                                                 Catch ex As Exception
+                                                                Finally
+                                                                    SolutionListPanel.Controls.Remove(status)
+                                                                    BungeePathList.Remove(status.Host.BungeePath)
+                                                                    If IsNothing(status) = False Then
+                                                                        UnRegisterSolution(status)
+                                                                        status.CloseSolution()
+                                                                    End If
                                                                 End Try
                                                             End If
                                                         End Sub
@@ -1513,7 +1608,17 @@ Public Class Manager
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
-
+        Static dialog As New FolderBrowserDialog
+        dialog.ShowNewFolderButton = False
+        If dialog.ShowDialog = DialogResult.OK Then
+            If IO.File.Exists(IO.Path.Combine(dialog.SelectedPath, "server.info")) = False Then
+                MsgBox("匯入時發生錯誤" & vbNewLine & "原因：找不到伺服器資訊檔案(server.info)。",, Application.ProductName)
+            ElseIf ServerPathList.Contains(dialog.SelectedPath) Then
+                MsgBox("匯入時發生錯誤" & vbNewLine & "原因：伺服器已經存在於模組包伺服器列表。",, Application.ProductName)
+            Else
+                AddModpackServer(dialog.SelectedPath, True)
+            End If
+        End If
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click

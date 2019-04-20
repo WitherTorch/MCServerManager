@@ -147,7 +147,7 @@ Public Class ServerCreateHelper
                                                                 'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
                                                                 server.SaveServer(False)
                                                                 GenerateServerEULA()
-                                                                GlobalModule.Manager.BeginInvoke(Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith("\"), path, path & "\"), True))
+                                                                BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith("\"), path, path & "\"), True))
                                                                 'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith("\"), path, path & "\"))
                                                                 BeginInvoke(Sub()
                                                                                 StatusLabel.Text = "狀態：完成!"
@@ -211,7 +211,7 @@ Public Class ServerCreateHelper
                                                                                  'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
                                                                                  server.SaveServer(False)
                                                                                  GenerateServerEULA()
-                                                                                 GlobalModule.Manager.BeginInvoke(Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith("\"), path, path & "\"), True))
+                                                                                 BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith("\"), path, path & "\"), True))
                                                                                  'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith("\"), path, path & "\"))
                                                                                  BeginInvoke(Sub()
                                                                                                  StatusLabel.Text = "狀態：完成!"
@@ -332,21 +332,24 @@ Public Class ServerCreateHelper
                                                                     End Sub)
                                                              Using archive As ZipArchive = ZipFile.OpenRead(dist)
                                                                  For Each entry As ZipArchiveEntry In archive.Entries
-                                                                     If entry.FullName.EndsWith("\") OrElse entry.FullName.EndsWith("/") Then
-                                                                         If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
-                                                                             IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                     Try
+                                                                         If entry.FullName.EndsWith("\") OrElse entry.FullName.EndsWith("/") Then
+                                                                             If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
+                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                             End If
+                                                                         Else
+                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Directory.Exists = False Then
+                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                                 info.Directory.Create()
+                                                                             End If
+                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
+                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                                 info.Delete()
+                                                                             End If
+                                                                             entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName), True)
                                                                          End If
-                                                                     Else
-                                                                         If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Directory.Exists = False Then
-                                                                             Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
-                                                                             info.Directory.Create()
-                                                                         End If
-                                                                         If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
-                                                                             Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
-                                                                             info.Delete()
-                                                                         End If
-                                                                         entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName), True)
-                                                                     End If
+                                                                     Catch ex As Exception
+                                                                     End Try
                                                                  Next
                                                              End Using
                                                          End If

@@ -43,12 +43,14 @@ Public Class ModPackServerConsole
                                    End Select
                                End Sub))
         ConnectUPnP()
+        TaskTimer.Enabled = True
+        TaskTimer.Start()
         Run()
     End Sub
     Private Overloads Sub Run()
         Select Case Server.PackType
             Case ModPackServer.ModPackType.FeedTheBeast
-
+                Run(IO.Path.Combine(JavaPath, "java.exe"), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar {3}", ServerMemoryMax, ServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("\"), Server.ServerPath, Server.ServerPath & "\") & Server.ServerRunJAR), Server.ServerPath, True, True)
         End Select
     End Sub
     Private Overloads Sub Run(program As String, serverDir As String)
@@ -74,6 +76,7 @@ Public Class ModPackServerConsole
                                                                                          Try
                                                                                              Dim item As New ListViewItem("錯誤")
                                                                                              item.ForeColor = Color.Red
+                                                                                             item.SubItems.Add("")
                                                                                              item.SubItems.Add(e.Data)
                                                                                              Dim nowTime = Now
                                                                                              item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
@@ -128,6 +131,7 @@ Public Class ModPackServerConsole
                                                                                           Try
                                                                                               Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
                                                                                               Dim item As New ListViewItem(msg.ServerMessageTypeString)
+                                                                                              item.SubItems.Add(msg.Thread)
                                                                                               item.SubItems.Add(msg.Message)
                                                                                               item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
                                                                                               Select Case msg.ServerMessageType
@@ -347,6 +351,7 @@ Public Class ModPackServerConsole
         If IsNothing(backgroundProcess) Then
             Dim spItem1 As New ListViewItem("通知")
             spItem1.ForeColor = Color.Blue
+            spItem1.SubItems.Add(Application.ProductName)
             spItem1.SubItems.Add("")
             spItem1.SubItems.Add(String.Format("{0}:{1}:{2}", Now.Hour.ToString.PadLeft(2, "0"), Now.Minute.ToString.PadLeft(2, "0"), Now.Second.ToString.PadLeft(2, "0")))
             Try
@@ -361,6 +366,7 @@ Public Class ModPackServerConsole
             msg.MessageType = MCMessageType.None
             Dim item As New ListViewItem(msg.ServerMessageTypeString)
             item.ForeColor = Color.Blue
+            item.SubItems.Add(msg.Thread)
             item.SubItems.Add(msg.Message)
             item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
             Try
@@ -369,6 +375,7 @@ Public Class ModPackServerConsole
             End Try
             Dim spItem2 As New ListViewItem("通知")
             spItem2.ForeColor = Color.Blue
+            spItem2.SubItems.Add(Application.ProductName)
             spItem2.SubItems.Add("")
             spItem2.SubItems.Add(String.Format("{0}:{1}:{2}", Now.Hour.ToString.PadLeft(2, "0"), Now.Minute.ToString.PadLeft(2, "0"), Now.Second.ToString.PadLeft(2, "0")))
             Try

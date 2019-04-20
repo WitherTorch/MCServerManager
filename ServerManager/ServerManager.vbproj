@@ -254,7 +254,7 @@
     <Compile Include="Classes\JavaPathsProvider.vb" />
     <Compile Include="Classes\MinecraftLogParser.vb" />
     <Compile Include="Classes\MinecraftUUIDProvider.vb" />
-    <Compile Include="Classes\ModPack Server %28W.I.P%29\ModPackServer.vb" />
+    <Compile Include="Classes\ModPack Server\ModPackServer.vb" />
     <Compile Include="Classes\Server\AkarinOptions.vb" />
     <Compile Include="Classes\Server\BukkitOptions.vb" />
     <Compile Include="Classes\Server\CauldronOptions.vb" />
@@ -306,28 +306,28 @@
     <Compile Include="GUI\BungeeCord\BungeeCordConsole.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerConsole.Designer.vb">
+    <Compile Include="GUI\ModPack Server\ModPackServerConsole.Designer.vb">
       <DependentUpon>ModPackServerConsole.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerConsole.vb">
+    <Compile Include="GUI\ModPack Server\ModPackServerConsole.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.Designer.vb">
+    <Compile Include="GUI\ModPack Server\ModPackServerCreateDialog.Designer.vb">
       <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.vb">
+    <Compile Include="GUI\ModPack Server\ModPackServerCreateDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateHelper.Designer.vb">
+    <Compile Include="GUI\ModPack Server\ModPackServerCreateHelper.Designer.vb">
       <DependentUpon>ModPackServerCreateHelper.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateHelper.vb">
+    <Compile Include="GUI\ModPack Server\ModPackServerCreateHelper.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerStatus.Designer.vb">
+    <Compile Include="GUI\ModPack Server\ModPackServerStatus.Designer.vb">
       <DependentUpon>ModPackServerStatus.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ModPack Server %28W.I.P%29\ModPackServerStatus.vb">
+    <Compile Include="GUI\ModPack Server\ModPackServerStatus.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\Server\SpigotGitStatus.Designer.vb">
@@ -523,16 +523,16 @@
     <EmbeddedResource Include="GUI\BungeeCord\BungeeCordConsole.resx">
       <DependentUpon>BungeeCordConsole.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerConsole.resx">
+    <EmbeddedResource Include="GUI\ModPack Server\ModPackServerConsole.resx">
       <DependentUpon>ModPackServerConsole.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateDialog.resx">
+    <EmbeddedResource Include="GUI\ModPack Server\ModPackServerCreateDialog.resx">
       <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerCreateHelper.resx">
+    <EmbeddedResource Include="GUI\ModPack Server\ModPackServerCreateHelper.resx">
       <DependentUpon>ModPackServerCreateHelper.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ModPack Server %28W.I.P%29\ModPackServerStatus.resx">
+    <EmbeddedResource Include="GUI\ModPack Server\ModPackServerStatus.resx">
       <DependentUpon>ModPackServerStatus.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Server\SpigotGitStatus.resx">

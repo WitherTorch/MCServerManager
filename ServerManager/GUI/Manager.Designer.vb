@@ -61,7 +61,7 @@ Partial Class Manager
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.PackServerListPage = New System.Windows.Forms.TabPage()
-        Me.PackServerListPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.ModpackServerListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
@@ -76,6 +76,7 @@ Partial Class Manager
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -110,6 +111,7 @@ Partial Class Manager
         Me.ArguLabel = New System.Windows.Forms.Label()
         Me.JavaVersionLabel = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GitGroupBox = New System.Windows.Forms.GroupBox()
         Me.GitBashBrowseButton = New System.Windows.Forms.Button()
@@ -131,8 +133,6 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -510,7 +510,7 @@ Partial Class Manager
         'PackServerListPage
         '
         Me.PackServerListPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.PackServerListPage.Controls.Add(Me.PackServerListPanel)
+        Me.PackServerListPage.Controls.Add(Me.ModpackServerListPanel)
         Me.PackServerListPage.Controls.Add(Me.TableLayoutPanel5)
         Me.PackServerListPage.Location = New System.Drawing.Point(4, 22)
         Me.PackServerListPage.Name = "PackServerListPage"
@@ -519,18 +519,19 @@ Partial Class Manager
         Me.PackServerListPage.TabIndex = 7
         Me.PackServerListPage.Text = "模組包伺服器列表"
         '
-        'PackServerListPanel
+        'ModpackServerListPanel
         '
-        Me.PackServerListPanel.AutoScroll = True
-        Me.PackServerListPanel.ColumnCount = 1
-        Me.PackServerListPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.PackServerListPanel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PackServerListPanel.Location = New System.Drawing.Point(3, 3)
-        Me.PackServerListPanel.Name = "PackServerListPanel"
-        Me.PackServerListPanel.RowCount = 1
-        Me.PackServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.PackServerListPanel.Size = New System.Drawing.Size(770, 447)
-        Me.PackServerListPanel.TabIndex = 7
+        Me.ModpackServerListPanel.AutoScroll = True
+        Me.ModpackServerListPanel.ColumnCount = 1
+        Me.ModpackServerListPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.ModpackServerListPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ModpackServerListPanel.Location = New System.Drawing.Point(3, 3)
+        Me.ModpackServerListPanel.Name = "ModpackServerListPanel"
+        Me.ModpackServerListPanel.RowCount = 1
+        Me.ModpackServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.ModpackServerListPanel.Size = New System.Drawing.Size(770, 447)
+        Me.ModpackServerListPanel.TabIndex = 6
+
         '
         'TableLayoutPanel5
         '
@@ -713,6 +714,18 @@ Partial Class Manager
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(249, 98)
         Me.Panel1.TabIndex = 17
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Checked = Global.ServerManager.My.MySettings.Default.NoIPPasswordViewChecked
+        Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "NoIPPasswordViewChecked", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.CheckBox2.Location = New System.Drawing.Point(50, 67)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
+        Me.CheckBox2.TabIndex = 17
+        Me.CheckBox2.Text = "顯示密碼"
+        Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'Button4
         '
@@ -1088,6 +1101,19 @@ Partial Class Manager
         Me.TabPage2.Text = "版本列表"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'SnapshotCheckBox
+        '
+        Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.SnapshotCheckBox.AutoSize = True
+        Me.SnapshotCheckBox.Checked = Global.ServerManager.My.MySettings.Default.ShowSnapshot
+        Me.SnapshotCheckBox.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "ShowSnapshot", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
+        Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
+        Me.SnapshotCheckBox.Size = New System.Drawing.Size(120, 16)
+        Me.SnapshotCheckBox.TabIndex = 32
+        Me.SnapshotCheckBox.Text = "顯示原版快照版本"
+        Me.SnapshotCheckBox.UseVisualStyleBackColor = True
+        '
         'TabPage3
         '
         Me.TabPage3.Controls.Add(Me.GitGroupBox)
@@ -1346,31 +1372,6 @@ Partial Class Manager
         '
         Me.NoIPTimer.Interval = 1000
         '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = Global.ServerManager.My.MySettings.Default.NoIPPasswordViewChecked
-        Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "NoIPPasswordViewChecked", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.CheckBox2.Location = New System.Drawing.Point(50, 67)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
-        Me.CheckBox2.TabIndex = 17
-        Me.CheckBox2.Text = "顯示密碼"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
-        'SnapshotCheckBox
-        '
-        Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.SnapshotCheckBox.AutoSize = True
-        Me.SnapshotCheckBox.Checked = Global.ServerManager.My.MySettings.Default.ShowSnapshot
-        Me.SnapshotCheckBox.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "ShowSnapshot", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
-        Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
-        Me.SnapshotCheckBox.Size = New System.Drawing.Size(120, 16)
-        Me.SnapshotCheckBox.TabIndex = 32
-        Me.SnapshotCheckBox.Text = "顯示原版快照版本"
-        Me.SnapshotCheckBox.UseVisualStyleBackColor = True
-        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1531,7 +1532,7 @@ Partial Class Manager
     Friend WithEvents CauldronLoadingLabel As Label
     Friend WithEvents Label17 As Label
     Friend WithEvents PackServerListPage As TabPage
-    Friend WithEvents PackServerListPanel As TableLayoutPanel
+    Friend WithEvents ModpackServerListPanel As TableLayoutPanel
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button

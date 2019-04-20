@@ -18,6 +18,24 @@ Public Class ModPackServer
     Public Property ServerOptions As New Dictionary(Of String, String)
     Public ReadOnly Property ServerIcon As Image = New Bitmap(64, 64)
     Public Property ProcessID As Integer = 0
+    Public _InternalJavaArguments As String = ""
+    Property InternalJavaArguments As String
+        Get
+            Return _InternalJavaArguments
+        End Get
+        Friend Set(value As String)
+            _InternalJavaArguments = value
+        End Set
+    End Property
+    Public _ServerRunJAR As String = ""
+    Public Property ServerRunJAR As String
+        Get
+            Return _ServerRunJAR
+        End Get
+        Friend Set(value As String)
+            _ServerRunJAR = value
+        End Set
+    End Property
 
     Sub SetPackInfo(name As String, Version As String, Type As ModPackType)
         _PackName = name
@@ -57,6 +75,10 @@ Public Class ModPackServer
                                     End Select
                                 Case "pack-name"
                                     server._PackName = info(1)
+                                Case "internal-java-args"
+                                    server._InternalJavaArguments = info(1)
+                                Case "server-file"
+                                    server._ServerRunJAR = info(1)
                             End Select
                         End If
                     Loop
@@ -115,11 +137,12 @@ Public Class ModPackServer
             writer.WriteLine("pack-name=" & PackName)
             writer.WriteLine("pack-type=" & PackType.ToString)
             writer.WriteLine("pack-version=" & PackVersion)
+            writer.WriteLine("internal-java-args=" & InternalJavaArguments)
+            writer.WriteLine("server-file=" & ServerRunJAR)
             writer.Flush()
             writer.Close()
         End Using
     End Sub
-
     Friend Sub SaveServer()
         My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
         Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), System.Text.Encoding.UTF8)

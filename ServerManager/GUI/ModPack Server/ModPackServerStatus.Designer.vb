@@ -27,7 +27,6 @@ Partial Class ModPackServerStatus
         Me.ShowDirButton = New System.Windows.Forms.Button()
         Me.ServerIcon = New System.Windows.Forms.PictureBox()
         Me.CloseButton = New System.Windows.Forms.Button()
-        Me.SettingButton = New System.Windows.Forms.Button()
         Me.RunButton = New System.Windows.Forms.Button()
         Me.ServerRunStatus = New System.Windows.Forms.Label()
         Me.PackInfo = New System.Windows.Forms.Label()
@@ -46,7 +45,7 @@ Partial Class ModPackServerStatus
         Me.ShowDirButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.ShowDirButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.ShowDirButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ShowDirButton.Location = New System.Drawing.Point(595, 101)
+        Me.ShowDirButton.Location = New System.Drawing.Point(635, 101)
         Me.ShowDirButton.Name = "ShowDirButton"
         Me.ShowDirButton.Size = New System.Drawing.Size(34, 34)
         Me.ShowDirButton.TabIndex = 17
@@ -79,22 +78,6 @@ Partial Class ModPackServerStatus
         Me.CloseButton.TabStop = False
         Me.CloseButton.Text = ""
         Me.CloseButton.UseVisualStyleBackColor = False
-        '
-        'SettingButton
-        '
-        Me.SettingButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SettingButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
-        Me.SettingButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.Setting32
-        Me.SettingButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.SettingButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
-        Me.SettingButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.SettingButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.SettingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SettingButton.Location = New System.Drawing.Point(635, 101)
-        Me.SettingButton.Name = "SettingButton"
-        Me.SettingButton.Size = New System.Drawing.Size(34, 34)
-        Me.SettingButton.TabIndex = 14
-        Me.SettingButton.UseVisualStyleBackColor = False
         '
         'RunButton
         '
@@ -170,7 +153,6 @@ Partial Class ModPackServerStatus
         Me.Controls.Add(Me.ShowDirButton)
         Me.Controls.Add(Me.ServerIcon)
         Me.Controls.Add(Me.CloseButton)
-        Me.Controls.Add(Me.SettingButton)
         Me.Controls.Add(Me.RunButton)
         Me.Controls.Add(Me.ServerRunStatus)
         Me.Controls.Add(Me.PackInfo)
@@ -185,7 +167,6 @@ Partial Class ModPackServerStatus
     Friend WithEvents ShowDirButton As Button
     Friend WithEvents ServerIcon As PictureBox
     Friend WithEvents CloseButton As Button
-    Friend WithEvents SettingButton As Button
     Friend WithEvents RunButton As Button
     Friend WithEvents ServerRunStatus As Label
     Friend WithEvents PackInfo As Label

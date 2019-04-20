@@ -40,6 +40,9 @@ Partial Class ModPackServerConsole
         Me.IDLabel = New System.Windows.Forms.Label()
         Me.MemoryLabel = New System.Windows.Forms.Label()
         Me.ServerStatusLabel = New System.Windows.Forms.Label()
+        Me.SettingTabPage = New System.Windows.Forms.TabPage()
+        Me.NotifyGroupBox = New System.Windows.Forms.GroupBox()
+        Me.NotifyChooseListBox = New System.Windows.Forms.CheckedListBox()
         Me.DataTabPage = New System.Windows.Forms.TabPage()
         Me.DataListView = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -49,20 +52,17 @@ Partial Class ModPackServerConsole
         Me.CommandTextBox = New System.Windows.Forms.TextBox()
         Me.CloseCheckBox = New System.Windows.Forms.CheckBox()
         Me.StopLoadingCheckBox = New System.Windows.Forms.CheckBox()
-        Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ListBoxTImer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.NotifyGroupBox = New System.Windows.Forms.GroupBox()
-        Me.NotifyChooseListBox = New System.Windows.Forms.CheckedListBox()
-        Me.SettingTabPage = New System.Windows.Forms.TabPage()
+        Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
         Me.MainTabControl.SuspendLayout()
         Me.MainTabPage.SuspendLayout()
         Me.PlayerGroupBox.SuspendLayout()
         Me.UserContextMenu.SuspendLayout()
         Me.SystemGroupBox.SuspendLayout()
-        Me.DataTabPage.SuspendLayout()
-        Me.NotifyGroupBox.SuspendLayout()
         Me.SettingTabPage.SuspendLayout()
+        Me.NotifyGroupBox.SuspendLayout()
+        Me.DataTabPage.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -226,6 +226,41 @@ Partial Class ModPackServerConsole
         Me.ServerStatusLabel.Text = "伺服器狀態：關閉"
         Me.ServerStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'SettingTabPage
+        '
+        Me.SettingTabPage.AutoScroll = True
+        Me.SettingTabPage.Controls.Add(Me.NotifyGroupBox)
+        Me.SettingTabPage.Location = New System.Drawing.Point(4, 22)
+        Me.SettingTabPage.Name = "SettingTabPage"
+        Me.SettingTabPage.Padding = New System.Windows.Forms.Padding(3)
+        Me.SettingTabPage.Size = New System.Drawing.Size(792, 424)
+        Me.SettingTabPage.TabIndex = 2
+        Me.SettingTabPage.Text = "伺服器操作"
+        Me.SettingTabPage.UseVisualStyleBackColor = True
+        '
+        'NotifyGroupBox
+        '
+        Me.NotifyGroupBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NotifyGroupBox.Controls.Add(Me.NotifyChooseListBox)
+        Me.NotifyGroupBox.Location = New System.Drawing.Point(8, 6)
+        Me.NotifyGroupBox.Name = "NotifyGroupBox"
+        Me.NotifyGroupBox.Size = New System.Drawing.Size(776, 84)
+        Me.NotifyGroupBox.TabIndex = 34
+        Me.NotifyGroupBox.TabStop = False
+        Me.NotifyGroupBox.Text = "通知"
+        '
+        'NotifyChooseListBox
+        '
+        Me.NotifyChooseListBox.CheckOnClick = True
+        Me.NotifyChooseListBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.NotifyChooseListBox.FormattingEnabled = True
+        Me.NotifyChooseListBox.Items.AddRange(New Object() {"玩家登入", "玩家登出", "伺服器發出警告訊息", "伺服器發出錯誤訊息"})
+        Me.NotifyChooseListBox.Location = New System.Drawing.Point(3, 18)
+        Me.NotifyChooseListBox.Name = "NotifyChooseListBox"
+        Me.NotifyChooseListBox.Size = New System.Drawing.Size(770, 63)
+        Me.NotifyChooseListBox.TabIndex = 0
+        '
         'DataTabPage
         '
         Me.DataTabPage.Controls.Add(Me.DataListView)
@@ -308,49 +343,14 @@ Partial Class ModPackServerConsole
         Me.StopLoadingCheckBox.Text = "暫停載入"
         Me.StopLoadingCheckBox.UseVisualStyleBackColor = True
         '
-        'TaskTimer
-        '
-        Me.TaskTimer.Interval = 50
-        '
         'ListBoxTImer
         '
         Me.ListBoxTImer.Enabled = True
         Me.ListBoxTImer.Interval = 250
         '
-        'NotifyGroupBox
+        'TaskTimer
         '
-        Me.NotifyGroupBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.NotifyGroupBox.Controls.Add(Me.NotifyChooseListBox)
-        Me.NotifyGroupBox.Location = New System.Drawing.Point(8, 6)
-        Me.NotifyGroupBox.Name = "NotifyGroupBox"
-        Me.NotifyGroupBox.Size = New System.Drawing.Size(776, 84)
-        Me.NotifyGroupBox.TabIndex = 34
-        Me.NotifyGroupBox.TabStop = False
-        Me.NotifyGroupBox.Text = "通知"
-        '
-        'NotifyChooseListBox
-        '
-        Me.NotifyChooseListBox.CheckOnClick = True
-        Me.NotifyChooseListBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.NotifyChooseListBox.FormattingEnabled = True
-        Me.NotifyChooseListBox.Items.AddRange(New Object() {"玩家登入", "玩家登出", "伺服器發出警告訊息", "伺服器發出錯誤訊息"})
-        Me.NotifyChooseListBox.Location = New System.Drawing.Point(3, 18)
-        Me.NotifyChooseListBox.Name = "NotifyChooseListBox"
-        Me.NotifyChooseListBox.Size = New System.Drawing.Size(770, 63)
-        Me.NotifyChooseListBox.TabIndex = 0
-        '
-        'SettingTabPage
-        '
-        Me.SettingTabPage.AutoScroll = True
-        Me.SettingTabPage.Controls.Add(Me.NotifyGroupBox)
-        Me.SettingTabPage.Location = New System.Drawing.Point(4, 22)
-        Me.SettingTabPage.Name = "SettingTabPage"
-        Me.SettingTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.SettingTabPage.Size = New System.Drawing.Size(792, 424)
-        Me.SettingTabPage.TabIndex = 2
-        Me.SettingTabPage.Text = "伺服器操作"
-        Me.SettingTabPage.UseVisualStyleBackColor = True
+        Me.TaskTimer.Interval = 50
         '
         'ModPackServerConsole
         '
@@ -362,16 +362,16 @@ Partial Class ModPackServerConsole
         Me.Controls.Add(Me.MainTabControl)
         Me.DoubleBuffered = True
         Me.Name = "ModPackServerConsole"
-        Me.Text = "伺服器控制台"
+        Me.Text = "模組包伺服器控制台"
         Me.MainTabControl.ResumeLayout(False)
         Me.MainTabPage.ResumeLayout(False)
         Me.PlayerGroupBox.ResumeLayout(False)
         Me.UserContextMenu.ResumeLayout(False)
         Me.SystemGroupBox.ResumeLayout(False)
+        Me.SettingTabPage.ResumeLayout(False)
+        Me.NotifyGroupBox.ResumeLayout(False)
         Me.DataTabPage.ResumeLayout(False)
         Me.DataTabPage.PerformLayout()
-        Me.NotifyGroupBox.ResumeLayout(False)
-        Me.SettingTabPage.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -385,7 +385,6 @@ Partial Class ModPackServerConsole
     Friend WithEvents SystemGroupBox As GroupBox
     Friend WithEvents IDLabel As Label
     Friend WithEvents MemoryLabel As Label
-    Friend WithEvents TaskTimer As Timer
     Friend WithEvents CloseCheckBox As CheckBox
     Friend WithEvents DataListView As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
@@ -404,9 +403,10 @@ Partial Class ModPackServerConsole
     Friend WithEvents 解除OPToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents RestartButton As Button
-    Friend WithEvents ForceCloseButton As Button    End Sub
-Friend WithEvents Panel1 As Panel
+    Friend WithEvents ForceCloseButton As Button
+    Friend WithEvents Panel1 As Panel
     Friend WithEvents SettingTabPage As TabPage
     Friend WithEvents NotifyGroupBox As GroupBox
     Friend WithEvents NotifyChooseListBox As CheckedListBox
+    Friend WithEvents TaskTimer As Timer
 End Class
