@@ -15,7 +15,7 @@ Public Class ModPackServerConsole
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         _Server = Server
-        Text = "伺服器控制台 - " & Server.ServerPathName
+        Text = "模組包伺服器控制台 - " & Server.ServerPathName
     End Sub
 
 

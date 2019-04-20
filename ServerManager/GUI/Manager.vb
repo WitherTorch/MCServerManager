@@ -506,9 +506,9 @@ Public Class Manager
                                                    Dim manifestListURL As String = "https://api.feed-the-beast.com/ss/api/JSON/pack"
                                                    Try
                                                        Dim client As New Net.WebClient()
-                                                       'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "下載列表中..."))
+                                                       BeginInvoke(New Action(Sub() FTBLoadingLabel.Text = "Feed The Beast：" & "下載列表中..."))
                                                        Dim docHtml = client.DownloadString(manifestListURL)
-                                                       'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入列表中..."))
+                                                       BeginInvoke(New Action(Sub() FTBLoadingLabel.Text = "Feed The Beast：" & "載入列表中..."))
                                                        Dim jsonMotherObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
                                                        For Each jsonProperty As JProperty In jsonMotherObject.Children
                                                            Dim jsonObject As JObject = jsonProperty.Value
@@ -524,9 +524,9 @@ Public Class Manager
                                                        Next
                                                        docHtml = Nothing
                                                        client.Dispose()
-                                                       'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入完成"))
+                                                       BeginInvoke(New Action(Sub() FTBLoadingLabel.Text = "Feed The Beast：" & "載入完成"))
                                                    Catch ex As Exception
-                                                       'BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "(無)"))
+                                                       BeginInvoke(New Action(Sub() FTBLoadingLabel.Text = "Feed The Beast：" & "(無)"))
                                                    End Try
                                                End Sub)
         FeedTheBeastGetPackThread.Name = "FeedTheBeast GetModpack Thread"
@@ -1577,7 +1577,7 @@ Public Class Manager
         End Select
         r = Nothing
         UpdateVersionLists()
-        GetFeedTheBeastPackList()
+        UpdateModpackList()
         CheckBox2_CheckedChanged(CheckBox2, New EventArgs)
         GC.Collect()
     End Sub
@@ -1624,5 +1624,25 @@ Public Class Manager
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         Dim create As New ModPackServerCreateDialog()
         create.Show(Me)
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        UpdateModpackList()
+    End Sub
+    Private Sub UpdateModpackList()
+        If My.Computer.Network.IsAvailable Then
+            If IsNothing(FeedTheBeastGetPackThread) = False AndAlso FeedTheBeastGetPackThread.IsAlive = True Then
+                Try
+                    FeedTheBeastGetPackThread.Abort()
+                Catch ex As Exception
+
+                End Try
+                FeedTheBeastGetPackThread = Nothing
+            End If
+            GetFeedTheBeastPackList()
+        Else
+            FTBLoadingLabel.Text = "Feed The Beast：" & "(無)"
+        End If
+        GC.Collect()
     End Sub
 End Class

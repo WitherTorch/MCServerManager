@@ -62,3 +62,15 @@ C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Re
 C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.dll
 C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.xml
 C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.pdb
+D:\程式\MinecraftServerManager\MinecraftGUI\bin\Release\MinecraftGUI.dll
+D:\程式\MinecraftServerManager\MinecraftGUI\bin\Release\MinecraftGUI.pdb
+D:\程式\MinecraftServerManager\MinecraftGUI\bin\Release\MinecraftGUI.xml
+D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.Button.resources
+D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.CheckBox.resources
+D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.MinecraftFormTemplate.resources
+D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.Resources.resources
+D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.vbproj.GenerateResource.cache
+D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.vbproj.CoreCompileInputs.cache
+D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.dll
+D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.xml
+D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.pdb
