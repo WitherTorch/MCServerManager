@@ -7,7 +7,8 @@ Namespace JsonServer.Protocol
         Enum MessageTypeEnum
             None
             [Error]
-            Infomation
+            ConsoleMsg
+            ServerStatus
             Data
         End Enum
         <Json.JsonProperty("type")>

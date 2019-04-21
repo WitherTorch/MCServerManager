@@ -7,15 +7,16 @@ Namespace JsonServer.Protocol
         Enum MessageTypeEnum
             None
             GetServerList
-            GetSolutionList
             AddServer
             EditServer
             RemoveServer
-            AddSolution
-            EditSolution
-            RemoveSolution
-            Login
-            Logout
+            UserLogin
+            UserLogout
+            StartServer
+            StopServer
+            ForceStopServer
+            RestartServer
+            ServerCmd
         End Enum
         <Json.JsonProperty("type")>
         Public Property MessageType As MessageTypeEnum = MessageTypeEnum.None

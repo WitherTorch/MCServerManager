@@ -15,3 +15,11 @@ F:\程式\ServerLauncher\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.p
 F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.dll
 F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.pdb
 F:\程式\ServerLauncher\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.xml
+D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbprojAssemblyReference.cache
+D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.Form1.resources
+D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.Resources.resources
+D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.GenerateResource.cache
+D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.CoreCompileInputs.cache
+D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.exe
+D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.xml
+D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.pdb
