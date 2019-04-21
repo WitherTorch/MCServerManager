@@ -88,14 +88,11 @@
     <Compile Include="JsonServer\JsonServerConnection.vb" />
     <Compile Include="JsonServer\Exceptions\JsonServerException.vb" />
     <Compile Include="JsonServer\JsonServerHost.vb" />
-    <Compile Include="JsonServer\Messages\AddSolution.vb" />
     <Compile Include="JsonServer\Messages\EditServer.vb" />
-    <Compile Include="JsonServer\Messages\EditSolution.vb" />
     <Compile Include="JsonServer\Messages\Error.vb" />
     <Compile Include="JsonServer\Messages\Login.vb" />
     <Compile Include="JsonServer\Messages\Logout.vb" />
     <Compile Include="JsonServer\Messages\RemoveServer.vb" />
-    <Compile Include="JsonServer\Messages\RemoveSolution.vb" />
     <Compile Include="JsonServer\Protocols\JsonProtocol_In.vb" />
     <Compile Include="JSONSafeModule.vb" />
     <Compile Include="JsonServer\Messages\AddServer.vb" />
