@@ -15,21 +15,22 @@ namespace FTPServerLib
 
         private bool _disposed = false;
         private bool _listening = false;
-
+        private Action<string> msgAction; 
         private TcpListener _listener;
         private List<ClientConnection> _activeConnections;
         internal static string homeDir ;
         private IPEndPoint _localEndPoint;
 
-        public FtpServer(string dir)
-        :this(IPAddress.Any, 21, dir)
+        public FtpServer(string dir,Action<string> msgAction)
+        :this(IPAddress.Any, 21, dir, msgAction)
         {
         }
 
-        public FtpServer(IPAddress ipAddress, int port,string dir)
+        public FtpServer(IPAddress ipAddress, int port,string dir, Action<string> msgAction)
         {
             _localEndPoint = new IPEndPoint(ipAddress, port);
             homeDir = dir;
+            this.msgAction = msgAction;
         }
 
         public void Start()
@@ -62,7 +63,7 @@ namespace FTPServerLib
 
                 TcpClient client = _listener.EndAcceptTcpClient(result);
 
-                ClientConnection connection = new ClientConnection(client);
+                ClientConnection connection = new ClientConnection(client,msgAction);
 
                 _activeConnections.Add(connection);
 

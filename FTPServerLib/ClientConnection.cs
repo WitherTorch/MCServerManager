@@ -135,17 +135,21 @@ namespace FTPServerLib
 
         private List<string> _validCommands;
 
-        public ClientConnection(TcpClient client)
+        private Action<string> action;
+
+        public ClientConnection(TcpClient client,Action<string> msgAction)
         {
             _controlClient = client;
 
             _validCommands = new List<string>();
+            action = msgAction;
         }
 
         private string CheckUser()
         {
             if (_currentUser == null)
             {
+                action("Response " + _clientIP + " Error 530(Not logged in)");
                 return "530 Not logged in";
             }
 
@@ -219,6 +223,7 @@ namespace FTPServerLib
                                 response = ChangeWorkingDirectory("..");
                                 break;
                             case "QUIT":
+                                action("Response " + _clientIP + " Message 221(Service closing control connection)");
                                 response = "221 Service closing control connection";
                                 break;
                             case "REIN":
@@ -226,7 +231,7 @@ namespace FTPServerLib
                                 _username = null;
                                 _passiveListener = null;
                                 _dataClient = null;
-
+                                action("Response " + _clientIP + " Message 220(Service ready for new user)");
                                 response = "220 Service ready for new user";
                                 break;
                             case "PORT":
@@ -246,6 +251,7 @@ namespace FTPServerLib
                                 break;
                             case "RNFR":
                                 renameFrom = arguments;
+                                action("Response " + _clientIP + " Info 330(Requested file action pending further information)");
                                 response = "350 Requested file action pending further information";
                                 break;
                             case "RNTO":
@@ -279,36 +285,46 @@ namespace FTPServerLib
                                 response = List(arguments ?? _currentDirectory);
                                 break;
                             case "SYST":
+                                action("Response " + _clientIP + " Message 215(UNIX Type: L8)");
                                 response = "215 UNIX Type: L8";
                                 break;
                             case "NOOP":
+                                action("Response " + _clientIP + " OK(Message 200)");
                                 response = "200 OK";
                                 break;
                             case "ACCT":
+                                action("Response " + _clientIP + " OK(Message 200)");
                                 response = "200 OK";
                                 break;
                             case "ALLO":
+                                action("Response " + _clientIP + " OK(Message 200)");
                                 response = "200 OK";
                                 break;
                             case "NLST":
+                                action("Response " + _clientIP + " Message 502(Command not implemented)");
                                 response = "502 Command not implemented";
                                 break;
                             case "SITE":
+                                action("Response " + _clientIP + " Message 502(Command not implemented)");
                                 response = "502 Command not implemented";
                                 break;
                             case "STAT":
+                                action("Response " + _clientIP + " Message 502(Command not implemented)");
                                 response = "502 Command not implemented";
                                 break;
                             case "HELP":
+                                action("Response " + _clientIP + " Message 502(Command not implemented)");
                                 response = "502 Command not implemented";
                                 break;
                             case "SMNT":
                                 response = "502 Command not implemented";
                                 break;
                             case "REST":
+                                action("Response " + _clientIP + " Message 502(Command not implemented)");
                                 response = "502 Command not implemented";
                                 break;
                             case "ABOR":
+                                action("Response " + _clientIP + " Message 502(Command not implemented)");
                                 response = "502 Command not implemented";
                                 break;
 
@@ -342,6 +358,7 @@ namespace FTPServerLib
                                 break;
 
                             default:
+                                action("Response " + _clientIP + " Message 502(Command not implemented)");
                                 response = "502 Command not implemented";
                                 break;
                         }
@@ -422,6 +439,7 @@ namespace FTPServerLib
 
         private string Options(string arguments)
         {
+            action("Response " + _clientIP + " Looks good to me...(Message 200)");
             return "200 Looks good to me...";
         }
 
@@ -429,10 +447,12 @@ namespace FTPServerLib
         {
             if (authMode == "TLS")
             {
+                action("Response " + _clientIP + " Message 234(Enabling TLS Connection)");
                 return "234 Enabling TLS Connection";
             }
             else
             {
+                action("Response " + _clientIP + " Error 504(Unrecognized AUTH mode)");
                 return "504 Unrecognized AUTH mode";
             }
         }
@@ -440,7 +460,7 @@ namespace FTPServerLib
         private string User(string username)
         {
             _username = username;
-
+            action("Response " + _clientIP + " Info 331(Username ok, need password)");
             return "331 Username ok, need password";
         }
 
@@ -452,11 +472,12 @@ namespace FTPServerLib
             {
                 _root = _currentUser.HomeDir;
                 _currentDirectory = _root;
-
+                action("Response " + _clientIP + " Message 230(User logged in)");
                 return "230 User logged in";
             }
             else
             {
+                action("Response " + _clientIP + " Error 530(Not logged in)");
                 return "530 Not logged in";
             }
         }
@@ -496,7 +517,7 @@ namespace FTPServerLib
                     _currentDirectory = _root;
                 }
             }
-
+            action("Response " + _clientIP + " Message 250(Changed to new directory)");
             return "250 Changed to new directory";
         }
 
@@ -523,7 +544,7 @@ namespace FTPServerLib
                 Array.Reverse(port);
 
             _dataEndpoint = new IPEndPoint(new IPAddress(ipAddress), BitConverter.ToInt16(port, 0));
-
+            action("Response " + _clientIP + " Data Connection Established(Message 200)");
             return "200 Data Connection Established";
         }
 
@@ -541,7 +562,7 @@ namespace FTPServerLib
             string port = rawSplit[2];
 
             _dataEndpoint = new IPEndPoint(IPAddress.Parse(ipAddress), int.Parse(port));
-
+            action("Response " + _clientIP + " Data Connection Established(Message 200)");
             return "200 Data Connection Established";
         }
 
@@ -563,7 +584,7 @@ namespace FTPServerLib
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(portArray);
-
+            action("Response " + _clientIP + string.Format(" Message 227(Entering Passive Mode ({0},{1},{2},{3},{4},{5}))", address[0], address[1], address[2], address[3], portArray[0], portArray[1]));
             return string.Format("227 Entering Passive Mode ({0},{1},{2},{3},{4},{5})", address[0], address[1], address[2], address[3], portArray[0], portArray[1]);
         }
 
@@ -577,7 +598,7 @@ namespace FTPServerLib
             _passiveListener.Start();
 
             IPEndPoint passiveListenerEndpoint = (IPEndPoint)_passiveListener.LocalEndpoint;
-
+            action("Response " + _clientIP + " Message 229(Entering Extended Passive Mode (|||" + passiveListenerEndpoint.Port + "|))");
             return string.Format("229 Entering Extended Passive Mode (|||{0}|)", passiveListenerEndpoint.Port);
         }
 
@@ -592,6 +613,7 @@ namespace FTPServerLib
                     _connectionType = TransferType.Image;
                     break;
                 default:
+                    action("Response " + _clientIP + " Error 504(Command not implemented for that parameter)");
                     return "504 Command not implemented for that parameter";
             }
 
@@ -603,10 +625,11 @@ namespace FTPServerLib
                         _formatControlType = FormatControlType.NonPrint;
                         break;
                     default:
+                        action("Response " + _clientIP + " Error 504(Command not implemented for that parameter)");
                         return "504 Command not implemented for that parameter";
                 }
             }
-
+            action("Response " + _clientIP + " Type set to " + _connectionType.ToString() + "(Message 200)");
             return string.Format("200 Type set to {0}", _connectionType);
         }
 
@@ -622,12 +645,13 @@ namespace FTPServerLib
                 }
                 else
                 {
+                    action("Response " + _clientIP + " Error 550(File Not Found)");
                     return "550 File Not Found";
                 }
-
+                action("Response " + _clientIP + " Message 250(Requested file action okay, completed)");
                 return "250 Requested file action okay, completed";
             }
-
+            action("Response " + _clientIP + " Error 550(File Not Found)");
             return "550 File Not Found";
         }
 
@@ -643,12 +667,13 @@ namespace FTPServerLib
                 }
                 else
                 {
+                    action("Response " + _clientIP + " Error 550(Directory Not Found)");
                     return "550 Directory Not Found";
                 }
-
+                action("Response " + _clientIP + " Message 250(Requested file action okay, completed)");
                 return "250 Requested file action okay, completed";
             }
-
+            action("Response " + _clientIP + " Error 550(Directory Not Found)");
             return "550 Directory Not Found";
         }
 
@@ -664,12 +689,13 @@ namespace FTPServerLib
                 }
                 else
                 {
+                    action("Response " + _clientIP + " Error 550(Directory already exists)");
                     return "550 Directory already exists";
                 }
-
+                action("Response " + _clientIP + " Message 250(Requested file action okay, completed)");
                 return "250 Requested file action okay, completed";
             }
-
+            action("Response " + _clientIP + " Error 550(Directory already exists)");
             return "550 Directory Not Found";
         }
 
@@ -684,7 +710,7 @@ namespace FTPServerLib
                     return string.Format("213 {0}", File.GetLastWriteTime(pathname).ToString("yyyyMMddHHmmss.fff"));
                 }
             }
-
+            action("Response " + _clientIP + " Error 550(File Not Found)");
             return "550 File Not Found";
         }
 
@@ -706,7 +732,7 @@ namespace FTPServerLib
                     return string.Format("213 {0}", length);
                 }
             }
-
+            action("Response " + _clientIP + " Error 550(File Not Found)");
             return "550 File Not Found";
         }
 
@@ -725,7 +751,7 @@ namespace FTPServerLib
                     return string.Format("150 Opening {0} mode data transfer for RETR", _dataConnectionType);
                 }
             }
-
+            action("Response " + _clientIP + " Error 550(File Not Found)");
             return "550 File Not Found";
         }
 
@@ -741,7 +767,7 @@ namespace FTPServerLib
 
                 return string.Format("150 Opening {0} mode data transfer for STOR", _dataConnectionType);
             }
-
+            action("Response " + _clientIP + " Error 450(Requested file action not taken)");
             return "450 Requested file action not taken";
         }
 
@@ -757,7 +783,7 @@ namespace FTPServerLib
 
                 return string.Format("150 Opening {0} mode data transfer for APPE", _dataConnectionType);
             }
-
+            action("Response " + _clientIP + " Error 450(Requested file action not taken)");
             return "450 Requested file action not taken";
         }
 
@@ -768,7 +794,7 @@ namespace FTPServerLib
             var state = new DataConnectionOperation { Arguments = pathname, Operation = StoreOperation };
 
             SetupDataConnectionOperation(state);
-
+            action("Response " + _clientIP + " Message 150(Opening "+_dataConnectionType.ToString() +" mode data transfer for STOU)");
             return string.Format("150 Opening {0} mode data transfer for STOU", _dataConnectionType);
         }
 
@@ -780,7 +806,7 @@ namespace FTPServerLib
             {
                 current = "/";
             }
-
+            action("Response " + _clientIP + " Message 257(\""+ current + "\" is current directory.)");
             return string.Format("257 \"{0}\" is current directory.", current); ;
         }
 
@@ -793,10 +819,10 @@ namespace FTPServerLib
                 var state = new DataConnectionOperation { Arguments = pathname, Operation = ListOperation };
 
                 SetupDataConnectionOperation(state);
-
+                action("Response " + _clientIP + " Message 150(Opening " + _dataConnectionType.ToString() + " mode data transfer for LIST)");
                 return string.Format("150 Opening {0} mode data transfer for LIST", _dataConnectionType);
             }
-
+            action("Response " + _clientIP + " Error 450(Requested file action not taken)");
             return "450 Requested file action not taken";
         }
 
@@ -809,8 +835,10 @@ namespace FTPServerLib
                     break;
                 case "R":
                 case "P":
+                    action("Response " + _clientIP + string.Format(" Error 504( STRU not implemented for \"{0}\")", structure));
                     return string.Format("504 STRU not implemented for \"{0}\"", structure);
                 default:
+                    action("Response " + _clientIP + string.Format(" Error 501(Parameter {0} not recognized)", structure));
                     return string.Format("501 Parameter {0} not recognized", structure);
             }
 
@@ -821,10 +849,12 @@ namespace FTPServerLib
         {
             if (mode.ToUpperInvariant() == "S")
             {
+                action("Response " + _clientIP + " OK(Message 200)");
                 return "200 OK";
             }
             else
             {
+                action("Response " + _clientIP + " Error 504(Command not implemented for that parameter)");
                 return "504 Command not implemented for that parameter";
             }
         }
@@ -833,6 +863,7 @@ namespace FTPServerLib
         {
             if (string.IsNullOrWhiteSpace(renameFrom) || string.IsNullOrWhiteSpace(renameTo))
             {
+                action("Response " + _clientIP + " Error 450(Requested file action not taken)");
                 return "450 Requested file action not taken";
             }
 
@@ -851,12 +882,13 @@ namespace FTPServerLib
                 }
                 else
                 {
+                    action("Response " + _clientIP + " Error 450(Requested file action not taken)");
                     return "450 Requested file action not taken";
                 }
-
+                action("Response " + _clientIP + " Message 250(Requested file action okay, completed)");
                 return "250 Requested file action okay, completed";
             }
-
+            action("Response " + _clientIP + " Error 450(Requested file action not taken)");
             return "450 Requested file action not taken";
         }
 

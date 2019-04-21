@@ -45,10 +45,10 @@ namespace FTPServerLib
             }
             return _currentUser;
         }
-        public static void RemoveUser(string username, string password)
+        public static void RemoveUser(string username)
         {
 
-            User _currentUser = Validate(username, password);
+            User _currentUser =  (from u in _users where u.Username == username  select u).SingleOrDefault();
             if (_currentUser != null)
             {
                 _users.Remove(_currentUser);
