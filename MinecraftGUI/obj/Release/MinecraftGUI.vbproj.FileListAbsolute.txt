@@ -73,3 +73,4 @@ D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.vbproj.Co
 D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.dll
 D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.xml
 D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.pdb
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.vbprojAssemblyReference.cache

@@ -32,12 +32,16 @@ Partial Class Manager
         Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
         Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
         Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
-        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
+        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
+        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
+        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
         Me.MainPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
+        Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
+        Me.KettleLoadingLabel = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.CauldronLoadingLabel = New System.Windows.Forms.Label()
         Me.SpigotGitLoadingLabel = New System.Windows.Forms.Label()
@@ -136,8 +140,6 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.KettleLoadingLabel = New System.Windows.Forms.Label()
-        Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -249,6 +251,30 @@ Partial Class Manager
         Me.VListLoadingBox.TabIndex = 30
         Me.VListLoadingBox.TabStop = False
         Me.VListLoadingBox.Text = "版本列表載入進度"
+        '
+        'ContigoLoadingLabel
+        '
+        Me.ContigoLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ContigoLoadingLabel.Location = New System.Drawing.Point(207, 110)
+        Me.ContigoLoadingLabel.Name = "ContigoLoadingLabel"
+        Me.ContigoLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.ContigoLoadingLabel.TabIndex = 14
+        Me.ContigoLoadingLabel.Text = "Contigo：載入完成"
+        Me.ContigoLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.ContigoLoadingLabel, "Thermos 的分支，已經停止開發。")
+        '
+        'KettleLoadingLabel
+        '
+        Me.KettleLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.KettleLoadingLabel.Location = New System.Drawing.Point(207, 133)
+        Me.KettleLoadingLabel.Name = "KettleLoadingLabel"
+        Me.KettleLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.KettleLoadingLabel.TabIndex = 13
+        Me.KettleLoadingLabel.Text = "Kettle："
+        Me.KettleLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.KettleLoadingLabel, "開發中的Minecraft伺服器版本，能夠同時使用模組及插件。")
         '
         'Label17
         '
@@ -1294,9 +1320,15 @@ Partial Class Manager
         ListViewItem9.StateImageIndex = 8
         ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
         ListViewItem10.Checked = True
-        ListViewItem10.StateImageIndex = 7
-        ListViewItem10.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10})
+        ListViewItem10.StateImageIndex = 10
+        ListViewItem10.Tag = "https://github.com/djoveryde/Contigo"
+        ListViewItem11.Checked = True
+        ListViewItem11.StateImageIndex = 11
+        ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem12.Checked = True
+        ListViewItem12.StateImageIndex = 7
+        ListViewItem12.Tag = "https://nukkitx.com/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1320,6 +1352,8 @@ Partial Class Manager
         Me.ServerSoftwareImageList.Images.SetKeyName(7, "Nukkit.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(8, "thermos_icon.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(9, "cauldron.png")
+        Me.ServerSoftwareImageList.Images.SetKeyName(10, "Contigo.png")
+        Me.ServerSoftwareImageList.Images.SetKeyName(11, "kettle.png")
         '
         'Panel3
         '
@@ -1412,30 +1446,6 @@ Partial Class Manager
         'NoIPTimer
         '
         Me.NoIPTimer.Interval = 1000
-        '
-        'KettleLoadingLabel
-        '
-        Me.KettleLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.KettleLoadingLabel.Location = New System.Drawing.Point(207, 133)
-        Me.KettleLoadingLabel.Name = "KettleLoadingLabel"
-        Me.KettleLoadingLabel.Size = New System.Drawing.Size(195, 23)
-        Me.KettleLoadingLabel.TabIndex = 13
-        Me.KettleLoadingLabel.Text = "Kettle："
-        Me.KettleLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.KettleLoadingLabel, "開發中的Minecraft伺服器版本，能夠同時使用模組及插件。")
-        '
-        'ContigoLoadingLabel
-        '
-        Me.ContigoLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ContigoLoadingLabel.Location = New System.Drawing.Point(207, 110)
-        Me.ContigoLoadingLabel.Name = "ContigoLoadingLabel"
-        Me.ContigoLoadingLabel.Size = New System.Drawing.Size(195, 23)
-        Me.ContigoLoadingLabel.TabIndex = 14
-        Me.ContigoLoadingLabel.Text = "Contigo：載入完成"
-        Me.ContigoLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.ContigoLoadingLabel, "Thermos 的分支，已經停止開發。")
         '
         'Manager
         '
