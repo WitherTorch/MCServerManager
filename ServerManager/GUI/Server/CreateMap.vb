@@ -21,6 +21,7 @@
     Private Sub LevelTypeBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LevelTypeBox.SelectedIndexChanged
         Dim version = server.ServerVersion
         Dim snapshotRegex As New System.Text.RegularExpressions.Regex("[0-9]{2}")
+        If server.ServerVersionType = Server.EServerVersionType.Kettle Then version = "1.12.2"
         If version = "master" Then
             version = "100.100"
         ElseIf server.Server2ndVersion <> "" AndAlso

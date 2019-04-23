@@ -70,6 +70,8 @@ Public NotInheritable Class Server
         Spigot_Git
         Cauldron
         Thermos
+        Contigo
+        Kettle
     End Enum
     Friend Shared Function CreateServer() As Server
         Return New Server
@@ -126,6 +128,12 @@ Public NotInheritable Class Server
                                                 server._ServerType = EServerType.Java
                                             Case "thermos"
                                                 server._ServerVersionType = EServerVersionType.Thermos
+                                                server._ServerType = EServerType.Java
+                                            Case "contigo"
+                                                server._ServerVersionType = EServerVersionType.Contigo
+                                                server._ServerType = EServerType.Java
+                                            Case "kettle"
+                                                server._ServerVersionType = EServerVersionType.Kettle
                                                 server._ServerType = EServerType.Java
                                             Case Else
                                                 server._ServerVersionType = EServerVersionType.Error
@@ -362,6 +370,38 @@ Public NotInheritable Class Server
                                                              CauldronOptions = CauldronOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "cauldron.yml"))
                                                          End If
                                                  End Select
+                                             Case EServerVersionType.Thermos
+                                                 If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
+                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                 Else
+                                                     BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                 End If
+                                                 If IO.File.Exists(IO.Path.Combine(ServerPath, "spigot.yml")) Then
+                                                     SpigotOptions = SpigotOptions.LoadOptions(IO.Path.Combine(ServerPath, "spigot.yml"))
+                                                 Else
+                                                     SpigotOptions = SpigotOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "spigot.yml"))
+                                                 End If
+                                                 If IO.File.Exists(IO.Path.Combine(ServerPath, "cauldron.yml")) Then
+                                                     CauldronOptions = CauldronOptions.LoadOptions(IO.Path.Combine(ServerPath, "cauldron.yml"))
+                                                 Else
+                                                     CauldronOptions = CauldronOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "cauldron.yml"))
+                                                 End If
+                                             Case EServerVersionType.Contigo
+                                                 If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
+                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                 Else
+                                                     BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                 End If
+                                                 If IO.File.Exists(IO.Path.Combine(ServerPath, "spigot.yml")) Then
+                                                     SpigotOptions = SpigotOptions.LoadOptions(IO.Path.Combine(ServerPath, "spigot.yml"))
+                                                 Else
+                                                     SpigotOptions = SpigotOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "spigot.yml"))
+                                                 End If
+                                                 If IO.File.Exists(IO.Path.Combine(ServerPath, "cauldron.yml")) Then
+                                                     CauldronOptions = CauldronOptions.LoadOptions(IO.Path.Combine(ServerPath, "cauldron.yml"))
+                                                 Else
+                                                     CauldronOptions = CauldronOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "cauldron.yml"))
+                                                 End If
                                          End Select
                                          CheckForUpdate()
                                          If _ServerVersionType = EServerVersionType.CraftBukkit OrElse

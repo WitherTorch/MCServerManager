@@ -50,7 +50,7 @@ Public Class ModPackServerConsole
     Private Overloads Sub Run()
         Select Case Server.PackType
             Case ModPackServer.ModPackType.FeedTheBeast
-                Run(IO.Path.Combine(JavaPath, "java.exe"), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar {3}", ServerMemoryMax, ServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("\"), Server.ServerPath, Server.ServerPath & "\") & Server.ServerRunJAR), Server.ServerPath, True, True)
+                Run(IO.Path.Combine(JavaPath, "java.exe"), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ServerMemoryMax, ServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("\"), Server.ServerPath, Server.ServerPath & "\") & Server.ServerRunJAR), Server.ServerPath, True, True)
         End Select
     End Sub
     Private Overloads Sub Run(program As String, serverDir As String)

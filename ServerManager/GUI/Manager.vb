@@ -20,6 +20,7 @@ Public Class Manager
     Dim SpongeVanillaGetVersionThread As Thread
     Dim PaperGetVersionThread As Thread
     Dim AkarinGetVersionThread As Thread
+    Dim KettleGetVersionThread As Thread
     Dim FeedTheBeastGetPackThread As Thread
     Dim ATGetPackThread As Thread
     Friend ServerPathList As New List(Of String)
@@ -391,6 +392,55 @@ Public Class Manager
         AkarinGetVersionThread.IsBackground = True
         AkarinGetVersionThread.Start()
     End Sub
+    Private Sub GetKettleServerVersionList()
+        KettleGetVersionThread = New Thread(Sub()
+                                                KettleVersionDict.Clear()
+                                                Dim manifestListURL As String = "https://api.github.com/repos/KettleFoundation/Kettle/releases"
+                                                Try
+                                                    Dim client As New Net.WebClient()
+                                                    client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
+                                                    BeginInvoke(New Action(Sub() KettleLoadingLabel.Text = "Kettle：" & "下載列表中..."))
+                                                    Dim docHtml = client.DownloadString(manifestListURL)
+                                                    BeginInvoke(New Action(Sub() KettleLoadingLabel.Text = "Kettle：" & "載入列表中..."))
+                                                    Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
+                                                    For Each jsonObject As JObject In jsonArray
+                                                        Try
+                                                            Dim name As String = ""
+                                                            jsonObject.TryGetValue("name", name)
+                                                            If name = "" Then Continue For
+                                                            name = name.Replace("Kettle ", "")
+                                                            Dim assets As JArray = Nothing
+                                                            jsonObject.TryGetValue("assets", assets)
+                                                            If assets IsNot Nothing AndAlso assets.Count > 1 Then
+                                                                Dim subJsonObject As JObject = assets(1)
+                                                                Dim url As String = subJsonObject.GetValue("browser_download_url")
+                                                                If assets.Count = 2 Then
+                                                                    KettleVersionDict.Add(name, (url, Nothing))
+                                                                Else
+                                                                    For i As Integer = 2 To assets.Count - 1
+                                                                        If CType(assets(i), JObject).GetValue("name") = "libraries.zip" Then
+                                                                            KettleVersionDict.Add(name, (url, CType(assets(i), JObject).GetValue("browser_download_url")))
+                                                                            Exit For
+                                                                        End If
+                                                                    Next
+                                                                    If KettleVersionDict.ContainsKey(name) = False Then KettleVersionDict.Add(name, (url, Nothing))
+                                                                End If
+                                                            End If
+                                                        Catch ex As Exception
+
+                                                        End Try
+                                                    Next
+                                                    docHtml = Nothing
+                                                    client.Dispose()
+                                                    BeginInvoke(New Action(Sub() KettleLoadingLabel.Text = "Kettle：" & "載入完成"))
+                                                Catch ex As Exception
+                                                    BeginInvoke(New Action(Sub() KettleLoadingLabel.Text = "Kettle：" & "(無)"))
+                                                End Try
+                                            End Sub)
+        KettleGetVersionThread.Name = "Kettle GetVersion Thread"
+        KettleGetVersionThread.IsBackground = True
+        KettleGetVersionThread.Start()
+    End Sub
     Private Sub VersionListReloadButton_Click(sender As Object, e As EventArgs) Handles VersionListReloadButton.Click
         UpdateVersionLists()
     End Sub
@@ -460,6 +510,14 @@ Public Class Manager
                 End Try
                 AkarinGetVersionThread = Nothing
             End If
+            If IsNothing(KettleGetVersionThread) = False AndAlso KettleGetVersionThread.IsAlive = True Then
+                Try
+                    KettleGetVersionThread.Abort()
+                Catch ex As Exception
+
+                End Try
+                KettleGetVersionThread = Nothing
+            End If
             If IsNothing(NukkitGetVersionThread) = False AndAlso NukkitGetVersionThread.IsAlive = True Then
                 Try
                     NukkitGetVersionThread.Abort()
@@ -484,6 +542,7 @@ Public Class Manager
             GetSpongeVanillaServerVersionList()
             GetPaperServerVersionList()
             GetAkarinServerVersionList()
+            GetKettleServerVersionList()
             GetNukkitServerVersionList()
             GetVanillaBedrockServerVersionList()
         Else
@@ -497,6 +556,7 @@ Public Class Manager
             AkarinLoadingLabel.Text = "Akarin：" & "(無)"
             NukkitLoadingLabel.Text = "Nukkit：" & "(無)"
             VanillaBedrockLoadingLabel.Text = "原版(基岩)：" & "(無)"
+            KettleLoadingLabel.Text = "Kettle：(無)"
         End If
         GC.Collect()
     End Sub
@@ -665,8 +725,9 @@ Public Class Manager
                          End Sub)
             Next
         End If
-        If BedrockServerDirs <> "" Then
-            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(BedrockServerDirs), Newtonsoft.Json.Linq.JArray)
+        '1.5.1 相容
+        If ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt")) <> "" Then
+            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"))), Newtonsoft.Json.Linq.JArray)
                 Task.Run(Sub()
                              AddServer(s.ToString)
                              ServerPathList.Add(s.ToString)
@@ -975,203 +1036,162 @@ Public Class Manager
         thread.Start()
     End Sub
 
-    Friend Sub AddServer(serverDirectory As String, Optional Register As Boolean = False)
-        If ServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then
-            Dim status As New ServerStatus(serverDirectory)
-            If status.Server.ServerVersionType = Server.EServerVersionType.Spigot_Git Then
-                status = New SpigotGitStatus(status.Server)
+    Friend Sub AddServer(serverDirectory As String)
+        SyncLock Me
+            If ServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then
+                Dim status As New ServerStatus(serverDirectory)
+                If status.Server.ServerVersionType = Server.EServerVersionType.Spigot_Git Then
+                    status = New SpigotGitStatus(status.Server)
+                End If
+                status.Dock = DockStyle.Fill
+                AddHandler status.ServerLoaded, Sub()
+                                                    If status.InvokeRequired Then
+                                                        status.BeginInvoke(Sub() status.Update())
+                                                    Else
+                                                        status.Update()
+                                                    End If
+                                                    If ServerListPanel.InvokeRequired Then
+                                                        ServerListPanel.BeginInvoke(Sub()
+                                                                                        Dim index = ServerListPanel.RowStyles.Count
+                                                                                        ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                                                        ServerListPanel.Controls.Add(status, 0, index)
+                                                                                        ServerListPanel.Update()
+                                                                                    End Sub)
+                                                    Else
+                                                        Dim index = ServerListPanel.RowStyles.Count
+                                                        ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                        ServerListPanel.Controls.Add(status, 0, index)
+                                                    End If
+                                                End Sub
+                status.LoadStatus()
+                ServerPathList.Add(serverDirectory)
+                AddHandler status.DeleteServer, Sub(NoUI)
+                                                    If NoUI Then
+                                                        Try
+                                                            If IsNothing(status) = False Then
+                                                                status.CloseServer()
+                                                            End If
+                                                        Catch ex As Exception
+                                                        Finally
+                                                            BeginInvokeIfRequired(Me, Sub()
+                                                                                          ServerListPanel.Controls.Remove(status)
+                                                                                          ServerPathList.Remove(status.Server.ServerPath)
+                                                                                      End Sub)
+                                                        End Try
+                                                    Else
+                                                        Try
+                                                            Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
+                                                                Case MsgBoxResult.Yes
+                                                                    If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
+                                                                        My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                                                                    End If
+                                                                Case MsgBoxResult.Cancel
+                                                                    Exit Sub
+                                                            End Select
+                                                        Catch ex As Exception
+                                                        End Try
+                                                        ServerListPanel.Controls.Remove(status)
+                                                        ServerPathList.Remove(status.Server.ServerPath)
+                                                        If IsNothing(status) = False Then
+                                                            status.CloseServer()
+                                                        End If
+                                                    End If
+                                                End Sub
             End If
-            status.Dock = DockStyle.Fill
-            AddHandler status.ServerLoaded, Sub()
-                                                If Register Then
-                                                    RegisterServer(status.Server)
-                                                End If
-                                                If status.InvokeRequired Then
-                                                    status.BeginInvoke(Sub() status.Update())
-                                                Else
-                                                    status.Update()
-                                                End If
-                                                If ServerListPanel.InvokeRequired Then
-                                                    ServerListPanel.BeginInvoke(Sub()
-                                                                                    Dim index = ServerListPanel.RowStyles.Count
-                                                                                    ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
-                                                                                    ServerListPanel.Controls.Add(status, 0, index)
-                                                                                    ServerListPanel.Update()
-                                                                                End Sub)
-                                                Else
-                                                    Dim index = ServerListPanel.RowStyles.Count
-                                                    ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
-                                                    ServerListPanel.Controls.Add(status, 0, index)
-                                                End If
-                                            End Sub
-            status.LoadStatus()
-            ServerPathList.Add(serverDirectory)
-            AddHandler status.DeleteServer, Sub(NoUI)
-                                                If NoUI Then
-                                                    Try
-                                                        If IsNothing(status) = False Then
-                                                            UnRegisterServer(status)
-                                                            status.CloseServer()
-                                                        End If
-                                                    Catch ex As Exception
-                                                    Finally
-                                                        ServerListPanel.Controls.Remove(status)
-                                                        ServerPathList.Remove(status.Server.ServerPath)
-                                                    End Try
-                                                Else
-                                                    Try
-                                                        Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
-                                                            Case MsgBoxResult.Yes
-                                                                If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
-                                                                    My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                                                                End If
-                                                            Case MsgBoxResult.No
-                                                            Case MsgBoxResult.Cancel
-                                                                Exit Sub
-                                                        End Select
-                                                    Catch ex As Exception
-                                                    Finally
-                                                        ServerListPanel.Controls.Remove(status)
-                                                        ServerPathList.Remove(status.Server.ServerPath)
-                                                        If IsNothing(status) = False Then
-                                                            UnRegisterServer(status)
-                                                            status.CloseServer()
-                                                        End If
-                                                    End Try
-                                                End If
-                                            End Sub
-        End If
+        End SyncLock
     End Sub
 
-    Sub RegisterServer(server As Server)
-        Select Case server.ServerType
-            Case Server.EServerType.Java
-                If JavaServerDirs <> "" Then
-                    Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(JavaServerDirs)
-                    array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
-                    JavaServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-                Else
-                    Dim array = New Newtonsoft.Json.Linq.JArray()
-                    array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
-                    JavaServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-                End If
-            Case Server.EServerType.Bedrock
-                If BedrockServerDirs <> "" Then
-                    Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(BedrockServerDirs)
-                    array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
-                    BedrockServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-                Else
-                    Dim array = New Newtonsoft.Json.Linq.JArray()
-                    array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
-                    BedrockServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-                End If
-        End Select
-
-    End Sub
-    Sub UnRegisterServer(status As ServerStatus)
-        Try
-            Select Case status.Server.ServerType
-                Case Server.EServerType.Java
-                    If JavaServerDirs <> "" Then
-                        Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(JavaServerDirs)
-                        array.Remove(status.Server.ServerPath)
-                        JavaServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-                    End If
-                Case Server.EServerType.Bedrock
-                    If BedrockServerDirs <> "" Then
-                        Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(BedrockServerDirs)
-                        array.Remove(status.Server.ServerPath)
-                        BedrockServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-                    End If
-            End Select
-        Catch ex As Exception
-        End Try
-    End Sub
     Friend Sub AddModpackServer(serverDirectory As String, Optional Register As Boolean = False)
-        If ModpackServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then
-            Dim status As New ModPackServerStatus(serverDirectory)
-            status.Dock = DockStyle.Fill
-            AddHandler status.ServerLoaded, Sub()
-                                                If Register Then
-                                                    RegisterModpackServer(status.Server)
-                                                End If
-                                                If status.InvokeRequired Then
-                                                    status.BeginInvoke(Sub() status.Update())
-                                                Else
-                                                    status.Update()
-                                                End If
-                                                If ModpackServerListPanel.InvokeRequired Then
-                                                    ModpackServerListPanel.BeginInvoke(Sub()
-                                                                                           Dim index = ModpackServerListPanel.RowStyles.Count
-                                                                                           ModpackServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
-                                                                                           ModpackServerListPanel.Controls.Add(status, 0, index)
-                                                                                           ModpackServerListPanel.Update()
-                                                                                       End Sub)
-                                                Else
-                                                    Dim index = ModpackServerListPanel.RowStyles.Count
-                                                    ModpackServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
-                                                    ModpackServerListPanel.Controls.Add(status, 0, index)
-                                                End If
-                                            End Sub
-            status.LoadStatus()
-            ModpackServerPathList.Add(serverDirectory)
-            AddHandler status.DeleteServer, Sub(NoUI)
-                                                If NoUI Then
-                                                    Try
+        SyncLock Me
+            If ModpackServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then
+                Dim status As New ModPackServerStatus(serverDirectory)
+                status.Dock = DockStyle.Fill
+                AddHandler status.ServerLoaded, Sub()
+                                                    If Register Then
+                                                        RegisterModpackServer(status.Server)
+                                                    End If
+                                                    If status.InvokeRequired Then
+                                                        status.BeginInvoke(Sub() status.Update())
+                                                    Else
+                                                        status.Update()
+                                                    End If
+                                                    If ModpackServerListPanel.InvokeRequired Then
+                                                        ModpackServerListPanel.BeginInvoke(Sub()
+                                                                                               Dim index = ModpackServerListPanel.RowStyles.Count
+                                                                                               ModpackServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                                                               ModpackServerListPanel.Controls.Add(status, 0, index)
+                                                                                               ModpackServerListPanel.Update()
+                                                                                           End Sub)
+                                                    Else
+                                                        Dim index = ModpackServerListPanel.RowStyles.Count
+                                                        ModpackServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                        ModpackServerListPanel.Controls.Add(status, 0, index)
+                                                    End If
+                                                End Sub
+                status.LoadStatus()
+                ModpackServerPathList.Add(serverDirectory)
+                AddHandler status.DeleteServer, Sub(NoUI)
+                                                    If NoUI Then
+                                                        Try
+                                                            If IsNothing(status) = False Then
+                                                                UnRegisterModpackServer(status)
+                                                                status.CloseServer()
+                                                            End If
+                                                        Catch ex As Exception
+                                                        Finally
+                                                            ModpackServerPathList.Remove(status.Server.ServerPath)
+                                                            ModpackServerListPanel.Controls.Remove(status)
+                                                        End Try
+                                                    Else
+                                                        Try
+                                                            Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
+                                                                Case MsgBoxResult.Yes
+                                                                    If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
+                                                                        My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                                                                    End If
+                                                                Case MsgBoxResult.Cancel
+                                                                    Exit Sub
+                                                            End Select
+                                                        Catch ex As Exception
+                                                        End Try
+                                                        ModpackServerPathList.Remove(status.Server.ServerPath)
+                                                        ModpackServerListPanel.Controls.Remove(status)
                                                         If IsNothing(status) = False Then
                                                             UnRegisterModpackServer(status)
                                                             status.CloseServer()
                                                         End If
-                                                    Catch ex As Exception
-                                                    Finally
-                                                        ModpackServerPathList.Remove(status.Server.ServerPath)
-                                                        ModpackServerListPanel.Controls.Remove(status)
-                                                    End Try
-                                                Else
-                                                    Try
-                                                        Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
-                                                            Case MsgBoxResult.Yes
-                                                                If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
-                                                                    My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                                                                End If
-                                                            Case MsgBoxResult.No
-                                                            Case MsgBoxResult.Cancel
-                                                                Exit Sub
-                                                        End Select
-                                                    Catch ex As Exception
-                                                    Finally
-                                                        ModpackServerPathList.Remove(status.Server.ServerPath)
-                                                        ModpackServerListPanel.Controls.Remove(status)
-                                                        If IsNothing(status) = False Then
-                                                            UnRegisterModpackServer(status)
-                                                            status.CloseServer()
-                                                        End If
-                                                    End Try
-                                                End If
-                                            End Sub
-        End If
+                                                    End If
+                                                End Sub
+            End If
+        End SyncLock
     End Sub
 
     Sub RegisterModpackServer(server As ModPackServer)
-        If ModpackServerDirs <> "" Then
-            Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ModpackServerDirs)
-            array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
-            ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-        Else
-            Dim array = New Newtonsoft.Json.Linq.JArray()
-            array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
-            ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-        End If
-    End Sub
-    Sub UnRegisterModpackServer(status As ModPackServerStatus)
-        Try
+        SyncLock Me
             If ModpackServerDirs <> "" Then
                 Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ModpackServerDirs)
-                array.Remove(status.Server.ServerPath)
+                array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
+                ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
+            Else
+                Dim array = New Newtonsoft.Json.Linq.JArray()
+                array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
                 ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
             End If
-        Catch ex As Exception
-        End Try
+        End SyncLock
+    End Sub
+    Sub UnRegisterModpackServer(status As ModPackServerStatus)
+        SyncLock Me
+            Try
+                If ModpackServerDirs <> "" Then
+                    Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ModpackServerDirs)
+                    For i As Integer = 0 To array.Count
+                        If array(i).ToString = status.Server.ServerPath Then array.RemoveAt(i)
+                    Next
+                    ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
+                End If
+            Catch ex As Exception
+            End Try
+        End SyncLock
     End Sub
 
     Private Sub Manager_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -1189,7 +1209,7 @@ Public Class Manager
             ElseIf ServerPathList.Contains(dialog.SelectedPath) Then
                 MsgBox("匯入時發生錯誤" & vbNewLine & "原因：伺服器已經存在於伺服器列表。",, Application.ProductName)
             Else
-                AddServer(dialog.SelectedPath, True)
+                AddServer(dialog.SelectedPath)
             End If
         End If
     End Sub
@@ -1228,8 +1248,7 @@ Public Class Manager
                                             "noip-password=" & password & vbNewLine &
                                             "noip-hosts= " & hosts & vbNewLine &
                                             "git-bash-path=" & GitBashPath, False, System.Text.Encoding.UTF8)
-                                         WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), JavaServerDirs)
-                                         WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"), BedrockServerDirs)
+                                         WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), JsonConvert.SerializeObject(ServerPathList))
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"), SolutionDirs)
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"), ModpackServerDirs)
                                      End Sub) With {.IsBackground = False, .Name = "ServerManager Save Setting Thread"}
@@ -1319,40 +1338,42 @@ Public Class Manager
                                                                             Exit Sub
                                                                     End Select
                                                                 Catch ex As Exception
-                                                                Finally
-                                                                    SolutionListPanel.Controls.Remove(status)
-                                                                    BungeePathList.Remove(status.Host.BungeePath)
-                                                                    If IsNothing(status) = False Then
-                                                                        UnRegisterSolution(status)
-                                                                        status.CloseSolution()
-                                                                    End If
                                                                 End Try
+                                                                SolutionListPanel.Controls.Remove(status)
+                                                                BungeePathList.Remove(status.Host.BungeePath)
+                                                                If IsNothing(status) = False Then
+                                                                    UnRegisterSolution(status)
+                                                                    status.CloseSolution()
+                                                                End If
                                                             End If
                                                         End Sub
         End If
 
     End Sub
     Sub RegisterSolution(host As BungeeCordHost)
-        If SolutionDirs <> "" Then
-            Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(SolutionDirs)
-            array.Add(New Newtonsoft.Json.Linq.JValue(host.BungeePath))
-            SolutionDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-        Else
-            Dim array = New Newtonsoft.Json.Linq.JArray()
-            array.Add(New Newtonsoft.Json.Linq.JValue(host.BungeePath))
-            SolutionDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-        End If
-
-    End Sub
-    Sub UnRegisterSolution(status As BungeeCordStatus)
-        Try
+        SyncLock Me
             If SolutionDirs <> "" Then
                 Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(SolutionDirs)
-                array.RemoveAt(SolutionListPanel.GetCellPosition(status).Row - 1)
+                array.Add(New Newtonsoft.Json.Linq.JValue(host.BungeePath))
+                SolutionDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
+            Else
+                Dim array = New Newtonsoft.Json.Linq.JArray()
+                array.Add(New Newtonsoft.Json.Linq.JValue(host.BungeePath))
                 SolutionDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
             End If
-        Catch ex As Exception
-        End Try
+        End SyncLock
+    End Sub
+    Sub UnRegisterSolution(status As BungeeCordStatus)
+        SyncLock Me
+            Try
+                If SolutionDirs <> "" Then
+                    Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(SolutionDirs)
+                    array.RemoveAt(SolutionListPanel.GetCellPosition(status).Row - 1)
+                    SolutionDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
+                End If
+            Catch ex As Exception
+            End Try
+        End SyncLock
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click

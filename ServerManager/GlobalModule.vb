@@ -10,7 +10,6 @@ Module GlobalModule
     Friend Manager As Manager
 #Region "Server/Solution List"
     Friend JavaServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"))
-    Friend BedrockServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"))
     Friend SolutionDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"))
     Friend ModpackServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"))
 #End Region
@@ -26,6 +25,7 @@ Module GlobalModule
     Friend VanillaBedrockVersion As Version
     Friend PaperVersionDict As New Dictionary(Of Version, String)
     Friend AkarinVersionList As New List(Of Version)
+    Friend KettleVersionDict As New Dictionary(Of String, (String, String))
 #End Region
 #Region "Modpack List"
     Friend FeedTheBeastPackDict As New Dictionary(Of String, (Dictionary(Of String, String), String, String))
@@ -215,6 +215,10 @@ Module GlobalModule
                 End If
             Case Server.EServerVersionType.Thermos
                 Return "Thermos"
+            Case Server.EServerVersionType.Contigo
+                Return "Contigo"
+            Case Server.EServerVersionType.Kettle
+                Return "Kettle"
             Case Else
                 Return type.ToString
         End Select

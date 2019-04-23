@@ -144,6 +144,14 @@ Public Class ServerCreateDialog
                     VersionBox.SelectedIndex = 0
                     VersionBox.Enabled = False
                 Case 10
+                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Contigo)
+                    VersionBox.Items.Add("1.7.10")
+                    VersionBox.SelectedIndex = 0
+                    VersionBox.Enabled = False
+                Case 11
+                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Kettle)
+                    VersionBox.Items.AddRange(KettleVersionDict.Keys.ToArray)
+                Case 12
                     If Environment.OSVersion.Version.Major < 10 Then
                         server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
                         VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
@@ -151,7 +159,7 @@ Public Class ServerCreateDialog
                         server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.VanillaBedrock)
                         VersionBox.Items.Add(String.Format("最新版 ({0})", VanillaBedrockVersion.ToString))
                     End If
-                Case 11
+                Case 13
                     server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
                     VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
                 Case Else

@@ -74,6 +74,8 @@ Public Class ServerConsole
                 DataListView.Columns.Remove(ColumnHeader2)
             Case Server.EServerVersionType.Thermos
                 DataListView.Columns.Remove(ColumnHeader2)
+            Case Server.EServerVersionType.Contigo
+                DataListView.Columns.Remove(ColumnHeader2)
         End Select
         TaskTimer.Enabled = True
         TaskTimer.Start()
@@ -140,6 +142,14 @@ Public Class ServerConsole
                             Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "server.jar") & """", Server.ServerPath)
                         Case Server.EServerVersionType.Thermos
                             Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Thermos-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                        Case Server.EServerVersionType.Contigo
+                            Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Contigo-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                        Case Server.EServerVersionType.Kettle
+                            If Server.ServerVersion = "unstable 1" Then
+                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "kettle-git-HEAD-131d5eb-universal.jar") & """", Server.ServerPath)
+                            ElseIf Server.ServerVersion.StartsWith("Dev HEAD-") Then
+                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "kettle-git-HEAD-" & Server.ServerVersion.Substring(9).Trim & "-universal.jar") & """", Server.ServerPath)
+                            End If
                     End Select
                 Case Server.EServerType.Bedrock
                     Select Case Server.ServerVersionType
@@ -185,6 +195,7 @@ Public Class ServerConsole
                                                                                                  Case Server.EServerVersionType.Spigot_Git
                                                                                                  Case Server.EServerVersionType.Cauldron
                                                                                                  Case Server.EServerVersionType.Thermos
+                                                                                                 Case Server.EServerVersionType.Contigo
                                                                                                  Case Else
                                                                                                      item.SubItems.Add("")
                                                                                              End Select
@@ -212,17 +223,19 @@ Public Class ServerConsole
                                                                                                              End Sub)
                                                                                              Else
                                                                                                  Dim seekToBottom As Boolean = False
-                                                                                                 If DataListView.Items.Count > 1 Then
-                                                                                                     Dim first As Integer = DataListView.TopItem.Index
-                                                                                                     Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
-                                                                                                     Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
-                                                                                                     Dim h_item As Integer = DataListView.GetItemRect(0).Height
-                                                                                                     Dim cntVis As Integer = (h_tot - h_hdr) / h_item
-                                                                                                     Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
-                                                                                                     If LastItemIndex = DataListView.Items.Count - 1 Then
-                                                                                                         seekToBottom = True
+                                                                                                 SyncLock Me
+                                                                                                     If DataListView.Items.Count > 1 Then
+                                                                                                         Dim first As Integer = DataListView.TopItem.Index
+                                                                                                         Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
+                                                                                                         Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
+                                                                                                         Dim h_item As Integer = DataListView.GetItemRect(0).Height
+                                                                                                         Dim cntVis As Integer = (h_tot - h_hdr) / h_item
+                                                                                                         Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
+                                                                                                         If LastItemIndex = DataListView.Items.Count - 1 Then
+                                                                                                             seekToBottom = True
+                                                                                                         End If
                                                                                                      End If
-                                                                                                 End If
+                                                                                                 End SyncLock
                                                                                                  DataListView.Items.Add(item)
                                                                                                  If seekToBottom Then DataListView.EnsureVisible(item.Index)
                                                                                              End If
@@ -252,6 +265,7 @@ Public Class ServerConsole
                                                                                                   Case Server.EServerVersionType.Spigot_Git
                                                                                                   Case Server.EServerVersionType.Cauldron
                                                                                                   Case Server.EServerVersionType.Thermos
+                                                                                                  Case Server.EServerVersionType.Contigo
                                                                                                   Case Else
                                                                                                       item.SubItems.Add(msg.Thread)
                                                                                               End Select
@@ -313,17 +327,19 @@ Public Class ServerConsole
                                                                                                               End Sub)
                                                                                               Else
                                                                                                   Dim seekToBottom As Boolean = False
-                                                                                                  If DataListView.Items.Count > 1 Then
-                                                                                                      Dim first As Integer = DataListView.TopItem.Index
-                                                                                                      Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
-                                                                                                      Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
-                                                                                                      Dim h_item As Integer = DataListView.GetItemRect(0).Height
-                                                                                                      Dim cntVis As Integer = (h_tot - h_hdr) / h_item
-                                                                                                      Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
-                                                                                                      If LastItemIndex = DataListView.Items.Count - 1 Then
-                                                                                                          seekToBottom = True
+                                                                                                  SyncLock Me
+                                                                                                      If DataListView.Items.Count > 1 Then
+                                                                                                          Dim first As Integer = DataListView.TopItem.Index
+                                                                                                          Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
+                                                                                                          Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
+                                                                                                          Dim h_item As Integer = DataListView.GetItemRect(0).Height
+                                                                                                          Dim cntVis As Integer = (h_tot - h_hdr) / h_item
+                                                                                                          Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
+                                                                                                          If LastItemIndex = DataListView.Items.Count - 1 Then
+                                                                                                              seekToBottom = True
+                                                                                                          End If
                                                                                                       End If
-                                                                                                  End If
+                                                                                                  End SyncLock
                                                                                                   DataListView.Items.Add(item)
                                                                                                   If seekToBottom Then DataListView.EnsureVisible(item.Index)
                                                                                               End If
@@ -526,6 +542,7 @@ Public Class ServerConsole
                 Case Server.EServerVersionType.Spigot_Git
                 Case Server.EServerVersionType.Cauldron
                 Case Server.EServerVersionType.Thermos
+                Case Server.EServerVersionType.Contigo
                 Case Else
                     spItem1.SubItems.Add(Application.ProductName)
             End Select
@@ -552,6 +569,7 @@ Public Class ServerConsole
                 Case Server.EServerVersionType.Spigot_Git
                 Case Server.EServerVersionType.Cauldron
                 Case Server.EServerVersionType.Thermos
+                Case Server.EServerVersionType.Contigo
                 Case Else
                     item.SubItems.Add(msg.Thread)
             End Select
@@ -574,6 +592,7 @@ Public Class ServerConsole
                 Case Server.EServerVersionType.Spigot_Git
                 Case Server.EServerVersionType.Cauldron
                 Case Server.EServerVersionType.Thermos
+                Case Server.EServerVersionType.Contigo
                 Case Else
                     spItem2.SubItems.Add(Application.ProductName)
             End Select

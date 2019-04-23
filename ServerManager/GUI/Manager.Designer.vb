@@ -55,6 +55,9 @@ Partial Class Manager
         Me.ExternalIPLabel = New System.Windows.Forms.LinkLabel()
         Me.IPALabel = New System.Windows.Forms.Label()
         Me.IPLabel = New System.Windows.Forms.LinkLabel()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.FTBLoadingLabel = New System.Windows.Forms.Label()
         Me.ServerListPage = New System.Windows.Forms.TabPage()
         Me.ServerListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.BottomButtons = New System.Windows.Forms.TableLayoutPanel()
@@ -133,47 +136,46 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.FTBLoadingLabel = New System.Windows.Forms.Label()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.MainTabControl.SuspendLayout
-        Me.MainPage.SuspendLayout
-        Me.MainPanel.SuspendLayout
-        Me.VListLoadingBox.SuspendLayout
-        Me.NetworkGroupBox.SuspendLayout
-        Me.ServerListPage.SuspendLayout
-        Me.BottomButtons.SuspendLayout
-        Me.PackServerListPage.SuspendLayout
-        Me.TableLayoutPanel5.SuspendLayout
-        Me.BungeeCordPage.SuspendLayout
-        Me.TableLayoutPanel2.SuspendLayout
-        Me.ConnectionTabPage.SuspendLayout
-        Me.GroupBox2.SuspendLayout
-        Me.GroupBox3.SuspendLayout
-        Me.TableLayoutPanel3.SuspendLayout
-        Me.Panel1.SuspendLayout
-        Me.Panel2.SuspendLayout
-        Me.SettingTabPage.SuspendLayout
-        Me.SettingTabControl.SuspendLayout
-        Me.TabPage1.SuspendLayout
-        Me.TableLayoutPanel1.SuspendLayout
-        Me.GroupBox1.SuspendLayout
+        Me.KettleLoadingLabel = New System.Windows.Forms.Label()
+        Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
+        Me.MainTabControl.SuspendLayout()
+        Me.MainPage.SuspendLayout()
+        Me.MainPanel.SuspendLayout()
+        Me.VListLoadingBox.SuspendLayout()
+        Me.NetworkGroupBox.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
+        Me.ServerListPage.SuspendLayout()
+        Me.BottomButtons.SuspendLayout()
+        Me.PackServerListPage.SuspendLayout()
+        Me.TableLayoutPanel5.SuspendLayout()
+        Me.BungeeCordPage.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
+        Me.ConnectionTabPage.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.SettingTabPage.SuspendLayout()
+        Me.SettingTabControl.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         CType(Me.BungeeMemoryMaxBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BungeeMemoryMinBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ServerGroupBox1.SuspendLayout
+        Me.ServerGroupBox1.SuspendLayout()
         CType(Me.ServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ServerMemoryMinBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage2.SuspendLayout
-        Me.TabPage3.SuspendLayout
-        Me.GitGroupBox.SuspendLayout
-        Me.AboutPage.SuspendLayout
-        Me.TableLayoutPanel4.SuspendLayout
-        Me.GroupBox5.SuspendLayout
-        Me.Panel3.SuspendLayout
-        Me.GroupBox4.SuspendLayout
+        Me.TabPage2.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        Me.GitGroupBox.SuspendLayout()
+        Me.AboutPage.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox6.SuspendLayout
-        Me.SuspendLayout
+        Me.SuspendLayout()
         '
         'MainTabControl
         '
@@ -226,6 +228,8 @@ Partial Class Manager
         Me.VListLoadingBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.VListLoadingBox.BackColor = System.Drawing.Color.Transparent
+        Me.VListLoadingBox.Controls.Add(Me.ContigoLoadingLabel)
+        Me.VListLoadingBox.Controls.Add(Me.KettleLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.Label17)
         Me.VListLoadingBox.Controls.Add(Me.CauldronLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.SpigotGitLoadingLabel)
@@ -256,7 +260,7 @@ Partial Class Manager
         Me.Label17.TabIndex = 12
         Me.Label17.Text = "Thermos：載入完成"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.Label17, "已經停止開發的Minecraft伺服器版本，可同時使用插件及模組。")
+        Me.ToolTip1.SetToolTip(Me.Label17, "Cauldron 的繼任者，目前已停止開發。")
         '
         'CauldronLoadingLabel
         '
@@ -310,7 +314,7 @@ Partial Class Manager
         '
         Me.VanillaBedrockLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(207, 110)
+        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(408, 18)
         Me.VanillaBedrockLoadingLabel.Name = "VanillaBedrockLoadingLabel"
         Me.VanillaBedrockLoadingLabel.Size = New System.Drawing.Size(195, 23)
         Me.VanillaBedrockLoadingLabel.TabIndex = 7
@@ -335,7 +339,7 @@ Partial Class Manager
         '
         Me.NukkitLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(207, 133)
+        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(408, 41)
         Me.NukkitLoadingLabel.Name = "NukkitLoadingLabel"
         Me.NukkitLoadingLabel.Size = New System.Drawing.Size(195, 23)
         Me.NukkitLoadingLabel.TabIndex = 5
@@ -447,6 +451,38 @@ Partial Class Manager
         Me.IPLabel.Size = New System.Drawing.Size(120, 12)
         Me.IPLabel.TabIndex = 9
         Me.IPLabel.Text = "內部IP位址：取得中..."
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox6.Controls.Add(Me.Button8)
+        Me.GroupBox6.Controls.Add(Me.FTBLoadingLabel)
+        Me.GroupBox6.Location = New System.Drawing.Point(3, 287)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(764, 83)
+        Me.GroupBox6.TabIndex = 31
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "模組包列表載入進度"
+        '
+        'Button8
+        '
+        Me.Button8.Location = New System.Drawing.Point(8, 54)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(195, 23)
+        Me.Button8.TabIndex = 13
+        Me.Button8.Text = "重新載入"
+        Me.Button8.UseVisualStyleBackColor = False
+        '
+        'FTBLoadingLabel
+        '
+        Me.FTBLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FTBLoadingLabel.Location = New System.Drawing.Point(8, 18)
+        Me.FTBLoadingLabel.Name = "FTBLoadingLabel"
+        Me.FTBLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.FTBLoadingLabel.TabIndex = 1
+        Me.FTBLoadingLabel.Text = "Feed The Beast："
+        Me.FTBLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ServerListPage
         '
@@ -1377,37 +1413,29 @@ Partial Class Manager
         '
         Me.NoIPTimer.Interval = 1000
         '
-        'GroupBox6
+        'KettleLoadingLabel
         '
-        Me.GroupBox6.BackColor = System.Drawing.Color.Transparent
-        Me.GroupBox6.Controls.Add(Me.Button8)
-        Me.GroupBox6.Controls.Add(Me.FTBLoadingLabel)
-        Me.GroupBox6.Location = New System.Drawing.Point(3, 287)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(764, 83)
-        Me.GroupBox6.TabIndex = 31
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "模組包列表載入進度"
-        '
-        'FTBLoadingLabel
-        '
-        Me.FTBLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.KettleLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FTBLoadingLabel.Location = New System.Drawing.Point(8, 18)
-        Me.FTBLoadingLabel.Name = "FTBLoadingLabel"
-        Me.FTBLoadingLabel.Size = New System.Drawing.Size(195, 23)
-        Me.FTBLoadingLabel.TabIndex = 1
-        Me.FTBLoadingLabel.Text = "Feed The Beast："
-        Me.FTBLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.KettleLoadingLabel.Location = New System.Drawing.Point(207, 133)
+        Me.KettleLoadingLabel.Name = "KettleLoadingLabel"
+        Me.KettleLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.KettleLoadingLabel.TabIndex = 13
+        Me.KettleLoadingLabel.Text = "Kettle："
+        Me.KettleLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.KettleLoadingLabel, "開發中的Minecraft伺服器版本，能夠同時使用模組及插件。")
         '
-        'Button8
+        'ContigoLoadingLabel
         '
-        Me.Button8.Location = New System.Drawing.Point(8, 54)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(195, 23)
-        Me.Button8.TabIndex = 13
-        Me.Button8.Text = "重新載入"
-        Me.Button8.UseVisualStyleBackColor = False
+        Me.ContigoLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ContigoLoadingLabel.Location = New System.Drawing.Point(207, 110)
+        Me.ContigoLoadingLabel.Name = "ContigoLoadingLabel"
+        Me.ContigoLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.ContigoLoadingLabel.TabIndex = 14
+        Me.ContigoLoadingLabel.Text = "Contigo：載入完成"
+        Me.ContigoLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.ContigoLoadingLabel, "Thermos 的分支，已經停止開發。")
         '
         'Manager
         '
@@ -1422,55 +1450,55 @@ Partial Class Manager
         Me.Text = "Minecraft 伺服器管理員"
         Me.MainTabControl.ResumeLayout(False)
         Me.MainPage.ResumeLayout(False)
-        Me.MainPage.PerformLayout
+        Me.MainPage.PerformLayout()
         Me.MainPanel.ResumeLayout(False)
         Me.VListLoadingBox.ResumeLayout(False)
         Me.NetworkGroupBox.ResumeLayout(False)
-        Me.NetworkGroupBox.PerformLayout
+        Me.NetworkGroupBox.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
         Me.ServerListPage.ResumeLayout(False)
-        Me.ServerListPage.PerformLayout
+        Me.ServerListPage.PerformLayout()
         Me.BottomButtons.ResumeLayout(False)
         Me.PackServerListPage.ResumeLayout(False)
-        Me.PackServerListPage.PerformLayout
+        Me.PackServerListPage.PerformLayout()
         Me.TableLayoutPanel5.ResumeLayout(False)
         Me.BungeeCordPage.ResumeLayout(False)
-        Me.BungeeCordPage.PerformLayout
+        Me.BungeeCordPage.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.ConnectionTabPage.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout
+        Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout
+        Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout
+        Me.Panel2.PerformLayout()
         Me.SettingTabPage.ResumeLayout(False)
         Me.SettingTabControl.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout
+        Me.TabPage1.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout
+        Me.GroupBox1.PerformLayout()
         CType(Me.BungeeMemoryMaxBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BungeeMemoryMinBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ServerGroupBox1.ResumeLayout(False)
-        Me.ServerGroupBox1.PerformLayout
+        Me.ServerGroupBox1.PerformLayout()
         CType(Me.ServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ServerMemoryMinBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
-        Me.TabPage2.PerformLayout
+        Me.TabPage2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.GitGroupBox.ResumeLayout(False)
-        Me.GitGroupBox.PerformLayout
+        Me.GitGroupBox.PerformLayout()
         Me.AboutPage.ResumeLayout(False)
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout
+        Me.Panel3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox6.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1577,4 +1605,6 @@ Partial Class Manager
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents Button8 As Button
     Friend WithEvents FTBLoadingLabel As Label
+    Friend WithEvents ContigoLoadingLabel As Label
+    Friend WithEvents KettleLoadingLabel As Label
 End Class

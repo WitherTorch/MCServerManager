@@ -131,21 +131,29 @@ Public Class CauldronOptions
                 InputPropertyValue(fakePlayersRegion, "do-login", .Do_Login)
                 InputPropertyValue(debugRegion, "thread-contention-monitoring", .Thread_Contention_Monitoring)
                 For Each worldSettingProperty As JProperty In GetJsonObject(jsonObject, "world-settings").Children
-                    Dim JSONWorldSetting As JObject = CType(worldSettingProperty.Value, JObject)
-                    Dim worldSetting As New CauldronWorldSettings With {.Name = worldSettingProperty.Name}
-                    With worldSetting
-                        InputPropertyValue(JSONWorldSetting, "flowing-lava-decay", .Flowing_Lava_Decay)
-                        InputPropertyValue(JSONWorldSetting, "infinite-water-source", .Infinite_Water_Source)
-                    End With
-                    .World_settings.Add(worldSetting)
+                    Try
+                        Dim JSONWorldSetting As JObject = CType(worldSettingProperty.Value, JObject)
+                        Dim worldSetting As New CauldronWorldSettings With {.Name = worldSettingProperty.Name}
+                        With worldSetting
+                            InputPropertyValue(JSONWorldSetting, "flowing-lava-decay", .Flowing_Lava_Decay)
+                            InputPropertyValue(JSONWorldSetting, "infinite-water-source", .Infinite_Water_Source)
+                        End With
+                        .World_settings.Add(worldSetting)
+                    Catch ex As Exception
+
+                    End Try
                 Next
                 For Each pluginSettingProperty As JProperty In GetJsonObject(jsonObject, "plugin-settings").Children
-                    Dim JSONPluginSetting As JObject = CType(pluginSettingProperty.Value, JObject)
-                    Dim pluginSetting As New CauldronPluginSettings With {.Name = pluginSettingProperty.Name}
-                    With pluginSetting
-                        InputPropertyValue(JSONPluginSetting, "remap-plugin-file", .Remap_Plugin_File)
-                    End With
-                    .Plugin_settings.Add(pluginSetting)
+                    Try
+                        Dim JSONPluginSetting As JObject = CType(pluginSettingProperty.Value, JObject)
+                        Dim pluginSetting As New CauldronPluginSettings With {.Name = pluginSettingProperty.Name}
+                        With pluginSetting
+                            InputPropertyValue(JSONPluginSetting, "remap-plugin-file", .Remap_Plugin_File)
+                        End With
+                        .Plugin_settings.Add(pluginSetting)
+                    Catch ex As Exception
+
+                    End Try
                 Next
                 .path = filepath
                 GC.Collect()

@@ -168,7 +168,7 @@ Public Class ModPackServerCreateHelper
                             If IO.File.Exists(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0))) Then
                                 RunAndWait(New ProcessStartInfo(IIf(path.EndsWith("\"), path, path & "\") & commandArgs(0), commandArgs(1)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
                             ElseIf IO.Directory.Exists(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0))) Then
-                                Process.Start(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0)))
+                                Process.Start(New ProcessStartInfo(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0))) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
                             Else
                                 RunAndWait(New ProcessStartInfo(commandArgs(0), commandArgs(1)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
                             End If
@@ -176,7 +176,7 @@ Public Class ModPackServerCreateHelper
                             If IO.File.Exists(IIf(path.EndsWith("\"), path, path & "\") & commandArgs(0)) Then
                                 RunAndWait(New ProcessStartInfo(IIf(path.EndsWith("\"), path, path & "\") & commandArgs(0)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
                             ElseIf IO.Directory.Exists(IIf(path.EndsWith("\"), path, path) & "\" & commandArgs(0)) Then
-                                Process.Start(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0)))
+                                Process.Start(New ProcessStartInfo(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0))) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
                             Else
                                 RunAndWait(New ProcessStartInfo(commandArgs(0)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
                             End If
@@ -185,7 +185,7 @@ Public Class ModPackServerCreateHelper
                         If IO.File.Exists(IIf(path.EndsWith("\"), path, path & "\") & command) Then
                             RunAndWait(New ProcessStartInfo(IIf(path.EndsWith("\"), path, path & "\") & command) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
                         ElseIf IO.Directory.Exists(IIf(path.EndsWith("\"), path, path & "\") & command) Then
-                            Process.Start(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), command))
+                            Process.Start(New ProcessStartInfo(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), command)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
                         Else
                             RunAndWait(New ProcessStartInfo(command) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
                         End If
