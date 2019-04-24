@@ -98,3 +98,28 @@ D:\程式\ServerLauncher\PortListener\obj\Release\PortListener.vbproj.CopyComple
 D:\程式\ServerLauncher\PortListener\obj\Release\PortListener.exe
 D:\程式\ServerLauncher\PortListener\obj\Release\PortListener.xml
 D:\程式\ServerLauncher\PortListener\obj\Release\PortListener.pdb
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PortListener.exe.config
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PortListener.exe
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PortListener.pdb
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PortListener.xml
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Base.dll
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Core.dll
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Core.Extensions.dll
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Packets.dll
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Base.pdb
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Base.xml
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Core.pdb
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Core.xml
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Core.Extensions.pdb
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Core.Extensions.xml
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Packets.pdb
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\bin\Release\PcapDotNet.Packets.xml
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\obj\Release\PortListener.vbprojAssemblyReference.cache
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\obj\Release\PortListener.Form1.resources
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\obj\Release\PortListener.Resources.resources
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\obj\Release\PortListener.vbproj.GenerateResource.cache
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\obj\Release\PortListener.vbproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\obj\Release\PortListener.vbproj.CopyComplete
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\obj\Release\PortListener.exe
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\obj\Release\PortListener.xml
+C:\Users\user\source\repos\Minecraft 伺服器管理員\PortListener\obj\Release\PortListener.pdb

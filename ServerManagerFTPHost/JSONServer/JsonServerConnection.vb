@@ -29,10 +29,6 @@ Namespace JsonServer
                     Select Case inProtocol.MessageType
                         Case Protocol.JsonProtocol_In.MessageTypeEnum.AddServer
                             inProtocol.Message = New Messages.AddServer(GetJsonObject(JsonConvert.DeserializeObject(Of JObject)(text), "message"))
-                        Case Protocol.JsonProtocol_In.MessageTypeEnum.Login
-                            inProtocol.Message = New Messages.Login(GetJsonObject(JsonConvert.DeserializeObject(Of JObject)(text), "message"))
-                        Case Protocol.JsonProtocol_In.MessageTypeEnum.Logout
-                            inProtocol.Message = New Messages.Logout(GetJsonObject(JsonConvert.DeserializeObject(Of JObject)(text), "message"))
                         Case Protocol.JsonProtocol_In.MessageTypeEnum.RemoveServer
                             inProtocol.Message = New Messages.RemoveServer(GetJsonObject(JsonConvert.DeserializeObject(Of JObject)(text), "message"))
                     End Select

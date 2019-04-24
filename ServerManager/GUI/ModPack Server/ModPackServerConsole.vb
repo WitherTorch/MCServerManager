@@ -498,7 +498,6 @@ Public Class ModPackServerConsole
                         backgroundProcess.StandardInput.WriteLine("ban " & PlayerListBox.SelectedItem.ToString)
                     Catch ex As Exception
                     End Try
-                    backgroundProcess.WaitForExit()
                 End If
             End If
         End If
@@ -512,7 +511,6 @@ Public Class ModPackServerConsole
                         backgroundProcess.StandardInput.WriteLine("kick " & PlayerListBox.SelectedItem.ToString)
                     Catch ex As Exception
                     End Try
-                    backgroundProcess.WaitForExit()
                 End If
             End If
         End If
@@ -526,7 +524,6 @@ Public Class ModPackServerConsole
                         backgroundProcess.StandardInput.WriteLine("op " & PlayerListBox.SelectedItem.ToString)
                     Catch ex As Exception
                     End Try
-                    backgroundProcess.WaitForExit()
                 End If
             End If
         End If
@@ -540,7 +537,6 @@ Public Class ModPackServerConsole
                         backgroundProcess.StandardInput.WriteLine("deop " & PlayerListBox.SelectedItem.ToString)
                     Catch ex As Exception
                     End Try
-                    backgroundProcess.WaitForExit()
                 End If
             End If
         End If

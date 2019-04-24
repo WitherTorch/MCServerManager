@@ -23,3 +23,11 @@ D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerF
 D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.exe
 D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.xml
 D:\程式\MinecraftServerManager\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.pdb
+C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbprojAssemblyReference.cache
+C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.Form1.resources
+C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.Resources.resources
+C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.GenerateResource.cache
+C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.exe
+C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.xml
+C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.pdb
