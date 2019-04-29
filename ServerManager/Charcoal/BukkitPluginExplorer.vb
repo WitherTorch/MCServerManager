@@ -18,7 +18,10 @@
     Private Sub BukkitForm_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         AddHandler engine.DownloadProgressChanged, Sub(obj, args)
-                                                       ToolStripProgressBar1.Value = args.ProgressPercentage
+                                                       Try
+                                                           ToolStripProgressBar1.Value = args.ProgressPercentage
+                                                       Catch ex As Exception
+                                                       End Try
                                                    End Sub
 
         GoHome()

@@ -4,7 +4,7 @@ Imports TheArtOfDev
 Public Class CharcoalEngine
     Dim client As New Net.WebClient
     Dim parser As New HtmlAgilityPack.HtmlDocument()
-    Public Const CHARCOAL_VER As String = "1.2"
+    Public Const CHARCOAL_VER As String = "1.3"
     Friend Event NavigationStarted(sender As Object, e As EventArgs)
     Friend Event DownloadProgressChanged(sender As Object, e As Net.DownloadProgressChangedEventArgs)
     Friend Event DownloadCompleted(sender As Object, e As Net.DownloadStringCompletedEventArgs)
@@ -31,15 +31,16 @@ Public Class CharcoalEngine
                       "Mozilla/5.0 (Windows NT " & version.Major & "." & version.Minor & ") Charcoal/" & CHARCOAL_VER)
         _index = index
     End Sub
-    Sub LoadPage(url As String, type As PluginPageType, parent As Panel)
+    Sub LoadPage(url As String, type As PluginPageType, ByRef targetPanel As Panel)
         Try
             parser = New HtmlAgilityPack.HtmlDocument()
+            Dim parent As Panel = targetPanel
             GC.Collect()
             RaiseEvent NavigationStarted(Me, New EventArgs)
             If (type <> PluginPageType.Bukkit_PluginDownloadListPage) And
                 (type <> PluginPageType.CurseForge_PluginDownloadListPage) And
                 (type <> PluginPageType.CurseForge_ModDownloadListPage) Then
-                parent.BeginInvoke(Sub() parent.Controls.Clear())
+                BeginInvokeIfRequired(parent, Sub() parent.Controls.Clear())
             End If
             Dim uri As New Uri(url)
             Select Case type
@@ -133,7 +134,7 @@ Public Class CharcoalEngine
 
                     client.DownloadStringAsync(New Uri(url))
                 Case PluginPageType.Bukkit_PluginMainPage
-
+                    ' parent.Controls.Clear()
                     Dim layout As New TabControl
                     layout.Dock = DockStyle.Fill
                     Dim IntroPage As New TabPage("插件內容")
@@ -283,7 +284,7 @@ Public Class CharcoalEngine
                                                                                       Case "release-phase tip"
                                                                                           item.SubItems.Item(0) = (New ListViewItem.ListViewSubItem(item, "正式版") With {.ForeColor = Color.White, .BackColor = Color.FromArgb(140, 175, 98)})
                                                                                       Case "beta-phase tip"
-                                                                                          item.SubItems.Item(0) = (New ListViewItem.ListViewSubItem(item, "Beta版") With {.ForeColor = Color.White, .BackColor = Color.FromArgb(127, 165, 196)})
+                                                                                          item.SubItems.Item(0) = (New ListViewItem.ListViewSubItem(item, "預覽版") With {.ForeColor = Color.White, .BackColor = Color.FromArgb(127, 165, 196)})
                                                                                   End Select
                                                                                   Dim node2 = node.SelectSingleNode("td[2]/div[1]/div[2]/a[1]")
                                                                                   Dim item2 = New ListViewItem.ListViewSubItem(item, node2.InnerText.Trim)
