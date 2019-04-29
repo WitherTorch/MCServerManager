@@ -5,6 +5,7 @@ Public Class ForgeModExplorer
     Dim spongeThread As Thread
     Friend _server As Server
     Friend index As Integer
+    Friend isStart As Boolean = True
 
 
     Sub New(index As Integer)
@@ -31,10 +32,12 @@ Public Class ForgeModExplorer
 
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
+        isStart = False
         engine.LoadPage("https://www.curseforge.com/minecraft/mc-mods/server-utility", CharcoalEngine.PluginPageType.CurseForge_ModListPage, CharcoalEnginePanel)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+        isStart = False
         If spongeThread IsNot Nothing AndAlso spongeThread.IsAlive Then
             spongeThread.Abort()
         End If
@@ -60,5 +63,22 @@ Public Class ForgeModExplorer
                                                                               End Sub
                                   End Sub)
         spongeThread.Start()
+    End Sub
+    Private Sub CharcoalEnginePanel_Paint(sender As Object, e As PaintEventArgs) Handles CharcoalEnginePanel.Paint
+        If isStart Then
+            Try
+                Dim g As Graphics = e.Graphics
+                g.Clear(Color.LightGray)
+                g.DrawString("請點選上方模組來源來瀏覽模組", New Font(SystemFonts.IconTitleFont.FontFamily, 16, FontStyle.Regular, GraphicsUnit.Pixel), New SolidBrush(Color.DimGray), New RectangleF(CharcoalEnginePanel.Location, CharcoalEnginePanel.Size), New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                g.Dispose()
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+
+    Private Sub CharcoalEnginePanel_Resize(sender As Object, e As EventArgs) Handles CharcoalEnginePanel.Resize
+        If isStart Then CharcoalEnginePanel.Refresh()
     End Sub
 End Class
