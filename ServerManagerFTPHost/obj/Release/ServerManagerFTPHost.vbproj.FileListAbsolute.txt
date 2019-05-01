@@ -31,3 +31,20 @@ C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj
 C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.exe
 C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.xml
 C:\Users\user\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.pdb
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.exe.config
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.exe
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.pdb
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.xml
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\FTPServerLib.dll
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.dll
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\FTPServerLib.pdb
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.xml
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbprojAssemblyReference.cache
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.Form1.resources
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.Resources.resources
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.GenerateResource.cache
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.CoreCompileInputs.cache
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.CopyComplete
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.exe
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.xml
+C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.pdb

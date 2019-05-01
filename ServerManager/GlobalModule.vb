@@ -6,7 +6,7 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.6 Alpha 11"
+    Public Const SERVER_MANAGER_VER As String = "1.6 Alpha 12"
     Friend Manager As Manager
 #Region "Server/Solution List"
     Friend JavaServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"))
@@ -208,10 +208,10 @@ Module GlobalModule
                     ElseIf version = "1.7.2" OrElse version = "1.7.10" Then
                         Return "Cauldron"
                     Else
-                        Return "MCPC / Cauldron"
+                        Return "Cauldron"
                     End If
                 Else
-                    Return "MCPC / Cauldron"
+                    Return "Cauldron"
                 End If
             Case Server.EServerVersionType.Thermos
                 Return "Thermos"

@@ -63,6 +63,12 @@ Public Class ServerSetter
         ElseIf server.ServerVersionType = Server.EServerVersionType.Nukkit Then
             PluginManageButton.Enabled = True
             PluginManageButton.Text = "管理插件"
+        ElseIf server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
+                server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
+                server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
+                server.ServerVersionType = Server.EServerVersionType.Kettle Then
+            PluginManageButton.Enabled = True
+            PluginManageButton.Text = "管理插件/模組"
         Else
             PluginManageButton.Enabled = False
             PluginManageButton.Text = "管理插件/模組"
@@ -253,6 +259,12 @@ Public Class ServerSetter
             CType(addonManager, Form).Show()
         ElseIf server.ServerVersionType = Server.EServerVersionType.Nukkit Then
             addonManager = New NukkitPluginManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
+            CType(addonManager, Form).Show()
+        ElseIf server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
+            server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
+            server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
+            server.ServerVersionType = Server.EServerVersionType.Kettle Then
+            addonManager = New HybridMPManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
             CType(addonManager, Form).Show()
         End If
     End Sub
