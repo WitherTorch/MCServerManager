@@ -549,7 +549,7 @@ Public NotInheritable Class Server
                     If jsonArray IsNot Nothing Then
                         For Each jsonObject As JObject In jsonArray
                             If IO.File.Exists(jsonObject.GetValue("Path").ToString) = False Then
-                                Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("VersionDate"))
+                                Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"))
                                 paths.Add(jsonObject.GetValue("Path").ToString)
                                 ServerPlugins.Add(item)
                             End If
@@ -558,9 +558,16 @@ Public NotInheritable Class Server
                 End If
                 Dim pluginPathInfo As New IO.DirectoryInfo(pluginPath)
                 For Each pluginFileInfo In pluginPathInfo.GetFiles("*.jar", IO.SearchOption.TopDirectoryOnly)
-                    Dim item As New BukkitPlugin(pluginFileInfo.Name, pluginFileInfo.FullName, pluginFileInfo.CreationTime.ToString)
+                    Dim item As New BukkitPlugin(pluginFileInfo.Name, pluginFileInfo.FullName, "", pluginFileInfo.CreationTime)
                     If paths.Contains(item.Path) = False Then
-                        ServerPlugins.Add(item)
+                        Using unpatcher As New BukkitPluginUnpatcher(item.Path)
+                            Dim info = unpatcher.GetPluginInfo()
+                            If info.IsNull = False Then
+                                item.Name = info.Name
+                                item.Version = info.Version
+                                ServerPlugins.Add(item)
+                            End If
+                        End Using
                     End If
                 Next
             End If
@@ -582,6 +589,7 @@ Public NotInheritable Class Server
             For Each plugin In ServerPlugins
                 Dim jsonObject As New Newtonsoft.Json.Linq.JObject()
                 jsonObject.Add("Name", New Newtonsoft.Json.Linq.JValue(plugin.Name))
+                jsonObject.Add("Version", New Newtonsoft.Json.Linq.JValue(plugin.Version))
                 jsonObject.Add("VersionDate", New Newtonsoft.Json.Linq.JValue(plugin.VersionDate))
                 jsonObject.Add("Path", New Newtonsoft.Json.Linq.JValue(plugin.Path))
                 jsonArray.Add(jsonObject)
@@ -969,13 +977,15 @@ Public NotInheritable Class Server
         _ServerVersionType = serverVersionType
     End Sub
     Public Class BukkitPlugin
-        Friend ReadOnly Property Name As String
-        Friend ReadOnly Property VersionDate As DateTime
+        Friend Property Name As String
+        Friend Property Version As String
         Friend ReadOnly Property Path As String
-        Sub New(Name As String, Path As String, VersionDate As Date)
+        Friend ReadOnly Property VersionDate As DateTime
+        Sub New(Name As String, Path As String, Version As String, VersionDate As DateTime)
             _Name = Name
-            _VersionDate = VersionDate
+            _Version = Version
             _Path = Path
+            _VersionDate = VersionDate
         End Sub
         Public Shared Operator =(plugin1 As BukkitPlugin, plugin2 As BukkitPlugin) As Boolean
             Return plugin1.Path = plugin2.Path

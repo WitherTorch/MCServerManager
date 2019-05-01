@@ -54,7 +54,15 @@ Public Class DownloadVersionList
                         server.ServerPlugins.Remove(plugin)
                     End If
                 Next
-                server.ServerPlugins.Add(New Server.BukkitPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), DateTime.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString))
+                Dim _plugin As New Server.BukkitPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString)
+                Using unpatcher As New BukkitPluginUnpatcher(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"))
+                    Dim info = unpatcher.GetPluginInfo()
+                    If info.IsNull = False Then
+                        _plugin.Name = info.Name
+                        _plugin.Version = info.Version
+                        server.ServerPlugins.Add(_plugin)
+                    End If
+                End Using
             ElseIf website = BrowsingWebsite.CurseForge_Mod Then
                 My.Computer.Network.DownloadFile(realURI, IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"), "", "", True, 100, True)
                 For Each forgeMod In server.ServerMods
@@ -77,7 +85,15 @@ Public Class DownloadVersionList
                     t = t.Remove(t.IndexOf("at"))
                     t = t.Trim
                 End If
-                server.ServerPlugins.Add(New Server.BukkitPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), DateTime.Parse(t).ToString))
+                Dim _plugin As New Server.BukkitPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString)
+                Using unpatcher As New BukkitPluginUnpatcher(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"))
+                    Dim info = unpatcher.GetPluginInfo()
+                    If info.IsNull = False Then
+                        _plugin.Name = info.Name
+                        _plugin.Version = info.Version
+                        server.ServerPlugins.Add(_plugin)
+                    End If
+                End Using
                 'GlobalModule.Manager.ServerEntityList(index) = server
             End If
         Catch ex As OperationCanceledException

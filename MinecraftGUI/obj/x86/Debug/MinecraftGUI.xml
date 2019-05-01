@@ -6,18 +6,6 @@ MinecraftGUI
 </name>
 </assembly>
 <members>
-<member name="P:MinecraftGUI.CheckBox.GUIEnabled">
- <summary>
- 是否啟用 Minecraft GUI
- </summary>
- <returns></returns>
-</member>
-<member name="P:MinecraftGUI.Button.GUIEnabled">
- <summary>
- 是否啟用 Minecraft GUI
- </summary>
- <returns></returns>
-</member>
 <member name="T:MinecraftGUI.My.Resources.Resources">
 <summary>
   用於查詢當地語系化字串等的強類型資源類別。
@@ -68,6 +56,18 @@ MinecraftGUI
 <summary>
   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
 </summary>
+</member>
+<member name="P:MinecraftGUI.CheckBox.GUIEnabled">
+ <summary>
+ 是否啟用 Minecraft GUI
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:MinecraftGUI.Button.GUIEnabled">
+ <summary>
+ 是否啟用 Minecraft GUI
+ </summary>
+ <returns></returns>
 </member>
 </members>
 </doc>

@@ -457,6 +457,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="JSONSafeModule.vb" />
+    <Compile Include="BukkitPluginUnpatcher.vb" />
     <Compile Include="NoIPProvider.vb" />
     <Compile Include="UPnPMapper.vb" />
     <Compile Include="GUI\ForgeInstallWindow.Designer.vb">

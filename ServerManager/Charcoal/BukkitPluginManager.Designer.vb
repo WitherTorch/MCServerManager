@@ -32,6 +32,7 @@ Partial Class BukkitPluginManager
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -49,28 +50,28 @@ Partial Class BukkitPluginManager
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(12, 20)
         '
-        '瀏覽模組ToolStripMenuItem
+        '瀏覽插件ToolStripMenuItem
         '
-        Me.瀏覽插件ToolStripMenuItem.Name = "瀏覽模組ToolStripMenuItem"
-        Me.瀏覽插件ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.瀏覽插件ToolStripMenuItem.Name = "瀏覽插件ToolStripMenuItem"
+        Me.瀏覽插件ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.瀏覽插件ToolStripMenuItem.Text = "瀏覽插件"
         '
-        '移除模組ToolStripMenuItem
+        '移除插件ToolStripMenuItem
         '
-        Me.移除插件ToolStripMenuItem.Name = "移除模組ToolStripMenuItem"
-        Me.移除插件ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.移除插件ToolStripMenuItem.Name = "移除插件ToolStripMenuItem"
+        Me.移除插件ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.移除插件ToolStripMenuItem.Text = "移除插件"
         '
         '重新整理ToolStripMenuItem
         '
         Me.重新整理ToolStripMenuItem.Name = "重新整理ToolStripMenuItem"
-        Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.重新整理ToolStripMenuItem.Text = "重新整理"
         '
         'PluginList
         '
         Me.PluginList.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.PluginList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
+        Me.PluginList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader4, Me.ColumnHeader2, Me.ColumnHeader3})
         Me.PluginList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PluginList.GridLines = True
         Me.PluginList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -86,7 +87,7 @@ Partial Class BukkitPluginManager
         '
         Me.ColumnHeader1.Text = "名稱"
         Me.ColumnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader1.Width = 127
+        Me.ColumnHeader1.Width = 116
         '
         'ColumnHeader2
         '
@@ -99,6 +100,11 @@ Partial Class BukkitPluginManager
         Me.ColumnHeader3.Text = "檔案路徑"
         Me.ColumnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.ColumnHeader3.Width = 554
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "版本"
+        Me.ColumnHeader4.Width = 76
         '
         'BukkitPluginManager
         '
@@ -129,4 +135,5 @@ Partial Class BukkitPluginManager
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
     Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ColumnHeader4 As ColumnHeader
 End Class
