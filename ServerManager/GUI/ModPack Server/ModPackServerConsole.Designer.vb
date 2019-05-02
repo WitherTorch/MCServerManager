@@ -23,6 +23,7 @@ Partial Class ModPackServerConsole
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ModPackServerConsole))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainTabPage = New System.Windows.Forms.TabPage()
@@ -148,35 +149,35 @@ Partial Class ModPackServerConsole
         '
         Me.UserContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.封禁ToolStripMenuItem, Me.踢出ToolStripMenuItem, Me.ToolStripSeparator1, Me.設定OPToolStripMenuItem, Me.解除OPToolStripMenuItem})
         Me.UserContextMenu.Name = "UserContextMenu"
-        Me.UserContextMenu.Size = New System.Drawing.Size(116, 98)
+        Me.UserContextMenu.Size = New System.Drawing.Size(118, 98)
         '
         '封禁ToolStripMenuItem
         '
         Me.封禁ToolStripMenuItem.Name = "封禁ToolStripMenuItem"
-        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(115, 22)
+        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.封禁ToolStripMenuItem.Text = "封禁"
         '
         '踢出ToolStripMenuItem
         '
         Me.踢出ToolStripMenuItem.Name = "踢出ToolStripMenuItem"
-        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(115, 22)
+        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.踢出ToolStripMenuItem.Text = "踢出"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(112, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(114, 6)
         '
         '設定OPToolStripMenuItem
         '
         Me.設定OPToolStripMenuItem.Name = "設定OPToolStripMenuItem"
-        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(115, 22)
+        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.設定OPToolStripMenuItem.Text = "設定OP"
         '
         '解除OPToolStripMenuItem
         '
         Me.解除OPToolStripMenuItem.Name = "解除OPToolStripMenuItem"
-        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(115, 22)
+        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.解除OPToolStripMenuItem.Text = "解除OP"
         '
         'SystemGroupBox
@@ -361,6 +362,7 @@ Partial Class ModPackServerConsole
         Me.Controls.Add(Me.StopLoadingCheckBox)
         Me.Controls.Add(Me.MainTabControl)
         Me.DoubleBuffered = True
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ModPackServerConsole"
         Me.Text = "模組包伺服器控制台"
         Me.MainTabControl.ResumeLayout(False)

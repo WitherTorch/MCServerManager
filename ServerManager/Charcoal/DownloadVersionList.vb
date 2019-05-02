@@ -71,6 +71,15 @@ Public Class DownloadVersionList
                         server.ServerMods.Remove(forgeMod)
                     End If
                 Next
+                Dim _mod As New Server.ForgeMod(pluginName, IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"), "", Date.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString)
+                Using unpatcher As New ForgeModUnpatcher(IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"))
+                    Dim info = unpatcher.GetModInfo()
+                    If info.IsNull = False Then
+                        _mod.Name = info.Name
+                        _mod.Version = info.Version
+                        server.ServerMods.Add(_mod)
+                    End If
+                End Using
                 server.ServerMods.Add(New Server.ForgeMod(pluginName, IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"), "", DateTime.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString))
             ElseIf website = BrowsingWebsite.Nukkit_PluginDownloadList Then
                 My.Computer.Network.DownloadFile(realURI, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", "", True, 100, True)
