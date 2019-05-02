@@ -179,7 +179,7 @@ Public Class ServerCreateDialog
     Private Sub ServerCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
         MapPanel.Controls.Add(New MapView(server) With {.Dock = DockStyle.Fill})
-        If Environment.OSVersion.Version.Major < 10 Then VersionTypeBox.Items.RemoveAt(7)
+        If Environment.OSVersion.Version.Major < 10 Then VersionTypeBox.Items.RemoveAt(12)
     End Sub
 
     Private Sub CreateButton_Click(sender As Object, e As EventArgs) Handles CreateButton.Click
