@@ -26,7 +26,7 @@
     Sub LoadMods()
         ModList.Items.Clear()
         For Each forgeMod In server.ServerMods
-            ModList.Items.Add(New ListViewItem(New String() {forgeMod.Name, forgeMod.VersionDate.ToString, forgeMod.Path}))
+            ModList.Items.Add(New ListViewItem(New String() {forgeMod.Name, forgeMod.Version, forgeMod.VersionDate.ToString, forgeMod.Path}))
         Next
     End Sub
 

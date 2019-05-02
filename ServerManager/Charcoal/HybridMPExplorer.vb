@@ -17,7 +17,7 @@
 
     Private Sub BukkitForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim server = GlobalModule.Manager.ServerEntityList(index)
-        Me.Text.Replace("Cauldron", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
+        Me.Text = Me.Text.Replace("Cauldron", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
         AddHandler engine.DownloadProgressChanged, Sub(obj, args)
                                                        Try
                                                            ToolStripProgressBar1.Value = args.ProgressPercentage

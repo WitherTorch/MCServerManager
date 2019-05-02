@@ -29,6 +29,7 @@ Partial Class ForgeModManager
         Me.重新整理ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ModList = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MenuStrip1.SuspendLayout()
@@ -69,7 +70,7 @@ Partial Class ForgeModManager
         'ModList
         '
         Me.ModList.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.ModList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
+        Me.ModList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader4, Me.ColumnHeader2, Me.ColumnHeader3})
         Me.ModList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ModList.GridLines = True
         Me.ModList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -77,7 +78,7 @@ Partial Class ForgeModManager
         Me.ModList.MultiSelect = False
         Me.ModList.Name = "ModList"
         Me.ModList.Size = New System.Drawing.Size(800, 426)
-        Me.ModList.TabIndex = 1
+        Me.ModList.TabIndex = 2
         Me.ModList.UseCompatibleStateImageBehavior = False
         Me.ModList.View = System.Windows.Forms.View.Details
         '
@@ -85,7 +86,12 @@ Partial Class ForgeModManager
         '
         Me.ColumnHeader1.Text = "名稱"
         Me.ColumnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader1.Width = 127
+        Me.ColumnHeader1.Width = 116
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "版本"
+        Me.ColumnHeader4.Width = 76
         '
         'ColumnHeader2
         '
@@ -122,9 +128,10 @@ Partial Class ForgeModManager
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents 瀏覽模組ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 移除模組ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ModList As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ColumnHeader4 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
-    Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
 End Class

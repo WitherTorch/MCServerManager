@@ -29,6 +29,7 @@ Partial Class NukkitPluginManager
         Me.重新整理ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PluginList = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MenuStrip1.SuspendLayout()
@@ -69,7 +70,7 @@ Partial Class NukkitPluginManager
         'PluginList
         '
         Me.PluginList.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.PluginList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
+        Me.PluginList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader4, Me.ColumnHeader2, Me.ColumnHeader3})
         Me.PluginList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PluginList.GridLines = True
         Me.PluginList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -77,7 +78,7 @@ Partial Class NukkitPluginManager
         Me.PluginList.MultiSelect = False
         Me.PluginList.Name = "PluginList"
         Me.PluginList.Size = New System.Drawing.Size(800, 426)
-        Me.PluginList.TabIndex = 1
+        Me.PluginList.TabIndex = 2
         Me.PluginList.UseCompatibleStateImageBehavior = False
         Me.PluginList.View = System.Windows.Forms.View.Details
         '
@@ -85,7 +86,12 @@ Partial Class NukkitPluginManager
         '
         Me.ColumnHeader1.Text = "名稱"
         Me.ColumnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader1.Width = 127
+        Me.ColumnHeader1.Width = 116
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "版本"
+        Me.ColumnHeader4.Width = 76
         '
         'ColumnHeader2
         '
@@ -122,9 +128,10 @@ Partial Class NukkitPluginManager
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents 瀏覽插件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 移除插件ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PluginList As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ColumnHeader4 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
-    Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
 End Class

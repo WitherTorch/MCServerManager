@@ -36,13 +36,13 @@
     Sub LoadPlugins()
         PluginList.Items.Clear()
         For Each plugin In server.ServerPlugins
-            PluginList.Items.Add(New ListViewItem(New String() {plugin.Name, plugin.VersionDate.ToString, plugin.Path}))
+            PluginList.Items.Add(New ListViewItem(New String() {plugin.Name, plugin.Version, plugin.VersionDate.ToString, plugin.Path}))
         Next
     End Sub
     Sub LoadMods()
         ModList.Items.Clear()
         For Each forgeMod In server.ServerMods
-            ModList.Items.Add(New ListViewItem(New String() {forgeMod.Name, forgeMod.VersionDate.ToString, forgeMod.Path}))
+            ModList.Items.Add(New ListViewItem(New String() {forgeMod.Name, forgeMod.Version, forgeMod.VersionDate.ToString, forgeMod.Path}))
         Next
     End Sub
 
@@ -52,7 +52,7 @@
     End Sub
 
     Private Sub BukkitPluginManager_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.Text.Replace("Cauldron", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
+        Me.Text = Me.Text.Replace("Cauldron", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
         If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(server.ServerPath, "plugins")) = False Then
             My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(server.ServerPath, "plugins"))
         End If

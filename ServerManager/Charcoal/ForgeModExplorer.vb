@@ -59,7 +59,7 @@ Public Class ForgeModExplorer
                                                                                           _server.ServerMods.Remove(forgeMod)
                                                                                       End If
                                                                                   Next
-                                                                                  _server.ServerMods.Add(New Server.ForgeMod("SpongeForge", IO.Path.Combine(_server.ServerPath, "mods\spongeforge-" & versions(versionListBox.SelectedIndices(0)).OriginalString & ".jar"), Now))
+                                                                                  _server.ServerMods.Add(New Server.ForgeMod("SpongeForge", IO.Path.Combine(_server.ServerPath, "mods\spongeforge-" & versions(versionListBox.SelectedIndices(0)).OriginalString & ".jar"), versions(versionListBox.SelectedIndices(0)).OriginalString, Now))
                                                                               End Sub
                                   End Sub)
         spongeThread.Start()

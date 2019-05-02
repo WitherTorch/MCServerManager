@@ -263,6 +263,7 @@
     <Compile Include="Classes\BungeeCord\BungeeCordHost.vb" />
     <Compile Include="Classes\BungeeCord\BungeeCordOptions.vb" />
     <Compile Include="Classes\BungeeCord\BungeeCordUpdater.vb" />
+    <Compile Include="Classes\ForgeModUnpatcher.vb" />
     <Compile Include="Classes\JavaPathsProvider.vb" />
     <Compile Include="Classes\MinecraftLogParser.vb" />
     <Compile Include="Classes\MinecraftUUIDProvider.vb" />
@@ -457,7 +458,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="JSONSafeModule.vb" />
-    <Compile Include="BukkitPluginUnpatcher.vb" />
+    <Compile Include="Classes\BukkitPluginUnpatcher.vb" />
     <Compile Include="NoIPProvider.vb" />
     <Compile Include="UPnPMapper.vb" />
     <Compile Include="GUI\ForgeInstallWindow.Designer.vb">
@@ -681,7 +682,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll</PostBuildEvent>
+    <PostBuildEvent>mkdir Merged\
+C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

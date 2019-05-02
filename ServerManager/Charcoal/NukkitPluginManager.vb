@@ -29,7 +29,7 @@
         server = GlobalModule.Manager.ServerEntityList(index)
         PluginList.Items.Clear()
         For Each plugin In server.ServerPlugins
-            PluginList.Items.Add(New ListViewItem(New String() {plugin.Name, plugin.VersionDate.ToString, plugin.Path}))
+            PluginList.Items.Add(New ListViewItem(New String() {plugin.Name, plugin.Version, plugin.VersionDate.ToString, plugin.Path}))
         Next
     End Sub
 

@@ -28,22 +28,24 @@ Partial Class HybridMPManager
         Me.瀏覽插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.移除插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.重新整理ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PagesControl = New System.Windows.Forms.TabControl()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.PluginList = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.PagesControl = New System.Windows.Forms.TabControl()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.ColumnHeader7 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ModList = New System.Windows.Forms.ListView()
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.MenuStrip1.SuspendLayout()
-        Me.PagesControl.SuspendLayout()
-        Me.TabPage2.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
-        Me.SuspendLayout()
+        Me.ColumnHeader8 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.MenuStrip1.SuspendLayout
+        Me.PagesControl.SuspendLayout
+        Me.TabPage2.SuspendLayout
+        Me.TabPage1.SuspendLayout
+        Me.SuspendLayout
         '
         'MenuStrip1
         '
@@ -77,39 +79,6 @@ Partial Class HybridMPManager
         Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
         Me.重新整理ToolStripMenuItem.Text = "重新整理"
         '
-        'PluginList
-        '
-        Me.PluginList.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.PluginList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
-        Me.PluginList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PluginList.GridLines = True
-        Me.PluginList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.PluginList.Location = New System.Drawing.Point(3, 3)
-        Me.PluginList.MultiSelect = False
-        Me.PluginList.Name = "PluginList"
-        Me.PluginList.Size = New System.Drawing.Size(786, 394)
-        Me.PluginList.TabIndex = 1
-        Me.PluginList.UseCompatibleStateImageBehavior = False
-        Me.PluginList.View = System.Windows.Forms.View.Details
-        '
-        'ColumnHeader1
-        '
-        Me.ColumnHeader1.Text = "名稱"
-        Me.ColumnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader1.Width = 127
-        '
-        'ColumnHeader2
-        '
-        Me.ColumnHeader2.Text = "版本發布時間"
-        Me.ColumnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader2.Width = 113
-        '
-        'ColumnHeader3
-        '
-        Me.ColumnHeader3.Text = "檔案路徑"
-        Me.ColumnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader3.Width = 554
-        '
         'PagesControl
         '
         Me.PagesControl.Controls.Add(Me.TabPage2)
@@ -132,39 +101,6 @@ Partial Class HybridMPManager
         Me.TabPage2.Text = "模組"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'ModList
-        '
-        Me.ModList.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.ModList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader4, Me.ColumnHeader5, Me.ColumnHeader6})
-        Me.ModList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ModList.GridLines = True
-        Me.ModList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.ModList.Location = New System.Drawing.Point(3, 3)
-        Me.ModList.MultiSelect = False
-        Me.ModList.Name = "ModList"
-        Me.ModList.Size = New System.Drawing.Size(786, 394)
-        Me.ModList.TabIndex = 2
-        Me.ModList.UseCompatibleStateImageBehavior = False
-        Me.ModList.View = System.Windows.Forms.View.Details
-        '
-        'ColumnHeader4
-        '
-        Me.ColumnHeader4.Text = "名稱"
-        Me.ColumnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader4.Width = 127
-        '
-        'ColumnHeader5
-        '
-        Me.ColumnHeader5.Text = "版本發布時間"
-        Me.ColumnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader5.Width = 113
-        '
-        'ColumnHeader6
-        '
-        Me.ColumnHeader6.Text = "檔案路徑"
-        Me.ColumnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader6.Width = 554
-        '
         'TabPage1
         '
         Me.TabPage1.Controls.Add(Me.PluginList)
@@ -175,6 +111,82 @@ Partial Class HybridMPManager
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "插件"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'PluginList
+        '
+        Me.PluginList.Activation = System.Windows.Forms.ItemActivation.OneClick
+        Me.PluginList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader7})
+        Me.PluginList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PluginList.GridLines = True
+        Me.PluginList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.PluginList.Location = New System.Drawing.Point(3, 3)
+        Me.PluginList.MultiSelect = False
+        Me.PluginList.Name = "PluginList"
+        Me.PluginList.Size = New System.Drawing.Size(786, 394)
+        Me.PluginList.TabIndex = 2
+        Me.PluginList.UseCompatibleStateImageBehavior = False
+        Me.PluginList.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "名稱"
+        Me.ColumnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader1.Width = 116
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "版本"
+        Me.ColumnHeader2.Width = 76
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "版本發布時間"
+        Me.ColumnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader3.Width = 113
+        '
+        'ColumnHeader7
+        '
+        Me.ColumnHeader7.Text = "檔案路徑"
+        Me.ColumnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader7.Width = 554
+        '
+        'ModList
+        '
+        Me.ModList.Activation = System.Windows.Forms.ItemActivation.OneClick
+        Me.ModList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader4, Me.ColumnHeader5, Me.ColumnHeader6, Me.ColumnHeader8})
+        Me.ModList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ModList.GridLines = True
+        Me.ModList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.ModList.Location = New System.Drawing.Point(3, 3)
+        Me.ModList.MultiSelect = False
+        Me.ModList.Name = "ModList"
+        Me.ModList.Size = New System.Drawing.Size(786, 394)
+        Me.ModList.TabIndex = 3
+        Me.ModList.UseCompatibleStateImageBehavior = False
+        Me.ModList.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "名稱"
+        Me.ColumnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader4.Width = 116
+        '
+        'ColumnHeader5
+        '
+        Me.ColumnHeader5.Text = "版本"
+        Me.ColumnHeader5.Width = 76
+        '
+        'ColumnHeader6
+        '
+        Me.ColumnHeader6.Text = "版本發布時間"
+        Me.ColumnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader6.Width = 113
+        '
+        'ColumnHeader8
+        '
+        Me.ColumnHeader8.Text = "檔案路徑"
+        Me.ColumnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader8.Width = 554
         '
         'HybridMPManager
         '
@@ -190,12 +202,12 @@ Partial Class HybridMPManager
         Me.ShowIcon = False
         Me.Text = "Cauldron 插件/模組管理員"
         Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
+        Me.MenuStrip1.PerformLayout
         Me.PagesControl.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.PerformLayout
 
     End Sub
 
@@ -203,16 +215,18 @@ Partial Class HybridMPManager
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents 瀏覽插件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 移除插件ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PagesControl As TabControl
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents TabPage1 As TabPage
     Friend WithEvents PluginList As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
-    Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PagesControl As TabControl
-    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents ColumnHeader7 As ColumnHeader
     Friend WithEvents ModList As ListView
     Friend WithEvents ColumnHeader4 As ColumnHeader
     Friend WithEvents ColumnHeader5 As ColumnHeader
     Friend WithEvents ColumnHeader6 As ColumnHeader
-    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents ColumnHeader8 As ColumnHeader
 End Class
