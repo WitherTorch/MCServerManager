@@ -445,7 +445,7 @@ Public Class ModPackServerConsole
     Sub DisconnectUPnP()
         If GlobalModule.Manager.CanUPnP Then
             Try
-                If Server.ServerOptions("server-ip") = GlobalModule.Manager.ip OrElse Server.ServerOptions("server-ip") = "" Then
+                If GlobalModule.Manager.ip.Contains(Server.ServerOptions("server-ip")) OrElse Server.ServerOptions("server-ip") = "" Then
                     GlobalModule.Manager.upnpProvider.DestroyPort(Server.ServerOptions("server-port"))
                 End If
             Catch ex As Exception
@@ -455,7 +455,7 @@ Public Class ModPackServerConsole
     Sub ConnectUPnP()
         If GlobalModule.Manager.CanUPnP Then
             Try
-                If Server.ServerOptions("server-ip") = GlobalModule.Manager.ip OrElse Server.ServerOptions("server-ip") = "" Then
+                If GlobalModule.Manager.ip.Contains(Server.ServerOptions("server-ip")) OrElse Server.ServerOptions("server-ip") = "" Then
                     GlobalModule.Manager.upnpProvider.PortForward(Server.ServerOptions("server-port"), Server.ServerOptions("motd"))
                 End If
             Catch ex As Exception

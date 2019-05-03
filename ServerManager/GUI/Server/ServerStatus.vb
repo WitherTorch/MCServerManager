@@ -110,7 +110,7 @@ Public Class ServerStatus
                                                  End Select
                                                  If GlobalModule.Manager.CanUPnP Then
                                                      Try
-                                                         If Server.ServerOptions("server-ip") = GlobalModule.Manager.ip OrElse Server.ServerOptions("server-ip") = "" Then
+                                                         If GlobalModule.Manager.ip.Contains(Server.ServerOptions("server-ip")) OrElse Server.ServerOptions("server-ip") = "" Then
                                                              UPnPStatusLabel.Text = "支援 UPnP"
                                                          Else
                                                              UPnPStatusLabel.Text = ""

@@ -31,7 +31,7 @@ Public Class Manager
     Dim sharer As String = ""
     Friend CanUPnP As Boolean
     Dim CanEnabledUPnP As Boolean
-    Friend ip As String = ""
+    Friend ip As New List(Of String)
     Friend HasJava As Boolean = False
     Friend Is32BitJava As Boolean = True
     Friend RunningBungeeCord As Boolean = False
@@ -631,25 +631,25 @@ Public Class Manager
         Dim IPSeeker As New Thread(Sub()
                                        Try
                                            If IsNothing(Net.Dns.GetHostAddresses(Net.Dns.GetHostName)) = False Then
-                                               For Each i In Net.Dns.GetHostAddresses(Net.Dns.GetHostName)
+                                               BeginInvokeIfRequired(Me, Sub() IPLabel.Text = "內部IP位址：")
+                                               Dim ipas = Net.Dns.GetHostAddresses(Net.Dns.GetHostName)
+                                               For Each i In ipas
                                                    If i.AddressFamily = Net.Sockets.AddressFamily.InterNetwork Then
                                                        Dim b = i.GetAddressBytes
-                                                       ip = b(0) & "." & b(1) & "." & b(2) & "." & b(3)
-                                                       BeginInvoke(Sub()
-                                                                       IPLabel.Text = "內部IP位址：" & b(0) & "." & b(1) & "." & b(2) & "." & b(3)
-                                                                       IPLabel.LinkArea = New LinkArea(IPLabel.Text.IndexOf(ip), ip.Length)
-                                                                       tooltip.SetToolTip(IPLabel, "點擊連結複製內部IP位址")
-                                                                       AddHandler IPLabel.LinkClicked, Sub(obj, args)
-                                                                                                           If args.Button = MouseButtons.Left Then
-                                                                                                               My.Computer.Clipboard.SetText(ip)
-                                                                                                               MsgBox("已複製到剪貼簿!")
-                                                                                                           End If
-                                                                                                       End Sub
-                                                                   End Sub)
+                                                       Dim inip = b(0) & "." & b(1) & "." & b(2) & "." & b(3)
+                                                       BeginInvokeIfRequired(Me, Sub()
+                                                                                     If Array.IndexOf(ipas, i) = ipas.Count - 1 Then
+                                                                                         IPLabel.Text &= inip
+                                                                                     Else
+                                                                                         IPLabel.Text &= inip & " , "
+                                                                                     End If
+                                                                                     IPLabel.Links.Add(New LinkLabel.Link(IPLabel.Text.IndexOf(inip), inip.Length))
+                                                                                     tooltip.SetToolTip(IPLabel, "點擊連結複製內部IP位址")
+                                                                                 End Sub)
                                                        Exit Try
                                                    End If
                                                Next
-                                               If ip = "" Then
+                                               If ip.Count = 0 Then
                                                    BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(無)")
                                                End If
                                            Else
@@ -1665,5 +1665,11 @@ Public Class Manager
             FTBLoadingLabel.Text = "Feed The Beast：" & "(無)"
         End If
         GC.Collect()
+    End Sub
+    Private Sub IPLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IPLabel.LinkClicked
+        If e.Button = MouseButtons.Left Then
+            My.Computer.Clipboard.SetText(IPLabel.Text.Substring(e.Link.Start, e.Link.Length))
+            MsgBox("已複製到剪貼簿!")
+        End If
     End Sub
 End Class

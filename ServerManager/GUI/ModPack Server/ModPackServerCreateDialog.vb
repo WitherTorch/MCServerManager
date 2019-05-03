@@ -13,7 +13,7 @@ Public Class ModPackServerCreateDialog
     End Sub
 
     Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
-        IPBox.Text = GlobalModule.Manager.ip
+        IPBox.Text = GlobalModule.Manager.ip(0)
         IPBox.ReadOnly = True
         ipType = ServerIPType.Default
     End Sub
@@ -41,7 +41,7 @@ Public Class ModPackServerCreateDialog
                         Case ServerIPType.Float
                             server.ServerOptions("server-ip") = ""
                         Case ServerIPType.Default
-                            server.ServerOptions("server-ip") = GlobalModule.Manager.ip
+                            server.ServerOptions("server-ip") = GlobalModule.Manager.ip(0)
                         Case ServerIPType.Custom
                             server.ServerOptions("server-ip") = IPBox.Text
                     End Select

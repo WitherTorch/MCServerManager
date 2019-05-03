@@ -24,6 +24,7 @@ Public Class CharcoalEngine
         CurseForge_ModDownloadListPage
         Nukkit_PluginListPage
         Nukkit_PluginMainPage
+        Sponge_PluginListPage
     End Enum
     Sub New(index As Integer)
         Dim version = System.Environment.OSVersion.Version
