@@ -1,6 +1,6 @@
 ﻿Public Class JavaChooseForm
-    Private JavaList As List(Of JavaPathsProvider.Java)
-    Friend Property ChoosedJava As JavaPathsProvider.Java = Nothing
+    Private JavaList As List(Of JavaPathsProvider.JavaInfo)
+    Friend Property ChoosedJava As JavaPathsProvider.JavaInfo = Nothing
     Private Sub JavaChooseForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         JavaList = JavaPathsProvider.GetJavaList()
         For Each java In JavaList
@@ -28,7 +28,7 @@
         If JavaListView.SelectedItems.Count > 0 Then
             Dim item = JavaListView.SelectedItems.Item(0)
             If item IsNot Nothing Then
-                ChoosedJava = New JavaPathsProvider.Java() With {.Name = item.Text, .Path = item.SubItems(item.SubItems.Count - 1).Text}
+                ChoosedJava = New JavaPathsProvider.JavaInfo() With {.Name = item.Text, .Path = item.SubItems(item.SubItems.Count - 1).Text}
                 DialogResult = DialogResult.OK
                 Close()
             End If
