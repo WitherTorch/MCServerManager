@@ -32,7 +32,8 @@ Namespace My
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
             My.Application.Log.DefaultFileLogWriter.Location = Logging.LogFileLocation.Custom
             My.Application.Log.DefaultFileLogWriter.CustomLocation = IO.Path.Combine(My.Application.Info.DirectoryPath, "error-logs")
-
+            Dim pro As New CloudFlareProvider()
+            pro.test()
         End Sub
     End Class
 End Namespace
