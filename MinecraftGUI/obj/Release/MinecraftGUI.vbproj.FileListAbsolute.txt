@@ -74,15 +74,16 @@ D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.dll
 D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.xml
 D:\程式\MinecraftServerManager\MinecraftGUI\obj\Release\MinecraftGUI.pdb
 C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.vbprojAssemblyReference.cache
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\bin\Release\MinecraftGUI.dll
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\bin\Release\MinecraftGUI.pdb
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\bin\Release\MinecraftGUI.xml
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.Button.resources
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.CheckBox.resources
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.MinecraftFormTemplate.resources
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.Resources.resources
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.vbproj.GenerateResource.cache
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.vbproj.CoreCompileInputs.cache
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.dll
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.xml
-C:\Users\user\source\repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.pdb
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\bin\Release\MinecraftGUI.dll
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\bin\Release\MinecraftGUI.pdb
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\bin\Release\MinecraftGUI.xml
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.Button.resources
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.CheckBox.resources
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.MinecraftFormTemplate.resources
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.Resources.resources
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.vbproj.GenerateResource.cache
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.vbproj.CoreCompileInputs.cache
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.dll
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.xml
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.pdb
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\Release\MinecraftGUI.vbprojAssemblyReference.cache

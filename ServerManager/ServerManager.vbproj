@@ -137,8 +137,8 @@
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.11.3.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.11.3\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="HtmlRenderer, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlRenderer.Core.1.5.1-beta1\lib\net45\HtmlRenderer.dll</HintPath>
@@ -169,6 +169,8 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Numerics">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll</HintPath>
     </Reference>
@@ -277,6 +279,7 @@
     <Compile Include="Classes\Server\ServerTask.vb" />
     <Compile Include="Classes\Server\SpigotOptions.vb" />
     <Compile Include="Classes\Watchdog.vb" />
+    <Compile Include="Connections\CloudFlareProvider.vb" />
     <Compile Include="GUI\BungeeCord\BungeeCordCreateDialog.Designer.vb">
       <DependentUpon>BungeeCordCreateDialog.vb</DependentUpon>
     </Compile>
@@ -459,7 +462,7 @@
     </Compile>
     <Compile Include="JSONSafeModule.vb" />
     <Compile Include="Classes\BukkitPluginUnpatcher.vb" />
-    <Compile Include="NoIPProvider.vb" />
+    <Compile Include="Connections\NoIPProvider.vb" />
     <Compile Include="UPnPMapper.vb" />
     <Compile Include="GUI\ForgeInstallWindow.Designer.vb">
       <DependentUpon>ForgeInstallWindow.vb</DependentUpon>
