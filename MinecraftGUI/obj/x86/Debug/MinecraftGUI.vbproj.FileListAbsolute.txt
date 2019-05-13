@@ -38,13 +38,11 @@ F:\程式\ServerLauncher\MinecraftGUI\obj\x86\Debug\MinecraftGUI.pdb
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\bin\x86\Debug\MinecraftGUI.dll
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\bin\x86\Debug\MinecraftGUI.pdb
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\bin\x86\Debug\MinecraftGUI.xml
-C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbprojAssemblyReference.cache
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.Button.resources
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.CheckBox.resources
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.MinecraftFormTemplate.resources
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.Resources.resources
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbproj.GenerateResource.cache
-C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbproj.CoreCompileInputs.cache
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.dll
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.xml
 C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.pdb
@@ -60,3 +58,4 @@ C:\Users\acer\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Deb
 C:\Users\acer\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.xml
 C:\Users\acer\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.pdb
 C:\Users\acer\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbproj.CoreCompileInputs.cache
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbprojResolveAssemblyReference.cache

@@ -53,15 +53,22 @@ Public Class ServerCreateDialog
                 Case Server.EServerVersionType.VanillaBedrock
                     server.SetVersion(VanillaBedrockVersion.ToString)
                 Case Server.EServerVersionType.Vanilla
-                    Dim preReleaseRegex As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
+                    Dim preReleaseRegex1 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
+                    Dim preReleaseRegex2 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
                     Dim snapshotRegex As New Regex("[0-9]{2}w[0-9]{2}[a-z]{1}")
                     If Version.TryParse(VersionBox.Text, Nothing) Then
                         server.SetVersion(VersionBox.Text)
-                    ElseIf preReleaseRegex.IsMatch(VersionBox.Text) Then
-                        If preReleaseRegex.Match(VersionBox.Text).Value.Contains("1.RV") Then
-                            server.SetVersion("1.9.9999", preReleaseRegex.Match(VersionBox.Text).Value)
+                    ElseIf preReleaseRegex1.IsMatch(VersionBox.Text) Then
+                        If preReleaseRegex1.Match(VersionBox.Text).Value.Contains("1.RV") Then
+                            server.SetVersion("1.9.9999", preReleaseRegex1.Match(VersionBox.Text).Value)
                         Else
-                            server.SetVersion(New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(VersionBox.Text).Value, preReleaseRegex.Match(VersionBox.Text).Value)
+                            server.SetVersion(New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(VersionBox.Text).Value, preReleaseRegex1.Match(VersionBox.Text).Value)
+                        End If
+                    ElseIf preReleaseRegex2.IsMatch(VersionBox.Text) Then
+                        If preReleaseRegex2.Match(VersionBox.Text).Value.Contains("1.RV") Then
+                            server.SetVersion("1.9.9999", preReleaseRegex2.Match(VersionBox.Text).Value)
+                        Else
+                            server.SetVersion(New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(VersionBox.Text).Value, preReleaseRegex2.Match(VersionBox.Text).Value)
                         End If
                     ElseIf snapshotRegex.IsMatch(VersionBox.Text) Then
                         server.SetVersion("snapshot", snapshotRegex.Match(VersionBox.Text).Value)
@@ -83,9 +90,11 @@ Public Class ServerCreateDialog
                 Case 0
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Vanilla)
                     For Each item In VanillaVersionDict.Keys
-                        Dim preReleaseRegex As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
+                        Dim preReleaseRegex1 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
+                        Dim preReleaseRegex2 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
                         Dim snapshotRegex As New Regex("[0-9]{2}w[0-9]{2}[a-z]{1}")
-                        If preReleaseRegex.IsMatch(item) OrElse
+                        If preReleaseRegex1.IsMatch(item) OrElse
+                                preReleaseRegex2.IsMatch(item) OrElse
                             snapshotRegex.IsMatch(item) Then
                             If My.Settings.ShowSnapshot Then VersionBox.Items.Add(item)
                         Else

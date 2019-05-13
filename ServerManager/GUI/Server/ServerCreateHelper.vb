@@ -54,7 +54,11 @@ Public Class ServerCreateHelper
         If IsNothing(server.Server2ndVersion) = False OrElse server.Server2ndVersion <> "" Then
             Dim preReleaseRegex As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
             Dim preReleaseRegex2 As New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*")
+            Dim preReleaseRegex3 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
             If preReleaseRegex.IsMatch(server.Server2ndVersion) Then
+                manifestListURL = VanillaVersionDict(server.Server2ndVersion)
+                vanilla_isPre = True
+            ElseIf preReleaseRegex3.IsMatch(server.Server2ndVersion) Then
                 manifestListURL = VanillaVersionDict(server.Server2ndVersion)
                 vanilla_isPre = True
             ElseIf server.ServerVersion = "snapshot" Then
