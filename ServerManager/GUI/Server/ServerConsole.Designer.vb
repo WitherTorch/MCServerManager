@@ -27,6 +27,7 @@ Partial Class ServerConsole
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerConsole))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainTabPage = New System.Windows.Forms.TabPage()
+        Me.ForceCloseButton = New System.Windows.Forms.Button()
         Me.RestartButton = New System.Windows.Forms.Button()
         Me.PlayerGroupBox = New System.Windows.Forms.GroupBox()
         Me.PlayerListBox = New System.Windows.Forms.ListBox()
@@ -36,6 +37,8 @@ Partial Class ServerConsole
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.設定OPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.解除OPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.更新列表用listToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SystemGroupBox = New System.Windows.Forms.GroupBox()
         Me.IDLabel = New System.Windows.Forms.Label()
         Me.MemoryLabel = New System.Windows.Forms.Label()
@@ -61,7 +64,6 @@ Partial Class ServerConsole
         Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ListBoxTImer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ForceCloseButton = New System.Windows.Forms.Button()
         Panel1 = New System.Windows.Forms.Panel()
         Me.MainTabControl.SuspendLayout()
         Me.MainTabPage.SuspendLayout()
@@ -110,6 +112,16 @@ Partial Class ServerConsole
         Me.MainTabPage.Text = "伺服器資訊"
         Me.MainTabPage.UseVisualStyleBackColor = True
         '
+        'ForceCloseButton
+        '
+        Me.ForceCloseButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ForceCloseButton.Location = New System.Drawing.Point(627, 6)
+        Me.ForceCloseButton.Name = "ForceCloseButton"
+        Me.ForceCloseButton.Size = New System.Drawing.Size(84, 22)
+        Me.ForceCloseButton.TabIndex = 38
+        Me.ForceCloseButton.Text = "強制關閉"
+        Me.ForceCloseButton.UseVisualStyleBackColor = True
+        '
         'RestartButton
         '
         Me.RestartButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -146,38 +158,49 @@ Partial Class ServerConsole
         '
         'UserContextMenu
         '
-        Me.UserContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.封禁ToolStripMenuItem, Me.踢出ToolStripMenuItem, Me.ToolStripSeparator1, Me.設定OPToolStripMenuItem, Me.解除OPToolStripMenuItem})
+        Me.UserContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.封禁ToolStripMenuItem, Me.踢出ToolStripMenuItem, Me.ToolStripSeparator1, Me.設定OPToolStripMenuItem, Me.解除OPToolStripMenuItem, Me.ToolStripSeparator2, Me.更新列表用listToolStripMenuItem})
         Me.UserContextMenu.Name = "UserContextMenu"
-        Me.UserContextMenu.Size = New System.Drawing.Size(116, 98)
+        Me.UserContextMenu.Size = New System.Drawing.Size(165, 126)
         '
         '封禁ToolStripMenuItem
         '
         Me.封禁ToolStripMenuItem.Name = "封禁ToolStripMenuItem"
-        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(115, 22)
+        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.封禁ToolStripMenuItem.Text = "封禁"
         '
         '踢出ToolStripMenuItem
         '
         Me.踢出ToolStripMenuItem.Name = "踢出ToolStripMenuItem"
-        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(115, 22)
+        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.踢出ToolStripMenuItem.Text = "踢出"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(112, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(161, 6)
         '
         '設定OPToolStripMenuItem
         '
         Me.設定OPToolStripMenuItem.Name = "設定OPToolStripMenuItem"
-        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(115, 22)
+        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.設定OPToolStripMenuItem.Text = "設定OP"
         '
         '解除OPToolStripMenuItem
         '
         Me.解除OPToolStripMenuItem.Name = "解除OPToolStripMenuItem"
-        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(115, 22)
+        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.解除OPToolStripMenuItem.Text = "解除OP"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(161, 6)
+        '
+        '更新列表用listToolStripMenuItem
+        '
+        Me.更新列表用listToolStripMenuItem.Name = "更新列表用listToolStripMenuItem"
+        Me.更新列表用listToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.更新列表用listToolStripMenuItem.Text = "更新列表(用/list)"
         '
         'SystemGroupBox
         '
@@ -419,16 +442,6 @@ Partial Class ServerConsole
         Me.ListBoxTImer.Enabled = True
         Me.ListBoxTImer.Interval = 250
         '
-        'ForceCloseButton
-        '
-        Me.ForceCloseButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ForceCloseButton.Location = New System.Drawing.Point(627, 6)
-        Me.ForceCloseButton.Name = "ForceCloseButton"
-        Me.ForceCloseButton.Size = New System.Drawing.Size(84, 22)
-        Me.ForceCloseButton.TabIndex = 38
-        Me.ForceCloseButton.Text = "強制關閉"
-        Me.ForceCloseButton.UseVisualStyleBackColor = True
-        '
         'ServerConsole
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -494,4 +507,6 @@ Partial Class ServerConsole
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents RestartButton As Button
     Friend WithEvents ForceCloseButton As Button
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents 更新列表用listToolStripMenuItem As ToolStripMenuItem
 End Class

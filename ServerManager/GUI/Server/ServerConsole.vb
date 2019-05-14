@@ -6,6 +6,7 @@ Imports ServerManager.MinecraftLogParser.MinecraftConsoleMessage
 Public Class ServerConsole
     Dim TaskList As New List(Of ServerTask)
     Dim ThreadTaskDictionary As New Dictionary(Of ServerTask, System.Windows.Forms.Timer)
+    Dim ConnectionPlayerList As New List(Of String)
     Dim InputList As New List(Of String)()
     Dim CurrentListLocation As Integer = -1
     Dim backgroundProcess As Process
@@ -278,10 +279,14 @@ Public Class ServerConsole
                                                                                                                     NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & msg.Message, Text)
                                                                                               End Select
                                                                                               Select Case msg.MessageType
+                                                                                                  Case MCMessageType.PlayerConnected
+                                                                                                      If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Add(msg.AddtionalMessage("player"))
+                                                                                                  Case MCMessageType.PlayerLostConnected
+                                                                                                      If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Remove(msg.AddtionalMessage("player"))
                                                                                                   Case MCMessageType.PlayerLogin
                                                                                                       If NotifyChooseListBox.CheckedIndices.Contains(0) Then _
                                                                                                                     NotifyInfoMessage(msg.AddtionalMessage("player") & " 進入伺服器", Text)
-                                                                                                      BeginInvoke(Sub() PlayerListBox.Items.Add(msg.AddtionalMessage("player")))
+                                                                                                      BeginInvoke(Sub() If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then PlayerListBox.Items.Add(msg.AddtionalMessage("player")))
                                                                                                       For Each task In TaskList
                                                                                                           If task.Mode = ServerTask.TaskMode.Trigger AndAlso
                                                                                                                        task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogin Then
@@ -293,7 +298,7 @@ Public Class ServerConsole
                                                                                                   Case MCMessageType.PlayerLogout
                                                                                                       If NotifyChooseListBox.CheckedIndices.Contains(1) Then _
                                                                                                                     NotifyInfoMessage(msg.AddtionalMessage("player") & " 離開伺服器", Text)
-                                                                                                      BeginInvoke(Sub() PlayerListBox.Items.Remove(msg.AddtionalMessage("player")))
+                                                                                                      BeginInvoke(Sub() If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then PlayerListBox.Items.Remove(msg.AddtionalMessage("player")))
                                                                                                       For Each task In TaskList
                                                                                                           If task.Mode = ServerTask.TaskMode.Trigger AndAlso
                                                                                                                        task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogout Then
@@ -936,10 +941,17 @@ Public Class ServerConsole
 
     Private Sub UserContextMenu_Opening(sender As Object, e As CancelEventArgs) Handles UserContextMenu.Opening
         If PlayerListBox.SelectedIndices IsNot Nothing AndAlso PlayerListBox.SelectedIndices.Count > 0 Then
-            e.Cancel = False
+            封禁ToolStripMenuItem.Enabled = True
+            踢出ToolStripMenuItem.Enabled = True
+            解除OPToolStripMenuItem.Enabled = True
+            設定OPToolStripMenuItem.Enabled = True
+            更新列表用listToolStripMenuItem.Enabled = False
         Else
-            MsgBox("必須選擇一名玩家!",, Application.ProductName)
-            e.Cancel = True
+            封禁ToolStripMenuItem.Enabled = False
+            踢出ToolStripMenuItem.Enabled = False
+            解除OPToolStripMenuItem.Enabled = False
+            設定OPToolStripMenuItem.Enabled = False
+            更新列表用listToolStripMenuItem.Enabled = True
         End If
     End Sub
 
@@ -952,5 +964,9 @@ Public Class ServerConsole
                 End Try
             End If
         End If
+    End Sub
+
+    Private Sub 更新列表用listToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 更新列表用listToolStripMenuItem.Click
+
     End Sub
 End Class
