@@ -92,7 +92,7 @@ Public Class MinecraftLogParser
                 If threadMessage.Trim = "" Then threadMessage = "Server Thread"
                 msg.Thread = threadMessage
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
-                Dim playerLoginRegex As New Regex("[A-Za-z0-9_-]* joined the game")
+                Dim playerLoginRegex As New Regex("[A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
                 Dim playerLogoutRegex As New Regex("[A-Za-z0-9_-]* left the game")
                 If playerLoginRegex.IsMatch(msg.Message) Then  'Player Login Regex Match   : xxx joined the game
                     Dim matchString = playerLoginRegex.Match(msg.Message).Value
@@ -124,7 +124,7 @@ Public Class MinecraftLogParser
                 msg.Message = originalMessage.Substring(checkMessage.Length + 1, originalMessage.Length - (checkMessage.Length + 1)).TrimStart
 
                 Dim playerLoginRegex1 As New Regex("\: UUID of player [A-Za-z0-9_-]* is [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
-                Dim playerLoginRegex2 As New Regex("\: [A-Za-z0-9_-]* joined the game")
+                Dim playerLoginRegex2 As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")
                 If playerLoginRegex1.IsMatch(originalMessage) Then  'Player Login Regex Match   : UUID of player xxx is 00000000-aaaa-bbbb-cccc-123456789def
                     Dim matchString = playerLoginRegex1.Match(originalMessage).Value
@@ -162,7 +162,7 @@ Public Class MinecraftLogParser
                 Dim threadMessage2 As String = New Regex("\[[A-Za-z0-9 \/\\\..]*\]").Matches(checkMessage)(1).Value
                 msg.Thread = String.Format("{0} ({1})", threadMessage1.Substring(1, threadMessage1.Length - messageType.Length - 3), threadMessage2.Substring(1, threadMessage2.Length - 2))
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
-                Dim playerLoginRegex As New Regex("\: [A-Za-z0-9_-]* joined the game")
+                Dim playerLoginRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")
                 If playerLoginRegex.IsMatch(originalMessage) Then  'Player Login Regex Match   : xxx joined the game
                     Dim matchString = playerLoginRegex.Match(originalMessage).Value
@@ -194,7 +194,7 @@ Public Class MinecraftLogParser
                 Dim threadMessage2 As String = New Regex("\[[A-Za-z0-9 \/\\\..]*\]").Matches(checkMessage)(1).Value
                 msg.Thread = String.Format("{0} ({1})", threadMessage1.Substring(1, threadMessage1.Length - messageType.Length - 3), threadMessage2.Substring(1, threadMessage2.Length - 2))
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
-                Dim playerLoginRegex As New Regex("\: [A-Za-z0-9_-]* joined the game")
+                Dim playerLoginRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")
                 If playerLoginRegex.IsMatch(originalMessage) Then  'Player Login Regex Match   : xxx joined the game
                     Dim matchString = playerLoginRegex.Match(originalMessage).Value
@@ -225,7 +225,7 @@ Public Class MinecraftLogParser
                 Dim threadMessage As String = New Regex("\[[A-Za-z ][A-Za-z0-9 -]*\/[A-Z]{4,5}\]").Match(checkMessage).Value
                 msg.Thread = threadMessage.Substring(1, threadMessage.Length - messageType.Length - 3)
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
-                Dim playerLoginRegex As New Regex("\: [A-Za-z0-9_-]* joined the game")
+                Dim playerLoginRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")
                 If playerLoginRegex.IsMatch(originalMessage) Then  'Player Login Regex Match   : xxx joined the game
                     Dim matchString = playerLoginRegex.Match(originalMessage).Value
