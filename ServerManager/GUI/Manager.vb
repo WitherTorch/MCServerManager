@@ -412,19 +412,24 @@ Public Class Manager
                                                             Dim assets As JArray = Nothing
                                                             jsonObject.TryGetValue("assets", assets)
                                                             If assets IsNot Nothing AndAlso assets.Count > 1 Then
-                                                                Dim subJsonObject As JObject = assets(1)
-                                                                Dim url As String = subJsonObject.GetValue("browser_download_url")
-                                                                If assets.Count = 2 Then
-                                                                    KettleVersionDict.Add(name, (url, Nothing))
-                                                                Else
-                                                                    For i As Integer = 2 To assets.Count - 1
-                                                                        If CType(assets(i), JObject).GetValue("name") = "libraries.zip" Then
-                                                                            KettleVersionDict.Add(name, (url, CType(assets(i), JObject).GetValue("browser_download_url")))
-                                                                            Exit For
+                                                                For Each subJsonObject As JObject In assets
+                                                                    Dim regex As New Regex("kettle-git-HEAD-[0-9a-f]{7}-universal.jar", RegexOptions.IgnoreCase)
+                                                                    If regex.IsMatch(subJsonObject.GetValue("name")) AndAlso
+                                                                    regex.Match(subJsonObject.GetValue("name")).Value = subJsonObject.GetValue("name") Then
+                                                                        Dim url As String = subJsonObject.GetValue("browser_download_url")
+                                                                        If assets.Count = 2 Then
+                                                                            KettleVersionDict.Add(name, (url, subJsonObject.GetValue("name"), Nothing))
+                                                                        Else
+                                                                            For i As Integer = 2 To assets.Count - 1
+                                                                                If CType(assets(i), JObject).GetValue("name") = "libraries.zip" Then
+                                                                                    KettleVersionDict.Add(name, (url, subJsonObject.GetValue("name"), CType(assets(i), JObject).GetValue("browser_download_url")))
+                                                                                    Exit For
+                                                                                End If
+                                                                            Next
+                                                                            If KettleVersionDict.ContainsKey(name) = False Then KettleVersionDict.Add(name, (url, subJsonObject.GetValue("name"), Nothing))
                                                                         End If
-                                                                    Next
-                                                                    If KettleVersionDict.ContainsKey(name) = False Then KettleVersionDict.Add(name, (url, Nothing))
-                                                                End If
+                                                                    End If
+                                                                Next
                                                             End If
                                                         Catch ex As Exception
 

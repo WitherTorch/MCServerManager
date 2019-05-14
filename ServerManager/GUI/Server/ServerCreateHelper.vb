@@ -348,7 +348,7 @@ Public Class ServerCreateHelper
                                                                                                                                  ProgressBar.Value = 40
                                                                                                                              End Sub)
                                                                                                                  For i As Integer = KettleVersionDict.Keys.ToList.IndexOf(server.ServerVersion) To KettleVersionDict.Count - 1
-                                                                                                                     If String.IsNullOrEmpty(KettleVersionDict.Values.ToArray(i).Item2) = False Then
+                                                                                                                     If String.IsNullOrEmpty(KettleVersionDict.Values.ToArray(i).Item3) = False Then
                                                                                                                          Dim subClient As New Net.WebClient
                                                                                                                          AddHandler subClient.DownloadProgressChanged, Sub(obj, args)
                                                                                                                                                                            If args.TotalBytesToReceive = -1 Then
@@ -413,7 +413,7 @@ Public Class ServerCreateHelper
                                                                                                                                                                                          ' End Try
                                                                                                                                                                                      End Sub)
                                                                                                                                                                      End Sub
-                                                                                                                         subClient.DownloadFileAsync(New Uri(KettleVersionDict.Values.ToArray(i).Item2), IIf(path.EndsWith("\"), path, path & "\") & "libraries.zip")
+                                                                                                                         subClient.DownloadFileAsync(New Uri(KettleVersionDict.Values.ToArray(i).Item3), IIf(path.EndsWith("\"), path, path & "\") & "libraries.zip")
                                                                                                                          Exit For
                                                                                                                      End If
                                                                                                                  Next
@@ -421,17 +421,15 @@ Public Class ServerCreateHelper
                                                              Dim jsonClient As New Net.WebClient()
                                                              Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(jsonClient.DownloadString(VanillaVersionDict("1.12.2")))
                                                              If vanilla_isPre OrElse vanilla_isSnap Then
-                                                                     Dim assets As String = jsonObject.GetValue("assets").ToString
-                                                                     assets = New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(assets).Value
-                                                                     server.SetVersion(assets, server.Server2ndVersion)
-                                                                 End If
+                                                                 Dim assets As String = jsonObject.GetValue("assets").ToString
+                                                                 assets = New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(assets).Value
+                                                                 server.SetVersion(assets, server.Server2ndVersion)
+                                                             End If
                                                              vanillaClient.DownloadFileAsync(New Uri(jsonObject.GetValue("downloads").Item("server").Item("url").ToString), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server.1.12.2.jar"))
                                                          End Sub
-                If server.ServerVersion = "unstable 1" Then
-                    client.DownloadFileAsync(New Uri(KettleVersionDict(server.ServerVersion).Item1), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "kettle-git-HEAD-131d5eb-universal.jar"))
-                ElseIf server.ServerVersion.StartsWith("Dev HEAD-") Then
-                    client.DownloadFileAsync(New Uri(KettleVersionDict(server.ServerVersion).Item1), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "kettle-git-HEAD-" & server.ServerVersion.Substring(9).Trim & "-universal.jar"))
-                End If
+                Dim branchID As String = New Regex("[0-9a-f]{7}", RegexOptions.IgnoreCase).Match(KettleVersionDict(server.ServerVersion).Item2).Value
+                server.SetVersion(server.ServerVersion, branchID)
+                client.DownloadFileAsync(New Uri(KettleVersionDict(server.ServerVersion).Item1), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), KettleVersionDict(server.ServerVersion).Item2))
         End Select
     End Sub
 

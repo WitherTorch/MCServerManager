@@ -145,11 +145,7 @@ Public Class ServerConsole
                         Case Server.EServerVersionType.Contigo
                             Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Contigo-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                         Case Server.EServerVersionType.Kettle
-                            If Server.ServerVersion = "unstable 1" Then
-                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "kettle-git-HEAD-131d5eb-universal.jar") & """", Server.ServerPath)
-                            ElseIf Server.ServerVersion.StartsWith("Dev HEAD-") Then
-                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "kettle-git-HEAD-" & Server.ServerVersion.Substring(9).Trim & "-universal.jar") & """", Server.ServerPath)
-                            End If
+                            Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "kettle-git-HEAD-" & Server.Server2ndVersion & "-universal.jar") & """", Server.ServerPath)
                     End Select
                 Case Server.EServerType.Bedrock
                     Select Case Server.ServerVersionType

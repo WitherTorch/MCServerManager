@@ -25,7 +25,7 @@ Module GlobalModule
     Friend VanillaBedrockVersion As Version
     Friend PaperVersionDict As New Dictionary(Of Version, String)
     Friend AkarinVersionList As New List(Of Version)
-    Friend KettleVersionDict As New Dictionary(Of String, (String, String))
+    Friend KettleVersionDict As New Dictionary(Of String, (String, String, String))
 #End Region
 #Region "Modpack List"
     Friend FeedTheBeastPackDict As New Dictionary(Of String, (Dictionary(Of String, String), String, String))

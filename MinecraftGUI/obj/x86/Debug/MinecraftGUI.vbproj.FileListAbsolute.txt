@@ -58,4 +58,5 @@ C:\Users\acer\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Deb
 C:\Users\acer\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.xml
 C:\Users\acer\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.pdb
 C:\Users\acer\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbproj.CoreCompileInputs.cache
-C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbprojResolveAssemblyReference.cache
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbprojAssemblyReference.cache
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\MinecraftGUI\obj\x86\Debug\MinecraftGUI.vbproj.CoreCompileInputs.cache

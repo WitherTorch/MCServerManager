@@ -141,6 +141,8 @@ Public NotInheritable Class Server
                                         End Select
                                     Case "spigot-build-version"
                                         server._Server2ndVersion = info(1)
+                                    Case "kettle-branch-id"
+                                        server._Server2ndVersion = info(1)
                                     Case "forge-build-version"
                                         server._Server2ndVersion = info(1)
                                     Case "nukkit-build-version"
@@ -892,6 +894,8 @@ Public NotInheritable Class Server
                     writer.WriteLine("nukkit-build-version=" & secondVersion)
                 Case EServerVersionType.Spigot_Git
                     writer.WriteLine("spigot-build-version=" & secondVersion)
+                Case EServerVersionType.Kettle
+                    writer.WriteLine("kettle-branch-id=" & secondVersion)
             End Select
             Dim jsonArray As New JArray
             If IsNothing(ServerTasks) = False Then

@@ -8,6 +8,7 @@ Public Class ServerCreateDialog
     Friend server As Server = Server.CreateServer
     Friend serverOptions As IServerOptions
     Dim ipType As ServerIPType = ServerIPType.Default
+
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
         IPBox.Text = ""
         IPBox.ReadOnly = True
@@ -284,6 +285,10 @@ Public Class ServerCreateDialog
             Case 10 To 11
                 PortBox.Value = 19132
         End Select
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        MyBase.Finalize()
     End Sub
 End Class
 Enum ServerIPType
