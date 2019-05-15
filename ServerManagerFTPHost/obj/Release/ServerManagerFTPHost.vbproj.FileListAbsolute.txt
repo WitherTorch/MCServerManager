@@ -48,3 +48,12 @@ C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHos
 C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.exe
 C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.xml
 C:\Users\Error 404\source\repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.pdb
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.exe.config
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.exe
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.pdb
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\ServerManagerFTPHost.xml
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\FTPServerLib.dll
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.dll
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\FTPServerLib.pdb
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\ServerManagerFTPHost\bin\Release\Newtonsoft.Json.xml
+C:\Users\user\Source\Repos\Minecraft 伺服器管理員\ServerManagerFTPHost\obj\Release\ServerManagerFTPHost.vbproj.CopyComplete

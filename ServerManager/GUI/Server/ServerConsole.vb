@@ -945,7 +945,7 @@ Public Class ServerConsole
             踢出ToolStripMenuItem.Enabled = True
             解除OPToolStripMenuItem.Enabled = True
             設定OPToolStripMenuItem.Enabled = True
-            更新列表用listToolStripMenuItem.Enabled = False
+            更新列表用listToolStripMenuItem.Enabled = True
         Else
             封禁ToolStripMenuItem.Enabled = False
             踢出ToolStripMenuItem.Enabled = False
@@ -967,6 +967,13 @@ Public Class ServerConsole
     End Sub
 
     Private Sub 更新列表用listToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 更新列表用listToolStripMenuItem.Click
-
+        If backgroundProcess IsNot Nothing Then
+            If backgroundProcess.HasExited = False Then
+                Try
+                    backgroundProcess.StandardInput.WriteLine("list")
+                Catch ex As Exception
+                End Try
+            End If
+        End If
     End Sub
 End Class
