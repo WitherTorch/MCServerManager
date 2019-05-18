@@ -10,6 +10,9 @@ Public Class ServerConsole
     Dim InputList As New List(Of String)()
     Dim CurrentListLocation As Integer = -1
     Dim backgroundProcess As Process
+    Dim PlayerListGetState As Integer = 0
+    Dim PlayerListGetCount As Integer
+    Dim temp_PlayerList As New List(Of String)
     Public ReadOnly Property Server As Server
     Dim startInfo As ProcessStartInfo
     Dim usesType As Server.EServerVersionType
@@ -248,6 +251,33 @@ Public Class ServerConsole
                                                                  Try
                                                                      If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
                                                                          If IsNothing(e.Data) = False Then
+                                                                             Select Case PlayerListGetState
+                                                                                 Case 0
+                                                                                     'Nothing
+                                                                                 Case 1 '偵測/list 回傳頭
+                                                                                     Dim ListHeaderRegex As New Text.RegularExpressions.Regex("There are [0-9]{1,}\/[0-9]{1,} players online:") '/list Header
+                                                                                     If ListHeaderRegex.IsMatch(e.Data) AndAlso ListHeaderRegex.Match(e.Data).Value = e.Data.Trim Then
+                                                                                         Dim PlayerCountRegex As New Text.RegularExpressions.Regex("[0-9]{1,}\/[0-9]{1,}")
+                                                                                         Dim PlayerID As String = PlayerCountRegex.Match(e.Data).Value.Split(New Char() {","}, 2)(0)
+                                                                                         PlayerListGetState = 2
+                                                                                         temp_PlayerList = New List(Of String)
+                                                                                     End If
+                                                                                 Case 2 '偵測玩家ID(每行只有一個)
+                                                                                     Dim PlayerIDRegex As New Text.RegularExpressions.Regex("[A-Za-z0-9_-]{1,}")
+                                                                                     If PlayerIDRegex.IsMatch(e.Data) AndAlso PlayerIDRegex.Match(e.Data).Value = e.Data.Trim Then
+                                                                                         If temp_PlayerList Is Nothing Then temp_PlayerList = New List(Of String)
+                                                                                         temp_PlayerList.Add(e.Data.Trim)
+                                                                                         PlayerListGetCount -= 1
+                                                                                         If PlayerListGetCount <= 0 Then
+                                                                                             If temp_PlayerList IsNot Nothing AndAlso temp_PlayerList.Count > 0 Then
+                                                                                                 PlayerListBox.Items.Clear()
+                                                                                                 PlayerListBox.Items.AddRange(temp_PlayerList.ToArray)
+                                                                                                 temp_PlayerList = Nothing
+                                                                                             End If
+                                                                                             PlayerListGetState = 0 'Restore to Default
+                                                                                         End If
+                                                                                     End If
+                                                                             End Select
                                                                              Task.Run(Sub()
                                                                                           Try
                                                                                               Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
@@ -447,6 +477,19 @@ Public Class ServerConsole
                         Select Case My.Settings.ConsoleInputChat
                             Case True
                                 If CommandTextBox.Text.StartsWith("/") Then
+                                    If Server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Paper OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                                        If CommandTextBox.Text.Substring(1) = "minecraft:list" Then PlayerListGetState = 1
+                                    Else
+                                        If CommandTextBox.Text.Substring(1) = "list" Then PlayerListGetState = 1
+                                    End If
                                     backgroundProcess.StandardInput.WriteLine(CommandTextBox.Text.Substring(1))
                                     If InputList.Count <= 0 OrElse InputList.Last <> CommandTextBox.Text.Substring(1) Then
                                         InputList.Add(CommandTextBox.Text.Substring(1))
@@ -459,6 +502,19 @@ Public Class ServerConsole
                                 End If
                                 CommandTextBox.Clear()
                             Case False
+                                If Server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Paper OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                                    If CommandTextBox.Text = "minecraft:list" Then PlayerListGetState = 1
+                                Else
+                                    If CommandTextBox.Text = "list" Then PlayerListGetState = 1
+                                End If
                                 backgroundProcess.StandardInput.WriteLine(CommandTextBox.Text)
                                 If InputList.Count <= 0 OrElse InputList.Last <> CommandTextBox.Text Then
                                     InputList.Add(CommandTextBox.Text)
@@ -970,7 +1026,20 @@ Public Class ServerConsole
         If backgroundProcess IsNot Nothing Then
             If backgroundProcess.HasExited = False Then
                 Try
-                    backgroundProcess.StandardInput.WriteLine("list")
+                    If Server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Paper OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
+                            Server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                        backgroundProcess.StandardInput.WriteLine("minecraft:list")
+                    Else
+                        backgroundProcess.StandardInput.WriteLine("list")
+                    End If
+                    PlayerListGetState = 1
                 Catch ex As Exception
                 End Try
             End If
