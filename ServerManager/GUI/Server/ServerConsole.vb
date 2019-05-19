@@ -261,6 +261,9 @@ Public Class ServerConsole
                                                                                          Dim PlayerID As String = PlayerCountRegex.Match(e.Data).Value.Split(New Char() {","}, 2)(0)
                                                                                          PlayerListGetState = 2
                                                                                          temp_PlayerList = New List(Of String)
+                                                                                         If PlayerListGetCount <= 0 Then
+                                                                                             PlayerListGetState = 0 'Restore to Default
+                                                                                         End If
                                                                                      End If
                                                                                  Case 2 '偵測玩家ID(每行只有一個)
                                                                                      Dim PlayerIDRegex As New Text.RegularExpressions.Regex("[A-Za-z0-9_-]{1,}")
