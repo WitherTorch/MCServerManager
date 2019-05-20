@@ -616,8 +616,18 @@ Public Class Manager
         Try
             Dim ExternalIP As String
             ExternalIP = (New Net.WebClient()).DownloadString("https://checkip.dedyn.io")
-            ExternalIP = (New Regex("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")) _
-                     .Matches(ExternalIP)(0).ToString()
+            Dim IPv4Regex As New Regex("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
+            Dim IPv6Regex As New Regex("([0-9A-Fa-f]{1,4}:|::?){2,}|([0-9A-Fa-f]{1,4}:){7})[0-9A-Fa-f]{1,4}")
+            Dim IPv4to6Regex As New Regex("::ffff:[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}")
+            If IPv4Regex.IsMatch(ExternalIP) Then 'IPv4
+                ExternalIP = IPv4Regex.Match(ExternalIP).Value
+            ElseIf IPv4to6Regex.IsMatch(ExternalIP) Then
+                ExternalIP = IPv4to6Regex.Match(ExternalIP).Value
+            ElseIf (IPv6Regex.IsMatch(ExternalIP)) Then 'IPv6
+                ExternalIP = IPv6Regex.Match(ExternalIP).Value
+            Else
+                Return "(無)"
+            End If
             Return ExternalIP
         Catch ex As Exception
             Return "(無)"
