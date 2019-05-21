@@ -336,7 +336,7 @@ Public Class ServerConsole
                                                                                                                                     seekToBottom = True
                                                                                                                                 End If
                                                                                                                             End If
-                                                                                                                            Invoke(Sub() DataListView.Items.Add(item))
+                                                                                                                            DataListView.Items.Add(item)
                                                                                                                             If seekToBottom Then DataListView.EnsureVisible(item.Index)
                                                                                                                         End Sub)
                                                                                           Catch ex As Exception
