@@ -608,16 +608,12 @@ Public Class Manager
             End Select
         End If
     End Sub
-    ''' <summary>
-    ''' 方法來自 https://www.codeproject.com/Tips/452024/%2FTips%2F452024%2FGetting-the-External-IP-Address
-    ''' </summary>
-    ''' <returns></returns>
     Friend Function GetExternalIP() As String
         Try
             Dim ExternalIP As String
             ExternalIP = (New Net.WebClient()).DownloadString("https://checkip.dedyn.io")
             Dim IPv4Regex As New Regex("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
-            Dim IPv6Regex As New Regex("([0-9A-Fa-f]{1,4}:|::?){2,}|([0-9A-Fa-f]{1,4}:){7})[0-9A-Fa-f]{1,4}")
+            Dim IPv6Regex As New Regex("(([0-9A-Fa-f]{1,4}:|::?){2,}|([0-9A-Fa-f]{1,4}:){7})[0-9A-Fa-f]{1,4}")
             Dim IPv4to6Regex As New Regex("::ffff:[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}")
             If IPv4Regex.IsMatch(ExternalIP) Then 'IPv4
                 ExternalIP = IPv4Regex.Match(ExternalIP).Value

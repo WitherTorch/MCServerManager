@@ -6,7 +6,7 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.6 Alpha 13"
+    Public Const SERVER_MANAGER_VER As String = "1.6 Beta 1"
     Friend Manager As Manager
 #Region "Server/Solution List"
     Friend JavaServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"))
