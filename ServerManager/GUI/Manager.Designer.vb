@@ -140,6 +140,7 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -177,6 +178,7 @@ Partial Class Manager
         Me.Panel3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox7.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainTabControl
@@ -212,16 +214,16 @@ Partial Class Manager
         Me.MainPanel.BackColor = System.Drawing.Color.White
         Me.MainPanel.ColumnCount = 1
         Me.MainPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.MainPanel.Controls.Add(Me.VListLoadingBox, 0, 1)
         Me.MainPanel.Controls.Add(Me.NetworkGroupBox, 0, 0)
-        Me.MainPanel.Controls.Add(Me.GroupBox6, 0, 2)
+        Me.MainPanel.Controls.Add(Me.GroupBox7, 0, 1)
         Me.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MainPanel.Location = New System.Drawing.Point(3, 3)
         Me.MainPanel.Name = "MainPanel"
-        Me.MainPanel.RowCount = 3
+        Me.MainPanel.RowCount = 2
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.MainPanel.Size = New System.Drawing.Size(770, 483)
         Me.MainPanel.TabIndex = 5
         '
@@ -245,20 +247,18 @@ Partial Class Manager
         Me.VListLoadingBox.Controls.Add(Me.SpigotLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.ForgeLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.VanillaLoadingLabel)
-        Me.VListLoadingBox.Location = New System.Drawing.Point(3, 93)
+        Me.VListLoadingBox.Location = New System.Drawing.Point(6, 21)
         Me.VListLoadingBox.Name = "VListLoadingBox"
-        Me.VListLoadingBox.Size = New System.Drawing.Size(764, 188)
+        Me.VListLoadingBox.Size = New System.Drawing.Size(416, 214)
         Me.VListLoadingBox.TabIndex = 30
         Me.VListLoadingBox.TabStop = False
-        Me.VListLoadingBox.Text = "版本列表載入進度"
+        Me.VListLoadingBox.Text = "伺服器軟體"
         '
         'ContigoLoadingLabel
         '
-        Me.ContigoLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ContigoLoadingLabel.Location = New System.Drawing.Point(207, 110)
         Me.ContigoLoadingLabel.Name = "ContigoLoadingLabel"
-        Me.ContigoLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.ContigoLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.ContigoLoadingLabel.TabIndex = 14
         Me.ContigoLoadingLabel.Text = "Contigo：載入完成"
         Me.ContigoLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -266,11 +266,9 @@ Partial Class Manager
         '
         'KettleLoadingLabel
         '
-        Me.KettleLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.KettleLoadingLabel.Location = New System.Drawing.Point(207, 133)
         Me.KettleLoadingLabel.Name = "KettleLoadingLabel"
-        Me.KettleLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.KettleLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.KettleLoadingLabel.TabIndex = 13
         Me.KettleLoadingLabel.Text = "Kettle："
         Me.KettleLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -278,11 +276,9 @@ Partial Class Manager
         '
         'Label17
         '
-        Me.Label17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label17.Location = New System.Drawing.Point(207, 87)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(195, 23)
+        Me.Label17.Size = New System.Drawing.Size(197, 23)
         Me.Label17.TabIndex = 12
         Me.Label17.Text = "Thermos：載入完成"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -290,11 +286,9 @@ Partial Class Manager
         '
         'CauldronLoadingLabel
         '
-        Me.CauldronLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CauldronLoadingLabel.Location = New System.Drawing.Point(207, 64)
         Me.CauldronLoadingLabel.Name = "CauldronLoadingLabel"
-        Me.CauldronLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.CauldronLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.CauldronLoadingLabel.TabIndex = 11
         Me.CauldronLoadingLabel.Text = "MCPC / Cauldron：載入完成"
         Me.CauldronLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -302,11 +296,9 @@ Partial Class Manager
         '
         'SpigotGitLoadingLabel
         '
-        Me.SpigotGitLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SpigotGitLoadingLabel.Location = New System.Drawing.Point(6, 64)
         Me.SpigotGitLoadingLabel.Name = "SpigotGitLoadingLabel"
-        Me.SpigotGitLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.SpigotGitLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.SpigotGitLoadingLabel.TabIndex = 10
         Me.SpigotGitLoadingLabel.Text = "Spigot (Git 手動組建)："
         Me.SpigotGitLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -314,11 +306,9 @@ Partial Class Manager
         '
         'AkarinLoadingLabel
         '
-        Me.AkarinLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AkarinLoadingLabel.Location = New System.Drawing.Point(6, 133)
         Me.AkarinLoadingLabel.Name = "AkarinLoadingLabel"
-        Me.AkarinLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.AkarinLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.AkarinLoadingLabel.TabIndex = 9
         Me.AkarinLoadingLabel.Text = "Akarin："
         Me.AkarinLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -326,11 +316,9 @@ Partial Class Manager
         '
         'PaperLoadingLabel
         '
-        Me.PaperLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PaperLoadingLabel.Location = New System.Drawing.Point(6, 110)
         Me.PaperLoadingLabel.Name = "PaperLoadingLabel"
-        Me.PaperLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.PaperLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.PaperLoadingLabel.TabIndex = 8
         Me.PaperLoadingLabel.Text = "Paper："
         Me.PaperLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -338,11 +326,9 @@ Partial Class Manager
         '
         'VanillaBedrockLoadingLabel
         '
-        Me.VanillaBedrockLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(408, 18)
+        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(6, 156)
         Me.VanillaBedrockLoadingLabel.Name = "VanillaBedrockLoadingLabel"
-        Me.VanillaBedrockLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.VanillaBedrockLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.VanillaBedrockLoadingLabel.TabIndex = 7
         Me.VanillaBedrockLoadingLabel.Text = "原版(基岩)："
         Me.VanillaBedrockLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -351,11 +337,9 @@ Partial Class Manager
         '
         'SpongeVanillaLoadingLabel
         '
-        Me.SpongeVanillaLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SpongeVanillaLoadingLabel.Location = New System.Drawing.Point(207, 41)
         Me.SpongeVanillaLoadingLabel.Name = "SpongeVanillaLoadingLabel"
-        Me.SpongeVanillaLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.SpongeVanillaLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.SpongeVanillaLoadingLabel.TabIndex = 6
         Me.SpongeVanillaLoadingLabel.Text = "SpongeVanilla："
         Me.SpongeVanillaLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -363,11 +347,9 @@ Partial Class Manager
         '
         'NukkitLoadingLabel
         '
-        Me.NukkitLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(408, 41)
+        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(207, 156)
         Me.NukkitLoadingLabel.Name = "NukkitLoadingLabel"
-        Me.NukkitLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.NukkitLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.NukkitLoadingLabel.TabIndex = 5
         Me.NukkitLoadingLabel.Text = "Nukkit："
         Me.NukkitLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -375,7 +357,7 @@ Partial Class Manager
         '
         'VersionListReloadButton
         '
-        Me.VersionListReloadButton.Location = New System.Drawing.Point(8, 159)
+        Me.VersionListReloadButton.Location = New System.Drawing.Point(8, 182)
         Me.VersionListReloadButton.Name = "VersionListReloadButton"
         Me.VersionListReloadButton.Size = New System.Drawing.Size(195, 23)
         Me.VersionListReloadButton.TabIndex = 4
@@ -384,11 +366,9 @@ Partial Class Manager
         '
         'CraftBukkitLoadingLabel
         '
-        Me.CraftBukkitLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CraftBukkitLoadingLabel.Location = New System.Drawing.Point(6, 87)
         Me.CraftBukkitLoadingLabel.Name = "CraftBukkitLoadingLabel"
-        Me.CraftBukkitLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.CraftBukkitLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.CraftBukkitLoadingLabel.TabIndex = 3
         Me.CraftBukkitLoadingLabel.Text = "CraftBukkit："
         Me.CraftBukkitLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -396,11 +376,9 @@ Partial Class Manager
         '
         'SpigotLoadingLabel
         '
-        Me.SpigotLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SpigotLoadingLabel.Location = New System.Drawing.Point(6, 41)
         Me.SpigotLoadingLabel.Name = "SpigotLoadingLabel"
-        Me.SpigotLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.SpigotLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.SpigotLoadingLabel.TabIndex = 2
         Me.SpigotLoadingLabel.Text = "Spigot："
         Me.SpigotLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -408,11 +386,9 @@ Partial Class Manager
         '
         'ForgeLoadingLabel
         '
-        Me.ForgeLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ForgeLoadingLabel.Location = New System.Drawing.Point(207, 18)
         Me.ForgeLoadingLabel.Name = "ForgeLoadingLabel"
-        Me.ForgeLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.ForgeLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.ForgeLoadingLabel.TabIndex = 1
         Me.ForgeLoadingLabel.Text = "Forge："
         Me.ForgeLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -420,11 +396,9 @@ Partial Class Manager
         '
         'VanillaLoadingLabel
         '
-        Me.VanillaLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.VanillaLoadingLabel.Location = New System.Drawing.Point(6, 18)
         Me.VanillaLoadingLabel.Name = "VanillaLoadingLabel"
-        Me.VanillaLoadingLabel.Size = New System.Drawing.Size(195, 23)
+        Me.VanillaLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.VanillaLoadingLabel.TabIndex = 0
         Me.VanillaLoadingLabel.Text = "原版："
         Me.VanillaLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -483,16 +457,16 @@ Partial Class Manager
         Me.GroupBox6.BackColor = System.Drawing.Color.Transparent
         Me.GroupBox6.Controls.Add(Me.Button8)
         Me.GroupBox6.Controls.Add(Me.FTBLoadingLabel)
-        Me.GroupBox6.Location = New System.Drawing.Point(3, 287)
+        Me.GroupBox6.Location = New System.Drawing.Point(428, 25)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(764, 83)
+        Me.GroupBox6.Size = New System.Drawing.Size(328, 210)
         Me.GroupBox6.TabIndex = 31
         Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "模組包列表載入進度"
+        Me.GroupBox6.Text = "模組包"
         '
         'Button8
         '
-        Me.Button8.Location = New System.Drawing.Point(8, 54)
+        Me.Button8.Location = New System.Drawing.Point(10, 178)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(195, 23)
         Me.Button8.TabIndex = 13
@@ -501,8 +475,6 @@ Partial Class Manager
         '
         'FTBLoadingLabel
         '
-        Me.FTBLoadingLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FTBLoadingLabel.Location = New System.Drawing.Point(8, 18)
         Me.FTBLoadingLabel.Name = "FTBLoadingLabel"
         Me.FTBLoadingLabel.Size = New System.Drawing.Size(195, 23)
@@ -1445,6 +1417,18 @@ Partial Class Manager
         '
         Me.NoIPTimer.Interval = 1000
         '
+        'GroupBox7
+        '
+        Me.GroupBox7.AutoSize = True
+        Me.GroupBox7.Controls.Add(Me.VListLoadingBox)
+        Me.GroupBox7.Controls.Add(Me.GroupBox6)
+        Me.GroupBox7.Location = New System.Drawing.Point(3, 93)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(762, 256)
+        Me.GroupBox7.TabIndex = 32
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "列表載入進度"
+        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1460,6 +1444,7 @@ Partial Class Manager
         Me.MainPage.ResumeLayout(False)
         Me.MainPage.PerformLayout()
         Me.MainPanel.ResumeLayout(False)
+        Me.MainPanel.PerformLayout()
         Me.VListLoadingBox.ResumeLayout(False)
         Me.NetworkGroupBox.ResumeLayout(False)
         Me.NetworkGroupBox.PerformLayout()
@@ -1507,6 +1492,7 @@ Partial Class Manager
         Me.Panel3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox7.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1615,4 +1601,5 @@ Partial Class Manager
     Friend WithEvents FTBLoadingLabel As Label
     Friend WithEvents ContigoLoadingLabel As Label
     Friend WithEvents KettleLoadingLabel As Label
+    Friend WithEvents GroupBox7 As GroupBox
 End Class
