@@ -84,6 +84,7 @@ Public Class ServerCreateDialog
                     server.SetVersion(VersionBox.Text)
             End Select
         End If
+        Static _typeSelectedIndex As Integer = -1
         If sender Is VersionTypeBox Then
             VersionBox.Items.Clear()
             VersionBox.Enabled = True
@@ -114,8 +115,14 @@ Public Class ServerCreateDialog
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot)
                     VersionBox.Items.AddRange(SpigotVersionDict.Keys.ToArray)
                 Case 3
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot_Git)
-                    VersionBox.Items.AddRange(SpigotGitVersionList.ToArray)
+                    If String.IsNullOrEmpty(GitBashPath) AndAlso IO.File.Exists(GitBashPath) Then
+                        server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot_Git)
+                        VersionBox.Items.AddRange(SpigotGitVersionList.ToArray)
+                    Else
+                        MsgBox("尚未指定Git Bash的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
+                        VersionTypeBox.SelectedIndex = _typeSelectedIndex
+                        Exit Sub
+                    End If
                 Case 4
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.CraftBukkit)
                     VersionBox.Items.AddRange(CraftBukkitVersionDict.Keys.ToArray)
@@ -175,9 +182,10 @@ Public Class ServerCreateDialog
                 Case Else
                     MsgBox("非法操作!")
                     server.SetVersionType(Server.EServerType.Error, Server.EServerVersionType.Error)
-                    VersionTypeBox.SelectedIndex = -1
+                    VersionTypeBox.SelectedIndex = _typeSelectedIndex
+                    Exit Sub
             End Select
-
+            _typeSelectedIndex = VersionTypeBox.SelectedIndex
         End If
 
     End Sub
@@ -290,6 +298,7 @@ Public Class ServerCreateDialog
     Protected Overrides Sub Finalize()
         MyBase.Finalize()
     End Sub
+
 End Class
 Enum ServerIPType
     Float
