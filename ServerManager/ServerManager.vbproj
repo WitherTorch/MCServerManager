@@ -347,6 +347,12 @@
     <Compile Include="GUI\ModPack Server\ModPackServerStatus.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="GUI\Server\ForgeBranchChooser.Designer.vb">
+      <DependentUpon>ForgeBranchChooser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Server\ForgeBranchChooser.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GUI\Server\SpigotGitStatus.Designer.vb">
       <DependentUpon>SpigotGitStatus.vb</DependentUpon>
     </Compile>
@@ -558,6 +564,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ModPack Server\ModPackServerStatus.resx">
       <DependentUpon>ModPackServerStatus.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Server\ForgeBranchChooser.resx">
+      <DependentUpon>ForgeBranchChooser.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Server\SpigotGitStatus.resx">
       <DependentUpon>SpigotGitStatus.vb</DependentUpon>

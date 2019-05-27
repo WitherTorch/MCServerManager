@@ -39,6 +39,11 @@ Partial Class Manager
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
         Me.MainPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.NetworkGroupBox = New System.Windows.Forms.GroupBox()
+        Me.ExternalIPLabel = New System.Windows.Forms.LinkLabel()
+        Me.IPALabel = New System.Windows.Forms.Label()
+        Me.IPLabel = New System.Windows.Forms.LinkLabel()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
         Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
         Me.KettleLoadingLabel = New System.Windows.Forms.Label()
@@ -55,10 +60,6 @@ Partial Class Manager
         Me.SpigotLoadingLabel = New System.Windows.Forms.Label()
         Me.ForgeLoadingLabel = New System.Windows.Forms.Label()
         Me.VanillaLoadingLabel = New System.Windows.Forms.Label()
-        Me.NetworkGroupBox = New System.Windows.Forms.GroupBox()
-        Me.ExternalIPLabel = New System.Windows.Forms.LinkLabel()
-        Me.IPALabel = New System.Windows.Forms.Label()
-        Me.IPLabel = New System.Windows.Forms.LinkLabel()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.FTBLoadingLabel = New System.Windows.Forms.Label()
@@ -83,7 +84,6 @@ Partial Class Manager
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -118,7 +118,6 @@ Partial Class Manager
         Me.ArguLabel = New System.Windows.Forms.Label()
         Me.JavaVersionLabel = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GitGroupBox = New System.Windows.Forms.GroupBox()
         Me.GitBashBrowseButton = New System.Windows.Forms.Button()
@@ -140,12 +139,15 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
-        Me.VListLoadingBox.SuspendLayout()
         Me.NetworkGroupBox.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
+        Me.VListLoadingBox.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.ServerListPage.SuspendLayout()
         Me.BottomButtons.SuspendLayout()
@@ -178,7 +180,6 @@ Partial Class Manager
         Me.Panel3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox7.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainTabControl
@@ -226,6 +227,66 @@ Partial Class Manager
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.MainPanel.Size = New System.Drawing.Size(770, 483)
         Me.MainPanel.TabIndex = 5
+        '
+        'NetworkGroupBox
+        '
+        Me.NetworkGroupBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NetworkGroupBox.BackColor = System.Drawing.Color.Transparent
+        Me.NetworkGroupBox.Controls.Add(Me.ExternalIPLabel)
+        Me.NetworkGroupBox.Controls.Add(Me.IPALabel)
+        Me.NetworkGroupBox.Controls.Add(Me.IPLabel)
+        Me.NetworkGroupBox.Location = New System.Drawing.Point(3, 3)
+        Me.NetworkGroupBox.Margin = New System.Windows.Forms.Padding(3, 3, 0, 3)
+        Me.NetworkGroupBox.Name = "NetworkGroupBox"
+        Me.NetworkGroupBox.Size = New System.Drawing.Size(767, 84)
+        Me.NetworkGroupBox.TabIndex = 4
+        Me.NetworkGroupBox.TabStop = False
+        Me.NetworkGroupBox.Text = "網路"
+        '
+        'ExternalIPLabel
+        '
+        Me.ExternalIPLabel.AutoSize = True
+        Me.ExternalIPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
+        Me.ExternalIPLabel.Location = New System.Drawing.Point(6, 58)
+        Me.ExternalIPLabel.Margin = New System.Windows.Forms.Padding(3)
+        Me.ExternalIPLabel.Name = "ExternalIPLabel"
+        Me.ExternalIPLabel.Size = New System.Drawing.Size(120, 12)
+        Me.ExternalIPLabel.TabIndex = 12
+        Me.ExternalIPLabel.Text = "外部IP位址：取得中..."
+        '
+        'IPALabel
+        '
+        Me.IPALabel.AutoSize = True
+        Me.IPALabel.Location = New System.Drawing.Point(6, 21)
+        Me.IPALabel.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
+        Me.IPALabel.Name = "IPALabel"
+        Me.IPALabel.Size = New System.Drawing.Size(110, 12)
+        Me.IPALabel.TabIndex = 13
+        Me.IPALabel.Text = "網路狀態：檢查中..."
+        '
+        'IPLabel
+        '
+        Me.IPLabel.AutoSize = True
+        Me.IPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
+        Me.IPLabel.Location = New System.Drawing.Point(6, 40)
+        Me.IPLabel.Margin = New System.Windows.Forms.Padding(3)
+        Me.IPLabel.Name = "IPLabel"
+        Me.IPLabel.Size = New System.Drawing.Size(120, 12)
+        Me.IPLabel.TabIndex = 9
+        Me.IPLabel.Text = "內部IP位址：取得中..."
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.AutoSize = True
+        Me.GroupBox7.Controls.Add(Me.VListLoadingBox)
+        Me.GroupBox7.Controls.Add(Me.GroupBox6)
+        Me.GroupBox7.Location = New System.Drawing.Point(3, 93)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(762, 256)
+        Me.GroupBox7.TabIndex = 32
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "列表載入進度"
         '
         'VListLoadingBox
         '
@@ -403,54 +464,6 @@ Partial Class Manager
         Me.VanillaLoadingLabel.Text = "原版："
         Me.VanillaLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ToolTip1.SetToolTip(Me.VanillaLoadingLabel, "Mojang 官方發布的Java 版Minecraft 伺服器軟體，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "為大多數伺服器軟體的基礎。")
-        '
-        'NetworkGroupBox
-        '
-        Me.NetworkGroupBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.NetworkGroupBox.BackColor = System.Drawing.Color.Transparent
-        Me.NetworkGroupBox.Controls.Add(Me.ExternalIPLabel)
-        Me.NetworkGroupBox.Controls.Add(Me.IPALabel)
-        Me.NetworkGroupBox.Controls.Add(Me.IPLabel)
-        Me.NetworkGroupBox.Location = New System.Drawing.Point(3, 3)
-        Me.NetworkGroupBox.Margin = New System.Windows.Forms.Padding(3, 3, 0, 3)
-        Me.NetworkGroupBox.Name = "NetworkGroupBox"
-        Me.NetworkGroupBox.Size = New System.Drawing.Size(767, 84)
-        Me.NetworkGroupBox.TabIndex = 4
-        Me.NetworkGroupBox.TabStop = False
-        Me.NetworkGroupBox.Text = "網路"
-        '
-        'ExternalIPLabel
-        '
-        Me.ExternalIPLabel.AutoSize = True
-        Me.ExternalIPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
-        Me.ExternalIPLabel.Location = New System.Drawing.Point(6, 58)
-        Me.ExternalIPLabel.Margin = New System.Windows.Forms.Padding(3)
-        Me.ExternalIPLabel.Name = "ExternalIPLabel"
-        Me.ExternalIPLabel.Size = New System.Drawing.Size(120, 12)
-        Me.ExternalIPLabel.TabIndex = 12
-        Me.ExternalIPLabel.Text = "外部IP位址：取得中..."
-        '
-        'IPALabel
-        '
-        Me.IPALabel.AutoSize = True
-        Me.IPALabel.Location = New System.Drawing.Point(6, 21)
-        Me.IPALabel.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
-        Me.IPALabel.Name = "IPALabel"
-        Me.IPALabel.Size = New System.Drawing.Size(110, 12)
-        Me.IPALabel.TabIndex = 13
-        Me.IPALabel.Text = "網路狀態：檢查中..."
-        '
-        'IPLabel
-        '
-        Me.IPLabel.AutoSize = True
-        Me.IPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
-        Me.IPLabel.Location = New System.Drawing.Point(6, 40)
-        Me.IPLabel.Margin = New System.Windows.Forms.Padding(3)
-        Me.IPLabel.Name = "IPLabel"
-        Me.IPLabel.Size = New System.Drawing.Size(120, 12)
-        Me.IPLabel.TabIndex = 9
-        Me.IPLabel.Text = "內部IP位址：取得中..."
         '
         'GroupBox6
         '
@@ -753,18 +766,6 @@ Partial Class Manager
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(249, 98)
         Me.Panel1.TabIndex = 17
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = Global.ServerManager.My.MySettings.Default.NoIPPasswordViewChecked
-        Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "NoIPPasswordViewChecked", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.CheckBox2.Location = New System.Drawing.Point(50, 67)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
-        Me.CheckBox2.TabIndex = 17
-        Me.CheckBox2.Text = "顯示密碼"
-        Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'Button4
         '
@@ -1131,27 +1132,15 @@ Partial Class Manager
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.CheckBox3)
         Me.TabPage2.Controls.Add(Me.SnapshotCheckBox)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(762, 457)
         Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "版本列表"
+        Me.TabPage2.Text = "伺服器"
         Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'SnapshotCheckBox
-        '
-        Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.SnapshotCheckBox.AutoSize = True
-        Me.SnapshotCheckBox.Checked = Global.ServerManager.My.MySettings.Default.ShowSnapshot
-        Me.SnapshotCheckBox.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "ShowSnapshot", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
-        Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
-        Me.SnapshotCheckBox.Size = New System.Drawing.Size(120, 16)
-        Me.SnapshotCheckBox.TabIndex = 32
-        Me.SnapshotCheckBox.Text = "顯示原版快照版本"
-        Me.SnapshotCheckBox.UseVisualStyleBackColor = True
         '
         'TabPage3
         '
@@ -1417,17 +1406,43 @@ Partial Class Manager
         '
         Me.NoIPTimer.Interval = 1000
         '
-        'GroupBox7
+        'CheckBox2
         '
-        Me.GroupBox7.AutoSize = True
-        Me.GroupBox7.Controls.Add(Me.VListLoadingBox)
-        Me.GroupBox7.Controls.Add(Me.GroupBox6)
-        Me.GroupBox7.Location = New System.Drawing.Point(3, 93)
-        Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(762, 256)
-        Me.GroupBox7.TabIndex = 32
-        Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "列表載入進度"
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Checked = Global.ServerManager.My.MySettings.Default.NoIPPasswordViewChecked
+        Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "NoIPPasswordViewChecked", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.CheckBox2.Location = New System.Drawing.Point(50, 67)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
+        Me.CheckBox2.TabIndex = 17
+        Me.CheckBox2.Text = "顯示密碼"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Checked = Global.ServerManager.My.MySettings.Default.CustomForgeVersion
+        Me.CheckBox3.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "CustomForgeVersion", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.CheckBox3.Location = New System.Drawing.Point(6, 28)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(159, 16)
+        Me.CheckBox3.TabIndex = 33
+        Me.CheckBox3.Text = "是否可選擇安裝舊版Forge"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
+        'SnapshotCheckBox
+        '
+        Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.SnapshotCheckBox.AutoSize = True
+        Me.SnapshotCheckBox.Checked = Global.ServerManager.My.MySettings.Default.ShowSnapshot
+        Me.SnapshotCheckBox.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "ShowSnapshot", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
+        Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
+        Me.SnapshotCheckBox.Size = New System.Drawing.Size(168, 16)
+        Me.SnapshotCheckBox.TabIndex = 32
+        Me.SnapshotCheckBox.Text = "在列表內顯示原版快照版本"
+        Me.SnapshotCheckBox.UseVisualStyleBackColor = True
         '
         'Manager
         '
@@ -1445,9 +1460,10 @@ Partial Class Manager
         Me.MainPage.PerformLayout()
         Me.MainPanel.ResumeLayout(False)
         Me.MainPanel.PerformLayout()
-        Me.VListLoadingBox.ResumeLayout(False)
         Me.NetworkGroupBox.ResumeLayout(False)
         Me.NetworkGroupBox.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.VListLoadingBox.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
         Me.ServerListPage.ResumeLayout(False)
         Me.ServerListPage.PerformLayout()
@@ -1492,7 +1508,6 @@ Partial Class Manager
         Me.Panel3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox7.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1602,4 +1617,5 @@ Partial Class Manager
     Friend WithEvents ContigoLoadingLabel As Label
     Friend WithEvents KettleLoadingLabel As Label
     Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents CheckBox3 As CheckBox
 End Class

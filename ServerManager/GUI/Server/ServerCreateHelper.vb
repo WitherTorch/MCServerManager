@@ -8,6 +8,7 @@ Public Class ServerCreateHelper
     Dim server As Server
     Dim client As New Net.WebClient()
     Dim path As String
+    Dim forgeVer As String
     Dim downloader As ForgeUpdater
     Dim vanilla_isSnap As Boolean = False
     Dim vanilla_isPre As Boolean = False
@@ -20,7 +21,16 @@ Public Class ServerCreateHelper
         Me.server = server
         path = serverPath
     End Sub
+    Public Sub New(server As Server, serverPath As String, targetForgeVersion As String)
 
+        ' 設計工具需要此呼叫。
+        InitializeComponent()
+
+        ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
+        Me.server = server
+        path = serverPath
+        forgeVer = targetForgeVersion
+    End Sub
     Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
         If downloader IsNot Nothing Then downloader.ForceClose()
         client.CancelAsync()
@@ -112,7 +122,12 @@ Public Class ServerCreateHelper
                                            StatusLabel.Text = "狀態：正在下載 Forge " & craftVersion & "......"
                                            ProgressBar.Value = 0
                                        End Sub))
-                Dim forgeVersion = ForgeVersionDict(New Version(craftVersion)).ToString
+                Dim forgeVersion As String
+                If forgeVer <> "" Then
+                    forgeVersion = forgeVer
+                Else
+                    forgeVersion = ForgeVersionDict(New Version(craftVersion)).ToString
+                End If
                 AddHandler downloader.ForgeDownloadStart, Sub()
                                                               Console.WriteLine("forge download start")
                                                           End Sub

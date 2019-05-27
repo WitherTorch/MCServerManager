@@ -233,9 +233,15 @@ Public Class ServerCreateDialog
                             Case ServerIPType.Custom
                                 server.ServerOptions("server-ip") = IPBox.Text
                         End Select
-                        Dim helper As New ServerCreateHelper(server, ServerDirBox.Text)
-                        helper.Show()
-                        Close()
+                        If My.Settings.CustomForgeVersion Then
+                            Dim chooser As New ForgeBranchChooser(server, ServerDirBox.Text)
+                            chooser.Show()
+                            Close()
+                        Else
+                            Dim helper As New ServerCreateHelper(server, ServerDirBox.Text)
+                            helper.Show()
+                            Close()
+                        End If
                     End If
                 End If
             End If
