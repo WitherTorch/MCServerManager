@@ -415,17 +415,29 @@ Public NotInheritable Class Server
                                              _ServerVersionType = EServerVersionType.Thermos OrElse
                                              _ServerVersionType = EServerVersionType.Contigo OrElse
                                              _ServerVersionType = EServerVersionType.Kettle Then
-                                             LoadPlugins()
+                                             Try
+                                                 LoadPlugins()
+                                             Catch ex As Exception
+
+                                             End Try
                                          End If
                                          If _ServerVersionType = EServerVersionType.Forge OrElse
                                                  _ServerVersionType = EServerVersionType.Cauldron OrElse
                                                  _ServerVersionType = EServerVersionType.Thermos OrElse
                                                  _ServerVersionType = EServerVersionType.Contigo OrElse
                                                  _ServerVersionType = EServerVersionType.Kettle Then
-                                             LoadMods()
+                                             Try
+                                                 LoadMods()
+                                             Catch ex As Exception
+
+                                             End Try
                                          End If
                                          If _ServerVersionType = EServerVersionType.Nukkit Then
-                                             LoadPlugins()
+                                             Try
+                                                 LoadPlugins()
+                                             Catch ex As Exception
+
+                                             End Try
                                          End If
                                          _IsInitallised = True
                                          RaiseEvent Initallised()
