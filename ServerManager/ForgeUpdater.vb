@@ -25,6 +25,10 @@ Public Class ForgeUpdater
     Private Sub DownloadMinecraftForgeServerInstaller(craftVersion As String, forgeVersion As String)
         Dim forgeServerURL As String =
             String.Format("http://files.minecraftforge.net/maven/net/minecraftforge/forge/{0}-{1}/forge-{0}-{1}-installer.jar", craftVersion, forgeVersion)
+        If craftVersion = "1.8.9" OrElse craftVersion = "1.7.10" Then
+            forgeServerURL = String.Format("http://files.minecraftforge.net/maven/net/minecraftforge/forge/{0}-{1}-{0}/forge-{0}-{1}-{0}-installer.jar", craftVersion, forgeVersion)
+        End If
+
         AddHandler w.DownloadProgressChanged, Sub(sender, e)
                                                   RaiseEvent ForgeDownloadProgressChanged(e)
                                               End Sub

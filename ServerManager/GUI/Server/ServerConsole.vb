@@ -236,13 +236,14 @@ Public Class ServerConsole
                                                                                  Case 0
                                                                                      'Nothing
                                                                                  Case 1 '偵測/list 回傳頭
-                                                                                     Dim ListHeaderRegex As New Text.RegularExpressions.Regex("There are [0-9]{1,}\/[0-9]{1,} players online:") '/list Header
+                                                                                     Dim ListHeaderRegex As New Text.RegularExpressions.Regex("There are [0-9]{1,}\/[0-9]{1,} player[s]? online:") '/list Header
                                                                                      If ListHeaderRegex.IsMatch(e.Data) AndAlso ListHeaderRegex.Match(e.Data).Value = e.Data.Trim Then
                                                                                          Dim PlayerCountRegex As New Text.RegularExpressions.Regex("[0-9]{1,}\/[0-9]{1,}")
                                                                                          Dim PlayerID As String = PlayerCountRegex.Match(e.Data).Value.Split(New Char() {","}, 2)(0)
                                                                                          PlayerListGetState = 2
                                                                                          temp_PlayerList = New List(Of String)
                                                                                          If PlayerListGetCount <= 0 Then
+                                                                                             PlayerListGetCount = PlayerID
                                                                                              PlayerListGetState = 0 'Restore to Default
                                                                                          End If
                                                                                      End If
@@ -294,13 +295,17 @@ Public Class ServerConsole
                                                                                               End Select
                                                                                               Select Case msg.MessageType
                                                                                                   Case MCMessageType.PlayerConnected
-                                                                                                      If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Add(msg.AddtionalMessage("player"))
+                                                                                                      If Server.ServerVersionType = Server.EServerVersionType.Vanilla Then If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Add(msg.AddtionalMessage("player"))
                                                                                                   Case MCMessageType.PlayerLostConnected
-                                                                                                      If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Remove(msg.AddtionalMessage("player"))
+                                                                                                      If Server.ServerVersionType = Server.EServerVersionType.Vanilla Then If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Remove(msg.AddtionalMessage("player"))
                                                                                                   Case MCMessageType.PlayerLogin
                                                                                                       If NotifyChooseListBox.CheckedIndices.Contains(0) Then _
                                                                                                                     NotifyInfoMessage(msg.AddtionalMessage("player") & " 進入伺服器", Text)
-                                                                                                      BeginInvoke(Sub() If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then PlayerListBox.Items.Add(msg.AddtionalMessage("player")))
+                                                                                                      BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                    If (Server.ServerVersionType = Server.EServerVersionType.Vanilla AndAlso ConnectionPlayerList.Contains(msg.AddtionalMessage("player"))) OrElse Not Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
+                                                                                                                                        PlayerListBox.Items.Add(msg.AddtionalMessage("player"))
+                                                                                                                                    End If
+                                                                                                                                End Sub)
                                                                                                       For Each task In TaskList
                                                                                                           If task.Mode = ServerTask.TaskMode.Trigger AndAlso
                                                                                                                        task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogin Then
@@ -312,7 +317,11 @@ Public Class ServerConsole
                                                                                                   Case MCMessageType.PlayerLogout
                                                                                                       If NotifyChooseListBox.CheckedIndices.Contains(1) Then _
                                                                                                                     NotifyInfoMessage(msg.AddtionalMessage("player") & " 離開伺服器", Text)
-                                                                                                      BeginInvoke(Sub() If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then PlayerListBox.Items.Remove(msg.AddtionalMessage("player")))
+                                                                                                      BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                    If (Server.ServerVersionType = Server.EServerVersionType.Vanilla AndAlso ConnectionPlayerList.Contains(msg.AddtionalMessage("player"))) OrElse Not Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
+                                                                                                                                        PlayerListBox.Items.Remove(msg.AddtionalMessage("player"))
+                                                                                                                                    End If
+                                                                                                                                End Sub)
                                                                                                       For Each task In TaskList
                                                                                                           If task.Mode = ServerTask.TaskMode.Trigger AndAlso
                                                                                                                        task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogout Then
