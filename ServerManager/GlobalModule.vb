@@ -6,8 +6,9 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.6 Beta 3"
+    Public Const SERVER_MANAGER_VER As String = "1.6 Beta 4"
     Friend Manager As Manager
+    Friend IsUnixLikeSystem As Boolean
 #Region "Server/Solution List"
     Friend JavaServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"))
     Friend SolutionDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"))
@@ -178,6 +179,9 @@ Module GlobalModule
             End If
         Loop Until successed
         Return result
+    End Function
+    Function GetJavaPath() As String
+        Return IIf(IsUnixLikeSystem, "java", GetJavaPath())
     End Function
     Function GetSimpleVersionName(type As Server.EServerVersionType, Optional version As String = "") As String
         Select Case type

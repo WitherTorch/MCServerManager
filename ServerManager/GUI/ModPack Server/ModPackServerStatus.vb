@@ -112,6 +112,10 @@ Public Class ModPackServerStatus
             If IO.Directory.Exists(Server.ServerPath) = False Then
                 MsgBox("模組包伺服器的資料夾消失了...",, Application.ProductName)
             Else
+                If GlobalModule.Manager.HasJava = False Then
+                    MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
+                    Exit Sub
+                End If
                 Select Case Server.IsRunning
                     Case True
                         If Server.ProcessID <> 0 Then

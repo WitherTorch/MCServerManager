@@ -826,7 +826,7 @@ Public NotInheritable Class Server
                                                              SetVersion(_ServerVersion, jsonObject.GetValue("name"))
                                                              RaiseEvent ServerUpdating(50)
                                                              Dim watcher As New SpigotGitBuildWindow()
-                                                             watcher.Run(GitBashPath, "--login -i -c """ & IO.Path.Combine(JavaPath, "java.exe") & " -jar BuildTools.jar --rev " & ServerVersion & """", ServerPath)
+                                                             watcher.Run(GitBashPath, "--login -i -c """ & GetJavaPath() & " -jar BuildTools.jar --rev " & ServerVersion & """", ServerPath)
                                                              If watcher.ShowDialog() = DialogResult.OK Then
                                                                  'Try
                                                                  RaiseEvent ServerUpdating(90)

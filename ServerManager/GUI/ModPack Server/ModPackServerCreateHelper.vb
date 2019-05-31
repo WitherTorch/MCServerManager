@@ -46,7 +46,11 @@ Public Class ModPackServerCreateHelper
         Select Case server.PackType
             Case ModPackServer.ModPackType.FeedTheBeast
                 Dim url = String.Format(FTBServerDownloadLink, dirname, server.PackVersion.Replace(".", "_"), filename)
-                DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), filename), ModPackServer.ModPackType.FeedTheBeast, server.PackVersion)
+                If IsUnixLikeSystem Then
+                    DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("/"), path, path & "/"), filename), ModPackServer.ModPackType.FeedTheBeast, server.PackVersion)
+                Else
+                    DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), filename), ModPackServer.ModPackType.FeedTheBeast, server.PackVersion)
+                End If
         End Select
     End Sub
     Sub DownloadFile(path As String, dist As String, packType As ModPackServer.ModPackType, version As String)
@@ -78,23 +82,24 @@ Public Class ModPackServerCreateHelper
                                                                         StatusLabel.Text = "狀態：正在解壓縮模組包 ......"
                                                                         ProgressBar.Value = 50
                                                                     End Sub)
+                                                             Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
                                                              Using archive As ZipArchive = ZipFile.OpenRead(dist)
                                                                  For Each entry As ZipArchiveEntry In archive.Entries
                                                                      Try
                                                                          If entry.FullName.EndsWith("\") OrElse entry.FullName.EndsWith("/") Then
-                                                                             If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
-                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                             If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Exists = False Then
+                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
                                                                              End If
                                                                          Else
-                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Directory.Exists = False Then
-                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Directory.Exists = False Then
+                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
                                                                                  info.Directory.Create()
                                                                              End If
-                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
-                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Exists = False Then
+                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
                                                                                  info.Delete()
                                                                              End If
-                                                                             entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName), True)
+                                                                             entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName), True)
                                                                          End If
                                                                      Catch ex As Exception
                                                                      End Try
@@ -130,8 +135,9 @@ Public Class ModPackServerCreateHelper
         End Using
     End Sub
     Sub RunBatch(path As String)
+        Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
         Dim batchVariantDictionary As New Dictionary(Of String, String)
-        Dim reader As New IO.StreamReader(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "FTBInstall.bat"))
+        Dim reader As New IO.StreamReader(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "FTBInstall.bat"))
         Do Until reader.EndOfStream
             Dim command As String = reader.ReadLine.Trim
             For Each variantPair In batchVariantDictionary
@@ -142,7 +148,7 @@ Public Class ModPackServerCreateHelper
                 Case ""
                                                                          ' Do Nothing
                 Case "call settings.bat"
-                    Dim settingsReader As New IO.StreamReader(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "settings.bat"))
+                    Dim settingsReader As New IO.StreamReader(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "settings.bat"))
                     Do Until settingsReader.EndOfStream
                         Dim settingCode As String = settingsReader.ReadLine
                         If String.IsNullOrEmpty(settingCode) = False Then
@@ -165,29 +171,29 @@ Public Class ModPackServerCreateHelper
                     If command.Contains(" ") AndAlso command.IndexOf(" ") <> command.Length - 1 Then
                         Dim commandArgs As String() = command.Split(New String() {" "}, 2, StringSplitOptions.RemoveEmptyEntries)
                         If commandArgs.Count >= 2 Then
-                            If IO.File.Exists(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0))) Then
-                                RunAndWait(New ProcessStartInfo(IIf(path.EndsWith("\"), path, path & "\") & commandArgs(0), commandArgs(1)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
-                            ElseIf IO.Directory.Exists(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0))) Then
-                                Process.Start(New ProcessStartInfo(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0))) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
+                            If IO.File.Exists(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), commandArgs(0))) Then
+                                RunAndWait(New ProcessStartInfo(IIf(path.EndsWith(seperator), path, path & seperator) & commandArgs(0), commandArgs(1)) With {.WorkingDirectory = IIf(path.EndsWith(seperator), path, path & seperator)})
+                            ElseIf IO.Directory.Exists(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), commandArgs(0))) Then
+                                Process.Start(New ProcessStartInfo(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), commandArgs(0))) With {.WorkingDirectory = IIf(path.EndsWith(seperator), path, path & seperator)})
                             Else
-                                RunAndWait(New ProcessStartInfo(commandArgs(0), commandArgs(1)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
+                                RunAndWait(New ProcessStartInfo(commandArgs(0), commandArgs(1)) With {.WorkingDirectory = IIf(path.EndsWith(seperator), path, path & seperator)})
                             End If
                         Else
-                            If IO.File.Exists(IIf(path.EndsWith("\"), path, path & "\") & commandArgs(0)) Then
-                                RunAndWait(New ProcessStartInfo(IIf(path.EndsWith("\"), path, path & "\") & commandArgs(0)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
-                            ElseIf IO.Directory.Exists(IIf(path.EndsWith("\"), path, path) & "\" & commandArgs(0)) Then
-                                Process.Start(New ProcessStartInfo(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), commandArgs(0))) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
+                            If IO.File.Exists(IIf(path.EndsWith(seperator), path, path & seperator) & commandArgs(0)) Then
+                                RunAndWait(New ProcessStartInfo(IIf(path.EndsWith(seperator), path, path & seperator) & commandArgs(0)) With {.WorkingDirectory = IIf(path.EndsWith(seperator), path, path & seperator)})
+                            ElseIf IO.Directory.Exists(IIf(path.EndsWith(seperator), path, path) & seperator & commandArgs(0)) Then
+                                Process.Start(New ProcessStartInfo(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), commandArgs(0))) With {.WorkingDirectory = IIf(path.EndsWith(seperator), path, path & seperator)})
                             Else
-                                RunAndWait(New ProcessStartInfo(commandArgs(0)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
+                                RunAndWait(New ProcessStartInfo(commandArgs(0)) With {.WorkingDirectory = IIf(path.EndsWith(seperator), path, path & seperator)})
                             End If
                         End If
                     Else
-                        If IO.File.Exists(IIf(path.EndsWith("\"), path, path & "\") & command) Then
-                            RunAndWait(New ProcessStartInfo(IIf(path.EndsWith("\"), path, path & "\") & command) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
-                        ElseIf IO.Directory.Exists(IIf(path.EndsWith("\"), path, path & "\") & command) Then
-                            Process.Start(New ProcessStartInfo(IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), command)) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
+                        If IO.File.Exists(IIf(path.EndsWith(seperator), path, path & seperator) & command) Then
+                            RunAndWait(New ProcessStartInfo(IIf(path.EndsWith(seperator), path, path & seperator) & command) With {.WorkingDirectory = IIf(path.EndsWith(seperator), path, path & seperator)})
+                        ElseIf IO.Directory.Exists(IIf(path.EndsWith(seperator), path, path & seperator) & command) Then
+                            Process.Start(New ProcessStartInfo(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), command)) With {.WorkingDirectory = IIf(path.EndsWith(seperator), path, path & seperator)})
                         Else
-                            RunAndWait(New ProcessStartInfo(command) With {.WorkingDirectory = IIf(path.EndsWith("\"), path, path & "\")})
+                            RunAndWait(New ProcessStartInfo(command) With {.WorkingDirectory = IIf(path.EndsWith(seperator), path, path & seperator)})
                         End If
                     End If
             End Select

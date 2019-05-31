@@ -52,14 +52,20 @@ Public Class ForgeModExplorer
                                           BeginInvoke(Sub() versionListBox.Items.Add(spongeVer.Major & "." & spongeVer.Minor & "." & spongeVer.Build & " " & version.SpongeVersionType.ToString.ToUpper & " " & version.Build))
                                       Next
                                       AddHandler versionListBox.ItemActivate, Sub()
-                                                                                  My.Computer.Network.DownloadFile(versions(versionListBox.SelectedIndices(0)).GetDownloadUrl, IO.Path.Combine(_server.ServerPath, "mods\spongeforge-" & versions(versionListBox.SelectedIndices(0)).OriginalString & ".jar"), "", "", True, 100, True)
+                                                                                  Dim filename As String
+                                                                                  If IsUnixLikeSystem Then
+                                                                                      filename = IO.Path.Combine(_server.ServerPath, "mods/spongeforge-" & versions(versionListBox.SelectedIndices(0)).OriginalString & ".jar")
+                                                                                  Else
+                                                                                      filename = IO.Path.Combine(_server.ServerPath, "mods\spongeforge-" & versions(versionListBox.SelectedIndices(0)).OriginalString & ".jar")
+                                                                                  End If
+                                                                                  My.Computer.Network.DownloadFile(versions(versionListBox.SelectedIndices(0)).GetDownloadUrl, filename, "", "", True, 100, True)
                                                                                   For Each forgeMod In _server.ServerMods
                                                                                       If forgeMod.Name = "SpongeForge" Then
                                                                                           IO.File.Delete(forgeMod.Path)
                                                                                           _server.ServerMods.Remove(forgeMod)
                                                                                       End If
                                                                                   Next
-                                                                                  _server.ServerMods.Add(New Server.ForgeMod("SpongeForge", IO.Path.Combine(_server.ServerPath, "mods\spongeforge-" & versions(versionListBox.SelectedIndices(0)).OriginalString & ".jar"), versions(versionListBox.SelectedIndices(0)).OriginalString, Now))
+                                                                                  _server.ServerMods.Add(New Server.ForgeMod("SpongeForge", filename, versions(versionListBox.SelectedIndices(0)).OriginalString, Now))
                                                                               End Sub
                                   End Sub)
         spongeThread.Start()

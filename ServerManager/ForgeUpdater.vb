@@ -79,7 +79,7 @@ Public Class ForgeUpdater
     Friend Function InstallForge(craftVersion As String, forgeVersion As String) As DialogResult
         If New Version(craftVersion) > New Version(1, 5, 1) Then
             Dim watcher As New ForgeInstallWindow()
-            watcher.Run(IO.Path.Combine(JavaPath, "java.exe"), " -Xms" & ServerMemoryMin & "M -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(serverDir, String.Format("minecraft-forge.{0}.installer.jar", craftVersion)) & """" & " nogui --installServer", serverDir)
+            watcher.Run(GetJavaPath(), " -Xms" & ServerMemoryMin & "M -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(serverDir, String.Format("minecraft-forge.{0}.installer.jar", craftVersion)) & """" & " nogui --installServer", serverDir)
             Dim rsult As DialogResult
             _parent.Invoke(Sub() rsult = watcher.ShowDialog(_parent))
             Return rsult
@@ -102,7 +102,7 @@ Public Class ForgeUtil2
     Friend Function InstallForge2(craftVersion As String, forgeVersion As String, memoryMin As Integer, memoryMax As Integer) As DialogResult
         If New Version(craftVersion) > New Version(1, 5, 1) Then
             Dim watcher As New ForgeInstallWindow()
-            watcher.Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & memoryMin & "M -Xmx" & memoryMax & "M -jar " & """" & IO.Path.Combine(serverDir, String.Format("minecraft-forge.{0}.installer.jar", craftVersion)) & """" & " nogui --installServer", serverDir)
+            watcher.Run(GetJavaPath(), "-Xms" & memoryMin & "M -Xmx" & memoryMax & "M -jar " & """" & IO.Path.Combine(serverDir, String.Format("minecraft-forge.{0}.installer.jar", craftVersion)) & """" & " nogui --installServer", serverDir)
             Return watcher.ShowDialog()
         Else
             Return DialogResult.OK

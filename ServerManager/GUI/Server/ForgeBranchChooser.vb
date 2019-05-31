@@ -47,7 +47,7 @@ Public Class ForgeBranchChooser
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If ComboBox1.SelectedIndex >= 0 Then
-            Dim helper As New ServerCreateHelper(server, serverPath, ComboBox1.SelectedItem)
+            Dim helper As New ServerCreateHelper(server, serverPath, ComboBox1.SelectedItem.ToString)
             helper.Show()
             Close()
         End If

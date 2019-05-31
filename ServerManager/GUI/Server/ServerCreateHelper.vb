@@ -12,7 +12,8 @@ Public Class ServerCreateHelper
     Dim downloader As ForgeUpdater
     Dim vanilla_isSnap As Boolean = False
     Dim vanilla_isPre As Boolean = False
-    Public Sub New(server As Server, serverPath As String)
+    Dim justDownload As Boolean
+    Public Sub New(server As Server, serverPath As String, Optional justDownload As Boolean = False)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
@@ -20,8 +21,9 @@ Public Class ServerCreateHelper
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         Me.server = server
         path = serverPath
+        Me.justDownload = justDownload
     End Sub
-    Public Sub New(server As Server, serverPath As String, targetForgeVersion As String)
+    Public Sub New(server As Server, serverPath As String, targetForgeVersion As String, Optional justDownload As Boolean = False)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
@@ -30,6 +32,7 @@ Public Class ServerCreateHelper
         Me.server = server
         path = serverPath
         forgeVer = targetForgeVersion
+        Me.justDownload = justDownload
     End Sub
     Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
         If downloader IsNot Nothing Then downloader.ForceClose()
@@ -98,24 +101,24 @@ Public Class ServerCreateHelper
 
 
     Sub DownloadServer()
-
+        Dim seperator As String = IIf(IsUnixLikeSystem, "/", seperator)
         Select Case server.ServerVersionType
             Case Server.EServerVersionType.Vanilla
 
                 '   My.Computer.Network.DownloadFile(
                 'New Uri(String.Format("http://s3.amazonaws.com/Minecraft.Download/versions/{0}/minecraft_server.{0}.jar", server.ServerVersion)),
-                'IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server." & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
+                'IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "minecraft_server." & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
                 Dim URL = GetVanillaServerURL()
                 If vanilla_isPre Then
-                    DownloadFile(URL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server." & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Vanilla, server.Server2ndVersion)
+                    DownloadFile(URL, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "minecraft_server." & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Vanilla, server.Server2ndVersion)
                 ElseIf vanilla_isSnap Then
-                    DownloadFile(URL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server." & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Vanilla, server.Server2ndVersion)
+                    DownloadFile(URL, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "minecraft_server." & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Vanilla, server.Server2ndVersion)
                 Else
-                    DownloadFile(URL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server." & server.ServerVersion & ".jar"), Server.EServerVersionType.Vanilla, server.ServerVersion)
+                    DownloadFile(URL, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "minecraft_server." & server.ServerVersion & ".jar"), Server.EServerVersionType.Vanilla, server.ServerVersion)
                 End If
             Case Server.EServerVersionType.Forge
 
-                downloader = New ForgeUpdater(IIf(path.EndsWith("\"), path, path & "\"), Me)
+                downloader = New ForgeUpdater(IIf(path.EndsWith(seperator), path, path & seperator), Me)
                 Dim craftVersion = server.ServerVersion
                 Dim v As New Version(craftVersion)
                 BeginInvoke(New Action(Sub()
@@ -158,25 +161,33 @@ Public Class ServerCreateHelper
                                                                                        End Sub))
                                                             End If
                                                             If downloader.InstallForge(craftVersion, forgeVersion) = DialogResult.OK Then
-                                                                'Try
-                                                                BeginInvoke(Sub()
-                                                                                StatusLabel.Text = "狀態：正在配置伺服器 ......"
-                                                                                ProgressBar.Value = 90
-                                                                            End Sub)
+                                                                If justDownload Then
+                                                                    BeginInvoke(Sub()
+                                                                                    StatusLabel.Text = "狀態：完成!"
+                                                                                    ProgressBar.Value = 100
+                                                                                    Close()
+                                                                                End Sub)
+                                                                Else
+                                                                    'Try
+                                                                    BeginInvoke(Sub()
+                                                                                    StatusLabel.Text = "狀態：正在配置伺服器 ......"
+                                                                                    ProgressBar.Value = 90
+                                                                                End Sub)
 
-                                                                'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
-                                                                server.SaveServer(False)
-                                                                GenerateServerEULA()
-                                                                BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith("\"), path, path & "\")))
-                                                                'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith("\"), path, path & "\"))
-                                                                BeginInvoke(Sub()
-                                                                                StatusLabel.Text = "狀態：完成!"
-                                                                                ProgressBar.Value = 100
-                                                                                Close()
-                                                                            End Sub)
-                                                                ' Catch ex As Exception
-                                                                'MsgBox(ex.StackTrace)
-                                                                ' End Try
+                                                                    'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
+                                                                    server.SaveServer(False)
+                                                                    GenerateServerEULA()
+                                                                    BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith(seperator), path, path & seperator)))
+                                                                    'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith(seperator), path, path & seperator))
+                                                                    BeginInvoke(Sub()
+                                                                                    StatusLabel.Text = "狀態：完成!"
+                                                                                    ProgressBar.Value = 100
+                                                                                    Close()
+                                                                                End Sub)
+                                                                    ' Catch ex As Exception
+                                                                    'MsgBox(ex.StackTrace)
+                                                                    ' End Try
+                                                                End If
                                                             End If
 
                                                         End Sub
@@ -188,8 +199,8 @@ Public Class ServerCreateHelper
                 Dim url = (New HtmlAgilityPack.HtmlWeb).Load(targetURL).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[4]/div[1]/div[1]/div[1]/div[1]/h2[1]/a[1]").GetAttributeValue("href", "")
                 'My.Computer.Network.DownloadFile(
                 'New Uri(String.Format("https://cdn.getbukkit.org/spigot/spigot-{0}.jar", server.ServerVersion)),
-                'IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "spigot-" & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
-                DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "spigot-" & server.ServerVersion & ".jar"), Server.EServerVersionType.Spigot, server.ServerVersion)
+                'IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "spigot-" & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
+                DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "spigot-" & server.ServerVersion & ".jar"), Server.EServerVersionType.Spigot, server.ServerVersion)
             Case Server.EServerVersionType.Spigot_Git
                 BeginInvoke(New Action(Sub()
                                            StatusLabel.Text = "狀態：正在下載 Spigot 建置工具 " & "......"
@@ -219,42 +230,55 @@ Public Class ServerCreateHelper
                                                                                         ProgressBar.Value = 50
                                                                                     End Sub))
                                                              Dim watcher As New SpigotGitBuildWindow()
-                                                             watcher.Run(GitBashPath, "--login -i -c """ & IO.Path.Combine(JavaPath, "java.exe") & " -jar BuildTools.jar --rev " & server.ServerVersion & """", IIf(path.EndsWith("\"), path, path & "\"))
+                                                             If IsUnixLikeSystem Then
+                                                                 Shell("git config --global --unset core.autocrlf", AppWinStyle.MinimizedNoFocus, True, 5000)
+                                                                 watcher.Run(GetJavaPath(), "-jar BuildTools.jar --rev " & server.ServerVersion & """", IIf(path.EndsWith(seperator), path, path & seperator))
+                                                             Else
+                                                                 watcher.Run(GitBashPath, "--login -i -c """ & GetJavaPath() & " -jar BuildTools.jar --rev " & server.ServerVersion & """", IIf(path.EndsWith(seperator), path, path & seperator))
+                                                             End If
                                                              BeginInvoke(Sub()
                                                                              If watcher.ShowDialog(Me) = DialogResult.OK Then
-                                                                                 'Try
-                                                                                 BeginInvoke(Sub()
-                                                                                                 StatusLabel.Text = "狀態：正在配置伺服器 ......"
-                                                                                                 ProgressBar.Value = 90
-                                                                                             End Sub)
+                                                                                 If justDownload Then
+                                                                                     BeginInvoke(Sub()
+                                                                                                     StatusLabel.Text = "狀態：完成!"
+                                                                                                     ProgressBar.Value = 100
+                                                                                                     Close()
+                                                                                                 End Sub)
+                                                                                 Else
+                                                                                     'Try
+                                                                                     BeginInvoke(Sub()
+                                                                                                     StatusLabel.Text = "狀態：正在配置伺服器 ......"
+                                                                                                     ProgressBar.Value = 90
+                                                                                                 End Sub)
 
-                                                                                 'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
-                                                                                 server.SaveServer(False)
-                                                                                 GenerateServerEULA()
-                                                                                 BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith("\"), path, path & "\")))
-                                                                                 'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith("\"), path, path & "\"))
-                                                                                 BeginInvoke(Sub()
-                                                                                                 StatusLabel.Text = "狀態：完成!"
-                                                                                                 ProgressBar.Value = 100
-                                                                                                 Close()
-                                                                                             End Sub)
-                                                                                 ' Catch ex As Exception
-                                                                                 'MsgBox(ex.StackTrace)
-                                                                                 ' End Try
+                                                                                     'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
+                                                                                     server.SaveServer(False)
+                                                                                     GenerateServerEULA()
+                                                                                     BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith(seperator), path, path & seperator)))
+                                                                                     'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith(seperator), path, path & seperator))
+                                                                                     BeginInvoke(Sub()
+                                                                                                     StatusLabel.Text = "狀態：完成!"
+                                                                                                     ProgressBar.Value = 100
+                                                                                                     Close()
+                                                                                                 End Sub)
+                                                                                     ' Catch ex As Exception
+                                                                                     'MsgBox(ex.StackTrace)
+                                                                                     ' End Try
+                                                                                 End If
                                                                              End If
                                                                          End Sub)
                                                          End Sub
-                client.DownloadFileAsync(New Uri("https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "BuildTools.jar"))
+                client.DownloadFileAsync(New Uri("https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar"), IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "BuildTools.jar"))
 
             Case Server.EServerVersionType.CraftBukkit
                 Dim targetURL As String = CraftBukkitVersionDict(server.ServerVersion)
                 Dim url = (New HtmlAgilityPack.HtmlWeb).Load(targetURL).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[4]/div[1]/div[1]/div[1]/div[1]/h2[1]/a[1]").GetAttributeValue("href", "")
                 ' My.Computer.Network.DownloadFile(
                 'New Uri(String.Format("https://cdn.getbukkit.org/craftbukkit/craftbukkit-{0}.jar", server.ServerVersion)),
-                'IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "craftbukkit-" & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
-                DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "craftbukkit-" & server.ServerVersion & ".jar"), Server.EServerVersionType.CraftBukkit, server.ServerVersion)
+                'IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "craftbukkit-" & server.ServerVersion & ".jar"), "", "", True, 100000, True, FileIO.UICancelOption.DoNothing)
+                DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "craftbukkit-" & server.ServerVersion & ".jar"), Server.EServerVersionType.CraftBukkit, server.ServerVersion)
             Case Server.EServerVersionType.SpongeVanilla
-                DownloadFile(SpongeVanillaVersionList(server.ServerVersion).GetDownloadUrl, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "spongeVanilla-" & server.ServerVersion & ".jar"), Server.EServerVersionType.SpongeVanilla, server.ServerVersion)
+                DownloadFile(SpongeVanillaVersionList(server.ServerVersion).GetDownloadUrl, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "spongeVanilla-" & server.ServerVersion & ".jar"), Server.EServerVersionType.SpongeVanilla, server.ServerVersion)
             Case Server.EServerVersionType.Paper
                 BeginInvoke(New Action(Sub()
                                            StatusLabel.Text = "狀態：正在擷取安裝檔案 ……"
@@ -268,7 +292,7 @@ Public Class ServerCreateHelper
                 'Dim request As Net.HttpWebRequest = Net.WebRequest.Create(targetURL)
                 'Dim OSVersion = System.Environment.OSVersion.Version
                 'request.UserAgent = "Mozilla/5.0 (Windows NT " & OSVersion.Major & "." & OSVersion.Minor & ") ServerManager/" & Application.ProductVersion
-                DownloadFile(targetURL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "paper-" & server.ServerVersion & ".jar"), Server.EServerVersionType.Paper, server.ServerVersion)
+                DownloadFile(targetURL, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "paper-" & server.ServerVersion & ".jar"), Server.EServerVersionType.Paper, server.ServerVersion)
             Case Server.EServerVersionType.Akarin
                 BeginInvoke(New Action(Sub()
                                            StatusLabel.Text = "狀態：正在擷取安裝檔案 ……"
@@ -296,30 +320,30 @@ Public Class ServerCreateHelper
                         matchString = matchString.Substring(0, matchString.Length - 4)
                         If Version.TryParse(matchString, Nothing) Then
                             server.SetVersion(matchString, buildNum, server.ServerVersion)
-                            DownloadFile(targetURL, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "akarin-" & matchString & ".jar"), Server.EServerVersionType.Akarin, matchString)
+                            DownloadFile(targetURL, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "akarin-" & matchString & ".jar"), Server.EServerVersionType.Akarin, matchString)
                             Exit For
                         End If
                     End If
                 Next
             Case Server.EServerVersionType.Nukkit
-                DownloadFile(GetNukkitDownloadURL(NukkitVersionUrl), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "nukkit-" & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Nukkit, "#" & server.Server2ndVersion)
+                DownloadFile(GetNukkitDownloadURL(NukkitVersionUrl), IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "nukkit-" & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Nukkit, "#" & server.Server2ndVersion)
             Case Server.EServerVersionType.VanillaBedrock
-                DownloadFile("https://minecraft.azureedge.net/bin-win/bedrock-server-" & VanillaBedrockVersion.ToString & ".zip", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "bedrock-" & VanillaBedrockVersion.ToString & ".zip"), Server.EServerVersionType.VanillaBedrock, server.ServerVersion)
+                DownloadFile("https://minecraft.azureedge.net/bin-win/bedrock-server-" & VanillaBedrockVersion.ToString & ".zip", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "bedrock-" & VanillaBedrockVersion.ToString & ".zip"), Server.EServerVersionType.VanillaBedrock, server.ServerVersion)
             Case Server.EServerVersionType.Cauldron
                 Select Case server.ServerVersion
                     Case "1.7.10"
-                        DownloadFile("https://www.dropbox.com/s/flfkgznkmagikrd/server-1.7.10.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
+                        DownloadFile("https://www.dropbox.com/s/flfkgznkmagikrd/server-1.7.10.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
                     Case "1.7.2"
-                        DownloadFile("https://www.dropbox.com/s/w730znj2y1lskt3/server-1.7.2.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
+                        DownloadFile("https://www.dropbox.com/s/w730znj2y1lskt3/server-1.7.2.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
                     Case "1.6.4"
-                        DownloadFile("https://www.dropbox.com/s/ey01pirj7fw0fk6/server-1.6.4.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
+                        DownloadFile("https://www.dropbox.com/s/ey01pirj7fw0fk6/server-1.6.4.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
                     Case "1.5.2"
-                        DownloadFile("https://www.dropbox.com/s/jediu69o1sgmmcg/server-1.5.2.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
+                        DownloadFile("https://www.dropbox.com/s/jediu69o1sgmmcg/server-1.5.2.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "server-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Cauldron, server.ServerVersion)
                 End Select
             Case Server.EServerVersionType.Thermos
-                DownloadFile("https://www.dropbox.com/s/zgo0fmbm0kfkjlp/Thermos.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "thermos-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Thermos, server.ServerVersion)
+                DownloadFile("https://www.dropbox.com/s/zgo0fmbm0kfkjlp/Thermos.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "thermos-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Thermos, server.ServerVersion)
             Case Server.EServerVersionType.Contigo
-                DownloadFile("https://www.dropbox.com/s/2l136lm1eesmo57/Contigo-1.7.10.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "contigo-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Contigo, server.ServerVersion)
+                DownloadFile("https://www.dropbox.com/s/2l136lm1eesmo57/Contigo-1.7.10.zip?raw=1", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "contigo-" & server.ServerVersion & ".zip"), Server.EServerVersionType.Contigo, server.ServerVersion)
             Case Server.EServerVersionType.Kettle
                 BeginInvoke(New Action(Sub()
                                            StatusLabel.Text = "狀態：正在下載 Kettle " & server.ServerVersion & "......"
@@ -379,27 +403,27 @@ Public Class ServerCreateHelper
                                                                                                                                                                                          StatusLabel.Text = "狀態：正在解壓縮必需程式庫 ......"
                                                                                                                                                                                          ProgressBar.Value = 70
                                                                                                                                                                                      End Sub)
-                                                                                                                                                                         If IO.File.Exists(IIf(path.EndsWith("\"), path, path & "\") & "libraries.zip") Then
-                                                                                                                                                                             Using archive As ZipArchive = ZipFile.OpenRead(IIf(path.EndsWith("\"), path, path & "\") & "libraries.zip")
+                                                                                                                                                                         If IO.File.Exists(IIf(path.EndsWith(seperator), path, path & seperator) & "libraries.zip") Then
+                                                                                                                                                                             Using archive As ZipArchive = ZipFile.OpenRead(IIf(path.EndsWith(seperator), path, path & seperator) & "libraries.zip")
                                                                                                                                                                                  Dim s As Integer = 0
                                                                                                                                                                                  For Each entry As ZipArchiveEntry In archive.Entries
                                                                                                                                                                                      s += 1
                                                                                                                                                                                      BeginInvokeIfRequired(Me, Sub() ProgressBar.Increment(s / archive.Entries.Count * 100 * 0.2))
                                                                                                                                                                                      Try
                                                                                                                                                                                          If entry.FullName.EndsWith("\") OrElse entry.FullName.EndsWith("/") Then
-                                                                                                                                                                                             If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
-                                                                                                                                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                                                                                                                                             If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Exists = False Then
+                                                                                                                                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
                                                                                                                                                                                              End If
                                                                                                                                                                                          Else
-                                                                                                                                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Directory.Exists = False Then
-                                                                                                                                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                                                                                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Directory.Exists = False Then
+                                                                                                                                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
                                                                                                                                                                                                  info.Directory.Create()
                                                                                                                                                                                              End If
-                                                                                                                                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
-                                                                                                                                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                                                                                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Exists = False Then
+                                                                                                                                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
                                                                                                                                                                                                  info.Delete()
                                                                                                                                                                                              End If
-                                                                                                                                                                                             entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName), True)
+                                                                                                                                                                                             entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName), True)
                                                                                                                                                                                          End If
                                                                                                                                                                                      Catch ex As Exception
                                                                                                                                                                                      End Try
@@ -407,28 +431,36 @@ Public Class ServerCreateHelper
                                                                                                                                                                              End Using
                                                                                                                                                                          End If
                                                                                                                                                                          BeginInvoke(Sub()
-                                                                                                                                                                                         'Try
-                                                                                                                                                                                         BeginInvoke(Sub()
-                                                                                                                                                                                                         StatusLabel.Text = "狀態：正在配置伺服器 ......"
-                                                                                                                                                                                                         ProgressBar.Value = 90
-                                                                                                                                                                                                     End Sub)
+                                                                                                                                                                                         If justDownload Then
+                                                                                                                                                                                             BeginInvoke(Sub()
+                                                                                                                                                                                                             StatusLabel.Text = "狀態：完成!"
+                                                                                                                                                                                                             ProgressBar.Value = 100
+                                                                                                                                                                                                             Close()
+                                                                                                                                                                                                         End Sub)
+                                                                                                                                                                                         Else
+                                                                                                                                                                                             'Try
+                                                                                                                                                                                             BeginInvoke(Sub()
+                                                                                                                                                                                                             StatusLabel.Text = "狀態：正在配置伺服器 ......"
+                                                                                                                                                                                                             ProgressBar.Value = 90
+                                                                                                                                                                                                         End Sub)
 
-                                                                                                                                                                                         'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
-                                                                                                                                                                                         server.SaveServer(False)
-                                                                                                                                                                                         GenerateServerEULA()
-                                                                                                                                                                                         BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith("\"), path, path & "\")))
-                                                                                                                                                                                         'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith("\"), path, path & "\"))
-                                                                                                                                                                                         BeginInvoke(Sub()
-                                                                                                                                                                                                         StatusLabel.Text = "狀態：完成!"
-                                                                                                                                                                                                         ProgressBar.Value = 100
-                                                                                                                                                                                                         Close()
-                                                                                                                                                                                                     End Sub)
-                                                                                                                                                                                         ' Catch ex As Exception
-                                                                                                                                                                                         'MsgBox(ex.StackTrace)
-                                                                                                                                                                                         ' End Try
+                                                                                                                                                                                             'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
+                                                                                                                                                                                             server.SaveServer(False)
+                                                                                                                                                                                             GenerateServerEULA()
+                                                                                                                                                                                             BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith(seperator), path, path & seperator)))
+                                                                                                                                                                                             'GlobalModule.Manager.ServerPathList.Add(IIf(path.EndsWith(seperator), path, path & seperator))
+                                                                                                                                                                                             BeginInvoke(Sub()
+                                                                                                                                                                                                             StatusLabel.Text = "狀態：完成!"
+                                                                                                                                                                                                             ProgressBar.Value = 100
+                                                                                                                                                                                                             Close()
+                                                                                                                                                                                                         End Sub)
+                                                                                                                                                                                             ' Catch ex As Exception
+                                                                                                                                                                                             'MsgBox(ex.StackTrace)
+                                                                                                                                                                                             ' End Try
+                                                                                                                                                                                         End If
                                                                                                                                                                                      End Sub)
                                                                                                                                                                      End Sub
-                                                                                                                         subClient.DownloadFileAsync(New Uri(KettleVersionDict.Values.ToArray(i).Item3), IIf(path.EndsWith("\"), path, path & "\") & "libraries.zip")
+                                                                                                                         subClient.DownloadFileAsync(New Uri(KettleVersionDict.Values.ToArray(i).Item3), IIf(path.EndsWith(seperator), path, path & seperator) & "libraries.zip")
                                                                                                                          Exit For
                                                                                                                      End If
                                                                                                                  Next
@@ -440,15 +472,16 @@ Public Class ServerCreateHelper
                                                                  assets = New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(assets).Value
                                                                  server.SetVersion(assets, server.Server2ndVersion)
                                                              End If
-                                                             vanillaClient.DownloadFileAsync(New Uri(jsonObject.GetValue("downloads").Item("server").Item("url").ToString), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "minecraft_server.1.12.2.jar"))
+                                                             vanillaClient.DownloadFileAsync(New Uri(jsonObject.GetValue("downloads").Item("server").Item("url").ToString), IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "minecraft_server.1.12.2.jar"))
                                                          End Sub
                 Dim branchID As String = New Regex("[0-9a-f]{7}", RegexOptions.IgnoreCase).Match(KettleVersionDict(server.ServerVersion).Item2).Value
                 server.SetVersion(server.ServerVersion, branchID)
-                client.DownloadFileAsync(New Uri(KettleVersionDict(server.ServerVersion).Item1), IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), KettleVersionDict(server.ServerVersion).Item2))
+                client.DownloadFileAsync(New Uri(KettleVersionDict(server.ServerVersion).Item1), IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), KettleVersionDict(server.ServerVersion).Item2))
         End Select
     End Sub
 
     Sub DownloadFile(path As String, dist As String, versionType As Server.EServerVersionType, version As String)
+        Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
         BeginInvoke(New Action(Sub()
                                    StatusLabel.Text = "狀態：正在下載 " & GetSimpleVersionName(versionType, version) & " " & version & " ……"
                                End Sub))
@@ -487,35 +520,43 @@ Public Class ServerCreateHelper
                                                                      BeginInvokeIfRequired(Me, Sub() ProgressBar.Increment(i / archive.Entries.Count * 100 * 0.2))
                                                                      Try
                                                                          If entry.FullName.EndsWith("\") OrElse entry.FullName.EndsWith("/") Then
-                                                                             If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
-                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                             If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Exists = False Then
+                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
                                                                              End If
                                                                          Else
-                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Directory.Exists = False Then
-                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Directory.Exists = False Then
+                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
                                                                                  info.Directory.Create()
                                                                              End If
-                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName)).Exists = False Then
-                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName))
+                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Exists = False Then
+                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
                                                                                  info.Delete()
                                                                              End If
-                                                                             entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith("\"), Me.path, Me.path & "\"), entry.FullName), True)
+                                                                             entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName), True)
                                                                          End If
                                                                      Catch ex As Exception
                                                                      End Try
                                                                  Next
                                                              End Using
                                                          End If
-                                                         BeginInvoke(New Action(Sub()
-                                                                                    StatusLabel.Text = "狀態：正在配置伺服器 ......"
-                                                                                    server.SaveServer(False)
-                                                                                    GenerateServerEULA()
-                                                                                    StatusLabel.Text = "狀態：完成!"
-                                                                                    ProgressBar.Value = 100
-                                                                                    GlobalModule.Manager.AddServer(Me.path)
-                                                                                    'GlobalModule.Manager.ServerPathList.Add(Me.path)
-                                                                                    Me.Close()
-                                                                                End Sub))
+                                                         If justDownload Then
+                                                             BeginInvoke(Sub()
+                                                                             StatusLabel.Text = "狀態：完成!"
+                                                                             ProgressBar.Value = 100
+                                                                             Close()
+                                                                         End Sub)
+                                                         Else
+                                                             BeginInvoke(New Action(Sub()
+                                                                                        StatusLabel.Text = "狀態：正在配置伺服器 ......"
+                                                                                        server.SaveServer(False)
+                                                                                        GenerateServerEULA()
+                                                                                        StatusLabel.Text = "狀態：完成!"
+                                                                                        ProgressBar.Value = 100
+                                                                                        GlobalModule.Manager.AddServer(Me.path)
+                                                                                        'GlobalModule.Manager.ServerPathList.Add(Me.path)
+                                                                                        Me.Close()
+                                                                                    End Sub))
+                                                         End If
                                                      End If
                                                  End Sub
     End Sub

@@ -630,7 +630,13 @@ Public Class Manager
         End Try
     End Function
     Private Sub Manager_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        If IsUnixLikeSystem Then
+            JavaDefaultBtn.Visible = False
+            JavaChooseBtn.Visible = False
+            JavaDefaultBtn.Enabled = False
+            JavaChooseBtn.Enabled = False
+            SettingTabControl.TabPages.Remove(TabPage3)
+        End If
         GlobalModule.Manager = Me
         If My.Computer.Network.IsAvailable = False Then
             Button1.Enabled = False
@@ -982,7 +988,7 @@ Public Class Manager
         ToolTip1.SetToolTip(JavaVersionLabel, "")
         Dim thread As New Threading.Thread(New Threading.ThreadStart(Sub()
                                                                          Try
-                                                                             Dim process As Process = Process.Start(New ProcessStartInfo(IO.Path.Combine(JavaPath, "java.exe"), "-XshowSettings:properties") With {.CreateNoWindow = True, .ErrorDialog = False, .RedirectStandardOutput = True, .RedirectStandardError = True, .UseShellExecute = False})
+                                                                             Dim process As Process = Process.Start(New ProcessStartInfo(GetJavaPath(), "-XshowSettings:properties") With {.CreateNoWindow = True, .ErrorDialog = False, .RedirectStandardOutput = True, .RedirectStandardError = True, .UseShellExecute = False})
                                                                              process.EnableRaisingEvents = True
                                                                              process.BeginOutputReadLine()
                                                                              process.BeginErrorReadLine()
@@ -1292,22 +1298,6 @@ Public Class Manager
                                              End Sub) With {.IsBackground = False, .Name = "Solutions Close Thread"}
         modpackCloseThread.Start()
     End Sub
-
-    Private Sub MainTabControl_Selecting(sender As Object, e As TabControlCancelEventArgs) Handles MainTabControl.Selecting
-        Select Case e.TabPageIndex
-            Case 1 'Server List
-                If HasJava = False Then
-                    MsgBox("未安裝Java 或 正在偵測")
-                    e.Cancel = True
-                End If
-            Case 2 'BungeeCord Solution List
-                If HasJava = False Then
-                    MsgBox("未安裝Java 或 正在偵測")
-                    e.Cancel = True
-                End If
-        End Select
-    End Sub
-
     Private Sub ArguBox_TextChanged(sender As Object, e As EventArgs) Handles ArguBox.TextChanged
         JavaArguments = ArguBox.Text
     End Sub

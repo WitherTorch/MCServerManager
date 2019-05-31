@@ -76,6 +76,10 @@
     End Sub
 
     Private Sub RunButton_Click(sender As Object, e As EventArgs) Handles RunButton.Click
+        If GlobalModule.Manager.HasJava = False Then
+            MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
+            Exit Sub
+        End If
         Threading.Tasks.Task.Run(Sub()
                                      If Host.CanUpdate Then
                                          Select Case MsgBox("檢查到BungeeCord有新的版本，要先更新再啟動嗎?", MsgBoxStyle.YesNo, Application.ProductName)

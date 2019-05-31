@@ -32,8 +32,14 @@ Namespace My
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
             My.Application.Log.DefaultFileLogWriter.Location = Logging.LogFileLocation.Custom
             My.Application.Log.DefaultFileLogWriter.CustomLocation = IO.Path.Combine(My.Application.Info.DirectoryPath, "error-logs")
-            Dim pro As New CloudFlareProvider()
-            pro.test()
+            Dim PlatID = System.Environment.OSVersion.Platform
+            If PlatID = PlatformID.Unix OrElse PlatID = PlatformID.MacOSX OrElse PlatID = 128 Then
+                IsUnixLikeSystem = True
+            Else
+                IsUnixLikeSystem = False
+            End If
+            'Dim pro As New CloudFlareProvider()
+            'pro.test()
         End Sub
     End Class
 End Namespace

@@ -115,13 +115,18 @@ Public Class ServerCreateDialog
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot)
                     VersionBox.Items.AddRange(SpigotVersionDict.Keys.ToArray)
                 Case 3
-                    If String.IsNullOrEmpty(GitBashPath) AndAlso IO.File.Exists(GitBashPath) Then
+                    If IsUnixLikeSystem Then
                         server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot_Git)
                         VersionBox.Items.AddRange(SpigotGitVersionList.ToArray)
                     Else
-                        MsgBox("尚未指定Git Bash的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
-                        VersionTypeBox.SelectedIndex = _typeSelectedIndex
-                        Exit Sub
+                        If String.IsNullOrEmpty(GitBashPath) AndAlso IO.File.Exists(GitBashPath) Then
+                            server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot_Git)
+                            VersionBox.Items.AddRange(SpigotGitVersionList.ToArray)
+                        Else
+                            MsgBox("尚未指定Git Bash的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
+                            VersionTypeBox.SelectedIndex = _typeSelectedIndex
+                            Exit Sub
+                        End If
                     End If
                 Case 4
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.CraftBukkit)
@@ -169,7 +174,7 @@ Public Class ServerCreateDialog
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Kettle)
                     VersionBox.Items.AddRange(KettleVersionDict.Keys.ToArray)
                 Case 12
-                    If Environment.OSVersion.Version.Major < 10 Then
+                    If Environment.OSVersion.Version.Major < 10 OrElse IsUnixLikeSystem Then
                         server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
                         VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
                     Else
@@ -202,7 +207,11 @@ Public Class ServerCreateDialog
     Private Sub ServerCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
         MapPanel.Controls.Add(New MapView(server) With {.Dock = DockStyle.Fill})
-        If Environment.OSVersion.Version.Major < 10 Then VersionTypeBox.Items.RemoveAt(12)
+        If IsUnixLikeSystem Then
+            VersionTypeBox.Items.RemoveAt(12)
+        Else
+            If Environment.OSVersion.Version.Major < 10 Then VersionTypeBox.Items.RemoveAt(12)
+        End If
     End Sub
 
     Private Sub CreateButton_Click(sender As Object, e As EventArgs) Handles CreateButton.Click
@@ -248,8 +257,8 @@ Public Class ServerCreateDialog
                             dialog.Filter = "Java 程式(*.jar)|*.jar"
                             If dialog.ShowDialog = DialogResult.OK AndAlso IO.File.Exists(dialog.FileName) Then
                                 server.CustomServerRunFile = dialog.FileName
-                                Dim chooser As New ServerCreateHelper(server, ServerDirBox.Text)
-                                chooser.Show()
+                                Dim helper As New ServerCreateHelper(server, ServerDirBox.Text)
+                                helper.Show()
                                 Close()
                             End If
                         Else
