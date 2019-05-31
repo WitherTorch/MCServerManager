@@ -179,6 +179,11 @@ Public Class ServerCreateDialog
                 Case 13
                     server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
                     VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
+                Case 14
+                    server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
+                    VersionBox.Items.Add("(無)")
+                    VersionBox.SelectedIndex = 0
+                    VersionBox.Enabled = False
                 Case Else
                     MsgBox("非法操作!")
                     server.SetVersionType(Server.EServerType.Error, Server.EServerVersionType.Error)
@@ -233,10 +238,20 @@ Public Class ServerCreateDialog
                             Case ServerIPType.Custom
                                 server.ServerOptions("server-ip") = IPBox.Text
                         End Select
-                        If My.Settings.CustomForgeVersion Then
+                        If server.ServerVersionType = Server.EServerVersionType.Forge AndAlso My.Settings.CustomForgeVersion Then
                             Dim chooser As New ForgeBranchChooser(server, ServerDirBox.Text)
                             chooser.Show()
                             Close()
+                        ElseIf server.ServerVersionType = Server.EServerVersionType.Custom Then
+                            Dim dialog As New OpenFileDialog()
+                            dialog.Title = "選擇伺服器軟體"
+                            dialog.Filter = "Java 程式(*.jar)|*.jar"
+                            If dialog.ShowDialog = DialogResult.OK AndAlso IO.File.Exists(dialog.FileName) Then
+                                server.CustomServerRunFile = dialog.FileName
+                                Dim chooser As New ServerCreateHelper(server, ServerDirBox.Text)
+                                chooser.Show()
+                                Close()
+                            End If
                         Else
                             Dim helper As New ServerCreateHelper(server, ServerDirBox.Text)
                             helper.Show()

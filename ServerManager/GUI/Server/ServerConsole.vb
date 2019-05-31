@@ -159,6 +159,11 @@ Public Class ServerConsole
                         Case Server.EServerVersionType.VanillaBedrock
                             Run("""" & IO.Path.Combine(Server.ServerPath, "bedrock_server.exe") & """", "", Server.ServerPath, True, False)
                     End Select
+                Case Server.EServerType.Custom
+                    Select Case Server.ServerVersionType
+                        Case Server.EServerVersionType.Custom
+                            Run(IO.Path.Combine(JavaPath, "java.exe"), "-Djline.terminal=jline.UnsupportedTerminal -Xms" & ServerMemoryMin & "M -Xmx" & ServerMemoryMax & "M " & JavaArguments & " -jar " & """" & IO.Path.Combine(Server.ServerPath, "nukkit-" & Server.Server2ndVersion & ".jar") & """", Server.ServerPath)
+                    End Select
             End Select
         End If
     End Sub

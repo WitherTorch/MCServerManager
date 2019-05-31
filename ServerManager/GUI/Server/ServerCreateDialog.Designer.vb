@@ -58,11 +58,11 @@ Partial Class ServerCreateDialog
         Me.GroupBox2.SuspendLayout
         Me.GroupBox1.SuspendLayout
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ContextMenuStrip1.SuspendLayout
-        Me.TabPage2.SuspendLayout
-        Me.TableLayoutPanel1.SuspendLayout
-        Me.Panel1.SuspendLayout
-        Me.SuspendLayout
+        Me.ContextMenuStrip1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        Me.SuspendLayout()
         '
         'TabControl1
         '
@@ -143,7 +143,7 @@ Partial Class ServerCreateDialog
         '
         Me.VersionTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.VersionTypeBox.FormattingEnabled = True
-        Me.VersionTypeBox.Items.AddRange(New Object() {"Java - 原版", "Java - Forge", "Java - Spigot", "Java - Spigot (Git 手動建置)", "Java - CraftBukkit", "Java - Paper", "Java - Akarin", "Java - SpongeVanilla", "Java - MCPC/Cauldron", "Java - Thermos", "Java - Contigo", "Java - Kettle", "Bedrock - 原版", "Bedrock - Nukkit"})
+        Me.VersionTypeBox.Items.AddRange(New Object() {"Java - 原版", "Java - Forge", "Java - Spigot", "Java - Spigot (Git 手動建置)", "Java - CraftBukkit", "Java - Paper", "Java - Akarin", "Java - SpongeVanilla", "Java - MCPC/Cauldron", "Java - Thermos", "Java - Contigo", "Java - Kettle", "Bedrock - 原版", "Bedrock - Nukkit", "自定義"})
         Me.VersionTypeBox.Location = New System.Drawing.Point(77, 17)
         Me.VersionTypeBox.Name = "VersionTypeBox"
         Me.VersionTypeBox.Size = New System.Drawing.Size(145, 20)
@@ -378,19 +378,19 @@ Partial Class ServerCreateDialog
         Me.Text = "建立伺服器"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout
+        Me.TabPage1.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout
+        Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout
+        Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout
+        Me.GroupBox1.PerformLayout()
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout
+        Me.TableLayoutPanel1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 

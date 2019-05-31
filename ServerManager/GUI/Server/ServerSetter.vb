@@ -31,7 +31,19 @@ Public Class ServerSetter
     Private Sub ServerSetter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MapPanel.Controls.Add(New MapView(server) With {.Dock = DockStyle.Fill})
         SetUpdateInfo()
-        UpdateButton.Enabled = server.CanUpdate
+        If server.ServerVersionType = Server.EServerVersionType.Forge OrElse
+                server.ServerVersionType = Server.EServerVersionType.SpongeVanilla OrElse
+                server.ServerVersionType = Server.EServerVersionType.Nukkit OrElse
+                server.ServerVersionType = Server.EServerVersionType.VanillaBedrock OrElse
+                server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
+                server.ServerVersionType = Server.EServerVersionType.Akarin Then
+            UpdateButton.Enabled = server.CanUpdate
+        Else
+            Button2.Visible = False
+            UpdateButton.Visible = False
+            Button2.Enabled = False
+            UpdateButton.Enabled = False
+        End If
         Task.Run(New Action(Sub()
                                 Select Case server.ServerType
                                     Case Server.EServerType.Java

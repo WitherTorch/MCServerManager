@@ -23,6 +23,7 @@ Public NotInheritable Class Server
     Public ReadOnly Property ServerIcon As Image = New Bitmap(64, 64)
     Public ReadOnly Property CanUpdate As Boolean
     Public Property ServerTasks As ServerTask()
+    Public Property CustomServerRunFile As String
     Public Property IsRunning As Boolean
         Get
             Return _IsRunning
@@ -53,25 +54,27 @@ Public NotInheritable Class Server
     End Sub
     Public Enum EServerType
         [Error]
+        Custom
         Java
         Bedrock
     End Enum
     Public Enum EServerVersionType
         [Error]
+        Custom
         Vanilla
         Forge
-        Spigot
         CraftBukkit
-        SpongeVanilla
+        Spigot
+        Spigot_Git
         Paper
         Akarin
-        VanillaBedrock
-        Nukkit
-        Spigot_Git
         Cauldron
         Thermos
         Contigo
         Kettle
+        SpongeVanilla
+        VanillaBedrock
+        Nukkit
     End Enum
     Friend Shared Function CreateServer() As Server
         Return New Server
@@ -135,6 +138,9 @@ Public NotInheritable Class Server
                                             Case "kettle"
                                                 server._ServerVersionType = EServerVersionType.Kettle
                                                 server._ServerType = EServerType.Java
+                                            Case "custom"
+                                                server._ServerVersionType = EServerVersionType.Custom
+                                                server._ServerType = EServerType.Custom
                                             Case Else
                                                 server._ServerVersionType = EServerVersionType.Error
                                                 server._ServerType = EServerType.Error
@@ -161,6 +167,8 @@ Public NotInheritable Class Server
                                         server._Server3rdVersion = info(1)
                                     Case "vanilla-build-version"
                                         server._Server2ndVersion = info(1)
+                                    Case "server-file"
+                                        server.CustomServerRunFile = info(1)
                                     Case "tasks"
                                         Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(info(1))
                                         For Each jsonObject As JObject In jsonArray
@@ -889,25 +897,27 @@ Public NotInheritable Class Server
             writer.WriteLine("server-version=" & ServerVersion)
             writer.WriteLine("server-version-type=" & ServerVersionType.ToString)
             Select Case ServerVersionType
+                Case EServerVersionType.Custom
+                    writer.WriteLine("server-file=" & CustomServerRunFile)
                 Case EServerVersionType.Vanilla
                     writer.WriteLine("vanilla-build-version=" & secondVersion)
                 Case EServerVersionType.Forge
                     writer.WriteLine("forge-build-version=" & secondVersion)
-                Case Server.EServerVersionType.SpongeVanilla
-                    writer.WriteLine("spongeVanilla-version=" & secondVersion)
-                    writer.WriteLine("spongeVanilla-type=" & SpongeVersionType)
-                    writer.WriteLine("spongeVanilla-build-version" & Server3rdVersion)
+                Case EServerVersionType.Spigot_Git
+                    writer.WriteLine("spigot-build-version=" & secondVersion)
                 Case EServerVersionType.Paper
                     writer.WriteLine("paper-build-version=" & secondVersion)
                 Case EServerVersionType.Akarin
                     writer.WriteLine("akarin-build-version=" & secondVersion)
                     writer.WriteLine("akarin-branch-name=" & Server3rdVersion)
-                Case EServerVersionType.Nukkit
-                    writer.WriteLine("nukkit-build-version=" & secondVersion)
-                Case EServerVersionType.Spigot_Git
-                    writer.WriteLine("spigot-build-version=" & secondVersion)
                 Case EServerVersionType.Kettle
                     writer.WriteLine("kettle-branch-id=" & secondVersion)
+                Case Server.EServerVersionType.SpongeVanilla
+                    writer.WriteLine("spongeVanilla-version=" & secondVersion)
+                    writer.WriteLine("spongeVanilla-type=" & SpongeVersionType)
+                    writer.WriteLine("spongeVanilla-build-version" & Server3rdVersion)
+                Case EServerVersionType.Nukkit
+                    writer.WriteLine("nukkit-build-version=" & secondVersion)
             End Select
             Dim jsonArray As New JArray
             If IsNothing(ServerTasks) = False Then

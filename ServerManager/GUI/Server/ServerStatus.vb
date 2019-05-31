@@ -123,7 +123,9 @@ Public Class ServerStatus
                                              End Sub))
     End Sub
     Friend Overloads Sub SetVersionLabel(Optional updating As Boolean = False, Optional updatingPercent As Integer = 0)
-        If Server.ServerVersionType = Server.EServerVersionType.Forge Then
+        If Server.ServerVersionType = Server.EServerVersionType.Custom Then
+            ServerVersion.Text = GetSimpleVersionName(Server.ServerVersionType, Server.ServerVersion) & "(程式檔案:" & New IO.FileInfo(Server.CustomServerRunFile).Name & ")"
+        ElseIf Server.ServerVersionType = Server.EServerVersionType.Forge Then
             ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.ServerVersion & " (Forge 版本：" & Server.Server2ndVersion & ")"
         ElseIf Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
             If Server.Server2ndVersion <> "" Then
@@ -141,7 +143,9 @@ Public Class ServerStatus
         End If
     End Sub
     Friend Overloads Sub SetVersionLabel(addtionText As String)
-        If Server.ServerVersionType = Server.EServerVersionType.Forge Then
+        If Server.ServerVersionType = Server.EServerVersionType.Custom Then
+            ServerVersion.Text = GetSimpleVersionName(Server.ServerVersionType, Server.ServerVersion) & "(程式檔案:" & New IO.FileInfo(Server.CustomServerRunFile).Name & ")"
+        ElseIf Server.ServerVersionType = Server.EServerVersionType.Forge Then
             ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.ServerVersion & " (Forge 版本：" & Server.Server2ndVersion & ")"
         ElseIf Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
             If Server.Server2ndVersion <> "" Then
@@ -267,4 +271,5 @@ Public Class ServerStatus
             Process.Start(Server.ServerPath)
         End If
     End Sub
+
 End Class

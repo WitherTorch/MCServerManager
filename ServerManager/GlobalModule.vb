@@ -219,6 +219,8 @@ Module GlobalModule
                 Return "Contigo"
             Case Server.EServerVersionType.Kettle
                 Return "Kettle"
+            Case Server.EServerVersionType.Custom
+                Return "自定義伺服器"
             Case Else
                 Return type.ToString
         End Select

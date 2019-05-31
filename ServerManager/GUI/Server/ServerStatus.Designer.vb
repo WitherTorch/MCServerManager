@@ -28,13 +28,13 @@ Partial Class ServerStatus
         Me.ServerVersion = New System.Windows.Forms.Label()
         Me.ServerRunStatus = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.VersionTypeLabel = New System.Windows.Forms.Label()
-        Me.UPnPStatusLabel = New System.Windows.Forms.Label()
         Me.ShowDirButton = New System.Windows.Forms.Button()
-        Me.ServerIcon = New System.Windows.Forms.PictureBox()
-        Me.CloseButton = New System.Windows.Forms.Button()
         Me.SettingButton = New System.Windows.Forms.Button()
         Me.RunButton = New System.Windows.Forms.Button()
+        Me.VersionTypeLabel = New System.Windows.Forms.Label()
+        Me.UPnPStatusLabel = New System.Windows.Forms.Label()
+        Me.ServerIcon = New System.Windows.Forms.PictureBox()
+        Me.CloseButton = New System.Windows.Forms.Button()
         CType(Me.ServerIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -86,25 +86,6 @@ Partial Class ServerStatus
         Me.ServerRunStatus.Text = "<ServerRunStatus>"
         Me.ServerRunStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'VersionTypeLabel
-        '
-        Me.VersionTypeLabel.AutoSize = True
-        Me.VersionTypeLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.VersionTypeLabel.Location = New System.Drawing.Point(3, 72)
-        Me.VersionTypeLabel.Name = "VersionTypeLabel"
-        Me.VersionTypeLabel.Size = New System.Drawing.Size(77, 12)
-        Me.VersionTypeLabel.TabIndex = 7
-        Me.VersionTypeLabel.Text = "<VersionType>"
-        '
-        'UPnPStatusLabel
-        '
-        Me.UPnPStatusLabel.AutoSize = True
-        Me.UPnPStatusLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.UPnPStatusLabel.Location = New System.Drawing.Point(3, 90)
-        Me.UPnPStatusLabel.Name = "UPnPStatusLabel"
-        Me.UPnPStatusLabel.Size = New System.Drawing.Size(0, 12)
-        Me.UPnPStatusLabel.TabIndex = 8
-        '
         'ShowDirButton
         '
         Me.ShowDirButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -121,34 +102,6 @@ Partial Class ServerStatus
         Me.ShowDirButton.TabIndex = 9
         Me.ToolTip1.SetToolTip(Me.ShowDirButton, "開啟伺服器資料夾")
         Me.ShowDirButton.UseVisualStyleBackColor = False
-        '
-        'ServerIcon
-        '
-        Me.ServerIcon.BackColor = System.Drawing.Color.Transparent
-        Me.ServerIcon.Image = Global.ServerManager.My.Resources.Resources.ServerDefaultIcon
-        Me.ServerIcon.Location = New System.Drawing.Point(3, 3)
-        Me.ServerIcon.Name = "ServerIcon"
-        Me.ServerIcon.Size = New System.Drawing.Size(64, 64)
-        Me.ServerIcon.TabIndex = 6
-        Me.ServerIcon.TabStop = False
-        '
-        'CloseButton
-        '
-        Me.CloseButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CloseButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.CloseButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.close32
-        Me.CloseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.CloseButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.CloseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(90, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.CloseButton.Location = New System.Drawing.Point(689, 3)
-        Me.CloseButton.Name = "CloseButton"
-        Me.CloseButton.Size = New System.Drawing.Size(20, 20)
-        Me.CloseButton.TabIndex = 5
-        Me.CloseButton.TabStop = False
-        Me.CloseButton.Text = ""
-        Me.CloseButton.UseVisualStyleBackColor = False
         '
         'SettingButton
         '
@@ -185,6 +138,53 @@ Partial Class ServerStatus
         Me.RunButton.Text = ""
         Me.ToolTip1.SetToolTip(Me.RunButton, "啟動伺服器")
         Me.RunButton.UseVisualStyleBackColor = False
+        '
+        'VersionTypeLabel
+        '
+        Me.VersionTypeLabel.AutoSize = True
+        Me.VersionTypeLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.VersionTypeLabel.Location = New System.Drawing.Point(3, 72)
+        Me.VersionTypeLabel.Name = "VersionTypeLabel"
+        Me.VersionTypeLabel.Size = New System.Drawing.Size(77, 12)
+        Me.VersionTypeLabel.TabIndex = 7
+        Me.VersionTypeLabel.Text = "<VersionType>"
+        '
+        'UPnPStatusLabel
+        '
+        Me.UPnPStatusLabel.AutoSize = True
+        Me.UPnPStatusLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.UPnPStatusLabel.Location = New System.Drawing.Point(3, 90)
+        Me.UPnPStatusLabel.Name = "UPnPStatusLabel"
+        Me.UPnPStatusLabel.Size = New System.Drawing.Size(0, 12)
+        Me.UPnPStatusLabel.TabIndex = 8
+        '
+        'ServerIcon
+        '
+        Me.ServerIcon.BackColor = System.Drawing.Color.Transparent
+        Me.ServerIcon.Image = Global.ServerManager.My.Resources.Resources.ServerDefaultIcon
+        Me.ServerIcon.Location = New System.Drawing.Point(3, 3)
+        Me.ServerIcon.Name = "ServerIcon"
+        Me.ServerIcon.Size = New System.Drawing.Size(64, 64)
+        Me.ServerIcon.TabIndex = 6
+        Me.ServerIcon.TabStop = False
+        '
+        'CloseButton
+        '
+        Me.CloseButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CloseButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(75, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.CloseButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.close32
+        Me.CloseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.CloseButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.CloseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(90, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CloseButton.Location = New System.Drawing.Point(689, 3)
+        Me.CloseButton.Name = "CloseButton"
+        Me.CloseButton.Size = New System.Drawing.Size(20, 20)
+        Me.CloseButton.TabIndex = 5
+        Me.CloseButton.TabStop = False
+        Me.CloseButton.Text = ""
+        Me.CloseButton.UseVisualStyleBackColor = False
         '
         'ServerStatus
         '
