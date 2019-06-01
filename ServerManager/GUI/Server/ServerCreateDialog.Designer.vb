@@ -143,7 +143,7 @@ Partial Class ServerCreateDialog
         '
         Me.VersionTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.VersionTypeBox.FormattingEnabled = True
-        Me.VersionTypeBox.Items.AddRange(New Object() {"Java - 原版", "Java - Forge", "Java - Spigot", "Java - Spigot (Git 手動建置)", "Java - CraftBukkit", "Java - Paper", "Java - Akarin", "Java - SpongeVanilla", "Java - MCPC/Cauldron", "Java - Thermos", "Java - Contigo", "Java - Kettle", "Bedrock - 原版", "Bedrock - Nukkit", "自定義"})
+        Me.VersionTypeBox.Items.AddRange(New Object() {"Java 版 - 原版", "Java 版 - Forge", "Java 版 - Spigot", "Java 版 - Spigot (Git 手動建置)", "Java 版 - CraftBukkit", "Java 版 - Paper", "Java 版 - Akarin", "Java 版 - SpongeVanilla", "Java 版 - MCPC/Cauldron", "Java 版 - Thermos", "Java 版 - Contigo", "Java 版 - Kettle", "基岩版 - 原版", "基岩版 - Nukkit", "自定義"})
         Me.VersionTypeBox.Location = New System.Drawing.Point(77, 17)
         Me.VersionTypeBox.Name = "VersionTypeBox"
         Me.VersionTypeBox.Size = New System.Drawing.Size(145, 20)

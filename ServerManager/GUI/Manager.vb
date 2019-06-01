@@ -51,9 +51,9 @@ Public Class Manager
                                                  Try
 
                                                      Dim client As New Net.WebClient()
-                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版：" & "下載列表中..."))
+                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "下載列表中..."))
                                                      Dim docHtml = client.DownloadString(manifestListURL)
-                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版：" & "載入列表中..."))
+                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "載入列表中..."))
                                                      Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
                                                      For Each jsonValue In jsonObject.GetValue("versions").ToObject(Of JArray)
                                                          If jsonValue.Item("type").ToString() = "release" Then
@@ -65,9 +65,9 @@ Public Class Manager
                                                              VanillaVersionDict.Add(jsonValue.Item("id").ToString(), jsonValue.Item("url").ToString())
                                                          End If
                                                      Next
-                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版：" & "載入完成"))
+                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "載入完成"))
                                                  Catch ex As Exception
-                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版：" & "(無)"))
+                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "(無)"))
                                                  End Try
                                              End Sub)
         VanillaGetVersionThread.Name = "Vanilla GetVersion Thread"

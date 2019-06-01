@@ -23,18 +23,18 @@ Partial Class Manager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
-        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
-        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
-        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
-        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
-        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
-        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
-        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
+        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
+        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
+        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
+        Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
+        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
+        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
+        Dim ListViewItem19 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
+        Dim ListViewItem20 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
+        Dim ListViewItem21 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
+        Dim ListViewItem22 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
+        Dim ListViewItem23 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
+        Dim ListViewItem24 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
@@ -84,6 +84,7 @@ Partial Class Manager
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -118,6 +119,8 @@ Partial Class Manager
         Me.ArguLabel = New System.Windows.Forms.Label()
         Me.JavaVersionLabel = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GitGroupBox = New System.Windows.Forms.GroupBox()
         Me.GitBashBrowseButton = New System.Windows.Forms.Button()
@@ -139,9 +142,6 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -461,7 +461,7 @@ Partial Class Manager
         Me.VanillaLoadingLabel.Name = "VanillaLoadingLabel"
         Me.VanillaLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.VanillaLoadingLabel.TabIndex = 0
-        Me.VanillaLoadingLabel.Text = "原版："
+        Me.VanillaLoadingLabel.Text = "原版(Java)："
         Me.VanillaLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ToolTip1.SetToolTip(Me.VanillaLoadingLabel, "Mojang 官方發布的Java 版Minecraft 伺服器軟體，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "為大多數伺服器軟體的基礎。")
         '
@@ -766,6 +766,18 @@ Partial Class Manager
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(249, 98)
         Me.Panel1.TabIndex = 17
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Checked = Global.ServerManager.My.MySettings.Default.NoIPPasswordViewChecked
+        Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "NoIPPasswordViewChecked", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.CheckBox2.Location = New System.Drawing.Point(50, 67)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
+        Me.CheckBox2.TabIndex = 17
+        Me.CheckBox2.Text = "顯示密碼"
+        Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'Button4
         '
@@ -1142,6 +1154,32 @@ Partial Class Manager
         Me.TabPage2.Text = "伺服器"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'CheckBox3
+        '
+        Me.CheckBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Checked = Global.ServerManager.My.MySettings.Default.CustomForgeVersion
+        Me.CheckBox3.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "CustomForgeVersion", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.CheckBox3.Location = New System.Drawing.Point(6, 28)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(159, 16)
+        Me.CheckBox3.TabIndex = 33
+        Me.CheckBox3.Text = "是否可選擇安裝舊版Forge"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
+        'SnapshotCheckBox
+        '
+        Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.SnapshotCheckBox.AutoSize = True
+        Me.SnapshotCheckBox.Checked = Global.ServerManager.My.MySettings.Default.ShowSnapshot
+        Me.SnapshotCheckBox.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "ShowSnapshot", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
+        Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
+        Me.SnapshotCheckBox.Size = New System.Drawing.Size(168, 16)
+        Me.SnapshotCheckBox.TabIndex = 32
+        Me.SnapshotCheckBox.Text = "在列表內顯示原版快照版本"
+        Me.SnapshotCheckBox.UseVisualStyleBackColor = True
+        '
         'TabPage3
         '
         Me.TabPage3.Controls.Add(Me.GitGroupBox)
@@ -1253,41 +1291,41 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 11.0!)
         Me.ServerSoftwareLinkList.HideSelection = False
-        ListViewItem1.Checked = True
-        ListViewItem1.StateImageIndex = 2
-        ListViewItem1.Tag = "https://www.minecraft.net/zh-hant/"
-        ListViewItem2.Checked = True
-        ListViewItem2.StateImageIndex = 3
-        ListViewItem2.Tag = "https://files.minecraftforge.net/"
-        ListViewItem3.StateImageIndex = 0
-        ListViewItem3.Tag = "https://bukkit.org/"
-        ListViewItem4.Checked = True
-        ListViewItem4.StateImageIndex = 1
-        ListViewItem4.Tag = "https://www.spigotmc.org/"
-        ListViewItem5.Checked = True
-        ListViewItem5.StateImageIndex = 4
-        ListViewItem5.Tag = "https://www.spongepowered.org/"
-        ListViewItem6.Checked = True
-        ListViewItem6.StateImageIndex = 5
-        ListViewItem6.Tag = "https://papermc.io/"
-        ListViewItem7.Checked = True
-        ListViewItem7.StateImageIndex = 6
-        ListViewItem7.Tag = "https://akarin.io/"
-        ListViewItem8.Checked = True
-        ListViewItem8.StateImageIndex = 9
-        ListViewItem9.Checked = True
-        ListViewItem9.StateImageIndex = 8
-        ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
-        ListViewItem10.Checked = True
-        ListViewItem10.StateImageIndex = 10
-        ListViewItem10.Tag = "https://github.com/djoveryde/Contigo"
-        ListViewItem11.Checked = True
-        ListViewItem11.StateImageIndex = 11
-        ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem12.Checked = True
-        ListViewItem12.StateImageIndex = 7
-        ListViewItem12.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12})
+        ListViewItem13.Checked = True
+        ListViewItem13.StateImageIndex = 2
+        ListViewItem13.Tag = "https://www.minecraft.net/zh-hant/"
+        ListViewItem14.Checked = True
+        ListViewItem14.StateImageIndex = 3
+        ListViewItem14.Tag = "https://files.minecraftforge.net/"
+        ListViewItem15.StateImageIndex = 0
+        ListViewItem15.Tag = "https://bukkit.org/"
+        ListViewItem16.Checked = True
+        ListViewItem16.StateImageIndex = 1
+        ListViewItem16.Tag = "https://www.spigotmc.org/"
+        ListViewItem17.Checked = True
+        ListViewItem17.StateImageIndex = 4
+        ListViewItem17.Tag = "https://www.spongepowered.org/"
+        ListViewItem18.Checked = True
+        ListViewItem18.StateImageIndex = 5
+        ListViewItem18.Tag = "https://papermc.io/"
+        ListViewItem19.Checked = True
+        ListViewItem19.StateImageIndex = 6
+        ListViewItem19.Tag = "https://akarin.io/"
+        ListViewItem20.Checked = True
+        ListViewItem20.StateImageIndex = 9
+        ListViewItem21.Checked = True
+        ListViewItem21.StateImageIndex = 8
+        ListViewItem21.Tag = "https://cyberdynecc.github.io/Thermos/"
+        ListViewItem22.Checked = True
+        ListViewItem22.StateImageIndex = 10
+        ListViewItem22.Tag = "https://github.com/djoveryde/Contigo"
+        ListViewItem23.Checked = True
+        ListViewItem23.StateImageIndex = 11
+        ListViewItem23.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem24.Checked = True
+        ListViewItem24.StateImageIndex = 7
+        ListViewItem24.Tag = "https://nukkitx.com/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17, ListViewItem18, ListViewItem19, ListViewItem20, ListViewItem21, ListViewItem22, ListViewItem23, ListViewItem24})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1405,44 +1443,6 @@ Partial Class Manager
         'NoIPTimer
         '
         Me.NoIPTimer.Interval = 1000
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = Global.ServerManager.My.MySettings.Default.NoIPPasswordViewChecked
-        Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "NoIPPasswordViewChecked", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.CheckBox2.Location = New System.Drawing.Point(50, 67)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
-        Me.CheckBox2.TabIndex = 17
-        Me.CheckBox2.Text = "顯示密碼"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
-        'CheckBox3
-        '
-        Me.CheckBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Checked = Global.ServerManager.My.MySettings.Default.CustomForgeVersion
-        Me.CheckBox3.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "CustomForgeVersion", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.CheckBox3.Location = New System.Drawing.Point(6, 28)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(159, 16)
-        Me.CheckBox3.TabIndex = 33
-        Me.CheckBox3.Text = "是否可選擇安裝舊版Forge"
-        Me.CheckBox3.UseVisualStyleBackColor = True
-        '
-        'SnapshotCheckBox
-        '
-        Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.SnapshotCheckBox.AutoSize = True
-        Me.SnapshotCheckBox.Checked = Global.ServerManager.My.MySettings.Default.ShowSnapshot
-        Me.SnapshotCheckBox.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "ShowSnapshot", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
-        Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
-        Me.SnapshotCheckBox.Size = New System.Drawing.Size(168, 16)
-        Me.SnapshotCheckBox.TabIndex = 32
-        Me.SnapshotCheckBox.Text = "在列表內顯示原版快照版本"
-        Me.SnapshotCheckBox.UseVisualStyleBackColor = True
         '
         'Manager
         '

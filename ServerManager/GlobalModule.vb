@@ -190,7 +190,7 @@ Module GlobalModule
     Function GetSimpleVersionName(type As Server.EServerVersionType, Optional version As String = "") As String
         Select Case type
             Case Server.EServerVersionType.Vanilla
-                Return "原版"
+                Return "原版(Java)"
             Case Server.EServerVersionType.Forge
                 Return "Forge"
             Case Server.EServerVersionType.Spigot
@@ -206,7 +206,7 @@ Module GlobalModule
             Case Server.EServerVersionType.Akarin
                 Return "Akarin"
             Case Server.EServerVersionType.VanillaBedrock
-                Return "原版(基岩專用)"
+                Return "原版(基岩)"
             Case Server.EServerVersionType.Nukkit
                 Return "Nukkit"
             Case Server.EServerVersionType.Cauldron
