@@ -101,7 +101,7 @@ Public Class ServerCreateHelper
 
 
     Sub DownloadServer()
-        Dim seperator As String = IIf(IsUnixLikeSystem, "/", seperator)
+        Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
         Select Case server.ServerVersionType
             Case Server.EServerVersionType.Vanilla
 

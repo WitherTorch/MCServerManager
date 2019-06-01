@@ -630,13 +630,6 @@ Public Class Manager
         End Try
     End Function
     Private Sub Manager_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If IsUnixLikeSystem Then
-            JavaDefaultBtn.Visible = False
-            JavaChooseBtn.Visible = False
-            JavaDefaultBtn.Enabled = False
-            JavaChooseBtn.Enabled = False
-            SettingTabControl.TabPages.Remove(TabPage3)
-        End If
         GlobalModule.Manager = Me
         If My.Computer.Network.IsAvailable = False Then
             Button1.Enabled = False
@@ -1591,6 +1584,13 @@ Public Class Manager
         'Debug Server Problem Only!
         'TestForm = (New ServerCheckingForm(0))
         'TestForm.Show()
+        If IsUnixLikeSystem Then
+            JavaDefaultBtn.Visible = False
+            JavaChooseBtn.Visible = False
+            JavaDefaultBtn.Enabled = False
+            JavaChooseBtn.Enabled = False
+            SettingTabControl.TabPages.Remove(TabPage3)
+        End If
         Label9.Text = Label9.Text.Replace("<Version>", SERVER_MANAGER_VER)
         Dim r As New Random()
         Select Case r.Next(20)
