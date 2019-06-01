@@ -656,7 +656,7 @@ Public Class Manager
                                                                                      IPLabel.Links.Add(New LinkLabel.Link(IPLabel.Text.IndexOf(inip), inip.Length))
                                                                                      tooltip.SetToolTip(IPLabel, "點擊連結複製內部IP位址")
                                                                                  End Sub)
-                                                       Exit Try
+                                                       ip.Add(inip)
                                                    End If
                                                Next
                                                If ip.Count = 0 Then
