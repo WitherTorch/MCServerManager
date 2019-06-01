@@ -231,6 +231,9 @@ Public Class ServerCreateDialog
                                 Case Server.EServerType.Bedrock
                                     serverOptions = New NukkitServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
+                                Case Server.EServerType.Custom
+                                    serverOptions = New JavaServerOptions
+                                    serverOptions.InputOption(server.ServerOptions)
                             End Select
                         End If
                         server.ServerOptions = serverOptions.OutputOption
@@ -257,8 +260,8 @@ Public Class ServerCreateDialog
                             dialog.Filter = "Java 程式(*.jar)|*.jar"
                             If dialog.ShowDialog = DialogResult.OK AndAlso IO.File.Exists(dialog.FileName) Then
                                 server.CustomServerRunFile = dialog.FileName
-                                Dim helper As New ServerCreateHelper(server, ServerDirBox.Text)
-                                helper.Show()
+                                server.SaveServer()
+                                BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(server.ServerPath))
                                 Close()
                             End If
                         Else

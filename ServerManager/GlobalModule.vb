@@ -181,7 +181,11 @@ Module GlobalModule
         Return result
     End Function
     Function GetJavaPath() As String
-        Return IIf(IsUnixLikeSystem, "java", GetJavaPath())
+        If IsUnixLikeSystem Then
+            Return "java"
+        Else
+            Return IO.Path.Combine(JavaPath, "java.exe")
+        End If
     End Function
     Function GetSimpleVersionName(type As Server.EServerVersionType, Optional version As String = "") As String
         Select Case type

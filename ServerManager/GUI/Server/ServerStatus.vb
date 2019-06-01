@@ -54,6 +54,8 @@ Public Class ServerStatus
                                                                             VersionTypeLabel.Text = "Java 版"
                                                                         Case Server.EServerType.Bedrock
                                                                             VersionTypeLabel.Text = "基岩版"
+                                                                        Case Server.EServerType.Custom
+                                                                            VersionTypeLabel.Text = ""
                                                                     End Select
                                                                 End Sub)
                                                 Else
@@ -68,6 +70,8 @@ Public Class ServerStatus
                                                             VersionTypeLabel.Text = "Java 版"
                                                         Case Server.EServerType.Bedrock
                                                             VersionTypeLabel.Text = "基岩版"
+                                                        Case Server.EServerType.Custom
+                                                            VersionTypeLabel.Text = ""
                                                     End Select
                                                 End If
 
