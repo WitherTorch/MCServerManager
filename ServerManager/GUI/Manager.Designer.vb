@@ -23,26 +23,22 @@ Partial Class Manager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
-        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
-        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
-        Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
-        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
-        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
-        Dim ListViewItem19 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
-        Dim ListViewItem20 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
-        Dim ListViewItem21 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
-        Dim ListViewItem22 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
-        Dim ListViewItem23 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem24 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
+        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
+        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
+        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
+        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
+        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
+        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
+        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
+        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
+        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
+        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
         Me.MainPanel = New System.Windows.Forms.TableLayoutPanel()
-        Me.NetworkGroupBox = New System.Windows.Forms.GroupBox()
-        Me.ExternalIPLabel = New System.Windows.Forms.LinkLabel()
-        Me.IPALabel = New System.Windows.Forms.Label()
-        Me.IPLabel = New System.Windows.Forms.LinkLabel()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
         Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
@@ -142,10 +138,19 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.IPLabel = New System.Windows.Forms.LinkLabel()
+        Me.IPALabel = New System.Windows.Forms.Label()
+        Me.ExternalIPLabel = New System.Windows.Forms.LinkLabel()
+        Me.NetworkGroupBox = New System.Windows.Forms.GroupBox()
+        Me.MemoryGroupBox = New System.Windows.Forms.GroupBox()
+        Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
-        Me.NetworkGroupBox.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.VListLoadingBox.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -180,6 +185,9 @@ Partial Class Manager
         Me.Panel3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox8.SuspendLayout()
+        Me.NetworkGroupBox.SuspendLayout()
+        Me.MemoryGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainTabControl
@@ -214,8 +222,8 @@ Partial Class Manager
         Me.MainPanel.AutoSize = True
         Me.MainPanel.BackColor = System.Drawing.Color.White
         Me.MainPanel.ColumnCount = 1
-        Me.MainPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.MainPanel.Controls.Add(Me.NetworkGroupBox, 0, 0)
+        Me.MainPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.MainPanel.Controls.Add(Me.GroupBox8, 0, 0)
         Me.MainPanel.Controls.Add(Me.GroupBox7, 0, 1)
         Me.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MainPanel.Location = New System.Drawing.Point(3, 3)
@@ -223,65 +231,15 @@ Partial Class Manager
         Me.MainPanel.RowCount = 2
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.MainPanel.Size = New System.Drawing.Size(770, 483)
         Me.MainPanel.TabIndex = 5
-        '
-        'NetworkGroupBox
-        '
-        Me.NetworkGroupBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.NetworkGroupBox.BackColor = System.Drawing.Color.Transparent
-        Me.NetworkGroupBox.Controls.Add(Me.ExternalIPLabel)
-        Me.NetworkGroupBox.Controls.Add(Me.IPALabel)
-        Me.NetworkGroupBox.Controls.Add(Me.IPLabel)
-        Me.NetworkGroupBox.Location = New System.Drawing.Point(3, 3)
-        Me.NetworkGroupBox.Margin = New System.Windows.Forms.Padding(3, 3, 0, 3)
-        Me.NetworkGroupBox.Name = "NetworkGroupBox"
-        Me.NetworkGroupBox.Size = New System.Drawing.Size(767, 84)
-        Me.NetworkGroupBox.TabIndex = 4
-        Me.NetworkGroupBox.TabStop = False
-        Me.NetworkGroupBox.Text = "網路"
-        '
-        'ExternalIPLabel
-        '
-        Me.ExternalIPLabel.AutoSize = True
-        Me.ExternalIPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
-        Me.ExternalIPLabel.Location = New System.Drawing.Point(6, 58)
-        Me.ExternalIPLabel.Margin = New System.Windows.Forms.Padding(3)
-        Me.ExternalIPLabel.Name = "ExternalIPLabel"
-        Me.ExternalIPLabel.Size = New System.Drawing.Size(120, 12)
-        Me.ExternalIPLabel.TabIndex = 12
-        Me.ExternalIPLabel.Text = "外部IP位址：取得中..."
-        '
-        'IPALabel
-        '
-        Me.IPALabel.AutoSize = True
-        Me.IPALabel.Location = New System.Drawing.Point(6, 21)
-        Me.IPALabel.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
-        Me.IPALabel.Name = "IPALabel"
-        Me.IPALabel.Size = New System.Drawing.Size(110, 12)
-        Me.IPALabel.TabIndex = 13
-        Me.IPALabel.Text = "網路狀態：檢查中..."
-        '
-        'IPLabel
-        '
-        Me.IPLabel.AutoSize = True
-        Me.IPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
-        Me.IPLabel.Location = New System.Drawing.Point(6, 40)
-        Me.IPLabel.Margin = New System.Windows.Forms.Padding(3)
-        Me.IPLabel.Name = "IPLabel"
-        Me.IPLabel.Size = New System.Drawing.Size(120, 12)
-        Me.IPLabel.TabIndex = 9
-        Me.IPLabel.Text = "內部IP位址：取得中..."
         '
         'GroupBox7
         '
         Me.GroupBox7.AutoSize = True
         Me.GroupBox7.Controls.Add(Me.VListLoadingBox)
         Me.GroupBox7.Controls.Add(Me.GroupBox6)
-        Me.GroupBox7.Location = New System.Drawing.Point(3, 93)
+        Me.GroupBox7.Location = New System.Drawing.Point(3, 119)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(762, 256)
         Me.GroupBox7.TabIndex = 32
@@ -1291,41 +1249,41 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 11.0!)
         Me.ServerSoftwareLinkList.HideSelection = False
-        ListViewItem13.Checked = True
-        ListViewItem13.StateImageIndex = 2
-        ListViewItem13.Tag = "https://www.minecraft.net/zh-hant/"
-        ListViewItem14.Checked = True
-        ListViewItem14.StateImageIndex = 3
-        ListViewItem14.Tag = "https://files.minecraftforge.net/"
-        ListViewItem15.StateImageIndex = 0
-        ListViewItem15.Tag = "https://bukkit.org/"
-        ListViewItem16.Checked = True
-        ListViewItem16.StateImageIndex = 1
-        ListViewItem16.Tag = "https://www.spigotmc.org/"
-        ListViewItem17.Checked = True
-        ListViewItem17.StateImageIndex = 4
-        ListViewItem17.Tag = "https://www.spongepowered.org/"
-        ListViewItem18.Checked = True
-        ListViewItem18.StateImageIndex = 5
-        ListViewItem18.Tag = "https://papermc.io/"
-        ListViewItem19.Checked = True
-        ListViewItem19.StateImageIndex = 6
-        ListViewItem19.Tag = "https://akarin.io/"
-        ListViewItem20.Checked = True
-        ListViewItem20.StateImageIndex = 9
-        ListViewItem21.Checked = True
-        ListViewItem21.StateImageIndex = 8
-        ListViewItem21.Tag = "https://cyberdynecc.github.io/Thermos/"
-        ListViewItem22.Checked = True
-        ListViewItem22.StateImageIndex = 10
-        ListViewItem22.Tag = "https://github.com/djoveryde/Contigo"
-        ListViewItem23.Checked = True
-        ListViewItem23.StateImageIndex = 11
-        ListViewItem23.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem24.Checked = True
-        ListViewItem24.StateImageIndex = 7
-        ListViewItem24.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17, ListViewItem18, ListViewItem19, ListViewItem20, ListViewItem21, ListViewItem22, ListViewItem23, ListViewItem24})
+        ListViewItem1.Checked = True
+        ListViewItem1.StateImageIndex = 2
+        ListViewItem1.Tag = "https://www.minecraft.net/zh-hant/"
+        ListViewItem2.Checked = True
+        ListViewItem2.StateImageIndex = 3
+        ListViewItem2.Tag = "https://files.minecraftforge.net/"
+        ListViewItem3.StateImageIndex = 0
+        ListViewItem3.Tag = "https://bukkit.org/"
+        ListViewItem4.Checked = True
+        ListViewItem4.StateImageIndex = 1
+        ListViewItem4.Tag = "https://www.spigotmc.org/"
+        ListViewItem5.Checked = True
+        ListViewItem5.StateImageIndex = 4
+        ListViewItem5.Tag = "https://www.spongepowered.org/"
+        ListViewItem6.Checked = True
+        ListViewItem6.StateImageIndex = 5
+        ListViewItem6.Tag = "https://papermc.io/"
+        ListViewItem7.Checked = True
+        ListViewItem7.StateImageIndex = 6
+        ListViewItem7.Tag = "https://akarin.io/"
+        ListViewItem8.Checked = True
+        ListViewItem8.StateImageIndex = 9
+        ListViewItem9.Checked = True
+        ListViewItem9.StateImageIndex = 8
+        ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
+        ListViewItem10.Checked = True
+        ListViewItem10.StateImageIndex = 10
+        ListViewItem10.Tag = "https://github.com/djoveryde/Contigo"
+        ListViewItem11.Checked = True
+        ListViewItem11.StateImageIndex = 11
+        ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem12.Checked = True
+        ListViewItem12.StateImageIndex = 7
+        ListViewItem12.Tag = "https://nukkitx.com/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1444,6 +1402,116 @@ Partial Class Manager
         '
         Me.NoIPTimer.Interval = 1000
         '
+        'GroupBox8
+        '
+        Me.GroupBox8.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox8.Controls.Add(Me.MemoryGroupBox)
+        Me.GroupBox8.Controls.Add(Me.NetworkGroupBox)
+        Me.GroupBox8.Location = New System.Drawing.Point(3, 3)
+        Me.GroupBox8.Margin = New System.Windows.Forms.Padding(3, 3, 0, 3)
+        Me.GroupBox8.Name = "GroupBox8"
+        Me.GroupBox8.Size = New System.Drawing.Size(762, 110)
+        Me.GroupBox8.TabIndex = 14
+        Me.GroupBox8.TabStop = False
+        Me.GroupBox8.Text = "系統"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(6, 40)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(77, 12)
+        Me.Label18.TabIndex = 13
+        Me.Label18.Text = "實體記憶體："
+        '
+        'IPLabel
+        '
+        Me.IPLabel.AutoSize = True
+        Me.IPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
+        Me.IPLabel.Location = New System.Drawing.Point(6, 40)
+        Me.IPLabel.Margin = New System.Windows.Forms.Padding(3)
+        Me.IPLabel.Name = "IPLabel"
+        Me.IPLabel.Size = New System.Drawing.Size(120, 12)
+        Me.IPLabel.TabIndex = 9
+        Me.IPLabel.Text = "內部IP位址：取得中..."
+        '
+        'IPALabel
+        '
+        Me.IPALabel.AutoSize = True
+        Me.IPALabel.Location = New System.Drawing.Point(6, 21)
+        Me.IPALabel.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
+        Me.IPALabel.Name = "IPALabel"
+        Me.IPALabel.Size = New System.Drawing.Size(110, 12)
+        Me.IPALabel.TabIndex = 13
+        Me.IPALabel.Text = "網路狀態：檢查中..."
+        '
+        'ExternalIPLabel
+        '
+        Me.ExternalIPLabel.AutoSize = True
+        Me.ExternalIPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
+        Me.ExternalIPLabel.Location = New System.Drawing.Point(6, 59)
+        Me.ExternalIPLabel.Margin = New System.Windows.Forms.Padding(3)
+        Me.ExternalIPLabel.Name = "ExternalIPLabel"
+        Me.ExternalIPLabel.Size = New System.Drawing.Size(120, 12)
+        Me.ExternalIPLabel.TabIndex = 12
+        Me.ExternalIPLabel.Text = "外部IP位址：取得中..."
+        '
+        'NetworkGroupBox
+        '
+        Me.NetworkGroupBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NetworkGroupBox.BackColor = System.Drawing.Color.Transparent
+        Me.NetworkGroupBox.Controls.Add(Me.ExternalIPLabel)
+        Me.NetworkGroupBox.Controls.Add(Me.IPALabel)
+        Me.NetworkGroupBox.Controls.Add(Me.IPLabel)
+        Me.NetworkGroupBox.Location = New System.Drawing.Point(384, 21)
+        Me.NetworkGroupBox.Margin = New System.Windows.Forms.Padding(3, 3, 0, 3)
+        Me.NetworkGroupBox.Name = "NetworkGroupBox"
+        Me.NetworkGroupBox.Size = New System.Drawing.Size(372, 84)
+        Me.NetworkGroupBox.TabIndex = 4
+        Me.NetworkGroupBox.TabStop = False
+        Me.NetworkGroupBox.Text = "網路"
+        '
+        'MemoryGroupBox
+        '
+        Me.MemoryGroupBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.MemoryGroupBox.Controls.Add(Me.Label20)
+        Me.MemoryGroupBox.Controls.Add(Me.Label19)
+        Me.MemoryGroupBox.Controls.Add(Me.Label18)
+        Me.MemoryGroupBox.Location = New System.Drawing.Point(6, 21)
+        Me.MemoryGroupBox.Name = "MemoryGroupBox"
+        Me.MemoryGroupBox.Size = New System.Drawing.Size(372, 84)
+        Me.MemoryGroupBox.TabIndex = 14
+        Me.MemoryGroupBox.TabStop = False
+        Me.MemoryGroupBox.Text = "CPU及記憶體"
+        '
+        'CheckingTimer
+        '
+        Me.CheckingTimer.Enabled = True
+        Me.CheckingTimer.Interval = 200
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(6, 59)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(77, 12)
+        Me.Label19.TabIndex = 14
+        Me.Label19.Text = "虛擬記憶體："
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(6, 21)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(78, 12)
+        Me.Label20.TabIndex = 15
+        Me.Label20.Text = "CPU 使用率："
+        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1460,8 +1528,6 @@ Partial Class Manager
         Me.MainPage.PerformLayout()
         Me.MainPanel.ResumeLayout(False)
         Me.MainPanel.PerformLayout()
-        Me.NetworkGroupBox.ResumeLayout(False)
-        Me.NetworkGroupBox.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
         Me.VListLoadingBox.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
@@ -1508,6 +1574,11 @@ Partial Class Manager
         Me.Panel3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox8.ResumeLayout(False)
+        Me.NetworkGroupBox.ResumeLayout(False)
+        Me.NetworkGroupBox.PerformLayout()
+        Me.MemoryGroupBox.ResumeLayout(False)
+        Me.MemoryGroupBox.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1520,10 +1591,6 @@ Partial Class Manager
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents MainPanel As TableLayoutPanel
-    Friend WithEvents NetworkGroupBox As GroupBox
-    Friend WithEvents ExternalIPLabel As LinkLabel
-    Friend WithEvents IPALabel As Label
-    Friend WithEvents IPLabel As LinkLabel
     Friend WithEvents BungeeCordPage As TabPage
     Friend WithEvents SolutionListPanel As TableLayoutPanel
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
@@ -1618,4 +1685,14 @@ Partial Class Manager
     Friend WithEvents KettleLoadingLabel As Label
     Friend WithEvents GroupBox7 As GroupBox
     Friend WithEvents CheckBox3 As CheckBox
+    Friend WithEvents GroupBox8 As GroupBox
+    Friend WithEvents MemoryGroupBox As GroupBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents NetworkGroupBox As GroupBox
+    Friend WithEvents ExternalIPLabel As LinkLabel
+    Friend WithEvents IPALabel As Label
+    Friend WithEvents IPLabel As LinkLabel
+    Friend WithEvents CheckingTimer As Timer
+    Friend WithEvents Label19 As Label
+    Friend WithEvents Label20 As Label
 End Class

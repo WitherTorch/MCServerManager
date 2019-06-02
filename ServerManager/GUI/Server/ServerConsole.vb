@@ -667,17 +667,6 @@ Public Class ServerConsole
                                    End If
                                End Sub))
     End Sub
-    Function FitMemoryUnit(byteCount As Integer) As String
-        If byteCount >= 2 ^ 30 Then
-            Return (Math.Floor(byteCount / (2 ^ 30) * 100 + 0.5) / 100).ToString & " GiB"
-        ElseIf byteCount >= 2 ^ 20 Then
-            Return (Math.Floor(byteCount / (2 ^ 20) * 100 + 0.5) / 100).ToString & " MiB"
-        ElseIf byteCount >= 2 ^ 10 Then
-            Return (Math.Floor(byteCount / (2 ^ 10) * 100 + 0.5) / 100).ToString & " KiB"
-        Else
-            Return byteCount.ToString & " 位元組"
-        End If
-    End Function
 
     Private Sub ServerConsole_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         Dim thread As New Threading.Thread(New Threading.ThreadStart(Sub()

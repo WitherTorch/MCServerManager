@@ -1713,4 +1713,21 @@ Public Class Manager
             MsgBox("已複製到剪貼簿!")
         End If
     End Sub
+    Dim cpu As New System.Diagnostics.PerformanceCounter() With {.CategoryName = "Processor", .CounterName = "% Processor Time", .InstanceName = "_Total"}
+    Private Sub CheckingTimer_Tick(sender As Object, e As EventArgs) Handles CheckingTimer.Tick
+        Static Checking As Byte = 0
+        BeginInvokeIfRequired(Me, Sub()
+                                      Try
+                                          Label18.Text = String.Format("實體記憶體：{0} ({1}可用)", FitMemoryUnit(My.Computer.Info.TotalPhysicalMemory), FitMemoryUnit(My.Computer.Info.AvailablePhysicalMemory))
+                                          Label19.Text = String.Format("虛擬記憶體：{0} ({1}可用)", FitMemoryUnit(My.Computer.Info.TotalVirtualMemory), FitMemoryUnit(My.Computer.Info.AvailableVirtualMemory))
+                                          Checking += 1
+                                          If Checking = 2 Then Task.Run(Sub()
+                                                                            Checking = 0
+                                                                            BeginInvokeIfRequired(Me, Sub() Label20.Text = String.Format("CPU使用率：{0} %", CInt(cpu.NextValue)))
+                                                                        End Sub)
+                                      Catch ex As Exception
+
+                                      End Try
+                                  End Sub)
+    End Sub
 End Class
