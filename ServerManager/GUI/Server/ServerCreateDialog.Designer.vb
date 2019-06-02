@@ -72,7 +72,7 @@ Partial Class ServerCreateDialog
         Me.TabControl1.Location = New System.Drawing.Point(3, 3)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(509, 409)
+        Me.TabControl1.Size = New System.Drawing.Size(509, 414)
         Me.TabControl1.TabIndex = 1
         '
         'TabPage1
@@ -85,7 +85,7 @@ Partial Class ServerCreateDialog
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(501, 383)
+        Me.TabPage1.Size = New System.Drawing.Size(501, 388)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "伺服器"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -338,8 +338,8 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 420.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(515, 450)
         Me.TableLayoutPanel1.TabIndex = 2
         '
@@ -348,7 +348,7 @@ Partial Class ServerCreateDialog
         Me.Panel1.AutoSize = True
         Me.Panel1.Controls.Add(Me.CreateButton)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 418)
+        Me.Panel1.Location = New System.Drawing.Point(3, 423)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(509, 29)
         Me.Panel1.TabIndex = 0
@@ -356,7 +356,7 @@ Partial Class ServerCreateDialog
         'CreateButton
         '
         Me.CreateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CreateButton.Location = New System.Drawing.Point(425, 3)
+        Me.CreateButton.Location = New System.Drawing.Point(431, 3)
         Me.CreateButton.Name = "CreateButton"
         Me.CreateButton.Size = New System.Drawing.Size(75, 23)
         Me.CreateButton.TabIndex = 0

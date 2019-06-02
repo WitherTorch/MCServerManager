@@ -1084,8 +1084,12 @@ Public Class Manager
                                                         Catch ex As Exception
                                                         Finally
                                                             BeginInvokeIfRequired(Me, Sub()
-                                                                                          ServerListPanel.Controls.Remove(status)
-                                                                                          ServerPathList.Remove(status.Server.ServerPath)
+                                                                                          Try
+                                                                                              ServerListPanel.Controls.Remove(status)
+                                                                                          Catch ex As Exception
+                                                                                          End Try
+                                                                                          If ServerPathList.Contains(status.Server.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
                                                                                       End Sub)
                                                         End Try
                                                     Else
@@ -1100,10 +1104,18 @@ Public Class Manager
                                                             End Select
                                                         Catch ex As Exception
                                                         End Try
-                                                        ServerListPanel.Controls.Remove(status)
-                                                        ServerPathList.Remove(status.Server.ServerPath)
+                                                        Try
+                                                            ServerListPanel.Controls.Remove(status)
+                                                        Catch ex As Exception
+                                                        End Try
+                                                        If ServerPathList.Contains(status.Server.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
                                                         If IsNothing(status) = False Then
-                                                            status.CloseServer()
+                                                            Try
+                                                                status.CloseServer()
+                                                            Catch ex As Exception
+
+                                                            End Try
                                                         End If
                                                     End If
                                                 End Sub
@@ -1149,8 +1161,12 @@ Public Class Manager
                                                             End If
                                                         Catch ex As Exception
                                                         Finally
-                                                            ModpackServerPathList.Remove(status.Server.ServerPath)
-                                                            ModpackServerListPanel.Controls.Remove(status)
+                                                            Try
+                                                                ModpackServerListPanel.Controls.Remove(status)
+                                                            Catch ex As Exception
+                                                            End Try
+                                                            If ModpackServerPathList.Contains(status.Server.ServerPath) Then _
+                                                                    ModpackServerPathList.Remove(status.Server.ServerPath)
                                                         End Try
                                                     Else
                                                         Try
@@ -1164,11 +1180,21 @@ Public Class Manager
                                                             End Select
                                                         Catch ex As Exception
                                                         End Try
-                                                        ModpackServerPathList.Remove(status.Server.ServerPath)
-                                                        ModpackServerListPanel.Controls.Remove(status)
+                                                        Try
+                                                            ModpackServerListPanel.Controls.Remove(status)
+                                                        Catch ex As Exception
+                                                        End Try
+                                                        If ModpackServerPathList.Contains(status.Server.ServerPath) Then _
+                                                                    ModpackServerPathList.Remove(status.Server.ServerPath)
                                                         If IsNothing(status) = False Then
-                                                            UnRegisterModpackServer(status)
-                                                            status.CloseServer()
+                                                            Try
+                                                                UnRegisterModpackServer(status)
+                                                            Catch ex As Exception
+                                                            End Try
+                                                            Try
+                                                                status.CloseServer()
+                                                            Catch ex As Exception
+                                                            End Try
                                                         End If
                                                     End If
                                                 End Sub
@@ -1318,8 +1344,12 @@ Public Class Manager
                                                                     End If
                                                                 Catch ex As Exception
                                                                 Finally
-                                                                    SolutionListPanel.Controls.Remove(status)
-                                                                    BungeePathList.Remove(status.Host.BungeePath)
+                                                                    Try
+                                                                        SolutionListPanel.Controls.Remove(status)
+                                                                    Catch ex As Exception
+                                                                    End Try
+                                                                    If BungeePathList.Contains(status.Host.BungeePath) Then _
+                                                                             BungeePathList.Remove(status.Host.BungeePath)
                                                                 End Try
                                                             Else
                                                                 Try
@@ -1333,11 +1363,21 @@ Public Class Manager
                                                                     End Select
                                                                 Catch ex As Exception
                                                                 End Try
-                                                                SolutionListPanel.Controls.Remove(status)
-                                                                BungeePathList.Remove(status.Host.BungeePath)
+                                                                Try
+                                                                    SolutionListPanel.Controls.Remove(status)
+                                                                Catch ex As Exception
+                                                                End Try
+                                                                If BungeePathList.Contains(status.Host.BungeePath) Then _
+                                                                             BungeePathList.Remove(status.Host.BungeePath)
                                                                 If IsNothing(status) = False Then
-                                                                    UnRegisterSolution(status)
-                                                                    status.CloseSolution()
+                                                                    Try
+                                                                        UnRegisterSolution(status)
+                                                                    Catch ex As Exception
+                                                                    End Try
+                                                                    Try
+                                                                        status.CloseSolution()
+                                                                    Catch ex As Exception
+                                                                    End Try
                                                                 End If
                                                             End If
                                                         End Sub
