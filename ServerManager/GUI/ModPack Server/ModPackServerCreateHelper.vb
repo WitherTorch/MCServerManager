@@ -109,7 +109,10 @@ Public Class ModPackServerCreateHelper
                                                                         StatusLabel.Text = "狀態：正在安裝模組包 ......"
                                                                         ProgressBar.Value = 70
                                                                     End Sub)
-                                                             RunBatch(Me.path)
+                                                             Try
+                                                                 RunBatch(Me.path)
+                                                             Catch ex As Exception
+                                                             End Try
                                                          End If
                                                          BeginInvoke(New Action(Sub()
                                                                                     StatusLabel.Text = "狀態：正在配置伺服器 ......"

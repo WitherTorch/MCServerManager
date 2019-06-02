@@ -47,7 +47,7 @@ Public Class ModPackServerConsole
         TaskTimer.Start()
         Run()
     End Sub
-    Private Overloads Sub Run()
+    Friend Overloads Sub Run()
         Select Case Server.PackType
             Case ModPackServer.ModPackType.FeedTheBeast
                 If IsUnixLikeSystem Then

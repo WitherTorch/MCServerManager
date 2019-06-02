@@ -99,6 +99,11 @@ Public Class ServerStatus
                                                      SettingButton.Enabled = False
                                                      RunButton.Image = My.Resources.Stop32
                                                      ToolTip1.SetToolTip(RunButton, "停止伺服器")
+                                                 ElseIf isnothing(console) = False AndAlso console.isDisposed = False Then
+                                                     ServerRunStatus.Text = "啟動狀態：未啟動(主控台運作中)"
+                                                     SettingButton.Enabled = True
+                                                     ToolTip1.SetToolTip(RunButton, "重新啟動伺服器")
+                                                     RunButton.Image = My.Resources.Run32
                                                  Else
                                                      ServerRunStatus.Text = "啟動狀態：未啟動"
                                                      SettingButton.Enabled = True
@@ -312,18 +317,22 @@ Public Class ServerStatus
                             End Try
                         End If
                     Case False
-                        If IsNothing(setter) = False AndAlso setter.IsDisposed = False Then
-                            MsgBox("請先關閉伺服器設定視窗!",, Application.ProductName)
+                        If IsNothing(console) = False AndAlso console.IsDisposed = False Then
+                            console.Run()
                         Else
-                            If IsNothing(console) Then
-                                console = New ServerConsole(Server)
+                            If IsNothing(setter) = False AndAlso setter.IsDisposed = False Then
+                                MsgBox("請先關閉伺服器設定視窗!",, Application.ProductName)
                             Else
-                                If console.IsDisposed Then
+                                If IsNothing(console) Then
                                     console = New ServerConsole(Server)
+                                Else
+                                    If console.IsDisposed Then
+                                        console = New ServerConsole(Server)
+                                    End If
                                 End If
-                            End If
-                            If console.Visible = False Then
-                                FindForm.Invoke(Sub() console.Show())
+                                If console.Visible = False Then
+                                    FindForm.Invoke(Sub() console.Show())
+                                End If
                             End If
                         End If
                 End Select

@@ -16,6 +16,9 @@ Public Class ServerConsole
     Public ReadOnly Property Server As Server
     Dim startInfo As ProcessStartInfo
     Dim usesType As Server.EServerVersionType
+    Friend Sub ReloadUsesType(type As Server.EServerVersionType)
+        usesType = type
+    End Sub
     Public Sub New(Server As Server, Optional usesServerVersionType As Server.EServerVersionType = Server.EServerVersionType.Error)
 
         ' 設計工具需要此呼叫。
@@ -89,7 +92,7 @@ Public Class ServerConsole
             TaskListBox.SetItemChecked(TaskListBox.Items.Add(task.Name), task.Enabled)
         Next
     End Sub
-    Private Overloads Sub Run()
+    Friend Overloads Sub Run()
         If Server.ServerVersionType = Server.EServerVersionType.Error Then
             Using opn As New OpenFileDialog
                 opn.InitialDirectory = Server.ServerPath

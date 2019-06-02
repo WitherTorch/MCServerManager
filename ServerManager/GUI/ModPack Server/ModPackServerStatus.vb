@@ -74,6 +74,9 @@ Public Class ModPackServerStatus
                                                      ServerRunStatus.Text = "啟動狀態：已啟動"
                                                      RunButton.Image = My.Resources.Stop32
                                                      ToolTip1.SetToolTip(RunButton, "停止伺服器")
+                                                 ElseIf isnothing(console) = False AndAlso console.isDisposed = False Then
+                                                     ServerRunStatus.Text = "啟動狀態：未啟動(主控台運作中)"
+                                                     RunButton.Image = My.Resources.Run32
                                                  Else
                                                      ServerRunStatus.Text = "啟動狀態：未啟動"
                                                      ToolTip1.SetToolTip(RunButton, "啟動伺服器")
@@ -143,15 +146,19 @@ Public Class ModPackServerStatus
                             End Try
                         End If
                     Case False
-                        If IsNothing(console) Then
-                            console = New ModPackServerConsole(Server)
+                        If IsNothing(console) = False AndAlso console.IsDisposed = False Then
+                            console.Run()
                         Else
-                            If console.IsDisposed Then
+                            If IsNothing(console) Then
                                 console = New ModPackServerConsole(Server)
+                            Else
+                                If console.IsDisposed Then
+                                    console = New ModPackServerConsole(Server)
+                                End If
                             End If
-                        End If
-                        If console.Visible = False Then
-                            FindForm.Invoke(Sub() console.Show())
+                            If console.Visible = False Then
+                                FindForm.Invoke(Sub() console.Show())
+                            End If
                         End If
                 End Select
             End If

@@ -43,18 +43,25 @@
                         End Try
                     End If
                 Case False
-                    If IsNothing(setter) = False AndAlso setter.IsDisposed = False Then
-                        MsgBox("請先關閉伺服器設定視窗!",, Application.ProductName)
+                    If IsNothing(console) = False AndAlso console.IsDisposed = False Then
+                        BeginInvokeIfRequired(console, Sub()
+                                                           console.ReloadUsesType(Server.EServerVersionType.Spigot)
+                                                           console.Run()
+                                                       End Sub)
                     Else
-                        If IsNothing(console) Then
-                            console = New ServerConsole(Server, Server.EServerVersionType.Spigot)
+                        If IsNothing(setter) = False AndAlso setter.IsDisposed = False Then
+                            MsgBox("請先關閉伺服器設定視窗!",, Application.ProductName)
                         Else
-                            If console.IsDisposed Then
+                            If IsNothing(console) Then
                                 console = New ServerConsole(Server, Server.EServerVersionType.Spigot)
+                            Else
+                                If console.IsDisposed Then
+                                    console = New ServerConsole(Server, Server.EServerVersionType.Spigot)
+                                End If
                             End If
-                        End If
-                        If console.Visible = False Then
-                            FindForm.Invoke(Sub() console.Show())
+                            If console.Visible = False Then
+                                FindForm.Invoke(Sub() console.Show())
+                            End If
                         End If
                     End If
             End Select
@@ -92,18 +99,25 @@
                         End Try
                     End If
                 Case False
-                    If IsNothing(setter) = False AndAlso setter.IsDisposed = False Then
-                        MsgBox("請先關閉伺服器設定視窗!",, Application.ProductName)
+                    If IsNothing(console) = False AndAlso console.IsDisposed = False Then
+                        BeginInvokeIfRequired(console, Sub()
+                                                           console.ReloadUsesType(Server.EServerVersionType.CraftBukkit)
+                                                           console.Run()
+                                                       End Sub)
                     Else
-                        If IsNothing(console) Then
-                            console = New ServerConsole(Server, Server.EServerVersionType.CraftBukkit)
+                        If IsNothing(setter) = False AndAlso setter.IsDisposed = False Then
+                            MsgBox("請先關閉伺服器設定視窗!",, Application.ProductName)
                         Else
-                            If console.IsDisposed Then
+                            If IsNothing(console) Then
                                 console = New ServerConsole(Server, Server.EServerVersionType.CraftBukkit)
+                            Else
+                                If console.IsDisposed Then
+                                    console = New ServerConsole(Server, Server.EServerVersionType.CraftBukkit)
+                                End If
                             End If
-                        End If
-                        If console.Visible = False Then
-                            FindForm.Invoke(Sub() console.Show())
+                            If console.Visible = False Then
+                                FindForm.Invoke(Sub() console.Show())
+                            End If
                         End If
                     End If
             End Select
@@ -122,6 +136,13 @@
                                                      RunButton2.Image = My.Resources.Stop32
                                                      ToolTip1.SetToolTip(RunButton, "停止伺服器")
                                                      ToolTip1.SetToolTip(RunButton2, "停止伺服器")
+                                                 ElseIf isnothing(console) = False AndAlso console.isDisposed = False Then
+                                                     ServerRunStatus.Text = "啟動狀態：未啟動(主控台運作中)"
+                                                     SettingButton.Enabled = True
+                                                     ToolTip1.SetToolTip(RunButton, "以Spigot模式重新啟動伺服器")
+                                                     ToolTip1.SetToolTip(RunButton2, "以CraftBukkit模式重新啟動伺服器")
+                                                     RunButton.Image = My.Resources.Run32Spigot
+                                                     RunButton2.Image = My.Resources.Run32_Bukkit
                                                  Else
                                                      ServerRunStatus.Text = "啟動狀態：未啟動"
                                                      SettingButton.Enabled = True
