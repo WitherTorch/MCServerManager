@@ -51,12 +51,13 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CreateButton = New System.Windows.Forms.Button()
-        Me.TabControl1.SuspendLayout
-        Me.TabPage1.SuspendLayout
-        Me.GroupBox3.SuspendLayout
-        Me.GroupBox4.SuspendLayout
-        Me.GroupBox2.SuspendLayout
-        Me.GroupBox1.SuspendLayout
+        Me.GroupedComboBox1 = New GroupedComboBox()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -77,6 +78,7 @@ Partial Class ServerCreateDialog
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.GroupedComboBox1)
         Me.TabPage1.Controls.Add(Me.GroupBox3)
         Me.TabPage1.Controls.Add(Me.GroupBox2)
         Me.TabPage1.Controls.Add(Me.ServerDirBrowseBtn)
@@ -363,6 +365,16 @@ Partial Class ServerCreateDialog
         Me.CreateButton.Text = "建立"
         Me.CreateButton.UseVisualStyleBackColor = True
         '
+        'GroupedComboBox1
+        '
+        Me.GroupedComboBox1.DataSource = Nothing
+        Me.GroupedComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.GroupedComboBox1.FormattingEnabled = True
+        Me.GroupedComboBox1.Location = New System.Drawing.Point(299, 341)
+        Me.GroupedComboBox1.Name = "GroupedComboBox1"
+        Me.GroupedComboBox1.Size = New System.Drawing.Size(121, 23)
+        Me.GroupedComboBox1.TabIndex = 45
+        '
         'ServerCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -422,4 +434,5 @@ Partial Class ServerCreateDialog
     Friend WithEvents AdvancedPropertyGrid As PropertyGrid
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents 將連接埠設成預設值ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GroupedComboBox1 As GroupedComboBox
 End Class

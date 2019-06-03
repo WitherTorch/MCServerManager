@@ -203,8 +203,73 @@ Public Class ServerCreateDialog
     Private Sub ServerDirBox_TextChanged(sender As Object, e As EventArgs) Handles ServerDirBox.TextChanged
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
     End Sub
-
+    Structure a
+        Public Group As String
+        Public Value As Integer
+        Public Display As String
+    End Structure
     Private Sub ServerCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim groupedItems = {New a With {.Group = "Java 版",
+    .Value = 0,
+    .Display = "原版"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 1,
+    .Display = "Forge"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 2,
+    .Display = "Spigot"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 3,
+    .Display = "Spigot (手動建置)"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 4,
+    .Display = "CraftBukkit"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 5,
+    .Display = "Paper"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 6,
+    .Display = "Akarin"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 7,
+    .Display = "SpongeVanilla"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 8,
+    .Display = "MCPC/Cauldron"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 9,
+    .Display = "Thermos"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 10,
+    .Display = "Contigo"
+}, New a With {
+    .Group = "Java 版",
+    .Value = 11,
+    .Display = "Kettle"
+}, New a With {
+    .Group = "基岩版",
+    .Value = 12,
+    .Display = "原版"
+}, New a With {
+    .Group = "基岩版",
+    .Value = 13,
+    .Display = "Nukkit"
+}}
+        GroupedComboBox1.GroupMember = "Group"
+        GroupedComboBox1.ValueMember = "Value"
+        GroupedComboBox1.DisplayMember = "Display"
+        GroupedComboBox1.SortComparer = New Comparer(Of a)(groupedItems.ToList)
+        GroupedComboBox1.DataSource = groupedItems
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
         MapPanel.Controls.Add(New MapView(server) With {.Dock = DockStyle.Fill})
         If IsUnixLikeSystem Then
@@ -213,7 +278,16 @@ Public Class ServerCreateDialog
             If Environment.OSVersion.Version.Major < 10 Then VersionTypeBox.Items.RemoveAt(12)
         End If
     End Sub
-
+    Class Comparer
+        Implements IComparer
+        Dim s As List(Of a)
+        Sub New(source As List(Of a))
+            s = source
+        End Sub
+        Public Function Compare(x As Object, y As Object) As Integer Implements IComparer.Compare
+            Return s.IndexOf(x) < s.IndexOf(y)
+        End Function
+    End Class
     Private Sub CreateButton_Click(sender As Object, e As EventArgs) Handles CreateButton.Click
         If ServerDirBox.Text.Trim <> "" Then
             If (ipType <> ServerIPType.Custom) OrElse
