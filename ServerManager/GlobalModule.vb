@@ -324,6 +324,19 @@ Module GlobalModule
             Return byteCount.ToString & " 位元組"
         End If
     End Function
+    Function FitMemoryUnitOnKB(byteCount As ULong) As String
+        If byteCount >= 2 ^ 40 Then
+            Return (Math.Floor(byteCount / (2 ^ 40) * 100 + 0.5) / 100).ToString & " PiB"
+        ElseIf byteCount >= 2 ^ 30 Then
+            Return (Math.Floor(byteCount / (2 ^ 30) * 100 + 0.5) / 100).ToString & " TiB"
+        ElseIf byteCount >= 2 ^ 20 Then
+            Return (Math.Floor(byteCount / (2 ^ 20) * 100 + 0.5) / 100).ToString & " GiB"
+        ElseIf byteCount >= 2 ^ 10 Then
+            Return (Math.Floor(byteCount / (2 ^ 10) * 100 + 0.5) / 100).ToString & " MiB"
+        Else
+            Return byteCount.ToString & " KiB"
+        End If
+    End Function
     Sub NotifyInfoMessage(Message As String, Title As String)
         Manager.BeginInvoke(Sub() Manager.NotifyIcon1.ShowBalloonTip(5000, Title, Message, ToolTipIcon.Info))
     End Sub

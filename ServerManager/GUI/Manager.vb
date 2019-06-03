@@ -1715,12 +1715,29 @@ Public Class Manager
     End Sub
     Dim cpu As New System.Diagnostics.PerformanceCounter() With {.CategoryName = "Processor", .CounterName = "% Processor Time", .InstanceName = "_Total"}
     Private Sub CheckingTimer_Tick(sender As Object, e As EventArgs) Handles CheckingTimer.Tick
-        Static Checking As Byte = 0
+        Static Checking As Byte = 1
         BeginInvokeIfRequired(Me, Sub()
                                       Try
                                           Label18.Text = String.Format("實體記憶體：{0} ({1}可用)", FitMemoryUnit(My.Computer.Info.TotalPhysicalMemory), FitMemoryUnit(My.Computer.Info.AvailablePhysicalMemory))
-                                          Label19.Text = String.Format("虛擬記憶體：{0} ({1}可用)", FitMemoryUnit(My.Computer.Info.TotalVirtualMemory), FitMemoryUnit(My.Computer.Info.AvailableVirtualMemory))
                                           Checking += 1
+                                          If IsUnixLikeSystem Then
+                                              Label19.Text = String.Format("虛擬記憶體：{0} ({1}可用)", FitMemoryUnit(My.Computer.Info.TotalVirtualMemory), FitMemoryUnit(My.Computer.Info.AvailableVirtualMemory))
+                                          Else
+                                              If Checking = 2 Then Task.Run(Sub()
+                                                                                Dim winQuery As New System.Management.ObjectQuery("SELECT * FROM Win32_OperatingSystem")
+                                                                                Dim searcher As New System.Management.ManagementObjectSearcher(winQuery)
+                                                                                BeginInvokeIfRequired(Me, Sub()
+                                                                                                              For Each item In searcher.Get()
+                                                                                                                  Try
+                                                                                                                      Label19.Text = String.Format("虛擬記憶體：{0} ({1}可用)", FitMemoryUnitOnKB(item("TotalVirtualMemorySize")), FitMemoryUnitOnKB(item("FreeVirtualMemory")))
+                                                                                                                  Catch ex As Exception
+                                                                                                                      Continue For
+                                                                                                                  End Try
+                                                                                                                  Exit For
+                                                                                                              Next
+                                                                                                          End Sub)
+                                                                            End Sub)
+                                          End If
                                           If Checking = 2 Then Task.Run(Sub()
                                                                             Checking = 0
                                                                             BeginInvokeIfRequired(Me, Sub() Label20.Text = String.Format("CPU使用率：{0} %", CInt(cpu.NextValue)))
