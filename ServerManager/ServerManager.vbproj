@@ -138,6 +138,9 @@
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DropDownControls">
+      <HintPath>..\References\DropDownControls.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -702,7 +705,7 @@ mkdir Merged\
 echo on
 IF EXIST C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe (
         echo Starting ILMerge...
-        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll
+        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll DropDownControls.dll
     ) ELSE (
 echo missing ILMerge , please install MCSMPack.
 )
