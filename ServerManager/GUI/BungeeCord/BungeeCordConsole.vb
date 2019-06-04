@@ -195,7 +195,7 @@ Public Class BungeeCordConsole
             End If
             AddHandler process.ErrorDataReceived, Sub(sender, e)
                                                       Try
-                                                          If IsNothing(Process) = False AndAlso Process.HasExited = False Then
+                                                          If IsNothing(process) = False AndAlso process.HasExited = False Then
                                                               If IsNothing(e.Data) = False Then
                                                                   Task.Run(Sub()
 
@@ -262,7 +262,7 @@ Public Class BungeeCordConsole
                                                   End Sub
             AddHandler process.OutputDataReceived, Sub(sender, e)
                                                        Try
-                                                           If IsNothing(Process) = False AndAlso Process.HasExited = False Then
+                                                           If IsNothing(process) = False AndAlso process.HasExited = False Then
                                                                If IsNothing(e.Data) = False Then
                                                                    Task.Run(Sub()
                                                                                 Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
@@ -374,10 +374,10 @@ Public Class BungeeCordConsole
                                                                         If IsNothing(e.Data) = False Then
                                                                             Task.Run(Sub()
 
-                                                                                                      Dim item As New ListViewItem("錯誤")
-                                                                                                      item.SubItems.Add(e.Data)
-                                                                                                      Dim nowTime = Now
-                                                                                                      item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
+                                                                                         Dim item As New ListViewItem("錯誤")
+                                                                                         item.SubItems.Add(e.Data)
+                                                                                         Dim nowTime = Now
+                                                                                         item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
 
                                                                                          If InvokeRequired Then
                                                                                              BeginInvoke(Sub()
@@ -423,10 +423,10 @@ Public Class BungeeCordConsole
                                                                      If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
                                                                          If IsNothing(e.Data) = False Then
                                                                              Task.Run(Sub()
-                                                                                                       Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
-                                                                                                       Dim item As New ListViewItem(msg.BungeeCordMessageType)
-                                                                                                       item.SubItems.Add(msg.Message)
-                                                                                                       item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
+                                                                                          Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
+                                                                                          Dim item As New ListViewItem(msg.BungeeCordMessageType)
+                                                                                          item.SubItems.Add(msg.Message)
+                                                                                          item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
 
                                                                                           If InvokeRequired Then
                                                                                               BeginInvoke(Sub()
