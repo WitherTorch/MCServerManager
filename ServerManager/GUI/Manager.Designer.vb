@@ -152,6 +152,7 @@ Partial Class Manager
         Me.重新載入外部IPRToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InternalIPContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -194,6 +195,7 @@ Partial Class Manager
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ExternalIPContextMenu.SuspendLayout()
         Me.InternalIPContextMenu.SuspendLayout()
+        CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MainTabControl
@@ -273,9 +275,9 @@ Partial Class Manager
         Me.Label20.Location = New System.Drawing.Point(6, 21)
         Me.Label20.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(78, 12)
+        Me.Label20.Size = New System.Drawing.Size(123, 12)
         Me.Label20.TabIndex = 15
-        Me.Label20.Text = "CPU 使用率："
+        Me.Label20.Text = "CPU 使用率：載入中..."
         '
         'Label19
         '
@@ -283,9 +285,9 @@ Partial Class Manager
         Me.Label19.Location = New System.Drawing.Point(6, 59)
         Me.Label19.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(77, 12)
+        Me.Label19.Size = New System.Drawing.Size(122, 12)
         Me.Label19.TabIndex = 14
-        Me.Label19.Text = "虛擬記憶體："
+        Me.Label19.Text = "虛擬記憶體：載入中..."
         '
         'Label18
         '
@@ -293,9 +295,9 @@ Partial Class Manager
         Me.Label18.Location = New System.Drawing.Point(6, 40)
         Me.Label18.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(77, 12)
+        Me.Label18.Size = New System.Drawing.Size(122, 12)
         Me.Label18.TabIndex = 13
-        Me.Label18.Text = "實體記憶體："
+        Me.Label18.Text = "實體記憶體：載入中..."
         '
         'NetworkGroupBox
         '
@@ -1544,6 +1546,12 @@ Partial Class Manager
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripMenuItem1.Text = "重新載入內部IP(&R)"
         '
+        'PerformanceCounter1
+        '
+        Me.PerformanceCounter1.CategoryName = "Processor"
+        Me.PerformanceCounter1.CounterName = "% Processor Time"
+        Me.PerformanceCounter1.InstanceName = "_Total"
+        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1613,6 +1621,7 @@ Partial Class Manager
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ExternalIPContextMenu.ResumeLayout(False)
         Me.InternalIPContextMenu.ResumeLayout(False)
+        CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1733,4 +1742,5 @@ Partial Class Manager
     Friend WithEvents 重新載入外部IPRToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents InternalIPContextMenu As ContextMenuStrip
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents PerformanceCounter1 As PerformanceCounter
 End Class
