@@ -26,11 +26,11 @@ Partial Class ServerCreateDialog
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerCreateDialog))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.VersionTypeBox = New GroupedComboBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.MapPanel = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.VersionTypeBox = New System.Windows.Forms.ComboBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.VersionBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -51,7 +51,6 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CreateButton = New System.Windows.Forms.Button()
-        Me.GroupedComboBox1 = New GroupedComboBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -78,7 +77,6 @@ Partial Class ServerCreateDialog
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.GroupedComboBox1)
         Me.TabPage1.Controls.Add(Me.GroupBox3)
         Me.TabPage1.Controls.Add(Me.GroupBox2)
         Me.TabPage1.Controls.Add(Me.ServerDirBrowseBtn)
@@ -92,13 +90,23 @@ Partial Class ServerCreateDialog
         Me.TabPage1.Text = "伺服器"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'VersionTypeBox
+        '
+        Me.VersionTypeBox.DataSource = Nothing
+        Me.VersionTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.VersionTypeBox.FormattingEnabled = True
+        Me.VersionTypeBox.Location = New System.Drawing.Point(77, 15)
+        Me.VersionTypeBox.Name = "VersionTypeBox"
+        Me.VersionTypeBox.Size = New System.Drawing.Size(145, 23)
+        Me.VersionTypeBox.TabIndex = 45
+        '
         'GroupBox3
         '
         Me.GroupBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox3.Controls.Add(Me.VersionTypeBox)
         Me.GroupBox3.Controls.Add(Me.GroupBox4)
         Me.GroupBox3.Controls.Add(Me.Label3)
-        Me.GroupBox3.Controls.Add(Me.VersionTypeBox)
         Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Controls.Add(Me.VersionBox)
         Me.GroupBox3.Location = New System.Drawing.Point(12, 187)
@@ -141,16 +149,6 @@ Partial Class ServerCreateDialog
         Me.Label3.Text = "遊戲類型："
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'VersionTypeBox
-        '
-        Me.VersionTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.VersionTypeBox.FormattingEnabled = True
-        Me.VersionTypeBox.Items.AddRange(New Object() {"Java 版 - 原版", "Java 版 - Forge", "Java 版 - Spigot", "Java 版 - Spigot (Git 手動建置)", "Java 版 - CraftBukkit", "Java 版 - Paper", "Java 版 - Akarin", "Java 版 - SpongeVanilla", "Java 版 - MCPC/Cauldron", "Java 版 - Thermos", "Java 版 - Contigo", "Java 版 - Kettle", "基岩版 - 原版", "基岩版 - Nukkit", "自定義"})
-        Me.VersionTypeBox.Location = New System.Drawing.Point(77, 17)
-        Me.VersionTypeBox.Name = "VersionTypeBox"
-        Me.VersionTypeBox.Size = New System.Drawing.Size(145, 20)
-        Me.VersionTypeBox.TabIndex = 26
-        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -167,10 +165,11 @@ Partial Class ServerCreateDialog
         Me.VersionBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.VersionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.VersionBox.Font = New System.Drawing.Font("微軟正黑體", 8.5!)
         Me.VersionBox.FormattingEnabled = True
-        Me.VersionBox.Location = New System.Drawing.Point(299, 17)
+        Me.VersionBox.Location = New System.Drawing.Point(299, 14)
         Me.VersionBox.Name = "VersionBox"
-        Me.VersionBox.Size = New System.Drawing.Size(174, 20)
+        Me.VersionBox.Size = New System.Drawing.Size(174, 23)
         Me.VersionBox.TabIndex = 29
         '
         'GroupBox2
@@ -365,16 +364,6 @@ Partial Class ServerCreateDialog
         Me.CreateButton.Text = "建立"
         Me.CreateButton.UseVisualStyleBackColor = True
         '
-        'GroupedComboBox1
-        '
-        Me.GroupedComboBox1.DataSource = Nothing
-        Me.GroupedComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.GroupedComboBox1.FormattingEnabled = True
-        Me.GroupedComboBox1.Location = New System.Drawing.Point(299, 341)
-        Me.GroupedComboBox1.Name = "GroupedComboBox1"
-        Me.GroupedComboBox1.Size = New System.Drawing.Size(121, 23)
-        Me.GroupedComboBox1.TabIndex = 45
-        '
         'ServerCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -411,7 +400,6 @@ Partial Class ServerCreateDialog
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents VersionBox As ComboBox
     Friend WithEvents Label10 As Label
-    Friend WithEvents VersionTypeBox As ComboBox
     Friend WithEvents Label3 As Label
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
@@ -434,5 +422,5 @@ Partial Class ServerCreateDialog
     Friend WithEvents AdvancedPropertyGrid As PropertyGrid
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents 將連接埠設成預設值ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GroupedComboBox1 As GroupedComboBox
+    Friend WithEvents VersionTypeBox As GroupedComboBox
 End Class

@@ -174,7 +174,7 @@ Public Class ServerCreateDialog
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Kettle)
                     VersionBox.Items.AddRange(KettleVersionDict.Keys.ToArray)
                 Case 12
-                    If Environment.OSVersion.Version.Major < 10 OrElse IsUnixLikeSystem Then
+                    If Environment.OSVersion.Version.Major < 10 Then
                         server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
                         VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
                     Else
@@ -182,15 +182,21 @@ Public Class ServerCreateDialog
                         VersionBox.Items.Add(String.Format("最新版 ({0})", VanillaBedrockVersion.ToString))
                     End If
                 Case 13
-                    server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
-                    VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
+                    If Environment.OSVersion.Version.Major < 10 Then
+                        server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
+                        VersionBox.Items.Add("(無)")
+                        VersionBox.SelectedIndex = 0
+                        VersionBox.Enabled = False
+                    Else
+                        server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
+                        VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
+                    End If
                 Case 14
                     server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
                     VersionBox.Items.Add("(無)")
                     VersionBox.SelectedIndex = 0
                     VersionBox.Enabled = False
                 Case Else
-                    MsgBox("非法操作!")
                     server.SetVersionType(Server.EServerType.Error, Server.EServerVersionType.Error)
                     VersionTypeBox.SelectedIndex = _typeSelectedIndex
                     Exit Sub
@@ -203,91 +209,83 @@ Public Class ServerCreateDialog
     Private Sub ServerDirBox_TextChanged(sender As Object, e As EventArgs) Handles ServerDirBox.TextChanged
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
     End Sub
-    Structure a
-        Public Group As String
-        Public Value As Integer
-        Public Display As String
-    End Structure
     Private Sub ServerCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim groupedItems = {New a With {.Group = "Java 版",
+        Dim groupedItems = {New With {.Group = "Java 版",
     .Value = 0,
     .Display = "原版"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 1,
     .Display = "Forge"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 2,
     .Display = "Spigot"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 3,
     .Display = "Spigot (手動建置)"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 4,
     .Display = "CraftBukkit"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 5,
     .Display = "Paper"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 6,
     .Display = "Akarin"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 7,
     .Display = "SpongeVanilla"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 8,
     .Display = "MCPC/Cauldron"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 9,
     .Display = "Thermos"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 10,
     .Display = "Contigo"
-}, New a With {
+}, New With {
     .Group = "Java 版",
     .Value = 11,
     .Display = "Kettle"
-}, New a With {
+}, New With {
     .Group = "基岩版",
     .Value = 12,
     .Display = "原版"
-}, New a With {
+}, New With {
     .Group = "基岩版",
     .Value = 13,
     .Display = "Nukkit"
+}, New With {
+    .Group = "其他",
+    .Value = 255,
+    .Display = "自定義"
 }}
-        GroupedComboBox1.GroupMember = "Group"
-        GroupedComboBox1.ValueMember = "Value"
-        GroupedComboBox1.DisplayMember = "Display"
-        GroupedComboBox1.SortComparer = New Comparer(Of a)(groupedItems.ToList)
-        GroupedComboBox1.DataSource = groupedItems
+        If IsUnixLikeSystem Or System.Environment.OSVersion.Version.Major < 10 Then
+            For Each item In groupedItems
+                If item.Value = 12 Then
+                    Dim list = groupedItems.ToList
+                    list.Remove(item)
+                    groupedItems = list.ToArray
+                End If
+            Next
+        End If
+        VersionTypeBox.GroupMember = "Group"
+        VersionTypeBox.ValueMember = "Value"
+        VersionTypeBox.DisplayMember = "Display"
+        VersionTypeBox.DataSource = groupedItems
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
         MapPanel.Controls.Add(New MapView(server) With {.Dock = DockStyle.Fill})
-        If IsUnixLikeSystem Then
-            VersionTypeBox.Items.RemoveAt(12)
-        Else
-            If Environment.OSVersion.Version.Major < 10 Then VersionTypeBox.Items.RemoveAt(12)
-        End If
     End Sub
-    Class Comparer
-        Implements IComparer
-        Dim s As List(Of a)
-        Sub New(source As List(Of a))
-            s = source
-        End Sub
-        Public Function Compare(x As Object, y As Object) As Integer Implements IComparer.Compare
-            Return s.IndexOf(x) < s.IndexOf(y)
-        End Function
-    End Class
     Private Sub CreateButton_Click(sender As Object, e As EventArgs) Handles CreateButton.Click
         If ServerDirBox.Text.Trim <> "" Then
             If (ipType <> ServerIPType.Custom) OrElse
@@ -299,13 +297,13 @@ Public Class ServerCreateDialog
                         server.SetPath(ServerDirBox.Text)
                         If serverOptions Is Nothing Then
                             Select Case server.ServerType
-                                Case Server.EServerType.Java
+                                Case server.EServerType.Java
                                     serverOptions = New JavaServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
-                                Case Server.EServerType.Bedrock
+                                Case server.EServerType.Bedrock
                                     serverOptions = New NukkitServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
-                                Case Server.EServerType.Custom
+                                Case server.EServerType.Custom
                                     serverOptions = New JavaServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
                             End Select
@@ -314,9 +312,9 @@ Public Class ServerCreateDialog
                         Select Case ipType
                             Case ServerIPType.Float
                                 Select Case server.ServerType
-                                    Case Server.EServerType.Java
+                                    Case server.EServerType.Java
                                         server.ServerOptions("server-ip") = ""
-                                    Case Server.EServerType.Bedrock
+                                    Case server.EServerType.Bedrock
                                         server.ServerOptions("server-ip") = "0.0.0.0"
                                 End Select
                             Case ServerIPType.Default
@@ -324,11 +322,11 @@ Public Class ServerCreateDialog
                             Case ServerIPType.Custom
                                 server.ServerOptions("server-ip") = IPBox.Text
                         End Select
-                        If server.ServerVersionType = Server.EServerVersionType.Forge AndAlso My.Settings.CustomForgeVersion Then
+                        If server.ServerVersionType = server.EServerVersionType.Forge AndAlso My.Settings.CustomForgeVersion Then
                             Dim chooser As New ForgeBranchChooser(server, ServerDirBox.Text)
                             chooser.Show()
                             Close()
-                        ElseIf server.ServerVersionType = Server.EServerVersionType.Custom Then
+                        ElseIf server.ServerVersionType = server.EServerVersionType.Custom Then
                             Dim dialog As New OpenFileDialog()
                             dialog.Title = "選擇伺服器軟體"
                             dialog.Filter = "Java 程式(*.jar)|*.jar"
