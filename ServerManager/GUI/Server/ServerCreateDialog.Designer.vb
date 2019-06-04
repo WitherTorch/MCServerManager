@@ -26,8 +26,8 @@ Partial Class ServerCreateDialog
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerCreateDialog))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.VersionTypeBox = New GroupedComboBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.VersionTypeBox = New GroupedComboBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.MapPanel = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -90,16 +90,6 @@ Partial Class ServerCreateDialog
         Me.TabPage1.Text = "伺服器"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'VersionTypeBox
-        '
-        Me.VersionTypeBox.DataSource = Nothing
-        Me.VersionTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.VersionTypeBox.FormattingEnabled = True
-        Me.VersionTypeBox.Location = New System.Drawing.Point(77, 15)
-        Me.VersionTypeBox.Name = "VersionTypeBox"
-        Me.VersionTypeBox.Size = New System.Drawing.Size(145, 23)
-        Me.VersionTypeBox.TabIndex = 45
-        '
         'GroupBox3
         '
         Me.GroupBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -115,6 +105,17 @@ Partial Class ServerCreateDialog
         Me.GroupBox3.TabIndex = 44
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "遊戲"
+        '
+        'VersionTypeBox
+        '
+        Me.VersionTypeBox.DataSource = Nothing
+        Me.VersionTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.VersionTypeBox.Font = New System.Drawing.Font("微軟正黑體", 9.0!)
+        Me.VersionTypeBox.FormattingEnabled = True
+        Me.VersionTypeBox.Location = New System.Drawing.Point(77, 15)
+        Me.VersionTypeBox.Name = "VersionTypeBox"
+        Me.VersionTypeBox.Size = New System.Drawing.Size(145, 24)
+        Me.VersionTypeBox.TabIndex = 45
         '
         'GroupBox4
         '
@@ -165,11 +166,11 @@ Partial Class ServerCreateDialog
         Me.VersionBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.VersionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.VersionBox.Font = New System.Drawing.Font("微軟正黑體", 8.5!)
+        Me.VersionBox.Font = New System.Drawing.Font("微軟正黑體", 9.0!)
         Me.VersionBox.FormattingEnabled = True
         Me.VersionBox.Location = New System.Drawing.Point(299, 14)
         Me.VersionBox.Name = "VersionBox"
-        Me.VersionBox.Size = New System.Drawing.Size(174, 23)
+        Me.VersionBox.Size = New System.Drawing.Size(174, 24)
         Me.VersionBox.TabIndex = 29
         '
         'GroupBox2
@@ -259,12 +260,12 @@ Partial Class ServerCreateDialog
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.將連接埠設成預設值ToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(185, 26)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(183, 26)
         '
         '將連接埠設成預設值ToolStripMenuItem
         '
         Me.將連接埠設成預設值ToolStripMenuItem.Name = "將連接埠設成預設值ToolStripMenuItem"
-        Me.將連接埠設成預設值ToolStripMenuItem.Size = New System.Drawing.Size(184, 22)
+        Me.將連接埠設成預設值ToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
         Me.將連接埠設成預設值ToolStripMenuItem.Text = "將連接埠設成預設值"
         '
         'Label2

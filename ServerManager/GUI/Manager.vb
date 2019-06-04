@@ -629,8 +629,7 @@ Public Class Manager
             Return "(無)"
         End Try
     End Function
-    Private Sub Manager_Load(sender As Object, e As EventArgs) Handles Me.Load
-        GlobalModule.Manager = Me
+    Friend Sub CheckNetwork()
         If My.Computer.Network.IsAvailable = False Then
             Button1.Enabled = False
             Button3.Enabled = False
@@ -726,6 +725,10 @@ Public Class Manager
                 ConnectionTabPage.Visible = False
                 TableLayoutPanel3.Enabled = False
         End Select
+    End Sub
+    Private Sub Manager_Load(sender As Object, e As EventArgs) Handles Me.Load
+        GlobalModule.Manager = Me
+        CheckNetwork()
 
         If JavaServerDirs <> "" Then
             For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(JavaServerDirs), Newtonsoft.Json.Linq.JArray)
@@ -1230,11 +1233,6 @@ Public Class Manager
         End SyncLock
     End Sub
 
-    Private Sub Manager_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        NotifyIcon1.Visible = False
-        NotifyIcon1.Icon = Nothing
-        NotifyIcon1.Text = ""
-    End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Static dialog As New FolderBrowserDialog
@@ -1254,6 +1252,11 @@ Public Class Manager
         create.Show(Me)
     End Sub
     Private Sub Manager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        NotifyIcon1.Visible = False
+        NotifyIcon1.Icon = Nothing
+        NotifyIcon1.Text = ""
+        NotifyIcon1.Dispose()
+        NotifyIcon1 = Nothing
         Dim saveThread As New Thread(Sub()
                                          Dim username, password, hosts As String
                                          If NoIPProvider IsNot Nothing Then
@@ -1746,5 +1749,86 @@ Public Class Manager
 
                                       End Try
                                   End Sub)
+    End Sub
+
+    Private Sub 重新載入外部IPRToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 重新載入外部IPRToolStripMenuItem.Click
+        Dim tooltip As New ToolTip
+        Select Case My.Computer.Network.IsAvailable
+            Case True
+                Dim ExternalIPSeeker As New Thread(Sub()
+                                                       Invoke(Sub() IPALabel.Text = "網路狀態：" & "已連接")
+                                                       Invoke(Sub()
+                                                                  ExternalIPLabel.Text = "外部IP位址：載入中..."
+                                                                  ExternalIPLabel.LinkArea = Nothing
+                                                              End Sub)
+                                                       Dim exip = GetExternalIP()
+                                                       Invoke(Sub() ExternalIPLabel.Text = "外部IP位址：" & exip)
+                                                       BeginInvoke(Sub()
+                                                                       If exip <> "(無)" Then
+                                                                           ExternalIPLabel.LinkArea = New LinkArea(ExternalIPLabel.Text.IndexOf(exip), exip.Length)
+                                                                           ToolTip.SetToolTip(ExternalIPLabel, "點擊連結複製外部IP位址")
+                                                                           AddHandler ExternalIPLabel.LinkClicked, Sub(obj, args)
+                                                                                                                       If args.Button = MouseButtons.Left Then
+                                                                                                                           My.Computer.Clipboard.SetText(exip)
+                                                                                                                           MsgBox("已複製到剪貼簿!")
+                                                                                                                       End If
+                                                                                                                   End Sub
+                                                                       Else
+                                                                           ConnectionTabPage.Visible = False
+                                                                           TableLayoutPanel3.Enabled = False
+                                                                       End If
+                                                                   End Sub)
+                                                   End Sub)
+                ExternalIPSeeker.Name = "External IP Seeker"
+                ExternalIPSeeker.IsBackground = True
+                ExternalIPSeeker.Start()
+            Case False
+                ExternalIPLabel.Text = "外部IP位址：" & "(無)"
+                ConnectionTabPage.Visible = False
+                TableLayoutPanel3.Enabled = False
+        End Select
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+        Invoke(Sub()
+                   IPLabel.Links.Clear()
+                   IPLabel.Text = "內部IP位址：載入中..."
+                   IPLabel.LinkArea = Nothing
+               End Sub)
+        Dim tooltip As New ToolTip
+        Dim IPSeeker As New Thread(Sub()
+                                       Try
+                                           If IsNothing(Net.Dns.GetHostAddresses(Net.Dns.GetHostName)) = False Then
+                                               BeginInvokeIfRequired(Me, Sub() IPLabel.Text = "內部IP位址：")
+                                               Dim ipas = Net.Dns.GetHostAddresses(Net.Dns.GetHostName)
+                                               For Each i In ipas
+                                                   If i.AddressFamily = Net.Sockets.AddressFamily.InterNetwork Then
+                                                       Dim b = i.GetAddressBytes
+                                                       Dim inip = b(0) & "." & b(1) & "." & b(2) & "." & b(3)
+                                                       BeginInvokeIfRequired(Me, Sub()
+                                                                                     If Array.IndexOf(ipas, i) = ipas.Count - 1 Then
+                                                                                         IPLabel.Text &= inip
+                                                                                     Else
+                                                                                         IPLabel.Text &= inip & " , "
+                                                                                     End If
+                                                                                     IPLabel.Links.Add(New LinkLabel.Link(IPLabel.Text.IndexOf(inip), inip.Length))
+                                                                                     tooltip.SetToolTip(IPLabel, "點擊連結複製內部IP位址")
+                                                                                 End Sub)
+                                                       ip.Add(inip)
+                                                   End If
+                                               Next
+                                               If ip.Count = 0 Then
+                                                   BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(無)")
+                                               End If
+                                           Else
+                                               BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(無)")
+                                           End If
+                                       Catch ex As Exception
+                                           BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(錯誤)")
+                                       End Try
+                                   End Sub)
+        IPSeeker.Name = "Internal IP Seeker"
+        IPSeeker.IsBackground = True
+        IPSeeker.Start()
     End Sub
 End Class

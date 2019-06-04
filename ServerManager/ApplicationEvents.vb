@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports Microsoft.VisualBasic.ApplicationServices
+Imports Microsoft.VisualBasic.Devices
 
 Namespace My
     ' MyApplication 可以使用下列事件:
@@ -40,6 +41,10 @@ Namespace My
             End If
             'Dim pro As New CloudFlareProvider()
             'pro.test()
+        End Sub
+
+        Private Sub MyApplication_NetworkAvailabilityChanged(sender As Object, e As NetworkAvailableEventArgs) Handles Me.NetworkAvailabilityChanged
+            If GlobalModule.Manager IsNot Nothing AndAlso GlobalModule.Manager.IsDisposed = False Then GlobalModule.Manager.CheckNetwork()
         End Sub
     End Class
 End Namespace

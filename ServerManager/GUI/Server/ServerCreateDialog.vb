@@ -283,6 +283,7 @@ Public Class ServerCreateDialog
         VersionTypeBox.ValueMember = "Value"
         VersionTypeBox.DisplayMember = "Display"
         VersionTypeBox.DataSource = groupedItems
+
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
         MapPanel.Controls.Add(New MapView(server) With {.Dock = DockStyle.Fill})
     End Sub
