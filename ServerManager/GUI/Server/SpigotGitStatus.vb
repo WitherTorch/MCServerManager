@@ -15,6 +15,7 @@
         If IO.Directory.Exists(Server.ServerPath) = False Then
             MsgBox("伺服器資料夾消失了...",, Application.ProductName)
         Else
+
             If GlobalModule.Manager.HasJava = False Then
                 MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
                 Exit Sub
@@ -28,7 +29,7 @@
                                                                    If process IsNot Nothing Then
                                                                        If process.HasExited = False Then
                                                                            Try
-                                                                               process.StandardInput.WriteLine("stop")
+                                                                               console.InputToConsole("stop")
                                                                                Dim dog As New Watchdog(process)
                                                                                dog.Run()
                                                                            Catch ex As Exception
@@ -38,6 +39,8 @@
                                                                        Server.IsRunning = False
                                                                    End If
                                                                End Sub)
+                            thread.IsBackground = True
+                            thread.Start()
                         Catch ex As Exception
                             Server.IsRunning = False
                         End Try
@@ -54,9 +57,11 @@
                         Else
                             If IsNothing(console) Then
                                 console = New ServerConsole(Server, Server.EServerVersionType.Spigot)
+                                AddHandler console.FormClosed, Sub() Call UpdateComponent()
                             Else
                                 If console.IsDisposed Then
                                     console = New ServerConsole(Server, Server.EServerVersionType.Spigot)
+                                    AddHandler console.FormClosed, Sub() Call UpdateComponent()
                                 End If
                             End If
                             If console.Visible = False Then
@@ -84,7 +89,7 @@
                                                                    If process IsNot Nothing Then
                                                                        If process.HasExited = False Then
                                                                            Try
-                                                                               process.StandardInput.WriteLine("stop")
+                                                                               console.InputToConsole("stop")
                                                                                Dim dog As New Watchdog(process)
                                                                                dog.Run()
                                                                            Catch ex As Exception
@@ -94,6 +99,8 @@
                                                                        Server.IsRunning = False
                                                                    End If
                                                                End Sub)
+                            thread.IsBackground = True
+                            thread.Start()
                         Catch ex As Exception
                             Server.IsRunning = False
                         End Try
@@ -110,9 +117,11 @@
                         Else
                             If IsNothing(console) Then
                                 console = New ServerConsole(Server, Server.EServerVersionType.CraftBukkit)
+                                AddHandler console.FormClosed, Sub() Call UpdateComponent()
                             Else
                                 If console.IsDisposed Then
                                     console = New ServerConsole(Server, Server.EServerVersionType.CraftBukkit)
+                                    AddHandler console.FormClosed, Sub() Call UpdateComponent()
                                 End If
                             End If
                             If console.Visible = False Then
@@ -126,28 +135,36 @@
 
     Protected Overrides Sub UpdateComponent()
         BeginInvokeIfRequired(Me, New Action(Sub()
+                                                 Dim isNoCB As Boolean = False
+                                                 If IO.File.Exists(IO.Path.Combine(Server.ServerPath, "craftbukkit-" & Server.ServerVersion)) = False Then
+                                                     isNoCB = True
+                                                     RunButton2.Enabled = False
+                                                 End If
                                                  ServerIcon.Image = Server.ServerIcon
-
                                                  ServerName.Text = Server.ServerPathName
                                                  If Server.IsRunning Then
                                                      ServerRunStatus.Text = "啟動狀態：已啟動"
                                                      SettingButton.Enabled = False
                                                      RunButton.Image = My.Resources.Stop32
-                                                     RunButton2.Image = My.Resources.Stop32
+                                                     If isNoCB = False Then RunButton2.Image = My.Resources.Stop32
                                                      ToolTip1.SetToolTip(RunButton, "停止伺服器")
-                                                     ToolTip1.SetToolTip(RunButton2, "停止伺服器")
-                                                 ElseIf isnothing(console) = False AndAlso console.isDisposed = False Then
+                                                     If isNoCB = False Then ToolTip1.SetToolTip(RunButton2, "停止伺服器")
+                                                 ElseIf IsNothing(console) = False AndAlso console.IsDisposed = False Then
                                                      ServerRunStatus.Text = "啟動狀態：未啟動(主控台運作中)"
                                                      SettingButton.Enabled = True
                                                      ToolTip1.SetToolTip(RunButton, "以Spigot模式重新啟動伺服器")
-                                                     ToolTip1.SetToolTip(RunButton2, "以CraftBukkit模式重新啟動伺服器")
+                                                     If isNoCB = False Then ToolTip1.SetToolTip(RunButton2, "以CraftBukkit模式重新啟動伺服器")
                                                      RunButton.Image = My.Resources.Run32Spigot
-                                                     RunButton2.Image = My.Resources.Run32_Bukkit
+                                                     If isNoCB = False Then RunButton2.Image = My.Resources.Run32_Bukkit
                                                  Else
                                                      ServerRunStatus.Text = "啟動狀態：未啟動"
                                                      SettingButton.Enabled = True
                                                      ToolTip1.SetToolTip(RunButton, "啟動 Spigot 伺服器")
-                                                     ToolTip1.SetToolTip(RunButton2, "啟動 CraftBukkit 伺服器")
+                                                     If isNoCB = False Then
+                                                         ToolTip1.SetToolTip(RunButton2, "啟動 CraftBukkit 伺服器")
+                                                     Else
+                                                         ToolTip1.SetToolTip(RunButton2, Nothing)
+                                                     End If
                                                      RunButton.Image = My.Resources.Run32Spigot
                                                      RunButton2.Image = My.Resources.Run32_Bukkit
                                                  End If

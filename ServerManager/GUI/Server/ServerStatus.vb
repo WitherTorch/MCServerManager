@@ -90,7 +90,6 @@ Public Class ServerStatus
     Protected Overridable Sub UpdateComponent()
         BeginInvokeIfRequired(Me, New Action(Sub()
 
-
                                                  ServerIcon.Image = Server.ServerIcon
 
                                                  ServerName.Text = Server.ServerPathName
@@ -325,9 +324,11 @@ Public Class ServerStatus
                             Else
                                 If IsNothing(console) Then
                                     console = New ServerConsole(Server)
+                                    AddHandler console.FormClosed, Sub() Call UpdateComponent()
                                 Else
                                     If console.IsDisposed Then
                                         console = New ServerConsole(Server)
+                                        AddHandler console.FormClosed, Sub() Call UpdateComponent()
                                     End If
                                 End If
                                 If console.Visible = False Then

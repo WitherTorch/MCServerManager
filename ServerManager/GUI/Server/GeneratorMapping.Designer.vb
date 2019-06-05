@@ -53,9 +53,9 @@ Partial Class GeneratorMapping
         'ChooseBox
         '
         Me.ChooseBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ChooseBox.Font = New System.Drawing.Font("新細明體", 12.0!)
+        Me.ChooseBox.Font = New System.Drawing.Font("微軟正黑體", 12.0!)
         Me.ChooseBox.FormattingEnabled = True
-        Me.ChooseBox.ItemHeight = 16
+        Me.ChooseBox.ItemHeight = 20
         Me.ChooseBox.Items.AddRange(New Object() {"水世界", "天空島世界", "探洞者世界", "懸崖峭壁", "極度乾旱", "混沌地穴", "祝你好運"})
         Me.ChooseBox.Location = New System.Drawing.Point(6, 6)
         Me.ChooseBox.Name = "ChooseBox"

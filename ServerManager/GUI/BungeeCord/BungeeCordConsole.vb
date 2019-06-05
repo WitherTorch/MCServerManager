@@ -642,7 +642,7 @@ Public Class BungeeCordConsole
                                                     Loop
                                                 End If
                                                 Host.IsRunning = False
-                                                GlobalModule.Manager.RunningBungeeCord = False
+                                                RunningBungeeCord = False
                                             End Sub) With {
             .Name = "Server Manager Close BungeeCord Thread",
             .IsBackground = False

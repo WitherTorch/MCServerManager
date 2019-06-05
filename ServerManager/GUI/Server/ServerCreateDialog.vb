@@ -119,7 +119,7 @@ Public Class ServerCreateDialog
                         server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot_Git)
                         VersionBox.Items.AddRange(SpigotGitVersionList.ToArray)
                     Else
-                        If String.IsNullOrEmpty(GitBashPath) AndAlso IO.File.Exists(GitBashPath) Then
+                        If String.IsNullOrEmpty(GitBashPath) = False AndAlso IO.File.Exists(GitBashPath) Then
                             server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot_Git)
                             VersionBox.Items.AddRange(SpigotGitVersionList.ToArray)
                         Else

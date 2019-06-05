@@ -34,7 +34,6 @@ Public Class Manager
     Friend ip As New List(Of String)
     Friend HasJava As Boolean = False
     Friend Is32BitJava As Boolean = True
-    Friend RunningBungeeCord As Boolean = False
     Public Sub New()
 
         ' 設計工具需要此呼叫。

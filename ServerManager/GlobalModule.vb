@@ -6,9 +6,10 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.6 Beta 6"
+    Public Const SERVER_MANAGER_VER As String = "1.6 Beta 7"
     Friend Manager As Manager
     Friend IsUnixLikeSystem As Boolean
+    Friend RunningBungeeCord As Boolean = False
 #Region "Server/Solution List"
     Friend JavaServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"))
     Friend SolutionDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"))

@@ -109,7 +109,7 @@
                                                                  End If
                                                              End If
                                                          Case False
-                                                             If GlobalModule.Manager.RunningBungeeCord = False Then
+                                                             If RunningBungeeCord = False Then
                                                                  If IsNothing(console) Then
                                                                      console = New BungeeCordConsole(Host)
                                                                  Else
@@ -118,7 +118,7 @@
                                                                      End If
                                                                  End If
                                                                  console.Show()
-                                                                 GlobalModule.Manager.RunningBungeeCord = True
+                                                                 RunningBungeeCord = True
                                                              Else
                                                                  MsgBox("只能啟動一個BungeeCord 方案!")
                                                              End If

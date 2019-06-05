@@ -37,19 +37,21 @@ Partial Class GeneratorSettingInfo
         Me.TableLayoutPanel1.Controls.Add(Me.InfomationBox, 0, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 256.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(426, 548)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(497, 731)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'IconBox
         '
         Me.IconBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.IconBox.Location = New System.Drawing.Point(3, 3)
+        Me.IconBox.Location = New System.Drawing.Point(3, 4)
+        Me.IconBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.IconBox.Name = "IconBox"
-        Me.IconBox.Size = New System.Drawing.Size(420, 250)
+        Me.IconBox.Size = New System.Drawing.Size(491, 357)
         Me.IconBox.TabIndex = 0
         Me.IconBox.TabStop = False
         '
@@ -57,19 +59,21 @@ Partial Class GeneratorSettingInfo
         '
         Me.InfomationBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.InfomationBox.Font = New System.Drawing.Font("微軟正黑體", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.InfomationBox.Location = New System.Drawing.Point(3, 259)
-        Me.InfomationBox.Margin = New System.Windows.Forms.Padding(3)
+        Me.InfomationBox.Location = New System.Drawing.Point(3, 369)
+        Me.InfomationBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.InfomationBox.Name = "InfomationBox"
-        Me.InfomationBox.Size = New System.Drawing.Size(420, 286)
+        Me.InfomationBox.Size = New System.Drawing.Size(491, 358)
         Me.InfomationBox.TabIndex = 1
         '
         'GeneratorSettingInfo
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "GeneratorSettingInfo"
-        Me.Size = New System.Drawing.Size(426, 548)
+        Me.Size = New System.Drawing.Size(497, 731)
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.IconBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

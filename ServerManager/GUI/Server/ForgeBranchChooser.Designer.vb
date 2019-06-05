@@ -53,7 +53,7 @@ Partial Class ForgeBranchChooser
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(253, 65)
+        Me.Button1.Location = New System.Drawing.Point(253, 69)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(69, 33)
         Me.Button1.TabIndex = 2
@@ -73,17 +73,18 @@ Partial Class ForgeBranchChooser
         'ComboBox1
         '
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(131, 39)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(191, 20)
+        Me.ComboBox1.Size = New System.Drawing.Size(191, 24)
         Me.ComboBox1.TabIndex = 4
         '
         'ForgeBranchChooser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(334, 110)
+        Me.ClientSize = New System.Drawing.Size(334, 107)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Button1)

@@ -151,9 +151,11 @@ Public Class ModPackServerStatus
                         Else
                             If IsNothing(console) Then
                                 console = New ModPackServerConsole(Server)
+                                AddHandler console.FormClosed, Sub() UpdateComponent()
                             Else
                                 If console.IsDisposed Then
                                     console = New ModPackServerConsole(Server)
+                                    AddHandler console.FormClosed, Sub() UpdateComponent()
                                 End If
                             End If
                             If console.Visible = False Then
