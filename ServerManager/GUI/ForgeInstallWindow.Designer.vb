@@ -22,6 +22,7 @@ Partial Class ForgeInstallWindow
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ForgeInstallWindow))
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
@@ -39,14 +40,15 @@ Partial Class ForgeInstallWindow
         Me.TextBox1.Size = New System.Drawing.Size(800, 450)
         Me.TextBox1.TabIndex = 2
         '
-        'ProcessWatcher
+        'ForgeInstallWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.TextBox1)
         Me.DoubleBuffered = True
-        Me.Name = "ProcessWatcher"
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Name = "ForgeInstallWindow"
         Me.ShowIcon = False
         Me.Text = "Forge 安裝程序"
         Me.ResumeLayout(False)

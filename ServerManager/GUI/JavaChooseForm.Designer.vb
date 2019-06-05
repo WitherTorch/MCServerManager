@@ -22,6 +22,7 @@ Partial Class JavaChooseForm
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(JavaChooseForm))
         Me.JavaListView = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -36,6 +37,7 @@ Partial Class JavaChooseForm
         Me.JavaListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
         Me.JavaListView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.JavaListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.JavaListView.HideSelection = False
         Me.JavaListView.Location = New System.Drawing.Point(0, 0)
         Me.JavaListView.MultiSelect = False
         Me.JavaListView.Name = "JavaListView"
@@ -97,6 +99,7 @@ Partial Class JavaChooseForm
         Me.Controls.Add(Me.JavaListView)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "JavaChooseForm"

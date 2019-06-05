@@ -23,6 +23,7 @@ Partial Class ServerTaskCreateDialog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerTaskCreateDialog))
         Me.TaskTypeComboBox = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -258,9 +259,11 @@ Partial Class ServerTaskCreateDialog
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TaskTypeComboBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "ServerTaskCreateDialog"
+        Me.ShowIcon = False
         Me.Text = "排定行程"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()

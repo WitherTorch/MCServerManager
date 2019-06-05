@@ -22,6 +22,7 @@ Partial Class BungeeCordCreateHelper
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BungeeCordCreateHelper))
         Me.StatusLabel = New System.Windows.Forms.Label()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.Cancel_Button = New System.Windows.Forms.Button()
@@ -68,6 +69,7 @@ Partial Class BungeeCordCreateHelper
         Me.Controls.Add(Me.ProgressBar)
         Me.Controls.Add(Me.Cancel_Button)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "BungeeCordCreateHelper"
         Me.Text = "建立方案"
         Me.ResumeLayout(False)

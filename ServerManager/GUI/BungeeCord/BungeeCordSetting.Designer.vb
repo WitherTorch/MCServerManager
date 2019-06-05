@@ -22,6 +22,7 @@ Partial Class BungeeCordSetting
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BungeeCordSetting))
         Me.BungeeSetTab = New System.Windows.Forms.TabControl()
         Me.ServerManagePage = New System.Windows.Forms.TabPage()
         Me.ServerListPanel = New System.Windows.Forms.TableLayoutPanel()
@@ -156,6 +157,7 @@ Partial Class BungeeCordSetting
         Me.ClientSize = New System.Drawing.Size(584, 461)
         Me.Controls.Add(Me.BungeeSetTab)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "BungeeCordSetting"
