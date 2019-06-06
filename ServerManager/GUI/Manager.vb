@@ -612,12 +612,9 @@ Public Class Manager
             Dim ExternalIP As String
             ExternalIP = (New Net.WebClient()).DownloadString("https://checkip.dedyn.io")
             Dim IPv4Regex As New Regex("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
-            Dim IPv6Regex As New Regex("(([0-9A-Fa-f]{1,4}:|::?){2,}|([0-9A-Fa-f]{1,4}:){7})[0-9A-Fa-f]{1,4}")
-            Dim IPv4to6Regex As New Regex("::ffff:[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}")
+            Dim IPv6Regex As New Regex("(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))")
             If IPv4Regex.IsMatch(ExternalIP) Then 'IPv4
                 ExternalIP = IPv4Regex.Match(ExternalIP).Value
-            ElseIf IPv4to6Regex.IsMatch(ExternalIP) Then
-                ExternalIP = IPv4to6Regex.Match(ExternalIP).Value
             ElseIf (IPv6Regex.IsMatch(ExternalIP)) Then 'IPv6
                 ExternalIP = IPv6Regex.Match(ExternalIP).Value
             Else
