@@ -1234,15 +1234,13 @@ Public Class Manager
 
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Static dialog As New FolderBrowserDialog
-        dialog.ShowNewFolderButton = False
+        Static dialog As New OpenFileDialog
+        dialog.Filter = "伺服器資訊(server.info)|server.info"
         If dialog.ShowDialog = DialogResult.OK Then
-            If IO.File.Exists(IO.Path.Combine(dialog.SelectedPath, "server.info")) = False Then
-                MsgBox("匯入時發生錯誤" & vbNewLine & "原因：找不到伺服器資訊檔案(server.info)。",, Application.ProductName)
-            ElseIf ServerPathList.Contains(dialog.SelectedPath) Then
+            If ServerPathList.Contains(dialog.FileName) Then
                 MsgBox("匯入時發生錯誤" & vbNewLine & "原因：伺服器已經存在於伺服器列表。",, Application.ProductName)
             Else
-                AddServer(dialog.SelectedPath)
+                AddServer(New IO.FileInfo(dialog.FileName).Directory.FullName)
             End If
         End If
     End Sub
@@ -1672,17 +1670,16 @@ Public Class Manager
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
-        Static dialog As New FolderBrowserDialog
-        dialog.ShowNewFolderButton = False
+        Static dialog As New OpenFileDialog
+        dialog.Filter = "伺服器資訊(server.info)|server.info"
         If dialog.ShowDialog = DialogResult.OK Then
-            If IO.File.Exists(IO.Path.Combine(dialog.SelectedPath, "server.info")) = False Then
-                MsgBox("匯入時發生錯誤" & vbNewLine & "原因：找不到伺服器資訊檔案(server.info)。",, Application.ProductName)
-            ElseIf ServerPathList.Contains(dialog.SelectedPath) Then
-                MsgBox("匯入時發生錯誤" & vbNewLine & "原因：伺服器已經存在於模組包伺服器列表。",, Application.ProductName)
+            If ServerPathList.Contains(dialog.FileName) Then
+                MsgBox("匯入時發生錯誤" & vbNewLine & "原因：伺服器已經存在於伺服器列表。",, Application.ProductName)
             Else
-                AddModpackServer(dialog.SelectedPath, True)
+                AddModpackServer(New IO.FileInfo(dialog.FileName).Directory.FullName, True)
             End If
         End If
+
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click

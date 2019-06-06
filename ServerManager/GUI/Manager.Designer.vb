@@ -23,18 +23,18 @@ Partial Class Manager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
-        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
-        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
-        Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
-        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
-        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
-        Dim ListViewItem19 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
-        Dim ListViewItem20 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
-        Dim ListViewItem21 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
-        Dim ListViewItem22 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
-        Dim ListViewItem23 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem24 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
+        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
+        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
+        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
+        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
+        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
+        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
+        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
+        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
+        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
+        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
@@ -46,8 +46,12 @@ Partial Class Manager
         Me.Label18 = New System.Windows.Forms.Label()
         Me.NetworkGroupBox = New System.Windows.Forms.GroupBox()
         Me.ExternalIPLabel = New System.Windows.Forms.LinkLabel()
+        Me.ExternalIPContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.重新載入外部IPRToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IPALabel = New System.Windows.Forms.Label()
         Me.IPLabel = New System.Windows.Forms.LinkLabel()
+        Me.InternalIPContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
         Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
@@ -148,10 +152,6 @@ Partial Class Manager
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.ExternalIPContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.重新載入外部IPRToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.InternalIPContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
@@ -159,6 +159,8 @@ Partial Class Manager
         Me.GroupBox8.SuspendLayout()
         Me.MemoryGroupBox.SuspendLayout()
         Me.NetworkGroupBox.SuspendLayout()
+        Me.ExternalIPContextMenu.SuspendLayout()
+        Me.InternalIPContextMenu.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.VListLoadingBox.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -193,8 +195,6 @@ Partial Class Manager
         Me.Panel3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ExternalIPContextMenu.SuspendLayout()
-        Me.InternalIPContextMenu.SuspendLayout()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -327,6 +327,18 @@ Partial Class Manager
         Me.ExternalIPLabel.TabIndex = 12
         Me.ExternalIPLabel.Text = "外部IP位址：取得中..."
         '
+        'ExternalIPContextMenu
+        '
+        Me.ExternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.重新載入外部IPRToolStripMenuItem})
+        Me.ExternalIPContextMenu.Name = "ExternalIPContextMenu"
+        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        '
+        '重新載入外部IPRToolStripMenuItem
+        '
+        Me.重新載入外部IPRToolStripMenuItem.Name = "重新載入外部IPRToolStripMenuItem"
+        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.重新載入外部IPRToolStripMenuItem.Text = "重新載入外部IP(&R)"
+        '
         'IPALabel
         '
         Me.IPALabel.AutoSize = True
@@ -339,15 +351,29 @@ Partial Class Manager
         '
         'IPLabel
         '
-        Me.IPLabel.AutoSize = True
+        Me.IPLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.IPLabel.AutoEllipsis = True
         Me.IPLabel.ContextMenuStrip = Me.InternalIPContextMenu
         Me.IPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
         Me.IPLabel.Location = New System.Drawing.Point(6, 40)
         Me.IPLabel.Margin = New System.Windows.Forms.Padding(3)
         Me.IPLabel.Name = "IPLabel"
-        Me.IPLabel.Size = New System.Drawing.Size(120, 12)
+        Me.IPLabel.Size = New System.Drawing.Size(360, 12)
         Me.IPLabel.TabIndex = 9
         Me.IPLabel.Text = "內部IP位址：取得中..."
+        '
+        'InternalIPContextMenu
+        '
+        Me.InternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+        Me.InternalIPContextMenu.Name = "ExternalIPContextMenu"
+        Me.InternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(172, 22)
+        Me.ToolStripMenuItem1.Text = "重新載入內部IP(&R)"
         '
         'GroupBox7
         '
@@ -1364,41 +1390,41 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 11.0!)
         Me.ServerSoftwareLinkList.HideSelection = False
-        ListViewItem13.Checked = True
-        ListViewItem13.StateImageIndex = 2
-        ListViewItem13.Tag = "https://www.minecraft.net/zh-hant/"
-        ListViewItem14.Checked = True
-        ListViewItem14.StateImageIndex = 3
-        ListViewItem14.Tag = "https://files.minecraftforge.net/"
-        ListViewItem15.StateImageIndex = 0
-        ListViewItem15.Tag = "https://bukkit.org/"
-        ListViewItem16.Checked = True
-        ListViewItem16.StateImageIndex = 1
-        ListViewItem16.Tag = "https://www.spigotmc.org/"
-        ListViewItem17.Checked = True
-        ListViewItem17.StateImageIndex = 4
-        ListViewItem17.Tag = "https://www.spongepowered.org/"
-        ListViewItem18.Checked = True
-        ListViewItem18.StateImageIndex = 5
-        ListViewItem18.Tag = "https://papermc.io/"
-        ListViewItem19.Checked = True
-        ListViewItem19.StateImageIndex = 6
-        ListViewItem19.Tag = "https://akarin.io/"
-        ListViewItem20.Checked = True
-        ListViewItem20.StateImageIndex = 9
-        ListViewItem21.Checked = True
-        ListViewItem21.StateImageIndex = 8
-        ListViewItem21.Tag = "https://cyberdynecc.github.io/Thermos/"
-        ListViewItem22.Checked = True
-        ListViewItem22.StateImageIndex = 10
-        ListViewItem22.Tag = "https://github.com/djoveryde/Contigo"
-        ListViewItem23.Checked = True
-        ListViewItem23.StateImageIndex = 11
-        ListViewItem23.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem24.Checked = True
-        ListViewItem24.StateImageIndex = 7
-        ListViewItem24.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17, ListViewItem18, ListViewItem19, ListViewItem20, ListViewItem21, ListViewItem22, ListViewItem23, ListViewItem24})
+        ListViewItem1.Checked = True
+        ListViewItem1.StateImageIndex = 2
+        ListViewItem1.Tag = "https://www.minecraft.net/zh-hant/"
+        ListViewItem2.Checked = True
+        ListViewItem2.StateImageIndex = 3
+        ListViewItem2.Tag = "https://files.minecraftforge.net/"
+        ListViewItem3.StateImageIndex = 0
+        ListViewItem3.Tag = "https://bukkit.org/"
+        ListViewItem4.Checked = True
+        ListViewItem4.StateImageIndex = 1
+        ListViewItem4.Tag = "https://www.spigotmc.org/"
+        ListViewItem5.Checked = True
+        ListViewItem5.StateImageIndex = 4
+        ListViewItem5.Tag = "https://www.spongepowered.org/"
+        ListViewItem6.Checked = True
+        ListViewItem6.StateImageIndex = 5
+        ListViewItem6.Tag = "https://papermc.io/"
+        ListViewItem7.Checked = True
+        ListViewItem7.StateImageIndex = 6
+        ListViewItem7.Tag = "https://akarin.io/"
+        ListViewItem8.Checked = True
+        ListViewItem8.StateImageIndex = 9
+        ListViewItem9.Checked = True
+        ListViewItem9.StateImageIndex = 8
+        ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
+        ListViewItem10.Checked = True
+        ListViewItem10.StateImageIndex = 10
+        ListViewItem10.Tag = "https://github.com/djoveryde/Contigo"
+        ListViewItem11.Checked = True
+        ListViewItem11.StateImageIndex = 11
+        ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem12.Checked = True
+        ListViewItem12.StateImageIndex = 7
+        ListViewItem12.Tag = "https://nukkitx.com/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1458,7 +1484,7 @@ Partial Class Manager
         Me.LibraryListBox.Font = New System.Drawing.Font("微軟正黑體", 10.25!)
         Me.LibraryListBox.FormattingEnabled = True
         Me.LibraryListBox.ItemHeight = 18
-        Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)"})
+        Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)", "DropDownControls (用於顯示群組項目)"})
         Me.LibraryListBox.Location = New System.Drawing.Point(3, 19)
         Me.LibraryListBox.Name = "LibraryListBox"
         Me.LibraryListBox.Size = New System.Drawing.Size(366, 288)
@@ -1522,30 +1548,6 @@ Partial Class Manager
         Me.CheckingTimer.Enabled = True
         Me.CheckingTimer.Interval = 200
         '
-        'ExternalIPContextMenu
-        '
-        Me.ExternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.重新載入外部IPRToolStripMenuItem})
-        Me.ExternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
-        '
-        '重新載入外部IPRToolStripMenuItem
-        '
-        Me.重新載入外部IPRToolStripMenuItem.Name = "重新載入外部IPRToolStripMenuItem"
-        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
-        Me.重新載入外部IPRToolStripMenuItem.Text = "重新載入外部IP(&R)"
-        '
-        'InternalIPContextMenu
-        '
-        Me.InternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
-        Me.InternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.InternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
-        Me.ToolStripMenuItem1.Text = "重新載入內部IP(&R)"
-        '
         'PerformanceCounter1
         '
         Me.PerformanceCounter1.CategoryName = "Processor"
@@ -1573,6 +1575,8 @@ Partial Class Manager
         Me.MemoryGroupBox.PerformLayout()
         Me.NetworkGroupBox.ResumeLayout(False)
         Me.NetworkGroupBox.PerformLayout()
+        Me.ExternalIPContextMenu.ResumeLayout(False)
+        Me.InternalIPContextMenu.ResumeLayout(False)
         Me.GroupBox7.ResumeLayout(False)
         Me.VListLoadingBox.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
@@ -1619,8 +1623,6 @@ Partial Class Manager
         Me.Panel3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ExternalIPContextMenu.ResumeLayout(False)
-        Me.InternalIPContextMenu.ResumeLayout(False)
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
