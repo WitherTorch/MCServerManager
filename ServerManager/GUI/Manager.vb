@@ -1237,7 +1237,7 @@ Public Class Manager
         Static dialog As New OpenFileDialog
         dialog.Filter = "伺服器資訊(server.info)|server.info"
         If dialog.ShowDialog = DialogResult.OK Then
-            If ServerPathList.Contains(dialog.FileName) Then
+            If ServerPathList.Contains(New IO.FileInfo(dialog.FileName).Directory.FullName) Then
                 MsgBox("匯入時發生錯誤" & vbNewLine & "原因：伺服器已經存在於伺服器列表。",, Application.ProductName)
             Else
                 AddServer(New IO.FileInfo(dialog.FileName).Directory.FullName)
@@ -1673,7 +1673,7 @@ Public Class Manager
         Static dialog As New OpenFileDialog
         dialog.Filter = "伺服器資訊(server.info)|server.info"
         If dialog.ShowDialog = DialogResult.OK Then
-            If ServerPathList.Contains(dialog.FileName) Then
+            If ServerPathList.Contains(New IO.FileInfo(dialog.FileName).Directory.FullName) Then
                 MsgBox("匯入時發生錯誤" & vbNewLine & "原因：伺服器已經存在於伺服器列表。",, Application.ProductName)
             Else
                 AddModpackServer(New IO.FileInfo(dialog.FileName).Directory.FullName, True)
