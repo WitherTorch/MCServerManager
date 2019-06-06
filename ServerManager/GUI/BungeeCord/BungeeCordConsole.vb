@@ -55,13 +55,35 @@ Public Class BungeeCordConsole
             Dim _inputList As New List(Of String)()
             Dim _currentListLocation As Integer = -1
 
-            dataListView.Columns.AddRange(New ColumnHeader() {New ColumnHeader() With {.Text = "類型"}, New ColumnHeader() With {.Text = "時間"}, New ColumnHeader() With {.Text = "訊息", .Width = 656}})
+            dataListView.Columns.AddRange(New ColumnHeader() {New ColumnHeader() With {.Text = "類型"}, New ColumnHeader() With {.Text = "執行緒", .DisplayIndex = 2, .Width = 116}, New ColumnHeader() With {.DisplayIndex = 1, .Text = "時間", .Width = 69}, New ColumnHeader() With {.Text = "訊息", .DisplayIndex = 3, .Width = 534}})
             dataListView.Dock = DockStyle.Fill
             dataListView.FullRowSelect = True
             dataListView.GridLines = True
             dataListView.MultiSelect = False
             dataListView.UseCompatibleStateImageBehavior = False
             dataListView.View = View.Details
+            Select Case server.ServerVersionType
+                Case Server.EServerVersionType.Spigot
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+                Case Server.EServerVersionType.CraftBukkit
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+                Case Server.EServerVersionType.Nukkit
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+                Case Server.EServerVersionType.VanillaBedrock
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+                Case Server.EServerVersionType.Paper
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+                Case Server.EServerVersionType.Akarin
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+                Case Server.EServerVersionType.Spigot_Git
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+                Case Server.EServerVersionType.Cauldron
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+                Case Server.EServerVersionType.Thermos
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+                Case Server.EServerVersionType.Contigo
+                    dataListView.Columns.Remove(dataListView.Columns(1))
+            End Select
 
             pauseLoad.Anchor = AnchorStyles.Top Or AnchorStyles.Right
             pauseLoad.AutoSize = True
@@ -268,16 +290,16 @@ Public Class BungeeCordConsole
                                                                                 Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
                                                                                 Dim item As New ListViewItem(msg.ServerMessageTypeString)
                                                                                 Select Case server.ServerVersionType
-                                                                                    Case Server.EServerVersionType.Spigot
                                                                                     Case Server.EServerVersionType.CraftBukkit
-                                                                                    Case Server.EServerVersionType.Nukkit
-                                                                                    Case Server.EServerVersionType.VanillaBedrock
+                                                                                    Case Server.EServerVersionType.Spigot
+                                                                                    Case Server.EServerVersionType.Spigot_Git
                                                                                     Case Server.EServerVersionType.Paper
                                                                                     Case Server.EServerVersionType.Akarin
-                                                                                    Case Server.EServerVersionType.Spigot_Git
                                                                                     Case Server.EServerVersionType.Cauldron
                                                                                     Case Server.EServerVersionType.Thermos
                                                                                     Case Server.EServerVersionType.Contigo
+                                                                                    Case Server.EServerVersionType.Nukkit
+                                                                                    Case Server.EServerVersionType.VanillaBedrock
                                                                                     Case Else
                                                                                         item.SubItems.Add(msg.Thread)
                                                                                 End Select
@@ -304,39 +326,43 @@ Public Class BungeeCordConsole
                                                                                         BeginInvoke(Sub() PlayerListBox.Items.Remove(msg.AddtionalMessage("player") & " (" & bServer.ServerAlias & ")"))
                                                                                     Case Else
                                                                                 End Select
-                                                                                If InvokeRequired Then
-                                                                                    BeginInvoke(Sub()
-                                                                                                    Dim seekToBottom As Boolean = False
-                                                                                                    If dataListView.Items.Count > 1 Then
-                                                                                                        Dim first As Integer = dataListView.TopItem.Index
-                                                                                                        Dim h_tot As Integer = dataListView.ClientRectangle.Height - 1
-                                                                                                        Dim h_hdr As Integer = dataListView.GetItemRect(first).Y
-                                                                                                        Dim h_item As Integer = dataListView.GetItemRect(0).Height
-                                                                                                        Dim cntVis As Integer = (h_tot - h_hdr) / h_item
-                                                                                                        Dim LastItemIndex = Math.Min(dataListView.Items.Count - 1, first + cntVis)
-                                                                                                        If LastItemIndex = dataListView.Items.Count - 1 Then
-                                                                                                            seekToBottom = True
+                                                                                Try
+                                                                                    If InvokeRequired Then
+                                                                                        BeginInvoke(Sub()
+                                                                                                        Dim seekToBottom As Boolean = False
+                                                                                                        If dataListView.Items.Count > 1 Then
+                                                                                                            Dim first As Integer = dataListView.TopItem.Index
+                                                                                                            Dim h_tot As Integer = dataListView.ClientRectangle.Height - 1
+                                                                                                            Dim h_hdr As Integer = dataListView.GetItemRect(first).Y
+                                                                                                            Dim h_item As Integer = dataListView.GetItemRect(0).Height
+                                                                                                            Dim cntVis As Integer = (h_tot - h_hdr) / h_item
+                                                                                                            Dim LastItemIndex = Math.Min(dataListView.Items.Count - 1, first + cntVis)
+                                                                                                            If LastItemIndex = dataListView.Items.Count - 1 Then
+                                                                                                                seekToBottom = True
+                                                                                                            End If
                                                                                                         End If
-                                                                                                    End If
-                                                                                                    Invoke(Sub() dataListView.Items.Add(item))
-                                                                                                    If seekToBottom Then dataListView.EnsureVisible(item.Index)
-                                                                                                End Sub)
-                                                                                Else
-                                                                                    Dim seekToBottom As Boolean = False
-                                                                                    If dataListView.Items.Count > 1 Then
-                                                                                        Dim first As Integer = dataListView.TopItem.Index
-                                                                                        Dim h_tot As Integer = dataListView.ClientRectangle.Height - 1
-                                                                                        Dim h_hdr As Integer = dataListView.GetItemRect(first).Y
-                                                                                        Dim h_item As Integer = dataListView.GetItemRect(0).Height
-                                                                                        Dim cntVis As Integer = (h_tot - h_hdr) / h_item
-                                                                                        Dim LastItemIndex = Math.Min(dataListView.Items.Count - 1, first + cntVis)
-                                                                                        If LastItemIndex = dataListView.Items.Count - 1 Then
-                                                                                            seekToBottom = True
+                                                                                                        Invoke(Sub() dataListView.Items.Add(item))
+                                                                                                        If seekToBottom Then dataListView.EnsureVisible(item.Index)
+                                                                                                    End Sub)
+                                                                                    Else
+                                                                                        Dim seekToBottom As Boolean = False
+                                                                                        If dataListView.Items.Count > 1 Then
+                                                                                            Dim first As Integer = dataListView.TopItem.Index
+                                                                                            Dim h_tot As Integer = dataListView.ClientRectangle.Height - 1
+                                                                                            Dim h_hdr As Integer = dataListView.GetItemRect(first).Y
+                                                                                            Dim h_item As Integer = dataListView.GetItemRect(0).Height
+                                                                                            Dim cntVis As Integer = (h_tot - h_hdr) / h_item
+                                                                                            Dim LastItemIndex = Math.Min(dataListView.Items.Count - 1, first + cntVis)
+                                                                                            If LastItemIndex = dataListView.Items.Count - 1 Then
+                                                                                                seekToBottom = True
+                                                                                            End If
                                                                                         End If
+                                                                                        dataListView.Items.Add(item)
+                                                                                        If seekToBottom Then dataListView.EnsureVisible(item.Index)
                                                                                     End If
-                                                                                    dataListView.Items.Add(item)
-                                                                                    If seekToBottom Then dataListView.EnsureVisible(item.Index)
-                                                                                End If
+                                                                                Catch ex As Exception
+
+                                                                                End Try
                                                                             End Sub)
                                                                End If
                                                            End If
