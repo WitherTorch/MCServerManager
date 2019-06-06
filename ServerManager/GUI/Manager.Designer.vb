@@ -351,15 +351,14 @@ Partial Class Manager
         '
         'IPLabel
         '
-        Me.IPLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.IPLabel.AutoEllipsis = True
+        Me.IPLabel.AutoSize = True
         Me.IPLabel.ContextMenuStrip = Me.InternalIPContextMenu
         Me.IPLabel.LinkArea = New System.Windows.Forms.LinkArea(0, 0)
         Me.IPLabel.Location = New System.Drawing.Point(6, 40)
         Me.IPLabel.Margin = New System.Windows.Forms.Padding(3)
         Me.IPLabel.Name = "IPLabel"
-        Me.IPLabel.Size = New System.Drawing.Size(360, 12)
+        Me.IPLabel.Size = New System.Drawing.Size(120, 12)
         Me.IPLabel.TabIndex = 9
         Me.IPLabel.Text = "內部IP位址：取得中..."
         '
