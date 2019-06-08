@@ -13,6 +13,7 @@ Public Class ServerConsole
     Dim PlayerListGetState As Integer = 0
     Dim PlayerListGetCount As Integer
     Dim temp_PlayerList As New List(Of String)
+    Dim hasHost As Boolean = False
     Public ReadOnly Property Server As Server
     Dim startInfo As ProcessStartInfo
     Dim usesType As Server.EServerVersionType
@@ -84,6 +85,12 @@ Public Class ServerConsole
             Case Server.EServerVersionType.Contigo
                 DataListView.Columns.Remove(ColumnHeader2)
         End Select
+        For Each plugin In Server.ServerPlugins
+            If plugin.Name = "Minecraft_Server_Manager_Host" Then
+                hasHost = True
+                Exit For
+            End If
+        Next
         TaskTimer.Enabled = True
         TaskTimer.Start()
         Run()
@@ -272,6 +279,28 @@ Public Class ServerConsole
                                                                                                                            End Sub)
                                                                                              End If
                                                                                              PlayerListGetState = 0 'Restore to Default
+                                                                                         End If
+                                                                                     End If
+                                                                                 Case 3 '有使用Minecraft_Server_Manager_Host 的伺服器專用
+                                                                                     Dim playerIDListRegex As New Text.RegularExpressions.Regex("(\|[A-Za-z0-9_-]*){1,}")
+                                                                                     If playerIDListRegex.IsMatch(e.Data) AndAlso playerIDListRegex.Match(e.Data).Value = e.Data.Trim Then
+                                                                                         If e.Data = "|" Then
+                                                                                             PlayerListGetState = 0
+                                                                                             BeginInvokeIfRequired(Me, Sub()
+                                                                                                                           ConnectionPlayerList.Clear()
+                                                                                                                           PlayerListBox.Items.Clear()
+                                                                                                                       End Sub)
+                                                                                         Else
+                                                                                             Dim players As String() = e.Data.Substring(1).Split(New Char() {"|"}, StringSplitOptions.RemoveEmptyEntries)
+                                                                                             If IsNothing(players) = False Then
+                                                                                                 PlayerListGetState = 0
+                                                                                                 BeginInvokeIfRequired(Me, Sub()
+                                                                                                                               ConnectionPlayerList.Clear()
+                                                                                                                               PlayerListBox.Items.Clear()
+                                                                                                                               ConnectionPlayerList.AddRange(players)
+                                                                                                                               PlayerListBox.Items.AddRange(players)
+                                                                                                                           End Sub)
+                                                                                             End If
                                                                                          End If
                                                                                      End If
                                                                              End Select
@@ -473,6 +502,7 @@ Public Class ServerConsole
                             Server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
                             Server.ServerVersionType = Server.EServerVersionType.Kettle Then
                                         If CommandTextBox.Text.Substring(1) = "minecraft:list" Then PlayerListGetState = 1
+                                        If CommandTextBox.Text.Substring(1) = "callfunction getPlayerList" Then PlayerListGetState = 3
                                     Else
                                         If CommandTextBox.Text.Substring(1) = "list" Then PlayerListGetState = 1
                                     End If
@@ -498,6 +528,7 @@ Public Class ServerConsole
                             Server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
                             Server.ServerVersionType = Server.EServerVersionType.Kettle Then
                                     If CommandTextBox.Text = "minecraft:list" Then PlayerListGetState = 1
+                                    If CommandTextBox.Text = "callfunction getPlayerList" Then PlayerListGetState = 3
                                 Else
                                     If CommandTextBox.Text = "list" Then PlayerListGetState = 1
                                 End If
@@ -1010,11 +1041,17 @@ Public Class ServerConsole
                             Server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
                             Server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
                             Server.ServerVersionType = Server.EServerVersionType.Kettle Then
-                        backgroundProcess.StandardInput.WriteLine("minecraft:list")
+                        If hasHost Then
+                            backgroundProcess.StandardInput.WriteLine("callfunction getPlayerList")
+                            PlayerListGetState = 3
+                        Else
+                            backgroundProcess.StandardInput.WriteLine("minecraft:list")
+                            PlayerListGetState = 1
+                        End If
                     Else
                         backgroundProcess.StandardInput.WriteLine("list")
+                        PlayerListGetState = 1
                     End If
-                    PlayerListGetState = 1
                 Catch ex As Exception
                 End Try
             End If

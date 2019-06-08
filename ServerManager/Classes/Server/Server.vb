@@ -579,9 +579,22 @@ Public NotInheritable Class Server
                     For Each jsonObject As JObject In jsonArray
                         Try
                             If IO.File.Exists(jsonObject.GetValue("Path").ToString) = False Then
-                                Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"))
-                                paths.Add(jsonObject.GetValue("Path").ToString)
-                                ServerPlugins.Add(item)
+                                If IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString) <> jsonObject.GetValue("VersionDate") Then
+                                    Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
+                                    Using unpatcher As New BukkitPluginUnpatcher(item.Path)
+                                        Dim info = unpatcher.GetPluginInfo()
+                                        If info.IsNull = False Then
+                                            item.Name = info.Name
+                                            item.Version = info.Version
+                                            ServerPlugins.Add(item)
+                                        End If
+                                    End Using
+                                    paths.Add(jsonObject.GetValue("Path").ToString)
+                                Else
+                                    Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"))
+                                    paths.Add(jsonObject.GetValue("Path").ToString)
+                                    ServerPlugins.Add(item)
+                                End If
                             End If
                         Catch ex As Exception
 
@@ -592,7 +605,7 @@ Public NotInheritable Class Server
             Dim pluginPathInfo As New IO.DirectoryInfo(pluginPath)
             For Each pluginFileInfo In pluginPathInfo.GetFiles("*.jar", IO.SearchOption.TopDirectoryOnly)
                 Try
-                    Dim item As New BukkitPlugin(pluginFileInfo.Name, pluginFileInfo.FullName, "", pluginFileInfo.CreationTime)
+                    Dim item As New BukkitPlugin(pluginFileInfo.Name, pluginFileInfo.FullName, "", pluginFileInfo.LastWriteTime)
                     If paths.Contains(item.Path) = False Then
                         Using unpatcher As New BukkitPluginUnpatcher(item.Path)
                             Dim info = unpatcher.GetPluginInfo()
@@ -642,17 +655,32 @@ Public NotInheritable Class Server
             If My.Computer.FileSystem.FileExists(IO.Path.Combine(modPath, "modList.json")) Then
                 Dim reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(modPath, "modList.json"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read, 4096, True))
                 Dim jsonArray As Newtonsoft.Json.Linq.JArray = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(reader.ReadToEnd())
-                For Each jsonObject As JObject In jsonArray
-                    Try
-                        If IO.File.Exists(jsonObject.GetValue("Path").ToString) Then
-                            Dim item As New ForgeMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"))
-                            paths.Add(jsonObject.GetValue("Path").ToString)
-                            ServerMods.Add(item)
-                        End If
-                    Catch ex As Exception
+                If jsonArray IsNot Nothing Then
+                    For Each jsonObject As JObject In jsonArray
+                        Try
+                            If IO.File.Exists(jsonObject.GetValue("Path").ToString) = False Then
+                                If IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString) <> jsonObject.GetValue("VersionDate") Then
+                                    Dim item As New ForgeMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
+                                    Using unpatcher As New ForgeModUnpatcher(item.Path)
+                                        Dim info = unpatcher.GetModInfo()
+                                        If info.IsNull = False Then
+                                            item.Name = info.Name
+                                            item.Version = info.Version
+                                            ServerMods.Add(item)
+                                        End If
+                                    End Using
+                                    paths.Add(jsonObject.GetValue("Path").ToString)
+                                Else
+                                    Dim item As New ForgeMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"))
+                                    paths.Add(jsonObject.GetValue("Path").ToString)
+                                    ServerMods.Add(item)
+                                End If
+                            End If
+                        Catch ex As Exception
 
-                    End Try
-                Next
+                        End Try
+                    Next
+                End If
             End If
             Dim modPathInfo As New IO.DirectoryInfo(modPath)
             For Each modFileInfo In modPathInfo.GetFiles("*.jar", IO.SearchOption.TopDirectoryOnly)
