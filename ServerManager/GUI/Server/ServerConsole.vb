@@ -263,9 +263,13 @@ Public Class ServerConsole
                                                                                          PlayerListGetCount -= 1
                                                                                          If PlayerListGetCount <= 0 Then
                                                                                              If temp_PlayerList IsNot Nothing AndAlso temp_PlayerList.Count > 0 Then
-                                                                                                 PlayerListBox.Items.Clear()
-                                                                                                 PlayerListBox.Items.AddRange(temp_PlayerList.ToArray)
+                                                                                                 Dim playerList As New List(Of String)
+                                                                                                 playerList.AddRange(temp_PlayerList)
                                                                                                  temp_PlayerList = Nothing
+                                                                                                 BeginInvokeIfRequired(Me, Sub()
+                                                                                                                               PlayerListBox.Items.Clear()
+                                                                                                                               PlayerListBox.Items.AddRange(playerList.ToArray)
+                                                                                                                           End Sub)
                                                                                              End If
                                                                                              PlayerListGetState = 0 'Restore to Default
                                                                                          End If
@@ -311,7 +315,7 @@ Public Class ServerConsole
                                                                                                                     NotifyInfoMessage(msg.AddtionalMessage("player") & " 進入伺服器", Text)
                                                                                                       BeginInvokeIfRequired(Me, Sub()
                                                                                                                                     If (Server.ServerVersionType = Server.EServerVersionType.Vanilla AndAlso ConnectionPlayerList.Contains(msg.AddtionalMessage("player"))) OrElse Not Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
-                                                                                                                                        PlayerListBox.Items.Add(msg.AddtionalMessage("player"))
+                                                                                                                                        If PlayerListBox.Items.Contains(msg.AddtionalMessage("player")) = False Then PlayerListBox.Items.Add(msg.AddtionalMessage("player"))
                                                                                                                                     End If
                                                                                                                                 End Sub)
                                                                                                       For Each task In TaskList
@@ -327,7 +331,7 @@ Public Class ServerConsole
                                                                                                                     NotifyInfoMessage(msg.AddtionalMessage("player") & " 離開伺服器", Text)
                                                                                                       BeginInvokeIfRequired(Me, Sub()
                                                                                                                                     If (Server.ServerVersionType = Server.EServerVersionType.Vanilla AndAlso ConnectionPlayerList.Contains(msg.AddtionalMessage("player"))) OrElse Not Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
-                                                                                                                                        PlayerListBox.Items.Remove(msg.AddtionalMessage("player"))
+                                                                                                                                        If PlayerListBox.Items.Contains(msg.AddtionalMessage("player")) Then PlayerListBox.Items.Remove(msg.AddtionalMessage("player"))
                                                                                                                                     End If
                                                                                                                                 End Sub)
                                                                                                       For Each task In TaskList
