@@ -579,8 +579,8 @@ Public NotInheritable Class Server
                     For Each jsonObject As JObject In jsonArray
                         Try
                             If IO.File.Exists(jsonObject.GetValue("Path").ToString) = False Then
-                                If IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString) <> jsonObject.GetValue("VersionDate") Then
-                                    Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
+                                If jsonObject.ContainsKey("LastAccessedDate") = False Or IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString) <> jsonObject.GetValue("LastAccessedDate") Then
+                                    Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
                                     Using unpatcher As New BukkitPluginUnpatcher(item.Path)
                                         Dim info = unpatcher.GetPluginInfo()
                                         If info.IsNull = False Then
@@ -591,7 +591,7 @@ Public NotInheritable Class Server
                                     End Using
                                     paths.Add(jsonObject.GetValue("Path").ToString)
                                 Else
-                                    Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"))
+                                    Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), jsonObject.GetValue("LastAccessedDate"))
                                     paths.Add(jsonObject.GetValue("Path").ToString)
                                     ServerPlugins.Add(item)
                                 End If
@@ -605,7 +605,7 @@ Public NotInheritable Class Server
             Dim pluginPathInfo As New IO.DirectoryInfo(pluginPath)
             For Each pluginFileInfo In pluginPathInfo.GetFiles("*.jar", IO.SearchOption.TopDirectoryOnly)
                 Try
-                    Dim item As New BukkitPlugin(pluginFileInfo.Name, pluginFileInfo.FullName, "", pluginFileInfo.LastWriteTime)
+                    Dim item As New BukkitPlugin(pluginFileInfo.Name, pluginFileInfo.FullName, "", pluginFileInfo.CreationTime, pluginFileInfo.LastWriteTime)
                     If paths.Contains(item.Path) = False Then
                         Using unpatcher As New BukkitPluginUnpatcher(item.Path)
                             Dim info = unpatcher.GetPluginInfo()
@@ -659,8 +659,8 @@ Public NotInheritable Class Server
                     For Each jsonObject As JObject In jsonArray
                         Try
                             If IO.File.Exists(jsonObject.GetValue("Path").ToString) = False Then
-                                If IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString) <> jsonObject.GetValue("VersionDate") Then
-                                    Dim item As New ForgeMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
+                                If jsonObject.ContainsKey("LastAccessedDate") = False Or IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString) <> jsonObject.GetValue("LastAccessedDate") Then
+                                    Dim item As New ForgeMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
                                     Using unpatcher As New ForgeModUnpatcher(item.Path)
                                         Dim info = unpatcher.GetModInfo()
                                         If info.IsNull = False Then
@@ -671,7 +671,7 @@ Public NotInheritable Class Server
                                     End Using
                                     paths.Add(jsonObject.GetValue("Path").ToString)
                                 Else
-                                    Dim item As New ForgeMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"))
+                                    Dim item As New ForgeMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), jsonObject.GetValue("LastAccessedDate"))
                                     paths.Add(jsonObject.GetValue("Path").ToString)
                                     ServerMods.Add(item)
                                 End If
@@ -685,7 +685,7 @@ Public NotInheritable Class Server
             Dim modPathInfo As New IO.DirectoryInfo(modPath)
             For Each modFileInfo In modPathInfo.GetFiles("*.jar", IO.SearchOption.TopDirectoryOnly)
                 Try
-                    Dim item As New ForgeMod(modFileInfo.Name, modFileInfo.FullName, "", modFileInfo.LastWriteTime)
+                    Dim item As New ForgeMod(modFileInfo.Name, modFileInfo.FullName, "", modFileInfo.CreationTime, modFileInfo.LastWriteTime)
                     If paths.Contains(item.Path) = False Then
                         Using unpatcher As New ForgeModUnpatcher(item.Path)
                             Dim info = unpatcher.GetModInfo()
@@ -1076,11 +1076,13 @@ Public NotInheritable Class Server
         Friend Property Version As String
         Friend ReadOnly Property Path As String
         Friend ReadOnly Property VersionDate As DateTime
-        Sub New(Name As String, Path As String, Version As String, VersionDate As DateTime)
+        Friend ReadOnly Property LastDate As DateTime
+        Sub New(Name As String, Path As String, Version As String, VersionDate As DateTime, LastDate As DateTime)
             _Name = Name
             _Version = Version
             _Path = Path
             _VersionDate = VersionDate
+            _LastDate = LastDate
         End Sub
         Public Shared Operator =(plugin1 As BukkitPlugin, plugin2 As BukkitPlugin) As Boolean
             Return plugin1.Path = plugin2.Path
@@ -1094,11 +1096,13 @@ Public NotInheritable Class Server
         Friend Property Version As String
         Friend ReadOnly Property Path As String
         Friend ReadOnly Property VersionDate As DateTime
-        Sub New(Name As String, Path As String, Version As String, VersionDate As DateTime)
+        Friend ReadOnly Property LastDate As DateTime
+        Sub New(Name As String, Path As String, Version As String, VersionDate As DateTime, LastDate As DateTime)
             _Name = Name
             _Version = Version
             _Path = Path
             _VersionDate = VersionDate
+            _LastDate = LastDate
         End Sub
         Public Shared Operator =(mod1 As ForgeMod, mod2 As ForgeMod) As Boolean
             Return mod1.Path = mod2.Path
