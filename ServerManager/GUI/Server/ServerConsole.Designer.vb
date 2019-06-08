@@ -65,17 +65,17 @@ Partial Class ServerConsole
         Me.ListBoxTImer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Panel1 = New System.Windows.Forms.Panel()
-        Me.MainTabControl.SuspendLayout
-        Me.MainTabPage.SuspendLayout
-        Me.PlayerGroupBox.SuspendLayout
-        Me.UserContextMenu.SuspendLayout
-        Me.SystemGroupBox.SuspendLayout
-        Me.SettingTabPage.SuspendLayout
-        Me.TaskGroupBox.SuspendLayout
-        Me.TaskControlPanel.SuspendLayout
-        Me.NotifyGroupBox.SuspendLayout
-        Me.DataTabPage.SuspendLayout
-        Me.SuspendLayout
+        Me.MainTabControl.SuspendLayout()
+        Me.MainTabPage.SuspendLayout()
+        Me.PlayerGroupBox.SuspendLayout()
+        Me.UserContextMenu.SuspendLayout()
+        Me.SystemGroupBox.SuspendLayout()
+        Me.SettingTabPage.SuspendLayout()
+        Me.TaskGroupBox.SuspendLayout()
+        Me.TaskControlPanel.SuspendLayout()
+        Me.NotifyGroupBox.SuspendLayout()
+        Me.DataTabPage.SuspendLayout()
+        Me.SuspendLayout()
         '
         'Panel1
         '
@@ -160,47 +160,47 @@ Partial Class ServerConsole
         '
         Me.UserContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.封禁ToolStripMenuItem, Me.踢出ToolStripMenuItem, Me.ToolStripSeparator1, Me.設定OPToolStripMenuItem, Me.解除OPToolStripMenuItem, Me.ToolStripSeparator2, Me.更新列表用listToolStripMenuItem})
         Me.UserContextMenu.Name = "UserContextMenu"
-        Me.UserContextMenu.Size = New System.Drawing.Size(163, 126)
+        Me.UserContextMenu.Size = New System.Drawing.Size(181, 148)
         '
         '封禁ToolStripMenuItem
         '
         Me.封禁ToolStripMenuItem.Name = "封禁ToolStripMenuItem"
-        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.封禁ToolStripMenuItem.Text = "封禁"
         '
         '踢出ToolStripMenuItem
         '
         Me.踢出ToolStripMenuItem.Name = "踢出ToolStripMenuItem"
-        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.踢出ToolStripMenuItem.Text = "踢出"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(159, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         '設定OPToolStripMenuItem
         '
         Me.設定OPToolStripMenuItem.Name = "設定OPToolStripMenuItem"
-        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.設定OPToolStripMenuItem.Text = "設定OP"
         '
         '解除OPToolStripMenuItem
         '
         Me.解除OPToolStripMenuItem.Name = "解除OPToolStripMenuItem"
-        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.解除OPToolStripMenuItem.Text = "解除OP"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(159, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         '更新列表用listToolStripMenuItem
         '
         Me.更新列表用listToolStripMenuItem.Name = "更新列表用listToolStripMenuItem"
-        Me.更新列表用listToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
-        Me.更新列表用listToolStripMenuItem.Text = "更新列表(用/list)"
+        Me.更新列表用listToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.更新列表用listToolStripMenuItem.Text = "更新列表"
         '
         'SystemGroupBox
         '
@@ -465,9 +465,9 @@ Partial Class ServerConsole
         Me.TaskControlPanel.ResumeLayout(False)
         Me.NotifyGroupBox.ResumeLayout(False)
         Me.DataTabPage.ResumeLayout(False)
-        Me.DataTabPage.PerformLayout
+        Me.DataTabPage.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout
+        Me.PerformLayout()
 
     End Sub
 
