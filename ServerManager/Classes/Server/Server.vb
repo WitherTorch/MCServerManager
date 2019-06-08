@@ -80,7 +80,6 @@ Public NotInheritable Class Server
         Return New Server
     End Function
     Friend Overloads Shared Function GetServer(serverPath As String) As Server
-        Dim ForgeUpdateCheck As Boolean = True
         If serverPath <> "" Then
             Dim server As New Server(serverPath)
             Try

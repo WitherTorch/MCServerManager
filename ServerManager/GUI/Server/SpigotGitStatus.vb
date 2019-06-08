@@ -29,7 +29,11 @@
                                                                    If process IsNot Nothing Then
                                                                        If process.HasExited = False Then
                                                                            Try
-                                                                               console.InputToConsole("stop")
+                                                                               If console IsNot Nothing AndAlso console.IsDisposed = False Then
+                                                                                   console.InputToConsole("stop")
+                                                                               Else
+                                                                                   process.StandardInput.WriteLine("stop")
+                                                                               End If
                                                                                Dim dog As New Watchdog(process)
                                                                                dog.Run()
                                                                            Catch ex As Exception
@@ -89,7 +93,11 @@
                                                                    If process IsNot Nothing Then
                                                                        If process.HasExited = False Then
                                                                            Try
-                                                                               console.InputToConsole("stop")
+                                                                               If console IsNot Nothing AndAlso console.IsDisposed = False Then
+                                                                                   console.InputToConsole("stop")
+                                                                               Else
+                                                                                   process.StandardInput.WriteLine("stop")
+                                                                               End If
                                                                                Dim dog As New Watchdog(process)
                                                                                dog.Run()
                                                                            Catch ex As Exception

@@ -54,14 +54,6 @@ Public Class ServerConsole
         backgroundProcess.StandardInput.WriteLine(command)
     End Sub
     Private Sub ServerConsole_Load(sender As Object, e As EventArgs) Handles Me.Load
-        BeginInvoke(New Action(Sub()
-                                   Select Case My.Settings.ConsoleInputChat
-                                       Case True
-                                           ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
-                                       Case False
-                                           ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式")
-                                   End Select
-                               End Sub))
         ConnectUPnP()
         Select Case Server.ServerVersionType
             Case Server.EServerVersionType.Spigot
@@ -99,6 +91,24 @@ Public Class ServerConsole
             TaskListBox.SetItemChecked(TaskListBox.Items.Add(task.Name), task.Enabled)
         Next
     End Sub
+    Private Sub ServerConsole_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        BeginInvokeIfRequired(Me, New Action(Sub()
+                                                 Select Case ConsoleMode
+                                                     Case True
+                                                         ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
+                                                     Case False
+                                                         ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式")
+                                                 End Select
+                                             End Sub))
+        If ServerConsoleMessages IsNot Nothing Then
+            For i As Integer = 0 To ServerConsoleMessages.Count - 1
+                If i < NotifyChooseListBox.Items.Count - 1 Then
+                    NotifyChooseListBox.SetItemChecked(i, ServerConsoleMessages(i))
+                End If
+            Next
+        End If
+    End Sub
+
     Friend Overloads Sub Run()
         If Server.ServerVersionType = Server.EServerVersionType.Error Then
             Using opn As New OpenFileDialog
@@ -489,7 +499,7 @@ Public Class ServerConsole
                 If CommandTextBox.Text.Trim <> "" Then
                     Try
                         CurrentListLocation = -1
-                        Select Case My.Settings.ConsoleInputChat
+                        Select Case ConsoleMode
                             Case True
                                 If CommandTextBox.Text.StartsWith("/") Then
                                     If Server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
@@ -547,7 +557,7 @@ Public Class ServerConsole
                 Dim tmp2 = CurrentListLocation
                 Try
                     CurrentListLocation += 1
-                    If My.Settings.ConsoleInputChat Then
+                    If ConsoleMode Then
                         Dim text = InputList.Item(InputList.Count - CurrentListLocation - 1)
                         If text.StartsWith("say ") Then
                             CommandTextBox.Text = text.Substring(4)
@@ -573,7 +583,7 @@ Public Class ServerConsole
                     ElseIf CurrentListLocation = -1 Then
                         CommandTextBox.Text = ""
                     Else
-                        If My.Settings.ConsoleInputChat Then
+                        If ConsoleMode Then
                             Dim text = InputList.Item(InputList.Count - CurrentListLocation - 1)
                             If text.StartsWith("say ") Then
                                 CommandTextBox.Text = text.Substring(4)
@@ -591,8 +601,8 @@ Public Class ServerConsole
             Case Keys.S
                 If e.Control = True And e.Alt = False And e.Shift = False Then
                     e.Handled = True
-                    My.Settings.ConsoleInputChat = Not My.Settings.ConsoleInputChat
-                    Select Case My.Settings.ConsoleInputChat
+                    ConsoleMode = Not ConsoleMode
+                    Select Case ConsoleMode
                         Case True
                             ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
                         Case False
@@ -704,6 +714,11 @@ Public Class ServerConsole
     End Sub
 
     Private Sub ServerConsole_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        Dim notifySettings As New List(Of Boolean)
+        For i As Integer = 0 To NotifyChooseListBox.Items.Count - 1
+            notifySettings.Add(NotifyChooseListBox.GetItemChecked(i))
+        Next
+        ServerConsoleMessages = notifySettings.ToArray
         Dim thread As New Threading.Thread(New Threading.ThreadStart(Sub()
                                                                          Server.ServerTasks = TaskList.ToArray
                                                                          If backgroundProcess IsNot Nothing Then
@@ -890,6 +905,8 @@ Public Class ServerConsole
                 Return 60 * 60 * 1000
             Case ServerTask.TaskPeriodUnit.Day
                 Return 24 * 60 * 60 * 1000
+            Case Else 'Default is tick
+                Return 50
         End Select
     End Function
 

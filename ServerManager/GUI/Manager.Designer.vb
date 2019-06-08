@@ -1256,8 +1256,6 @@ Partial Class Manager
         '
         Me.CheckBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Checked = Global.ServerManager.My.MySettings.Default.CustomForgeVersion
-        Me.CheckBox3.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "CustomForgeVersion", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.CheckBox3.Location = New System.Drawing.Point(6, 28)
         Me.CheckBox3.Name = "CheckBox3"
         Me.CheckBox3.Size = New System.Drawing.Size(159, 16)
@@ -1269,8 +1267,6 @@ Partial Class Manager
         '
         Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.SnapshotCheckBox.AutoSize = True
-        Me.SnapshotCheckBox.Checked = Global.ServerManager.My.MySettings.Default.ShowSnapshot
-        Me.SnapshotCheckBox.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "ShowSnapshot", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
         Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
         Me.SnapshotCheckBox.Size = New System.Drawing.Size(168, 16)

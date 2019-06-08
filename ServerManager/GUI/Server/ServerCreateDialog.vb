@@ -98,7 +98,7 @@ Public Class ServerCreateDialog
                         If preReleaseRegex1.IsMatch(item) OrElse
                                 preReleaseRegex2.IsMatch(item) OrElse
                             snapshotRegex.IsMatch(item) Then
-                            If My.Settings.ShowSnapshot Then VersionBox.Items.Add(item)
+                            If ShowVanillaSnapshot Then VersionBox.Items.Add(item)
                         Else
                             VersionBox.Items.Add(item)
                         End If
@@ -323,11 +323,11 @@ Public Class ServerCreateDialog
                             Case ServerIPType.Custom
                                 server.ServerOptions("server-ip") = IPBox.Text
                         End Select
-                        If server.ServerVersionType = server.EServerVersionType.Forge AndAlso My.Settings.CustomForgeVersion Then
+                        If server.ServerVersionType = Server.EServerVersionType.Forge AndAlso CustomForgeVersion Then
                             Dim chooser As New ForgeBranchChooser(server, ServerDirBox.Text)
                             chooser.Show()
                             Close()
-                        ElseIf server.ServerVersionType = server.EServerVersionType.Custom Then
+                        ElseIf server.ServerVersionType = Server.EServerVersionType.Custom Then
                             Dim dialog As New OpenFileDialog()
                             dialog.Title = "選擇伺服器軟體"
                             dialog.Filter = "Java 程式(*.jar)|*.jar"

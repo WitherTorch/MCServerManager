@@ -14,7 +14,7 @@ Public Class ServerCheckingForm
         TextBox1.Clear()
         Dim controlProperties As PropertyInfo() = GetType(Server).GetProperties(BindingFlags.[Public] Or BindingFlags.Instance)
         Dim instance As Server = GlobalModule.Manager.ServerEntityList(index)
-        If instance Is Nothing Then TextBox1.AppendText("Nothing!") : Exit Function
+        If instance Is Nothing Then TextBox1.AppendText("Nothing!") : Return Nothing
         For Each propInfo As PropertyInfo In controlProperties
             If propInfo.CanRead Then
                 Try

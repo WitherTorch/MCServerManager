@@ -764,68 +764,126 @@ Public Class Manager
             Using reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(My.Application.Info.DirectoryPath, "manager-setting.txt"), IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
                 Dim username = ""
                 Dim password = ""
-                Dim hosts As JArray
+                Dim hosts As JArray = Nothing
                 Do Until reader.EndOfStream
                     Dim infoText As String = reader.ReadLine
                     Dim info = infoText.Split("=", 2, StringSplitOptions.None)
-                    Select Case info(0)
-                        Case "memory-min"
-                            If IsNumeric(info(1)) Then
-                                ServerMemoryMinBox.Value = info(1)
-                                ServerMemoryMin = info(1)
-                            End If
-                        Case "memory-max"
-                            If IsNumeric(info(1)) Then
-                                ServerMemoryMaxBox.Value = info(1)
-                                ServerMemoryMax = info(1)
-                            End If
-                        Case "bungee-memory-min"
-                            If IsNumeric(info(1)) Then
-                                BungeeMemoryMinBox.Value = info(1)
-                                BungeeCordMemoryMin = info(1)
-                            End If
-                        Case "bungee-memory-max"
-                            If IsNumeric(info(1)) Then
-                                BungeeMemoryMaxBox.Value = info(1)
-                                BungeeCordMemoryMax = info(1)
-                            End If
-                        Case "java-arguments"
-                            JavaArguments = info(1)
-                            ArguBox.Text = info(1)
-                        Case "java-path"
-                            JavaPath = info(1)
-                        Case "noip-username"
-                            If info(1).Trim <> "" Then
-                                Try
-                                    username = System.Text.Encoding.UTF8.GetChars(Convert.FromBase64String(info(1)))
-                                Catch ex As Exception
-
-                                End Try
-                            End If
-                        Case "noip-password"
-                            If info(1).Trim <> "" Then
-                                Try
-                                    password = System.Text.Encoding.UTF8.GetChars(Convert.FromBase64String(info(1)))
-                                Catch ex As Exception
-
-                                End Try
-                            End If
-                        Case "noip-hosts"
-                            If info(1) <> "" Then
-                                Try
-                                    hosts = JsonConvert.DeserializeObject(info(1))
-                                Catch ex As Exception
-                                    hosts = Nothing
-                                End Try
-                            End If
-                        Case "git-bash-path"
-                            If info(1) <> "" Then
-                                If IO.File.Exists(info(1)) Then
-                                    GitBashPathBox.Text = info(1)
-                                    GitBashPath = info(1)
+                    If info IsNot Nothing AndAlso info.Count >= 2 Then
+                        Select Case info(0)
+                            Case "memory-min"
+                                If IsNumeric(info(1)) Then
+                                    ServerMemoryMinBox.Value = info(1)
+                                    ServerMemoryMin = info(1)
                                 End If
-                            End If
-                    End Select
+                            Case "memory-max"
+                                If IsNumeric(info(1)) Then
+                                    ServerMemoryMaxBox.Value = info(1)
+                                    ServerMemoryMax = info(1)
+                                End If
+                            Case "bungee-memory-min"
+                                If IsNumeric(info(1)) Then
+                                    BungeeMemoryMinBox.Value = info(1)
+                                    BungeeCordMemoryMin = info(1)
+                                End If
+                            Case "bungee-memory-max"
+                                If IsNumeric(info(1)) Then
+                                    BungeeMemoryMaxBox.Value = info(1)
+                                    BungeeCordMemoryMax = info(1)
+                                End If
+                            Case "java-arguments"
+                                JavaArguments = info(1)
+                                ArguBox.Text = info(1)
+                            Case "java-path"
+                                JavaPath = info(1)
+                            Case "noip-username"
+                                If info(1).Trim <> "" Then
+                                    Try
+                                        username = System.Text.Encoding.UTF8.GetChars(Convert.FromBase64String(info(1)))
+                                    Catch ex As Exception
+
+                                    End Try
+                                End If
+                            Case "noip-password"
+                                If info(1).Trim <> "" Then
+                                    Try
+                                        password = System.Text.Encoding.UTF8.GetChars(Convert.FromBase64String(info(1)))
+                                    Catch ex As Exception
+
+                                    End Try
+                                End If
+                            Case "noip-hosts"
+                                If info(1) <> "" Then
+                                    Try
+                                        hosts = JsonConvert.DeserializeObject(info(1))
+                                    Catch ex As Exception
+                                    End Try
+                                End If
+                            Case "git-bash-path"
+                                If info(1) <> "" Then
+                                    If IO.File.Exists(info(1)) Then
+                                        GitBashPathBox.Text = info(1)
+                                        GitBashPath = info(1)
+                                    End If
+                                End If
+                            Case "show-vanilla-snaps"
+                                If info(1).Trim <> "" Then
+                                    Select Case info(1)
+                                        Case "true"
+                                            ShowVanillaSnapshot = True
+                                            SnapshotCheckBox.Checked = True
+                                        Case "false"
+                                            ShowVanillaSnapshot = False
+                                            SnapshotCheckBox.Checked = False
+                                    End Select
+                                End If
+                            Case "custom-forge-ver"
+                                If info(1).Trim <> "" Then
+                                    Select Case info(1).Trim
+                                        Case "true"
+                                            CustomForgeVersion = True
+                                            CheckBox3.Checked = True
+                                        Case "false"
+                                            CustomForgeVersion = False
+                                            CheckBox3.Checked = False
+                                    End Select
+                                End If
+                            Case "console-input-mode"
+                                If info(1).Trim <> "" Then
+                                    Select Case info(1).Trim
+                                        Case "true"
+                                            ConsoleMode = True
+                                        Case "false"
+                                            ConsoleMode = False
+                                    End Select
+                                End If
+                            Case "server-console-msgs"
+                                If info(1).Trim <> "" Then
+                                    Dim resultList As New List(Of Boolean)
+                                    For Each c As Char In info(1).Trim
+                                        Select Case c.ToString
+                                            Case "0"
+                                                resultList.Add(False)
+                                            Case "1"
+                                                resultList.Add(True)
+                                        End Select
+                                    Next
+                                    ServerConsoleMessages = resultList.ToArray()
+                                End If
+                            Case "bungeecord-console-msgs"
+                                If info(1).Trim <> "" Then
+                                    Dim resultList As New List(Of Boolean)
+                                    For Each c As Char In info(1).Trim
+                                        Select Case c.ToString
+                                            Case "0"
+                                                resultList.Add(False)
+                                            Case "1"
+                                                resultList.Add(True)
+                                        End Select
+                                    Next
+                                    BungeeConsoleMessages = resultList.ToArray()
+                                End If
+                        End Select
+                    End If
                 Loop
                 If My.Settings.NoIPPasswordViewChecked Then NoIPPasswordBox.PasswordChar = "*"
                 NoIPAccountBox.Text = username
@@ -841,8 +899,9 @@ Public Class Manager
                                                               For Each host In hosts
                                                                   Dim max = HostCheckList.Items.Count
                                                                   For i As Integer = 0 To max
+                                                                      Dim counter = i
                                                                       If HostCheckList.Items(i).ToString.StartsWith(host) Then
-                                                                          Invoke(Sub() HostCheckList.SetItemChecked(i, True))
+                                                                          BeginInvokeIfRequired(Me, Sub() HostCheckList.SetItemChecked(counter, True))
                                                                           Exit For
                                                                       End If
                                                                   Next
@@ -1280,7 +1339,12 @@ Public Class Manager
                                             "noip-username=" & username & vbNewLine &
                                             "noip-password=" & password & vbNewLine &
                                             "noip-hosts= " & hosts & vbNewLine &
-                                            "git-bash-path=" & GitBashPath, False, System.Text.Encoding.UTF8)
+                                            "git-bash-path=" & GitBashPath & vbNewLine &
+                                            "show-vanilla-snaps=" & ShowVanillaSnapshot.ToString.ToLower & vbNewLine &
+                                            "custom-forge-ver=" & CustomForgeVersion.ToString.ToLower & vbNewLine &
+                                            "console-input-mode=" & ConsoleMode.ToString.ToLower & vbNewLine &
+                                           "server-console-msgs=" & ToZeroAndOne(ServerConsoleMessages) & vbNewLine &
+                                           "bungeecord-console-msgs=" & ToZeroAndOne(BungeeConsoleMessages), False, System.Text.Encoding.UTF8)
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), JsonConvert.SerializeObject(ServerPathList))
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"), SolutionDirs)
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"), ModpackServerDirs)

@@ -195,7 +195,7 @@ Public Class ServerStatus
             If IO.Directory.Exists(Server.ServerPath) = False Then
                 MsgBox("伺服器資料夾消失了...",, Application.ProductName)
             Else
-                Dim filename As String
+                Dim filename As String = String.Empty
                 Select Case Server.ServerType
                     Case Server.EServerType.Java
                         Select Case Server.ServerVersionType
@@ -298,7 +298,11 @@ Public Class ServerStatus
                                                                        If process IsNot Nothing Then
                                                                            If process.HasExited = False Then
                                                                                Try
-                                                                                   console.InputToConsole("stop")
+                                                                                   If console IsNot Nothing AndAlso console.IsDisposed = False Then
+                                                                                       console.InputToConsole("stop")
+                                                                                   Else
+                                                                                       process.StandardInput.WriteLine("stop")
+                                                                                   End If
                                                                                    Dim dog As New Watchdog(process)
                                                                                    dog.Run()
                                                                                Catch ex As Exception

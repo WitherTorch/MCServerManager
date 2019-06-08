@@ -79,8 +79,9 @@ Public Class PaperOptions
     Private Sub New()
     End Sub
     Friend Shared Function CreateOptionsWithDefaultSetting(path As String) As PaperOptions
-        Dim op As New PaperOptions
-        op.path = path
+        Dim op As New PaperOptions With {
+            .path = path
+        }
         op.World_settings.Add(New PaperWorldSettings With {.Name = "default"})
         Return op
     End Function

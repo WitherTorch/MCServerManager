@@ -97,6 +97,7 @@ Public Class BungeeCordHost
                 Return Nothing
             End If
         Catch ex As Exception
+            Return Nothing
         End Try
     End Function
     Sub SaveSolution()

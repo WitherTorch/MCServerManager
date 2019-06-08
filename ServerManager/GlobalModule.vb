@@ -6,7 +6,7 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.6"
+    Public Const SERVER_MANAGER_VER As String = "1.6.1 Alpha 1"
     Friend Manager As Manager
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
@@ -39,6 +39,11 @@ Module GlobalModule
     Friend BungeeCordMemoryMax As Decimal = 16
     Friend JavaArguments As String = ""
     Friend JavaPath As String = ""
+    Friend ShowVanillaSnapshot As Boolean = False
+    Friend CustomForgeVersion As Boolean = False
+    Friend ConsoleMode As Boolean = False
+    Friend ServerConsoleMessages As Boolean()
+    Friend BungeeConsoleMessages As Boolean()
 #End Region
 #Region "Tools"
     Friend GitBashPath As String = ""
@@ -233,6 +238,22 @@ Module GlobalModule
             Case Else
                 Return type.ToString
         End Select
+    End Function
+    Function ToZeroAndOne(bools As Boolean()) As String
+        If bools IsNot Nothing AndAlso bools.Count > 0 Then
+            Dim result As String = ""
+            For Each bool As Boolean In bools
+                Select Case bool
+                    Case True
+                        result &= "1"
+                    Case False
+                        result &= "0"
+                End Select
+            Next
+            Return result
+        Else
+            Return ""
+        End If
     End Function
     Function GetSimplePackSourceName(type As ModPackServer.ModPackType) As String
         Select Case type

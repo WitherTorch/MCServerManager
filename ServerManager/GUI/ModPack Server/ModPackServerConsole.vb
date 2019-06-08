@@ -34,18 +34,27 @@ Public Class ModPackServerConsole
         backgroundProcess.StandardInput.WriteLine(command)
     End Sub
     Private Sub ServerConsole_Load(sender As Object, e As EventArgs) Handles Me.Load
-        BeginInvoke(New Action(Sub()
-                                   Select Case My.Settings.ConsoleInputChat
-                                       Case True
-                                           ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
-                                       Case False
-                                           ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式")
-                                   End Select
-                               End Sub))
         ConnectUPnP()
         TaskTimer.Enabled = True
         TaskTimer.Start()
         Run()
+    End Sub
+    Private Sub ServerConsole_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        BeginInvokeIfRequired(Me, New Action(Sub()
+                                                 Select Case ConsoleMode
+                                                     Case True
+                                                         ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
+                                                     Case False
+                                                         ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式")
+                                                 End Select
+                                             End Sub))
+        If ServerConsoleMessages IsNot Nothing Then
+            For i As Integer = 0 To ServerConsoleMessages.Count - 1
+                If i < NotifyChooseListBox.Items.Count - 1 Then
+                    NotifyChooseListBox.SetItemChecked(i, ServerConsoleMessages(i))
+                End If
+            Next
+        End If
     End Sub
     Friend Overloads Sub Run()
         Select Case Server.PackType
@@ -266,7 +275,7 @@ Public Class ModPackServerConsole
                 If CommandTextBox.Text.Trim <> "" Then
                     Try
                         CurrentListLocation = -1
-                        Select Case My.Settings.ConsoleInputChat
+                        Select Case ConsoleMode
                             Case True
                                 If CommandTextBox.Text.StartsWith("/") Then
                                     backgroundProcess.StandardInput.WriteLine(CommandTextBox.Text.Substring(1))
@@ -296,7 +305,7 @@ Public Class ModPackServerConsole
                 Dim tmp2 = CurrentListLocation
                 Try
                     CurrentListLocation += 1
-                    If My.Settings.ConsoleInputChat Then
+                    If ConsoleMode Then
                         Dim text = InputList.Item(InputList.Count - CurrentListLocation - 1)
                         If text.StartsWith("say ") Then
                             CommandTextBox.Text = text.Substring(4)
@@ -322,7 +331,7 @@ Public Class ModPackServerConsole
                     ElseIf CurrentListLocation = -1 Then
                         CommandTextBox.Text = ""
                     Else
-                        If My.Settings.ConsoleInputChat Then
+                        If ConsoleMode Then
                             Dim text = InputList.Item(InputList.Count - CurrentListLocation - 1)
                             If text.StartsWith("say ") Then
                                 CommandTextBox.Text = text.Substring(4)
@@ -340,8 +349,8 @@ Public Class ModPackServerConsole
             Case Keys.S
                 If e.Control = True And e.Alt = False And e.Shift = False Then
                     e.Handled = True
-                    My.Settings.ConsoleInputChat = Not My.Settings.ConsoleInputChat
-                    Select Case My.Settings.ConsoleInputChat
+                    ConsoleMode = Not ConsoleMode
+                    Select Case ConsoleMode
                         Case True
                             ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
                         Case False
@@ -425,21 +434,26 @@ Public Class ModPackServerConsole
     End Function
 
     Private Sub ServerConsole_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        Dim thread As New Threading.Thread(New Threading.ThreadStart(Sub()
-                                                                         If backgroundProcess IsNot Nothing Then
-                                                                             If backgroundProcess.HasExited = False Then
-                                                                                 Try
-                                                                                     backgroundProcess.StandardInput.WriteLine("stop")
-                                                                                     Dim dog As New Watchdog(backgroundProcess)
-                                                                                     dog.Run()
-                                                                                 Catch ex As Exception
-                                                                                 End Try
-                                                                                 backgroundProcess.WaitForExit()
-                                                                             End If
-                                                                         End If
-                                                                         Server.IsRunning = False
-                                                                         Server.SaveServer()
-                                                                     End Sub)) With {
+        Dim notifySettings As New List(Of Boolean)
+        For i As Integer = 0 To NotifyChooseListBox.Items.Count - 1
+            notifySettings.Add(NotifyChooseListBox.GetItemChecked(i))
+        Next
+        ServerConsoleMessages = notifySettings.ToArray
+        Dim thread As New Threading.Thread(Sub()
+                                               If backgroundProcess IsNot Nothing Then
+                                                   If backgroundProcess.HasExited = False Then
+                                                       Try
+                                                           backgroundProcess.StandardInput.WriteLine("stop")
+                                                           Dim dog As New Watchdog(backgroundProcess)
+                                                           dog.Run()
+                                                       Catch ex As Exception
+                                                       End Try
+                                                       backgroundProcess.WaitForExit()
+                                                   End If
+                                               End If
+                                               Server.IsRunning = False
+                                               Server.SaveServer()
+                                           End Sub) With {
             .Name = "Server Manager Close Server Thread",
             .IsBackground = True
                                                                      }

@@ -106,7 +106,7 @@ Public Class BungeeCordConsole
             page.Controls.Add(layout)
             MainTabControl.TabPages.Add(page)
             Dim process = bServer.RunServer()
-            Select Case My.Settings.ConsoleInputChat
+            Select Case ConsoleMode
                 Case True
                     ToolTip1.SetToolTip(commandBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
                 Case False
@@ -118,7 +118,7 @@ Public Class BungeeCordConsole
                                                        e.SuppressKeyPress = True
                                                        If commandBox.Text.Trim <> "" Then
                                                            _currentListLocation = -1
-                                                           Select Case My.Settings.ConsoleInputChat
+                                                           Select Case ConsoleMode
                                                                Case True
                                                                    If commandBox.Text.StartsWith("/") Then
                                                                        process.StandardInput.WriteLine(commandBox.Text.Substring(1))
@@ -145,7 +145,7 @@ Public Class BungeeCordConsole
                                                        Dim tmp2 = _currentListLocation
                                                        Try
                                                            _currentListLocation += 1
-                                                           If My.Settings.ConsoleInputChat Then
+                                                           If ConsoleMode Then
                                                                Dim text = InputList.Item(InputList.Count - _currentListLocation - 1)
                                                                If text.StartsWith("say ") Then
                                                                    commandBox.Text = text.Substring(4)
@@ -171,7 +171,7 @@ Public Class BungeeCordConsole
                                                            ElseIf _currentListLocation = -1 Then
                                                                commandBox.Text = ""
                                                            Else
-                                                               If My.Settings.ConsoleInputChat Then
+                                                               If ConsoleMode Then
                                                                    Dim text = InputList.Item(InputList.Count - _currentListLocation - 1)
                                                                    If text.StartsWith("say ") Then
                                                                        commandBox.Text = text.Substring(4)
@@ -189,8 +189,8 @@ Public Class BungeeCordConsole
                                                    Case Keys.S
                                                        If e.Control = True And e.Shift = False And e.Alt = False Then
                                                            e.Handled = True
-                                                           My.Settings.ConsoleInputChat = Not My.Settings.ConsoleInputChat
-                                                           Select Case My.Settings.ConsoleInputChat
+                                                           ConsoleMode = Not ConsoleMode
+                                                           Select Case ConsoleMode
                                                                Case True
                                                                    ToolTip1.SetToolTip(commandBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
                                                                Case False
@@ -627,6 +627,11 @@ Public Class BungeeCordConsole
     End Function
 
     Private Sub ServerConsole_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        Dim notifySettings As New List(Of Boolean)
+        For i As Integer = 0 To NotifyChooseListBox.Items.Count - 1
+            notifySettings.Add(NotifyChooseListBox.GetItemChecked(i))
+        Next
+        BungeeConsoleMessages = notifySettings.ToArray
         Dim thread As New Threading.Thread(New Threading.ThreadStart(Sub()
                                                                          If backgroundProcess IsNot Nothing Then
                                                                              If backgroundProcess.HasExited = False Then
@@ -676,4 +681,13 @@ Public Class BungeeCordConsole
         Cthread.Start()
     End Sub
 
+    Private Sub BungeeCordConsole_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        If BungeeConsoleMessages IsNot Nothing Then
+            For i As Integer = 0 To BungeeConsoleMessages.Count - 1
+                If i < NotifyChooseListBox.Items.Count - 1 Then
+                    NotifyChooseListBox.SetItemChecked(i, BungeeConsoleMessages(i))
+                End If
+            Next
+        End If
+    End Sub
 End Class
