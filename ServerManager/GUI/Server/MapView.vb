@@ -1,6 +1,7 @@
 ﻿Public Class MapView
     Private _server As Server
     Friend createMap As CreateMap
+
     Sub New(server As Server)
 
         ' 設計工具需要此呼叫。
@@ -10,13 +11,11 @@
         _server = server
     End Sub
     Private Sub BrowseButton_Click(sender As Object, e As EventArgs) Handles BrowseButton.Click
-        Using openDirDialog As New FolderBrowserDialog
-            openDirDialog.Description = "選擇地圖的資料夾"
-            openDirDialog.ShowNewFolderButton = False
-            If openDirDialog.ShowDialog = DialogResult.OK Then
-                ChooseMap(openDirDialog.SelectedPath)
-            End If
-        End Using
+        Static mapChange As New MapChangeForm(_server)
+        If mapChange Is Nothing Or mapChange.IsDisposed Then
+            mapChange = New MapChangeForm(_server)
+        End If
+        mapChange.ShowDialog()
     End Sub
     Sub ChooseMap(path As String, Optional create As Boolean = False)
         Dim info As New IO.DirectoryInfo(path)
@@ -94,7 +93,7 @@
         End If
     End Sub
 
-    Private Sub CreateButton_Click(sender As Object, e As EventArgs) Handles CreateButton.Click
+    Private Sub CreateButton_Click(sender As Object, e As EventArgs)
         createMap = New CreateMap(_server)
         createMap.LevelSeedBox.Text = TryGetKey(_server, ("level-seed"))
         If createMap.ShowDialog() = DialogResult.OK Then
@@ -136,7 +135,7 @@
                 Else
                     _server.AddOrSetOption("generator-settings", "")
                 End If
-        End If
+            End If
         Else
         End If
     End Sub

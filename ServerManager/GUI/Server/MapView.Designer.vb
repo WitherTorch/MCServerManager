@@ -25,7 +25,6 @@ Partial Class MapView
         Me.IconBox = New System.Windows.Forms.PictureBox()
         Me.MapNameLabel = New System.Windows.Forms.Label()
         Me.MapOption = New System.Windows.Forms.TableLayoutPanel()
-        Me.CreateButton = New System.Windows.Forms.Button()
         Me.BrowseButton = New System.Windows.Forms.Button()
         CType(Me.IconBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MapOption.SuspendLayout()
@@ -58,7 +57,6 @@ Partial Class MapView
         Me.MapOption.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MapOption.ColumnCount = 1
         Me.MapOption.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.MapOption.Controls.Add(Me.CreateButton, 0, 0)
         Me.MapOption.Controls.Add(Me.BrowseButton, 0, 1)
         Me.MapOption.Location = New System.Drawing.Point(512, 3)
         Me.MapOption.Name = "MapOption"
@@ -69,17 +67,6 @@ Partial Class MapView
         Me.MapOption.Size = New System.Drawing.Size(64, 64)
         Me.MapOption.TabIndex = 3
         '
-        'CreateButton
-        '
-        Me.CreateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CreateButton.Location = New System.Drawing.Point(0, 3)
-        Me.CreateButton.Margin = New System.Windows.Forms.Padding(0, 3, 0, 3)
-        Me.CreateButton.Name = "CreateButton"
-        Me.CreateButton.Size = New System.Drawing.Size(64, 26)
-        Me.CreateButton.TabIndex = 5
-        Me.CreateButton.Text = "新增"
-        Me.CreateButton.UseVisualStyleBackColor = True
-        '
         'BrowseButton
         '
         Me.BrowseButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -88,7 +75,7 @@ Partial Class MapView
         Me.BrowseButton.Name = "BrowseButton"
         Me.BrowseButton.Size = New System.Drawing.Size(64, 26)
         Me.BrowseButton.TabIndex = 4
-        Me.BrowseButton.Text = "瀏覽..."
+        Me.BrowseButton.Text = "設定"
         Me.BrowseButton.UseVisualStyleBackColor = True
         '
         'MapView
@@ -109,6 +96,5 @@ Partial Class MapView
     Friend WithEvents IconBox As PictureBox
     Friend WithEvents MapNameLabel As Label
     Friend WithEvents MapOption As TableLayoutPanel
-    Friend WithEvents CreateButton As Button
     Friend WithEvents BrowseButton As Button
 End Class
