@@ -50,4 +50,7 @@ Public Class MapChangeForm
             Next
         End If
     End Sub
+    Sub ConvertVanillaMapToBukkitMap(mapName As IO.DirectoryInfo)
+
+    End Sub
 End Class

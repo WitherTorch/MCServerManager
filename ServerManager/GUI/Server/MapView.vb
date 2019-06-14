@@ -11,7 +11,7 @@
         _server = server
     End Sub
     Private Sub BrowseButton_Click(sender As Object, e As EventArgs) Handles BrowseButton.Click
-        Static mapChange As New MapChangeForm(_server)
+        Dim mapChange As New MapChangeForm(_server)
         If mapChange Is Nothing Or mapChange.IsDisposed Then
             mapChange = New MapChangeForm(_server)
         End If
