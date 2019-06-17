@@ -638,27 +638,32 @@ Public Class Manager
                                            If IsNothing(Net.Dns.GetHostAddresses(Net.Dns.GetHostName)) = False Then
                                                BeginInvokeIfRequired(Me, Sub() IPLabel.Text = "內部IP位址：")
                                                Dim ipas = Net.Dns.GetHostAddresses(Net.Dns.GetHostName)
-                                               For Each i In ipas
-                                                   If i.AddressFamily = Net.Sockets.AddressFamily.InterNetwork Then
-                                                       Dim b = i.GetAddressBytes
-                                                       Dim inip = b(0) & "." & b(1) & "." & b(2) & "." & b(3)
-                                                       BeginInvokeIfRequired(Me, Sub()
+                                               BeginInvokeIfRequired(Me, Sub()
+                                                                             Dim flag As Boolean = False
+                                                                             For Each i In ipas
+                                                                                 If i.AddressFamily = Net.Sockets.AddressFamily.InterNetwork Then
+                                                                                     Dim b = i.GetAddressBytes
+                                                                                     Dim inip = b(0) & "." & b(1) & "." & b(2) & "." & b(3)
                                                                                      If Array.IndexOf(ipas, i) = ipas.Count - 1 Then
                                                                                          IPLabel.Text &= inip
                                                                                      Else
                                                                                          IPLabel.Text &= inip & " , "
                                                                                      End If
+                                                                                     flag = True
                                                                                      IPLabel.Links.Add(New LinkLabel.Link(IPLabel.Text.IndexOf(inip), inip.Length))
                                                                                      tooltip.SetToolTip(IPLabel, "點擊連結複製內部IP位址")
-                                                                                 End Sub)
-                                                       ip.Add(inip)
-                                                   End If
-                                               Next
-                                               If ip.Count = 0 Then
-                                                   BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(無)")
-                                               End If
+                                                                                     ip.Add(inip)
+                                                                                 End If
+                                                                             Next
+                                                                             If flag Then
+                                                                                 IPLabel.Text = IPLabel.Text.Trim.TrimEnd(" ,")
+                                                                             End If
+                                                                             If ip.Count = 0 Then
+                                                                                 IPLabel.Text = "內部IP位址：(無)"
+                                                                             End If
+                                                                         End Sub)
                                            Else
-                                               BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(無)")
+                                                   BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(無)")
                                            End If
                                        Catch ex As Exception
                                            BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(錯誤)")
