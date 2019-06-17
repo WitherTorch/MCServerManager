@@ -1,6 +1,9 @@
 ﻿Imports System.Threading.Tasks
 
 Public Class MapChangeForm
+    Dim mapList As New List(Of String)
+    Dim netherList As New Dictionary(Of String, String)
+    Dim theEndList As New Dictionary(Of String, String)
     Dim server As Server
     Sub New(server As Server)
 
@@ -38,7 +41,18 @@ Public Class MapChangeForm
                                          Dim levelName As String = nbt.RootTag.Item("Data").Item("LevelName").Value
                                          BeginInvokeIfRequired(Me, Sub()
                                                                        Dim lName As String = levelName
-                                                                       ListBox1.Items.Add(String.Format("{0} ({1})", lName, subDirInfo.Name))
+                                                                       If IO.Directory.Exists(subDirInfo.FullName.TrimEnd(pathSeperator) & pathSeperator & "DIM1") _
+                                                                       AndAlso subDirInfo.Name.EndsWith("_nether") _
+                                                                       AndAlso IO.Directory.Exists(dirInfo.FullName.TrimEnd(pathSeperator) & pathSeperator & subDirInfo.Name.Substring(0, subDirInfo.Name.Length - 7)) Then
+                                                                           netherList.Add(dirInfo.FullName.TrimEnd(pathSeperator) & pathSeperator & subDirInfo.Name.Substring(0, subDirInfo.Name.Length - 7), subDirInfo.FullName)
+                                                                       ElseIf IO.Directory.Exists(subDirInfo.FullName.TrimEnd(pathSeperator) & pathSeperator & "DIM-1") _
+                                                                       AndAlso subDirInfo.Name.EndsWith("_the_end") _
+                                                                       AndAlso IO.Directory.Exists(dirInfo.FullName.TrimEnd(pathSeperator) & pathSeperator & subDirInfo.Name.Substring(0, subDirInfo.Name.Length - 8)) Then
+                                                                           theEndList.Add(dirInfo.FullName.TrimEnd(pathSeperator) & pathSeperator & subDirInfo.Name.Substring(0, subDirInfo.Name.Length - 7), subDirInfo.FullName)
+                                                                       Else
+                                                                           ListBox1.Items.Add(String.Format("{0} ({1})", lName, subDirInfo.Name))
+                                                                           mapList.Add(subDirInfo.Name)
+                                                                       End If
                                                                    End Sub)
                                          Exit For
                                      Catch ex As Exception
@@ -50,7 +64,23 @@ Public Class MapChangeForm
             Next
         End If
     End Sub
-    Sub ConvertVanillaMapToBukkitMap(mapName As IO.DirectoryInfo)
+    Sub ConvertBukkitMapToVanillaMap(mapDirInfo As IO.DirectoryInfo)
 
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        BeginInvokeIfRequired(Me, Sub()
+                                      IO.Directory.Delete(mapList(ListBox1.SelectedIndex))
+                                      If netherList.ContainsKey(mapList(ListBox1.SelectedIndex)) Then
+                                          IO.Directory.Delete(netherList.ContainsKey(mapList(ListBox1.SelectedIndex)))
+                                          netherList.Remove(mapList(ListBox1.SelectedIndex))
+                                      End If
+                                      If theEndList.ContainsKey(mapList(ListBox1.SelectedIndex)) Then
+                                          IO.Directory.Delete(theEndList.ContainsKey(mapList(ListBox1.SelectedIndex)))
+                                          theEndList.Remove(mapList(ListBox1.SelectedIndex))
+                                      End If
+                                      ListBox1.Items.RemoveAt(ListBox1.SelectedIndex)
+                                      mapList.RemoveAt(ListBox1.SelectedIndex)
+                                  End Sub)
     End Sub
 End Class
