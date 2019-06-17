@@ -30,6 +30,10 @@ Namespace My
         End Sub
 
         Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
+            'Enable MultiCore JIT
+            Runtime.ProfileOptimization.SetProfileRoot(My.Application.Info.DirectoryPath)
+            Runtime.ProfileOptimization.StartProfile("Startup.Profile")
+
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
             My.Application.Log.DefaultFileLogWriter.Location = Logging.LogFileLocation.Custom
             My.Application.Log.DefaultFileLogWriter.CustomLocation = IO.Path.Combine(My.Application.Info.DirectoryPath, "error-logs")
