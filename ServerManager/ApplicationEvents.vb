@@ -31,7 +31,7 @@ Namespace My
 
         Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
             'Enable MultiCore JIT
-            Dim localTempDir As String = Environment.GetEnvironmentVariable("TEMP", EnvironmentVariableTarget.Process)
+            Dim localTempDir As String = Environment.GetEnvironmentVariable("TEMP", EnvironmentVariableTarget.User)
             Dim seperator As String = "\"
             If IsUnixLikeSystem Then
                 seperator = "/"
