@@ -257,66 +257,70 @@ Public Class ServerConsole
                                                                  Try
                                                                      If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
                                                                          If IsNothing(e.Data) = False Then
-                                                                             Select Case PlayerListGetState
-                                                                                 Case 0
-                                                                                     'Nothing
-                                                                                 Case 1 '偵測/list 回傳頭
-                                                                                     Dim ListHeaderRegex As New Text.RegularExpressions.Regex("There are [0-9]{1,}\/[0-9]{1,} player[s]? online:") '/list Header
-                                                                                     If ListHeaderRegex.IsMatch(e.Data) AndAlso ListHeaderRegex.Match(e.Data).Value = e.Data.Trim Then
-                                                                                         Dim PlayerCountRegex As New Text.RegularExpressions.Regex("[0-9]{1,}\/[0-9]{1,}")
-                                                                                         Dim PlayerID As String = PlayerCountRegex.Match(e.Data).Value.Split(New Char() {","}, 2)(0)
-                                                                                         PlayerListGetState = 2
-                                                                                         temp_PlayerList = New List(Of String)
-                                                                                         If PlayerListGetCount <= 0 Then
-                                                                                             PlayerListGetCount = PlayerID
-                                                                                             PlayerListGetState = 0 'Restore to Default
-                                                                                         End If
-                                                                                     End If
-                                                                                 Case 2 '偵測玩家ID(每行只有一個)
-                                                                                     Dim PlayerIDRegex As New Text.RegularExpressions.Regex("[A-Za-z0-9_-]{1,}")
-                                                                                     If PlayerIDRegex.IsMatch(e.Data) AndAlso PlayerIDRegex.Match(e.Data).Value = e.Data.Trim Then
-                                                                                         If temp_PlayerList Is Nothing Then temp_PlayerList = New List(Of String)
-                                                                                         temp_PlayerList.Add(e.Data.Trim)
-                                                                                         PlayerListGetCount -= 1
-                                                                                         If PlayerListGetCount <= 0 Then
-                                                                                             If temp_PlayerList IsNot Nothing AndAlso temp_PlayerList.Count > 0 Then
-                                                                                                 Dim playerList As New List(Of String)
-                                                                                                 playerList.AddRange(temp_PlayerList)
-                                                                                                 temp_PlayerList = Nothing
-                                                                                                 BeginInvokeIfRequired(Me, Sub()
-                                                                                                                               PlayerListBox.Items.Clear()
-                                                                                                                               PlayerListBox.Items.AddRange(playerList.ToArray)
-                                                                                                                           End Sub)
-                                                                                             End If
-                                                                                             PlayerListGetState = 0 'Restore to Default
-                                                                                         End If
-                                                                                     End If
-                                                                                 Case 3 '有使用Minecraft_Server_Manager_Host 的伺服器專用
-                                                                                     Dim playerIDListRegex As New Text.RegularExpressions.Regex("(\|[A-Za-z0-9_-]*){1,}")
-                                                                                     If playerIDListRegex.IsMatch(e.Data) AndAlso playerIDListRegex.Match(e.Data).Value = e.Data.Trim Then
-                                                                                         If e.Data = "|" Then
-                                                                                             PlayerListGetState = 0
-                                                                                             BeginInvokeIfRequired(Me, Sub()
-                                                                                                                           ConnectionPlayerList.Clear()
-                                                                                                                           PlayerListBox.Items.Clear()
-                                                                                                                       End Sub)
-                                                                                         Else
-                                                                                             Dim players As String() = e.Data.Substring(1).Split(New Char() {"|"}, StringSplitOptions.RemoveEmptyEntries)
-                                                                                             If IsNothing(players) = False Then
-                                                                                                 PlayerListGetState = 0
-                                                                                                 BeginInvokeIfRequired(Me, Sub()
-                                                                                                                               ConnectionPlayerList.Clear()
-                                                                                                                               PlayerListBox.Items.Clear()
-                                                                                                                               ConnectionPlayerList.AddRange(players)
-                                                                                                                               PlayerListBox.Items.AddRange(players)
-                                                                                                                           End Sub)
-                                                                                             End If
-                                                                                         End If
-                                                                                     End If
-                                                                             End Select
                                                                              Task.Run(Sub()
                                                                                           Try
                                                                                               Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
+                                                                                              Try
+                                                                                                  Select Case PlayerListGetState
+                                                                                                      Case 0
+                                                                                                                 'Nothing
+                                                                                                      Case 1 '偵測/list 回傳頭
+                                                                                                          Dim ListHeaderRegex As New Text.RegularExpressions.Regex("There are [0-9]{1,}\/[0-9]{1,} player[s]? online:") '/list Header
+                                                                                                          If ListHeaderRegex.IsMatch(msg.Message) AndAlso ListHeaderRegex.Match(msg.Message).Value = msg.Message.Trim Then
+                                                                                                              Dim PlayerCountRegex As New Text.RegularExpressions.Regex("[0-9]{1,}\/[0-9]{1,}")
+                                                                                                              Dim PlayerID As String = PlayerCountRegex.Match(msg.Message).Value.Split(New Char() {","}, 2)(0)
+                                                                                                              PlayerListGetState = 2
+                                                                                                              temp_PlayerList = New List(Of String)
+                                                                                                              If PlayerListGetCount <= 0 Then
+                                                                                                                  PlayerListGetCount = PlayerID
+                                                                                                                  PlayerListGetState = 0 'Restore to Default
+                                                                                                              End If
+                                                                                                          End If
+                                                                                                      Case 2 '偵測玩家ID(每行只有一個)
+                                                                                                          Dim PlayerIDRegex As New Text.RegularExpressions.Regex("[A-Za-z0-9_-]{1,}")
+                                                                                                          If PlayerIDRegex.IsMatch(msg.Message) AndAlso PlayerIDRegex.Match(msg.Message).Value = msg.Message.Trim Then
+                                                                                                              If temp_PlayerList Is Nothing Then temp_PlayerList = New List(Of String)
+                                                                                                              temp_PlayerList.Add(msg.Message.Trim)
+                                                                                                              PlayerListGetCount -= 1
+                                                                                                              If PlayerListGetCount <= 0 Then
+                                                                                                                  If temp_PlayerList IsNot Nothing AndAlso temp_PlayerList.Count > 0 Then
+                                                                                                                      Dim playerList As New List(Of String)
+                                                                                                                      playerList.AddRange(temp_PlayerList)
+                                                                                                                      temp_PlayerList = Nothing
+                                                                                                                      BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                                    PlayerListBox.Items.Clear()
+                                                                                                                                                    PlayerListBox.Items.AddRange(playerList.ToArray)
+                                                                                                                                                End Sub)
+                                                                                                                  End If
+                                                                                                                  PlayerListGetState = 0 'Restore to Default
+                                                                                                              End If
+                                                                                                          End If
+                                                                                                      Case 3 '有使用Minecraft_Server_Manager_Host 的伺服器專用
+                                                                                                          Dim playerIDListRegex As New Text.RegularExpressions.Regex("([A-Za-z0-9_-]*){1}(\|[A-Za-z0-9_-]*)*")
+                                                                                                          If playerIDListRegex.IsMatch(msg.Message) AndAlso playerIDListRegex.Match(msg.Message).Value = msg.Message.Trim Then
+                                                                                                              If msg.Message = "" Then
+                                                                                                                  PlayerListGetState = 0
+                                                                                                                  BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                                ConnectionPlayerList.Clear()
+                                                                                                                                                PlayerListBox.Items.Clear()
+                                                                                                                                            End Sub)
+                                                                                                              Else
+                                                                                                                  Dim players As String() = msg.Message.Split(New Char() {"|"}, StringSplitOptions.RemoveEmptyEntries)
+                                                                                                                  If IsNothing(players) = False Then
+                                                                                                                      PlayerListGetState = 0
+                                                                                                                      BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                                    ConnectionPlayerList.Clear()
+                                                                                                                                                    PlayerListBox.Items.Clear()
+                                                                                                                                                    ConnectionPlayerList.AddRange(players)
+                                                                                                                                                    PlayerListBox.Items.AddRange(players)
+                                                                                                                                                End Sub)
+                                                                                                                  End If
+                                                                                                              End If
+                                                                                                          End If
+                                                                                                  End Select
+                                                                                              Catch ex As Exception
+
+                                                                                              End Try
                                                                                               Dim item As New ListViewItem(msg.ServerMessageTypeString)
                                                                                               Select Case Server.ServerVersionType
                                                                                                   Case Server.EServerVersionType.Spigot
@@ -401,7 +405,7 @@ Public Class ServerConsole
                                                                                                                         End Sub)
                                                                                           Catch ex As Exception
                                                                                           End Try
-                                                             End Sub)
+                                                                                      End Sub)
                                                                          End If
                                                                      End If
                                                                  Catch ex As Exception
@@ -937,7 +941,7 @@ Public Class ServerConsole
                     taskDialog.Label4.Enabled = False
                     taskDialog.EventComboBox.Enabled = False
                     taskDialog.Label5.Enabled = False
-                    taskDialog.TaskPeriodUnitCombo.SelectedIndex = task.RepeatingPeriodUnit - 1
+                    taskDialog.TaskPeriodUnitCombo.SelectedIndex = task.RepeatingPeriodUnit
                     taskDialog.TaskPeriodUpDown.Value = task.RepeatingPeriod
             End Select
             taskDialog.RunComboBox.SelectedIndex = task.Command.Action - 1

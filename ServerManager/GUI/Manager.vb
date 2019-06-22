@@ -682,12 +682,6 @@ Public Class Manager
                                                                        If exip <> "(無)" Then
                                                                            ExternalIPLabel.LinkArea = New LinkArea(ExternalIPLabel.Text.IndexOf(exip), exip.Length)
                                                                            tooltip.SetToolTip(ExternalIPLabel, "點擊連結複製外部IP位址")
-                                                                           AddHandler ExternalIPLabel.LinkClicked, Sub(obj, args)
-                                                                                                                       If args.Button = MouseButtons.Left Then
-                                                                                                                           My.Computer.Clipboard.SetText(exip)
-                                                                                                                           MsgBox("已複製到剪貼簿!")
-                                                                                                                       End If
-                                                                                                                   End Sub
                                                                        Else
                                                                            ConnectionTabPage.Visible = False
                                                                            TableLayoutPanel3.Enabled = False
@@ -1775,7 +1769,7 @@ Public Class Manager
     Private Sub IPLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IPLabel.LinkClicked
         If e.Button = MouseButtons.Left Then
             My.Computer.Clipboard.SetText(IPLabel.Text.Substring(e.Link.Start, e.Link.Length))
-            MsgBox("已複製到剪貼簿!")
+            MsgBox("已複製到剪貼簿!",, Application.ProductName)
         End If
     End Sub
     Private Sub CheckingTimer_Tick(sender As Object, e As EventArgs) Handles CheckingTimer.Tick
@@ -1899,5 +1893,27 @@ Public Class Manager
         IPSeeker.Name = "Internal IP Seeker"
         IPSeeker.IsBackground = True
         IPSeeker.Start()
+    End Sub
+
+    Private Sub ExternalIPLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ExternalIPLabel.LinkClicked
+        If e.Button = MouseButtons.Left Then
+            My.Computer.Clipboard.SetText(ExternalIPLabel.Text.Substring(e.Link.Start, e.Link.Length))
+            MsgBox("已複製到剪貼簿!",, Application.ProductName)
+        End If
+    End Sub
+
+    Private Sub NotifyIcon1_DoubleClick(sender As Object, e As EventArgs) Handles NotifyIcon1.DoubleClick
+        Try
+            WindowState = FormWindowState.Normal
+        Catch ex As Exception
+            Try
+                Show()
+            Catch ex1 As Exception
+                Try
+                    Visible = True
+                Catch ex2 As Exception
+                End Try
+            End Try
+        End Try
     End Sub
 End Class

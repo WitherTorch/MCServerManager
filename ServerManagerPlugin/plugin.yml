@@ -1,0 +1,9 @@
+main: com.minecraft.servermanager.host.mainClass
+name: Minecraft_Server_Manager_Host
+version: 1.0.0
+description: Minecraft Server Manager Host for Bukkit-based Server.
+load: STARTUP
+authors: [Error_404,冰霜, asd7766zxc]
+commands:
+  callFunction:
+    description: (Just working on console) Call Function.

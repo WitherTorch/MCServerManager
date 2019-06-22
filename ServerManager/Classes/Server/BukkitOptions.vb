@@ -66,39 +66,49 @@ Public Class BukkitOptions
         Dim bukkitOption As New BukkitOptions
         If IO.File.Exists(filepath) Then
             With bukkitOption
-                Dim reader As New IO.StreamReader(New IO.FileStream(filepath, IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
-                Dim deserializer = New DeserializerBuilder().Build()
-                Dim yamlObject = deserializer.Deserialize(reader)
-                On Error Resume Next
-                Dim _serializer = New SerializerBuilder().JsonCompatible().Build()
-                Dim jsonString = _serializer.Serialize(yamlObject)
-                Dim jsonObject = GetDeserialisedObject(jsonString)
+                Dim jsonObject As JObject
+                If IO.File.Exists(filepath) Then
+                    Try
+                        Dim reader As New IO.StreamReader(New IO.FileStream(filepath, IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
+                        Dim deserializer = New DeserializerBuilder().Build()
+                        Dim yamlObject = deserializer.Deserialize(reader)
+                        deserializer = Nothing
+                        Dim jsonSerializer = New SerializerBuilder().JsonCompatible().Build()
+                        Dim jsonString = jsonSerializer.Serialize(yamlObject)
+                        jsonSerializer = Nothing
+                        jsonObject = GetDeserialisedObject(jsonString)
+                        reader.Close()
+                    Catch ex As Exception
+                        jsonObject = New JObject
+                    End Try
+                Else
+                    jsonObject = New JObject
+                End If
                 Dim settingsRegion As JObject = jsonObject.GetValue("settings")
                 Dim spawnLimitsRegion As JObject = jsonObject.GetValue("spawn-limits")
                 Dim chunkGcRegion As JObject = jsonObject.GetValue("chunk-gc")
                 Dim ticksPerRegion As JObject = jsonObject.GetValue("ticks-per")
 
-                .Allow_end = GetBoolean(settingsRegion.GetValue("allow-end"))
-                .Warn_on_overload = GetBoolean(settingsRegion.GetValue("warn-on-overload"))
-                .Permissions_file = settingsRegion.GetValue("permissions-file")
-                .Update_folder = settingsRegion.GetValue("update-folder")
-                .Plugin_profiling = GetBoolean(settingsRegion.GetValue("plugin-profiling"))
-                .Connection_throttle = settingsRegion.GetValue("connection-throttle")
-                .Query_plugins = GetBoolean(settingsRegion.GetValue("query-plugins"))
-                .Deprecated_verbose = GetTripleStatus(settingsRegion.GetValue("deprecated-verbose"))
-                .Shutdown_message = settingsRegion.GetValue("shutdown-message")
-                .Monsters = spawnLimitsRegion.GetValue("monsters")
-                .Animals = spawnLimitsRegion.GetValue("animals")
-                .Water_animals = spawnLimitsRegion.GetValue("water-animals")
-                .Ambients = spawnLimitsRegion.GetValue("ambients")
-                .Period_in_ticks = chunkGcRegion.GetValue("period-in-ticks")
-                .Load_threshold = chunkGcRegion.GetValue("load-threshold")
-                .Animal_spawns = ticksPerRegion.GetValue("animal-spawns")
-                .Monster_spawns = ticksPerRegion.GetValue("monster-spawns")
-                .Autosave = ticksPerRegion.GetValue("autosave")
-                ._Aliases = jsonObject.GetValue("aliases")
+                InputPropertyValue(settingsRegion, "allow-end", .Allow_end)
+                InputPropertyValue(settingsRegion, "warn-on-overload", .Warn_on_overload)
+                InputPropertyValue(settingsRegion, "permissions-file", .Permissions_file)
+                InputPropertyValue(settingsRegion, "update-folder", .Update_folder)
+                InputPropertyValue(settingsRegion, "plugin-profiling", .Plugin_profiling)
+                InputPropertyValue(settingsRegion, "connection-throttle", .Connection_throttle)
+                InputPropertyValue(settingsRegion, "query-plugins", .Query_plugins)
+                InputPropertyValue(settingsRegion, "deprecated-verbose", .Deprecated_verbose)
+                InputPropertyValue(settingsRegion, "shutdown-message", .Shutdown_message)
+                InputPropertyValue(spawnLimitsRegion, "monsters", .Monsters)
+                InputPropertyValue(spawnLimitsRegion, "animals", .Animals)
+                InputPropertyValue(spawnLimitsRegion, "water-animals", .Water_animals)
+                InputPropertyValue(spawnLimitsRegion, "ambients", .Ambients)
+                InputPropertyValue(chunkGcRegion, "period-in-ticks", .Period_in_ticks)
+                InputPropertyValue(chunkGcRegion, "load-threshold", .Load_threshold)
+                InputPropertyValue(ticksPerRegion, "animal-spawns", .Animal_spawns)
+                InputPropertyValue(ticksPerRegion, "monster-spawns", .Monster_spawns)
+                InputPropertyValue(ticksPerRegion, "autosave", .Autosave)
+                InputPropertyValue(jsonObject, "aliases", .Aliases)
                 .path = filepath
-                reader.Close()
             End With
             Return bukkitOption
         Else

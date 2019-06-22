@@ -33,28 +33,40 @@
                 version = "1.13.9999" 'Fake Version,it means the server's version is 1.13 up
             End If
         End If
-            If server.ServerType = Server.EServerType.Java Then
-            If New Version(version) >= New Version(1, 13) Then
-                If LevelTypeBox.SelectedIndex = Java_Level_Type.CUSTOMIZED Then
-                    LevelTypeBox.SelectedIndex = Java_Level_Type.FLAT
-                End If
-                If (LevelTypeBox.SelectedIndex = Java_Level_Type.FLAT) OrElse (LevelTypeBox.SelectedIndex = Java_Level_Type.BUFFET) Then
-                    GeneratorSettingBox.Enabled = True
-                    Button1.Enabled = True
+        If server.ServerType = Server.EServerType.Java Then
+            If server.ServerVersionType = Server.EServerVersionType.Forge Then
+                If New Version(version) >= New Version(1, 13) Then
+                    If LevelTypeBox.SelectedIndex = Java_Level_Type.CUSTOMIZED Then
+                        LevelTypeBox.SelectedIndex = Java_Level_Type.FLAT
+                    End If
                 Else
-                    GeneratorSettingBox.Enabled = False
-                    Button1.Enabled = False
+                    If LevelTypeBox.SelectedIndex = Java_Level_Type.BUFFET Then
+                        LevelTypeBox.SelectedIndex = Java_Level_Type.DEFAULT
+                    End If
                 End If
             Else
-                If LevelTypeBox.SelectedIndex = Java_Level_Type.BUFFET Then
-                    LevelTypeBox.SelectedIndex = Java_Level_Type.DEFAULT
-                End If
-                If LevelTypeBox.SelectedIndex = Java_Level_Type.CUSTOMIZED Then
-                    GeneratorSettingBox.Enabled = True
-                    Button1.Enabled = True
+                If New Version(version) >= New Version(1, 13) Then
+                    If LevelTypeBox.SelectedIndex = Java_Level_Type.CUSTOMIZED Then
+                        LevelTypeBox.SelectedIndex = Java_Level_Type.FLAT
+                    End If
+                    If (LevelTypeBox.SelectedIndex = Java_Level_Type.FLAT) OrElse (LevelTypeBox.SelectedIndex = Java_Level_Type.BUFFET) Then
+                        GeneratorSettingBox.Enabled = True
+                        Button1.Enabled = True
+                    Else
+                        GeneratorSettingBox.Enabled = False
+                        Button1.Enabled = False
+                    End If
                 Else
-                    GeneratorSettingBox.Enabled = False
-                    Button1.Enabled = False
+                    If LevelTypeBox.SelectedIndex = Java_Level_Type.BUFFET Then
+                        LevelTypeBox.SelectedIndex = Java_Level_Type.DEFAULT
+                    End If
+                    If LevelTypeBox.SelectedIndex = Java_Level_Type.CUSTOMIZED Then
+                        GeneratorSettingBox.Enabled = True
+                        Button1.Enabled = True
+                    Else
+                        GeneratorSettingBox.Enabled = False
+                        Button1.Enabled = False
+                    End If
                 End If
             End If
         End If
@@ -75,8 +87,20 @@
                 LevelTypeBox.Items.AddRange(New String() {"無限", "超平坦(可配合生成器設置)", "舊世界"})
         End Select
         LevelTypeBox.SelectedIndex = 0
-        LevelNameBox.Text = "world"
+        Dim worldName As String = "world"
+        If IO.Directory.Exists(IO.Path.Combine(server.ServerPath, worldName)) Then
+            Dim i As UInteger = 1
+            Do
+                i += 1
+                worldName = "world-" & i
+            Loop Until (IO.Directory.Exists(IO.Path.Combine(server.ServerPath, worldName)))
+        End If
+        LevelNameBox.Text = worldName
         Randomize()
         LevelSeedBox.Text = New Random().Next(Integer.MaxValue)
+        If server.ServerVersionType = Server.EServerVersionType.Forge Then
+            GeneratorSettingBox.Enabled = True
+            Button1.Enabled = True
+        End If
     End Sub
 End Class

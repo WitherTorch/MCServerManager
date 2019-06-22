@@ -47,6 +47,20 @@ Public Module JSONSafeModule
 
         End Try
     End Sub
+    Friend Sub InputPropertyValue(jsonObject As JObject, key As String, ByRef target As TripleStatus)
+        Try
+            target = GetTripleStatus(jsonObject.GetValue(key))
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Friend Sub InputPropertyValue(jsonObject As JObject, key As String, ByRef target As Long)
+        Try
+            target = jsonObject.GetValue(key)
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Friend Sub InputPropertyValue(jsonObject As JObject, key As String, ByRef target As Single)
         Try
             target = jsonObject.GetValue(key)
