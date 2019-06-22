@@ -31,14 +31,7 @@ Namespace My
 
         Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
             'Enable MultiCore JIT
-            Dim localTempDir As String = Environment.GetEnvironmentVariable("TEMP", EnvironmentVariableTarget.User)
-            Dim seperator As String = "\"
-            If IsUnixLikeSystem Then
-                seperator = "/"
-            Else
-                seperator = "\"
-            End If
-            Runtime.ProfileOptimization.SetProfileRoot(localTempDir.TrimEnd(seperator) & seperator & "Minecraft 伺服器管理員")
+            Runtime.ProfileOptimization.SetProfileRoot(My.Application.Info.DirectoryPath)
             Runtime.ProfileOptimization.StartProfile("startup_cache.profile")
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
