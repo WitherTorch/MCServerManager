@@ -1,13 +1,23 @@
 ﻿Public Class CreateMap
     Dim server As Server
     Friend mapping As GeneratorMapping
-    Sub New(server As Server)
+    Dim editMode As Boolean
+    Dim editLvlName As String
+    Dim editLvlType As Integer
+    Dim editLvlSeed As Long
+    Dim editLvlGen As String
+    Sub New(server As Server, Optional editMode As Boolean = False, Optional editLevelName As String = "", Optional editLevelType As Integer = 0, Optional editLevelSeed As Long = 0, Optional editLevelGensettings As String = "")
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         Me.server = server
+        Me.editMode = editMode
+        editLvlName = editLevelName
+        editLvlType = editLevelType
+        editLvlSeed = editLevelSeed
+        editLvlGen = editLevelGensettings
     End Sub
     Private Sub OK_Button_Click(sender As Object, e As EventArgs) Handles OK_Button.Click
         If LevelNameBox.Text.Trim(" ") <> "" Then
@@ -88,16 +98,23 @@
         End Select
         LevelTypeBox.SelectedIndex = 0
         Dim worldName As String = "world"
-        If IO.Directory.Exists(IO.Path.Combine(server.ServerPath, worldName)) Then
-            Dim i As UInteger = 1
-            Do
-                i += 1
-                worldName = "world-" & i
-            Loop Until (IO.Directory.Exists(IO.Path.Combine(server.ServerPath, worldName)))
+        If editMode Then
+            worldName = editLvlName
+            LevelSeedBox.Text = editLvlSeed
+            LevelTypeBox.SelectedIndex = editLvlType
+            GeneratorSettingBox.Text = editLvlGen
+        Else
+            If IO.Directory.Exists(IO.Path.Combine(server.ServerPath, worldName)) Then
+                Dim i As UInteger = 1
+                Do
+                    i += 1
+                    worldName = "world-" & i
+                Loop Until (IO.Directory.Exists(IO.Path.Combine(server.ServerPath, worldName)))
+            End If
+            Randomize()
+            LevelSeedBox.Text = New Random().Next(Integer.MaxValue)
         End If
         LevelNameBox.Text = worldName
-        Randomize()
-        LevelSeedBox.Text = New Random().Next(Integer.MaxValue)
         If server.ServerVersionType = Server.EServerVersionType.Forge Then
             GeneratorSettingBox.Enabled = True
             Button1.Enabled = True

@@ -207,6 +207,7 @@ Public Class ServerCreateDialog
     End Sub
 
     Private Sub ServerDirBox_TextChanged(sender As Object, e As EventArgs) Handles ServerDirBox.TextChanged
+        server.SetPath(ServerDirBox.Text)
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
     End Sub
     Private Sub ServerCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load

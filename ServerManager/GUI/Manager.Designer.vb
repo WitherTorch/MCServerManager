@@ -733,7 +733,7 @@ Partial Class Manager
         Me.BungeeCordPage.Padding = New System.Windows.Forms.Padding(3)
         Me.BungeeCordPage.Size = New System.Drawing.Size(776, 489)
         Me.BungeeCordPage.TabIndex = 2
-        Me.BungeeCordPage.Text = "BungeeCord"
+        Me.BungeeCordPage.Text = "BungeeCord 方案"
         '
         'SolutionListPanel
         '

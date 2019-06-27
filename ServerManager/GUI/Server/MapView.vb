@@ -1,5 +1,5 @@
 ﻿Public Class MapView
-    Private _server As Server
+    Friend _server As Server
     Friend createMap As CreateMap
 
     Sub New(server As Server)
@@ -11,11 +11,46 @@
         _server = server
     End Sub
     Private Sub BrowseButton_Click(sender As Object, e As EventArgs) Handles BrowseButton.Click
-        Dim mapChange As New MapChangeForm(_server)
+        Dim mapChange As New MapChangeForm(Me)
         If mapChange Is Nothing Or mapChange.IsDisposed Then
-            mapChange = New MapChangeForm(_server)
+            mapChange = New MapChangeForm(Me)
         End If
-        mapChange.ShowDialog()
+        If mapChange.ShowDialog() = DialogResult.OK Then
+            If mapChange.ListBox1.SelectedIndex = 0 Then
+                If mapChange.hasNewMap Then
+                    MapNameLabel.Text = mapChange.newMap.Item1
+                    _server.ServerOptions("level-name") = mapChange.newMap.Item1
+                    _server.ServerOptions("level-seed") = mapChange.newMap.Item2
+                    _server.ServerOptions("generator-settings") = mapChange.newMap.Item4
+                    Select Case _server.ServerType
+                        Case Server.EServerType.Java
+                            _server.ServerOptions("level-type") = CType(mapChange.newMap.Item3, Java_Level_Type).ToString
+                        Case Server.EServerType.Bedrock
+                            Select Case _server.ServerVersionType
+                                Case Server.EServerVersionType.Nukkit
+                                    _server.ServerOptions("level-type") = CType(mapChange.newMap.Item3, Bedrock_Level_Type).ToString
+                                Case Server.EServerVersionType.VanillaBedrock
+                                    Select Case CType(mapChange.newMap.Item3, Bedrock_Level_Type)
+                                        Case Bedrock_Level_Type.FLAT
+                                            _server.ServerOptions("level-type") = "FLAT"
+                                        Case Bedrock_Level_Type.OLD
+                                            _server.ServerOptions("level-type") = "LEGACY"
+                                        Case Bedrock_Level_Type.INFINITE
+                                            _server.ServerOptions("level-type") = "DEFAULT"
+                                    End Select
+                            End Select
+                    End Select
+                Else
+                    _server.ServerOptions("level-name") = mapChange.mapList(0)
+                End If
+            Else
+                If mapChange.hasNewMap Then
+                    _server.ServerOptions("level-name") = mapChange.mapList(mapChange.ListBox1.SelectedIndex - 1)
+                Else
+                    _server.ServerOptions("level-name") = mapChange.mapList(mapChange.ListBox1.SelectedIndex)
+                End If
+            End If
+        End If
     End Sub
     Sub ChooseMap(path As String, Optional create As Boolean = False)
         Dim info As New IO.DirectoryInfo(path)
