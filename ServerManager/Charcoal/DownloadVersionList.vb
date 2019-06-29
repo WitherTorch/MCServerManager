@@ -32,17 +32,20 @@ Public Class DownloadVersionList
                 server = TestForm.check()
             End If
             Dim addPath As String = ""
+            Dim url As String = DownloadList(VersionList.SelectedIndices(0))
             Select Case website
                 Case BrowsingWebsite.Bukkit
                     addPath = "/download"
                 Case BrowsingWebsite.CurseForge_Plugin
                     addPath = "/file"
+                    url = url.Replace("/files/", "/download/")
                 Case BrowsingWebsite.CurseForge_Mod
                     addPath = "/file"
+                    url = url.Replace("/files/", "/download/")
                 Case BrowsingWebsite.Nukkit_PluginDownloadList
                     addPath = ""
             End Select
-            Dim request As Net.HttpWebRequest = Net.WebRequest.Create(DownloadList(VersionList.SelectedIndices(0)) & addPath)
+            Dim request As Net.HttpWebRequest = Net.WebRequest.Create(url & addPath)
             Dim version = System.Environment.OSVersion.Version
             request.UserAgent = "Mozilla/5.0 (Windows NT " & version.Major & "." & version.Minor & ") Charcoal/" & CharcoalEngine.CHARCOAL_VER
             Dim realURI As Uri = request.GetResponse().ResponseUri

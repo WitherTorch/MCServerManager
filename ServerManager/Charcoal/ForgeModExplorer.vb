@@ -42,6 +42,7 @@ Public Class ForgeModExplorer
             spongeThread.Abort()
         End If
         spongeThread = New Thread(Sub()
+                                      BeginInvoke(Sub() CharcoalEnginePanel.Controls.Clear())
                                       Dim sponge As New SpongeForgeProvider
                                       sponge.Initallise()
                                       Dim versions = sponge.GetSpongeForgeVersionsOnBranch(_server.ServerVersion, _server.Server2ndVersion.Split(".").Last)
@@ -68,6 +69,7 @@ Public Class ForgeModExplorer
                                                                                   _server.ServerMods.Add(New Server.ForgeMod("SpongeForge", filename, versions(versionListBox.SelectedIndices(0)).OriginalString, Now, IO.File.GetLastWriteTime(filename)))
                                                                               End Sub
                                   End Sub)
+        spongeThread.IsBackground = True
         spongeThread.Start()
     End Sub
     Private Sub CharcoalEnginePanel_Paint(sender As Object, e As PaintEventArgs) Handles CharcoalEnginePanel.Paint

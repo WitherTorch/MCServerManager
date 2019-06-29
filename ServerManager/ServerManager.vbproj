@@ -704,12 +704,6 @@
     <None Include="Resources\bukkit.ico" />
     <None Include="Resources\bukkit.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MinecraftGUI\MinecraftGUI.vbproj">
-      <Project>{7DF77D20-FCBA-4EE4-A5E8-1883F4876261}</Project>
-      <Name>MinecraftGUI</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PostBuildEvent>echo Making Merged Folder in $(OutDir)Merged\

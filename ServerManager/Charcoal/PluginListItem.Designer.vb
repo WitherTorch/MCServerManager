@@ -38,15 +38,16 @@ Partial Class PluginListItem
         Me.pluginIcon.TabIndex = 0
         Me.pluginIcon.TabStop = False
         '
-        'PluginName
+        'pluginName
         '
         Me.pluginName.AutoSize = True
         Me.pluginName.Font = New System.Drawing.Font("新細明體", 18.0!)
         Me.pluginName.Location = New System.Drawing.Point(81, 11)
-        Me.pluginName.Name = "PluginName"
+        Me.pluginName.Name = "pluginName"
         Me.pluginName.Size = New System.Drawing.Size(0, 24)
         Me.pluginName.TabIndex = 1
         Me.pluginName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.pluginName.UseMnemonic = False
         '
         'DescriptionLabel
         '
@@ -57,6 +58,7 @@ Partial Class PluginListItem
         Me.DescriptionLabel.Size = New System.Drawing.Size(0, 18)
         Me.DescriptionLabel.TabIndex = 2
         Me.DescriptionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.DescriptionLabel.UseMnemonic = False
         '
         'PluginListItem
         '
