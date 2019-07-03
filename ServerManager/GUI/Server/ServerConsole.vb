@@ -14,6 +14,7 @@ Public Class ServerConsole
     Dim PlayerListGetCount As Integer
     Dim temp_PlayerList As New List(Of String)
     Dim hasHost As Boolean = False
+    Dim alternateInputStreamWriter As IO.StreamWriter
     Public ReadOnly Property Server As Server
     Dim startInfo As ProcessStartInfo
     Dim usesType As Server.EServerVersionType
@@ -127,9 +128,9 @@ Public Class ServerConsole
                     Select Case Server.ServerVersionType
                         Case Server.EServerVersionType.Vanilla
                             If Server.Server2ndVersion <> "" Then
-                                Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "minecraft_server." & Server.Server2ndVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "minecraft_server." & Server.Server2ndVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
                             Else
-                                Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "minecraft_server." & Server.ServerVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "minecraft_server." & Server.ServerVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
                             End If
                         Case Server.EServerVersionType.Forge
                             ' 1.1~1.2 > Server
@@ -190,10 +191,15 @@ Public Class ServerConsole
     Private Overloads Sub Run(program As String, serverDir As String)
         Run(program, "", serverDir, True, False)
     End Sub
-    Private Overloads Sub Run(program As String, args As String, serverDir As String, Optional nogui As Boolean = True, Optional UTF8 As Boolean = False)
+    Private Overloads Sub Run(program As String, args As String, serverDir As String, Optional nogui As Boolean = True, Optional UTF8 As Boolean = True)
         backgroundProcess = Process.Start(PrepareStartInfo(program, args, serverDir, nogui, UTF8))
         RestartButton.Enabled = False
         ForceCloseButton.Enabled = True
+        If UTF8 Then
+            alternateInputStreamWriter = New IO.StreamWriter(backgroundProcess.StandardInput.BaseStream, New System.Text.UTF8Encoding(False)) With {.AutoFlush = True}
+        Else
+            alternateInputStreamWriter = backgroundProcess.StandardInput
+        End If
         If nogui Then
             If StopLoadingCheckBox.Checked = False Then
                 backgroundProcess.BeginErrorReadLine()
@@ -266,6 +272,7 @@ Public Class ServerConsole
                                                                                                                  'Nothing
                                                                                                       Case 1 '偵測/list 回傳頭
                                                                                                           Dim ListHeaderRegex As New Text.RegularExpressions.Regex("There are [0-9]{1,}\/[0-9]{1,} player[s]? online:") '/list Header
+                                                                                                          Dim ListHeaderRegex114 As New Text.RegularExpressions.Regex("There are [0-9]{1,} of a max [0-9]{1,} player[s]? online:") '/list Header
                                                                                                           If ListHeaderRegex.IsMatch(msg.Message) AndAlso ListHeaderRegex.Match(msg.Message).Value = msg.Message.Trim Then
                                                                                                               Dim PlayerCountRegex As New Text.RegularExpressions.Regex("[0-9]{1,}\/[0-9]{1,}")
                                                                                                               Dim PlayerID As String = PlayerCountRegex.Match(msg.Message).Value.Split(New Char() {","}, 2)(0)
@@ -274,6 +281,18 @@ Public Class ServerConsole
                                                                                                               If PlayerListGetCount <= 0 Then
                                                                                                                   PlayerListGetCount = PlayerID
                                                                                                                   PlayerListGetState = 0 'Restore to Default
+                                                                                                              End If
+                                                                                                          ElseIf ListHeaderRegex114.IsMatch(msg.Message) AndAlso msg.Message.Trim.StartsWith(ListHeaderRegex114.Match(msg.Message).Value) Then
+                                                                                                              Dim preSplitString As String = msg.Message.Substring(ListHeaderRegex114.Match(msg.Message).Length - 1)
+                                                                                                              If String.IsNullOrWhiteSpace(preSplitString) = False Then
+                                                                                                                  preSplitString = preSplitString.Trim
+                                                                                                                  BeginInvokeIfRequired(Me, Sub() PlayerListBox.Items.Clear())
+                                                                                                                  For Each id As String In preSplitString.Split(New String() {" ,"}, StringSplitOptions.RemoveEmptyEntries)
+                                                                                                                      BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                                    PlayerListBox.Items.Add(id)
+                                                                                                                                                    PlayerListGetState = 0 'Restore to Default
+                                                                                                                                                End Sub)
+                                                                                                                  Next
                                                                                                               End If
                                                                                                           End If
                                                                                                       Case 2 '偵測玩家ID(每行只有一個)
@@ -470,7 +489,7 @@ Public Class ServerConsole
             If args = "" Then
                 processInfo = New ProcessStartInfo(program)
             Else
-                If UTF8Encoding Then args = "-Dfile.encoding=""UTF-8"" " & args
+                If UTF8Encoding Then args = "-Dfile.encoding=UTF-8 " & args
                 ' processInfo = New ProcessStartInfo("cmd.exe", "/c chcp 65001 && " & """" & program & """ " & args)
                 processInfo = New ProcessStartInfo(program, args)
             End If
@@ -520,12 +539,14 @@ Public Class ServerConsole
                                     Else
                                         If CommandTextBox.Text.Substring(1) = "list" Then PlayerListGetState = 1
                                     End If
-                                    backgroundProcess.StandardInput.WriteLine(CommandTextBox.Text.Substring(1))
+                                    'backgroundProcess.StandardInput.WriteLine(CommandTextBox.Text.Substring(1))
+                                    alternateInputStreamWriter.WriteLine(CommandTextBox.Text.Substring(1))
                                     If InputList.Count <= 0 OrElse InputList.Last <> CommandTextBox.Text.Substring(1) Then
                                         InputList.Add(CommandTextBox.Text.Substring(1))
                                     End If
                                 Else
-                                    backgroundProcess.StandardInput.WriteLine("say " & CommandTextBox.Text)
+                                    'backgroundProcess.StandardInput.WriteLine("say " & CommandTextBox.Text)
+                                    alternateInputStreamWriter.WriteLine("say " & CommandTextBox.Text)
                                     If InputList.Count <= 0 OrElse InputList.Last <> "say " & CommandTextBox.Text Then
                                         InputList.Add("say " & CommandTextBox.Text)
                                     End If
@@ -546,7 +567,8 @@ Public Class ServerConsole
                                 Else
                                     If CommandTextBox.Text = "list" Then PlayerListGetState = 1
                                 End If
-                                backgroundProcess.StandardInput.WriteLine(CommandTextBox.Text)
+                                'backgroundProcess.StandardInput.WriteLine(CommandTextBox.Text)
+                                alternateInputStreamWriter.WriteLine(CommandTextBox.Text)
                                 If InputList.Count <= 0 OrElse InputList.Last <> CommandTextBox.Text Then
                                     InputList.Add(CommandTextBox.Text)
                                 End If

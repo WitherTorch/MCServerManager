@@ -42,7 +42,7 @@ Public Class MinecraftLogParser
         'Spigot/CraftBukkit Regex
         Dim bukkitCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2} [A-Z]{4,5}\]")
         'Vanilla Regex
-        Dim vanillaCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 -]*\/[A-Z]{4,5}\]\:")
+        Dim vanillaCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 #$_-]*\/[A-Z]{4,5}\]\:")
         'SpongeVanilla Regex
         Dim spongeVanillaCheckRegex As New Regex("\[[0-9]{2}:[0-9]{2}:[0-9]{2} [A-Z]{4,5}\] \[[A-Za-z0-9 #$_-]*\]\:")
         'Nukkit Regex
@@ -94,7 +94,7 @@ Public Class MinecraftLogParser
                 If threadMessage.Trim = "" Then threadMessage = "Server Thread"
                 msg.Thread = threadMessage
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
-                Dim playerConnectionRegex As New Regex("[A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
+                Dim playerConnectionRegex As New Regex("[A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32})")
                 Dim playerLoginRegex As New Regex("[A-Za-z0-9_-]* joined the game")
                 Dim playerLostConnectionRegex As New Regex("[A-Za-z0-9_-] lost connection")
                 Dim playerLogoutRegex As New Regex("[A-Za-z0-9_-]* left the game")
@@ -138,7 +138,7 @@ Public Class MinecraftLogParser
                 msg.Message = originalMessage.Substring(checkMessage.Length + 1, originalMessage.Length - (checkMessage.Length + 1)).TrimStart
 
                 Dim playerLoginRegex1 As New Regex("\: UUID of player [A-Za-z0-9_-]* is [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
-                Dim playerConnectionRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
+                Dim playerConnectionRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32})")
                 Dim playerLoginRegex2 As New Regex("\: [A-Za-z0-9_-]* joined the game")
                 Dim playerLostConnectionRegex As New Regex("\: [A-Za-z0-9_-] lost connection")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")
@@ -188,7 +188,7 @@ Public Class MinecraftLogParser
                 Dim threadMessage2 As String = New Regex("\[[A-Za-z0-9 \/\\\..]*\]").Matches(checkMessage)(1).Value
                 msg.Thread = String.Format("{0} ({1})", threadMessage1.Substring(1, threadMessage1.Length - messageType.Length - 3), threadMessage2.Substring(1, threadMessage2.Length - 2))
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
-                Dim playerConnectionRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
+                Dim playerConnectionRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32})")
                 Dim playerLoginRegex As New Regex("\: [A-Za-z0-9_-]* joined the game")
                 Dim playerLostConnectionRegex As New Regex("\: [A-Za-z0-9_-] lost connection")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")
@@ -232,7 +232,7 @@ Public Class MinecraftLogParser
                 Dim threadMessage2 As String = New Regex("\[[A-Za-z0-9 \/\\\..]*\]").Matches(checkMessage)(1).Value
                 msg.Thread = String.Format("{0} ({1})", threadMessage1.Substring(1, threadMessage1.Length - messageType.Length - 3), threadMessage2.Substring(1, threadMessage2.Length - 2))
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
-                Dim playerConnectionRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
+                Dim playerConnectionRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32})")
                 Dim playerLoginRegex As New Regex("\: [A-Za-z0-9_-]* joined the game")
                 Dim playerLostConnectionRegex As New Regex("\: [A-Za-z0-9_-] lost connection")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")
@@ -275,7 +275,7 @@ Public Class MinecraftLogParser
                 Dim threadMessage As String = New Regex("\[[A-Za-z ][A-Za-z0-9 -]*\/[A-Z]{4,5}\]").Match(checkMessage).Value
                 msg.Thread = threadMessage.Substring(1, threadMessage.Length - messageType.Length - 3)
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
-                Dim playerConnectionRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3}, -?\d{1,20}.\d{1,3})")
+                Dim playerConnectionRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32})")
                 Dim playerLoginRegex As New Regex("\: [A-Za-z0-9_-]* joined the game")
                 Dim playerLostConnectionRegex As New Regex("\: [A-Za-z0-9_-] lost connection")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")

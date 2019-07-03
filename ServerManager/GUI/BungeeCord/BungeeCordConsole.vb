@@ -54,7 +54,6 @@ Public Class BungeeCordConsole
             Dim pauseLoad As New CheckBox()
             Dim _inputList As New List(Of String)()
             Dim _currentListLocation As Integer = -1
-
             dataListView.Columns.AddRange(New ColumnHeader() {New ColumnHeader() With {.Text = "類型"}, New ColumnHeader() With {.Text = "執行緒", .DisplayIndex = 2, .Width = 116}, New ColumnHeader() With {.DisplayIndex = 1, .Text = "時間", .Width = 69}, New ColumnHeader() With {.Text = "訊息", .DisplayIndex = 3, .Width = 534}})
             dataListView.Dock = DockStyle.Fill
             dataListView.FullRowSelect = True
@@ -106,6 +105,7 @@ Public Class BungeeCordConsole
             page.Controls.Add(layout)
             MainTabControl.TabPages.Add(page)
             Dim process = bServer.RunServer()
+            Dim alternateInputWriter As New IO.StreamWriter(process.StandardInput.BaseStream, New Text.UTF8Encoding(False)) With {.AutoFlush = True}
             Select Case ConsoleMode
                 Case True
                     ToolTip1.SetToolTip(commandBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
@@ -121,18 +121,21 @@ Public Class BungeeCordConsole
                                                            Select Case ConsoleMode
                                                                Case True
                                                                    If commandBox.Text.StartsWith("/") Then
-                                                                       process.StandardInput.WriteLine(commandBox.Text.Substring(1))
+                                                                       alternateInputWriter.WriteLine(commandBox.Text.Substring(1))
+                                                                       'process.StandardInput.WriteLine(commandBox.Text.Substring(1))
                                                                        If InputList.Count <= 0 OrElse InputList.Last <> commandBox.Text.Substring(1) Then
                                                                            InputList.Add(commandBox.Text.Substring(1))
                                                                        End If
                                                                    Else
-                                                                       process.StandardInput.WriteLine("say " & commandBox.Text)
+                                                                       alternateInputWriter.WriteLine("say " & commandBox.Text)
+                                                                       'process.StandardInput.WriteLine("say " & commandBox.Text)
                                                                        If InputList.Count <= 0 OrElse InputList.Last <> "say " & commandBox.Text Then
                                                                            InputList.Add("say " & commandBox.Text)
                                                                        End If
                                                                    End If
                                                                Case False
-                                                                   process.StandardInput.WriteLine(commandBox.Text)
+                                                                   alternateInputWriter.WriteLine(commandBox.Text)
+                                                                   'process.StandardInput.WriteLine(commandBox.Text)
                                                                    If InputList.Count <= 0 OrElse InputList.Last <> commandBox.Text Then
                                                                        InputList.Add(commandBox.Text)
                                                                    End If
