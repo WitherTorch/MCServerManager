@@ -912,7 +912,13 @@ Public Class ServerConsole
                                 Case ServerTask.TaskTriggerEvent.PlayerLogout
                                     command = command.Replace("<$ID>", AddtionalParameters("player"))
                             End Select
-                            backgroundProcess.StandardInput.WriteLine(command)
+                            If command.Contains(vbNewLine) Then
+                                For Each line In command.Split(vbNewLine)
+                                    backgroundProcess.StandardInput.WriteLine(line)
+                                Next
+                            Else
+                                backgroundProcess.StandardInput.WriteLine(command)
+                            End If
                         Catch ex As Exception
                         End Try
                     End If

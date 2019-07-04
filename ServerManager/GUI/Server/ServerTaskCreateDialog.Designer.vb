@@ -56,7 +56,7 @@ Partial Class ServerTaskCreateDialog
         Me.TaskTypeComboBox.Items.AddRange(New Object() {"定時執行", "事件觸發"})
         Me.TaskTypeComboBox.Location = New System.Drawing.Point(80, 40)
         Me.TaskTypeComboBox.Name = "TaskTypeComboBox"
-        Me.TaskTypeComboBox.Size = New System.Drawing.Size(231, 20)
+        Me.TaskTypeComboBox.Size = New System.Drawing.Size(292, 20)
         Me.TaskTypeComboBox.TabIndex = 0
         '
         'Label1
@@ -77,14 +77,14 @@ Partial Class ServerTaskCreateDialog
         Me.GroupBox1.Controls.Add(Me.RunComboBox)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 139)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(299, 70)
+        Me.GroupBox1.Size = New System.Drawing.Size(360, 181)
         Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         '
         'InputArgsButton
         '
         Me.InputArgsButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.InputArgsButton.Location = New System.Drawing.Point(263, 40)
+        Me.InputArgsButton.Location = New System.Drawing.Point(324, 40)
         Me.InputArgsButton.Name = "InputArgsButton"
         Me.InputArgsButton.Size = New System.Drawing.Size(30, 23)
         Me.InputArgsButton.TabIndex = 18
@@ -96,9 +96,11 @@ Partial Class ServerTaskCreateDialog
         '
         Me.RunCommandArgBox.Location = New System.Drawing.Point(71, 40)
         Me.RunCommandArgBox.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
+        Me.RunCommandArgBox.Multiline = True
         Me.RunCommandArgBox.Name = "RunCommandArgBox"
-        Me.RunCommandArgBox.Size = New System.Drawing.Size(186, 22)
+        Me.RunCommandArgBox.Size = New System.Drawing.Size(247, 135)
         Me.RunCommandArgBox.TabIndex = 17
+        Me.RunCommandArgBox.WordWrap = False
         '
         'Label7
         '
@@ -126,7 +128,7 @@ Partial Class ServerTaskCreateDialog
         Me.RunComboBox.Items.AddRange(New Object() {"停止伺服器", "重啟伺服器", "執行指令"})
         Me.RunComboBox.Location = New System.Drawing.Point(53, 14)
         Me.RunComboBox.Name = "RunComboBox"
-        Me.RunComboBox.Size = New System.Drawing.Size(240, 20)
+        Me.RunComboBox.Size = New System.Drawing.Size(301, 20)
         Me.RunComboBox.TabIndex = 14
         '
         'GroupBox2
@@ -140,7 +142,7 @@ Partial Class ServerTaskCreateDialog
         Me.GroupBox2.Controls.Add(Me.TaskPeriodUnitCombo)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 66)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(299, 67)
+        Me.GroupBox2.Size = New System.Drawing.Size(360, 67)
         Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
         '
@@ -148,7 +150,7 @@ Partial Class ServerTaskCreateDialog
         '
         Me.Label5.AutoSize = True
         Me.Label5.Enabled = False
-        Me.Label5.Location = New System.Drawing.Point(225, 44)
+        Me.Label5.Location = New System.Drawing.Point(280, 44)
         Me.Label5.Margin = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(68, 12)
@@ -175,17 +177,17 @@ Partial Class ServerTaskCreateDialog
         Me.EventComboBox.Location = New System.Drawing.Point(26, 40)
         Me.EventComboBox.Margin = New System.Windows.Forms.Padding(0, 3, 0, 3)
         Me.EventComboBox.Name = "EventComboBox"
-        Me.EventComboBox.Size = New System.Drawing.Size(199, 20)
+        Me.EventComboBox.Size = New System.Drawing.Size(254, 20)
         Me.EventComboBox.TabIndex = 14
         '
         'TaskPeriodUpDown
         '
         Me.TaskPeriodUpDown.Enabled = False
-        Me.TaskPeriodUpDown.Location = New System.Drawing.Point(207, 12)
+        Me.TaskPeriodUpDown.Location = New System.Drawing.Point(241, 13)
         Me.TaskPeriodUpDown.Maximum = New Decimal(New Integer() {-1981284352, -1966660860, 0, 0})
         Me.TaskPeriodUpDown.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.TaskPeriodUpDown.Name = "TaskPeriodUpDown"
-        Me.TaskPeriodUpDown.Size = New System.Drawing.Size(86, 22)
+        Me.TaskPeriodUpDown.Size = New System.Drawing.Size(107, 22)
         Me.TaskPeriodUpDown.TabIndex = 13
         Me.TaskPeriodUpDown.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
@@ -193,7 +195,7 @@ Partial Class ServerTaskCreateDialog
         '
         Me.Label3.AutoSize = True
         Me.Label3.Enabled = False
-        Me.Label3.Location = New System.Drawing.Point(136, 17)
+        Me.Label3.Location = New System.Drawing.Point(170, 17)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(65, 12)
         Me.Label3.TabIndex = 12
@@ -217,12 +219,12 @@ Partial Class ServerTaskCreateDialog
         Me.TaskPeriodUnitCombo.Items.AddRange(New Object() {"遊戲刻", "秒鐘", "分鐘", "小時", "天"})
         Me.TaskPeriodUnitCombo.Location = New System.Drawing.Point(77, 14)
         Me.TaskPeriodUnitCombo.Name = "TaskPeriodUnitCombo"
-        Me.TaskPeriodUnitCombo.Size = New System.Drawing.Size(53, 20)
+        Me.TaskPeriodUnitCombo.Size = New System.Drawing.Size(87, 20)
         Me.TaskPeriodUnitCombo.TabIndex = 10
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(239, 215)
+        Me.Button1.Location = New System.Drawing.Point(300, 326)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(72, 21)
         Me.Button1.TabIndex = 12
@@ -243,14 +245,14 @@ Partial Class ServerTaskCreateDialog
         Me.TaskNameTextBox.Location = New System.Drawing.Point(80, 12)
         Me.TaskNameTextBox.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
         Me.TaskNameTextBox.Name = "TaskNameTextBox"
-        Me.TaskNameTextBox.Size = New System.Drawing.Size(231, 22)
+        Me.TaskNameTextBox.Size = New System.Drawing.Size(292, 22)
         Me.TaskNameTextBox.TabIndex = 18
         '
         'ServerTaskCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(323, 248)
+        Me.ClientSize = New System.Drawing.Size(384, 359)
         Me.Controls.Add(Me.TaskNameTextBox)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Button1)
