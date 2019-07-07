@@ -6,19 +6,16 @@ Public Class ModPackServerCreateHelper
     Dim server As ModPackServer
     Dim client As New Net.WebClient()
     Dim path As String
-    Const FTBServerDownloadLink As String = "http://ftb.cursecdn.com/FTB2/modpacks/{0}/{1}/{2}"
-    Dim filename As String
-    Dim dirname As String
-    Public Sub New(server As ModPackServer, serverPath As String, serverFileName As String, serverDirName As String)
+    Dim url As String
+    Public Sub New(server As ModPackServer, serverDownloadURL As String)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         Me.server = server
-        path = serverPath
-        filename = serverFileName
-        dirname = serverDirName
+        path = server.ServerPath
+        url = New Uri(New Uri("https://www.feed-the-beast.com"), serverDownloadURL).AbsoluteUri
     End Sub
     Private Sub ModPackServerCreateHelper_Load(sender As Object, e As EventArgs) Handles Me.Load
 
@@ -45,17 +42,16 @@ Public Class ModPackServerCreateHelper
 
         Select Case server.PackType
             Case ModPackServer.ModPackType.FeedTheBeast
-                Dim url = String.Format(FTBServerDownloadLink, dirname, server.PackVersion.Replace(".", "_"), filename)
                 If IsUnixLikeSystem Then
-                    DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("/"), path, path & "/"), filename), ModPackServer.ModPackType.FeedTheBeast, server.PackVersion)
+                    DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("/"), path, path & "/"), "modpack_" & server.PackName & ".zip"), ModPackServer.ModPackType.FeedTheBeast)
                 Else
-                    DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), filename), ModPackServer.ModPackType.FeedTheBeast, server.PackVersion)
+                    DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "modpack_" & server.PackName & ".zip"), ModPackServer.ModPackType.FeedTheBeast)
                 End If
         End Select
     End Sub
-    Sub DownloadFile(path As String, dist As String, packType As ModPackServer.ModPackType, version As String)
+    Sub DownloadFile(path As String, dist As String, packType As ModPackServer.ModPackType)
         BeginInvoke(New Action(Sub()
-                                   StatusLabel.Text = "狀態：正在下載 " & server.PackName & " " & version & " ……"
+                                   StatusLabel.Text = "狀態：正在下載 " & server.PackName & " ……"
                                End Sub))
         client.DownloadFileAsync(New Uri(path), dist)
         AddHandler client.DownloadProgressChanged, Sub(sender, e)
@@ -116,6 +112,19 @@ Public Class ModPackServerCreateHelper
                                                          End If
                                                          BeginInvoke(New Action(Sub()
                                                                                     StatusLabel.Text = "狀態：正在配置伺服器 ......"
+                                                                                    If server.ServerRunJAR = "" Then
+                                                                                        Dim info As New IO.DirectoryInfo(Me.path)
+                                                                                        Dim files = info.GetFiles("FTB*.jar", IO.SearchOption.TopDirectoryOnly)
+                                                                                        If files IsNot Nothing And files.Count > 0 Then
+                                                                                            server.ServerRunJAR = files(0).FullName
+                                                                                        Else
+                                                                                            Erase files
+                                                                                            files = info.GetFiles("forge*.jar", IO.SearchOption.TopDirectoryOnly)
+                                                                                            If files IsNot Nothing And files.Count > 0 Then
+                                                                                                server.ServerRunJAR = files(0).FullName
+                                                                                            End If
+                                                                                        End If
+                                                                                    End If
                                                                                     server.SaveServer()
                                                                                     GenerateServerEULA()
                                                                                     StatusLabel.Text = "狀態：完成!"

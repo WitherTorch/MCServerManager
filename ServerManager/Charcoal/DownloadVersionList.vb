@@ -2,6 +2,8 @@
 
 Public Class DownloadVersionList
     Friend server As Server
+    Friend modpackServer As ModPackServer
+    Friend modpackName As String
     Dim index As Integer
     Dim pluginName As String
     Dim website As BrowsingWebsite
@@ -11,7 +13,18 @@ Public Class DownloadVersionList
         CurseForge_Plugin
         CurseForge_Mod
         Nukkit_PluginDownloadList
+        FeedTheBeast_Modpack
     End Enum
+    Sub New(mServer As ModPackServer, packName As String, website As BrowsingWebsite)
+
+        ' 設計工具需要此呼叫。
+        InitializeComponent()
+
+        ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
+        modpackServer = mServer
+        modpackName = packName
+        Me.website = website
+    End Sub
     Sub New(index As Integer, pluginName As String, website As BrowsingWebsite)
 
         ' 設計工具需要此呼叫。
@@ -27,9 +40,8 @@ Public Class DownloadVersionList
     End Sub
     Sub download()
         Try
-            If server Is Nothing Then
+            If server Is Nothing AndAlso modpackServer Is Nothing Then
                 Console.WriteLine("Server is Nothing!" & vbNewLine & "Why?")
-                server = TestForm.check()
             End If
             Dim addPath As String = ""
             Dim url As String = DownloadList(VersionList.SelectedIndices(0))
@@ -107,6 +119,20 @@ Public Class DownloadVersionList
                     End If
                 End Using
                 'GlobalModule.Manager.ServerEntityList(index) = server
+            ElseIf website = BrowsingWebsite.FeedTheBeast_Modpack Then
+                modpackServer.SetPackInfo(modpackName, ModPackServer.ModPackType.FeedTheBeast)
+                Dim web As New HtmlAgilityPack.HtmlWeb()
+                Dim node = web.Load(url).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/section[1]/div[1]/div[3]/section[3]/div[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/a[1]")
+                If node IsNot Nothing Then
+                    Dim _url = node.GetAttributeValue("href", "")
+                    If String.IsNullOrWhiteSpace(url) = False Then
+                        Dim helper As New ModPackServerCreateHelper(modpackServer, _url)
+                        helper.Show()
+                        BeginInvokeIfRequired(FindForm, Sub()
+                                                            FindForm().Close()
+                                                        End Sub)
+                    End If
+                End If
             End If
         Catch ex As OperationCanceledException
 

@@ -43,8 +43,6 @@ Namespace My
             Else
                 IsUnixLikeSystem = False
             End If
-            'Dim pro As New CloudFlareProvider()
-            'pro.test()
         End Sub
 
         Private Sub MyApplication_NetworkAvailabilityChanged(sender As Object, e As NetworkAvailableEventArgs) Handles Me.NetworkAvailabilityChanged

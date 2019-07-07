@@ -564,39 +564,6 @@ Public Class Manager
         End If
         GC.Collect()
     End Sub
-    Sub GetFeedTheBeastPackList()
-        FeedTheBeastGetPackThread = New Thread(Sub()
-                                                   FeedTheBeastPackDict.Clear()
-                                                   Dim manifestListURL As String = "https://api.feed-the-beast.com/ss/api/JSON/pack"
-                                                   Try
-                                                       Dim client As New Net.WebClient()
-                                                       BeginInvoke(New Action(Sub() FTBLoadingLabel.Text = "Feed The Beast：" & "下載列表中..."))
-                                                       Dim docHtml = client.DownloadString(manifestListURL)
-                                                       BeginInvoke(New Action(Sub() FTBLoadingLabel.Text = "Feed The Beast：" & "載入列表中..."))
-                                                       Dim jsonMotherObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
-                                                       For Each jsonProperty As JProperty In jsonMotherObject.Children
-                                                           Dim jsonObject As JObject = jsonProperty.Value
-                                                           Dim packInfo As (Dictionary(Of String, String), String, String) ' Version List , Directory Name , File Name
-                                                           packInfo.Item1 = New Dictionary(Of String, String)()
-                                                           packInfo.Item2 = jsonObject.GetValue("dir")
-                                                           packInfo.Item3 = jsonObject.GetValue("serverPack")
-                                                           If String.IsNullOrEmpty(packInfo.Item3) Then Continue For
-                                                           For Each jsonChildObject As JObject In CType(jsonObject.GetValue("versions"), JArray)
-                                                               packInfo.Item1.Add(jsonChildObject.GetValue("version"), jsonChildObject.GetValue("mcVersion"))
-                                                           Next
-                                                           FeedTheBeastPackDict.Add(jsonObject.GetValue("title"), packInfo)
-                                                       Next
-                                                       docHtml = Nothing
-                                                       client.Dispose()
-                                                       BeginInvoke(New Action(Sub() FTBLoadingLabel.Text = "Feed The Beast：" & "載入完成"))
-                                                   Catch ex As Exception
-                                                       BeginInvoke(New Action(Sub() FTBLoadingLabel.Text = "Feed The Beast：" & "(無)"))
-                                                   End Try
-                                               End Sub)
-        FeedTheBeastGetPackThread.Name = "FeedTheBeast GetModpack Thread"
-        FeedTheBeastGetPackThread.IsBackground = True
-        FeedTheBeastGetPackThread.Start()
-    End Sub
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
         If CanEnabledUPnP Then
             Select Case CheckBox1.Checked
@@ -1699,7 +1666,6 @@ Public Class Manager
         End Select
         r = Nothing
         UpdateVersionLists()
-        UpdateModpackList()
         CheckBox2_CheckedChanged(CheckBox2, New EventArgs)
         GC.Collect()
     End Sub
@@ -1747,25 +1713,6 @@ Public Class Manager
         create.Show(Me)
     End Sub
 
-    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
-        UpdateModpackList()
-    End Sub
-    Private Sub UpdateModpackList()
-        If My.Computer.Network.IsAvailable Then
-            If IsNothing(FeedTheBeastGetPackThread) = False AndAlso FeedTheBeastGetPackThread.IsAlive = True Then
-                Try
-                    FeedTheBeastGetPackThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                FeedTheBeastGetPackThread = Nothing
-            End If
-            GetFeedTheBeastPackList()
-        Else
-            FTBLoadingLabel.Text = "Feed The Beast：" & "(無)"
-        End If
-        GC.Collect()
-    End Sub
     Private Sub IPLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IPLabel.LinkClicked
         If e.Button = MouseButtons.Left Then
             My.Computer.Clipboard.SetText(IPLabel.Text.Substring(e.Link.Start, e.Link.Length))

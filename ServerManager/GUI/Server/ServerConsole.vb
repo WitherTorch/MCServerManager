@@ -135,12 +135,18 @@ Public Class ServerConsole
                         Case Server.EServerVersionType.Forge
                             ' 1.1~1.2 > Server
                             ' 1.3 ~ > Universal
+                            ' 1.13+ -> Nothing
+                            ' 1.8.9 and 1.7.10 -> Server Version Twice
                             If New Version(Server.ServerVersion) >= New Version(1, 3) Then
                                 If New Version(Server.ServerVersion) >= New Version(1, 13) Then
                                     Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
                                 Else
-                                    Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                    If Server.ServerVersion = "1.8.9" OrElse Server.ServerVersion = "1.7.10" Then
+                                        Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-" & Server.ServerVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                    Else
+                                        Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath, True, True)
                                 End If
+                            End If
                             Else
                                 Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-server" & ".jar") & """" & " nogui", Server.ServerPath)
                             End If

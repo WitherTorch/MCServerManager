@@ -87,10 +87,10 @@ Public Class ModPackServerStatus
                                              End Sub))
     End Sub
     Friend Overloads Sub SetVersionLabel()
-        PackInfo.Text = "模組包：" & Server.PackName & " " & Server.PackVersion
+        PackInfo.Text = "模組包：" & Server.PackName
     End Sub
     Friend Overloads Sub SetVersionLabel(addtionText As String)
-        PackInfo.Text = "模組包：" & Server.PackName & " " & Server.PackVersion
+        PackInfo.Text = "模組包：" & Server.PackName
         If addtionText <> "" Then
             PackInfo.Text &= (" " & addtionText)
         End If

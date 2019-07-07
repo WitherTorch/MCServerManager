@@ -8,10 +8,18 @@ Public Class ModPackServer
     Public Event Initallised()
     Public Event ServerInfoUpdated()
     Public Event ServerIconUpdated()
-    Public Property IsRunning As Boolean = False
+    Dim _isRunning As Boolean = False
+    Public Property IsRunning As Boolean
+        Get
+            Return _isRunning
+        End Get
+        Set(value As Boolean)
+            _isRunning = value
+            RaiseEvent ServerInfoUpdated()
+        End Set
+    End Property
     Public ReadOnly Property IsInitallised As Boolean = False
     Public ReadOnly Property PackName As String
-    Public ReadOnly Property PackVersion As String
     Public ReadOnly Property PackType As ModPackType
     Public ReadOnly Property ServerPath As String
     Public ReadOnly Property ServerPathName As String
@@ -37,9 +45,8 @@ Public Class ModPackServer
         End Set
     End Property
 
-    Sub SetPackInfo(name As String, Version As String, Type As ModPackType)
+    Sub SetPackInfo(name As String, Type As ModPackType)
         _PackName = name
-        _PackVersion = Version
         _PackType = Type
     End Sub
     Sub SetPath(dir As String)
@@ -64,8 +71,6 @@ Public Class ModPackServer
                         Dim info = infoText.Split("=", 2, StringSplitOptions.None)
                         If info.Length >= 2 Then
                             Select Case info(0)
-                                Case "pack-version"
-                                    server._PackVersion = info(1)
                                 Case "pack-type"
                                     Select Case info(1).ToLower
                                         Case "feedthebeast"
@@ -136,7 +141,6 @@ Public Class ModPackServer
             writer.AutoFlush = True
             writer.WriteLine("pack-name=" & PackName)
             writer.WriteLine("pack-type=" & PackType.ToString)
-            writer.WriteLine("pack-version=" & PackVersion)
             writer.WriteLine("internal-java-args=" & InternalJavaArguments)
             writer.WriteLine("server-file=" & ServerRunJAR)
             writer.Flush()

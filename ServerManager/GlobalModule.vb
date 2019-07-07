@@ -6,7 +6,7 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.6.1 Alpha 5"
+    Public Const SERVER_MANAGER_VER As String = "1.6.1 Alpha 6"
     Friend Manager As Manager
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
@@ -28,9 +28,6 @@ Module GlobalModule
     Friend PaperVersionDict As New Dictionary(Of Version, String)
     Friend AkarinVersionList As New List(Of Version)
     Friend KettleVersionDict As New Dictionary(Of String, (String, String, String))
-#End Region
-#Region "Modpack List"
-    Friend FeedTheBeastPackDict As New Dictionary(Of String, (Dictionary(Of String, String), String, String))
 #End Region
 #Region "General Settings"
     Friend ServerMemoryMin As Decimal = 1024

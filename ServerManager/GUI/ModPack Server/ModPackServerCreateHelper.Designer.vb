@@ -60,7 +60,7 @@ Partial Class ModPackServerCreateHelper
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ModPackServerCreateHelper"
         Me.ShowIcon = False
-        Me.Text = "建立模組包伺服器"
+        Me.Text = "建立模組包伺服器 - 下載及安裝"
         Me.ResumeLayout(False)
 
     End Sub

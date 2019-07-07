@@ -69,9 +69,6 @@ Partial Class Manager
         Me.SpigotLoadingLabel = New System.Windows.Forms.Label()
         Me.ForgeLoadingLabel = New System.Windows.Forms.Label()
         Me.VanillaLoadingLabel = New System.Windows.Forms.Label()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.FTBLoadingLabel = New System.Windows.Forms.Label()
         Me.ServerListPage = New System.Windows.Forms.TabPage()
         Me.ServerListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.BottomButtons = New System.Windows.Forms.TableLayoutPanel()
@@ -163,7 +160,6 @@ Partial Class Manager
         Me.InternalIPContextMenu.SuspendLayout
         Me.GroupBox7.SuspendLayout
         Me.VListLoadingBox.SuspendLayout
-        Me.GroupBox6.SuspendLayout
         Me.ServerListPage.SuspendLayout
         Me.BottomButtons.SuspendLayout
         Me.PackServerListPage.SuspendLayout
@@ -376,12 +372,10 @@ Partial Class Manager
         '
         'GroupBox7
         '
-        Me.GroupBox7.AutoSize = True
         Me.GroupBox7.Controls.Add(Me.VListLoadingBox)
-        Me.GroupBox7.Controls.Add(Me.GroupBox6)
         Me.GroupBox7.Location = New System.Drawing.Point(3, 119)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(762, 256)
+        Me.GroupBox7.Size = New System.Drawing.Size(764, 256)
         Me.GroupBox7.TabIndex = 32
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "列表載入進度"
@@ -408,7 +402,7 @@ Partial Class Manager
         Me.VListLoadingBox.Controls.Add(Me.VanillaLoadingLabel)
         Me.VListLoadingBox.Location = New System.Drawing.Point(6, 21)
         Me.VListLoadingBox.Name = "VListLoadingBox"
-        Me.VListLoadingBox.Size = New System.Drawing.Size(416, 214)
+        Me.VListLoadingBox.Size = New System.Drawing.Size(751, 214)
         Me.VListLoadingBox.TabIndex = 30
         Me.VListLoadingBox.TabStop = False
         Me.VListLoadingBox.Text = "伺服器軟體"
@@ -562,36 +556,6 @@ Partial Class Manager
         Me.VanillaLoadingLabel.Text = "原版(Java)："
         Me.VanillaLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ToolTip1.SetToolTip(Me.VanillaLoadingLabel, "Mojang 官方發布的Java 版Minecraft 伺服器軟體，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "為大多數伺服器軟體的基礎。")
-        '
-        'GroupBox6
-        '
-        Me.GroupBox6.BackColor = System.Drawing.Color.Transparent
-        Me.GroupBox6.Controls.Add(Me.Button8)
-        Me.GroupBox6.Controls.Add(Me.FTBLoadingLabel)
-        Me.GroupBox6.Location = New System.Drawing.Point(428, 25)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(328, 210)
-        Me.GroupBox6.TabIndex = 31
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "模組包"
-        '
-        'Button8
-        '
-        Me.Button8.Location = New System.Drawing.Point(10, 178)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(195, 23)
-        Me.Button8.TabIndex = 13
-        Me.Button8.Text = "重新載入"
-        Me.Button8.UseVisualStyleBackColor = False
-        '
-        'FTBLoadingLabel
-        '
-        Me.FTBLoadingLabel.Location = New System.Drawing.Point(8, 18)
-        Me.FTBLoadingLabel.Name = "FTBLoadingLabel"
-        Me.FTBLoadingLabel.Size = New System.Drawing.Size(195, 23)
-        Me.FTBLoadingLabel.TabIndex = 1
-        Me.FTBLoadingLabel.Text = "Feed The Beast："
-        Me.FTBLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ServerListPage
         '
@@ -1564,7 +1528,6 @@ Partial Class Manager
         Me.MainPage.ResumeLayout(False)
         Me.MainPage.PerformLayout
         Me.MainPanel.ResumeLayout(False)
-        Me.MainPanel.PerformLayout
         Me.GroupBox8.ResumeLayout(False)
         Me.MemoryGroupBox.ResumeLayout(False)
         Me.MemoryGroupBox.PerformLayout
@@ -1574,7 +1537,6 @@ Partial Class Manager
         Me.InternalIPContextMenu.ResumeLayout(False)
         Me.GroupBox7.ResumeLayout(False)
         Me.VListLoadingBox.ResumeLayout(False)
-        Me.GroupBox6.ResumeLayout(False)
         Me.ServerListPage.ResumeLayout(False)
         Me.ServerListPage.PerformLayout
         Me.BottomButtons.ResumeLayout(False)
@@ -1718,9 +1680,7 @@ Partial Class Manager
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button
-    Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents Button8 As Button
-    Friend WithEvents FTBLoadingLabel As Label
     Friend WithEvents ContigoLoadingLabel As Label
     Friend WithEvents KettleLoadingLabel As Label
     Friend WithEvents GroupBox7 As GroupBox

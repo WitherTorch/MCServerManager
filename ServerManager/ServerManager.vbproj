@@ -208,6 +208,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Charcoal\ModpackExplorer.Designer.vb">
+      <DependentUpon>ModpackExplorer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Charcoal\ModpackExplorer.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Charcoal\HybridMPExplorer.Designer.vb">
       <DependentUpon>HybridMPExplorer.vb</DependentUpon>
     </Compile>
@@ -516,6 +522,9 @@
     <None Include="ServerManager_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Charcoal\ModpackExplorer.resx">
+      <DependentUpon>ModpackExplorer.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Charcoal\HybridMPExplorer.resx">
       <DependentUpon>HybridMPExplorer.vb</DependentUpon>
     </EmbeddedResource>

@@ -11,6 +11,7 @@ Public Class CharcoalEngine
     Friend Event NavigationEnded(sender As Object, e As EventArgs)
     Private NavigationTask As Task
     Dim _index As Integer
+    Dim mServer As ModPackServer
     Dim pluginName As String = ""
     Enum PluginPageType
         Bukkit_PluginListPage
@@ -24,13 +25,24 @@ Public Class CharcoalEngine
         CurseForge_ModDownloadListPage
         Nukkit_PluginListPage
         Nukkit_PluginMainPage
-        Sponge_PluginListPage
+        FeedTheBeast_ModpackListPage
+        FeedTheBeast_ModpackMainPage
+        FeedTheBeast_ModpackDownloadListPage
+        Curse_ModpackListPage
+        Curse_ModpackMainPage
+        Curse_ModpackDownloadListPage
     End Enum
     Sub New(index As Integer)
         Dim version = System.Environment.OSVersion.Version
         client.Headers.Add(Net.HttpRequestHeader.UserAgent,
                       "Mozilla/5.0 (Windows NT " & version.Major & "." & version.Minor & ") Charcoal/" & CHARCOAL_VER)
         _index = index
+    End Sub
+    Sub New(server As ModPackServer)
+        Dim version = System.Environment.OSVersion.Version
+        client.Headers.Add(Net.HttpRequestHeader.UserAgent,
+                      "Mozilla/5.0 (Windows NT " & version.Major & "." & version.Minor & ") Charcoal/" & CHARCOAL_VER)
+        mServer = server
     End Sub
     Sub LoadPage(url As String, type As PluginPageType, ByRef targetPanel As Panel)
         Try
@@ -1011,8 +1023,210 @@ Public Class CharcoalEngine
                     AddHandler client.DownloadStringCompleted, e2
                     client.DownloadStringAsync(uri)
 #End Region
-            End Select
+#Region "www.feed-the-beast.com/modpacks"
+                Case PluginPageType.FeedTheBeast_ModpackListPage
+                    pluginName = ""
+                    Dim layout As New TableLayoutPanel
+                    layout.Dock = DockStyle.Fill
+                    layout.AutoScroll = True
+                    layout.CellBorderStyle = TableLayoutPanelCellBorderStyle.InsetDouble
+                    Dim e1 As New Net.DownloadProgressChangedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadProgressChanged(sender, e)
+                                                                          End Sub)
+                    AddHandler client.DownloadProgressChanged, e1
+                    Dim e2 As New Net.DownloadStringCompletedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadCompleted(sender, e)
+                                                                              parser.LoadHtml(e.Result)
+                                                                              Dim strip As New ToolStrip
+                                                                              strip.Height = 27
+                                                                              layout.RowStyles.Add(New RowStyle(SizeType.Absolute, 27))
+                                                                              layout.Controls.Add(strip, 0, 0)
+                                                                              For Each element In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/section[1]/section[2]/div[2]/div[1]/div[2]/ul[1]/*")
+                                                                                  Dim label As ToolStripItem = Nothing
+                                                                                  Dim innerElement As HtmlAgilityPack.HtmlNode = element.FirstChild
+                                                                                  Select Case innerElement.Name
+                                                                                      Case "span"
+                                                                                          label = New ToolStripLabel
+                                                                                          label.Text = innerElement.InnerText.Replace("&hellip;", "...")
+                                                                                          ' label.Location = New Point(1, 1)
+                                                                                          label.AutoSize = True
+                                                                                          label.TextAlign = ContentAlignment.MiddleCenter
+                                                                                          label.Font = New Font(New FontFamily(System.Drawing.Text.GenericFontFamilies.SansSerif), 12, System.Drawing.GraphicsUnit.Pixel)
+                                                                                      Case "a"
+                                                                                          label = New ToolStripButton
+                                                                                          label.AutoToolTip = False
+                                                                                          label.DisplayStyle = ToolStripItemDisplayStyle.Text
+                                                                                          label.Text = innerElement.InnerText
+                                                                                          ' label.Location = New Point(1, 1)
+                                                                                          label.TextAlign = ContentAlignment.MiddleCenter
+                                                                                          label.AutoSize = True
+                                                                                          label.Font = New Font(New FontFamily(System.Drawing.Text.GenericFontFamilies.SansSerif), 12, System.Drawing.GraphicsUnit.Pixel)
+                                                                                          AddHandler label.Click, Sub()
+                                                                                                                      LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), innerElement.GetAttributeValue("href", "")).AbsoluteUri, PluginPageType.FeedTheBeast_ModpackListPage, parent)
+                                                                                                                  End Sub
+                                                                                          label.ForeColor = SystemColors.HotTrack
+                                                                                  End Select
+                                                                                  If IsNothing(label) = False Then
+                                                                                      strip.Items.Add(label)
+                                                                                  End If
+                                                                              Next
+                                                                              For Each element In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/section[1]/section[2]/div[2]/div[2]/ul[1]/*")
+                                                                                  Dim pluginItem As New PluginListItem()
+                                                                                  pluginItem.Dock = DockStyle.Fill
 
+                                                                                  Dim iconNode As HtmlAgilityPack.HtmlNode = element.SelectSingleNode("div[1]/a[1]/img[1]")
+
+                                                                                  Dim nameNode = element.SelectSingleNode("div[2]/div[1]/div[1]/a[1]")
+                                                                                  pluginItem.pluginIcon.Cursor = Cursors.Hand
+                                                                                  If IsNothing(iconNode) = False Then
+                                                                                      pluginItem.pluginIcon.ImageLocation = iconNode.GetAttributeValue("src", "https://media.forgecdn.net/avatars/thumbnails/65/443/48/48/636162895990633284.png")
+                                                                                  Else
+                                                                                      pluginItem.pluginIcon.Image = My.Resources.bukkit
+                                                                                  End If
+                                                                                  AddHandler pluginItem.pluginIcon.Click, Sub()
+                                                                                                                              LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[2]/div[1]/div[1]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, PluginPageType.FeedTheBeast_ModpackMainPage, parent)
+                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                          End Sub
+                                                                                  pluginItem.pluginName.Text = nameNode.InnerText.Trim.Replace("&amp;", "&").Replace("&amp;", "&")
+                                                                                  pluginItem.pluginName.Cursor = Cursors.Hand
+                                                                                  pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
+                                                                                  AddHandler pluginItem.pluginName.Click, Sub()
+                                                                                                                              LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[2]/div[1]/div[1]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, PluginPageType.FeedTheBeast_ModpackMainPage, parent)
+                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                          End Sub
+                                                                                  pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[2]/div[4]/p[1]").InnerText.Trim
+                                                                                  pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
+                                                                                  layout.RowStyles.Add(New RowStyle(SizeType.Absolute, pluginItem.Height))
+                                                                                  layout.Controls.Add(pluginItem, 0, layout.RowCount - 1)
+                                                                              Next
+                                                                              parent.Controls.Add(layout)
+                                                                              RaiseEvent NavigationEnded(Me, New EventArgs)
+                                                                              RemoveHandler client.DownloadProgressChanged, e1
+                                                                              RemoveHandler client.DownloadStringCompleted, e2
+                                                                          End Sub)
+                    AddHandler client.DownloadStringCompleted, e2
+
+                    client.DownloadStringAsync(New Uri(url))
+                Case PluginPageType.FeedTheBeast_ModpackMainPage
+
+                    Dim layout As New TabControl
+                    layout.Dock = DockStyle.Fill
+                    Dim IntroPage As New TabPage("模組包內容")
+                    layout.TabPages.Add(IntroPage)
+                    Dim DownloadPage As New TabPage("模組包下載")
+                    layout.TabPages.Add(DownloadPage)
+                    parent.Controls.Add(layout)
+                    Dim e1 As New Net.DownloadProgressChangedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadProgressChanged(sender, e)
+                                                                          End Sub)
+                    AddHandler client.DownloadProgressChanged, e1
+                    Dim e3 As New Net.DownloadProgressChangedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadProgressChanged(sender, e)
+                                                                          End Sub)
+                    Dim e4 As New Net.DownloadStringCompletedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadCompleted(sender, e)
+                                                                              parser.LoadHtml(e.Result)
+                                                                              Dim table As New DownloadVersionList(mServer, pluginName, DownloadVersionList.BrowsingWebsite.FeedTheBeast_Modpack)
+                                                                              table.Dock = DockStyle.Fill
+                                                                              For Each node In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/section[1]/div[1]/div[1]/div[2]/table[1]/tbody[1]/*")
+                                                                                  Dim item As New ListViewItem("")
+                                                                                  Dim node1Class As String = node.SelectSingleNode("td[1]/div[1]").GetAttributeValue("class", "")
+                                                                                  Select Case node1Class
+                                                                                      Case "release-phase tip"
+                                                                                          item.SubItems.Item(0) = (New ListViewItem.ListViewSubItem(item, "正式版") With {.ForeColor = Color.White, .BackColor = Color.FromArgb(140, 175, 98)})
+                                                                                      Case "beta-phase tip"
+                                                                                          item.SubItems.Item(0) = (New ListViewItem.ListViewSubItem(item, "預覽版") With {.ForeColor = Color.White, .BackColor = Color.FromArgb(127, 165, 196)})
+                                                                                  End Select
+                                                                                  Dim node2 = node.SelectSingleNode("td[2]/div[1]/div[1]/a[1]")
+                                                                                  Dim node2check = node.SelectSingleNode("td[2]/div[1]/div[1]/a[2]")
+                                                                                  If node2check Is Nothing Then Continue For
+                                                                                  Dim item2 = New ListViewItem.ListViewSubItem(item, node2.InnerText.Trim())
+                                                                                  table.DownloadList.Add(New Uri(New Uri("https://" & uri.DnsSafeHost), node2.GetAttributeValue("href", "")).AbsoluteUri)
+                                                                                  item2.ForeColor = SystemColors.HotTrack
+                                                                                  item.SubItems.Add(item2)
+                                                                                  Dim node3_value As String = node.SelectSingleNode("td[3]").InnerText.Trim()
+                                                                                  item.SubItems.Add(node3_value)
+                                                                                  Dim node4_value As String = node.SelectSingleNode("td[4]/abbr[1]").InnerText.Trim()
+                                                                                  item.SubItems.Add(node4_value)
+                                                                                  Dim node5_value As String = node.SelectSingleNode("td[5]/span[1]").InnerText.Trim()
+                                                                                  item.SubItems.Add(node5_value)
+                                                                                  Dim node6_value As String = node.SelectSingleNode("td[6]").InnerText.Trim()
+                                                                                  item.SubItems.Add(node6_value)
+                                                                                  table.VersionList.Items.Add(item)
+                                                                              Next
+                                                                              DownloadPage.Controls.Add(table)
+                                                                              RaiseEvent NavigationEnded(Me, New EventArgs)
+                                                                              RemoveHandler client.DownloadProgressChanged, e3
+                                                                              RemoveHandler client.DownloadStringCompleted, e4
+                                                                          End Sub)
+                    Dim e2 As New Net.DownloadStringCompletedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadCompleted(sender, e)
+                                                                              parser.LoadHtml(e.Result)
+                                                                              Dim node = parser.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/section[1]/div[1]/div[1]/div[2]")
+                                                                              Dim headNode = parser.DocumentNode.SelectSingleNode("/html[1]/head[1]")
+                                                                              Dim p As New HtmlRenderer.WinForms.HtmlPanel
+                                                                              p.Dock = DockStyle.Fill
+                                                                              p.AutoScroll = True
+                                                                              p.Text = "<html>" & headNode.OuterHtml & "<body>" & node.OuterHtml & "</body></html>"
+                                                                              IntroPage.Controls.Add(p)
+                                                                              RaiseEvent NavigationEnded(Me, New EventArgs)
+                                                                              RemoveHandler client.DownloadProgressChanged, e1
+                                                                              RemoveHandler client.DownloadStringCompleted, e2
+                                                                              AddHandler client.DownloadProgressChanged, e3
+                                                                              AddHandler client.DownloadStringCompleted, e4
+                                                                              client.DownloadStringAsync(New Uri(url & "/files"))
+                                                                          End Sub)
+                    AddHandler client.DownloadStringCompleted, e2
+                    client.DownloadStringAsync(uri)
+                Case PluginPageType.FeedTheBeast_ModpackDownloadListPage
+                    Dim e3 As New Net.DownloadProgressChangedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadProgressChanged(sender, e)
+                                                                          End Sub)
+                    AddHandler client.DownloadProgressChanged, e3
+                    Dim e4 As New Net.DownloadStringCompletedEventHandler(Sub(sender, e)
+                                                                              Dim DownloadPage = CType(parent.Controls(0), TabControl).TabPages.Item(1)
+                                                                              DownloadPage.Controls.Clear()
+                                                                              RaiseEvent DownloadCompleted(sender, e)
+                                                                              parser.LoadHtml(e.Result)
+                                                                              Dim table As New DownloadVersionList(mServer, pluginName, DownloadVersionList.BrowsingWebsite.FeedTheBeast_Modpack)
+                                                                              table.Dock = DockStyle.Fill
+                                                                              For Each node In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[1]/div[1]/div[1]/section[1]/div[2]/div[1]/table[1]/tbody[1]/*")
+                                                                                  Dim item As New ListViewItem("")
+                                                                                  Dim node1Class As String = node.SelectSingleNode("td[1]/div[1]").GetAttributeValue("class", "")
+                                                                                  Select Case node1Class
+                                                                                      Case "release-phase tip"
+                                                                                          item.SubItems.Item(0) = (New ListViewItem.ListViewSubItem(item, "正式版") With {.ForeColor = Color.White, .BackColor = Color.FromArgb(140, 175, 98)})
+                                                                                      Case "beta-phase tip"
+                                                                                          item.SubItems.Item(0) = (New ListViewItem.ListViewSubItem(item, "預覽版") With {.ForeColor = Color.White, .BackColor = Color.FromArgb(127, 165, 196)})
+                                                                                  End Select
+                                                                                  Dim node2 = node.SelectSingleNode("td[2]/div[1]/div[1]/a[1]")
+                                                                                  Dim node2check = node.SelectSingleNode("td[2]/div[1]/div[1]/a[2]")
+                                                                                  If node2check Is Nothing Then Continue For
+                                                                                  Dim item2 = New ListViewItem.ListViewSubItem(item, node2.InnerText.Trim())
+                                                                                  table.DownloadList.Add(New Uri(New Uri("https://" & uri.DnsSafeHost), node2.GetAttributeValue("href", "")).AbsoluteUri)
+                                                                                  item2.ForeColor = SystemColors.HotTrack
+                                                                                  item.SubItems.Add(item2)
+                                                                                  Dim node3_value As String = node.SelectSingleNode("td[3]").InnerText.Trim()
+                                                                                  item.SubItems.Add(node3_value)
+                                                                                  Dim node4_value As String = node.SelectSingleNode("td[4]/abbr[1]").InnerText.Trim()
+                                                                                  item.SubItems.Add(node4_value)
+                                                                                  Dim node5_value As String = node.SelectSingleNode("td[5]/span[1]").InnerText.Trim()
+                                                                                  item.SubItems.Add(node5_value)
+                                                                                  Dim node6_value As String = node.SelectSingleNode("td[6]").InnerText.Trim()
+                                                                                  item.SubItems.Add(node6_value)
+                                                                                  table.VersionList.Items.Add(item)
+                                                                              Next
+                                                                              DownloadPage.Controls.Add(table)
+                                                                              RaiseEvent NavigationEnded(Me, New EventArgs)
+                                                                              RemoveHandler client.DownloadProgressChanged, e3
+                                                                              RemoveHandler client.DownloadStringCompleted, e4
+                                                                          End Sub)
+
+                    AddHandler client.DownloadStringCompleted, e4
+                    client.DownloadStringAsync(New Uri(url))
+
+#End Region
+            End Select
         Catch ex As Exception
         End Try
     End Sub
