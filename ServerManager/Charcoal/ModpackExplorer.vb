@@ -22,13 +22,12 @@ Public Class ModpackExplorer
         AddHandler engine.DownloadProgressChanged, Sub(obj, args)
                                                        ToolStripProgressBar1.Value = args.ProgressPercentage
                                                    End Sub
-        GoHome()
     End Sub
     Sub GoHome()
-        engine.LoadPage("https://www.feed-the-beast.com/modpacks?filter-server-packs=y&filter-game-version=&filter-sort=4", CharcoalEngine.PluginPageType.FeedTheBeast_ModpackListPage, CharcoalEnginePanel)
+
     End Sub
 
-    Private Sub CharcoalEnginePanel_Paint(sender As Object, e As PaintEventArgs) 'Handles CharcoalEnginePanel.Paint
+    Private Sub CharcoalEnginePanel_Paint(sender As Object, e As PaintEventArgs) Handles CharcoalEnginePanel.Paint
         If isStart Then
             Try
                 Dim g As Graphics = e.Graphics
@@ -42,11 +41,15 @@ Public Class ModpackExplorer
     End Sub
 
 
-    Private Sub CharcoalEnginePanel_Resize(sender As Object, e As EventArgs) 'Handles CharcoalEnginePanel.Resize
+    Private Sub CharcoalEnginePanel_Resize(sender As Object, e As EventArgs) Handles CharcoalEnginePanel.Resize
         If isStart Then CharcoalEnginePanel.Refresh()
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        GoHome()
+        engine.LoadPage("https://www.curseforge.com/minecraft/modpacks", CharcoalEngine.RenderPageType.CurseForge_ModpackListPage, CharcoalEnginePanel)
+    End Sub
+
+    Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
+        engine.LoadPage("https://www.feed-the-beast.com/modpacks?filter-server-packs=y&filter-game-version=&filter-sort=4", CharcoalEngine.RenderPageType.FeedTheBeast_ModpackListPage, CharcoalEnginePanel)
     End Sub
 End Class

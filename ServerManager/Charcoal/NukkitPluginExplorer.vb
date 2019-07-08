@@ -23,7 +23,7 @@
         GoHome()
     End Sub
     Sub GoHome()
-        engine.LoadPage("https://nukkitx.com/resources/categories/nukkit-plugins.1/", CharcoalEngine.PluginPageType.Nukkit_PluginListPage, CharcoalEnginePanel)
+        engine.LoadPage("https://nukkitx.com/resources/categories/nukkit-plugins.1/", CharcoalEngine.RenderPageType.Nukkit_PluginListPage, CharcoalEnginePanel)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click

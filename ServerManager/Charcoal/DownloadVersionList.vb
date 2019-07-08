@@ -14,6 +14,7 @@ Public Class DownloadVersionList
         CurseForge_Mod
         Nukkit_PluginDownloadList
         FeedTheBeast_Modpack
+        Curse_Modpack
     End Enum
     Sub New(mServer As ModPackServer, packName As String, website As BrowsingWebsite)
 
@@ -127,6 +128,20 @@ Public Class DownloadVersionList
                     Dim _url = node.GetAttributeValue("href", "")
                     If String.IsNullOrWhiteSpace(url) = False Then
                         Dim helper As New ModPackServerCreateHelper(modpackServer, _url)
+                        helper.Show()
+                        BeginInvokeIfRequired(FindForm, Sub()
+                                                            FindForm().Close()
+                                                        End Sub)
+                    End If
+                End If
+            ElseIf website = BrowsingWebsite.Curse_Modpack Then
+                modpackServer.SetPackInfo(modpackName, ModPackServer.ModPackType.CurseForge)
+                Dim web As New HtmlAgilityPack.HtmlWeb()
+                Dim node = web.Load(url).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[1]/div[1]/div[1]/section[1]/section[2]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[2]/a[1]")
+                If node IsNot Nothing Then
+                    Dim _url = node.GetAttributeValue("href", "").Replace("/files/", "/download/")
+                    If String.IsNullOrWhiteSpace(url) = False Then
+                        Dim helper As New ModPackServerCreateHelper(modpackServer, _url & "/file")
                         helper.Show()
                         BeginInvokeIfRequired(FindForm, Sub()
                                                             FindForm().Close()

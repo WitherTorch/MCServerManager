@@ -33,16 +33,16 @@
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         isStart = False
-        engine.LoadPage("https://dev.bukkit.org/bukkit-plugins", CharcoalEngine.PluginPageType.Bukkit_PluginListPage, CharcoalEnginePanel)
+        engine.LoadPage("https://dev.bukkit.org/bukkit-plugins", CharcoalEngine.RenderPageType.Bukkit_PluginListPage, CharcoalEnginePanel)
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
         isStart = False
-        engine.LoadPage("https://www.curseforge.com/minecraft/bukkit-plugins", CharcoalEngine.PluginPageType.CurseForge_PluginListPage, CharcoalEnginePanel)
+        engine.LoadPage("https://www.curseforge.com/minecraft/bukkit-plugins", CharcoalEngine.RenderPageType.CurseForge_PluginListPage, CharcoalEnginePanel)
     End Sub
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
         isStart = False
-        engine.LoadPage("https://www.curseforge.com/minecraft/mc-mods", CharcoalEngine.PluginPageType.CurseForge_ModListPage, CharcoalEnginePanel)
+        engine.LoadPage("https://www.curseforge.com/minecraft/mc-mods", CharcoalEngine.RenderPageType.CurseForge_ModListPage, CharcoalEnginePanel)
     End Sub
     Private Sub CharcoalEnginePanel_Paint(sender As Object, e As PaintEventArgs) Handles CharcoalEnginePanel.Paint
         If isStart Then

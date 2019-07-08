@@ -15,7 +15,12 @@ Public Class ModPackServerCreateHelper
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         Me.server = server
         path = server.ServerPath
-        url = New Uri(New Uri("https://www.feed-the-beast.com"), serverDownloadURL).AbsoluteUri
+        Select Case server.PackType
+            Case ModPackServer.ModPackType.FeedTheBeast
+                url = New Uri(New Uri("https://www.feed-the-beast.com"), serverDownloadURL).AbsoluteUri
+            Case ModPackServer.ModPackType.CurseForge
+                url = New Uri(New Uri("https://www.curseforge.com"), serverDownloadURL).AbsoluteUri
+        End Select
     End Sub
     Private Sub ModPackServerCreateHelper_Load(sender As Object, e As EventArgs) Handles Me.Load
 
@@ -47,6 +52,16 @@ Public Class ModPackServerCreateHelper
                 Else
                     DownloadFile(url, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "modpack_" & server.PackName & ".zip"), ModPackServer.ModPackType.FeedTheBeast)
                 End If
+            Case ModPackServer.ModPackType.CurseForge
+                Dim request As Net.HttpWebRequest = Net.WebRequest.Create(url)
+                Dim version = System.Environment.OSVersion.Version
+                request.UserAgent = "Mozilla/5.0 (Windows NT " & version.Major & "." & version.Minor & ") Charcoal/" & CharcoalEngine.CHARCOAL_VER
+                Dim realURI As Uri = request.GetResponse().ResponseUri
+                If IsUnixLikeSystem Then
+                    DownloadFile(realURI.AbsoluteUri, IO.Path.Combine(IIf(path.EndsWith("/"), path, path & "/"), "modpack_" & server.PackName & ".zip"), ModPackServer.ModPackType.CurseForge)
+                Else
+                    DownloadFile(realURI.AbsoluteUri, IO.Path.Combine(IIf(path.EndsWith("\"), path, path & "\"), "modpack_" & server.PackName & ".zip"), ModPackServer.ModPackType.CurseForge)
+                End If
         End Select
     End Sub
     Sub DownloadFile(path As String, dist As String, packType As ModPackServer.ModPackType)
@@ -61,7 +76,7 @@ Public Class ModPackServerCreateHelper
                                                                                           ProgressBar.Style = ProgressBarStyle.Marquee
                                                                                           ProgressBar.Value = 10
                                                                                       Else
-                                                                                          If packType = ModPackServer.ModPackType.FeedTheBeast Then
+                                                                                          If packType = ModPackServer.ModPackType.FeedTheBeast OrElse packType = ModPackServer.ModPackType.CurseForge Then
                                                                                               ProgressBar.Value = e.ProgressPercentage * 0.5
                                                                                           Else
                                                                                               ProgressBar.Value = e.ProgressPercentage
@@ -73,7 +88,7 @@ Public Class ModPackServerCreateHelper
                                                    End Sub
         AddHandler client.DownloadFileCompleted, Sub(sender, e)
                                                      If e.Cancelled = False Then
-                                                         If packType = ModPackServer.ModPackType.FeedTheBeast Then
+                                                         If packType = ModPackServer.ModPackType.FeedTheBeast OrElse packType = ModPackServer.ModPackType.CurseForge Then
                                                              Invoke(Sub()
                                                                         StatusLabel.Text = "狀態：正在解壓縮模組包 ......"
                                                                         ProgressBar.Value = 50
@@ -106,25 +121,43 @@ Public Class ModPackServerCreateHelper
                                                                         ProgressBar.Value = 70
                                                                     End Sub)
                                                              Try
-                                                                 RunBatch(Me.path)
+                                                                 RunBatch(Me.path, packType)
                                                              Catch ex As Exception
                                                              End Try
+                                                             Dim dinfo As New IO.DirectoryInfo(Me.path)
+                                                             If IO.Directory.Exists(IO.Path.Combine(server.ServerPath, "libraries")) = False Then
+                                                                 Dim files = dinfo.GetFiles("forge*-installer.jar", IO.SearchOption.TopDirectoryOnly)
+                                                                 If files IsNot Nothing And files.Count > 0 Then
+                                                                     RunAndWait(New ProcessStartInfo("java", String.Format("-jar ""{0}"" --installServer", files(0).FullName)) With {.WorkingDirectory = dinfo.FullName})
+                                                                 End If
+                                                             End If
+                                                             If server.ServerRunJAR = "" Then
+                                                                 Dim files = dinfo.GetFiles("FTB*.jar", IO.SearchOption.TopDirectoryOnly)
+                                                                 If files IsNot Nothing And files.Count > 0 Then
+                                                                     server.ServerRunJAR = files(0).FullName
+                                                                 Else
+                                                                     Erase files
+                                                                     files = dinfo.GetFiles("forge*-universal.jar", IO.SearchOption.TopDirectoryOnly)
+                                                                     If files IsNot Nothing And files.Count > 0 Then
+                                                                         server.ServerRunJAR = files(0).Name
+                                                                     End If
+                                                                 End If
+                                                             End If
+                                                             If String.IsNullOrWhiteSpace(server.InternalJavaArguments) Then
+                                                                 If IO.File.Exists(IO.Directory.Exists(IO.Path.Combine(server.ServerPath, "settings.cfg"))) Then
+                                                                     Dim reader As New IO.StreamReader(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "settings.cfg"))
+                                                                     Do Until reader.EndOfStream
+                                                                         Dim command As String = reader.ReadLine.Trim
+                                                                         If command.ToUpper().StartsWith("JAVA_ARGS=") Then
+                                                                             server.InternalJavaArguments = command.Substring(9)
+                                                                             Exit Do
+                                                                         End If
+                                                                     Loop
+                                                                 End If
+                                                             End If
                                                          End If
                                                          BeginInvoke(New Action(Sub()
                                                                                     StatusLabel.Text = "狀態：正在配置伺服器 ......"
-                                                                                    If server.ServerRunJAR = "" Then
-                                                                                        Dim info As New IO.DirectoryInfo(Me.path)
-                                                                                        Dim files = info.GetFiles("FTB*.jar", IO.SearchOption.TopDirectoryOnly)
-                                                                                        If files IsNot Nothing And files.Count > 0 Then
-                                                                                            server.ServerRunJAR = files(0).FullName
-                                                                                        Else
-                                                                                            Erase files
-                                                                                            files = info.GetFiles("forge*.jar", IO.SearchOption.TopDirectoryOnly)
-                                                                                            If files IsNot Nothing And files.Count > 0 Then
-                                                                                                server.ServerRunJAR = files(0).FullName
-                                                                                            End If
-                                                                                        End If
-                                                                                    End If
                                                                                     server.SaveServer()
                                                                                     GenerateServerEULA()
                                                                                     StatusLabel.Text = "狀態：完成!"
@@ -146,16 +179,29 @@ Public Class ModPackServerCreateHelper
             writer.Close()
         End Using
     End Sub
-    Sub RunBatch(path As String)
+    Sub RunBatch(path As String, packtype As ModPackServer.ModPackType)
         Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
         Dim batchVariantDictionary As New Dictionary(Of String, String)
-        Dim reader As New IO.StreamReader(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "FTBInstall.bat"))
+        Dim filename As String = ""
+        Select Case packtype
+            Case ModPackServer.ModPackType.FeedTheBeast
+                filename = "FTBInstall.bat"
+            Case ModPackServer.ModPackType.CurseForge
+                filename = "Install.bat"
+                If IO.File.Exists(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), filename)) = False Then
+                    filename = "FTBInstall.bat"
+                End If
+        End Select
+        Dim reader As New IO.StreamReader(IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), filename))
         Do Until reader.EndOfStream
             Dim command As String = reader.ReadLine.Trim
             For Each variantPair In batchVariantDictionary
                 If command.Contains(variantPair.Key) Then _
                                                                          command = command.Replace(variantPair.Key, variantPair.Value)
             Next
+            If command.EndsWith("> NUL 2>&1") Then
+                command = command.Substring(0, command.Length - 10).TrimEnd
+            End If
             Select Case command
                 Case ""
                                                                          ' Do Nothing
@@ -180,6 +226,7 @@ Public Class ModPackServerCreateHelper
                         End If
                     Loop
                 Case Else
+                    If command.StartsWith("@echo") OrElse command.StartsWith("echo") OrElse command.StartsWith("REM") OrElse command.StartsWith(":") Then Continue Do
                     If command.Contains(" ") AndAlso command.IndexOf(" ") <> command.Length - 1 Then
                         Dim commandArgs As String() = command.Split(New String() {" "}, 2, StringSplitOptions.RemoveEmptyEntries)
                         If commandArgs.Count >= 2 Then

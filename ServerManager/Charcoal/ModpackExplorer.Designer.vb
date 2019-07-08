@@ -28,9 +28,10 @@ Partial Class ModpackExplorer
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CharcoalEnginePanel = New System.Windows.Forms.Panel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
-        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripContainer1.ContentPanel.SuspendLayout()
         Me.ToolStripContainer1.TopToolStripPanel.SuspendLayout()
         Me.ToolStripContainer1.SuspendLayout()
@@ -95,11 +96,29 @@ Partial Class ModpackExplorer
         'ToolStrip1
         '
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripSeparator1, Me.ToolStripProgressBar1})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton2, Me.ToolStripButton1, Me.ToolStripSeparator1, Me.ToolStripProgressBar1})
         Me.ToolStrip1.Location = New System.Drawing.Point(3, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(232, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(354, 25)
         Me.ToolStrip1.TabIndex = 0
+        '
+        'ToolStripButton2
+        '
+        Me.ToolStripButton2.Image = CType(resources.GetObject("ToolStripButton2.Image"), System.Drawing.Image)
+        Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton2.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.ToolStripButton2.Name = "ToolStripButton2"
+        Me.ToolStripButton2.Size = New System.Drawing.Size(112, 21)
+        Me.ToolStripButton2.Text = "Feed The Beast"
+        '
+        'ToolStripButton1
+        '
+        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
+        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton1.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.ToolStripButton1.Name = "ToolStripButton1"
+        Me.ToolStripButton1.Size = New System.Drawing.Size(91, 21)
+        Me.ToolStripButton1.Text = "CurseForge"
         '
         'ToolStripSeparator1
         '
@@ -110,15 +129,6 @@ Partial Class ModpackExplorer
         '
         Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
         Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 22)
-        '
-        'ToolStripButton1
-        '
-        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
-        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton1.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(112, 21)
-        Me.ToolStripButton1.Text = "Feed The Beast"
         '
         'ModpackExplorer
         '
@@ -150,4 +160,5 @@ Partial Class ModpackExplorer
     Friend WithEvents Panel1 As Panel
     Friend WithEvents CharcoalEnginePanel As Panel
     Friend WithEvents ToolStripButton1 As ToolStripButton
+    Friend WithEvents ToolStripButton2 As ToolStripButton
 End Class

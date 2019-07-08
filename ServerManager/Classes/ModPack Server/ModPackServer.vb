@@ -4,6 +4,7 @@ Public Class ModPackServer
     Enum ModPackType
         [Error]
         FeedTheBeast
+        CurseForge
     End Enum
     Public Event Initallised()
     Public Event ServerInfoUpdated()
@@ -75,6 +76,8 @@ Public Class ModPackServer
                                     Select Case info(1).ToLower
                                         Case "feedthebeast"
                                             server._PackType = ModPackType.FeedTheBeast
+                                        Case "curseforge"
+                                            server._PackType = ModPackType.CurseForge
                                         Case Else
                                             server._PackType = ModPackType.Error
                                     End Select
