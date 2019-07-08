@@ -32,7 +32,7 @@ Public Class ModpackExplorer
             Try
                 Dim g As Graphics = e.Graphics
                 g.Clear(Color.LightGray)
-                g.DrawString("請點選上方模組來源來瀏覽模組", New Font(SystemFonts.IconTitleFont.FontFamily, 16, FontStyle.Regular, GraphicsUnit.Pixel), New SolidBrush(Color.DimGray), New RectangleF(CharcoalEnginePanel.Location, CharcoalEnginePanel.Size), New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                g.DrawString("請點選上方模組包來源來選擇模組包", New Font(SystemFonts.IconTitleFont.FontFamily, 16, FontStyle.Regular, GraphicsUnit.Pixel), New SolidBrush(Color.DimGray), New RectangleF(CharcoalEnginePanel.Location, CharcoalEnginePanel.Size), New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
                 g.Dispose()
             Catch ex As Exception
 
@@ -46,10 +46,20 @@ Public Class ModpackExplorer
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        engine.LoadPage("https://www.curseforge.com/minecraft/modpacks", CharcoalEngine.RenderPageType.CurseForge_ModpackListPage, CharcoalEnginePanel)
+        Try
+            isStart = False
+            engine.LoadPage("https://www.curseforge.com/minecraft/modpacks", CharcoalEngine.RenderPageType.CurseForge_ModpackListPage, CharcoalEnginePanel)
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        engine.LoadPage("https://www.feed-the-beast.com/modpacks?filter-server-packs=y&filter-game-version=&filter-sort=4", CharcoalEngine.RenderPageType.FeedTheBeast_ModpackListPage, CharcoalEnginePanel)
+        Try
+            isStart = False
+            engine.LoadPage("https://www.feed-the-beast.com/modpacks?filter-server-packs=y&filter-game-version=&filter-sort=4", CharcoalEngine.RenderPageType.FeedTheBeast_ModpackListPage, CharcoalEnginePanel)
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

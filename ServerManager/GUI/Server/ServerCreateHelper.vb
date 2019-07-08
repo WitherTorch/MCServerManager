@@ -175,6 +175,7 @@ Public Class ServerCreateHelper
                                                                                 End Sub)
 
                                                                     'downloader.DeleteForgeInstaller(craftVersion, forgeVersion)
+                                                                    server.SetVersion(craftVersion, forgeVersion)
                                                                     server.SaveServer(False)
                                                                     GenerateServerEULA()
                                                                     BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(IIf(path.EndsWith(seperator), path, path & seperator)))

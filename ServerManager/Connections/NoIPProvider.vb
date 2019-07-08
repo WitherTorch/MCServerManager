@@ -37,7 +37,7 @@ Public Class NoIPProvider
     Sub UpdateHosts()
         If _targets IsNot Nothing Then
             For Each hostname In _targets
-                Dim url = String.Format("https://dynupdate.no-ip.com/nic/update?hostname={0}&myip={1}", hostname, Manager.GetExternalIP)
+                Dim url = String.Format("https://dynupdate.no-ip.com/nic/update?hostname={0}&myip=", hostname)
                 Dim request As Net.HttpWebRequest = Net.HttpWebRequest.Create(url)
                 request.Host = "dynupdate.no-ip.com"
                 request.Credentials = New Net.NetworkCredential(_username, _password)

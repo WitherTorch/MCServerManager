@@ -4,7 +4,7 @@ Imports TheArtOfDev
 Public Class CharcoalEngine
     Dim client As New Net.WebClient
     Dim parser As New HtmlAgilityPack.HtmlDocument()
-    Public Const CHARCOAL_VER As String = "1.4"
+    Public Const CHARCOAL_VER As String = "1.5"
     Friend Event NavigationStarted(sender As Object, e As EventArgs)
     Friend Event DownloadProgressChanged(sender As Object, e As Net.DownloadProgressChangedEventArgs)
     Friend Event DownloadCompleted(sender As Object, e As Net.DownloadStringCompletedEventArgs)
@@ -1089,16 +1089,16 @@ Public Class CharcoalEngine
                                                                                   End If
                                                                                   AddHandler pluginItem.pluginIcon.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[2]/div[1]/div[1]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.FeedTheBeast_ModpackMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
-                                                                                  pluginItem.pluginName.Text = nameNode.InnerText.Trim.Replace("&amp;", "&").Replace("&amp;", "&")
+                                                                                  pluginItem.pluginName.Text = Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                   pluginItem.pluginName.Cursor = Cursors.Hand
                                                                                   pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
                                                                                   AddHandler pluginItem.pluginName.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[2]/div[1]/div[1]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.FeedTheBeast_ModpackMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
-                                                                                  pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[2]/div[4]/p[1]").InnerText.Trim
+                                                                                  pluginItem.DescriptionLabel.Text = Net.WebUtility.HtmlDecode(element.SelectSingleNode("div[2]/div[4]/p[1]").InnerText.Trim)
                                                                                   pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
                                                                                   layout.RowStyles.Add(New RowStyle(SizeType.Absolute, pluginItem.Height))
                                                                                   layout.Controls.Add(pluginItem, 0, layout.RowCount - 1)
@@ -1297,16 +1297,16 @@ Public Class CharcoalEngine
                                                                                       End If
                                                                                       AddHandler pluginItem.pluginIcon.Click, Sub()
                                                                                                                                   LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_ModpackMainPage, parent)
-                                                                                                                                  pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                                  pluginName = Net.WebUtility.HtmlDecode(nameNode.InnerText.Trim)
                                                                                                                               End Sub
-                                                                                      pluginItem.pluginName.Text = nameNode.InnerText.Trim.Replace("&amp;", "&").Replace("&amp;", "&")
+                                                                                      pluginItem.pluginName.Text = Net.WebUtility.HtmlDecode(nameNode.InnerText.Trim)
                                                                                       pluginItem.pluginName.Cursor = Cursors.Hand
                                                                                       pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
                                                                                       AddHandler pluginItem.pluginName.Click, Sub()
                                                                                                                                   LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_ModpackMainPage, parent)
-                                                                                                                                  pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                                  pluginName = Net.WebUtility.HtmlDecode(nameNode.InnerText.Trim)
                                                                                                                               End Sub
-                                                                                      pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim
+                                                                                      pluginItem.DescriptionLabel.Text = Net.WebUtility.HtmlDecode(element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim)
                                                                                       pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
                                                                                       layout.RowStyles.Add(New RowStyle(SizeType.Absolute, pluginItem.Height))
                                                                                       layout.Controls.Add(pluginItem, 0, layout.RowCount - 1)
@@ -1343,7 +1343,7 @@ Public Class CharcoalEngine
                                                                               table.Dock = DockStyle.Fill
                                                                               Dim stripElements = parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[2]/div[1]/div[3]/div[1]/*")
                                                                               If stripElements IsNot Nothing Then
-                                                                                  For Each element In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[2]/div[1]/div[3]/div[1]/*")
+                                                                                  For Each element In stripElements
                                                                                       Dim label As ToolStripItem = Nothing
                                                                                       Select Case element.Name
                                                                                           Case "span"
