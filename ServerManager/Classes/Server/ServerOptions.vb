@@ -64,6 +64,20 @@ Enum Op_Permission_Level
     ''' </summary>
     Highest = 4
 End Enum
+Enum Function_Permission_Level
+    ''' <summary>
+    ''' 預設(與命令方塊同等級)
+    ''' </summary>
+    [Default] = 2
+    ''' <summary>
+    ''' 正常OP權限
+    ''' </summary>
+    AsNormalOp = 3
+    ''' <summary>
+    ''' 控制台
+    ''' </summary>
+    Console = 4
+End Enum
 ''' <summary>
 ''' 世界類型
 ''' </summary>
@@ -411,6 +425,11 @@ Class JavaServerOptions
                                                              vbNewLine & "True - 不在白名單上的使用者將會被踢出伺服器。" &
                                                              vbNewLine & "False - 沒有任何使用者會被踢出伺服器。")>
     Public Property Enforce_Whitelist As Boolean = False
+    <DisplayName("函數權限等級")> <DefaultValue(False)> <Category("技術性")> <Description("在伺服器上函數的權限等級。" &
+                                                            vbNewLine & "Default - 與命令方塊同等級" &
+                                                            vbNewLine & "AsNormalOP - 可使用一般OP所使用的指令（如/ban, /op 之類的）" &
+                                                             vbNewLine & "Console - 能使用所有指令。")>
+    Public Property Function_Permission_Level As Function_Permission_Level = Function_Permission_Level.Default
 
     Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerOptions.InputOption
         On Error Resume Next
@@ -455,6 +474,7 @@ Class JavaServerOptions
         White_List = serverOption("white-list")
         Enable_Command_Block = serverOption("enable-command-block")
         Enforce_Whitelist = serverOption("enforce-whitelist")
+        Function_Permission_Level = [Enum].Parse(GetType(Function_Permission_Level), serverOption("fucntion-permission-level"))
     End Sub
     Public Sub SetValue(optionName As String, value As String) Implements IServerOptions.SetValue
         Select Case optionName
@@ -540,6 +560,8 @@ Class JavaServerOptions
                 Enable_Command_Block = Boolean.Parse(value)
             Case "enforce-whitelist"
                 Enforce_Whitelist = Boolean.Parse(value)
+            Case "function-permission-level"
+                Function_Permission_Level = [Enum].Parse(GetType(Function_Permission_Level), value)
         End Select
     End Sub
     Public Function OutputOption() As IDictionary(Of String, String) Implements IServerOptions.OutputOption
@@ -585,6 +607,7 @@ Class JavaServerOptions
         options.Add("white-list", White_List.ToString.ToLower)
         options.Add("enable-command-block", Enable_Command_Block.ToString.ToLower)
         options.Add("enforce-whitelist", Enforce_Whitelist.ToString.ToLower)
+        options.Add("function-permission-level", Function_Permission_Level)
         Return options
     End Function
 
