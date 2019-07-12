@@ -272,7 +272,7 @@ Public Class MinecraftLogParser
                     Case Else
                         msg.ServerMessageType = MCServerMessageType.Info
                 End Select
-                Dim threadMessage As String = New Regex("\[[A-Za-z ][A-Za-z0-9 -]*\/[A-Z]{4,5}\]").Match(checkMessage).Value
+                Dim threadMessage As String = New Regex("\[[A-Za-z ][A-Za-z0-9 #$_-]*\/[A-Z]{4,5}\]").Match(checkMessage).Value
                 msg.Thread = threadMessage.Substring(1, threadMessage.Length - messageType.Length - 3)
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
                 Dim playerConnectionRegex As New Regex("\: [A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32})")
