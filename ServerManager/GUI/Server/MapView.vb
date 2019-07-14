@@ -50,6 +50,17 @@
                     _server.ServerOptions("level-name") = mapChange.mapList(mapChange.ListBox1.SelectedIndex)
                 End If
             End If
+            If mapChange.newMap.Item1.Trim <> "" Then
+                Try
+                    Select Case _server.ServerType
+                        Case Server.EServerType.Java
+                            ChangeIcon(IO.Path.Combine(_server.ServerPath, mapChange.newMap.Item1))
+                        Case Server.EServerType.Bedrock
+                            ChangeIcon(IO.Path.Combine(_server.ServerPath, "\world\", mapChange.newMap.Item1))
+                    End Select
+                Catch ex As Exception
+                End Try
+            End If
         End If
     End Sub
     Sub ChooseMap(path As String, Optional create As Boolean = False)

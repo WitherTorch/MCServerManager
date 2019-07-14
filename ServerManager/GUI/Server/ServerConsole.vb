@@ -84,8 +84,7 @@ Public Class ServerConsole
                 Exit For
             End If
         Next
-        TaskTimer.Enabled = True
-        TaskTimer.Start()
+
         Run()
         TaskList = Server.ServerTasks.ToList
         For Each task In TaskList
@@ -198,6 +197,8 @@ Public Class ServerConsole
         Run(program, "", serverDir, True, False)
     End Sub
     Private Overloads Sub Run(program As String, args As String, serverDir As String, Optional nogui As Boolean = True, Optional UTF8 As Boolean = True)
+        TaskTimer.Enabled = True
+        TaskTimer.Start()
         backgroundProcess = Process.Start(PrepareStartInfo(program, args, serverDir, nogui, UTF8))
         RestartButton.Enabled = False
         ForceCloseButton.Enabled = True

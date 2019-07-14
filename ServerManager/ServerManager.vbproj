@@ -294,7 +294,6 @@
     <Compile Include="Classes\Server\ServerTask.vb" />
     <Compile Include="Classes\Server\SpigotOptions.vb" />
     <Compile Include="Classes\Watchdog.vb" />
-    <Compile Include="Connections\CloudFlareProvider.vb" />
     <Compile Include="GUI\BungeeCord\BungeeCordCreateDialog.Designer.vb">
       <DependentUpon>BungeeCordCreateDialog.vb</DependentUpon>
     </Compile>
@@ -447,16 +446,10 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CryptoProvider.vb" />
-    <Compile Include="CustomComboBox.Designer.vb">
-      <DependentUpon>CustomComboBox.vb</DependentUpon>
-    </Compile>
-    <None Include="CustomComboBox.vb">
-      <SubType>Component</SubType>
-    </None>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <Compile Include="ForgeUpdater.vb" />
+    <Compile Include="Classes\ForgeUpdater.vb" />
     <Compile Include="GUI\Manager.Designer.vb">
       <DependentUpon>Manager.vb</DependentUpon>
     </Compile>
@@ -490,7 +483,7 @@
     <Compile Include="JSONSafeModule.vb" />
     <Compile Include="Classes\BukkitPluginUnpatcher.vb" />
     <Compile Include="Connections\NoIPProvider.vb" />
-    <Compile Include="UPnPMapper.vb" />
+    <Compile Include="Connections\UPnPMapper.vb" />
     <Compile Include="GUI\ForgeInstallWindow.Designer.vb">
       <DependentUpon>ForgeInstallWindow.vb</DependentUpon>
     </Compile>
