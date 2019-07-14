@@ -416,7 +416,9 @@ Public Class ServerConsole
                                                                                                           If task.Mode = ServerTask.TaskMode.Trigger AndAlso
                                                                                                                        task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerInputCommand Then
                                                                                                               If task.Enabled = True Then
-                                                                                                                  If String.IsNullOrWhiteSpace(task.CheckRegex) OrElse New Text.RegularExpressions.Regex(task.CheckRegex).IsMatch(msg.AddtionalMessage("command")) Then
+                                                                                                                  Dim testRegex As New Text.RegularExpressions.Regex(task.CheckRegex)
+                                                                                                                  If String.IsNullOrWhiteSpace(task.CheckRegex) OrElse
+                                                                                                                  (testRegex.IsMatch(msg.AddtionalMessage("command")) AndAlso testRegex.Match(msg.AddtionalMessage("command")).Value = msg.AddtionalMessage("command")) Then
                                                                                                                       RunTask(task, msg.AddtionalMessage)
                                                                                                                   End If
                                                                                                               End If
