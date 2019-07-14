@@ -44,9 +44,13 @@ Partial Class ServerTaskCreateDialog
         Me.Label8 = New System.Windows.Forms.Label()
         Me.TaskNameTextBox = New System.Windows.Forms.TextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.TaskPeriodUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TaskTypeComboBox
@@ -75,9 +79,9 @@ Partial Class ServerTaskCreateDialog
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.RunComboBox)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 139)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 203)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(360, 181)
+        Me.GroupBox1.Size = New System.Drawing.Size(360, 160)
         Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         '
@@ -98,7 +102,7 @@ Partial Class ServerTaskCreateDialog
         Me.RunCommandArgBox.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
         Me.RunCommandArgBox.Multiline = True
         Me.RunCommandArgBox.Name = "RunCommandArgBox"
-        Me.RunCommandArgBox.Size = New System.Drawing.Size(247, 135)
+        Me.RunCommandArgBox.Size = New System.Drawing.Size(247, 114)
         Me.RunCommandArgBox.TabIndex = 17
         Me.RunCommandArgBox.WordWrap = False
         '
@@ -126,9 +130,9 @@ Partial Class ServerTaskCreateDialog
         Me.RunComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.RunComboBox.FormattingEnabled = True
         Me.RunComboBox.Items.AddRange(New Object() {"停止伺服器", "重啟伺服器", "執行指令"})
-        Me.RunComboBox.Location = New System.Drawing.Point(53, 14)
+        Me.RunComboBox.Location = New System.Drawing.Point(71, 14)
         Me.RunComboBox.Name = "RunComboBox"
-        Me.RunComboBox.Size = New System.Drawing.Size(301, 20)
+        Me.RunComboBox.Size = New System.Drawing.Size(283, 20)
         Me.RunComboBox.TabIndex = 14
         '
         'GroupBox2
@@ -173,7 +177,7 @@ Partial Class ServerTaskCreateDialog
         Me.EventComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.EventComboBox.Enabled = False
         Me.EventComboBox.FormattingEnabled = True
-        Me.EventComboBox.Items.AddRange(New Object() {"玩家登入", "玩家登出", "伺服器啟動", "伺服器關閉"})
+        Me.EventComboBox.Items.AddRange(New Object() {"玩家登入", "玩家登出", "伺服器啟動", "伺服器關閉", "玩家輸入指令"})
         Me.EventComboBox.Location = New System.Drawing.Point(26, 40)
         Me.EventComboBox.Margin = New System.Windows.Forms.Padding(0, 3, 0, 3)
         Me.EventComboBox.Name = "EventComboBox"
@@ -224,7 +228,7 @@ Partial Class ServerTaskCreateDialog
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(300, 326)
+        Me.Button1.Location = New System.Drawing.Point(300, 371)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(72, 21)
         Me.Button1.TabIndex = 12
@@ -248,11 +252,41 @@ Partial Class ServerTaskCreateDialog
         Me.TaskNameTextBox.Size = New System.Drawing.Size(292, 22)
         Me.TaskNameTextBox.TabIndex = 18
         '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.TextBox1)
+        Me.GroupBox3.Controls.Add(Me.Label10)
+        Me.GroupBox3.Enabled = False
+        Me.GroupBox3.Location = New System.Drawing.Point(12, 139)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(360, 58)
+        Me.GroupBox3.TabIndex = 17
+        Me.GroupBox3.TabStop = False
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Enabled = False
+        Me.Label10.Location = New System.Drawing.Point(-3, 20)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(3, 0, 0, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(113, 24)
+        Me.Label10.TabIndex = 15
+        Me.Label10.Text = "　輸入指令比對：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "（使用正規表示式）"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(113, 22)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(241, 22)
+        Me.TextBox1.TabIndex = 16
+        '
         'ServerTaskCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 359)
+        Me.ClientSize = New System.Drawing.Size(384, 404)
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.TaskNameTextBox)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Button1)
@@ -272,6 +306,8 @@ Partial Class ServerTaskCreateDialog
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.TaskPeriodUpDown, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -297,4 +333,7 @@ Partial Class ServerTaskCreateDialog
     Friend WithEvents TaskNameTextBox As TextBox
     Friend WithEvents InputArgsButton As Button
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents TextBox1 As TextBox
 End Class

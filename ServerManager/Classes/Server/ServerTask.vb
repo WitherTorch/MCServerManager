@@ -9,6 +9,7 @@
         PlayerLogout
         ServerStarted
         ServerClosed
+        PlayerInputCommand
     End Enum
     Enum TaskPeriodUnit
         Tick
@@ -33,6 +34,7 @@
     Public Property RepeatingPeriod As Long
     Public Property RepeatingPeriodUnit As TaskPeriodUnit
     Public Property Command As TaskCommand
+    Public Property CheckRegex As String = ""
     Public Property Name As String
     Sub New(mode As TaskMode, name As String)
         Me.Mode = mode

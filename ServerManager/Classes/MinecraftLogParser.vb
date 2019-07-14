@@ -15,6 +15,7 @@ Public Class MinecraftLogParser
             PlayerLogout
             PlayerConnected
             PlayerLostConnected
+            PlayerInputCommand
         End Enum
         Public Property ServerMessageType As MCServerMessageType
         Public Property BungeeCordMessageType As String
@@ -142,6 +143,7 @@ Public Class MinecraftLogParser
                 Dim playerLoginRegex2 As New Regex("\: [A-Za-z0-9_-]* joined the game")
                 Dim playerLostConnectionRegex As New Regex("\: [A-Za-z0-9_-] lost connection")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")
+                Dim playerUseCommandRegex As New Regex("\: [A-Za-z0-9_-]* issued server command: ")
                 If playerLoginRegex1.IsMatch(originalMessage) Then  'Player Login Regex Match   : UUID of player xxx is 00000000-aaaa-bbbb-cccc-123456789def
                     Dim matchString = playerLoginRegex1.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerLogin
@@ -168,6 +170,13 @@ Public Class MinecraftLogParser
                     msg.MessageType = MCMessageType.PlayerLostConnected
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
+                ElseIf playerUseCommandRegex.IsMatch(msg.Message) Then  'Player Use Command Regex Match   : xxx issued server command: /xx
+                    Dim matchString = playerUseCommandRegex.Match(msg.Message).Value
+                    msg.MessageType = MCMessageType.PlayerInputCommand
+                    matchString = matchString.Replace(": ", "")
+                    msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
+                    msg.AddtionalMessage.Add("command", msg.Message.Substring(matchString.Length))
+                ElseIf msg.Message.Trim.StartsWith("") Then
                 Else
                     msg.MessageType = MCMessageType.None
                 End If

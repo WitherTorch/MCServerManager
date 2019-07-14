@@ -13,6 +13,8 @@ Public Class ServerTaskCreateDialog
     Dim playerLogoutParameters As String() = {"<$ID>"}
     Dim playerLogoutParameterDescriptions As String() = {"目標玩家的ID"}
 
+    Dim playerInputCommandParameters As String() = {"<$ID>", "<$COMMANDNAME>", "<$COMMANDARG>", "<$COMMANDFULL>"}
+    Dim playerInputCommandParameterDescriptions As String() = {"目標玩家的ID", "玩家輸入的指令名稱", "玩家輸入的指令參數", "玩家輸入的指令"}
     Public Sub New(console As ServerConsole, Optional ByRef preTask As ServerTask = Nothing)
 
         ' 設計工具需要此呼叫。
@@ -115,6 +117,9 @@ Public Class ServerTaskCreateDialog
                     End If
                     If EventComboBox.SelectedIndex >= 0 Then
                         task.TriggerEvent = EventComboBox.SelectedIndex + 1
+                        If task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerInputCommand Then
+                            task.CheckRegex = TextBox1.Text
+                        End If
                         If RunComboBox.SelectedIndex >= 0 And RunCommandArgBox.Text.Trim <> "" Then
                             Dim command As New ServerTask.TaskCommand()
                             command.Action = RunComboBox.SelectedIndex + 1
@@ -148,13 +153,26 @@ Public Class ServerTaskCreateDialog
                     paraDialog.ListView1.Items.Add(item)
                 Next
             Case 1
-                For Each para In playerLoginParameters
+                For Each para In playerLogoutParameters
                     Dim item As New ListViewItem(para)
-                    item.SubItems.Add(playerLoginParameterDescriptions(playerLoginParameters.ToList.IndexOf(para)))
+                    item.SubItems.Add(playerLogoutParameterDescriptions(playerLogoutParameters.ToList.IndexOf(para)))
+                    paraDialog.ListView1.Items.Add(item)
+                Next
+            Case 4
+                For Each para In playerInputCommandParameters
+                    Dim item As New ListViewItem(para)
+                    item.SubItems.Add(playerInputCommandParameterDescriptions(playerInputCommandParameters.ToList.IndexOf(para)))
                     paraDialog.ListView1.Items.Add(item)
                 Next
         End Select
         paraDialog.ShowDialog()
     End Sub
-
+    Private Sub EventComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EventComboBox.SelectedIndexChanged
+        Select Case EventComboBox.SelectedIndex
+            Case 4
+                GroupBox3.Enabled = True
+            Case Else
+                GroupBox3.Enabled = False
+        End Select
+    End Sub
 End Class

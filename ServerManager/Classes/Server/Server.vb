@@ -179,6 +179,7 @@ Public NotInheritable Class Server
                                                     task.RepeatingPeriodUnit = CInt(jsonObject.GetValue("periodUnit"))
                                                 Case ServerTask.TaskMode.Trigger
                                                     task.TriggerEvent = CInt(jsonObject.GetValue("event"))
+                                                    task.CheckRegex = IIf(jsonObject.ContainsKey("regex"), jsonObject.GetValue("regex"), "")
                                             End Select
                                             Dim command As JObject = jsonObject.GetValue("command")
                                             Dim taskCommand As New ServerTask.TaskCommand()
@@ -959,6 +960,10 @@ Public NotInheritable Class Server
                             jsonObject.Add("periodUnit", task.RepeatingPeriodUnit)
                         Case ServerTask.TaskMode.Trigger
                             jsonObject.Add("event", task.TriggerEvent)
+                            Select Case task.TriggerEvent
+                                Case ServerTask.TaskTriggerEvent.PlayerInputCommand
+                                    jsonObject.Add("regex", task.CheckRegex)
+                            End Select
                     End Select
                     Dim command As New JObject
                     Dim taskCommand As ServerTask.TaskCommand = task.Command

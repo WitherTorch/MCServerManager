@@ -411,6 +411,17 @@ Public Class ServerConsole
                                                                                                               End If
                                                                                                           End If
                                                                                                       Next
+                                                                                                  Case MCMessageType.PlayerInputCommand
+                                                                                                      For Each task In TaskList
+                                                                                                          If task.Mode = ServerTask.TaskMode.Trigger AndAlso
+                                                                                                                       task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerInputCommand Then
+                                                                                                              If task.Enabled = True Then
+                                                                                                                  If String.IsNullOrWhiteSpace(task.CheckRegex) OrElse New Text.RegularExpressions.Regex(task.CheckRegex).IsMatch(msg.AddtionalMessage("command")) Then
+                                                                                                                      RunTask(task, msg.AddtionalMessage)
+                                                                                                                  End If
+                                                                                                              End If
+                                                                                                          End If
+                                                                                                      Next
                                                                                                   Case Else
                                                                                               End Select
                                                                                               BeginInvokeIfRequired(Me, Sub()
@@ -918,6 +929,14 @@ Public Class ServerConsole
                                     command = command.Replace("<$ID>", AddtionalParameters("player"))
                                 Case ServerTask.TaskTriggerEvent.PlayerLogout
                                     command = command.Replace("<$ID>", AddtionalParameters("player"))
+                                Case ServerTask.TaskTriggerEvent.PlayerInputCommand
+                                    Dim playerCommand As String = AddtionalParameters("command")
+                                    Dim commandName As String = IIf(AddtionalParameters("command").Contains(" "), AddtionalParameters("command").Split(New Char() {" "}, 2)(0), AddtionalParameters("command"))
+                                    Dim commandArg As String = IIf(AddtionalParameters("command").Contains(" "), AddtionalParameters("command").Split(New Char() {" "}, 2)(1), "")
+                                    command = command.Replace("<$ID>", AddtionalParameters("player"))
+                                    command = command.Replace("<$COMMANDNAME>", commandName)
+                                    command = command.Replace("<$COMMANDARG>", commandArg)
+                                    command = command.Replace("<$COMMANDFULL>", playerCommand)
                             End Select
                             If command.Contains(vbNewLine) Then
                                 For Each line In command.Split(vbNewLine)
