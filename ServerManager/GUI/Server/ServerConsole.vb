@@ -933,8 +933,13 @@ Public Class ServerConsole
                                     command = command.Replace("<$ID>", AddtionalParameters("player"))
                                 Case ServerTask.TaskTriggerEvent.PlayerInputCommand
                                     Dim playerCommand As String = AddtionalParameters("command")
-                                    Dim commandName As String = IIf(AddtionalParameters("command").Contains(" "), AddtionalParameters("command").Split(New Char() {" "}, 2)(0), AddtionalParameters("command"))
-                                    Dim commandArg As String = IIf(AddtionalParameters("command").Contains(" "), AddtionalParameters("command").Split(New Char() {" "}, 2)(1), "")
+                                    Dim commandName As String = IIf(playerCommand.Contains(" "), playerCommand.Split(New Char() {" "}, 2, StringSplitOptions.None)(0), playerCommand)
+                                    Dim commandArg As String = ""
+                                    Try
+                                        commandArg = IIf(playerCommand.Contains(" "), playerCommand.Split(New Char() {" "}, 2, StringSplitOptions.None)(1), "")
+                                    Catch ex As Exception
+
+                                    End Try
                                     command = command.Replace("<$ID>", AddtionalParameters("player"))
                                     command = command.Replace("<$COMMANDNAME>", commandName)
                                     command = command.Replace("<$COMMANDARG>", commandArg)
@@ -942,10 +947,10 @@ Public Class ServerConsole
                             End Select
                             If command.Contains(vbNewLine) Then
                                 For Each line In command.Split(vbNewLine)
-                                    backgroundProcess.StandardInput.WriteLine(line)
+                                    alternateInputStreamWriter.WriteLine(line)
                                 Next
                             Else
-                                backgroundProcess.StandardInput.WriteLine(command)
+                                alternateInputStreamWriter.WriteLine(command)
                             End If
                         Catch ex As Exception
                         End Try
@@ -987,6 +992,7 @@ Public Class ServerConsole
                     taskDialog.Label4.Enabled = True
                     taskDialog.EventComboBox.Enabled = True
                     taskDialog.Label5.Enabled = True
+                    taskDialog.TextBox1.Text = task.CheckRegex
                     taskDialog.EventComboBox.SelectedIndex = task.TriggerEvent - 1
                 Case ServerTask.TaskMode.Repeating
                     taskDialog.TaskTypeComboBox.SelectedIndex = 0

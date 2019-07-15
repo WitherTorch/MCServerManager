@@ -345,6 +345,7 @@ Public Class ServerSetter
                     taskDialog.Label4.Enabled = True
                     taskDialog.EventComboBox.Enabled = True
                     taskDialog.Label5.Enabled = True
+                    taskDialog.TextBox1.Text = task.CheckRegex
                     taskDialog.EventComboBox.SelectedIndex = task.TriggerEvent - 1
                 Case ServerTask.TaskMode.Repeating
                     taskDialog.TaskTypeComboBox.SelectedIndex = 0

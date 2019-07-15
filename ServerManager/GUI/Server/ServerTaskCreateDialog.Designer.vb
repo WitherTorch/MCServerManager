@@ -45,8 +45,8 @@ Partial Class ServerTaskCreateDialog
         Me.TaskNameTextBox = New System.Windows.Forms.TextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.TaskPeriodUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -263,23 +263,22 @@ Partial Class ServerTaskCreateDialog
         Me.GroupBox3.TabIndex = 17
         Me.GroupBox3.TabStop = False
         '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Enabled = False
-        Me.Label10.Location = New System.Drawing.Point(-3, 20)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(3, 0, 0, 0)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(113, 24)
-        Me.Label10.TabIndex = 15
-        Me.Label10.Text = "　輸入指令比對：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "（使用正規表示式）"
-        '
         'TextBox1
         '
         Me.TextBox1.Location = New System.Drawing.Point(113, 22)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(241, 22)
         Me.TextBox1.TabIndex = 16
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(-3, 20)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(3, 0, 0, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(113, 24)
+        Me.Label10.TabIndex = 15
+        Me.Label10.Text = "　輸入指令比對：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "（使用正規表示式）"
         '
         'ServerTaskCreateDialog
         '

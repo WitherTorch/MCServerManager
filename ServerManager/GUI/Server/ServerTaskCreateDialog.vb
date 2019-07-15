@@ -92,7 +92,7 @@ Public Class ServerTaskCreateDialog
                     If TaskPeriodUnitCombo.SelectedIndex >= 0 Then
                         task.RepeatingPeriodUnit = TaskPeriodUnitCombo.SelectedIndex
                         task.RepeatingPeriod = TaskPeriodUpDown.Value
-                        If RunComboBox.SelectedIndex >= 0 And RunCommandArgBox.Text.Trim <> "" Then
+                        If RunComboBox.SelectedIndex >= 0 And (RunComboBox.SelectedIndex <> 2 OrElse RunCommandArgBox.Text.Trim <> "") Then
                             Dim command As New ServerTask.TaskCommand()
                             command.Action = RunComboBox.SelectedIndex + 1
                             command.Data = RunCommandArgBox.Text
@@ -120,7 +120,7 @@ Public Class ServerTaskCreateDialog
                         If task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerInputCommand Then
                             task.CheckRegex = TextBox1.Text
                         End If
-                        If RunComboBox.SelectedIndex >= 0 And RunCommandArgBox.Text.Trim <> "" Then
+                        If RunComboBox.SelectedIndex >= 0 And (RunComboBox.SelectedIndex <> 2 OrElse RunCommandArgBox.Text.Trim <> "") Then
                             Dim command As New ServerTask.TaskCommand()
                             command.Action = RunComboBox.SelectedIndex + 1
                             command.Data = RunCommandArgBox.Text
@@ -173,6 +173,17 @@ Public Class ServerTaskCreateDialog
                 GroupBox3.Enabled = True
             Case Else
                 GroupBox3.Enabled = False
+        End Select
+    End Sub
+
+    Private Sub RunComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles RunComboBox.SelectedIndexChanged
+        Select Case RunComboBox.SelectedIndex
+            Case 2
+                RunCommandArgBox.Enabled = True
+                InputArgsButton.Enabled = True
+            Case Else
+                RunCommandArgBox.Enabled = False
+                InputArgsButton.Enabled = False
         End Select
     End Sub
 End Class

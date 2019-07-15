@@ -143,7 +143,7 @@ Public Class MinecraftLogParser
                 Dim playerLoginRegex2 As New Regex("\: [A-Za-z0-9_-]* joined the game")
                 Dim playerLostConnectionRegex As New Regex("\: [A-Za-z0-9_-] lost connection")
                 Dim playerLogoutRegex As New Regex("\: [A-Za-z0-9_-]* left the game")
-                Dim playerUseCommandRegex As New Regex("\: [A-Za-z0-9_-]* issued server command: ")
+                Dim playerUseCommandRegex As New Regex("\: [A-Za-z0-9_-]* issued server command\: ")
                 If playerLoginRegex1.IsMatch(originalMessage) Then  'Player Login Regex Match   : UUID of player xxx is 00000000-aaaa-bbbb-cccc-123456789def
                     Dim matchString = playerLoginRegex1.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerLogin
@@ -160,23 +160,22 @@ Public Class MinecraftLogParser
                     msg.MessageType = MCMessageType.PlayerLogout
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                ElseIf playerConnectionRegex.IsMatch(msg.Message) Then  'Player Connection Regex Match   : xxx[/192.168.0.1:25596] logged in with entity id 3132 at (0, 0, 0)
-                    Dim matchString = playerConnectionRegex.Match(msg.Message).Value
+                ElseIf playerConnectionRegex.IsMatch(originalMessage) Then  'Player Connection Regex Match   : xxx[/192.168.0.1:25596] logged in with entity id 3132 at (0, 0, 0)
+                    Dim matchString = playerConnectionRegex.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerConnected
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                ElseIf playerLostConnectionRegex.IsMatch(msg.Message) Then  'Player Lost Connection Regex Match   : xxx lost connection
-                    Dim matchString = playerConnectionRegex.Match(msg.Message).Value
+                ElseIf playerLostConnectionRegex.IsMatch(originalMessage) Then  'Player Lost Connection Regex Match   : xxx lost connection
+                    Dim matchString = playerConnectionRegex.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerLostConnected
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                ElseIf playerUseCommandRegex.IsMatch(msg.Message) Then  'Player Use Command Regex Match   : xxx issued server command: /xx
-                    Dim matchString = playerUseCommandRegex.Match(msg.Message).Value
+                ElseIf playerUseCommandRegex.IsMatch(originalMessage) Then  'Player Use Command Regex Match   : xxx issued server command: /xx
+                    Dim matchString = playerUseCommandRegex.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerInputCommand
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                    msg.AddtionalMessage.Add("command", msg.Message.Substring(matchString.Length))
-                ElseIf msg.Message.Trim.StartsWith("") Then
+                    msg.AddtionalMessage.Add("command", msg.Message.Substring(matchString.Length + 2))
                 Else
                     msg.MessageType = MCMessageType.None
                 End If
@@ -211,13 +210,13 @@ Public Class MinecraftLogParser
                     msg.MessageType = MCMessageType.PlayerLogout
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                ElseIf playerConnectionRegex.IsMatch(msg.Message) Then  'Player Connection Regex Match   : xxx[/192.168.0.1:25596] logged in with entity id 3132 at (0, 0, 0)
-                    Dim matchString = playerConnectionRegex.Match(msg.Message).Value
+                ElseIf playerConnectionRegex.IsMatch(originalMessage) Then  'Player Connection Regex Match   : xxx[/192.168.0.1:25596] logged in with entity id 3132 at (0, 0, 0)
+                    Dim matchString = playerConnectionRegex.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerConnected
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                ElseIf playerLostConnectionRegex.IsMatch(msg.Message) Then  'Player Lost Connection Regex Match   : xxx lost connection
-                    Dim matchString = playerConnectionRegex.Match(msg.Message).Value
+                ElseIf playerLostConnectionRegex.IsMatch(originalMessage) Then  'Player Lost Connection Regex Match   : xxx lost connection
+                    Dim matchString = playerConnectionRegex.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerLostConnected
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
@@ -255,13 +254,13 @@ Public Class MinecraftLogParser
                     msg.MessageType = MCMessageType.PlayerLogout
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                ElseIf playerConnectionRegex.IsMatch(msg.Message) Then  'Player Connection Regex Match   : xxx[/192.168.0.1:25596] logged in with entity id 3132 at (0, 0, 0)
-                    Dim matchString = playerConnectionRegex.Match(msg.Message).Value
+                ElseIf playerConnectionRegex.IsMatch(originalMessage) Then  'Player Connection Regex Match   : xxx[/192.168.0.1:25596] logged in with entity id 3132 at (0, 0, 0)
+                    Dim matchString = playerConnectionRegex.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerConnected
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                ElseIf playerLostConnectionRegex.IsMatch(msg.Message) Then  'Player Lost Connection Regex Match   : xxx lost connection
-                    Dim matchString = playerConnectionRegex.Match(msg.Message).Value
+                ElseIf playerLostConnectionRegex.IsMatch(originalMessage) Then  'Player Lost Connection Regex Match   : xxx lost connection
+                    Dim matchString = playerConnectionRegex.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerLostConnected
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
@@ -298,13 +297,13 @@ Public Class MinecraftLogParser
                     msg.MessageType = MCMessageType.PlayerLogout
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                ElseIf playerConnectionRegex.IsMatch(msg.Message) Then  'Player Connection Regex Match   : xxx[/192.168.0.1:25596] logged in with entity id 3132 at (0, 0, 0)
-                    Dim matchString = playerConnectionRegex.Match(msg.Message).Value
+                ElseIf playerConnectionRegex.IsMatch(originalMessage) Then  'Player Connection Regex Match   : xxx[/192.168.0.1:25596] logged in with entity id 3132 at (0, 0, 0)
+                    Dim matchString = playerConnectionRegex.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerConnected
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
-                ElseIf playerLostConnectionRegex.IsMatch(msg.Message) Then  'Player Lost Connection Regex Match   : xxx lost connection
-                    Dim matchString = playerConnectionRegex.Match(msg.Message).Value
+                ElseIf playerLostConnectionRegex.IsMatch(originalMessage) Then  'Player Lost Connection Regex Match   : xxx lost connection
+                    Dim matchString = playerConnectionRegex.Match(originalMessage).Value
                     msg.MessageType = MCMessageType.PlayerLostConnected
                     matchString = matchString.Replace(": ", "")
                     msg.AddtionalMessage.Add("player", New Regex("[A-Za-z0-9_-]*").Match(matchString).Value)
