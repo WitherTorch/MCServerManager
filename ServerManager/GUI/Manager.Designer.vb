@@ -1458,7 +1458,7 @@ Partial Class Manager
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(213, 96)
         Me.Label10.TabIndex = 3
-        Me.Label10.Text = "作者：Error_404、冰霜、asd7766zxc"
+        Me.Label10.Text = "作者：Error 404、冰霜、asd7766zxc"
         '
         'Label9
         '

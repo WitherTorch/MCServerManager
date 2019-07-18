@@ -11,7 +11,7 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("Minecraft 伺服器管理員")>
 <Assembly: AssemblyDescription("管理Minecraft 伺服器")>
-<Assembly: AssemblyCompany("Error_404,冰霜,asd7766zxc")>
+<Assembly: AssemblyCompany("Error 404,冰霜,asd7766zxc")>
 <Assembly: AssemblyProduct("Minecraft 伺服器管理員")>
 <Assembly: AssemblyCopyright("Copyright © Minecraft 伺服器管理員 2019")>
 <Assembly: AssemblyTrademark("")>

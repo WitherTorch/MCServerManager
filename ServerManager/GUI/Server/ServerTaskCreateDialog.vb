@@ -7,6 +7,9 @@ Public Class ServerTaskCreateDialog
     Dim isEditMode As Boolean = False
     Dim inSetting As Boolean = False
 
+    Dim taskMethods As String() = {"#sleep 20"}
+    Dim taskMethodsDescriptions As String() = {"在指定的遊戲刻數內暫停輸出排程指令"}
+
     Dim playerLoginParameters As String() = {"<$ID>"}
     Dim playerLoginParameterDescriptions As String() = {"目標玩家的ID"}
 
@@ -145,6 +148,11 @@ Public Class ServerTaskCreateDialog
 
     Private Sub InputArgsButton_Click(sender As Object, e As EventArgs) Handles InputArgsButton.Click
         Dim paraDialog As New TaskParameterDialog(Me)
+        For Each para In taskMethods
+            Dim item As New ListViewItem(para)
+            item.SubItems.Add(taskMethodsDescriptions(taskMethods.ToList.IndexOf(para)))
+            paraDialog.ListView1.Items.Add(item)
+        Next
         Select Case EventComboBox.SelectedIndex
             Case 0
                 For Each para In playerLoginParameters

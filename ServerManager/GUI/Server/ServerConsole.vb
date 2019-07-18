@@ -945,13 +945,29 @@ Public Class ServerConsole
                                     command = command.Replace("<$COMMANDARG>", commandArg)
                                     command = command.Replace("<$COMMANDFULL>", playerCommand)
                             End Select
-                            If command.Contains(vbNewLine) Then
-                                For Each line In command.Split(vbNewLine)
-                                    alternateInputStreamWriter.WriteLine(line)
-                                Next
-                            Else
-                                alternateInputStreamWriter.WriteLine(command)
-                            End If
+                            Dim _thread As New Thread(Sub()
+                                                          Try
+                                                              Dim SleepRegex As New Text.RegularExpressions.Regex("#sleep [0-9]{1,}")
+                                                              If command.Contains(vbNewLine) Then
+                                                                  For Each line In command.Split(vbNewLine)
+                                                                      line = line.TrimStart(vbLf)
+                                                                      If line.StartsWith("#") Then
+                                                                          If SleepRegex.IsMatch(line) AndAlso SleepRegex.Match(line).Value = line.Trim Then
+                                                                              SpinWait.SpinUntil(Function() False, 50 * New Text.RegularExpressions.Regex("[0-9]{1,}").Match(line).Value)
+                                                                          End If
+                                                                      Else
+                                                                          alternateInputStreamWriter.WriteLine(line)
+                                                                      End If
+                                                                  Next
+                                                              Else
+                                                                  alternateInputStreamWriter.WriteLine(command)
+                                                              End If
+                                                          Catch ex As Exception
+
+                                                          End Try
+                                                      End Sub)
+                            _thread.IsBackground = True
+                            _thread.Start()
                         Catch ex As Exception
                         End Try
                     End If
