@@ -150,6 +150,12 @@ Partial Class Manager
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout
         Me.MainPage.SuspendLayout
         Me.MainPanel.SuspendLayout
@@ -192,6 +198,8 @@ Partial Class Manager
         Me.GroupBox4.SuspendLayout
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage4.SuspendLayout
+        Me.GroupBox6.SuspendLayout
         Me.SuspendLayout
         '
         'MainTabControl
@@ -949,6 +957,7 @@ Partial Class Manager
         '
         'SettingTabControl
         '
+        Me.SettingTabControl.Controls.Add(Me.TabPage4)
         Me.SettingTabControl.Controls.Add(Me.TabPage1)
         Me.SettingTabControl.Controls.Add(Me.TabPage2)
         Me.SettingTabControl.Controls.Add(Me.TabPage3)
@@ -1513,6 +1522,70 @@ Partial Class Manager
         Me.PerformanceCounter1.CounterName = "% Processor Time"
         Me.PerformanceCounter1.InstanceName = "_Total"
         '
+        'TabPage4
+        '
+        Me.TabPage4.Controls.Add(Me.GroupBox6)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage4.Size = New System.Drawing.Size(762, 457)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "一般"
+        Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox6.Controls.Add(Me.ComboBox2)
+        Me.GroupBox6.Controls.Add(Me.Label22)
+        Me.GroupBox6.Controls.Add(Me.ComboBox1)
+        Me.GroupBox6.Controls.Add(Me.Label21)
+        Me.GroupBox6.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(750, 80)
+        Me.GroupBox6.TabIndex = 0
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "自動更新"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(6, 26)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(65, 12)
+        Me.Label21.TabIndex = 1
+        Me.Label21.Text = "更新方式："
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"自動偵測更新並安裝", "自動偵測更新並跳出提示視窗", "不自動更新"})
+        Me.ComboBox1.Location = New System.Drawing.Point(77, 21)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(200, 20)
+        Me.ComboBox1.TabIndex = 4
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"僅安裝穩定版本", "穩定版本及預覽版本"})
+        Me.ComboBox2.Location = New System.Drawing.Point(77, 47)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(200, 20)
+        Me.ComboBox2.TabIndex = 6
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(6, 52)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(65, 12)
+        Me.Label22.TabIndex = 5
+        Me.Label22.Text = "更新頻道："
+        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1581,6 +1654,9 @@ Partial Class Manager
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage4.ResumeLayout(False)
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout
         Me.ResumeLayout(False)
 
     End Sub
@@ -1700,4 +1776,10 @@ Partial Class Manager
     Friend WithEvents InternalIPContextMenu As ContextMenuStrip
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents PerformanceCounter1 As PerformanceCounter
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Label21 As Label
 End Class
