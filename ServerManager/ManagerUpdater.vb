@@ -103,12 +103,14 @@ Public Class ManagerUpdater
         Select Case channel
             Case "Stable"
                 Dim exePath As String = Application.ExecutablePath
-                IO.File.Move(exePath, Application.StartupPath.TrimEnd(IIf(IsUnixLikeSystem, "/", "\") & IIf(IsUnixLikeSystem, "/", "\") & "ServerManager.old"))
+                If IO.File.Exists(exePath & ".old") Then IO.File.Delete(exePath & ".old")
+                IO.File.Move(exePath, exePath & ".old")
                 Dim client As New Net.WebClient()
                 client.DownloadFile(StableChannelURL, exePath)
             Case "Master"
                 Dim exePath As String = Application.ExecutablePath
-                IO.File.Move(exePath, Application.StartupPath.TrimEnd(IIf(IsUnixLikeSystem, "/", "\") & IIf(IsUnixLikeSystem, "/", "\") & "ServerManager.old"))
+                If IO.File.Exists(exePath & ".old") Then IO.File.Delete(exePath & ".old")
+                IO.File.Move(exePath, exePath & ".old")
                 Dim client As New Net.WebClient()
                 Try
                     client.DownloadFile(MasterChannelURL, exePath)

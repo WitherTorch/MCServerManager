@@ -691,7 +691,8 @@ Public Class Manager
     Private Sub Manager_Load(sender As Object, e As EventArgs) Handles Me.Load
         GlobalModule.Manager = Me
         CheckNetwork()
-
+        ComboBox1.SelectedIndex = 1
+        ComboBox2.SelectedIndex = 0
         If JavaServerDirs <> "" Then
             For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(JavaServerDirs), Newtonsoft.Json.Linq.JArray)
                 Task.Run(Sub()
@@ -908,12 +909,12 @@ Public Class Manager
                              Case 0
                                  BeginInvokeIfRequired(Me, Sub() Text = Text & "(自動更新中...)")
                                  ManagerUpdater.UpdateProgram(channelName)
-                                 BeginInvokeIfRequired(Me, Sub() Text = Text & "(自動更新完成，重啟即可套用更新)")
+                                 BeginInvokeIfRequired(Me, Sub() Text = Text.Substring(0, Text.Length - "(自動更新中...)".Length) & "(自動更新完成，重啟即可套用更新)")
                              Case 1
                                  If MsgBox("已偵測到此程式有可安裝的更新，是否安裝？", vbYesNo, "自動更新程式") = MsgBoxResult.Yes Then
                                      BeginInvokeIfRequired(Me, Sub() Text = Text & "(自動更新中...)")
                                      ManagerUpdater.UpdateProgram(channelName)
-                                     BeginInvokeIfRequired(Me, Sub() Text = Text & "(自動更新完成，重啟即可套用更新)")
+                                     BeginInvokeIfRequired(Me, Sub() Text = Text.Substring(0, Text.Length - "(自動更新中...)".Length) & "(自動更新完成，重啟即可套用更新)")
                                  End If
                          End Select
                      End If

@@ -34,8 +34,8 @@ Namespace My
             Runtime.ProfileOptimization.SetProfileRoot(My.Application.Info.DirectoryPath)
             Runtime.ProfileOptimization.StartProfile("startup_cache.profile")
 
-            If IO.File.Exists(Application.Info.DirectoryPath.TrimEnd(IIf(IsUnixLikeSystem, "/", "\") & IIf(IsUnixLikeSystem, "/", "\") & "ServerManager.old")) Then _
- IO.File.Delete(Application.Info.DirectoryPath.TrimEnd(IIf(IsUnixLikeSystem, "/", "\") & IIf(IsUnixLikeSystem, "/", "\") & "ServerManager.old"))
+            Dim exePath As String = System.Windows.Forms.Application.ExecutablePath
+            If IO.File.Exists(exePath & ".old") Then IO.File.Delete(exePath & ".old")
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
             My.Application.Log.DefaultFileLogWriter.Location = Logging.LogFileLocation.Custom
             My.Application.Log.DefaultFileLogWriter.CustomLocation = IO.Path.Combine(My.Application.Info.DirectoryPath, "error-logs")

@@ -740,6 +740,22 @@ Public NotInheritable Class Server
                                                                     Try
                                                                         RaiseEvent ServerUpdating(90)
                                                                         forgeInstaller.DeleteForgeInstaller(ServerVersion, Server2ndVersion)
+                                                                        Try
+                                                                            If New Version(ServerVersion) >= New Version(1, 3) Then
+                                                                                If New Version(ServerVersion) >= New Version(1, 13) Then
+                                                                                    IO.File.Delete(IO.Path.Combine(ServerPath, "forge-" & ServerVersion & "-" & Server2ndVersion & ".jar") & """" & " nogui")
+                                                                                Else
+                                                                                    If ServerVersion = "1.8.9" OrElse ServerVersion = "1.7.10" Then
+                                                                                        IO.File.Delete(IO.Path.Combine(ServerPath, "forge-" & ServerVersion & "-" & Server2ndVersion & "-" & ServerVersion & "-universal" & ".jar"))
+                                                                                    Else
+                                                                                        IO.File.Delete(IO.Path.Combine(ServerPath, "forge-" & ServerVersion & "-" & Server2ndVersion & "-universal" & ".jar"))
+                                                                                    End If
+                                                                                End If
+                                                                            Else
+                                                                                IO.File.Delete(IO.Path.Combine(ServerPath, "forge-" & ServerVersion & "-" & Server2ndVersion & "-server" & ".jar"))
+                                                                            End If
+                                                                        Catch ex As Exception
+                                                                        End Try
                                                                         GenerateServerInfo(newForgeVersion)
                                                                         RaiseEvent ServerUpdateEnd()
                                                                         _Server2ndVersion = newForgeVersion
@@ -766,6 +782,11 @@ Public NotInheritable Class Server
                                                                  _Server2ndVersion = spongeVersion.SpongeVersion.ToString
                                                                  _Server3rdVersion = spongeVersion.Build
                                                                  _SpongeVersionType = spongeVersion.SpongeVersionType.ToString
+                                                                 Try
+                                                                     IO.File.Delete(IO.Path.Combine(ServerPath, "spongeVanilla-" & ServerVersion & ".jar"))
+                                                                 Catch ex As Exception
+
+                                                                 End Try
                                                                  GenerateServerInfo()
                                                                  RaiseEvent ServerUpdateEnd()
                                                                  _CanUpdate = False
@@ -785,6 +806,11 @@ Public NotInheritable Class Server
                                                            End Sub
                 AddHandler client.DownloadFileCompleted, Sub()
                                                              Try
+                                                                 Try
+                                                                     IO.File.Delete(IO.Path.Combine(ServerPath, "nukkit-" & Server2ndVersion & ".jar"))
+                                                                 Catch ex As Exception
+
+                                                                 End Try
                                                                  GenerateServerInfo(NukkitVersion)
                                                                  RaiseEvent ServerUpdateEnd()
                                                                  _Server2ndVersion = NukkitVersion
@@ -864,6 +890,16 @@ Public NotInheritable Class Server
                                                                  GenerateServerInfo()
                                                                  'GlobalModule.Manager.ServerPathList.Add(path)
                                                                  RaiseEvent ServerUpdateEnd()
+                                                                 Try
+                                                                     IO.File.Delete(IO.Path.Combine(ServerPath, "craftbukkit-" & ServerVersion & ".jar"))
+                                                                     IO.File.Delete(IO.Path.Combine(ServerPath, "spigot-" & ServerVersion & ".jar"))
+                                                                 Catch ex As Exception
+
+                                                                 End Try
+                                                                 _CanUpdate = False
+                                                                 RaiseEvent ServerInfoUpdated()
+                                                                 client.Dispose()
+
                                                                  ' Catch ex As Exception
                                                                  'MsgBox(ex.StackTrace)
                                                                  ' End Try
@@ -896,7 +932,7 @@ Public NotInheritable Class Server
                                                                        End Sub
                             AddHandler client.DownloadFileCompleted, Sub()
                                                                          Try
-                                                                             GenerateServerInfo(NukkitVersion)
+                                                                             GenerateServerInfo(buildNum)
                                                                              RaiseEvent ServerUpdateEnd()
                                                                              _Server2ndVersion = buildNum
                                                                              _CanUpdate = False

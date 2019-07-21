@@ -144,8 +144,8 @@ Public Class ServerConsole
                                         Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-" & Server.ServerVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath, True, True)
                                     Else
                                         Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                    End If
                                 End If
-                            End If
                             Else
                                 Run(GetJavaPath(), "-Xms" & ServerMemoryMin & "M " & JavaArguments & " -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-server" & ".jar") & """" & " nogui", Server.ServerPath)
                             End If
