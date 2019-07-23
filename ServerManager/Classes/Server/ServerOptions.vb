@@ -1,5 +1,6 @@
 ﻿#Region "ServerOptionEnums"
 Imports System.ComponentModel
+Imports System.Dynamic
 Imports ServerManager
 ''' <summary>
 ''' 遊戲難度
@@ -152,7 +153,9 @@ End Interface
 ''' server.properties 的對應.NET 類別(Java 版)
 ''' </summary>
 Class JavaServerOptions
-    Implements IServerOptions
+    Inherits Dynamic.DynamicObject
+    Implements IServerOptions, ICustomTypeDescriptor, INotifyPropertyChanged
+    Dim dictionary As New Dictionary(Of String, String)
     <DisplayName("允許玩家飛行")> <DefaultValue(False)> <Category("玩家")> <Description("允許玩家在安裝添加飛行功能的 mod 前提下在生存模式下飛行。" &
                                                                vbNewLine & "允許飛行可能會使作弊者更加常見，因為此設定會使他們更容易達成目的。" &
                                                                vbNewLine & "在創造模式下本屬性不會有任何作用。" &
@@ -393,6 +396,7 @@ Class JavaServerOptions
                                                              vbNewLine & "這個選項只會在第一個玩家進行伺服器時生成。如果伺服器沒有設置OP，這個選項將會自動禁用。")>
     <DisplayName("出生點保護距離")> Public Property Spawn_Protection As Integer = 16
     Dim _View_Distance As Integer = 10
+    Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
     <DisplayName("視野距離")> <DefaultValue(10)> <Category("地圖")> <Description("設置服務端傳送給客戶端的數據量，也就是設置玩家各個方向上的區塊數量 (是以玩家為中心的半徑，不是直徑)。 " &
                                                               vbNewLine & "它決定了服務端的可視距離。 " &
@@ -425,56 +429,149 @@ Class JavaServerOptions
                                                              vbNewLine & "True - 不在白名單上的使用者將會被踢出伺服器。" &
                                                              vbNewLine & "False - 沒有任何使用者會被踢出伺服器。")>
     Public Property Enforce_Whitelist As Boolean = False
-    <DisplayName("函數權限等級")> <DefaultValue(False)> <Category("技術性")> <Description("在伺服器上函數的權限等級。" &
+    <DisplayName("函數權限等級")> <DefaultValue(Function_Permission_Level.Default)> <Category("技術性")> <Description("在伺服器上函數的權限等級。" &
                                                             vbNewLine & "Default - 與命令方塊同等級" &
                                                             vbNewLine & "AsNormalOP - 可使用一般OP所使用的指令（如/ban, /op 之類的）" &
                                                              vbNewLine & "Console - 能使用所有指令。")>
     Public Property Function_Permission_Level As Function_Permission_Level = Function_Permission_Level.Default
-
+    Public Overloads Function TryGetMember(propertyName As String, ByRef result As Object) As Boolean
+        If dictionary IsNot Nothing AndAlso propertyName.StartsWith("otherVar") AndAlso IsNumeric(propertyName.Substring(8)) AndAlso dictionary.Count > propertyName.Substring(8) Then
+            result = dictionary.Values(CInt(propertyName.Substring(8)))
+            Return True
+        Else
+            result = Nothing
+            Return False
+        End If
+    End Function
+    Public Overloads Overrides Function TryGetMember(binder As GetMemberBinder, ByRef result As Object) As Boolean
+        If dictionary IsNot Nothing AndAlso binder.Name.StartsWith("otherVar") AndAlso IsNumeric(binder.Name.Substring(8)) AndAlso dictionary.Count > binder.Name.Substring(8) Then
+            result = dictionary.Values(CInt(binder.Name.Substring(8)))
+            Return True
+        Else
+            result = Nothing
+            Return False
+        End If
+    End Function
+    Public Overloads Function TrySetMember(propertyName As String, value As Object) As Boolean
+        If dictionary IsNot Nothing AndAlso propertyName.StartsWith("otherVar") AndAlso IsNumeric(propertyName.Substring(8)) AndAlso dictionary.Count > propertyName.Substring(8) Then
+            dictionary.Item(dictionary.Keys(CInt(propertyName.Substring(8)))) = value
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Public Overloads Overrides Function TrySetMember(binder As SetMemberBinder, value As Object) As Boolean
+        If dictionary IsNot Nothing AndAlso binder.Name.StartsWith("otherVar") AndAlso IsNumeric(binder.Name.Substring(8)) AndAlso dictionary.Count > binder.Name.Substring(8) Then
+            dictionary.Item(dictionary.Keys(CInt(binder.Name.Substring(8)))) = value
+            Return True
+        Else
+            Return False
+        End If
+    End Function
     Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerOptions.InputOption
-        On Error Resume Next
-        Allow_Flight = serverOption("allow-flight")
-        Allow_Nether = serverOption("allow-nether")
-        Announce_Player_Achievements = serverOption("announce-player-achievements")
-        Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty"))
-        Enable_Query = serverOption("enable-query")
-        Enable_Rcon = serverOption("enable-rcon")
-        Force_Gamemode = serverOption("force-gamemode")
-        Gamemode = [Enum].Parse(GetType(Gamemode), serverOption("gamemode"))
-        Generate_Structures = serverOption("generate-structures")
-        _Generator_Settings = serverOption("generator-settings")
-        Hardcore = serverOption("hardcore")
-        _Level_Name = serverOption("level-name")
-        _Level_Seed = serverOption("level-seed")
-        _Level_Type = [Enum].Parse(GetType(Java_Level_Type), serverOption("level-type").ToUpper)
-        Max_Build_Height = serverOption("max-build-height")
-        Max_Players = serverOption("max-players")
-        Max_Tick_Time = serverOption("max-tick-time")
-        Max_World_Size = serverOption("max-world-size")
-        Motd = serverOption("motd")
-        Network_Compression_Threshold = serverOption("network-compression-threshold")
-        Online_Mode = serverOption("online-mode")
-        Op_Permission_Level = [Enum].Parse(GetType(Op_Permission_Level), serverOption("op-permission-level"))
-        Player_Idle_Timeout = ULong.Parse(serverOption("player-idle-timeout"))
-        Prevent_Proxy_Connections = serverOption("prevent-proxy-connections")
-        PvP = serverOption("pvp")
-        Query_Port = serverOption("query.port")
-        Rcon_Password = serverOption("rcon.password")
-        Rcon_Port = Integer.Parse(serverOption("rcon.port"))
-        _Resource_Pack = serverOption("resource-pack")
-        _Resource_Pack_Sha1 = serverOption("resource-pack-sha1")
-        Server_Ip = serverOption("server-ip")
-        Server_Port = serverOption("server-port")
-        Snooper_Enabled = serverOption("snooper-enabled")
-        Spawn_Animals = serverOption("spawn-animals")
-        Spawn_Monsters = serverOption("spawn-monsters")
-        Spawn_NPCs = serverOption("spawn-npcs")
-        Spawn_Protection = Integer.Parse(serverOption("spawn-protection"))
-        View_Distance = Integer.Parse(serverOption("view-distance"))
-        White_List = serverOption("white-list")
-        Enable_Command_Block = serverOption("enable-command-block")
-        Enforce_Whitelist = serverOption("enforce-whitelist")
-        Function_Permission_Level = [Enum].Parse(GetType(Function_Permission_Level), serverOption("fucntion-permission-level"))
+        If serverOption IsNot Nothing Then
+            For Each [option] In serverOption
+                Try
+                    Select Case [option].Key.Trim
+                        Case "allow-flight"
+                            Allow_Flight = [option].Value
+                        Case "allow-nether"
+                            Allow_Nether = [option].Value
+                        Case "announce-player-achievements"
+                            Announce_Player_Achievements = [option].Value
+                        Case "difficulty"
+                            Difficulty = [Enum].Parse(GetType(Difficulty), [option].Value)
+                        Case "enable-query"
+                            Enable_Query = [option].Value
+                        Case "enable-rcon"
+                            Enable_Rcon = [option].Value
+                        Case "force-gamemode"
+                            Force_Gamemode = [option].Value
+                        Case "gamemode"
+                            Gamemode = [Enum].Parse(GetType(Gamemode), [option].Value)
+                        Case "generate-structures"
+                            Generate_Structures = [option].Value
+                        Case "generator-settings"
+                            _Generator_Settings = [option].Value
+                        Case "hardcore"
+                            Hardcore = [option].Value
+                        Case "level-name"
+                            _Level_Name = [option].Value
+                        Case "level-seed"
+                            _Level_Seed = [option].Value
+                        Case "level-type"
+                            _Level_Type = [Enum].Parse(GetType(Java_Level_Type), [option].Value.ToUpper)
+                        Case "max-build-height"
+                            Max_Build_Height = [option].Value
+                        Case "max-players"
+                            Max_Players = [option].Value
+                        Case "max-tick-time"
+                            Max_Tick_Time = [option].Value
+                        Case "max-world-size"
+                            Max_World_Size = [option].Value
+                        Case "motd"
+                            Motd = [option].Value
+                        Case "network-compression-threshold"
+                            Network_Compression_Threshold = [option].Value
+                        Case "online-mode"
+                            Online_Mode = [option].Value
+                        Case "op-permission-level"
+                            Op_Permission_Level = [Enum].Parse(GetType(Op_Permission_Level), [option].Value)
+                        Case "player-idle-timeout"
+                            Player_Idle_Timeout = ULong.Parse([option].Value)
+                        Case "prevent-proxy-connections"
+                            Prevent_Proxy_Connections = [option].Value
+                        Case "pvp"
+                            PvP = [option].Value
+                        Case "query.port"
+                            Query_Port = serverOption("query.port")
+                        Case "rcon.password"
+                            Rcon_Password = serverOption("rcon.password")
+                        Case "rcon.port"
+                            Rcon_Port = Integer.Parse(serverOption("rcon.port"))
+                        Case "resource-pack"
+                            _Resource_Pack = [option].Value
+                        Case "resource-pack-sha1"
+                            _Resource_Pack_Sha1 = [option].Value
+                        Case "server-ip"
+                            Server_Ip = [option].Value
+                        Case "server-port"
+                            Server_Port = [option].Value
+                        Case "snooper-enabled"
+                            Snooper_Enabled = [option].Value
+                        Case "spawn-animals"
+                            Spawn_Animals = [option].Value
+                        Case "spawn-monsters"
+                            Spawn_Monsters = [option].Value
+                        Case "spawn-npcs"
+                            Spawn_NPCs = [option].Value
+                        Case "spawn-protection"
+                            Spawn_Protection = Integer.Parse([option].Value)
+                        Case "view-distance"
+                            View_Distance = Integer.Parse([option].Value)
+                        Case "white-list"
+                            White_List = [option].Value
+                        Case "enable-command-block"
+                            Enable_Command_Block = [option].Value
+                        Case "enforce-whitelist"
+                            Enforce_Whitelist = [option].Value
+                        Case "function-permission-level"
+                            Function_Permission_Level = [Enum].Parse(GetType(Function_Permission_Level), [option].Value)
+                        Case ""
+
+                        Case Else
+                            If dictionary Is Nothing Then dictionary = New Dictionary(Of String, String)()
+                            If dictionary.ContainsKey([option].Key) Then
+                                dictionary([option].Key) = [option].Value
+                            Else
+                                dictionary.Add([option].Key, [option].Value)
+                            End If
+                    End Select
+                Catch ex As Exception
+
+                End Try
+            Next
+        End If
     End Sub
     Public Sub SetValue(optionName As String, value As String) Implements IServerOptions.SetValue
         Select Case optionName
@@ -562,6 +659,13 @@ Class JavaServerOptions
                 Enforce_Whitelist = Boolean.Parse(value)
             Case "function-permission-level"
                 Function_Permission_Level = [Enum].Parse(GetType(Function_Permission_Level), value)
+            Case Else
+                If dictionary Is Nothing Then dictionary = New Dictionary(Of String, String)()
+                If dictionary.ContainsKey(optionName) Then
+                    dictionary(optionName) = value
+                Else
+                    dictionary.Add(optionName, value)
+                End If
         End Select
     End Sub
     Public Function OutputOption() As IDictionary(Of String, String) Implements IServerOptions.OutputOption
@@ -608,9 +712,137 @@ Class JavaServerOptions
         options.Add("enable-command-block", Enable_Command_Block.ToString.ToLower)
         options.Add("enforce-whitelist", Enforce_Whitelist.ToString.ToLower)
         options.Add("function-permission-level", Function_Permission_Level)
+        If dictionary IsNot Nothing AndAlso dictionary.Count > 0 Then
+            For Each item In dictionary
+                If options.ContainsKey(item.Key) Then
+                    options(item.Key) = item.Value
+                Else
+                    options.Add(item.Key, item.Value)
+                End If
+            Next
+        End If
         Return options
     End Function
+#Region "Implements ICustomTypeDescriptor"
+    Public Function GetAttributes() As AttributeCollection Implements ICustomTypeDescriptor.GetAttributes
+        Return New AttributeCollection({})
+    End Function
 
+    Public Function GetClassName() As String Implements ICustomTypeDescriptor.GetClassName
+        Return [GetType]().Name
+    End Function
+
+    Public Function GetComponentName() As String Implements ICustomTypeDescriptor.GetComponentName
+        Return Application.ProductName
+    End Function
+
+    Public Function GetConverter() As TypeConverter Implements ICustomTypeDescriptor.GetConverter
+        Return Nothing
+    End Function
+
+    Public Function GetDefaultEvent() As EventDescriptor Implements ICustomTypeDescriptor.GetDefaultEvent
+        Return Nothing
+    End Function
+
+    Public Function GetDefaultProperty() As PropertyDescriptor Implements ICustomTypeDescriptor.GetDefaultProperty
+        Return Nothing
+    End Function
+
+    Public Function GetEditor(editorBaseType As Type) As Object Implements ICustomTypeDescriptor.GetEditor
+        Return TypeDescriptor.GetEditor(GetType(Object), editorBaseType)
+    End Function
+
+    Public Function GetEvents() As EventDescriptorCollection Implements ICustomTypeDescriptor.GetEvents
+        Return New EventDescriptorCollection({})
+    End Function
+
+    Public Function GetEvents(attributes() As Attribute) As EventDescriptorCollection Implements ICustomTypeDescriptor.GetEvents
+        Return New EventDescriptorCollection({})
+    End Function
+
+    Public Function GetProperties() As PropertyDescriptorCollection Implements ICustomTypeDescriptor.GetProperties
+        Dim collect As New List(Of PropertyDescriptor)
+        For Each _property In [GetType]().GetProperties()
+            Dim _attributes As New List(Of Attribute)
+            For Each attr In _property.GetCustomAttributes(True)
+                _attributes.Add(attr)
+            Next
+            collect.Add(TypeDescriptor.CreateProperty([GetType](), _property.Name, _property.PropertyType, _attributes.ToArray))
+        Next
+        Dim i As Integer = 0
+        For Each _property In dictionary
+            collect.Add(New JavaOptionPropertyDescriptor(Me, "otherVar" & i.ToString, New DisplayNameAttribute(_property.Key), New CategoryAttribute("其他")))
+            i += 1
+        Next
+        Return New PropertyDescriptorCollection(collect.ToArray)
+    End Function
+
+    Public Function GetProperties(attributes() As Attribute) As PropertyDescriptorCollection Implements ICustomTypeDescriptor.GetProperties
+        Dim collect As New List(Of PropertyDescriptor)
+        For Each _property In [GetType]().GetProperties()
+            Dim _attributes As New List(Of Attribute)
+            For Each attr In _property.GetCustomAttributes(True)
+                _attributes.Add(attr)
+            Next
+            collect.Add(TypeDescriptor.CreateProperty([GetType](), _property.Name, _property.PropertyType, _attributes.ToArray))
+        Next
+        Dim i As Integer = 0
+        For Each _property In dictionary
+            collect.Add(New JavaOptionPropertyDescriptor(Me, "otherVar" & i.ToString, New DisplayNameAttribute(_property.Key), New CategoryAttribute("其他")))
+            i += 1
+        Next
+        Return New PropertyDescriptorCollection(collect.ToArray)
+    End Function
+
+    Public Function GetPropertyOwner(pd As PropertyDescriptor) As Object Implements ICustomTypeDescriptor.GetPropertyOwner
+        Return Me
+    End Function
+    Class JavaOptionPropertyDescriptor
+        Inherits PropertyDescriptor
+        Sub New([option] As JavaServerOptions, name As String, ParamArray attributes As Attribute())
+            MyBase.New(name, attributes)
+        End Sub
+        Public Overrides ReadOnly Property ComponentType As Type
+            Get
+                Return GetType(JavaServerOptions)
+            End Get
+        End Property
+
+        Public Overrides ReadOnly Property IsReadOnly As Boolean
+            Get
+                Return False
+            End Get
+        End Property
+
+        Public Overrides ReadOnly Property PropertyType As Type
+            Get
+                Return GetType(String)
+            End Get
+        End Property
+
+        Public Overrides Sub ResetValue(component As Object)
+
+        End Sub
+
+        Public Overrides Sub SetValue(component As Object, value As Object)
+            CType(component, JavaServerOptions).TrySetMember(MyBase.Name, value)
+        End Sub
+
+        Public Overrides Function CanResetValue(component As Object) As Boolean
+            Return False
+        End Function
+
+        Public Overrides Function GetValue(component As Object) As Object
+            Dim value As Object = Nothing
+            CType(component, JavaServerOptions).TryGetMember(MyBase.Name, value)
+            Return value
+        End Function
+
+        Public Overrides Function ShouldSerializeValue(component As Object) As Boolean
+            Return False
+        End Function
+    End Class
+#End Region
 End Class
 ''' <summary>
 ''' server.properties 的對應.NET 類別(Nukkit 專用)
