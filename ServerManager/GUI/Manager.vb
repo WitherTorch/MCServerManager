@@ -852,10 +852,12 @@ Public Class Manager
                             Case "auto-update-state"
                                 If IsNumeric(info(1)) Then
                                     ComboBox1.SelectedIndex = Math.Max(Math.Min(CInt(info(1)), ComboBox1.Items.Count - 1), 0)
+                                    UpdateState = Math.Max(Math.Min(CInt(info(1)), ComboBox1.Items.Count - 1), 0)
                                 End If
                             Case "auto-update-channel"
                                 If IsNumeric(info(1)) Then
-                                    ComboBox2.SelectedIndex = Math.Max(Math.Min(CInt(info(1)), ComboBox1.Items.Count - 1), 0)
+                                    ComboBox2.SelectedIndex = Math.Max(Math.Min(CInt(info(1)), ComboBox2.Items.Count - 1), 0)
+                                    UpdateChannel = Math.Max(Math.Min(CInt(info(1)), ComboBox2.Items.Count - 1), 0)
                                 End If
                         End Select
                     End If
@@ -1322,25 +1324,25 @@ Public Class Manager
                                              hosts = ""
                                          End If
                                          My.Computer.FileSystem.WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "manager-setting.txt"),
-                                            "memory-min=" & ServerMemoryMin & vbNewLine &
-                                            "memory-max=" & ServerMemoryMax & vbNewLine &
-                                            "bungee-memory-min=" & BungeeCordMemoryMin & vbNewLine &
-                                            "bungee-memory-max=" & BungeeCordMemoryMax & vbNewLine &
-                                            "java-arguments=" & JavaArguments & vbNewLine &
-                                            "java-path=" & JavaPath & vbNewLine &
-                                            "noip-username=" & username & vbNewLine &
-                                            "noip-password=" & password & vbNewLine &
-                                            "noip-hosts= " & hosts & vbNewLine &
-                                            "git-bash-path=" & GitBashPath & vbNewLine &
-                                            "show-vanilla-snaps=" & ShowVanillaSnapshot.ToString.ToLower & vbNewLine &
-                                            "custom-forge-ver=" & CustomForgeVersion.ToString.ToLower & vbNewLine &
-                                            "console-input-mode=" & ConsoleMode.ToString.ToLower & vbNewLine &
-                                           "server-console-msgs=" & ToZeroAndOne(ServerConsoleMessages) & vbNewLine &
-                                           "bungeecord-console-msgs=" & ToZeroAndOne(BungeeConsoleMessages) & vbNewLine &
-                                           "auto-update-state=" & Math.Max(ComboBox1.SelectedIndex, 0) & vbNewLine &
-                                           "auto-update-channel=" & Math.Max(ComboBox2.SelectedIndex, 0), False, System.Text.Encoding.UTF8)
+   "memory-min=" & ServerMemoryMin & vbNewLine &
+   "memory-max=" & ServerMemoryMax & vbNewLine &
+   "bungee-memory-min=" & BungeeCordMemoryMin & vbNewLine &
+   "bungee-memory-max=" & BungeeCordMemoryMax & vbNewLine &
+   "java-arguments=" & JavaArguments & vbNewLine &
+   "java-path=" & JavaPath & vbNewLine &
+   "noip-username=" & username & vbNewLine &
+   "noip-password=" & password & vbNewLine &
+   "noip-hosts= " & hosts & vbNewLine &
+   "git-bash-path=" & GitBashPath & vbNewLine &
+   "show-vanilla-snaps=" & ShowVanillaSnapshot.ToString.ToLower & vbNewLine &
+   "custom-forge-ver=" & CustomForgeVersion.ToString.ToLower & vbNewLine &
+   "console-input-mode=" & ConsoleMode.ToString.ToLower & vbNewLine &
+  "server-console-msgs=" & ToZeroAndOne(ServerConsoleMessages) & vbNewLine &
+  "bungeecord-console-msgs=" & ToZeroAndOne(BungeeConsoleMessages) & vbNewLine &
+  "auto-update-state=" & Math.Max(UpdateState, 0) & vbNewLine &
+  "auto-update-channel=" & Math.Max(UpdateChannel, 0), False, System.Text.Encoding.UTF8)
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), JsonConvert.SerializeObject(ServerPathList))
-                                         WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"), SolutionDirs)
+                                             WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"), SolutionDirs)
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"), ModpackServerDirs)
                                      End Sub) With {.IsBackground = False, .Name = "ServerManager Save Setting Thread"}
         saveThread.Start()
@@ -1893,5 +1895,14 @@ Public Class Manager
                 End Try
             End Try
         End Try
+    End Sub
+    Dim UpdateState As Integer
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+        UpdateState = ComboBox1.SelectedIndex
+    End Sub
+    Dim UpdateChannel As Integer
+
+    Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox2.SelectedIndexChanged
+        UpdateChannel = ComboBox2.SelectedIndex
     End Sub
 End Class

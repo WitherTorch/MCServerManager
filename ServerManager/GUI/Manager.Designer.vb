@@ -23,18 +23,18 @@ Partial Class Manager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
-        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
-        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
-        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
-        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
-        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
-        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
-        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
+        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
+        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
+        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
+        Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
+        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
+        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
+        Dim ListViewItem19 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
+        Dim ListViewItem20 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
+        Dim ListViewItem21 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
+        Dim ListViewItem22 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
+        Dim ListViewItem23 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
+        Dim ListViewItem24 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
@@ -103,6 +103,12 @@ Partial Class Manager
         Me.Label7 = New System.Windows.Forms.Label()
         Me.SettingTabPage = New System.Windows.Forms.TabPage()
         Me.SettingTabControl = New System.Windows.Forms.TabControl()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -150,12 +156,6 @@ Partial Class Manager
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
-        Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.Label22 = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout
         Me.MainPage.SuspendLayout
         Me.MainPanel.SuspendLayout
@@ -180,6 +180,8 @@ Partial Class Manager
         Me.Panel2.SuspendLayout
         Me.SettingTabPage.SuspendLayout
         Me.SettingTabControl.SuspendLayout
+        Me.TabPage4.SuspendLayout
+        Me.GroupBox6.SuspendLayout
         Me.TabPage1.SuspendLayout
         Me.TableLayoutPanel1.SuspendLayout
         Me.GroupBox1.SuspendLayout
@@ -198,8 +200,6 @@ Partial Class Manager
         Me.GroupBox4.SuspendLayout
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage4.SuspendLayout
-        Me.GroupBox6.SuspendLayout
         Me.SuspendLayout
         '
         'MainTabControl
@@ -968,6 +968,70 @@ Partial Class Manager
         Me.SettingTabControl.Size = New System.Drawing.Size(770, 483)
         Me.SettingTabControl.TabIndex = 0
         '
+        'TabPage4
+        '
+        Me.TabPage4.Controls.Add(Me.GroupBox6)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage4.Size = New System.Drawing.Size(762, 457)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "一般"
+        Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox6.Controls.Add(Me.ComboBox2)
+        Me.GroupBox6.Controls.Add(Me.Label22)
+        Me.GroupBox6.Controls.Add(Me.ComboBox1)
+        Me.GroupBox6.Controls.Add(Me.Label21)
+        Me.GroupBox6.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(750, 80)
+        Me.GroupBox6.TabIndex = 0
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "自動更新"
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"僅安裝穩定版本", "穩定版本及預覽版本"})
+        Me.ComboBox2.Location = New System.Drawing.Point(77, 47)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(200, 20)
+        Me.ComboBox2.TabIndex = 6
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(6, 52)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(65, 12)
+        Me.Label22.TabIndex = 5
+        Me.Label22.Text = "更新頻道："
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"自動偵測更新並安裝", "自動偵測更新並跳出提示視窗", "不自動更新"})
+        Me.ComboBox1.Location = New System.Drawing.Point(77, 21)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(200, 20)
+        Me.ComboBox1.TabIndex = 4
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(6, 26)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(65, 12)
+        Me.Label21.TabIndex = 1
+        Me.Label21.Text = "更新方式："
+        '
         'TabPage1
         '
         Me.TabPage1.Controls.Add(Me.TableLayoutPanel1)
@@ -1358,41 +1422,41 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 11.0!)
         Me.ServerSoftwareLinkList.HideSelection = False
-        ListViewItem1.Checked = True
-        ListViewItem1.StateImageIndex = 2
-        ListViewItem1.Tag = "https://www.minecraft.net/zh-hant/"
-        ListViewItem2.Checked = True
-        ListViewItem2.StateImageIndex = 3
-        ListViewItem2.Tag = "https://files.minecraftforge.net/"
-        ListViewItem3.StateImageIndex = 0
-        ListViewItem3.Tag = "https://bukkit.org/"
-        ListViewItem4.Checked = True
-        ListViewItem4.StateImageIndex = 1
-        ListViewItem4.Tag = "https://www.spigotmc.org/"
-        ListViewItem5.Checked = True
-        ListViewItem5.StateImageIndex = 4
-        ListViewItem5.Tag = "https://www.spongepowered.org/"
-        ListViewItem6.Checked = True
-        ListViewItem6.StateImageIndex = 5
-        ListViewItem6.Tag = "https://papermc.io/"
-        ListViewItem7.Checked = True
-        ListViewItem7.StateImageIndex = 6
-        ListViewItem7.Tag = "https://akarin.io/"
-        ListViewItem8.Checked = True
-        ListViewItem8.StateImageIndex = 9
-        ListViewItem9.Checked = True
-        ListViewItem9.StateImageIndex = 8
-        ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
-        ListViewItem10.Checked = True
-        ListViewItem10.StateImageIndex = 10
-        ListViewItem10.Tag = "https://github.com/djoveryde/Contigo"
-        ListViewItem11.Checked = True
-        ListViewItem11.StateImageIndex = 11
-        ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem12.Checked = True
-        ListViewItem12.StateImageIndex = 7
-        ListViewItem12.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12})
+        ListViewItem13.Checked = True
+        ListViewItem13.StateImageIndex = 2
+        ListViewItem13.Tag = "https://www.minecraft.net/zh-hant/"
+        ListViewItem14.Checked = True
+        ListViewItem14.StateImageIndex = 3
+        ListViewItem14.Tag = "https://files.minecraftforge.net/"
+        ListViewItem15.StateImageIndex = 0
+        ListViewItem15.Tag = "https://bukkit.org/"
+        ListViewItem16.Checked = True
+        ListViewItem16.StateImageIndex = 1
+        ListViewItem16.Tag = "https://www.spigotmc.org/"
+        ListViewItem17.Checked = True
+        ListViewItem17.StateImageIndex = 4
+        ListViewItem17.Tag = "https://www.spongepowered.org/"
+        ListViewItem18.Checked = True
+        ListViewItem18.StateImageIndex = 5
+        ListViewItem18.Tag = "https://papermc.io/"
+        ListViewItem19.Checked = True
+        ListViewItem19.StateImageIndex = 6
+        ListViewItem19.Tag = "https://akarin.io/"
+        ListViewItem20.Checked = True
+        ListViewItem20.StateImageIndex = 9
+        ListViewItem21.Checked = True
+        ListViewItem21.StateImageIndex = 8
+        ListViewItem21.Tag = "https://cyberdynecc.github.io/Thermos/"
+        ListViewItem22.Checked = True
+        ListViewItem22.StateImageIndex = 10
+        ListViewItem22.Tag = "https://github.com/djoveryde/Contigo"
+        ListViewItem23.Checked = True
+        ListViewItem23.StateImageIndex = 11
+        ListViewItem23.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem24.Checked = True
+        ListViewItem24.StateImageIndex = 7
+        ListViewItem24.Tag = "https://nukkitx.com/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17, ListViewItem18, ListViewItem19, ListViewItem20, ListViewItem21, ListViewItem22, ListViewItem23, ListViewItem24})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1522,70 +1586,6 @@ Partial Class Manager
         Me.PerformanceCounter1.CounterName = "% Processor Time"
         Me.PerformanceCounter1.InstanceName = "_Total"
         '
-        'TabPage4
-        '
-        Me.TabPage4.Controls.Add(Me.GroupBox6)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(762, 457)
-        Me.TabPage4.TabIndex = 3
-        Me.TabPage4.Text = "一般"
-        Me.TabPage4.UseVisualStyleBackColor = True
-        '
-        'GroupBox6
-        '
-        Me.GroupBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox6.Controls.Add(Me.ComboBox2)
-        Me.GroupBox6.Controls.Add(Me.Label22)
-        Me.GroupBox6.Controls.Add(Me.ComboBox1)
-        Me.GroupBox6.Controls.Add(Me.Label21)
-        Me.GroupBox6.Location = New System.Drawing.Point(6, 6)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(750, 80)
-        Me.GroupBox6.TabIndex = 0
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "自動更新"
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(6, 26)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(65, 12)
-        Me.Label21.TabIndex = 1
-        Me.Label21.Text = "更新方式："
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"自動偵測更新並安裝", "自動偵測更新並跳出提示視窗", "不自動更新"})
-        Me.ComboBox1.Location = New System.Drawing.Point(77, 21)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(200, 20)
-        Me.ComboBox1.TabIndex = 4
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"僅安裝穩定版本", "穩定版本及預覽版本"})
-        Me.ComboBox2.Location = New System.Drawing.Point(77, 47)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(200, 20)
-        Me.ComboBox2.TabIndex = 6
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(6, 52)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(65, 12)
-        Me.Label22.TabIndex = 5
-        Me.Label22.Text = "更新頻道："
-        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1630,6 +1630,9 @@ Partial Class Manager
         Me.Panel2.PerformLayout
         Me.SettingTabPage.ResumeLayout(False)
         Me.SettingTabControl.ResumeLayout(False)
+        Me.TabPage4.ResumeLayout(False)
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -1654,9 +1657,6 @@ Partial Class Manager
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage4.ResumeLayout(False)
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout
         Me.ResumeLayout(False)
 
     End Sub

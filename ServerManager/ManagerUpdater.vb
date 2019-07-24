@@ -12,7 +12,7 @@ Public Class ManagerUpdater
             Dim unstableRegex As New Text.RegularExpressions.Regex("[0-9]{1,].[0-9]{1,}(.[0-9]{1,}){0,1} (Alpha|Beta) [0-9]{1,}([a-z]{1})")
             Select Case channel
                 Case "Master"
-                    For Each verString As String In checkVerStriing.Split(vbNewLine)
+                    For Each verString As String In checkVerStriing.Split(vbLf)
                         verString = verString.TrimStart(vbLf)
                         If verString.StartsWith(channel & "=") Then
                             verString = verString.Substring(channel.Length + 1)
