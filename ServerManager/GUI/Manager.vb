@@ -1690,7 +1690,10 @@ Public Class Manager
         Dim r As New Random()
         Select Case r.Next(20)
             Case 1
-                Invoke(Sub() Me.Text = Me.Text.Replace("Minecraft", "Minceraft"))
+                Invoke(Sub()
+                           Me.Text = Me.Text.Replace("Minecraft", "Minceraft")
+                           Label8.Text = Me.Text.Replace("Minecraft", "Minceraft")
+                       End Sub)
         End Select
         r = Nothing
         UpdateVersionLists()

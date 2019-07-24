@@ -771,7 +771,7 @@ Class JavaServerOptions
         Next
         Dim i As Integer = 0
         For Each _property In dictionary
-            collect.Add(New JavaOptionPropertyDescriptor(Me, "otherVar" & i.ToString, New DisplayNameAttribute(_property.Key), New CategoryAttribute("其他")))
+            collect.Add(New JavaServerOptionsPropertyDescriptor(Me, "otherVar" & i.ToString, New DisplayNameAttribute(_property.Key), New CategoryAttribute("其他")))
             i += 1
         Next
         Return New PropertyDescriptorCollection(collect.ToArray)
@@ -788,7 +788,7 @@ Class JavaServerOptions
         Next
         Dim i As Integer = 0
         For Each _property In dictionary
-            collect.Add(New JavaOptionPropertyDescriptor(Me, "otherVar" & i.ToString, New DisplayNameAttribute(_property.Key), New CategoryAttribute("其他")))
+            collect.Add(New JavaServerOptionsPropertyDescriptor(Me, "otherVar" & i.ToString, New DisplayNameAttribute(_property.Key), New CategoryAttribute("其他")))
             i += 1
         Next
         Return New PropertyDescriptorCollection(collect.ToArray)
@@ -797,7 +797,7 @@ Class JavaServerOptions
     Public Function GetPropertyOwner(pd As PropertyDescriptor) As Object Implements ICustomTypeDescriptor.GetPropertyOwner
         Return Me
     End Function
-    Class JavaOptionPropertyDescriptor
+    Class JavaServerOptionsPropertyDescriptor
         Inherits PropertyDescriptor
         Sub New([option] As JavaServerOptions, name As String, ParamArray attributes As Attribute())
             MyBase.New(name, attributes)

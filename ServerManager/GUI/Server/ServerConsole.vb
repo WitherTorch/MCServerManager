@@ -18,6 +18,8 @@ Public Class ServerConsole
     Public ReadOnly Property Server As Server
     Dim startInfo As ProcessStartInfo
     Dim usesType As Server.EServerVersionType
+    Dim previousMsg As (String, Date)
+
     Friend Sub ReloadUsesType(type As Server.EServerVersionType)
         usesType = type
     End Sub
@@ -219,6 +221,20 @@ Public Class ServerConsole
                                                                 Try
                                                                     If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
                                                                         If IsNothing(e.Data) = False Then
+                                                                            If String.IsNullOrWhiteSpace(previousMsg.Item1) = False Then
+                                                                                Try
+                                                                                    If previousMsg.Item1 = e.Data AndAlso (Now - previousMsg.Item2).TotalSeconds <= 1 Then
+                                                                                        previousMsg.Item1 = e.Data
+                                                                                        previousMsg.Item2 = Now
+                                                                                        Exit Sub
+                                                                                    End If
+                                                                                Catch ex As Exception
+
+                                                                                End Try
+                                                                            Else
+                                                                                previousMsg.Item1 = e.Data
+                                                                                previousMsg.Item2 = Now
+                                                                            End If
                                                                             Task.Run(Sub()
                                                                                          Try
                                                                                              Dim item As New ListViewItem("錯誤")
@@ -270,6 +286,20 @@ Public Class ServerConsole
                                                                  Try
                                                                      If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
                                                                          If IsNothing(e.Data) = False Then
+                                                                             If String.IsNullOrWhiteSpace(previousMsg.Item1) = False Then
+                                                                                 Try
+                                                                                     If previousMsg.Item1 = e.Data AndAlso (Now - previousMsg.Item2).TotalSeconds <= 1 Then
+                                                                                         previousMsg.Item1 = e.Data
+                                                                                         previousMsg.Item2 = Now
+                                                                                         Exit Sub
+                                                                                     End If
+                                                                                 Catch ex As Exception
+
+                                                                                 End Try
+                                                                             Else
+                                                                                 previousMsg.Item1 = e.Data
+                                                                                 previousMsg.Item2 = Now
+                                                                             End If
                                                                              Task.Run(Sub()
                                                                                           Try
                                                                                               Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
