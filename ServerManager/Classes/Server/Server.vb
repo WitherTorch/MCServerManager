@@ -22,6 +22,8 @@ Public NotInheritable Class Server
     Public ReadOnly Property ServerType As EServerType
     Public ReadOnly Property ServerIcon As Image = New Bitmap(64, 64)
     Public ReadOnly Property CanUpdate As Boolean
+    Public Property ServerMemoryMax As Integer
+    Public Property ServerMemoryMin As Integer
     Public Property ServerTasks As ServerTask()
     Public Property CustomServerRunFile As String
     Public Property IsRunning As Boolean
@@ -168,6 +170,10 @@ Public NotInheritable Class Server
                                         server._Server2ndVersion = info(1)
                                     Case "server-file"
                                         server.CustomServerRunFile = info(1)
+                                    Case "server-memory-max"
+                                        server.ServerMemoryMax = IIf(IsNumeric(info(1)), info(1), 0)
+                                    Case "server-memory-min"
+                                        server.ServerMemoryMin = IIf(IsNumeric(info(1)), info(1), 0)
                                     Case "tasks"
                                         Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(info(1))
                                         For Each jsonObject As JObject In jsonArray
@@ -960,6 +966,8 @@ Public NotInheritable Class Server
             writer.AutoFlush = True
             writer.WriteLine("server-version=" & ServerVersion)
             writer.WriteLine("server-version-type=" & ServerVersionType.ToString)
+            writer.WriteLine("server-memory-max=" & ServerMemoryMax)
+            writer.WriteLine("server-memory-min=" & ServerMemoryMin)
             Select Case ServerVersionType
                 Case EServerVersionType.Custom
                     writer.WriteLine("server-file=" & CustomServerRunFile)

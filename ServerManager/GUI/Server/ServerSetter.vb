@@ -49,17 +49,28 @@ Public Class ServerSetter
                                     Case Server.EServerType.Java
                                         serverOptions = New JavaServerOptions
                                         serverOptions.InputOption(server.ServerOptions)
-                                        BeginInvoke(Sub() AdvancedPropertyGrid.SelectedObject = serverOptions)
+                                        BeginInvoke(Sub()
+                                                        AdvancedPropertyGrid.SelectedObject = serverOptions
+                                                        ServerMemoryMaxBox.Value = server.ServerMemoryMax
+                                                        ServerMemoryMinBox.Value = server.ServerMemoryMin
+                                                    End Sub)
                                     Case Server.EServerType.Bedrock
                                         Select Case server.ServerVersionType
                                             Case Server.EServerVersionType.Nukkit
                                                 serverOptions = New NukkitServerOptions
                                                 serverOptions.InputOption(server.ServerOptions)
-                                                BeginInvoke(Sub() AdvancedPropertyGrid.SelectedObject = serverOptions)
+                                                BeginInvoke(Sub()
+                                                                AdvancedPropertyGrid.SelectedObject = serverOptions
+                                                                ServerMemoryMaxBox.Value = server.ServerMemoryMax
+                                                                ServerMemoryMinBox.Value = server.ServerMemoryMin
+                                                            End Sub)
                                             Case Server.EServerVersionType.VanillaBedrock
                                                 serverOptions = New VanillaBedrockServerOptions
                                                 serverOptions.InputOption(server.ServerOptions)
-                                                BeginInvoke(Sub() AdvancedPropertyGrid.SelectedObject = serverOptions)
+                                                BeginInvoke(Sub()
+                                                                AdvancedPropertyGrid.SelectedObject = serverOptions
+                                                                GroupBox1.Enabled = False
+                                                            End Sub)
                                         End Select
                                 End Select
                             End Sub))
@@ -377,5 +388,27 @@ Public Class ServerSetter
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         AddHandler server.ServerInfoUpdated, AddressOf Server_ServerInfoUpdated
         server.CheckForUpdate()
+    End Sub
+
+    Private Sub MemoryMaxBox_ValueChanged(sender As Object, e As EventArgs) Handles ServerMemoryMaxBox.ValueChanged
+        server.ServerMemoryMax = ServerMemoryMaxBox.Value
+        If GlobalModule.Manager.Is32BitJava = True And GlobalModule.Manager.HasJava And ServerMemoryMaxBox.Value > 1024 Then
+            Label12.Text = "MB (記憶體過大)"
+            Label12.ForeColor = Color.Red
+        Else
+            Label12.Text = "MB"
+            Label12.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub MemoryMinBox_ValueChanged(sender As Object, e As EventArgs) Handles ServerMemoryMinBox.ValueChanged
+        server.ServerMemoryMin = ServerMemoryMinBox.Value
+        If GlobalModule.Manager.Is32BitJava = True And GlobalModule.Manager.HasJava And ServerMemoryMinBox.Value > 1024 Then
+            Label14.Text = "MB (記憶體過大)"
+            Label14.ForeColor = Color.Red
+        Else
+            Label14.Text = "MB"
+            Label14.ForeColor = Color.Black
+        End If
     End Sub
 End Class
