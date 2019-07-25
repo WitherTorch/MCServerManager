@@ -162,6 +162,10 @@ Public Class ModPackServerConsole
                                                                                                       item.ForeColor = Color.Red
                                                                                                       If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
                                                                                                                     NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & msg.Message, Text)
+                                                                                                  Case MCServerMessageType.Debug
+                                                                                                      item.ForeColor = Color.YellowGreen
+                                                                                                  Case MCServerMessageType.Trace
+                                                                                                      item.ForeColor = Color.Green
                                                                                               End Select
                                                                                               Select Case msg.MessageType
                                                                                                   Case MCMessageType.PlayerLogin

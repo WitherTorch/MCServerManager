@@ -215,6 +215,7 @@ Partial Class BungeeCordConsole
         Me.DataListView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataListView.FullRowSelect = True
         Me.DataListView.GridLines = True
+        Me.DataListView.HideSelection = False
         Me.DataListView.Location = New System.Drawing.Point(0, 22)
         Me.DataListView.Margin = New System.Windows.Forms.Padding(0, 0, 0, 3)
         Me.DataListView.MultiSelect = False
@@ -227,6 +228,7 @@ Partial Class BungeeCordConsole
         'ColumnHeader1
         '
         Me.ColumnHeader1.Text = "類型"
+        Me.ColumnHeader1.Width = 90
         '
         'ColumnHeader3
         '

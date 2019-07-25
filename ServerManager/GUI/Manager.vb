@@ -1905,4 +1905,12 @@ Public Class Manager
     Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox2.SelectedIndexChanged
         UpdateChannel = ComboBox2.SelectedIndex
     End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        Process.Start("https://forum.gamer.com.tw/C.php?bsn=18673&snA=173501")
+    End Sub
+
+    Private Sub LinkLabel2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
+        Process.Start("https://discord.gg/F7YNJ5m")
+    End Sub
 End Class

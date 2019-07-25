@@ -54,7 +54,7 @@ Public Class BungeeCordConsole
             Dim pauseLoad As New CheckBox()
             Dim _inputList As New List(Of String)()
             Dim _currentListLocation As Integer = -1
-            dataListView.Columns.AddRange(New ColumnHeader() {New ColumnHeader() With {.Text = "類型"}, New ColumnHeader() With {.Text = "執行緒", .DisplayIndex = 2, .Width = 116}, New ColumnHeader() With {.DisplayIndex = 1, .Text = "時間", .Width = 69}, New ColumnHeader() With {.Text = "訊息", .DisplayIndex = 3, .Width = 534}})
+            dataListView.Columns.AddRange(New ColumnHeader() {New ColumnHeader() With {.Text = "類型", .Width = 90}, New ColumnHeader() With {.Text = "執行緒", .DisplayIndex = 2, .Width = 116}, New ColumnHeader() With {.DisplayIndex = 1, .Text = "時間", .Width = 69}, New ColumnHeader() With {.Text = "訊息", .DisplayIndex = 3, .Width = 534}})
             dataListView.Dock = DockStyle.Fill
             dataListView.FullRowSelect = True
             dataListView.GridLines = True
@@ -317,6 +317,10 @@ Public Class BungeeCordConsole
                                                                                         item.ForeColor = Color.Red
                                                                                         If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
                                                                                                                     NotifyInfoMessage(bServer.ServerAlias & " 發出錯誤訊息:" & vbNewLine & msg.Message, Text)
+                                                                                    Case MCServerMessageType.Debug
+                                                                                        item.ForeColor = Color.YellowGreen
+                                                                                    Case MCServerMessageType.Trace
+                                                                                        item.ForeColor = Color.Green
                                                                                 End Select
                                                                                 Select Case msg.MessageType
                                                                                     Case MCMessageType.PlayerLogin

@@ -8,6 +8,8 @@ Public Class MinecraftLogParser
             Warning
             [Error]
             Notify
+            Debug
+            Trace
         End Enum
         Enum MCMessageType
             None
@@ -34,6 +36,10 @@ Public Class MinecraftLogParser
                     Return "錯誤"
                 Case MCServerMessageType.Notify
                     Return "通知"
+                Case MCServerMessageType.Debug
+                    Return "偵錯"
+                Case MCServerMessageType.Trace
+                    Return "程式碼追朔"
             End Select
         End Function
     End Class
@@ -87,6 +93,10 @@ Public Class MinecraftLogParser
                         msg.ServerMessageType = MCServerMessageType.Warning
                     Case "ERROR"
                         msg.ServerMessageType = MCServerMessageType.Error
+                    Case "DEBUG"
+                        msg.ServerMessageType = MCServerMessageType.Debug
+                    Case "TRACE"
+                        msg.ServerMessageType = MCServerMessageType.Trace
                     Case Else
                         msg.ServerMessageType = MCServerMessageType.Info
                 End Select
@@ -132,6 +142,10 @@ Public Class MinecraftLogParser
                         msg.ServerMessageType = MCServerMessageType.Warning
                     Case "ERROR"
                         msg.ServerMessageType = MCServerMessageType.Error
+                    Case "DEBUG"
+                        msg.ServerMessageType = MCServerMessageType.Debug
+                    Case "TRACE"
+                        msg.ServerMessageType = MCServerMessageType.Trace
                     Case Else
                         msg.ServerMessageType = MCServerMessageType.Info
                 End Select
@@ -189,6 +203,10 @@ Public Class MinecraftLogParser
                         msg.ServerMessageType = MCServerMessageType.Warning
                     Case "ERROR"
                         msg.ServerMessageType = MCServerMessageType.Error
+                    Case "DEBUG"
+                        msg.ServerMessageType = MCServerMessageType.Debug
+                    Case "TRACE"
+                        msg.ServerMessageType = MCServerMessageType.Trace
                     Case Else
                         msg.ServerMessageType = MCServerMessageType.Info
                 End Select
@@ -233,6 +251,10 @@ Public Class MinecraftLogParser
                         msg.ServerMessageType = MCServerMessageType.Warning
                     Case "ERROR"
                         msg.ServerMessageType = MCServerMessageType.Error
+                    Case "DEBUG"
+                        msg.ServerMessageType = MCServerMessageType.Debug
+                    Case "TRACE"
+                        msg.ServerMessageType = MCServerMessageType.Trace
                     Case Else
                         msg.ServerMessageType = MCServerMessageType.Info
                 End Select
@@ -277,6 +299,10 @@ Public Class MinecraftLogParser
                         msg.ServerMessageType = MCServerMessageType.Warning
                     Case "ERROR"
                         msg.ServerMessageType = MCServerMessageType.Error
+                    Case "DEBUG"
+                        msg.ServerMessageType = MCServerMessageType.Debug
+                    Case "TRACE"
+                        msg.ServerMessageType = MCServerMessageType.Trace
                     Case Else
                         msg.ServerMessageType = MCServerMessageType.Info
                 End Select
@@ -321,6 +347,10 @@ Public Class MinecraftLogParser
                         msg.ServerMessageType = MCServerMessageType.Warning
                     Case "ERROR"
                         msg.ServerMessageType = MCServerMessageType.Error
+                    Case "DEBUG"
+                        msg.ServerMessageType = MCServerMessageType.Debug
+                    Case "TRACE"
+                        msg.ServerMessageType = MCServerMessageType.Trace
                     Case Else
                         msg.ServerMessageType = MCServerMessageType.Info
                 End Select
@@ -336,6 +366,10 @@ Public Class MinecraftLogParser
                         msg.ServerMessageType = MCServerMessageType.Warning
                     Case "ERROR"
                         msg.ServerMessageType = MCServerMessageType.Error
+                    Case "DEBUG"
+                        msg.ServerMessageType = MCServerMessageType.Debug
+                    Case "TRACE"
+                        msg.ServerMessageType = MCServerMessageType.Trace
                     Case Else
                         msg.ServerMessageType = MCServerMessageType.Info
                 End Select
@@ -365,6 +399,10 @@ Public Class MinecraftLogParser
                     msg.ServerMessageType = MCServerMessageType.Warning
                 Case "ERROR"
                     msg.ServerMessageType = MCServerMessageType.Error
+                Case "DEBUG"
+                    msg.ServerMessageType = MCServerMessageType.Debug
+                Case "TRACE"
+                    msg.ServerMessageType = MCServerMessageType.Trace
                 Case Else
                     msg.ServerMessageType = MCServerMessageType.Info
             End Select
@@ -387,6 +425,10 @@ Public Class MinecraftLogParser
                     msg.ServerMessageType = MCServerMessageType.Warning
                 Case "ERROR"
                     msg.ServerMessageType = MCServerMessageType.Error
+                Case "DEBUG"
+                    msg.ServerMessageType = MCServerMessageType.Debug
+                Case "TRACE"
+                    msg.ServerMessageType = MCServerMessageType.Trace
                 Case Else
                     msg.ServerMessageType = MCServerMessageType.Info
             End Select

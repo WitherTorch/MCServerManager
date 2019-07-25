@@ -23,18 +23,18 @@ Partial Class Manager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
-        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
-        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
-        Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
-        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
-        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
-        Dim ListViewItem19 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
-        Dim ListViewItem20 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
-        Dim ListViewItem21 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
-        Dim ListViewItem22 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
-        Dim ListViewItem23 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem24 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
+        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
+        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
+        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
+        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
+        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
+        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
+        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
+        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
+        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
+        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
@@ -156,6 +156,8 @@ Partial Class Manager
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.MainTabControl.SuspendLayout
         Me.MainPage.SuspendLayout
         Me.MainPanel.SuspendLayout
@@ -1422,41 +1424,41 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 11.0!)
         Me.ServerSoftwareLinkList.HideSelection = False
-        ListViewItem13.Checked = True
-        ListViewItem13.StateImageIndex = 2
-        ListViewItem13.Tag = "https://www.minecraft.net/zh-hant/"
-        ListViewItem14.Checked = True
-        ListViewItem14.StateImageIndex = 3
-        ListViewItem14.Tag = "https://files.minecraftforge.net/"
-        ListViewItem15.StateImageIndex = 0
-        ListViewItem15.Tag = "https://bukkit.org/"
-        ListViewItem16.Checked = True
-        ListViewItem16.StateImageIndex = 1
-        ListViewItem16.Tag = "https://www.spigotmc.org/"
-        ListViewItem17.Checked = True
-        ListViewItem17.StateImageIndex = 4
-        ListViewItem17.Tag = "https://www.spongepowered.org/"
-        ListViewItem18.Checked = True
-        ListViewItem18.StateImageIndex = 5
-        ListViewItem18.Tag = "https://papermc.io/"
-        ListViewItem19.Checked = True
-        ListViewItem19.StateImageIndex = 6
-        ListViewItem19.Tag = "https://akarin.io/"
-        ListViewItem20.Checked = True
-        ListViewItem20.StateImageIndex = 9
-        ListViewItem21.Checked = True
-        ListViewItem21.StateImageIndex = 8
-        ListViewItem21.Tag = "https://cyberdynecc.github.io/Thermos/"
-        ListViewItem22.Checked = True
-        ListViewItem22.StateImageIndex = 10
-        ListViewItem22.Tag = "https://github.com/djoveryde/Contigo"
-        ListViewItem23.Checked = True
-        ListViewItem23.StateImageIndex = 11
-        ListViewItem23.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem24.Checked = True
-        ListViewItem24.StateImageIndex = 7
-        ListViewItem24.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17, ListViewItem18, ListViewItem19, ListViewItem20, ListViewItem21, ListViewItem22, ListViewItem23, ListViewItem24})
+        ListViewItem1.Checked = True
+        ListViewItem1.StateImageIndex = 2
+        ListViewItem1.Tag = "https://www.minecraft.net/zh-hant/"
+        ListViewItem2.Checked = True
+        ListViewItem2.StateImageIndex = 3
+        ListViewItem2.Tag = "https://files.minecraftforge.net/"
+        ListViewItem3.StateImageIndex = 0
+        ListViewItem3.Tag = "https://bukkit.org/"
+        ListViewItem4.Checked = True
+        ListViewItem4.StateImageIndex = 1
+        ListViewItem4.Tag = "https://www.spigotmc.org/"
+        ListViewItem5.Checked = True
+        ListViewItem5.StateImageIndex = 4
+        ListViewItem5.Tag = "https://www.spongepowered.org/"
+        ListViewItem6.Checked = True
+        ListViewItem6.StateImageIndex = 5
+        ListViewItem6.Tag = "https://papermc.io/"
+        ListViewItem7.Checked = True
+        ListViewItem7.StateImageIndex = 6
+        ListViewItem7.Tag = "https://akarin.io/"
+        ListViewItem8.Checked = True
+        ListViewItem8.StateImageIndex = 9
+        ListViewItem9.Checked = True
+        ListViewItem9.StateImageIndex = 8
+        ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
+        ListViewItem10.Checked = True
+        ListViewItem10.StateImageIndex = 10
+        ListViewItem10.Tag = "https://github.com/djoveryde/Contigo"
+        ListViewItem11.Checked = True
+        ListViewItem11.StateImageIndex = 11
+        ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem12.Checked = True
+        ListViewItem12.StateImageIndex = 7
+        ListViewItem12.Tag = "https://nukkitx.com/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1485,6 +1487,8 @@ Partial Class Manager
         '
         'Panel3
         '
+        Me.Panel3.Controls.Add(Me.LinkLabel2)
+        Me.Panel3.Controls.Add(Me.LinkLabel1)
         Me.Panel3.Controls.Add(Me.GroupBox4)
         Me.Panel3.Controls.Add(Me.Label10)
         Me.Panel3.Controls.Add(Me.Label9)
@@ -1529,7 +1533,7 @@ Partial Class Manager
         Me.Label10.Location = New System.Drawing.Point(159, 57)
         Me.Label10.Margin = New System.Windows.Forms.Padding(3, 5, 3, 3)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(213, 96)
+        Me.Label10.Size = New System.Drawing.Size(213, 81)
         Me.Label10.TabIndex = 3
         Me.Label10.Text = "作者：Error 404、冰霜、asd7766zxc"
         '
@@ -1585,6 +1589,28 @@ Partial Class Manager
         Me.PerformanceCounter1.CategoryName = "Processor"
         Me.PerformanceCounter1.CounterName = "% Processor Time"
         Me.PerformanceCounter1.InstanceName = "_Total"
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.LinkLabel1.Location = New System.Drawing.Point(160, 137)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(56, 16)
+        Me.LinkLabel1.TabIndex = 5
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "巴哈網址"
+        '
+        'LinkLabel2
+        '
+        Me.LinkLabel2.AutoSize = True
+        Me.LinkLabel2.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.LinkLabel2.Location = New System.Drawing.Point(219, 137)
+        Me.LinkLabel2.Name = "LinkLabel2"
+        Me.LinkLabel2.Size = New System.Drawing.Size(51, 16)
+        Me.LinkLabel2.TabIndex = 6
+        Me.LinkLabel2.TabStop = True
+        Me.LinkLabel2.Text = "Discord"
         '
         'Manager
         '
@@ -1782,4 +1808,6 @@ Partial Class Manager
     Friend WithEvents Label22 As Label
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Label21 As Label
+    Friend WithEvents LinkLabel2 As LinkLabel
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class

@@ -384,6 +384,7 @@ Partial Class ServerConsole
         'ColumnHeader1
         '
         Me.ColumnHeader1.Text = "類型"
+        Me.ColumnHeader1.Width = 90
         '
         'ColumnHeader2
         '
