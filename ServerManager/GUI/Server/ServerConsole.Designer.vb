@@ -44,6 +44,8 @@ Partial Class ServerConsole
         Me.MemoryLabel = New System.Windows.Forms.Label()
         Me.ServerStatusLabel = New System.Windows.Forms.Label()
         Me.SettingTabPage = New System.Windows.Forms.TabPage()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CMDButton = New System.Windows.Forms.Button()
         Me.TaskGroupBox = New System.Windows.Forms.GroupBox()
         Me.TaskListBox = New System.Windows.Forms.CheckedListBox()
         Me.TaskControlPanel = New System.Windows.Forms.Panel()
@@ -71,6 +73,7 @@ Partial Class ServerConsole
         Me.UserContextMenu.SuspendLayout
         Me.SystemGroupBox.SuspendLayout
         Me.SettingTabPage.SuspendLayout
+        Me.GroupBox1.SuspendLayout
         Me.TaskGroupBox.SuspendLayout
         Me.TaskControlPanel.SuspendLayout
         Me.NotifyGroupBox.SuspendLayout
@@ -252,6 +255,7 @@ Partial Class ServerConsole
         'SettingTabPage
         '
         Me.SettingTabPage.AutoScroll = True
+        Me.SettingTabPage.Controls.Add(Me.GroupBox1)
         Me.SettingTabPage.Controls.Add(Me.TaskGroupBox)
         Me.SettingTabPage.Controls.Add(Me.NotifyGroupBox)
         Me.SettingTabPage.Location = New System.Drawing.Point(4, 22)
@@ -261,6 +265,27 @@ Partial Class ServerConsole
         Me.SettingTabPage.TabIndex = 2
         Me.SettingTabPage.Text = "伺服器操作"
         Me.SettingTabPage.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.CMDButton)
+        Me.GroupBox1.Location = New System.Drawing.Point(8, 194)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(776, 51)
+        Me.GroupBox1.TabIndex = 36
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "輔助功能"
+        '
+        'CMDButton
+        '
+        Me.CMDButton.Location = New System.Drawing.Point(6, 21)
+        Me.CMDButton.Name = "CMDButton"
+        Me.CMDButton.Size = New System.Drawing.Size(125, 23)
+        Me.CMDButton.TabIndex = 0
+        Me.CMDButton.Text = "開啟輔助CMD視窗"
+        Me.CMDButton.UseVisualStyleBackColor = True
         '
         'TaskGroupBox
         '
@@ -462,6 +487,7 @@ Partial Class ServerConsole
         Me.UserContextMenu.ResumeLayout(False)
         Me.SystemGroupBox.ResumeLayout(False)
         Me.SettingTabPage.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
         Me.TaskGroupBox.ResumeLayout(False)
         Me.TaskControlPanel.ResumeLayout(False)
         Me.NotifyGroupBox.ResumeLayout(False)
@@ -511,4 +537,6 @@ Partial Class ServerConsole
     Friend WithEvents ForceCloseButton As Button
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents 更新列表用listToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents CMDButton As Button
 End Class

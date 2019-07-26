@@ -56,6 +56,8 @@ Partial Class ModPackServerConsole
         Me.ListBoxTImer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CMDButton = New System.Windows.Forms.Button()
         Me.MainTabControl.SuspendLayout()
         Me.MainTabPage.SuspendLayout()
         Me.PlayerGroupBox.SuspendLayout()
@@ -64,6 +66,7 @@ Partial Class ModPackServerConsole
         Me.SettingTabPage.SuspendLayout()
         Me.NotifyGroupBox.SuspendLayout()
         Me.DataTabPage.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -230,6 +233,7 @@ Partial Class ModPackServerConsole
         'SettingTabPage
         '
         Me.SettingTabPage.AutoScroll = True
+        Me.SettingTabPage.Controls.Add(Me.GroupBox1)
         Me.SettingTabPage.Controls.Add(Me.NotifyGroupBox)
         Me.SettingTabPage.Location = New System.Drawing.Point(4, 22)
         Me.SettingTabPage.Name = "SettingTabPage"
@@ -354,6 +358,27 @@ Partial Class ModPackServerConsole
         '
         Me.TaskTimer.Interval = 50
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.CMDButton)
+        Me.GroupBox1.Location = New System.Drawing.Point(8, 96)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(776, 51)
+        Me.GroupBox1.TabIndex = 37
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "輔助功能"
+        '
+        'CMDButton
+        '
+        Me.CMDButton.Location = New System.Drawing.Point(6, 21)
+        Me.CMDButton.Name = "CMDButton"
+        Me.CMDButton.Size = New System.Drawing.Size(125, 23)
+        Me.CMDButton.TabIndex = 0
+        Me.CMDButton.Text = "開啟輔助CMD視窗"
+        Me.CMDButton.UseVisualStyleBackColor = True
+        '
         'ModPackServerConsole
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -375,6 +400,7 @@ Partial Class ModPackServerConsole
         Me.NotifyGroupBox.ResumeLayout(False)
         Me.DataTabPage.ResumeLayout(False)
         Me.DataTabPage.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -412,4 +438,6 @@ Partial Class ModPackServerConsole
     Friend WithEvents NotifyGroupBox As GroupBox
     Friend WithEvents NotifyChooseListBox As CheckedListBox
     Friend WithEvents TaskTimer As Timer
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents CMDButton As Button
 End Class

@@ -6,6 +6,9 @@ Public Class ModPackServerConsole
     Dim InputList As New List(Of String)()
     Dim CurrentListLocation As Integer = -1
     Dim backgroundProcess As Process
+    Dim alternateInputStreamWriter As IO.StreamWriter
+    Dim cmd As CMDForm
+    Dim outputs As String = ""
     Public ReadOnly Property Server As ModPackServer
     Dim startInfo As ProcessStartInfo
     Public Sub New(Server As ModPackServer)
@@ -79,6 +82,11 @@ Public Class ModPackServerConsole
         backgroundProcess = Process.Start(PrepareStartInfo(program, args, serverDir, nogui, UTF8))
         RestartButton.Enabled = False
         ForceCloseButton.Enabled = True
+        If UTF8 Then
+            alternateInputStreamWriter = New IO.StreamWriter(backgroundProcess.StandardInput.BaseStream, New System.Text.UTF8Encoding(False)) With {.AutoFlush = True}
+        Else
+            alternateInputStreamWriter = backgroundProcess.StandardInput
+        End If
         If nogui Then
             If StopLoadingCheckBox.Checked = False Then
                 backgroundProcess.BeginErrorReadLine()
@@ -91,6 +99,7 @@ Public Class ModPackServerConsole
                                                                 Try
                                                                     If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
                                                                         If IsNothing(e.Data) = False Then
+                                                                            outputs &= vbNewLine & e.Data
                                                                             Task.Run(Sub()
                                                                                          Try
                                                                                              Dim item As New ListViewItem("錯誤")
@@ -146,6 +155,7 @@ Public Class ModPackServerConsole
                                                                  Try
                                                                      If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
                                                                          If IsNothing(e.Data) = False Then
+                                                                             outputs &= vbNewLine & e.Data
                                                                              Task.Run(Sub()
                                                                                           Try
                                                                                               Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
@@ -593,5 +603,25 @@ Public Class ModPackServerConsole
             End If
         End If
     End Sub
+    Private Sub CMDButton_Click(sender As Object, e As EventArgs) Handles CMDButton.Click
+        If backgroundProcess IsNot Nothing Then
+            If cmd Is Nothing OrElse cmd.IsDisposed Then
+                cmd = New CMDForm(alternateInputStreamWriter, outputs.TrimStart(vbCr, vbLf))
+                AddHandler backgroundProcess.OutputDataReceived, Sub(process As Process, args As DataReceivedEventArgs)
+                                                                     Try
+                                                                         If args.Data IsNot Nothing AndAlso cmd IsNot Nothing Then cmd.AppendText(args.Data)
+                                                                     Catch ex As Exception
 
+                                                                     End Try
+                                                                 End Sub
+                cmd.Show()
+            Else
+                BeginInvokeIfRequired(cmd, Sub()
+                                               If cmd.Visible = False Then
+                                                   cmd.Visible = True
+                                               End If
+                                           End Sub)
+            End If
+        End If
+    End Sub
 End Class

@@ -15,6 +15,8 @@ Public Class ServerConsole
     Dim temp_PlayerList As New List(Of String)
     Dim hasHost As Boolean = False
     Dim alternateInputStreamWriter As IO.StreamWriter
+    Dim cmd As CMDForm
+    Dim outputs As String = ""
     Public ReadOnly Property Server As Server
     Dim startInfo As ProcessStartInfo
     Dim usesType As Server.EServerVersionType
@@ -221,6 +223,7 @@ Public Class ServerConsole
                                                                 Try
                                                                     If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
                                                                         If IsNothing(e.Data) = False Then
+                                                                            outputs &= vbNewLine & e.Data
                                                                             If String.IsNullOrWhiteSpace(previousMsg.Item1) = False Then
                                                                                 Try
                                                                                     If previousMsg.Item1 = e.Data AndAlso (Now - previousMsg.Item2).TotalSeconds <= 1 Then
@@ -286,6 +289,7 @@ Public Class ServerConsole
                                                                  Try
                                                                      If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
                                                                          If IsNothing(e.Data) = False Then
+                                                                             outputs &= vbNewLine & e.Data
                                                                              If String.IsNullOrWhiteSpace(previousMsg.Item1) = False Then
                                                                                  Try
                                                                                      If previousMsg.Item1 = e.Data AndAlso (Now - previousMsg.Item2).TotalSeconds <= 1 Then
@@ -1187,6 +1191,28 @@ Public Class ServerConsole
                     End If
                 Catch ex As Exception
                 End Try
+            End If
+        End If
+    End Sub
+
+    Private Sub CMDButton_Click(sender As Object, e As EventArgs) Handles CMDButton.Click
+        If backgroundProcess IsNot Nothing Then
+            If cmd Is Nothing OrElse cmd.IsDisposed Then
+                cmd = New CMDForm(alternateInputStreamWriter, outputs.TrimStart(vbCr, vbLf))
+                AddHandler backgroundProcess.OutputDataReceived, Sub(process As Process, args As DataReceivedEventArgs)
+                                                                     Try
+                                                                         If args.Data IsNot Nothing AndAlso cmd IsNot Nothing Then cmd.AppendText(args.Data)
+                                                                     Catch ex As Exception
+
+                                                                     End Try
+                                                                 End Sub
+                cmd.Show()
+            Else
+                BeginInvokeIfRequired(cmd, Sub()
+                                               If cmd.Visible = False Then
+                                                   cmd.Visible = True
+                                               End If
+                                           End Sub)
             End If
         End If
     End Sub
