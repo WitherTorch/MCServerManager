@@ -12,6 +12,7 @@ Public Class DownloadVersionList
         Bukkit
         CurseForge_Plugin
         CurseForge_Mod
+        Spigot_PluginDownloadList
         Nukkit_PluginDownloadList
         FeedTheBeast_Modpack
         Curse_Modpack
@@ -55,6 +56,8 @@ Public Class DownloadVersionList
                 Case BrowsingWebsite.CurseForge_Mod
                     addPath = "/file"
                     url = url.Replace("/files/", "/download/")
+                Case BrowsingWebsite.Spigot_PluginDownloadList
+                    addPath = ""
                 Case BrowsingWebsite.Nukkit_PluginDownloadList
                     addPath = ""
             End Select
@@ -120,6 +123,28 @@ Public Class DownloadVersionList
                     End If
                 End Using
                 'GlobalModule.Manager.ServerEntityList(index) = server
+            ElseIf website = BrowsingWebsite.Spigot_PluginDownloadList Then
+                My.Computer.Network.DownloadFile(realURI, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", "", True, 100, True)
+                For Each plugin In server.ServerPlugins
+                    If plugin.Name = pluginName Then
+                        IO.File.Delete(plugin.Path)
+                        server.ServerPlugins.Remove(plugin)
+                    End If
+                Next
+                Dim t = VersionList.SelectedItems(0).SubItems(3).Text
+                If t.Contains("at") Then
+                    t = t.Remove(t.IndexOf("at"))
+                    t = t.Trim
+                End If
+                Dim _plugin As New Server.BukkitPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
+                Using unpatcher As New BukkitPluginUnpatcher(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"))
+                    Dim info = unpatcher.GetPluginInfo()
+                    If info.IsNull = False Then
+                        _plugin.Name = info.Name
+                        _plugin.Version = info.Version
+                        server.ServerPlugins.Add(_plugin)
+                    End If
+                End Using
             ElseIf website = BrowsingWebsite.FeedTheBeast_Modpack Then
                 modpackServer.SetPackInfo(modpackName, ModPackServer.ModPackType.FeedTheBeast)
                 Dim web As New HtmlAgilityPack.HtmlWeb()
