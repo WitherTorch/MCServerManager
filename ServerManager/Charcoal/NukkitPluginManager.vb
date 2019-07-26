@@ -12,7 +12,7 @@
         Me.server = GlobalModule.Manager.ServerEntityList(index)
         Me.index = index
     End Sub
-    Private Sub 瀏覽插件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 瀏覽插件ToolStripMenuItem.Click
+    Private Sub 瀏覽插件ToolStripMenuItem_Click(sender As Object, e As EventArgs) 
         Dim explorer As New NukkitPluginExplorer(index)
         explorer.Show()
     End Sub

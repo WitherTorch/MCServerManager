@@ -24,7 +24,6 @@ Partial Class NukkitPluginManager
     Private Sub InitializeComponent()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.瀏覽插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.移除插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.重新整理ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PluginList = New System.Windows.Forms.ListView()
@@ -37,7 +36,7 @@ Partial Class NukkitPluginManager
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.瀏覽插件ToolStripMenuItem, Me.移除插件ToolStripMenuItem, Me.重新整理ToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.移除插件ToolStripMenuItem, Me.重新整理ToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
@@ -48,12 +47,6 @@ Partial Class NukkitPluginManager
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(12, 20)
-        '
-        '瀏覽插件ToolStripMenuItem
-        '
-        Me.瀏覽插件ToolStripMenuItem.Name = "瀏覽插件ToolStripMenuItem"
-        Me.瀏覽插件ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
-        Me.瀏覽插件ToolStripMenuItem.Text = "瀏覽插件"
         '
         '移除插件ToolStripMenuItem
         '
@@ -74,6 +67,7 @@ Partial Class NukkitPluginManager
         Me.PluginList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PluginList.GridLines = True
         Me.PluginList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.PluginList.HideSelection = False
         Me.PluginList.Location = New System.Drawing.Point(0, 24)
         Me.PluginList.MultiSelect = False
         Me.PluginList.Name = "PluginList"
@@ -126,7 +120,6 @@ Partial Class NukkitPluginManager
 
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents 瀏覽插件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 移除插件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PluginList As ListView
