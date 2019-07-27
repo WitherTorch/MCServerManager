@@ -982,6 +982,14 @@ Public Class ServerConsole
                                     command = command.Replace("<$COMMANDNAME>", commandName)
                                     command = command.Replace("<$COMMANDARG>", commandArg)
                                     command = command.Replace("<$COMMANDFULL>", playerCommand)
+                                    Dim time = Now
+                                    command = command.Replace("<#YEAR>", time.Year)
+                                    command = command.Replace("<#MONTH>", time.Month)
+                                    command = command.Replace("<#DAY>", time.Day)
+                                    command = command.Replace("<#HOUR>", time.Hour)
+                                    command = command.Replace("<#MINUTE>", time.Minute)
+                                    command = command.Replace("<#SECOND>", time.Second)
+                                    command = command.Replace("<#DAYOFWEEK>", CInt(time.DayOfWeek))
                             End Select
                             Dim _thread As New Thread(Sub()
                                                           Try

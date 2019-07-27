@@ -21,6 +21,7 @@
                                                End If
                                            End Sub)
         thread.Name = "Server Watchdog Thread"
+        thread.IsBackground = False
         thread.Start()
     End Sub
 End Class

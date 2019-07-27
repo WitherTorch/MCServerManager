@@ -7,8 +7,8 @@ Public Class ServerTaskCreateDialog
     Dim isEditMode As Boolean = False
     Dim inSetting As Boolean = False
 
-    Dim taskMethods As String() = {"#sleep 20"}
-    Dim taskMethodsDescriptions As String() = {"在指定的遊戲刻數內暫停輸出排程指令"}
+    Dim taskMethods As String() = {"#sleep 20", "<#YEAR>", "<#MONTH>", "<#DAY>", "<#HOUR>", "<#MINUTE>", "<#SECOND>", "<#DAYOFWEEK>"}
+    Dim taskMethodsDescriptions As String() = {"在指定的遊戲刻數內暫停輸出排程指令(預設指令中的20可以替換)", "現在系統時間的年分", "現在系統時間的月份", "現在系統時間的天數", "現在系統時間的小時數", "現在系統時間的分鐘數", "現在系統時間的秒數", "現在系統時間於一周內的天數"}
 
     Dim playerLoginParameters As String() = {"<$ID>"}
     Dim playerLoginParameterDescriptions As String() = {"目標玩家的ID"}
