@@ -917,6 +917,8 @@ Public Class ServerConsole
         End Select
     End Sub
     Sub RunTask(task As ServerTask, AddtionalParameters As Dictionary(Of String, String))
+        Dim TaskRandomGenerator As New Random
+        Static TaskRandomGenNumber As Integer = -1
         Select Case task.Command.Action
             Case ServerTask.TaskCommand.CommandAction.StopServer
                 Dim thread As New Threading.Thread(Sub()
@@ -994,14 +996,18 @@ Public Class ServerConsole
                             Dim _thread As New Thread(Sub()
                                                           Try
                                                               Dim SleepRegex As New Text.RegularExpressions.Regex("#sleep [0-9]{1,}")
+                                                              Dim RandomiseRegex As New Text.RegularExpressions.Regex("#randomise [0-9]{1,}")
                                                               If command.Contains(vbNewLine) Then
                                                                   For Each line In command.Split(vbNewLine)
                                                                       line = line.TrimStart(vbLf)
                                                                       If line.StartsWith("#") Then
                                                                           If SleepRegex.IsMatch(line) AndAlso SleepRegex.Match(line).Value = line.Trim Then
                                                                               SpinWait.SpinUntil(Function() False, 50 * New Text.RegularExpressions.Regex("[0-9]{1,}").Match(line).Value)
+                                                                          ElseIf RandomiseRegex.IsMatch(line) AndAlso RandomiseRegex.Match(line).Value = line.Trim Then
+                                                                              TaskRandomGenNumber = New Text.RegularExpressions.Regex("[0-9]{1,}").Match(line).Value
                                                                           End If
                                                                       Else
+                                                                          line.Replace("<#RANDOM>", IIf(TaskRandomGenNumber > -1, TaskRandomGenerator.Next(TaskRandomGenNumber), 0))
                                                                           alternateInputStreamWriter.WriteLine(line)
                                                                       End If
                                                                   Next

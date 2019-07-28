@@ -212,7 +212,11 @@ Public Class ServerStatus
                                     If New Version(Server.ServerVersion) >= New Version(1, 13) Then
                                         filename = IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & ".jar")
                                     Else
-                                        filename = IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-universal" & ".jar")
+                                        If Server.ServerVersion = "1.8.9" OrElse Server.ServerVersion = "1.7.10" Then
+                                            filename = IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-" & Server.ServerVersion & "-universal" & ".jar")
+                                        Else
+                                            filename = IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-universal" & ".jar")
+                                        End If
                                     End If
                                 Else
                                     filename = IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-server" & ".jar")
