@@ -65,6 +65,18 @@ Namespace My
                 Me("NoIPPasswordViewChecked") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("25565")>  _
+        Public Property CreateServerDialog_PortBoxValue() As Decimal
+            Get
+                Return CType(Me("CreateServerDialog_PortBoxValue"),Decimal)
+            End Get
+            Set
+                Me("CreateServerDialog_PortBoxValue") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

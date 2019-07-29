@@ -177,9 +177,13 @@ Public Class ServerCreateDialog
                     If Environment.OSVersion.Version.Major < 10 Then
                         server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
                         VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
+                        VersionBox.SelectedIndex = 0
+                        VersionBox.Enabled = False
                     Else
                         server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.VanillaBedrock)
                         VersionBox.Items.Add(String.Format("最新版 ({0})", VanillaBedrockVersion.ToString))
+                        VersionBox.SelectedIndex = 0
+                        VersionBox.Enabled = False
                     End If
                 Case 13
                     If Environment.OSVersion.Version.Major < 10 Then
@@ -190,6 +194,8 @@ Public Class ServerCreateDialog
                     Else
                         server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
                         VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
+                        VersionBox.SelectedIndex = 0
+                        VersionBox.Enabled = False
                     End If
                 Case 14
                     server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)

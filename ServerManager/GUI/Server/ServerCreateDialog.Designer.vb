@@ -248,13 +248,14 @@ Partial Class ServerCreateDialog
         'PortBox
         '
         Me.PortBox.ContextMenuStrip = Me.ContextMenuStrip1
+        Me.PortBox.DataBindings.Add(New System.Windows.Forms.Binding("Value", Global.ServerManager.My.MySettings.Default, "CreateServerDialog_PortBoxValue", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.PortBox.Location = New System.Drawing.Point(62, 21)
         Me.PortBox.Maximum = New Decimal(New Integer() {65534, 0, 0, 0})
         Me.PortBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.PortBox.Name = "PortBox"
         Me.PortBox.Size = New System.Drawing.Size(120, 22)
         Me.PortBox.TabIndex = 42
-        Me.PortBox.Value = New Decimal(New Integer() {25565, 0, 0, 0})
+        Me.PortBox.Value = Global.ServerManager.My.MySettings.Default.CreateServerDialog_PortBoxValue
         '
         'ContextMenuStrip1
         '

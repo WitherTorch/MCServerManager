@@ -95,25 +95,35 @@ Public Class ModPackServerCreateHelper
                                                                     End Sub)
                                                              Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
                                                              Using archive As ZipArchive = ZipFile.OpenRead(dist)
+                                                                 Dim basePath As String = ""
                                                                  For Each entry As ZipArchiveEntry In archive.Entries
-                                                                     Try
-                                                                         If entry.FullName.EndsWith("\") OrElse entry.FullName.EndsWith("/") Then
-                                                                             If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Exists = False Then
-                                                                                 IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
+                                                                     If entry.Name.StartsWith("forge-") AndAlso entry.Name.EndsWith(".jar") Then
+                                                                         basePath = entry.FullName.Substring(0, entry.FullName.Length - entry.Name.Length)
+                                                                         Exit For
+                                                                     End If
+                                                                 Next
+                                                                 For Each entry As ZipArchiveEntry In archive.Entries
+                                                                     If basePath = "" OrElse entry.FullName.StartsWith(basePath) Then
+                                                                         Dim entryPath = entry.FullName.Substring(basePath.Length)
+                                                                         Try
+                                                                             If entryPath.EndsWith("\") OrElse entryPath.EndsWith("/") Then
+                                                                                 If New IO.DirectoryInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entryPath)).Exists = False Then
+                                                                                     IO.Directory.CreateDirectory(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entryPath))
+                                                                                 End If
+                                                                             Else
+                                                                                 If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entryPath)).Directory.Exists = False Then
+                                                                                     Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entryPath))
+                                                                                     info.Directory.Create()
+                                                                                 End If
+                                                                                 If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entryPath)).Exists = False Then
+                                                                                     Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entryPath))
+                                                                                     info.Delete()
+                                                                                 End If
+                                                                                 entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entryPath), True)
                                                                              End If
-                                                                         Else
-                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Directory.Exists = False Then
-                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
-                                                                                 info.Directory.Create()
-                                                                             End If
-                                                                             If New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName)).Exists = False Then
-                                                                                 Dim info = New IO.FileInfo(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName))
-                                                                                 info.Delete()
-                                                                             End If
-                                                                             entry.ExtractToFile(IO.Path.Combine(IIf(Me.path.EndsWith(seperator), Me.path, Me.path & seperator), entry.FullName), True)
-                                                                         End If
-                                                                     Catch ex As Exception
-                                                                     End Try
+                                                                         Catch ex As Exception
+                                                                         End Try
+                                                                     End If
                                                                  Next
                                                              End Using
                                                              Invoke(Sub()
