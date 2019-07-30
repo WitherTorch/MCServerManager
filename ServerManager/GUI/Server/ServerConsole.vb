@@ -820,7 +820,7 @@ Public Class ServerConsole
                                                                          Server.SaveServer()
                                                                      End Sub)) With {
             .Name = "Server Manager Close Server Thread",
-            .IsBackground = True
+            .IsBackground = False
                                                                      }
         thread.Start()
 
@@ -1090,10 +1090,6 @@ Public Class ServerConsole
             End If
             RemoveTaskAt(TaskListBox.SelectedIndex)
         End If
-    End Sub
-
-    Private Sub ServerConsole_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-
     End Sub
 
     Private Sub 封禁ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 封禁ToolStripMenuItem.Click
