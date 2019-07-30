@@ -747,6 +747,16 @@ Public Class Manager
                                     ServerMemoryMaxBox.Value = info(1)
                                     ServerMemoryMax = info(1)
                                 End If
+                            Case "modpack-memory-min"
+                                If IsNumeric(info(1)) Then
+                                    ModpackServerMemoryMinBox.Value = info(1)
+                                    ModpackServerMemoryMin = info(1)
+                                End If
+                            Case "modpack-memory-max"
+                                If IsNumeric(info(1)) Then
+                                    BungeeMemoryMaxBox.Value = info(1)
+                                    BungeeCordMemoryMax = info(1)
+                                End If
                             Case "bungee-memory-min"
                                 If IsNumeric(info(1)) Then
                                     BungeeMemoryMinBox.Value = info(1)
@@ -1915,5 +1925,27 @@ Public Class Manager
 
     Private Sub LinkLabel2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
         Process.Start("https://discord.gg/F7YNJ5m")
+    End Sub
+
+    Private Sub ModpackServerMemoryMaxBox_ValueChanged(sender As Object, e As EventArgs) Handles ModpackServerMemoryMaxBox.ValueChanged
+        ModpackServerMemoryMax = ModpackServerMemoryMaxBox.Value
+        If Is32BitJava = True And HasJava And ModpackServerMemoryMaxBox.Value > 1024 Then
+            Label24.Text = "MB (記憶體過大)"
+            Label24.ForeColor = Color.Red
+        Else
+            Label24.Text = "MB"
+            Label24.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub ModpackServerMemoryMinBox_ValueChanged(sender As Object, e As EventArgs) Handles ModpackServerMemoryMinBox.ValueChanged
+        ModpackServerMemoryMin = ModpackServerMemoryMinBox.Value
+        If Is32BitJava = True And HasJava And ModpackServerMemoryMinBox.Value > 1024 Then
+            Label25.Text = "MB (記憶體過大)"
+            Label25.ForeColor = Color.Red
+        Else
+            Label25.Text = "MB"
+            Label25.ForeColor = Color.Black
+        End If
     End Sub
 End Class

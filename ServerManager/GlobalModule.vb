@@ -6,7 +6,7 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.6.1 Beta 4"
+    Public Const SERVER_MANAGER_VER As String = "1.6.1 Beta 5"
     Friend Manager As Manager
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
@@ -32,6 +32,8 @@ Module GlobalModule
 #Region "General Settings"
     Friend ServerMemoryMin As Decimal = 1024
     Friend ServerMemoryMax As Decimal = 1024
+    Friend ModpackServerMemoryMin As Decimal = 4096
+    Friend ModpackServerMemoryMax As Decimal = 4096
     Friend BungeeCordMemoryMin As Decimal = 16
     Friend BungeeCordMemoryMax As Decimal = 16
     Friend JavaArguments As String = ""

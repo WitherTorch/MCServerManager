@@ -63,15 +63,15 @@ Public Class ModPackServerConsole
         Select Case Server.PackType
             Case ModPackServer.ModPackType.FeedTheBeast
                 If IsUnixLikeSystem Then
-                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ServerMemoryMax, ServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("/"), Server.ServerPath, Server.ServerPath & "/") & Server.ServerRunJAR), Server.ServerPath, True, True)
+                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("/"), Server.ServerPath, Server.ServerPath & "/") & Server.ServerRunJAR), Server.ServerPath, True, True)
                 Else
-                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ServerMemoryMax, ServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("\"), Server.ServerPath, Server.ServerPath & "\") & Server.ServerRunJAR), Server.ServerPath, True, True)
+                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("\"), Server.ServerPath, Server.ServerPath & "\") & Server.ServerRunJAR), Server.ServerPath, True, True)
                 End If
             Case ModPackServer.ModPackType.CurseForge
                 If IsUnixLikeSystem Then
-                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ServerMemoryMax, ServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("/"), Server.ServerPath, Server.ServerPath & "/") & Server.ServerRunJAR), Server.ServerPath, True, True)
+                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("/"), Server.ServerPath, Server.ServerPath & "/") & Server.ServerRunJAR), Server.ServerPath, True, True)
                 Else
-                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ServerMemoryMax, ServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("\"), Server.ServerPath, Server.ServerPath & "\") & Server.ServerRunJAR), Server.ServerPath, True, True)
+                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("\"), Server.ServerPath, Server.ServerPath & "\") & Server.ServerRunJAR), Server.ServerPath, True, True)
                 End If
         End Select
     End Sub
