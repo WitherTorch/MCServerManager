@@ -158,6 +158,13 @@ Partial Class Manager
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.ModpackServerMemoryMaxBox = New System.Windows.Forms.NumericUpDown()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.ModpackServerMemoryMinBox = New System.Windows.Forms.NumericUpDown()
+        Me.Label26 = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -202,6 +209,9 @@ Partial Class Manager
         Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox9.SuspendLayout()
+        CType(Me.ModpackServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ModpackServerMemoryMinBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MainTabControl
@@ -1059,14 +1069,15 @@ Partial Class Manager
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox9, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.ServerGroupBox1, 0, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(6, 63)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(750, 82)
+        Me.TableLayoutPanel1.RowCount = 2
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(750, 164)
         Me.TableLayoutPanel1.TabIndex = 41
         '
         'GroupBox1
@@ -1612,6 +1623,86 @@ Partial Class Manager
         Me.PerformanceCounter1.CounterName = "% Processor Time"
         Me.PerformanceCounter1.InstanceName = "_Total"
         '
+        'GroupBox9
+        '
+        Me.GroupBox9.Controls.Add(Me.Label23)
+        Me.GroupBox9.Controls.Add(Me.Label24)
+        Me.GroupBox9.Controls.Add(Me.ModpackServerMemoryMaxBox)
+        Me.GroupBox9.Controls.Add(Me.Label25)
+        Me.GroupBox9.Controls.Add(Me.ModpackServerMemoryMinBox)
+        Me.GroupBox9.Controls.Add(Me.Label26)
+        Me.GroupBox9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox9.Location = New System.Drawing.Point(3, 85)
+        Me.GroupBox9.Name = "GroupBox9"
+        Me.GroupBox9.Size = New System.Drawing.Size(369, 76)
+        Me.GroupBox9.TabIndex = 33
+        Me.GroupBox9.TabStop = False
+        Me.GroupBox9.Text = "模組包伺服器"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(6, 26)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(89, 12)
+        Me.Label23.TabIndex = 25
+        Me.Label23.Text = "記憶體最大值："
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(179, 26)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(23, 12)
+        Me.Label24.TabIndex = 27
+        Me.Label24.Text = "MB"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ModpackServerMemoryMaxBox
+        '
+        Me.ModpackServerMemoryMaxBox.Location = New System.Drawing.Point(98, 21)
+        Me.ModpackServerMemoryMaxBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
+        Me.ModpackServerMemoryMaxBox.Name = "ModpackServerMemoryMaxBox"
+        Me.ModpackServerMemoryMaxBox.Size = New System.Drawing.Size(78, 22)
+        Me.ModpackServerMemoryMaxBox.TabIndex = 26
+        Me.ModpackServerMemoryMaxBox.Tag = ""
+        Me.ModpackServerMemoryMaxBox.Value = New Decimal(New Integer() {4096, 0, 0, 0})
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(179, 53)
+        Me.Label25.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(23, 12)
+        Me.Label25.TabIndex = 30
+        Me.Label25.Text = "MB"
+        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ModpackServerMemoryMinBox
+        '
+        Me.ModpackServerMemoryMinBox.Location = New System.Drawing.Point(98, 49)
+        Me.ModpackServerMemoryMinBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
+        Me.ModpackServerMemoryMinBox.Name = "ModpackServerMemoryMinBox"
+        Me.ModpackServerMemoryMinBox.Size = New System.Drawing.Size(78, 22)
+        Me.ModpackServerMemoryMinBox.TabIndex = 29
+        Me.ModpackServerMemoryMinBox.Tag = ""
+        Me.ModpackServerMemoryMinBox.Value = New Decimal(New Integer() {4096, 0, 0, 0})
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(6, 53)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(89, 12)
+        Me.Label26.TabIndex = 28
+        Me.Label26.Text = "記憶體最小值："
+        Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1683,6 +1774,10 @@ Partial Class Manager
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox9.ResumeLayout(False)
+        Me.GroupBox9.PerformLayout()
+        CType(Me.ModpackServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ModpackServerMemoryMinBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1810,4 +1905,11 @@ Partial Class Manager
     Friend WithEvents Label21 As Label
     Friend WithEvents LinkLabel2 As LinkLabel
     Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents GroupBox9 As GroupBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label24 As Label
+    Friend WithEvents ModpackServerMemoryMaxBox As NumericUpDown
+    Friend WithEvents Label25 As Label
+    Friend WithEvents ModpackServerMemoryMinBox As NumericUpDown
+    Friend WithEvents Label26 As Label
 End Class

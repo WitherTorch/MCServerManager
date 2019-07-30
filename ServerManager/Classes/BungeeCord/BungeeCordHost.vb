@@ -161,33 +161,49 @@ Public Class BungeeCordHost
                     Case Server.EServerType.Java
                         Select Case Server.ServerVersionType
                             Case Server.EServerVersionType.Vanilla
-                                Return Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "minecraft_server." & Server.ServerVersion & ".jar") & """" & " nogui", Server.ServerPath)
+                                If Server.Server2ndVersion <> "" Then
+                                    Return Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "minecraft_server." & Server.Server2ndVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                Else
+                                    Return Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "minecraft_server." & Server.ServerVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                End If
                             Case Server.EServerVersionType.Forge
                                 ' 1.1~1.2 > Server
                                 ' 1.3 ~ > Universal
+                                ' 1.13+ -> Nothing
+                                ' 1.8.9 and 1.7.10 -> Server Version Twice
                                 If New Version(Server.ServerVersion) >= New Version(1, 3) Then
-                                    Return Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath)
+                                    If New Version(Server.ServerVersion) >= New Version(1, 13) Then
+                                        Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                    Else
+                                        If Server.ServerVersion = "1.8.9" OrElse Server.ServerVersion = "1.7.10" Then
+                                            Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-" & Server.ServerVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                        Else
+                                            Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath, True, True)
+                                        End If
+                                    End If
                                 Else
-                                    Return Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-server" & ".jar") & """" & " nogui", Server.ServerPath)
+                                    Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-server" & ".jar") & """" & " nogui", Server.ServerPath)
                                 End If
                             Case Server.EServerVersionType.Spigot
-                                Return Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spigot-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spigot-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                             Case Server.EServerVersionType.Spigot_Git
-                                Return Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spigot-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spigot-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                             Case Server.EServerVersionType.CraftBukkit
-                                Return Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "craftbukkit-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "craftbukkit-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                             Case Server.EServerVersionType.SpongeVanilla
-                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spongeVanilla-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spongeVanilla-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                             Case Server.EServerVersionType.Paper
-                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "paper-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "paper-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                             Case Server.EServerVersionType.Akarin
-                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "akarin-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "akarin-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                             Case Server.EServerVersionType.Cauldron
-                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "server.jar") & """", Server.ServerPath)
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "server.jar") & """", Server.ServerPath)
                             Case Server.EServerVersionType.Thermos
-                                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Xms" & GlobalModule.Manager.ServerMemoryMinBox.Value & "M " & JavaArguments & " -Xmx" & GlobalModule.Manager.ServerMemoryMaxBox.Value & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Thermos-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                            Case Else
-                                Return Nothing
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Thermos-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                            Case Server.EServerVersionType.Contigo
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Contigo-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
+                            Case Server.EServerVersionType.Kettle
+                                Return Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "kettle-git-HEAD-" & Server.Server2ndVersion & "-universal.jar") & """", Server.ServerPath)
                         End Select
                     Case Else
                         Return Nothing
