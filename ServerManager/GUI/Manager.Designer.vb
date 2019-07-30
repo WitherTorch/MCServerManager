@@ -23,18 +23,18 @@ Partial Class Manager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
-        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
-        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
-        Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
-        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
-        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
-        Dim ListViewItem19 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
-        Dim ListViewItem20 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
-        Dim ListViewItem21 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
-        Dim ListViewItem22 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
-        Dim ListViewItem23 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem24 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
+        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
+        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
+        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
+        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
+        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
+        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
+        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
+        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
+        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
+        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Nukkit(NukkitX)")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
@@ -158,51 +158,51 @@ Partial Class Manager
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
-        Me.MainTabControl.SuspendLayout
-        Me.MainPage.SuspendLayout
-        Me.MainPanel.SuspendLayout
-        Me.GroupBox8.SuspendLayout
-        Me.MemoryGroupBox.SuspendLayout
-        Me.NetworkGroupBox.SuspendLayout
-        Me.ExternalIPContextMenu.SuspendLayout
-        Me.InternalIPContextMenu.SuspendLayout
-        Me.GroupBox7.SuspendLayout
-        Me.VListLoadingBox.SuspendLayout
-        Me.ServerListPage.SuspendLayout
-        Me.BottomButtons.SuspendLayout
-        Me.PackServerListPage.SuspendLayout
-        Me.TableLayoutPanel5.SuspendLayout
-        Me.BungeeCordPage.SuspendLayout
-        Me.TableLayoutPanel2.SuspendLayout
-        Me.ConnectionTabPage.SuspendLayout
-        Me.GroupBox2.SuspendLayout
-        Me.GroupBox3.SuspendLayout
-        Me.TableLayoutPanel3.SuspendLayout
-        Me.Panel1.SuspendLayout
-        Me.Panel2.SuspendLayout
-        Me.SettingTabPage.SuspendLayout
-        Me.SettingTabControl.SuspendLayout
-        Me.TabPage4.SuspendLayout
-        Me.GroupBox6.SuspendLayout
-        Me.TabPage1.SuspendLayout
-        Me.TableLayoutPanel1.SuspendLayout
-        Me.GroupBox1.SuspendLayout
+        Me.MainTabControl.SuspendLayout()
+        Me.MainPage.SuspendLayout()
+        Me.MainPanel.SuspendLayout()
+        Me.GroupBox8.SuspendLayout()
+        Me.MemoryGroupBox.SuspendLayout()
+        Me.NetworkGroupBox.SuspendLayout()
+        Me.ExternalIPContextMenu.SuspendLayout()
+        Me.InternalIPContextMenu.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
+        Me.VListLoadingBox.SuspendLayout()
+        Me.ServerListPage.SuspendLayout()
+        Me.BottomButtons.SuspendLayout()
+        Me.PackServerListPage.SuspendLayout()
+        Me.TableLayoutPanel5.SuspendLayout()
+        Me.BungeeCordPage.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
+        Me.ConnectionTabPage.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.SettingTabPage.SuspendLayout()
+        Me.SettingTabControl.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         CType(Me.BungeeMemoryMaxBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BungeeMemoryMinBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ServerGroupBox1.SuspendLayout
+        Me.ServerGroupBox1.SuspendLayout()
         CType(Me.ServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ServerMemoryMinBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage2.SuspendLayout
-        Me.TabPage3.SuspendLayout
-        Me.GitGroupBox.SuspendLayout
-        Me.AboutPage.SuspendLayout
-        Me.TableLayoutPanel4.SuspendLayout
-        Me.GroupBox5.SuspendLayout
-        Me.Panel3.SuspendLayout
-        Me.GroupBox4.SuspendLayout
+        Me.TabPage2.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        Me.GitGroupBox.SuspendLayout()
+        Me.AboutPage.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout
+        Me.SuspendLayout()
         '
         'MainTabControl
         '
@@ -337,12 +337,12 @@ Partial Class Manager
         '
         Me.ExternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.重新載入外部IPRToolStripMenuItem})
         Me.ExternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
         '
         '重新載入外部IPRToolStripMenuItem
         '
         Me.重新載入外部IPRToolStripMenuItem.Name = "重新載入外部IPRToolStripMenuItem"
-        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.重新載入外部IPRToolStripMenuItem.Text = "重新載入外部IP(&R)"
         '
         'IPALabel
@@ -372,12 +372,12 @@ Partial Class Manager
         '
         Me.InternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
         Me.InternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.InternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        Me.InternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(172, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(174, 22)
         Me.ToolStripMenuItem1.Text = "重新載入內部IP(&R)"
         '
         'GroupBox7
@@ -1295,7 +1295,6 @@ Partial Class Manager
         '
         'CheckBox3
         '
-        Me.CheckBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBox3.AutoSize = True
         Me.CheckBox3.Location = New System.Drawing.Point(6, 28)
         Me.CheckBox3.Name = "CheckBox3"
@@ -1306,7 +1305,6 @@ Partial Class Manager
         '
         'SnapshotCheckBox
         '
-        Me.SnapshotCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.SnapshotCheckBox.AutoSize = True
         Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
         Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
@@ -1426,41 +1424,41 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 11.0!)
         Me.ServerSoftwareLinkList.HideSelection = False
-        ListViewItem13.Checked = True
-        ListViewItem13.StateImageIndex = 2
-        ListViewItem13.Tag = "https://www.minecraft.net/zh-hant/"
-        ListViewItem14.Checked = True
-        ListViewItem14.StateImageIndex = 3
-        ListViewItem14.Tag = "https://files.minecraftforge.net/"
-        ListViewItem15.StateImageIndex = 0
-        ListViewItem15.Tag = "https://bukkit.org/"
-        ListViewItem16.Checked = True
-        ListViewItem16.StateImageIndex = 1
-        ListViewItem16.Tag = "https://www.spigotmc.org/"
-        ListViewItem17.Checked = True
-        ListViewItem17.StateImageIndex = 4
-        ListViewItem17.Tag = "https://www.spongepowered.org/"
-        ListViewItem18.Checked = True
-        ListViewItem18.StateImageIndex = 5
-        ListViewItem18.Tag = "https://papermc.io/"
-        ListViewItem19.Checked = True
-        ListViewItem19.StateImageIndex = 6
-        ListViewItem19.Tag = "https://akarin.io/"
-        ListViewItem20.Checked = True
-        ListViewItem20.StateImageIndex = 9
-        ListViewItem21.Checked = True
-        ListViewItem21.StateImageIndex = 8
-        ListViewItem21.Tag = "https://cyberdynecc.github.io/Thermos/"
-        ListViewItem22.Checked = True
-        ListViewItem22.StateImageIndex = 10
-        ListViewItem22.Tag = "https://github.com/djoveryde/Contigo"
-        ListViewItem23.Checked = True
-        ListViewItem23.StateImageIndex = 11
-        ListViewItem23.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem24.Checked = True
-        ListViewItem24.StateImageIndex = 7
-        ListViewItem24.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem13, ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17, ListViewItem18, ListViewItem19, ListViewItem20, ListViewItem21, ListViewItem22, ListViewItem23, ListViewItem24})
+        ListViewItem1.Checked = True
+        ListViewItem1.StateImageIndex = 2
+        ListViewItem1.Tag = "https://www.minecraft.net/zh-hant/"
+        ListViewItem2.Checked = True
+        ListViewItem2.StateImageIndex = 3
+        ListViewItem2.Tag = "https://files.minecraftforge.net/"
+        ListViewItem3.StateImageIndex = 0
+        ListViewItem3.Tag = "https://bukkit.org/"
+        ListViewItem4.Checked = True
+        ListViewItem4.StateImageIndex = 1
+        ListViewItem4.Tag = "https://www.spigotmc.org/"
+        ListViewItem5.Checked = True
+        ListViewItem5.StateImageIndex = 4
+        ListViewItem5.Tag = "https://www.spongepowered.org/"
+        ListViewItem6.Checked = True
+        ListViewItem6.StateImageIndex = 5
+        ListViewItem6.Tag = "https://papermc.io/"
+        ListViewItem7.Checked = True
+        ListViewItem7.StateImageIndex = 6
+        ListViewItem7.Tag = "https://akarin.io/"
+        ListViewItem8.Checked = True
+        ListViewItem8.StateImageIndex = 9
+        ListViewItem9.Checked = True
+        ListViewItem9.StateImageIndex = 8
+        ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
+        ListViewItem10.Checked = True
+        ListViewItem10.StateImageIndex = 10
+        ListViewItem10.Tag = "https://github.com/djoveryde/Contigo"
+        ListViewItem11.Checked = True
+        ListViewItem11.StateImageIndex = 11
+        ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem12.Checked = True
+        ListViewItem12.StateImageIndex = 7
+        ListViewItem12.Tag = "https://nukkitx.com/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1544,7 +1542,7 @@ Partial Class Manager
         Me.LibraryListBox.Font = New System.Drawing.Font("微軟正黑體", 10.25!)
         Me.LibraryListBox.FormattingEnabled = True
         Me.LibraryListBox.ItemHeight = 18
-        Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)", "DropDownControls (用於顯示群組項目)"})
+        Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)", "DropDownControls (用於顯示群組項目)", "NBT_Library (用於解析NBT檔案)"})
         Me.LibraryListBox.Location = New System.Drawing.Point(3, 19)
         Me.LibraryListBox.Name = "LibraryListBox"
         Me.LibraryListBox.Size = New System.Drawing.Size(366, 288)
@@ -1627,61 +1625,61 @@ Partial Class Manager
         Me.Text = "Minecraft 伺服器管理員"
         Me.MainTabControl.ResumeLayout(False)
         Me.MainPage.ResumeLayout(False)
-        Me.MainPage.PerformLayout
+        Me.MainPage.PerformLayout()
         Me.MainPanel.ResumeLayout(False)
         Me.GroupBox8.ResumeLayout(False)
         Me.MemoryGroupBox.ResumeLayout(False)
-        Me.MemoryGroupBox.PerformLayout
+        Me.MemoryGroupBox.PerformLayout()
         Me.NetworkGroupBox.ResumeLayout(False)
-        Me.NetworkGroupBox.PerformLayout
+        Me.NetworkGroupBox.PerformLayout()
         Me.ExternalIPContextMenu.ResumeLayout(False)
         Me.InternalIPContextMenu.ResumeLayout(False)
         Me.GroupBox7.ResumeLayout(False)
         Me.VListLoadingBox.ResumeLayout(False)
         Me.ServerListPage.ResumeLayout(False)
-        Me.ServerListPage.PerformLayout
+        Me.ServerListPage.PerformLayout()
         Me.BottomButtons.ResumeLayout(False)
         Me.PackServerListPage.ResumeLayout(False)
-        Me.PackServerListPage.PerformLayout
+        Me.PackServerListPage.PerformLayout()
         Me.TableLayoutPanel5.ResumeLayout(False)
         Me.BungeeCordPage.ResumeLayout(False)
-        Me.BungeeCordPage.PerformLayout
+        Me.BungeeCordPage.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.ConnectionTabPage.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout
+        Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout
+        Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout
+        Me.Panel2.PerformLayout()
         Me.SettingTabPage.ResumeLayout(False)
         Me.SettingTabControl.ResumeLayout(False)
         Me.TabPage4.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout
+        Me.GroupBox6.PerformLayout()
         Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout
+        Me.TabPage1.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout
+        Me.GroupBox1.PerformLayout()
         CType(Me.BungeeMemoryMaxBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BungeeMemoryMinBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ServerGroupBox1.ResumeLayout(False)
-        Me.ServerGroupBox1.PerformLayout
+        Me.ServerGroupBox1.PerformLayout()
         CType(Me.ServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ServerMemoryMinBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
-        Me.TabPage2.PerformLayout
+        Me.TabPage2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.GitGroupBox.ResumeLayout(False)
-        Me.GitGroupBox.PerformLayout
+        Me.GitGroupBox.PerformLayout()
         Me.AboutPage.ResumeLayout(False)
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout
+        Me.Panel3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).EndInit()
