@@ -43,29 +43,31 @@ Public Class MinecraftLogParser
             End Select
         End Function
     End Class
+    'Time Regex
+    Shared timeRegex As New Regex("[0-9]{2}\:[0-9]{2}\:[0-9]{2}")
+    'Spigot/CraftBukkit Regex
+    Shared bukkitCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2} [A-Z]{4,5}\]")
+    'Vanilla Regex
+    Shared vanillaCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 #$_-]*\/[A-Z]{4,5}\]\:")
+    'SpongeVanilla Regex
+    Shared spongeVanillaCheckRegex As New Regex("\[[0-9]{2}:[0-9]{2}:[0-9]{2} [A-Z]{4,5}\] \[[A-Za-z0-9 #$_-]*\]\:")
+    'Nukkit Regex
+    Shared nukkitCheckRegex As New Regex("\u001b\[[0-9]{2}m[0-9]{2}\:[0-9]{2}\:[0-9]{2}\u001b\[m \[\u001b\[[0-9]{2}m[A-Z]{4,5} \u001b\[m\]")
+    'Forge Regex
+    Shared forgeCheckRegex1 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 \:\/\\\.\[\]]*\]\:")
+    'Forge Regex (1.13 up)
+    Shared forgeCheckRegex2 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 \:\/\\\.\[\]]*\]\:")
+    'Vanilla Bedrock Regex
+    Shared vanillaBedrockRegex As New Regex("\[[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [A-Za-z0-9 \:#$_-]{4,5}\]")
+    'BungeeCord Regex
+    Shared bungeeCordCheckRegex As New Regex("[0-9]{2}\:[0-9]{2}\:[0-9]{2} \[[^ ]*\]")
+    'Java Other Message Regex 1
+    Shared javaOtherMessageRegex1 As New Regex("[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2}\,[0-9]{1,3} main [A-Z]{4,5} [A-Za-z \.\:\\\/]*")
+    'Java Other Message Regex 2
+    Shared javaOtherMessageRegex2 As New Regex("[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2}\,[0-9]{1,3} [A-Z]{4,5} [A-Za-z \.\:\\\/]*")
     Public Shared Function ToConsoleMessage(originalMessage As String, recieveTime As Date) As MinecraftConsoleMessage
         'Console.WriteLine(originalMessage)
         Dim msg As New MinecraftConsoleMessage
-        'Spigot/CraftBukkit Regex
-        Dim bukkitCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2} [A-Z]{4,5}\]")
-        'Vanilla Regex
-        Dim vanillaCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 #$_-]*\/[A-Z]{4,5}\]\:")
-        'SpongeVanilla Regex
-        Dim spongeVanillaCheckRegex As New Regex("\[[0-9]{2}:[0-9]{2}:[0-9]{2} [A-Z]{4,5}\] \[[A-Za-z0-9 #$_-]*\]\:")
-        'Nukkit Regex
-        Dim nukkitCheckRegex As New Regex("\u001b\[[0-9]{2}m[0-9]{2}\:[0-9]{2}\:[0-9]{2}\u001b\[m \[\u001b\[[0-9]{2}m[A-Z]{4,5} \u001b\[m\]")
-        'Forge Regex
-        Dim forgeCheckRegex1 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 #$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 \/\\\.\[\]]*\]\:")
-        'Forge Regex (1.13 up)
-        Dim forgeCheckRegex2 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}\] \[[A-Za-z0-9 #$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 \/\\\.\[\]]*\]\:")
-        'Vanilla Bedrock Regex
-        Dim vanillaBedrockRegex As New Regex("\[[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [A-Za-z0-9]{4,5}\]")
-        'BungeeCord Regex
-        Dim bungeeCordCheckRegex As New Regex("[0-9]{2}\:[0-9]{2}\:[0-9]{2} \[[^ ]*\]")
-        'Java Other Message Regex 1
-        Dim javaOtherMessageRegex1 As New Regex("[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2}\,[0-9]{1,3} main [A-Z]{4,5} [A-Za-z \.\:\\\/]*")
-        'Java Other Message Regex 2
-        Dim javaOtherMessageRegex2 As New Regex("[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2}\,[0-9]{1,3} [A-Z]{4,5} [A-Za-z \.\:\\\/]*")
 
         If bukkitCheckRegex.IsMatch(originalMessage) OrElse 'Time Checking
             vanillaCheckRegex.IsMatch(originalMessage) OrElse
@@ -75,7 +77,6 @@ Public Class MinecraftLogParser
             forgeCheckRegex2.IsMatch(originalMessage) OrElse
             vanillaBedrockRegex.IsMatch(originalMessage) OrElse
             bungeeCordCheckRegex.IsMatch(originalMessage) Then
-            Dim timeRegex As New Regex("[0-9]{2}\:[0-9]{2}\:[0-9]{2}")
             If timeRegex.IsMatch(originalMessage) Then
                 Dim timeMatch = timeRegex.Match(originalMessage)
                 Dim msgTimeArray = timeMatch.Value.Split(":")

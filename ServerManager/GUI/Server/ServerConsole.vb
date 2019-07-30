@@ -262,20 +262,24 @@ Public Class ServerConsole
                                                                                              If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
                                                                                                                     NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & e.Data, Text)
                                                                                              BeginInvokeIfRequired(Me, Sub()
-                                                                                                                           Dim seekToBottom As Boolean = False
-                                                                                                                           If DataListView.Items.Count > 1 Then
-                                                                                                                               Dim first As Integer = DataListView.TopItem.Index
-                                                                                                                               Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
-                                                                                                                               Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
-                                                                                                                               Dim h_item As Integer = DataListView.GetItemRect(0).Height
-                                                                                                                               Dim cntVis As Integer = (h_tot - h_hdr) / h_item
-                                                                                                                               Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
-                                                                                                                               If LastItemIndex = DataListView.Items.Count - 1 Then
-                                                                                                                                   seekToBottom = True
+                                                                                                                           Try
+                                                                                                                               Dim seekToBottom As Boolean = False
+                                                                                                                               If DataListView.Items.Count > 1 Then
+                                                                                                                                   Dim first As Integer = DataListView.TopItem.Index
+                                                                                                                                   Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
+                                                                                                                                   Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
+                                                                                                                                   Dim h_item As Integer = DataListView.GetItemRect(0).Height
+                                                                                                                                   Dim cntVis As Integer = (h_tot - h_hdr) / h_item
+                                                                                                                                   Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
+                                                                                                                                   If LastItemIndex = DataListView.Items.Count - 1 Then
+                                                                                                                                       seekToBottom = True
+                                                                                                                                   End If
                                                                                                                                End If
-                                                                                                                           End If
-                                                                                                                           DataListView.Items.Add(item)
-                                                                                                                           If seekToBottom Then DataListView.EnsureVisible(item.Index)
+                                                                                                                               DataListView.Items.Add(item)
+                                                                                                                               If seekToBottom Then DataListView.EnsureVisible(item.Index)
+                                                                                                                           Catch ex As Exception When DataListView.Items.Contains(item) = False
+                                                                                                                               DataListView.Items.Add(item)
+                                                                                                                           End Try
                                                                                                                        End Sub)
                                                                                          Catch ex As Exception
                                                                                          End Try
@@ -465,20 +469,24 @@ Public Class ServerConsole
                                                                                                   Case Else
                                                                                               End Select
                                                                                               BeginInvokeIfRequired(Me, Sub()
-                                                                                                                            Dim seekToBottom As Boolean = False
-                                                                                                                            If DataListView.Items.Count > 1 Then
-                                                                                                                                Dim first As Integer = DataListView.TopItem.Index
-                                                                                                                                Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
-                                                                                                                                Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
-                                                                                                                                Dim h_item As Integer = DataListView.GetItemRect(0).Height
-                                                                                                                                Dim cntVis As Integer = (h_tot - h_hdr) / h_item
-                                                                                                                                Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
-                                                                                                                                If LastItemIndex = DataListView.Items.Count - 1 Then
-                                                                                                                                    seekToBottom = True
+                                                                                                                            Try
+                                                                                                                                Dim seekToBottom As Boolean = False
+                                                                                                                                If DataListView.Items.Count > 1 Then
+                                                                                                                                    Dim first As Integer = DataListView.TopItem.Index
+                                                                                                                                    Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
+                                                                                                                                    Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
+                                                                                                                                    Dim h_item As Integer = DataListView.GetItemRect(0).Height
+                                                                                                                                    Dim cntVis As Integer = (h_tot - h_hdr) / h_item
+                                                                                                                                    Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
+                                                                                                                                    If LastItemIndex = DataListView.Items.Count - 1 Then
+                                                                                                                                        seekToBottom = True
+                                                                                                                                    End If
                                                                                                                                 End If
-                                                                                                                            End If
-                                                                                                                            DataListView.Items.Add(item)
-                                                                                                                            If seekToBottom Then DataListView.EnsureVisible(item.Index)
+                                                                                                                                DataListView.Items.Add(item)
+                                                                                                                                If seekToBottom Then DataListView.EnsureVisible(item.Index)
+                                                                                                                            Catch ex As Exception When DataListView.Items.Contains(item) = False
+                                                                                                                                DataListView.Items.Add(item)
+                                                                                                                            End Try
                                                                                                                         End Sub)
                                                                                           Catch ex As Exception
                                                                                           End Try
