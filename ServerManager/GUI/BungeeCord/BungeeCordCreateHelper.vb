@@ -34,7 +34,7 @@ Public Class BungeeCordCreateHelper
                                                                       BeginInvoke(Sub()
                                                                                       ProgressBar.Value = 100
                                                                                       StatusLabel.Text = "狀態：" & "完成!"
-                                                                                      GlobalModule.Manager.AddBungeeSolution(_host.BungeePath, True)
+                                                                                      GlobalModule.Manager.AddBungeeSolution(_host.BungeePath)
                                                                                       Close()
                                                                                   End Sub)
                                                                   End Sub

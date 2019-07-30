@@ -697,7 +697,6 @@ Public Class Manager
             For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(JavaServerDirs), Newtonsoft.Json.Linq.JArray)
                 Task.Run(Sub()
                              AddServer(s.ToString)
-                             ServerPathList.Add(s.ToString)
                          End Sub)
             Next
         End If
@@ -706,7 +705,6 @@ Public Class Manager
             For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"))), Newtonsoft.Json.Linq.JArray)
                 Task.Run(Sub()
                              AddServer(s.ToString)
-                             ServerPathList.Add(s.ToString)
                          End Sub)
             Next
         End If
@@ -714,7 +712,6 @@ Public Class Manager
             For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(SolutionDirs), Newtonsoft.Json.Linq.JArray)
                 Task.Run(Sub()
                              AddBungeeSolution(s.ToString)
-                             BungeePathList.Add(s.ToString)
                          End Sub)
             Next
         End If
@@ -722,7 +719,6 @@ Public Class Manager
             For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(ModpackServerDirs), Newtonsoft.Json.Linq.JArray)
                 Task.Run(Sub()
                              AddModpackServer(s.ToString)
-                             ModpackServerPathList.Add(s.ToString)
                          End Sub)
             Next
         End If
@@ -1188,15 +1184,12 @@ Public Class Manager
         End SyncLock
     End Sub
 
-    Friend Sub AddModpackServer(serverDirectory As String, Optional Register As Boolean = False)
+    Friend Sub AddModpackServer(serverDirectory As String)
         SyncLock Me
             If ModpackServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then
                 Dim status As New ModPackServerStatus(serverDirectory)
                 status.Dock = DockStyle.Fill
                 AddHandler status.ServerLoaded, Sub()
-                                                    If Register Then
-                                                        RegisterModpackServer(status.Server)
-                                                    End If
                                                     If status.InvokeRequired Then
                                                         status.BeginInvoke(Sub() status.Update())
                                                     Else
@@ -1221,17 +1214,10 @@ Public Class Manager
                                                     If NoUI Then
                                                         Try
                                                             If IsNothing(status) = False Then
-                                                                UnRegisterModpackServer(status)
+                                                                ModpackServerPathList.Remove(status.Server.ServerPath)
                                                                 status.CloseServer()
                                                             End If
                                                         Catch ex As Exception
-                                                        Finally
-                                                            Try
-                                                                ModpackServerListPanel.Controls.Remove(status)
-                                                            Catch ex As Exception
-                                                            End Try
-                                                            If ModpackServerPathList.Contains(status.Server.ServerPath) Then _
-                                                                    ModpackServerPathList.Remove(status.Server.ServerPath)
                                                         End Try
                                                     Else
                                                         Try
@@ -1249,11 +1235,9 @@ Public Class Manager
                                                             ModpackServerListPanel.Controls.Remove(status)
                                                         Catch ex As Exception
                                                         End Try
-                                                        If ModpackServerPathList.Contains(status.Server.ServerPath) Then _
-                                                                    ModpackServerPathList.Remove(status.Server.ServerPath)
                                                         If IsNothing(status) = False Then
                                                             Try
-                                                                UnRegisterModpackServer(status)
+                                                                ModpackServerPathList.Remove(status.Server.ServerPath)
                                                             Catch ex As Exception
                                                             End Try
                                                             Try
@@ -1266,36 +1250,6 @@ Public Class Manager
             End If
         End SyncLock
     End Sub
-
-    Sub RegisterModpackServer(server As ModPackServer)
-        SyncLock Me
-            If ModpackServerDirs <> "" Then
-                Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ModpackServerDirs)
-                array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
-                ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-            Else
-                Dim array = New Newtonsoft.Json.Linq.JArray()
-                array.Add(New Newtonsoft.Json.Linq.JValue(server.ServerPath))
-                ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-            End If
-        End SyncLock
-    End Sub
-    Sub UnRegisterModpackServer(status As ModPackServerStatus)
-        SyncLock Me
-            Try
-                If ModpackServerDirs <> "" Then
-                    Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ModpackServerDirs)
-                    For i As Integer = 0 To array.Count
-                        If array(i).ToString = status.Server.ServerPath Then array.RemoveAt(i)
-                    Next
-                    ModpackServerDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-                End If
-            Catch ex As Exception
-            End Try
-        End SyncLock
-    End Sub
-
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Static dialog As New OpenFileDialog
         dialog.Filter = "伺服器資訊(server.info)|server.info"
@@ -1357,8 +1311,8 @@ Public Class Manager
   "auto-update-state=" & Math.Max(UpdateState, 0) & vbNewLine &
   "auto-update-channel=" & Math.Max(UpdateChannel, 0), False, System.Text.Encoding.UTF8)
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), JsonConvert.SerializeObject(ServerPathList))
-                                             WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"), SolutionDirs)
-                                         WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"), ModpackServerDirs)
+                                         WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"), JsonConvert.SerializeObject(BungeePathList))
+                                         WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"), JsonConvert.SerializeObject(ModpackServerPathList))
                                      End Sub) With {.IsBackground = False, .Name = "ServerManager Save Setting Thread"}
         saveThread.Start()
         Dim serverCloseThread As New Thread(Sub()
@@ -1393,14 +1347,11 @@ Public Class Manager
         JavaArguments = ArguBox.Text
     End Sub
 
-    Sub AddBungeeSolution(solutionDirectory As String, Optional Register As Boolean = False)
+    Sub AddBungeeSolution(solutionDirectory As String)
         If BungeePathList.Contains(solutionDirectory) = False And IO.Directory.Exists(solutionDirectory) Then
             Dim status As New BungeeCordStatus(solutionDirectory)
             status.Dock = DockStyle.Fill
             AddHandler status.BungeeCordLoaded, Sub()
-                                                    If Register Then
-                                                        RegisterSolution(status.Host)
-                                                    End If
                                                     status.Update()
                                                 End Sub
             Dim index = SolutionListPanel.RowStyles.Count
@@ -1411,7 +1362,7 @@ Public Class Manager
                                                             If NoUI Then
                                                                 Try
                                                                     If IsNothing(status) = False Then
-                                                                        UnRegisterSolution(status)
+                                                                        BungeePathList.Remove(status.Host.BungeePath)
                                                                         status.CloseSolution()
                                                                     End If
                                                                 Catch ex As Exception
@@ -1420,8 +1371,6 @@ Public Class Manager
                                                                         SolutionListPanel.Controls.Remove(status)
                                                                     Catch ex As Exception
                                                                     End Try
-                                                                    If BungeePathList.Contains(status.Host.BungeePath) Then _
-                                                                             BungeePathList.Remove(status.Host.BungeePath)
                                                                 End Try
                                                             Else
                                                                 Try
@@ -1443,7 +1392,7 @@ Public Class Manager
                                                                              BungeePathList.Remove(status.Host.BungeePath)
                                                                 If IsNothing(status) = False Then
                                                                     Try
-                                                                        UnRegisterSolution(status)
+                                                                        BungeePathList.Remove(status.Host.BungeePath)
                                                                     Catch ex As Exception
                                                                     End Try
                                                                     Try
@@ -1456,32 +1405,6 @@ Public Class Manager
         End If
 
     End Sub
-    Sub RegisterSolution(host As BungeeCordHost)
-        SyncLock Me
-            If SolutionDirs <> "" Then
-                Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(SolutionDirs)
-                array.Add(New Newtonsoft.Json.Linq.JValue(host.BungeePath))
-                SolutionDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-            Else
-                Dim array = New Newtonsoft.Json.Linq.JArray()
-                array.Add(New Newtonsoft.Json.Linq.JValue(host.BungeePath))
-                SolutionDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-            End If
-        End SyncLock
-    End Sub
-    Sub UnRegisterSolution(status As BungeeCordStatus)
-        SyncLock Me
-            Try
-                If SolutionDirs <> "" Then
-                    Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(SolutionDirs)
-                    array.RemoveAt(SolutionListPanel.GetCellPosition(status).Row - 1)
-                    SolutionDirs = Newtonsoft.Json.JsonConvert.SerializeObject(array)
-                End If
-            Catch ex As Exception
-            End Try
-        End SyncLock
-    End Sub
-
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Dim create As New BungeeCordCreateDialog()
         create.Show(Me)
@@ -1750,7 +1673,7 @@ Public Class Manager
             If ServerPathList.Contains(New IO.FileInfo(dialog.FileName).Directory.FullName) Then
                 MsgBox("匯入時發生錯誤" & vbNewLine & "原因：伺服器已經存在於伺服器列表。",, Application.ProductName)
             Else
-                AddModpackServer(New IO.FileInfo(dialog.FileName).Directory.FullName, True)
+                AddModpackServer(New IO.FileInfo(dialog.FileName).Directory.FullName)
             End If
         End If
 

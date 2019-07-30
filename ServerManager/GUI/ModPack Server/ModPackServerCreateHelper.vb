@@ -172,8 +172,7 @@ Public Class ModPackServerCreateHelper
                                                                                     GenerateServerEULA()
                                                                                     StatusLabel.Text = "狀態：完成!"
                                                                                     ProgressBar.Value = 100
-                                                                                    GlobalModule.Manager.AddModpackServer(Me.path, True)
-                                                                                    GlobalModule.Manager.ModpackServerPathList.Add(Me.path)
+                                                                                    GlobalModule.Manager.AddModpackServer(Me.path)
                                                                                     Me.Close()
                                                                                 End Sub))
                                                      End If
