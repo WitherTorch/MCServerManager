@@ -462,7 +462,7 @@ Partial Class ServerConsole
         '
         'TaskTimer
         '
-        Me.TaskTimer.Interval = 50
+        Me.TaskTimer.Interval = 10
         '
         'ListBoxTImer
         '

@@ -42,6 +42,8 @@ Partial Class ModPackServerConsole
         Me.MemoryLabel = New System.Windows.Forms.Label()
         Me.ServerStatusLabel = New System.Windows.Forms.Label()
         Me.SettingTabPage = New System.Windows.Forms.TabPage()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CMDButton = New System.Windows.Forms.Button()
         Me.NotifyGroupBox = New System.Windows.Forms.GroupBox()
         Me.NotifyChooseListBox = New System.Windows.Forms.CheckedListBox()
         Me.DataTabPage = New System.Windows.Forms.TabPage()
@@ -56,17 +58,15 @@ Partial Class ModPackServerConsole
         Me.ListBoxTImer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.CMDButton = New System.Windows.Forms.Button()
         Me.MainTabControl.SuspendLayout()
         Me.MainTabPage.SuspendLayout()
         Me.PlayerGroupBox.SuspendLayout()
         Me.UserContextMenu.SuspendLayout()
         Me.SystemGroupBox.SuspendLayout()
         Me.SettingTabPage.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.NotifyGroupBox.SuspendLayout()
         Me.DataTabPage.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -243,6 +243,27 @@ Partial Class ModPackServerConsole
         Me.SettingTabPage.Text = "伺服器操作"
         Me.SettingTabPage.UseVisualStyleBackColor = True
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.CMDButton)
+        Me.GroupBox1.Location = New System.Drawing.Point(8, 96)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(776, 51)
+        Me.GroupBox1.TabIndex = 37
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "輔助功能"
+        '
+        'CMDButton
+        '
+        Me.CMDButton.Location = New System.Drawing.Point(6, 21)
+        Me.CMDButton.Name = "CMDButton"
+        Me.CMDButton.Size = New System.Drawing.Size(125, 23)
+        Me.CMDButton.TabIndex = 0
+        Me.CMDButton.Text = "開啟輔助CMD視窗"
+        Me.CMDButton.UseVisualStyleBackColor = True
+        '
         'NotifyGroupBox
         '
         Me.NotifyGroupBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -356,28 +377,7 @@ Partial Class ModPackServerConsole
         '
         'TaskTimer
         '
-        Me.TaskTimer.Interval = 50
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.CMDButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(8, 96)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(776, 51)
-        Me.GroupBox1.TabIndex = 37
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "輔助功能"
-        '
-        'CMDButton
-        '
-        Me.CMDButton.Location = New System.Drawing.Point(6, 21)
-        Me.CMDButton.Name = "CMDButton"
-        Me.CMDButton.Size = New System.Drawing.Size(125, 23)
-        Me.CMDButton.TabIndex = 0
-        Me.CMDButton.Text = "開啟輔助CMD視窗"
-        Me.CMDButton.UseVisualStyleBackColor = True
+        Me.TaskTimer.Interval = 10
         '
         'ModPackServerConsole
         '
@@ -397,10 +397,10 @@ Partial Class ModPackServerConsole
         Me.UserContextMenu.ResumeLayout(False)
         Me.SystemGroupBox.ResumeLayout(False)
         Me.SettingTabPage.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
         Me.NotifyGroupBox.ResumeLayout(False)
         Me.DataTabPage.ResumeLayout(False)
         Me.DataTabPage.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
