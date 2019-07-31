@@ -54,9 +54,9 @@ Public Class MinecraftLogParser
     'Nukkit Regex
     Shared nukkitCheckRegex As New Regex("\u001b\[[0-9]{2}m[0-9]{2}\:[0-9]{2}\:[0-9]{2}\u001b\[m \[\u001b\[[0-9]{2}m[A-Z]{4,5} \u001b\[m\]")
     'Forge Regex
-    Shared forgeCheckRegex1 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 \:\/\\\.\[\]]*\]\:")
+    Shared forgeCheckRegex1 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 _\-+\*\:\/\\\.\[\]]*\]\:")
     'Forge Regex (1.13 up)
-    Shared forgeCheckRegex2 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 \:\/\\\.\[\]]*\]\:")
+    Shared forgeCheckRegex2 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 _\-+\*\:\/\\\.\[\]]*\]\:")
     'Vanilla Bedrock Regex
     Shared vanillaBedrockRegex As New Regex("\[[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [A-Za-z0-9 \:#$_-]{4,5}\]")
     'BungeeCord Regex

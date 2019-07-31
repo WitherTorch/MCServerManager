@@ -21,6 +21,7 @@ Public Class ServerConsole
     Dim startInfo As ProcessStartInfo
     Dim usesType As Server.EServerVersionType
     Dim previousMsg As (String, Date)
+    Dim isMessageUpdate As Boolean = False
 
     Friend Sub ReloadUsesType(type As Server.EServerVersionType)
         usesType = type
@@ -262,24 +263,8 @@ Public Class ServerConsole
                                                                                              If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
                                                                                                                     NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & e.Data, Text)
                                                                                              BeginInvokeIfRequired(Me, Sub()
-                                                                                                                           Try
-                                                                                                                               Dim seekToBottom As Boolean = False
-                                                                                                                               If DataListView.Items.Count > 1 Then
-                                                                                                                                   Dim first As Integer = DataListView.TopItem.Index
-                                                                                                                                   Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
-                                                                                                                                   Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
-                                                                                                                                   Dim h_item As Integer = DataListView.GetItemRect(0).Height
-                                                                                                                                   Dim cntVis As Integer = (h_tot - h_hdr) / h_item
-                                                                                                                                   Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
-                                                                                                                                   If LastItemIndex = DataListView.Items.Count - 1 Then
-                                                                                                                                       seekToBottom = True
-                                                                                                                                   End If
-                                                                                                                               End If
-                                                                                                                               DataListView.Items.Add(item)
-                                                                                                                               If seekToBottom Then DataListView.EnsureVisible(item.Index)
-                                                                                                                           Catch ex As Exception When DataListView.Items.Contains(item) = False
-                                                                                                                               DataListView.Items.Add(item)
-                                                                                                                           End Try
+                                                                                                                           DataListView.Items.Add(item)
+                                                                                                                           isMessageUpdate = True
                                                                                                                        End Sub)
                                                                                          Catch ex As Exception
                                                                                          End Try
@@ -469,24 +454,8 @@ Public Class ServerConsole
                                                                                                   Case Else
                                                                                               End Select
                                                                                               BeginInvokeIfRequired(Me, Sub()
-                                                                                                                            Try
-                                                                                                                                Dim seekToBottom As Boolean = False
-                                                                                                                                If DataListView.Items.Count > 1 Then
-                                                                                                                                    Dim first As Integer = DataListView.TopItem.Index
-                                                                                                                                    Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
-                                                                                                                                    Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
-                                                                                                                                    Dim h_item As Integer = DataListView.GetItemRect(0).Height
-                                                                                                                                    Dim cntVis As Integer = (h_tot - h_hdr) / h_item
-                                                                                                                                    Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
-                                                                                                                                    If LastItemIndex = DataListView.Items.Count - 1 Then
-                                                                                                                                        seekToBottom = True
-                                                                                                                                    End If
-                                                                                                                                End If
-                                                                                                                                DataListView.Items.Add(item)
-                                                                                                                                If seekToBottom Then DataListView.EnsureVisible(item.Index)
-                                                                                                                            Catch ex As Exception When DataListView.Items.Contains(item) = False
-                                                                                                                                DataListView.Items.Add(item)
-                                                                                                                            End Try
+                                                                                                                            DataListView.Items.Add(item)
+                                                                                                                            isMessageUpdate = True
                                                                                                                         End Sub)
                                                                                           Catch ex As Exception
                                                                                           End Try
@@ -788,21 +757,42 @@ Public Class ServerConsole
     End Sub
 
     Private Sub TaskTimer_Tick(sender As Object, e As EventArgs) Handles TaskTimer.Tick
-        BeginInvoke(New Action(Sub()
-                                   If backgroundProcess IsNot Nothing AndAlso backgroundProcess.HasExited = False Then
-                                       Try
-                                           MemoryLabel.Text = "占用記憶體：" & FitMemoryUnit(Process.GetProcessById(backgroundProcess.Id).WorkingSet64)
-                                           IDLabel.Text = "處理序ID：" & backgroundProcess.Id
-                                       Catch ex As Exception
-                                       End Try
-                                   Else
-                                       Try
-                                           MemoryLabel.Text = "占用記憶體：(無)"
-                                           IDLabel.Text = "處理序ID：(無)"
-                                       Catch ex As Exception
-                                       End Try
-                                   End If
-                               End Sub))
+        BeginInvokeIfRequired(Me, New Action(Sub()
+                                                 If backgroundProcess IsNot Nothing AndAlso backgroundProcess.HasExited = False Then
+                                                     Try
+                                                         MemoryLabel.Text = "占用記憶體：" & FitMemoryUnit(Process.GetProcessById(backgroundProcess.Id).WorkingSet64)
+                                                         IDLabel.Text = "處理序ID：" & backgroundProcess.Id
+                                                     Catch ex As Exception
+                                                     End Try
+                                                 Else
+                                                     Try
+                                                         MemoryLabel.Text = "占用記憶體：(無)"
+                                                         IDLabel.Text = "處理序ID：(無)"
+                                                     Catch ex As Exception
+                                                     End Try
+                                                 End If
+                                                 If isMessageUpdate Then
+                                                     BeginInvokeIfRequired(Me, Sub()
+                                                                                   Try
+                                                                                       Dim seekToBottom As Boolean = False
+                                                                                       If DataListView.Items.Count > 1 Then
+                                                                                           Dim first As Integer = DataListView.TopItem.Index
+                                                                                           Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
+                                                                                           Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
+                                                                                           Dim h_item As Integer = DataListView.GetItemRect(0).Height
+                                                                                           Dim cntVis As Integer = (h_tot - h_hdr) / h_item
+                                                                                           Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
+                                                                                           If LastItemIndex = DataListView.Items.Count - 1 Then
+                                                                                               seekToBottom = True
+                                                                                           End If
+                                                                                       End If
+                                                                                       If seekToBottom Then DataListView.EnsureVisible(DataListView.Items.Count - 1)
+                                                                                   Catch ex As Exception
+                                                                                   End Try
+                                                                               End Sub)
+                                                     isMessageUpdate = False
+                                                 End If
+                                             End Sub))
     End Sub
 
     Private Sub ServerConsole_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
