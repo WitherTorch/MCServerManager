@@ -97,14 +97,14 @@ Public Class ServerConsole
         Next
     End Sub
     Private Sub ServerConsole_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        BeginInvokeIfRequired(Me, New Action(Sub()
-                                                 Select Case ConsoleMode
-                                                     Case True
-                                                         ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
-                                                     Case False
-                                                         ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式")
-                                                 End Select
-                                             End Sub))
+        BeginInvokeIfRequired(Me, Sub()
+                                      Select Case ConsoleMode
+                                          Case True
+                                              ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式" & vbNewLine & "按Ctrl + K 以開啟/關閉快捷功能表")
+                                          Case False
+                                              ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式" & vbNewLine & "按Ctrl + K 以開啟/關閉快捷功能表")
+                                      End Select
+                                  End Sub)
         If ServerConsoleMessages IsNot Nothing Then
             For i As Integer = 0 To ServerConsoleMessages.Count - 1
                 If i < NotifyChooseListBox.Items.Count - 1 Then
@@ -674,13 +674,50 @@ Public Class ServerConsole
             Case Keys.S
                 If e.Control = True And e.Alt = False And e.Shift = False Then
                     e.Handled = True
+                    e.SuppressKeyPress = True
                     ConsoleMode = Not ConsoleMode
                     Select Case ConsoleMode
                         Case True
-                            ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
+                            ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式" & vbNewLine & "按Ctrl + K 以開啟/關閉快捷功能表")
                         Case False
-                            ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式")
+                            ToolTip1.SetToolTip(CommandTextBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式" & vbNewLine & "按Ctrl + K 以開啟/關閉快捷功能表")
                     End Select
+                End If
+            Case Keys.K
+                If e.Control = True And e.Alt = False And e.Shift = False Then
+                    e.Handled = True
+                    e.SuppressKeyPress = True
+                    Static menu As TableLayoutPanel
+                    If menu Is Nothing OrElse menu.IsDisposed Then
+                        menu = New TableLayoutPanel
+                        For Each task In TaskList
+                            If task.Mode = ServerTask.TaskMode.QuickLaunch AndAlso task.Enabled = True Then
+                                BeginInvokeIfRequired(Me, Sub()
+                                                              Dim button As New Button() With {.Height = 30, .Text = task.Name, .Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right}
+                                                              AddHandler button.Click, Sub()
+                                                                                           RunTask(task, New Dictionary(Of String, String))
+                                                                                       End Sub
+                                                              menu.Controls.Add(button, 0, menu.RowCount)
+                                                          End Sub)
+                            End If
+                        Next
+                        menu.Height = DataListView.Height
+                        menu.Width = Math.Min(DataListView.Width / 2, 100)
+                        menu.Location = New Point(Me.Location.X - menu.Width - 5, DataListView.Location.Y)
+                        menu.Dock = DockStyle.Right
+                        DataTabPage.Controls.Add(menu)
+                        menu.AutoScroll = True
+                        menu.Show()
+                        menu.SendToBack()
+                    Else
+                        If menu.Visible Then
+                            DataTabPage.Controls.Remove(menu)
+                            menu.Dispose()
+                            menu = Nothing
+                        Else
+                            menu.Show()
+                        End If
+                    End If
                 End If
         End Select
     End Sub
@@ -774,12 +811,18 @@ Public Class ServerConsole
                                                      Try
                                                          MemoryLabel.Text = "占用記憶體：" & FitMemoryUnit(Process.GetProcessById(backgroundProcess.Id).WorkingSet64)
                                                          IDLabel.Text = "處理序ID：" & backgroundProcess.Id
+                                                         Dim maxPlayerCount As Integer = IIf(Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")), Server.ServerOptions("max-players"), 0)
+                                                         Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
+                                                         If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
                                                      End Try
                                                  Else
                                                      Try
                                                          MemoryLabel.Text = "占用記憶體：(無)"
                                                          IDLabel.Text = "處理序ID：(無)"
+                                                         Dim maxPlayerCount As Integer = IIf(Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")), Server.ServerOptions("max-players"), 0)
+                                                         Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
+                                                         If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
                                                      End Try
                                                  End If
@@ -1083,6 +1126,15 @@ Public Class ServerConsole
                     taskDialog.Label5.Enabled = False
                     taskDialog.TaskPeriodUnitCombo.SelectedIndex = task.RepeatingPeriodUnit
                     taskDialog.TaskPeriodUpDown.Value = task.RepeatingPeriod
+                Case ServerTask.TaskMode.QuickLaunch
+                    taskDialog.TaskTypeComboBox.SelectedIndex = 2
+                    taskDialog.Label2.Enabled = False
+                    taskDialog.Label3.Enabled = False
+                    taskDialog.TaskPeriodUnitCombo.Enabled = False
+                    taskDialog.TaskPeriodUpDown.Enabled = False
+                    taskDialog.Label4.Enabled = False
+                    taskDialog.EventComboBox.Enabled = False
+                    taskDialog.Label5.Enabled = False
             End Select
             taskDialog.RunComboBox.SelectedIndex = task.Command.Action - 1
             taskDialog.RunCommandArgBox.Text = task.Command.Data

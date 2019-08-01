@@ -60,12 +60,13 @@ Partial Class ServerConsole
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.CommandTextBox = New System.Windows.Forms.TextBox()
         Me.CloseCheckBox = New System.Windows.Forms.CheckBox()
         Me.StopLoadingCheckBox = New System.Windows.Forms.CheckBox()
         Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ListBoxTImer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ContextTaskMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.CommandTextBox = New System.Windows.Forms.TextBox()
         Panel1 = New System.Windows.Forms.Panel()
         Me.MainTabControl.SuspendLayout
         Me.MainTabPage.SuspendLayout
@@ -429,15 +430,6 @@ Partial Class ServerConsole
         Me.ColumnHeader4.Text = "時間"
         Me.ColumnHeader4.Width = 69
         '
-        'CommandTextBox
-        '
-        Me.CommandTextBox.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.CommandTextBox.Location = New System.Drawing.Point(0, 399)
-        Me.CommandTextBox.Margin = New System.Windows.Forms.Padding(0, 3, 0, 0)
-        Me.CommandTextBox.Name = "CommandTextBox"
-        Me.CommandTextBox.Size = New System.Drawing.Size(792, 22)
-        Me.CommandTextBox.TabIndex = 13
-        '
         'CloseCheckBox
         '
         Me.CloseCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -469,6 +461,20 @@ Partial Class ServerConsole
         Me.ListBoxTImer.Enabled = True
         Me.ListBoxTImer.Interval = 250
         '
+        'ContextTaskMenu
+        '
+        Me.ContextTaskMenu.Name = "ContextTaskMenu"
+        Me.ContextTaskMenu.Size = New System.Drawing.Size(61, 4)
+        '
+        'CommandTextBox
+        '
+        Me.CommandTextBox.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.CommandTextBox.Location = New System.Drawing.Point(0, 399)
+        Me.CommandTextBox.Margin = New System.Windows.Forms.Padding(0, 3, 0, 0)
+        Me.CommandTextBox.Name = "CommandTextBox"
+        Me.CommandTextBox.Size = New System.Drawing.Size(792, 22)
+        Me.CommandTextBox.TabIndex = 13
+        '
         'ServerConsole
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -479,6 +485,7 @@ Partial Class ServerConsole
         Me.Controls.Add(Me.MainTabControl)
         Me.DoubleBuffered = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.Name = "ServerConsole"
         Me.Text = "伺服器控制台"
         Me.MainTabControl.ResumeLayout(False)
@@ -513,7 +520,6 @@ Partial Class ServerConsole
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
     Friend WithEvents ColumnHeader4 As ColumnHeader
-    Friend WithEvents CommandTextBox As TextBox
     Friend WithEvents ListBoxTImer As Timer
     Friend WithEvents PlayerGroupBox As GroupBox
     Friend WithEvents PlayerListBox As ListBox
@@ -539,4 +545,6 @@ Partial Class ServerConsole
     Friend WithEvents 更新列表用listToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents CMDButton As Button
+    Friend WithEvents CommandTextBox As TextBox
+    Friend WithEvents ContextTaskMenu As ContextMenuStrip
 End Class

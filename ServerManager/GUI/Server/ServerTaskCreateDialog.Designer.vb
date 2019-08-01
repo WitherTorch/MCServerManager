@@ -57,7 +57,7 @@ Partial Class ServerTaskCreateDialog
         '
         Me.TaskTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.TaskTypeComboBox.FormattingEnabled = True
-        Me.TaskTypeComboBox.Items.AddRange(New Object() {"定時執行", "事件觸發"})
+        Me.TaskTypeComboBox.Items.AddRange(New Object() {"定時執行", "事件觸發", "快捷欄手動觸發"})
         Me.TaskTypeComboBox.Location = New System.Drawing.Point(80, 40)
         Me.TaskTypeComboBox.Name = "TaskTypeComboBox"
         Me.TaskTypeComboBox.Size = New System.Drawing.Size(292, 20)

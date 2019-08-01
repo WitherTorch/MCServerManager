@@ -70,6 +70,14 @@ Public Class ServerTaskCreateDialog
                 Label4.Enabled = True
                 EventComboBox.Enabled = True
                 Label5.Enabled = True
+            Case 2
+                Label2.Enabled = False
+                Label3.Enabled = False
+                TaskPeriodUnitCombo.Enabled = False
+                TaskPeriodUpDown.Enabled = False
+                Label4.Enabled = False
+                EventComboBox.Enabled = False
+                Label5.Enabled = False
             Case Else
                 Label2.Enabled = False
                 Label3.Enabled = False
@@ -137,6 +145,28 @@ Public Class ServerTaskCreateDialog
                             End If
                             Close()
                         End If
+                    End If
+                Case 2
+                    Dim task As ServerTask = _task
+                    If IsNothing(task) Then
+                        task = New ServerTask(ServerTask.TaskMode.QuickLaunch, TaskNameTextBox.Text)
+                    Else
+                        task.Mode = ServerTask.TaskMode.QuickLaunch
+                        task.Name = TaskNameTextBox.Text
+                    End If
+                    If RunComboBox.SelectedIndex >= 0 And (RunComboBox.SelectedIndex <> 2 OrElse RunCommandArgBox.Text.Trim <> "") Then
+                        Dim command As New ServerTask.TaskCommand()
+                        command.Action = RunComboBox.SelectedIndex + 1
+                        command.Data = RunCommandArgBox.Text
+                        task.Command = command
+                        If isEditMode = False Then
+                            If inSetting Then
+                                _setter.AddTask(task)
+                            Else
+                                _console.AddTask(task)
+                            End If
+                        End If
+                        Close()
                     End If
             End Select
         End If

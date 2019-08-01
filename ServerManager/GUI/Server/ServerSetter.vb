@@ -369,6 +369,15 @@ Public Class ServerSetter
                     taskDialog.Label5.Enabled = False
                     taskDialog.TaskPeriodUnitCombo.SelectedIndex = task.RepeatingPeriodUnit - 1
                     taskDialog.TaskPeriodUpDown.Value = task.RepeatingPeriod
+                Case ServerTask.TaskMode.QuickLaunch
+                    taskDialog.TaskTypeComboBox.SelectedIndex = 2
+                    taskDialog.Label2.Enabled = False
+                    taskDialog.Label3.Enabled = False
+                    taskDialog.TaskPeriodUnitCombo.Enabled = False
+                    taskDialog.TaskPeriodUpDown.Enabled = False
+                    taskDialog.Label4.Enabled = False
+                    taskDialog.EventComboBox.Enabled = False
+                    taskDialog.Label5.Enabled = False
             End Select
             taskDialog.RunComboBox.SelectedIndex = task.Command.Action - 1
             taskDialog.RunCommandArgBox.Text = task.Command.Data

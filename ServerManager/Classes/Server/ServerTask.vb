@@ -2,6 +2,7 @@
     Enum TaskMode
         Repeating
         Trigger
+        QuickLaunch
     End Enum
     Enum TaskTriggerEvent
         None
