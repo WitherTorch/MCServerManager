@@ -263,8 +263,14 @@ Public Class ServerConsole
                                                                                              If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
                                                                                                                     NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & e.Data, Text)
                                                                                              BeginInvokeIfRequired(Me, Sub()
-                                                                                                                           DataListView.Items.Add(item)
-                                                                                                                           isMessageUpdate = True
+                                                                                                                           SyncLock Me
+                                                                                                                               DataListView.Items.Add(item)
+                                                                                                                               Try
+                                                                                                                                   If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                               Catch ex As Exception
+
+                                                                                                                               End Try
+                                                                                                                           End SyncLock
                                                                                                                        End Sub)
                                                                                          Catch ex As Exception
                                                                                          End Try
@@ -454,8 +460,14 @@ Public Class ServerConsole
                                                                                                   Case Else
                                                                                               End Select
                                                                                               BeginInvokeIfRequired(Me, Sub()
-                                                                                                                            DataListView.Items.Add(item)
-                                                                                                                            isMessageUpdate = True
+                                                                                                                            SyncLock Me
+                                                                                                                                DataListView.Items.Add(item)
+                                                                                                                                Try
+                                                                                                                                    If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                                Catch ex As Exception
+
+                                                                                                                                End Try
+                                                                                                                            End SyncLock
                                                                                                                         End Sub)
                                                                                           Catch ex As Exception
                                                                                           End Try
@@ -771,7 +783,7 @@ Public Class ServerConsole
                                                      Catch ex As Exception
                                                      End Try
                                                  End If
-                                                 If isMessageUpdate Then
+                                                 If False Then
                                                      BeginInvokeIfRequired(Me, Sub()
                                                                                    Try
                                                                                        Dim seekToBottom As Boolean = False

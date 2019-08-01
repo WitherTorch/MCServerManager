@@ -112,8 +112,14 @@ Public Class ModPackServerConsole
                                                                                              If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
                                                                                                                     NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & e.Data, Text)
                                                                                              BeginInvokeIfRequired(Me, Sub()
-                                                                                                                           DataListView.Items.Add(item)
-                                                                                                                           isMessageUpdate = True
+                                                                                                                           SyncLock Me
+                                                                                                                               DataListView.Items.Add(item)
+                                                                                                                               Try
+                                                                                                                                   If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                               Catch ex As Exception
+
+                                                                                                                               End Try
+                                                                                                                           End SyncLock
                                                                                                                        End Sub)
                                                                                          Catch ex As Exception
                                                                                          End Try
@@ -161,8 +167,14 @@ Public Class ModPackServerConsole
                                                                                                   Case Else
                                                                                               End Select
                                                                                               BeginInvokeIfRequired(Me, Sub()
-                                                                                                                            DataListView.Items.Add(item)
-                                                                                                                            isMessageUpdate = True
+                                                                                                                            SyncLock Me
+                                                                                                                                DataListView.Items.Add(item)
+                                                                                                                                Try
+                                                                                                                                    If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                                Catch ex As Exception
+
+                                                                                                                                End Try
+                                                                                                                            End SyncLock
                                                                                                                         End Sub)
                                                                                           Catch ex As Exception
                                                                                           End Try
@@ -381,27 +393,6 @@ Public Class ModPackServerConsole
                                                          IDLabel.Text = "處理序ID：(無)"
                                                      Catch ex As Exception
                                                      End Try
-                                                 End If
-                                                 If isMessageUpdate Then
-                                                     BeginInvokeIfRequired(Me, Sub()
-                                                                                   Try
-                                                                                       Dim seekToBottom As Boolean = False
-                                                                                       If DataListView.Items.Count > 1 Then
-                                                                                           Dim first As Integer = DataListView.TopItem.Index
-                                                                                           Dim h_tot As Integer = DataListView.ClientRectangle.Height - 1
-                                                                                           Dim h_hdr As Integer = DataListView.GetItemRect(first).Y
-                                                                                           Dim h_item As Integer = DataListView.GetItemRect(0).Height
-                                                                                           Dim cntVis As Integer = (h_tot - h_hdr) / h_item
-                                                                                           Dim LastItemIndex = Math.Min(DataListView.Items.Count - 1, first + cntVis)
-                                                                                           If LastItemIndex = DataListView.Items.Count - 1 Then
-                                                                                               seekToBottom = True
-                                                                                           End If
-                                                                                       End If
-                                                                                       If seekToBottom Then DataListView.EnsureVisible(DataListView.Items.Count - 1)
-                                                                                   Catch ex As Exception
-                                                                                   End Try
-                                                                               End Sub)
-                                                     isMessageUpdate = False
                                                  End If
                                              End Sub))
     End Sub
