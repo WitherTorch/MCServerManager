@@ -17,15 +17,15 @@ Namespace My
         End Sub
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) Handles Me.UnhandledException
-            Dim msg As String = "應用程式發生錯誤!"
-            msg &= (vbNewLine)
-            msg &= (vbNewLine & "例外類型：" & e.Exception.GetType.ToString & " (" & e.Exception.InnerException.GetType.ToString & ")")
-            msg &= (vbNewLine & "內容：" & vbNewLine & e.Exception.InnerException.Message)
-            msg &= (vbNewLine & "StackTrace：" & e.Exception.InnerException.StackTrace)
-            If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(My.Application.Info.DirectoryPath, "error-logs")) Then
-                My.Application.Log.WriteEntry(msg, TraceEventType.Error)
-                My.Application.Log.DefaultFileLogWriter.Flush()
-            End If
+            'Dim msg As String = "應用程式發生錯誤!"
+            'msg &= (vbNewLine)
+            'msg &= (vbNewLine & "例外類型：" & e.Exception.GetType.ToString & " (" & e.Exception.InnerException.GetType.ToString & ")")
+            'msg &= (vbNewLine & "內容：" & vbNewLine & e.Exception.InnerException.Message)
+            'msg &= (vbNewLine & "StackTrace：" & e.Exception.InnerException.StackTrace)
+            'If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(My.Application.Info.DirectoryPath, "error-logs")) Then
+            ' My.Application.Log.WriteEntry(msg, TraceEventType.Error)
+            ' My.Application.Log.DefaultFileLogWriter.Flush()
+            'End If
             'e.ExitApplication = False
         End Sub
 

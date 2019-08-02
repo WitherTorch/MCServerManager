@@ -527,21 +527,21 @@ Public Class PaperOptions
         <DisplayName("地獄頂部需承受虛空傷害")> <DefaultValue(False)> <Category("一般")> <Description("當實體位於地獄頂部時會受到虛空傷害。")>
         Public Property Nether_Ceiling_Void_Damage As Boolean = False
 #Region "遊戲機制"
-        <DefaultValue(False)> <Category("遊戲機制")> <Description("是否在攻擊時解除衝刺。")>
+        <DisplayName("在攻擊時解除衝刺")> <DefaultValue(False)> <Category("遊戲機制")> <Description("是否在攻擊時解除衝刺。")>
         Public Property GM_Disable_Sprint_Interruption_On_Attack As Boolean = False
-        <DefaultValue(False)> <Category("遊戲機制")> <Description("伺服器是否在玩家離開終界時不發送遊戲結局畫面。")>
+        <DisplayName("禁用結局畫面")> <DefaultValue(False)> <Category("遊戲機制")> <Description("伺服器是否在玩家離開終界時不發送遊戲結局畫面。")>
         Public Property GM_Disable_End_Credits As Boolean = False
-        <DefaultValue(False)> <Category("遊戲機制")> <Description("伺服器是否在PvP中禁用暴擊，而是將它們視為正常攻擊。")>
+        <DisplayName("禁用爆擊")> <DefaultValue(False)> <Category("遊戲機制")> <Description("伺服器是否在PvP中禁用暴擊，而是將它們視為正常攻擊。")>
         Public Property GM_Disable_Player_Crits As Boolean = False
-        <DefaultValue(5)> <Category("遊戲機制")> <Description("盾的格檔時間間隔（以遊戲刻計算）。")>
+        <DisplayName("盾的格檔延遲")> <DefaultValue(5)> <Category("遊戲機制")> <Description("盾的格檔時間間隔（以遊戲刻計算）。")>
         Public Property GM_Shield_Blocking_Delay As Integer = 5
-        <DefaultValue(False)> <Category("遊戲機制")> <Description("允許玩家在有貓坐著時在打開下面的箱子。")>
+        <DisplayName("玩家是否可以打開貓下的箱子")> <DefaultValue(False)> <Category("遊戲機制")> <Description("允許玩家在有貓坐著時在打開下面的箱子。")>
         Public Property GM_Disable_Chest_Cat_Detection As Boolean = False
-        <DefaultValue(True)> <Category("遊戲機制")> <Description("是否啟用對終界珍珠旅行的漏洞進行的修復。")>
+        <DisplayName("修復終界珍珠漏洞")> <DefaultValue(True)> <Category("遊戲機制")> <Description("是否啟用對終界珍珠旅行的漏洞進行的修復。")>
         Public Property GM_Disable_Unloaded_Chunk_Enderpearl_Exploit As Boolean = True
-        <DefaultValue(False)> <Category("遊戲機制")> <Description("是否允許使用永久的區塊載入器。")>
+        <DisplayName("允許使用永久區塊載入器")> <DefaultValue(False)> <Category("遊戲機制")> <Description("是否允許使用永久的區塊載入器。")>
         Public Property GM_Allow_Permanent_Chunk_Loaders As Boolean = False
-        <DefaultValue(True)> <Category("遊戲機制")> <Description("是否檢查終界龍掉落物。")>
+        <DisplayName("檢查終界龍掉落物")> <DefaultValue(True)> <Category("遊戲機制")> <Description("是否檢查終界龍掉落物。")>
         Public Property GM_Scan_For_Legacy_Ender_Dragon As Boolean = True
 
 #End Region

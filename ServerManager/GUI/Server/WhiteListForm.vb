@@ -24,11 +24,15 @@
     End Sub
 
     Private Sub WhiteListForm_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ReadAllText(IO.Path.Combine(sPath, "whitelist.json")))
-        For Each token In array
-            Dim jsonObject As Newtonsoft.Json.Linq.JObject = token
-            PlayerBox.Items.Add(jsonObject.GetValue("name").ToString)
-        Next
+        Try
+            Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ReadAllText(IO.Path.Combine(sPath, "whitelist.json")))
+            For Each token In array
+                Dim jsonObject As Newtonsoft.Json.Linq.JObject = token
+                PlayerBox.Items.Add(jsonObject.GetValue("name").ToString)
+            Next
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub WhiteListForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
