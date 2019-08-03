@@ -385,12 +385,18 @@ Public Class ModPackServerConsole
                                                      Try
                                                          MemoryLabel.Text = "占用記憶體：" & FitMemoryUnit(Process.GetProcessById(backgroundProcess.Id).WorkingSet64)
                                                          IDLabel.Text = "處理序ID：" & backgroundProcess.Id
+                                                         Dim maxPlayerCount As Integer = IIf(Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")), Server.ServerOptions("max-players"), 0)
+                                                         Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
+                                                         If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
                                                      End Try
                                                  Else
                                                      Try
                                                          MemoryLabel.Text = "占用記憶體：(無)"
                                                          IDLabel.Text = "處理序ID：(無)"
+                                                         Dim maxPlayerCount As Integer = IIf(Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")), Server.ServerOptions("max-players"), 0)
+                                                         Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
+                                                         If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
                                                      End Try
                                                  End If

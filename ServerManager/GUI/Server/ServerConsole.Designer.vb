@@ -60,13 +60,15 @@ Partial Class ServerConsole
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.CommandTextBox = New System.Windows.Forms.TextBox()
         Me.CloseCheckBox = New System.Windows.Forms.CheckBox()
         Me.StopLoadingCheckBox = New System.Windows.Forms.CheckBox()
         Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ListBoxTImer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ContextTaskMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.CommandTextBox = New System.Windows.Forms.TextBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Panel1 = New System.Windows.Forms.Panel()
         Me.MainTabControl.SuspendLayout
         Me.MainTabPage.SuspendLayout
@@ -272,7 +274,7 @@ Partial Class ServerConsole
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.CMDButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(8, 194)
+        Me.GroupBox1.Location = New System.Drawing.Point(8, 239)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(776, 51)
         Me.GroupBox1.TabIndex = 36
@@ -296,7 +298,7 @@ Partial Class ServerConsole
         Me.TaskGroupBox.Controls.Add(Me.TaskControlPanel)
         Me.TaskGroupBox.Location = New System.Drawing.Point(8, 96)
         Me.TaskGroupBox.Name = "TaskGroupBox"
-        Me.TaskGroupBox.Size = New System.Drawing.Size(776, 92)
+        Me.TaskGroupBox.Size = New System.Drawing.Size(776, 137)
         Me.TaskGroupBox.TabIndex = 35
         Me.TaskGroupBox.TabStop = False
         Me.TaskGroupBox.Text = "排定工作"
@@ -310,19 +312,21 @@ Partial Class ServerConsole
         Me.TaskListBox.FormattingEnabled = True
         Me.TaskListBox.Location = New System.Drawing.Point(6, 14)
         Me.TaskListBox.Name = "TaskListBox"
-        Me.TaskListBox.Size = New System.Drawing.Size(672, 72)
+        Me.TaskListBox.Size = New System.Drawing.Size(672, 106)
         Me.TaskListBox.TabIndex = 1
         '
         'TaskControlPanel
         '
         Me.TaskControlPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TaskControlPanel.Controls.Add(Me.Button2)
+        Me.TaskControlPanel.Controls.Add(Me.Button1)
         Me.TaskControlPanel.Controls.Add(Me.RemoveTaskButton)
         Me.TaskControlPanel.Controls.Add(Me.EditTaskButton)
         Me.TaskControlPanel.Controls.Add(Me.AddTaskButton)
         Me.TaskControlPanel.Location = New System.Drawing.Point(684, 14)
         Me.TaskControlPanel.Name = "TaskControlPanel"
-        Me.TaskControlPanel.Size = New System.Drawing.Size(89, 72)
+        Me.TaskControlPanel.Size = New System.Drawing.Size(89, 117)
         Me.TaskControlPanel.TabIndex = 2
         '
         'RemoveTaskButton
@@ -430,6 +434,15 @@ Partial Class ServerConsole
         Me.ColumnHeader4.Text = "時間"
         Me.ColumnHeader4.Width = 69
         '
+        'CommandTextBox
+        '
+        Me.CommandTextBox.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.CommandTextBox.Location = New System.Drawing.Point(0, 399)
+        Me.CommandTextBox.Margin = New System.Windows.Forms.Padding(0, 3, 0, 0)
+        Me.CommandTextBox.Name = "CommandTextBox"
+        Me.CommandTextBox.Size = New System.Drawing.Size(792, 22)
+        Me.CommandTextBox.TabIndex = 13
+        '
         'CloseCheckBox
         '
         Me.CloseCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -466,14 +479,25 @@ Partial Class ServerConsole
         Me.ContextTaskMenu.Name = "ContextTaskMenu"
         Me.ContextTaskMenu.Size = New System.Drawing.Size(61, 4)
         '
-        'CommandTextBox
+        'Button1
         '
-        Me.CommandTextBox.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.CommandTextBox.Location = New System.Drawing.Point(0, 399)
-        Me.CommandTextBox.Margin = New System.Windows.Forms.Padding(0, 3, 0, 0)
-        Me.CommandTextBox.Name = "CommandTextBox"
-        Me.CommandTextBox.Size = New System.Drawing.Size(792, 22)
-        Me.CommandTextBox.TabIndex = 13
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button1.Location = New System.Drawing.Point(0, 69)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(89, 23)
+        Me.Button1.TabIndex = 3
+        Me.Button1.Text = "匯入工作..."
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button2.Location = New System.Drawing.Point(0, 92)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(89, 23)
+        Me.Button2.TabIndex = 4
+        Me.Button2.Text = "匯出工作..."
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'ServerConsole
         '
@@ -547,4 +571,6 @@ Partial Class ServerConsole
     Friend WithEvents CMDButton As Button
     Friend WithEvents CommandTextBox As TextBox
     Friend WithEvents ContextTaskMenu As ContextMenuStrip
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button1 As Button
 End Class

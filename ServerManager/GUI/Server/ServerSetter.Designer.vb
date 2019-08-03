@@ -25,6 +25,13 @@ Partial Class ServerSetter
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerSetter))
         Me.SettingTabControl = New System.Windows.Forms.TabControl()
         Me.NormalTabPage = New System.Windows.Forms.TabPage()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.ServerMemoryMaxBox = New System.Windows.Forms.NumericUpDown()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.ServerMemoryMinBox = New System.Windows.Forms.NumericUpDown()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.TaskGroupBox = New System.Windows.Forms.GroupBox()
         Me.TaskListBox = New System.Windows.Forms.CheckedListBox()
         Me.TaskControlPanel = New System.Windows.Forms.Panel()
@@ -42,23 +49,18 @@ Partial Class ServerSetter
         Me.Button4 = New System.Windows.Forms.Button()
         Me.AdvancedTabPage = New System.Windows.Forms.TabPage()
         Me.AdvancedPropertyGrid = New System.Windows.Forms.PropertyGrid()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.ServerMemoryMaxBox = New System.Windows.Forms.NumericUpDown()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.ServerMemoryMinBox = New System.Windows.Forms.NumericUpDown()
-        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
         Me.SettingTabControl.SuspendLayout()
         Me.NormalTabPage.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        CType(Me.ServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ServerMemoryMinBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TaskGroupBox.SuspendLayout()
         Me.TaskControlPanel.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.UpdateGroupBox.SuspendLayout()
         Me.AdvancedTabPage.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        CType(Me.ServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ServerMemoryMinBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SettingTabControl
@@ -69,7 +71,7 @@ Partial Class ServerSetter
         Me.SettingTabControl.Location = New System.Drawing.Point(0, 0)
         Me.SettingTabControl.Name = "SettingTabControl"
         Me.SettingTabControl.SelectedIndex = 0
-        Me.SettingTabControl.Size = New System.Drawing.Size(584, 523)
+        Me.SettingTabControl.Size = New System.Drawing.Size(584, 565)
         Me.SettingTabControl.TabIndex = 0
         '
         'NormalTabPage
@@ -85,10 +87,89 @@ Partial Class ServerSetter
         Me.NormalTabPage.Location = New System.Drawing.Point(4, 22)
         Me.NormalTabPage.Name = "NormalTabPage"
         Me.NormalTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.NormalTabPage.Size = New System.Drawing.Size(576, 497)
+        Me.NormalTabPage.Size = New System.Drawing.Size(576, 539)
         Me.NormalTabPage.TabIndex = 0
         Me.NormalTabPage.Text = "一般"
         Me.NormalTabPage.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.Label11)
+        Me.GroupBox1.Controls.Add(Me.Label12)
+        Me.GroupBox1.Controls.Add(Me.ServerMemoryMaxBox)
+        Me.GroupBox1.Controls.Add(Me.Label14)
+        Me.GroupBox1.Controls.Add(Me.ServerMemoryMinBox)
+        Me.GroupBox1.Controls.Add(Me.Label13)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 69)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(565, 66)
+        Me.GroupBox1.TabIndex = 49
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "執行記憶體(如果最大或最小值小於等於0的話的話就參照預設)"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(6, 18)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(53, 12)
+        Me.Label11.TabIndex = 31
+        Me.Label11.Text = "最大值："
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(140, 18)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(23, 12)
+        Me.Label12.TabIndex = 33
+        Me.Label12.Text = "MB"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ServerMemoryMaxBox
+        '
+        Me.ServerMemoryMaxBox.Location = New System.Drawing.Point(59, 13)
+        Me.ServerMemoryMaxBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
+        Me.ServerMemoryMaxBox.Name = "ServerMemoryMaxBox"
+        Me.ServerMemoryMaxBox.Size = New System.Drawing.Size(78, 22)
+        Me.ServerMemoryMaxBox.TabIndex = 32
+        Me.ServerMemoryMaxBox.Tag = ""
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(140, 45)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(23, 12)
+        Me.Label14.TabIndex = 36
+        Me.Label14.Text = "MB"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ServerMemoryMinBox
+        '
+        Me.ServerMemoryMinBox.Location = New System.Drawing.Point(59, 41)
+        Me.ServerMemoryMinBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
+        Me.ServerMemoryMinBox.Name = "ServerMemoryMinBox"
+        Me.ServerMemoryMinBox.Size = New System.Drawing.Size(78, 22)
+        Me.ServerMemoryMinBox.TabIndex = 35
+        Me.ServerMemoryMinBox.Tag = ""
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(6, 45)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(53, 12)
+        Me.Label13.TabIndex = 34
+        Me.Label13.Text = "最小值："
+        Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'TaskGroupBox
         '
@@ -98,7 +179,7 @@ Partial Class ServerSetter
         Me.TaskGroupBox.Controls.Add(Me.TaskControlPanel)
         Me.TaskGroupBox.Location = New System.Drawing.Point(3, 247)
         Me.TaskGroupBox.Name = "TaskGroupBox"
-        Me.TaskGroupBox.Size = New System.Drawing.Size(565, 92)
+        Me.TaskGroupBox.Size = New System.Drawing.Size(565, 137)
         Me.TaskGroupBox.TabIndex = 53
         Me.TaskGroupBox.TabStop = False
         Me.TaskGroupBox.Text = "排定工作"
@@ -112,19 +193,21 @@ Partial Class ServerSetter
         Me.TaskListBox.FormattingEnabled = True
         Me.TaskListBox.Location = New System.Drawing.Point(6, 14)
         Me.TaskListBox.Name = "TaskListBox"
-        Me.TaskListBox.Size = New System.Drawing.Size(461, 72)
+        Me.TaskListBox.Size = New System.Drawing.Size(461, 106)
         Me.TaskListBox.TabIndex = 1
         '
         'TaskControlPanel
         '
         Me.TaskControlPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TaskControlPanel.Controls.Add(Me.Button5)
+        Me.TaskControlPanel.Controls.Add(Me.Button3)
         Me.TaskControlPanel.Controls.Add(Me.RemoveTaskButton)
         Me.TaskControlPanel.Controls.Add(Me.EditTaskButton)
         Me.TaskControlPanel.Controls.Add(Me.AddTaskButton)
         Me.TaskControlPanel.Location = New System.Drawing.Point(473, 14)
         Me.TaskControlPanel.Name = "TaskControlPanel"
-        Me.TaskControlPanel.Size = New System.Drawing.Size(89, 72)
+        Me.TaskControlPanel.Size = New System.Drawing.Size(89, 117)
         Me.TaskControlPanel.TabIndex = 2
         '
         'RemoveTaskButton
@@ -231,7 +314,7 @@ Partial Class ServerSetter
         '
         Me.Button1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(3, 445)
+        Me.Button1.Location = New System.Drawing.Point(3, 490)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(565, 44)
         Me.Button1.TabIndex = 51
@@ -242,7 +325,7 @@ Partial Class ServerSetter
         '
         Me.PluginManageButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PluginManageButton.Location = New System.Drawing.Point(3, 395)
+        Me.PluginManageButton.Location = New System.Drawing.Point(3, 440)
         Me.PluginManageButton.Name = "PluginManageButton"
         Me.PluginManageButton.Size = New System.Drawing.Size(565, 44)
         Me.PluginManageButton.TabIndex = 50
@@ -253,7 +336,7 @@ Partial Class ServerSetter
         '
         Me.Button4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Location = New System.Drawing.Point(3, 345)
+        Me.Button4.Location = New System.Drawing.Point(3, 390)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(565, 44)
         Me.Button4.TabIndex = 49
@@ -266,7 +349,7 @@ Partial Class ServerSetter
         Me.AdvancedTabPage.Location = New System.Drawing.Point(4, 22)
         Me.AdvancedTabPage.Name = "AdvancedTabPage"
         Me.AdvancedTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AdvancedTabPage.Size = New System.Drawing.Size(576, 435)
+        Me.AdvancedTabPage.Size = New System.Drawing.Size(576, 497)
         Me.AdvancedTabPage.TabIndex = 1
         Me.AdvancedTabPage.Text = "進階"
         Me.AdvancedTabPage.UseVisualStyleBackColor = True
@@ -278,94 +361,35 @@ Partial Class ServerSetter
         Me.AdvancedPropertyGrid.Location = New System.Drawing.Point(3, 3)
         Me.AdvancedPropertyGrid.Margin = New System.Windows.Forms.Padding(0)
         Me.AdvancedPropertyGrid.Name = "AdvancedPropertyGrid"
-        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(570, 429)
+        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(570, 491)
         Me.AdvancedPropertyGrid.TabIndex = 0
         '
-        'GroupBox1
+        'Button3
         '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.Label11)
-        Me.GroupBox1.Controls.Add(Me.Label12)
-        Me.GroupBox1.Controls.Add(Me.ServerMemoryMaxBox)
-        Me.GroupBox1.Controls.Add(Me.Label14)
-        Me.GroupBox1.Controls.Add(Me.ServerMemoryMinBox)
-        Me.GroupBox1.Controls.Add(Me.Label13)
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 69)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(565, 66)
-        Me.GroupBox1.TabIndex = 49
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "執行記憶體(如果最大或最小值小於等於0的話的話就參照預設)"
+        Me.Button3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button3.Location = New System.Drawing.Point(0, 69)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(89, 23)
+        Me.Button3.TabIndex = 3
+        Me.Button3.Text = "匯入工作..."
+        Me.Button3.UseVisualStyleBackColor = True
         '
-        'Label11
+        'Button5
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(6, 18)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(53, 12)
-        Me.Label11.TabIndex = 31
-        Me.Label11.Text = "最大值："
-        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(140, 18)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(23, 12)
-        Me.Label12.TabIndex = 33
-        Me.Label12.Text = "MB"
-        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'ServerMemoryMaxBox
-        '
-        Me.ServerMemoryMaxBox.Location = New System.Drawing.Point(59, 13)
-        Me.ServerMemoryMaxBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
-        Me.ServerMemoryMaxBox.Name = "ServerMemoryMaxBox"
-        Me.ServerMemoryMaxBox.Size = New System.Drawing.Size(78, 22)
-        Me.ServerMemoryMaxBox.TabIndex = 32
-        Me.ServerMemoryMaxBox.Tag = ""
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(140, 45)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(23, 12)
-        Me.Label14.TabIndex = 36
-        Me.Label14.Text = "MB"
-        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'ServerMemoryMinBox
-        '
-        Me.ServerMemoryMinBox.Location = New System.Drawing.Point(59, 41)
-        Me.ServerMemoryMinBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
-        Me.ServerMemoryMinBox.Name = "ServerMemoryMinBox"
-        Me.ServerMemoryMinBox.Size = New System.Drawing.Size(78, 22)
-        Me.ServerMemoryMinBox.TabIndex = 35
-        Me.ServerMemoryMinBox.Tag = ""
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(6, 45)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(53, 12)
-        Me.Label13.TabIndex = 34
-        Me.Label13.Text = "最小值："
-        Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Button5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button5.Location = New System.Drawing.Point(0, 92)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(89, 23)
+        Me.Button5.TabIndex = 4
+        Me.Button5.Text = "匯出工作..."
+        Me.Button5.UseVisualStyleBackColor = True
         '
         'ServerSetter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(584, 523)
+        Me.ClientSize = New System.Drawing.Size(584, 565)
         Me.Controls.Add(Me.SettingTabControl)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -374,16 +398,16 @@ Partial Class ServerSetter
         Me.Text = "伺服器設定"
         Me.SettingTabControl.ResumeLayout(False)
         Me.NormalTabPage.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        CType(Me.ServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ServerMemoryMinBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TaskGroupBox.ResumeLayout(False)
         Me.TaskControlPanel.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
         Me.UpdateGroupBox.ResumeLayout(False)
         Me.UpdateGroupBox.PerformLayout()
         Me.AdvancedTabPage.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        CType(Me.ServerMemoryMaxBox, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ServerMemoryMinBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -413,4 +437,6 @@ Partial Class ServerSetter
     Friend WithEvents Label14 As Label
     Friend WithEvents ServerMemoryMinBox As NumericUpDown
     Friend WithEvents Label13 As Label
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button3 As Button
 End Class

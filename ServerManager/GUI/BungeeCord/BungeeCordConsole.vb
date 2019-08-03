@@ -5,6 +5,7 @@ Imports ServerManager.MinecraftLogParser.MinecraftConsoleMessage
 Public Class BungeeCordConsole
 
     Dim backgroundProcess As Process
+    Dim ownedConsole As New Dictionary(Of Server, ServerConsole)
     Dim ownedProcesses As New List(Of Process)
     Dim InputList As New List(Of String)()
     Dim CurrentListLocation As Integer = -1
@@ -45,8 +46,13 @@ Public Class BungeeCordConsole
 
     Private Sub RunOwnedServers()
         For Each bServer In _Host.Servers
-            Dim server = bServer.Server
-            Dim page As New TabPage(bServer.ServerAlias & " (" & server.ServerPathName & ") 資料列表") With {.Size = New Size(792, 424)}
+            RunOwnedServer(bServer)
+        Next
+    End Sub
+    Private Sub RunOwnedServer(bServer As BungeeCordHost.BungeeServer, Optional justChangeProcess As Boolean = False, Optional page As TabPage = Nothing, Optional changeProcess As Process = Nothing)
+        Dim server = bServer.Server
+        If justChangeProcess = False Then
+            page = New TabPage(bServer.ServerAlias & " (" & server.ServerPathName & ") 資料列表") With {.Size = New Size(792, 424)}
             Dim layout As New Panel() With {.Dock = DockStyle.Fill}
             Dim commandBox As New TextBox() With {.Dock = DockStyle.Bottom}
             Dim dataListView As New ListView()
@@ -104,239 +110,153 @@ Public Class BungeeCordConsole
             page.BackColor = Color.White
             page.Controls.Add(layout)
             MainTabControl.TabPages.Add(page)
-            Dim process = bServer.RunServer()
-            Dim alternateInputWriter As New IO.StreamWriter(process.StandardInput.BaseStream, New Text.UTF8Encoding(False)) With {.AutoFlush = True}
-            Select Case ConsoleMode
-                Case True
-                    ToolTip1.SetToolTip(commandBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
-                Case False
-                    ToolTip1.SetToolTip(commandBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式")
-            End Select
-            AddHandler commandBox.KeyDown, Sub(sender, e)
-                                               Select Case e.KeyCode
-                                                   Case Keys.Enter
-                                                       e.SuppressKeyPress = True
-                                                       If commandBox.Text.Trim <> "" Then
-                                                           _currentListLocation = -1
-                                                           Select Case ConsoleMode
-                                                               Case True
-                                                                   If commandBox.Text.StartsWith("/") Then
-                                                                       alternateInputWriter.WriteLine(commandBox.Text.Substring(1))
-                                                                       'process.StandardInput.WriteLine(commandBox.Text.Substring(1))
-                                                                       If InputList.Count <= 0 OrElse InputList.Last <> commandBox.Text.Substring(1) Then
-                                                                           InputList.Add(commandBox.Text.Substring(1))
-                                                                       End If
-                                                                   Else
-                                                                       alternateInputWriter.WriteLine("say " & commandBox.Text)
-                                                                       'process.StandardInput.WriteLine("say " & commandBox.Text)
-                                                                       If InputList.Count <= 0 OrElse InputList.Last <> "say " & commandBox.Text Then
-                                                                           InputList.Add("say " & commandBox.Text)
-                                                                       End If
-                                                                   End If
-                                                               Case False
-                                                                   alternateInputWriter.WriteLine(commandBox.Text)
-                                                                   'process.StandardInput.WriteLine(commandBox.Text)
-                                                                   If InputList.Count <= 0 OrElse InputList.Last <> commandBox.Text Then
-                                                                       InputList.Add(commandBox.Text)
-                                                                   End If
-                                                           End Select
-                                                           commandBox.Clear()
-                                                       End If
-                                                   Case Keys.Up
-                                                       e.SuppressKeyPress = True
-                                                       Dim tmp = commandBox.Text
-                                                       Dim tmp2 = _currentListLocation
-                                                       Try
-                                                           _currentListLocation += 1
-                                                           If ConsoleMode Then
-                                                               Dim text = InputList.Item(InputList.Count - _currentListLocation - 1)
-                                                               If text.StartsWith("say ") Then
-                                                                   commandBox.Text = text.Substring(4)
-                                                               Else
-                                                                   commandBox.Text = "/" & text
-                                                               End If
-                                                           Else
-                                                               commandBox.Text = InputList.Item(InputList.Count - _currentListLocation - 1)
-                                                           End If
-                                                       Catch ex As Exception
-                                                           commandBox.Text = tmp
-                                                           _currentListLocation = tmp2
-                                                       End Try
-                                                   Case Keys.Down
-                                                       e.SuppressKeyPress = True
-                                                       Dim tmp = commandBox.Text
-                                                       Dim tmp2 = _currentListLocation
-                                                       Try
-                                                           _currentListLocation -= 1
-                                                           If _currentListLocation < -1 Then
-                                                               commandBox.Text = tmp
-                                                               _currentListLocation += 1
-                                                           ElseIf _currentListLocation = -1 Then
-                                                               commandBox.Text = ""
-                                                           Else
-                                                               If ConsoleMode Then
-                                                                   Dim text = InputList.Item(InputList.Count - _currentListLocation - 1)
-                                                                   If text.StartsWith("say ") Then
-                                                                       commandBox.Text = text.Substring(4)
-                                                                   Else
-                                                                       commandBox.Text = "/" & text
-                                                                   End If
-                                                               Else
-                                                                   commandBox.Text = InputList.Item(InputList.Count - _currentListLocation - 1)
-                                                               End If
-                                                           End If
-                                                       Catch ex As Exception
-                                                           commandBox.Text = tmp
-                                                           _currentListLocation = tmp2
-                                                       End Try
-                                                   Case Keys.S
-                                                       If e.Control = True And e.Shift = False And e.Alt = False Then
-                                                           e.Handled = True
-                                                           ConsoleMode = Not ConsoleMode
-                                                           Select Case ConsoleMode
-                                                               Case True
-                                                                   ToolTip1.SetToolTip(commandBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式")
-                                                               Case False
-                                                                   ToolTip1.SetToolTip(commandBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式")
-                                                           End Select
-                                                       End If
-                                               End Select
-                                           End Sub
-            AddHandler pauseLoad.CheckedChanged, Sub()
-                                                     If pauseLoad.Checked = False Then
-                                                         process.BeginErrorReadLine()
-                                                         process.BeginOutputReadLine()
-                                                     Else
-                                                         process.CancelErrorRead()
-                                                         process.CancelOutputRead()
-                                                     End If
-                                                 End Sub
-            If pauseLoad.Checked = False Then
-                process.BeginErrorReadLine()
-                process.BeginOutputReadLine()
-            Else
-                process.CancelErrorRead()
-                process.CancelOutputRead()
-            End If
-            AddHandler process.ErrorDataReceived, Sub(sender, e)
-                                                      Try
-                                                          If IsNothing(process) = False AndAlso process.HasExited = False Then
-                                                              If IsNothing(e.Data) = False Then
-                                                                  Task.Run(Sub()
+            changeProcess = bServer.RunServer()
+        End If
+        page.Tag = (server, changeProcess)
+        Dim alternateInputWriter As New IO.StreamWriter(changeProcess.StandardInput.BaseStream, New Text.UTF8Encoding(False)) With {.AutoFlush = True}
+        AddHandler CType(page.Controls(0).Controls(2).Controls(0), CheckBox).CheckedChanged, Sub()
+                                                                                                 Try
+                                                                                                     If changeProcess IsNot Nothing AndAlso changeProcess.HasExited = False AndAlso CType(page.Controls(0).Controls(2).Controls(0), CheckBox).Checked = False Then
+                                                                                                         changeProcess.BeginErrorReadLine()
+                                                                                                         changeProcess.BeginOutputReadLine()
+                                                                                                     Else
+                                                                                                         changeProcess.CancelErrorRead()
+                                                                                                         changeProcess.CancelOutputRead()
+                                                                                                     End If
+                                                                                                 Catch ex As Exception
 
-                                                                               Dim item As New ListViewItem("錯誤")
-                                                                               item.ForeColor = Color.Red
-                                                                               Select Case server.ServerVersionType
-                                                                                   Case Server.EServerVersionType.Spigot
-                                                                                   Case Server.EServerVersionType.CraftBukkit
-                                                                                   Case Server.EServerVersionType.Nukkit
-                                                                                   Case Server.EServerVersionType.VanillaBedrock
-                                                                                   Case Server.EServerVersionType.Paper
-                                                                                   Case Server.EServerVersionType.Akarin
-                                                                                   Case Server.EServerVersionType.Spigot_Git
-                                                                                   Case Server.EServerVersionType.Cauldron
-                                                                                   Case Server.EServerVersionType.Thermos
-                                                                                   Case Server.EServerVersionType.Contigo
-                                                                                   Case Else
-                                                                                       item.SubItems.Add("")
-                                                                               End Select
-                                                                               Dim nowTime = Now
-                                                                               item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
-                                                                               item.SubItems.Add(e.Data)
-                                                                               If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
+                                                                                                 End Try
+                                                                                             End Sub
+        If CType(page.Controls(0).Controls(2).Controls(0), CheckBox).Checked = False Then
+            changeProcess.BeginErrorReadLine()
+            changeProcess.BeginOutputReadLine()
+        Else
+            changeProcess.CancelErrorRead()
+            changeProcess.CancelOutputRead()
+        End If
+        AddHandler changeProcess.ErrorDataReceived, Sub(sender, e)
+                                                        Try
+                                                            If IsNothing(changeProcess) = False AndAlso changeProcess.HasExited = False Then
+                                                                If IsNothing(e.Data) = False Then
+                                                                    Task.Run(Sub()
+                                                                                 If Not (ownedConsole.ContainsKey(server) = False Or ownedConsole(server).IsDisposed) Then
+                                                                                     ownedConsole(server).InputMessageToListView(New MinecraftLogParser.MinecraftConsoleMessage() With {.Message = e.Data}, True)
+                                                                                 End If
+                                                                                 Dim item As New ListViewItem("錯誤")
+                                                                                 item.ForeColor = Color.Red
+                                                                                 Select Case server.ServerVersionType
+                                                                                     Case Server.EServerVersionType.Spigot
+                                                                                     Case Server.EServerVersionType.CraftBukkit
+                                                                                     Case Server.EServerVersionType.Nukkit
+                                                                                     Case Server.EServerVersionType.VanillaBedrock
+                                                                                     Case Server.EServerVersionType.Paper
+                                                                                     Case Server.EServerVersionType.Akarin
+                                                                                     Case Server.EServerVersionType.Spigot_Git
+                                                                                     Case Server.EServerVersionType.Cauldron
+                                                                                     Case Server.EServerVersionType.Thermos
+                                                                                     Case Server.EServerVersionType.Contigo
+                                                                                     Case Else
+                                                                                         item.SubItems.Add("")
+                                                                                 End Select
+                                                                                 Dim nowTime = Now
+                                                                                 item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
+                                                                                 item.SubItems.Add(e.Data)
+                                                                                 If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
                                                                                                                     NotifyInfoMessage(bServer.ServerAlias & " 發出錯誤訊息:" & vbNewLine & e.Data, Text)
 
-                                                                               BeginInvokeIfRequired(dataListView, Sub()
-                                                                                                                       SyncLock dataListView
-                                                                                                                           dataListView.Items.Add(item)
-                                                                                                                           Try
-                                                                                                                               If dataListView.GetItemRect(dataListView.Items.Count - 2).Y < dataListView.Height Then item.EnsureVisible()
-                                                                                                                           Catch ex As Exception
+                                                                                 BeginInvokeIfRequired(DataListView, Sub()
+                                                                                                                         SyncLock DataListView
+                                                                                                                             DataListView.Items.Add(item)
+                                                                                                                             Try
+                                                                                                                                 If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                             Catch ex As Exception
 
-                                                                                                                           End Try
-                                                                                                                       End SyncLock
-                                                                                                                   End Sub)
-                                                                           End Sub)
-                                                              End If
-                                                          End If
-                                                      Catch ex As Exception
-                                                      End Try
-                                                  End Sub
-            AddHandler process.OutputDataReceived, Sub(sender, e)
-                                                       Try
-                                                           If IsNothing(process) = False AndAlso process.HasExited = False Then
-                                                               If IsNothing(e.Data) = False Then
-                                                                   Task.Run(Sub()
-                                                                                Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
-                                                                                Dim item As New ListViewItem(msg.ServerMessageTypeString)
-                                                                                Select Case server.ServerVersionType
-                                                                                    Case Server.EServerVersionType.CraftBukkit
-                                                                                    Case Server.EServerVersionType.Spigot
-                                                                                    Case Server.EServerVersionType.Spigot_Git
-                                                                                    Case Server.EServerVersionType.Paper
-                                                                                    Case Server.EServerVersionType.Akarin
-                                                                                    Case Server.EServerVersionType.Cauldron
-                                                                                    Case Server.EServerVersionType.Thermos
-                                                                                    Case Server.EServerVersionType.Contigo
-                                                                                    Case Server.EServerVersionType.Nukkit
-                                                                                    Case Server.EServerVersionType.VanillaBedrock
-                                                                                    Case Else
-                                                                                        item.SubItems.Add(msg.Thread)
-                                                                                End Select
-                                                                                item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
-                                                                                item.SubItems.Add(msg.Message)
-                                                                                Select Case msg.ServerMessageType
-                                                                                    Case MCServerMessageType.Warning
-                                                                                        item.ForeColor = Color.Orange
-                                                                                        If NotifyChooseListBox.CheckedIndices.Contains(2) Then _
+                                                                                                                             End Try
+                                                                                                                         End SyncLock
+                                                                                                                     End Sub)
+                                                                             End Sub)
+                                                                End If
+                                                            End If
+                                                        Catch ex As Exception
+                                                        End Try
+                                                    End Sub
+        AddHandler changeProcess.OutputDataReceived, Sub(sender, e)
+                                                         Try
+                                                             If IsNothing(changeProcess) = False AndAlso changeProcess.HasExited = False Then
+                                                                 If IsNothing(e.Data) = False Then
+                                                                     Task.Run(Sub()
+                                                                                  Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
+                                                                                  If Not (ownedConsole.ContainsKey(server) = False Or ownedConsole(server).IsDisposed) Then
+                                                                                      ownedConsole(server).InputMessageToListView(msg)
+                                                                                  End If
+                                                                                  Dim item As New ListViewItem(msg.ServerMessageTypeString)
+                                                                                  Select Case server.ServerVersionType
+                                                                                      Case Server.EServerVersionType.CraftBukkit
+                                                                                      Case Server.EServerVersionType.Spigot
+                                                                                      Case Server.EServerVersionType.Spigot_Git
+                                                                                      Case Server.EServerVersionType.Paper
+                                                                                      Case Server.EServerVersionType.Akarin
+                                                                                      Case Server.EServerVersionType.Cauldron
+                                                                                      Case Server.EServerVersionType.Thermos
+                                                                                      Case Server.EServerVersionType.Contigo
+                                                                                      Case Server.EServerVersionType.Nukkit
+                                                                                      Case Server.EServerVersionType.VanillaBedrock
+                                                                                      Case Else
+                                                                                          item.SubItems.Add(msg.Thread)
+                                                                                  End Select
+                                                                                  item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
+                                                                                  item.SubItems.Add(msg.Message)
+                                                                                  Select Case msg.ServerMessageType
+                                                                                      Case MCServerMessageType.Warning
+                                                                                          item.ForeColor = Color.Orange
+                                                                                          If NotifyChooseListBox.CheckedIndices.Contains(2) Then _
                                                                                                                     NotifyInfoMessage(bServer.ServerAlias & " 發出警告訊息:" & vbNewLine & msg.Message, Text)
-                                                                                    Case MCServerMessageType.Error
-                                                                                        item.ForeColor = Color.Red
-                                                                                        If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
+                                                                                      Case MCServerMessageType.Error
+                                                                                          item.ForeColor = Color.Red
+                                                                                          If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
                                                                                                                     NotifyInfoMessage(bServer.ServerAlias & " 發出錯誤訊息:" & vbNewLine & msg.Message, Text)
-                                                                                    Case MCServerMessageType.Debug
-                                                                                        item.ForeColor = Color.YellowGreen
-                                                                                    Case MCServerMessageType.Trace
-                                                                                        item.ForeColor = Color.Green
-                                                                                End Select
-                                                                                Select Case msg.MessageType
-                                                                                    Case MCMessageType.PlayerLogin
-                                                                                        If NotifyChooseListBox.CheckedIndices.Contains(0) Then _
+                                                                                      Case MCServerMessageType.Debug
+                                                                                          item.ForeColor = Color.YellowGreen
+                                                                                      Case MCServerMessageType.Trace
+                                                                                          item.ForeColor = Color.Green
+                                                                                  End Select
+                                                                                  Select Case msg.MessageType
+                                                                                      Case MCMessageType.PlayerLogin
+                                                                                          If NotifyChooseListBox.CheckedIndices.Contains(0) Then _
                                                                                                              NotifyInfoMessage(msg.AddtionalMessage("player") & " 進入 " & bServer.ServerAlias, Text)
-                                                                                        BeginInvoke(Sub() PlayerListBox.Items.Add(msg.AddtionalMessage("player") & " (" & bServer.ServerAlias & ")"))
-                                                                                    Case MCMessageType.PlayerLogout
-                                                                                        If NotifyChooseListBox.CheckedIndices.Contains(1) Then _
+                                                                                          BeginInvoke(Sub() PlayerListBox.Items.Add(msg.AddtionalMessage("player") & " (" & bServer.ServerAlias & ")"))
+                                                                                      Case MCMessageType.PlayerLogout
+                                                                                          If NotifyChooseListBox.CheckedIndices.Contains(1) Then _
                                                                                                              NotifyInfoMessage(msg.AddtionalMessage("player") & " 離開 " & bServer.ServerAlias, Text)
-                                                                                        BeginInvoke(Sub() PlayerListBox.Items.Remove(msg.AddtionalMessage("player") & " (" & bServer.ServerAlias & ")"))
-                                                                                    Case Else
-                                                                                End Select
-                                                                                Try
-                                                                                    BeginInvokeIfRequired(dataListView, Sub()
-                                                                                                                            SyncLock dataListView
-                                                                                                                                dataListView.Items.Add(item)
-                                                                                                                                Try
-                                                                                                                                    If dataListView.GetItemRect(dataListView.Items.Count - 2).Y < dataListView.Height Then item.EnsureVisible()
-                                                                                                                                Catch ex As Exception
+                                                                                          BeginInvoke(Sub() PlayerListBox.Items.Remove(msg.AddtionalMessage("player") & " (" & bServer.ServerAlias & ")"))
+                                                                                      Case Else
+                                                                                  End Select
+                                                                                  Try
+                                                                                      BeginInvokeIfRequired(DataListView, Sub()
+                                                                                                                              SyncLock DataListView
+                                                                                                                                  DataListView.Items.Add(item)
+                                                                                                                                  Try
+                                                                                                                                      If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                                  Catch ex As Exception
 
-                                                                                                                                End Try
-                                                                                                                            End SyncLock
-                                                                                                                        End Sub)
-                                                                                Catch ex As Exception
+                                                                                                                                  End Try
+                                                                                                                              End SyncLock
+                                                                                                                          End Sub)
+                                                                                  Catch ex As Exception
 
-                                                                                End Try
-                                                                            End Sub)
-                                                               End If
-                                                           End If
-                                                       Catch ex As Exception
-                                                       End Try
-                                                   End Sub
-            AddHandler process.Exited, Sub(sender, e)
-                                           bServer.Server.IsRunning = False
-                                           bServer.Server.ProcessID = 0
-                                       End Sub
-            ownedProcesses.Add(process)
-            If process IsNot Nothing Then bServer.Server.ProcessID = process.Id
-        Next
+                                                                                  End Try
+                                                                              End Sub)
+                                                                 End If
+                                                             End If
+                                                         Catch ex As Exception
+                                                         End Try
+                                                     End Sub
+        AddHandler changeProcess.Exited, Sub(sender, e)
+                                             bServer.Server.IsRunning = False
+                                             bServer.Server.ProcessID = 0
+                                         End Sub
+        ownedProcesses.Add(changeProcess)
+        If changeProcess IsNot Nothing Then bServer.Server.ProcessID = changeProcess.Id
     End Sub
 
     Private Overloads Sub Run()
@@ -603,6 +523,30 @@ Public Class BungeeCordConsole
                     NotifyChooseListBox.SetItemChecked(i, BungeeConsoleMessages(i))
                 End If
             Next
+        End If
+    End Sub
+
+    Private Sub MainTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles MainTabControl.SelectedIndexChanged
+        If MainTabControl.SelectedIndex > 2 Then
+            Button1.Visible = True
+        Else
+            Button1.Visible = False
+        End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If ownedConsole.ContainsKey(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1) = False OrElse
+                ownedConsole(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1).IsDisposed Then
+            Dim console As New ServerConsole(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1, MainTabControl.SelectedTab.Text, CType(MainTabControl.SelectedTab.Controls(0).Controls(0), ListView).Items, CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item2)
+            If ownedConsole.ContainsKey(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1) Then
+                ownedConsole(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1) = console
+            Else
+                ownedConsole.Add(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1, console)
+            End If
+            AddHandler console.ServerRestarted, Sub(ByRef process As Process)
+                                                    RunOwnedServer(Nothing, True, MainTabControl.SelectedTab, process)
+                                                End Sub
+            console.Show()
         End If
     End Sub
 End Class

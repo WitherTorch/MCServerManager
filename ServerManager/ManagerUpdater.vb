@@ -24,7 +24,7 @@ Public Class ManagerUpdater
                                 For i As Integer = 0 To currentVersionStrings.Length - 1
                                     Select Case i
                                         Case 0
-                                            If New Version(currentVersionStrings(0)) > New Version(latestVersionStrings(i)) Then
+                                            If New Version(currentVersionStrings(0)) < New Version(latestVersionStrings(i)) Then
                                                 Return True
                                             ElseIf New Version(currentVersionStrings(0)) = New Version(latestVersionStrings(i)) AndAlso currentVersionStrings.Length > latestVersionStrings.Length Then
                                                 Return True
@@ -72,7 +72,7 @@ Public Class ManagerUpdater
                         If verString.StartsWith(channel & "=") Then
                             Dim curVersionStrings As String() = SERVER_MANAGER_VER.Split(" ")
                             Dim latVersionStrings As String = verString
-                            If New Version(curVersionStrings(0)) > New Version(latVersionStrings) Then
+                            If New Version(curVersionStrings(0)) < New Version(latVersionStrings) Then
                                 Return True
                             ElseIf New Version(curVersionStrings(0)) = New Version(latVersionStrings) AndAlso curVersionStrings.Length > 1 Then
                                 Return True
@@ -88,7 +88,7 @@ Public Class ManagerUpdater
                         If verString.StartsWith(channel & "=") Then
                             Dim curVersionStrings As String() = SERVER_MANAGER_VER.Split(" ")
                             Dim latVersionStrings As String = verString
-                            If New Version(curVersionStrings(0)) > New Version(latVersionStrings) Then
+                            If New Version(curVersionStrings(0)) < New Version(latVersionStrings) Then
                                 Return True
                             ElseIf New Version(curVersionStrings(0)) = New Version(latVersionStrings) AndAlso curVersionStrings.Length > 1 Then
                                 Return True

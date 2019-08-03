@@ -47,6 +47,7 @@ Partial Class BungeeCordConsole
         Me.CommandTextBox = New System.Windows.Forms.TextBox()
         Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.MainTabControl.SuspendLayout()
         Me.MainTabPage.SuspendLayout()
         Me.PlayerGroupBox.SuspendLayout()
@@ -287,11 +288,23 @@ Partial Class BungeeCordConsole
         '
         Me.TaskTimer.Interval = 50
         '
+        'Button1
+        '
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Location = New System.Drawing.Point(701, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(95, 22)
+        Me.Button1.TabIndex = 1
+        Me.Button1.Text = "開啟子控制台"
+        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
+        '
         'BungeeCordConsole
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.MainTabControl)
         Me.DoubleBuffered = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -336,4 +349,5 @@ Partial Class BungeeCordConsole
     Friend WithEvents PlayerGroupBox As GroupBox
     Friend WithEvents PlayerListBox As ListBox
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents Button1 As Button
 End Class

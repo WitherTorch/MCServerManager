@@ -1,7 +1,10 @@
 ﻿Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 Imports System.Threading.Tasks
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 Imports ServerManager
+Imports YamlDotNet.Serialization
 
 Public Class ServerSetter
     Dim TaskList As New List(Of ServerTask)
@@ -418,6 +421,82 @@ Public Class ServerSetter
         Else
             Label14.Text = "MB"
             Label14.ForeColor = Color.Black
+        End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Using fileDialog As New OpenFileDialog
+            fileDialog.Title = "匯入排程..."
+            fileDialog.Filter = "匯出的排程 (*.json)|*.json"
+            If fileDialog.ShowDialog = DialogResult.OK Then
+                Try
+                    Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(My.Computer.FileSystem.ReadAllText(fileDialog.FileName))
+                    For Each jsonObject As JObject In jsonArray
+                        Dim task As New ServerTask(CInt(jsonObject.GetValue("mode")), jsonObject.GetValue("name"))
+                        task.Enabled = jsonObject.GetValue("enabled")
+                        Select Case task.Mode
+                            Case ServerTask.TaskMode.Repeating
+                                task.RepeatingPeriod = jsonObject.GetValue("period")
+                                task.RepeatingPeriodUnit = CInt(jsonObject.GetValue("periodUnit"))
+                            Case ServerTask.TaskMode.Trigger
+                                task.TriggerEvent = CInt(jsonObject.GetValue("event"))
+                                task.CheckRegex = IIf(jsonObject.ContainsKey("regex"), jsonObject.GetValue("regex"), "")
+                        End Select
+                        Dim command As JObject = jsonObject.GetValue("command")
+                        Dim taskCommand As New ServerTask.TaskCommand()
+                        taskCommand.Action = CInt(command.GetValue("action"))
+                        taskCommand.Data = command.GetValue("data")
+                        task.Command = taskCommand
+                        TaskList.Add(task)
+                    Next
+                Catch ex As Exception
+
+                End Try
+            End If
+        End Using
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        If Not (TaskListBox.SelectedIndices Is Nothing Or TaskListBox.SelectedIndices.Count = 0) Then
+            Using fileDialog As New SaveFileDialog
+                fileDialog.Title = "匯出排程..."
+                fileDialog.Filter = "匯出的排程 (*.json)|*.json"
+                If fileDialog.ShowDialog = DialogResult.OK Then
+                    Dim jsonArray As New JArray
+                    Try
+                        Dim taskList As New List(Of ServerTask)
+                        For Each index In TaskListBox.SelectedIndices
+                            taskList.Add(taskList(index))
+                        Next
+                        For Each task As ServerTask In taskList
+                            Dim jsonObject As New JObject
+                            jsonObject.Add("mode", task.Mode)
+                            jsonObject.Add("name", task.Name)
+                            jsonObject.Add("enabled", task.Enabled)
+                            Select Case task.Mode
+                                Case ServerTask.TaskMode.Repeating
+                                    jsonObject.Add("period", task.RepeatingPeriod)
+                                    jsonObject.Add("periodUnit", task.RepeatingPeriodUnit)
+                                Case ServerTask.TaskMode.Trigger
+                                    jsonObject.Add("event", task.TriggerEvent)
+                                    Select Case task.TriggerEvent
+                                        Case ServerTask.TaskTriggerEvent.PlayerInputCommand
+                                            jsonObject.Add("regex", task.CheckRegex)
+                                    End Select
+                            End Select
+                            Dim command As New JObject
+                            Dim taskCommand As ServerTask.TaskCommand = task.Command
+                            command.Add("action", taskCommand.Action)
+                            command.Add("data", taskCommand.Data)
+                            jsonObject.Add("command", command)
+                            jsonArray.Add(jsonObject)
+                        Next
+                        My.Computer.FileSystem.WriteAllText(fileDialog.FileName, JsonConvert.SerializeObject(jsonArray), False)
+                    Catch ex As Exception
+
+                    End Try
+                End If
+            End Using
         End If
     End Sub
 End Class
