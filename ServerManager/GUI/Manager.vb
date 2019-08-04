@@ -21,14 +21,11 @@ Public Class Manager
     Dim PaperGetVersionThread As Thread
     Dim AkarinGetVersionThread As Thread
     Dim KettleGetVersionThread As Thread
-    Dim FeedTheBeastGetPackThread As Thread
-    Dim ATGetPackThread As Thread
     Friend ServerPathList As New List(Of String)
     Friend BungeePathList As New List(Of String)
     Friend ModpackServerPathList As New List(Of String)
     Friend upnpProvider As New UPnPMapper
     Friend NoIPProvider As NoIPProvider
-    Dim sharer As String = ""
     Friend CanUPnP As Boolean
     Dim CanEnabledUPnP As Boolean
     Friend ip As New List(Of String)

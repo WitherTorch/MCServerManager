@@ -25,24 +25,28 @@
         RaiseEvent BungeeCordLoaded()
     End Sub
     Private Sub UpdateComponent()
-        BeginInvoke(New Action(Sub()
+        Try
+            BeginInvoke(New Action(Sub()
 
 
 
-                                   BungeeCordName.Text = Host.BungeePathName
-                                   If Host.IsRunning Then
-                                       BungeeCordRunStatus.Text = "啟動狀態：已啟動"
-                                       RunButton.Enabled = False
-                                       SettingButton.Enabled = False
-                                   Else
-                                       BungeeCordRunStatus.Text = "啟動狀態：未啟動"
-                                       RunButton.Enabled = True
-                                       SettingButton.Enabled = True
-                                   End If
-                                   SetVersionLabel()
+                                       BungeeCordName.Text = Host.BungeePathName
+                                       If Host.IsRunning Then
+                                           BungeeCordRunStatus.Text = "啟動狀態：已啟動"
+                                           RunButton.Enabled = False
+                                           SettingButton.Enabled = False
+                                       Else
+                                           BungeeCordRunStatus.Text = "啟動狀態：未啟動"
+                                           RunButton.Enabled = True
+                                           SettingButton.Enabled = True
+                                       End If
+                                       SetVersionLabel()
 
 
-                               End Sub))
+                                   End Sub))
+        Catch ex As Exception
+
+        End Try
     End Sub
     Friend Overloads Sub SetVersionLabel(Optional updating As Boolean = False, Optional updatingPercent As Integer = 0)
         If updating Then

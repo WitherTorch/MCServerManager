@@ -49,20 +49,27 @@ Public Class ServerConsole
         isInBungee = False
     End Sub
 
-    Public Sub New(ByRef Server As Server, ServerDisplayName As String, items As ListView.ListViewItemCollection, ByRef process As Process)
+    Public Sub New(ByRef Server As Server, ServerDisplayName As String, items As ListViewItem(), ByRef process As Process, ByRef TaskList As List(Of ServerTask), ByRef TaskDictionary As Dictionary(Of ServerTask, System.Windows.Forms.Timer))
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         _Server = Server
-        Text = "BungeeCord 子伺服器控制台 - " & ServerDisplayName
+        Text = "BungeeCord 子伺服器控制台 - " & ServerDisplayName.Substring(0, ServerDisplayName.Length - 5)
         If Server.ServerVersionType = Server.EServerVersionType.Spigot_Git Then
             usesType = Server.EServerVersionType.Spigot
         End If
         DataListView.Items.AddRange(items)
         backgroundProcess = process
-        isInBungee = False
+        isInBungee = True
+        Me.TaskList = TaskList
+        ThreadTaskDictionary = TaskDictionary
+        If process.StartInfo.StandardOutputEncoding Is System.Text.Encoding.UTF8 Then
+            alternateInputStreamWriter = New IO.StreamWriter(process.StandardInput.BaseStream, New System.Text.UTF8Encoding(False)) With {.AutoFlush = True}
+        Else
+            alternateInputStreamWriter = process.StandardInput
+        End If
     End Sub
 
     Private Sub StopLoadingCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles StopLoadingCheckBox.CheckedChanged
@@ -111,8 +118,13 @@ Public Class ServerConsole
             End If
         Next
 
-        If isInBungee = False Then Run()
-        TaskList = Server.ServerTasks.ToList
+        If isInBungee Then
+            TaskTimer.Enabled = True
+            TaskTimer.Start()
+        Else
+            Run()
+            TaskList = Server.ServerTasks.ToList
+        End If
         For Each task In TaskList
             TaskListBox.SetItemChecked(TaskListBox.Items.Add(task.Name), task.Enabled)
         Next
@@ -447,10 +459,10 @@ Public Class ServerConsole
     Private Overloads Sub Run(program As String, serverDir As String)
         Run(program, "", serverDir, True, False)
     End Sub
-    Private Overloads Sub Run(program As String, args As String, serverDir As String, Optional nogui As Boolean = True, Optional UTF8 As Boolean = True, Optional withoutRunProcess As Boolean = False)
+    Private Overloads Sub Run(program As String, args As String, serverDir As String, Optional nogui As Boolean = True, Optional UTF8 As Boolean = True)
         TaskTimer.Enabled = True
         TaskTimer.Start()
-        If withoutRunProcess = False Then backgroundProcess = Process.Start(PrepareStartInfo(program, args, serverDir, nogui, UTF8))
+        backgroundProcess = Process.Start(PrepareStartInfo(program, args, serverDir, nogui, UTF8))
         RestartButton.Enabled = False
         ForceCloseButton.Enabled = True
         If UTF8 Then
@@ -1068,7 +1080,11 @@ Public Class ServerConsole
                                                      Try
                                                          MemoryLabel.Text = "占用記憶體：" & FitMemoryUnit(Process.GetProcessById(backgroundProcess.Id).WorkingSet64)
                                                          IDLabel.Text = "處理序ID：" & backgroundProcess.Id
-                                                         Dim maxPlayerCount As Integer = IIf(Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")), Server.ServerOptions("max-players"), 0)
+                                                         If ServerStatusLabel.Text <> "伺服器狀態：啟動" Then ServerStatusLabel.Text = "伺服器狀態：啟動"
+                                                         Dim maxPlayerCount As Integer = 0
+                                                         If Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")) Then
+                                                             maxPlayerCount = Server.ServerOptions("max-players")
+                                                         End If
                                                          Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
                                                          If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
@@ -1077,7 +1093,11 @@ Public Class ServerConsole
                                                      Try
                                                          MemoryLabel.Text = "占用記憶體：(無)"
                                                          IDLabel.Text = "處理序ID：(無)"
-                                                         Dim maxPlayerCount As Integer = IIf(Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")), Server.ServerOptions("max-players"), 0)
+                                                         If ServerStatusLabel.Text <> "伺服器狀態：關閉" Then ServerStatusLabel.Text = "伺服器狀態：關閉"
+                                                         Dim maxPlayerCount As Integer = 0
+                                                             If Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")) Then
+                                                             maxPlayerCount = Server.ServerOptions("max-players")
+                                                         End If
                                                          Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
                                                          If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
@@ -1212,7 +1232,7 @@ Public Class ServerConsole
                 If ThreadTaskDictionary.ContainsKey(TaskList(e.Index)) = False Then
                     Dim task As ServerTask = TaskList(e.Index)
                     task.Enabled = True
-                    If task.Mode = ServerTask.TaskMode.Repeating Then
+                    If task.Mode = ServerTask.TaskMode.Repeating AndAlso ThreadTaskDictionary(TaskList(e.Index)) IsNot Nothing Then
                         Dim timer As New System.Windows.Forms.Timer()
                         timer.Interval = task.RepeatingPeriod * GetBaseIntervalValue(task.RepeatingPeriodUnit)
                         ThreadTaskDictionary.Add(task, timer)
@@ -1337,7 +1357,7 @@ Public Class ServerConsole
                 End If
         End Select
     End Sub
-    Function GetBaseIntervalValue(type As ServerTask.TaskPeriodUnit) As Integer
+    Shared Function GetBaseIntervalValue(type As ServerTask.TaskPeriodUnit) As Integer
         Select Case type
             Case ServerTask.TaskPeriodUnit.Tick
                 Return 50

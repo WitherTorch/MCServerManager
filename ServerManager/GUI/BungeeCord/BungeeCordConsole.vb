@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Threading
 Imports System.Threading.Tasks
 Imports ServerManager.MinecraftLogParser.MinecraftConsoleMessage
 
@@ -6,6 +7,9 @@ Public Class BungeeCordConsole
 
     Dim backgroundProcess As Process
     Dim ownedConsole As New Dictionary(Of Server, ServerConsole)
+    Dim ownedWriterForServers As New Dictionary(Of Server, IO.StreamWriter)
+    Dim ownedTaskForServers As New Dictionary(Of Server, List(Of ServerTask))
+    Dim ownedTasksAndTimersForServers As New Dictionary(Of Server, Dictionary(Of ServerTask, System.Windows.Forms.Timer))
     Dim ownedProcesses As New List(Of Process)
     Dim InputList As New List(Of String)()
     Dim CurrentListLocation As Integer = -1
@@ -51,11 +55,17 @@ Public Class BungeeCordConsole
     End Sub
     Private Sub RunOwnedServer(bServer As BungeeCordHost.BungeeServer, Optional justChangeProcess As Boolean = False, Optional page As TabPage = Nothing, Optional changeProcess As Process = Nothing)
         Dim server = bServer.Server
+        Dim dataListView As ListView
+        Dim commandBox As TextBox
+        Static CurrentListLocation As Integer = -1
+        Static upNumber As Integer = 0
+        Static menu As TableLayoutPanel
+        Static InputList As New List(Of String)()
         If justChangeProcess = False Then
             page = New TabPage(bServer.ServerAlias & " (" & server.ServerPathName & ") 資料列表") With {.Size = New Size(792, 424)}
             Dim layout As New Panel() With {.Dock = DockStyle.Fill}
-            Dim commandBox As New TextBox() With {.Dock = DockStyle.Bottom}
-            Dim dataListView As New ListView()
+            commandBox = New TextBox() With {.Dock = DockStyle.Bottom}
+            dataListView = New ListView()
             Dim topPanel As New Panel()
             Dim pauseLoad As New CheckBox()
             Dim _inputList As New List(Of String)()
@@ -111,9 +121,187 @@ Public Class BungeeCordConsole
             page.Controls.Add(layout)
             MainTabControl.TabPages.Add(page)
             changeProcess = bServer.RunServer()
+            ownedTaskForServers.Add(server, server.ServerTasks.ToList)
+            Dim taskTimerDictionary As New Dictionary(Of ServerTask, System.Windows.Forms.Timer)
+            For Each task In ownedTaskForServers(server)
+                If task.Mode = ServerTask.TaskMode.Repeating Then
+                    Dim timer As New System.Windows.Forms.Timer()
+                    timer.Interval = task.RepeatingPeriod * ServerConsole.GetBaseIntervalValue(task.RepeatingPeriodUnit)
+                    taskTimerDictionary.Add(task, timer)
+                    AddHandler timer.Tick, Sub()
+                                               RunOwnedServerTask(page, task, New Dictionary(Of String, String))
+                                           End Sub
+                    timer.Start()
+                End If
+            Next
+            ownedTasksAndTimersForServers.Add(server, taskTimerDictionary)
+            AddHandler commandBox.KeyDown, Sub(obj, args)
+                                               Select Case args.KeyCode
+                                                   Case Keys.Enter
+                                                       args.SuppressKeyPress = True
+                                                       If commandBox.Text.Trim <> "" Then
+                                                           Try
+                                                               CurrentListLocation = -1
+                                                               Select Case ConsoleMode
+                                                                   Case True
+                                                                       If commandBox.Text.StartsWith("/") Then
+                                                                           If server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Paper OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                                                                           End If
+                                                                           'backgroundProcess.StandardInput.WriteLine(commandBox.Text.Substring(1))
+                                                                           ownedWriterForServers(server).WriteLine(commandBox.Text.Substring(1))
+                                                                           If InputList.Count <= 0 OrElse InputList.Last <> commandBox.Text.Substring(1) Then
+                                                                               InputList.Add(commandBox.Text.Substring(1))
+                                                                           End If
+                                                                       Else
+                                                                           'backgroundProcess.StandardInput.WriteLine("say " & commandBox.Text)
+                                                                           ownedWriterForServers(server).WriteLine("say " & commandBox.Text)
+                                                                           If InputList.Count <= 0 OrElse InputList.Last <> "say " & commandBox.Text Then
+                                                                               InputList.Add("say " & commandBox.Text)
+                                                                           End If
+                                                                       End If
+                                                                       commandBox.Clear()
+                                                                   Case False
+                                                                       If server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Paper OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
+                                                               server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                                                                       End If
+                                                                       'backgroundProcess.StandardInput.WriteLine(commandBox.Text)
+                                                                       ownedWriterForServers(server).WriteLine(commandBox.Text)
+                                                                       If InputList.Count <= 0 OrElse InputList.Last <> commandBox.Text Then
+                                                                           InputList.Add(commandBox.Text)
+                                                                       End If
+                                                                       commandBox.Clear()
+                                                               End Select
+                                                           Catch ex As Exception
+                                                           End Try
+                                                       End If
+                                                   Case Keys.Up
+                                                       args.SuppressKeyPress = True
+                                                       Dim tmp = commandBox.Text
+                                                       Dim tmp2 = CurrentListLocation
+                                                       Try
+                                                           CurrentListLocation += 1
+                                                           If ConsoleMode Then
+                                                               Dim text = InputList.Item(InputList.Count - CurrentListLocation - 1)
+                                                               If text.StartsWith("say ") Then
+                                                                   commandBox.Text = text.Substring(4)
+                                                               Else
+                                                                   commandBox.Text = "/" & text
+                                                               End If
+                                                           Else
+                                                               commandBox.Text = InputList.Item(InputList.Count - CurrentListLocation - 1)
+                                                           End If
+                                                       Catch ex As Exception
+                                                           commandBox.Text = tmp
+                                                           CurrentListLocation = tmp2
+                                                       End Try
+                                                   Case Keys.Down
+                                                       args.SuppressKeyPress = True
+                                                       Dim tmp = commandBox.Text
+                                                       Dim tmp2 = CurrentListLocation
+                                                       Try
+                                                           CurrentListLocation -= 1
+                                                           If CurrentListLocation < -1 Then
+                                                               commandBox.Text = tmp
+                                                               CurrentListLocation += 1
+                                                           ElseIf CurrentListLocation = -1 Then
+                                                               commandBox.Text = ""
+                                                           Else
+                                                               If ConsoleMode Then
+                                                                   Dim text = InputList.Item(InputList.Count - CurrentListLocation - 1)
+                                                                   If text.StartsWith("say ") Then
+                                                                       commandBox.Text = text.Substring(4)
+                                                                   Else
+                                                                       commandBox.Text = "/" & text
+                                                                   End If
+                                                               Else
+                                                                   commandBox.Text = InputList.Item(InputList.Count - CurrentListLocation - 1)
+                                                               End If
+                                                           End If
+                                                       Catch ex As Exception
+                                                           commandBox.Text = tmp
+                                                           CurrentListLocation = tmp2
+                                                       End Try
+                                                   Case Keys.S
+                                                       If args.Control = True And args.Alt = False And args.Shift = False Then
+                                                           args.Handled = True
+                                                           args.SuppressKeyPress = True
+                                                           ConsoleMode = Not ConsoleMode
+                                                           Select Case ConsoleMode
+                                                               Case True
+                                                                   ToolTip1.SetToolTip(commandBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式" & vbNewLine & "按Ctrl + K 以開啟/關閉快捷功能表")
+                                                               Case False
+                                                                   ToolTip1.SetToolTip(commandBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式" & vbNewLine & "按Ctrl + K 以開啟/關閉快捷功能表")
+                                                           End Select
+                                                       End If
+                                                   Case Keys.K
+                                                       If args.Control = True And args.Alt = False And args.Shift = False Then
+                                                           args.Handled = True
+                                                           args.SuppressKeyPress = True
+                                                           If menu Is Nothing OrElse menu.IsDisposed Then
+                                                               menu = New TableLayoutPanel
+                                                               For Each task In ownedTaskForServers(server)
+                                                                   If task.Mode = ServerTask.TaskMode.QuickLaunch AndAlso task.Enabled = True Then
+                                                                       BeginInvokeIfRequired(Me, Sub()
+                                                                                                     Dim button As New Button() With {.Height = 30, .Text = task.Name, .Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right}
+                                                                                                     AddHandler button.Click, Sub()
+                                                                                                                                  RunOwnedServerTask(page, task, New Dictionary(Of String, String))
+                                                                                                                              End Sub
+                                                                                                     menu.Controls.Add(button, 0, menu.RowCount)
+                                                                                                 End Sub)
+                                                                   End If
+                                                               Next
+                                                               menu.Height = dataListView.Height
+                                                               menu.Width = Math.Min(dataListView.Width / 2, 100)
+                                                               menu.Location = New Point(Me.Location.X - menu.Width - 5, dataListView.Location.Y)
+                                                               menu.Dock = DockStyle.Right
+                                                               page.Controls.Add(menu)
+                                                               menu.AutoScroll = True
+                                                               menu.Show()
+                                                               menu.SendToBack()
+                                                           Else
+                                                               If menu.Visible Then
+                                                                   page.Controls.Remove(menu)
+                                                                   menu.Dispose()
+                                                                   menu = Nothing
+                                                               Else
+                                                                   menu.Show()
+                                                               End If
+                                                           End If
+                                                       End If
+                                               End Select
+                                           End Sub
+            Select Case ConsoleMode
+                Case True
+                    ToolTip1.SetToolTip(commandBox, "目前輸入模式：Minecraft 聊天欄" & vbNewLine & "按Ctrl + S 以切換模式" & vbNewLine & "按Ctrl + K 以開啟/關閉快捷功能表")
+                Case False
+                    ToolTip1.SetToolTip(commandBox, "目前輸入模式：CMD 主控台" & vbNewLine & "按Ctrl + S 以切換模式" & vbNewLine & "按Ctrl + K 以開啟/關閉快捷功能表")
+            End Select
+        Else
+            dataListView = CType(page.Controls(0).Controls(0), ListView)
+            commandBox = CType(page.Controls(0).Controls(1), TextBox)
         End If
         page.Tag = (server, changeProcess)
         Dim alternateInputWriter As New IO.StreamWriter(changeProcess.StandardInput.BaseStream, New Text.UTF8Encoding(False)) With {.AutoFlush = True}
+        If ownedWriterForServers.ContainsKey(server) Then
+            ownedWriterForServers(server) = alternateInputWriter
+        Else
+            ownedWriterForServers.Add(server, alternateInputWriter)
+        End If
         AddHandler CType(page.Controls(0).Controls(2).Controls(0), CheckBox).CheckedChanged, Sub()
                                                                                                  Try
                                                                                                      If changeProcess IsNot Nothing AndAlso changeProcess.HasExited = False AndAlso CType(page.Controls(0).Controls(2).Controls(0), CheckBox).Checked = False Then
@@ -139,7 +327,7 @@ Public Class BungeeCordConsole
                                                             If IsNothing(changeProcess) = False AndAlso changeProcess.HasExited = False Then
                                                                 If IsNothing(e.Data) = False Then
                                                                     Task.Run(Sub()
-                                                                                 If Not (ownedConsole.ContainsKey(server) = False Or ownedConsole(server).IsDisposed) Then
+                                                                                 If Not (ownedConsole.ContainsKey(server) = False OrElse ownedConsole(server).IsDisposed) Then
                                                                                      ownedConsole(server).InputMessageToListView(New MinecraftLogParser.MinecraftConsoleMessage() With {.Message = e.Data}, True)
                                                                                  End If
                                                                                  Dim item As New ListViewItem("錯誤")
@@ -186,7 +374,7 @@ Public Class BungeeCordConsole
                                                                  If IsNothing(e.Data) = False Then
                                                                      Task.Run(Sub()
                                                                                   Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
-                                                                                  If Not (ownedConsole.ContainsKey(server) = False Or ownedConsole(server).IsDisposed) Then
+                                                                                  If Not (ownedConsole.ContainsKey(server) = False OrElse ownedConsole(server).IsDisposed) Then
                                                                                       ownedConsole(server).InputMessageToListView(msg)
                                                                                   End If
                                                                                   Dim item As New ListViewItem(msg.ServerMessageTypeString)
@@ -225,10 +413,39 @@ Public Class BungeeCordConsole
                                                                                           If NotifyChooseListBox.CheckedIndices.Contains(0) Then _
                                                                                                              NotifyInfoMessage(msg.AddtionalMessage("player") & " 進入 " & bServer.ServerAlias, Text)
                                                                                           BeginInvoke(Sub() PlayerListBox.Items.Add(msg.AddtionalMessage("player") & " (" & bServer.ServerAlias & ")"))
+                                                                                          For Each task In ownedTaskForServers(server)
+                                                                                              If task.Mode = ServerTask.TaskMode.Trigger AndAlso
+                                                                                                                       task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogin Then
+                                                                                                  If task.Enabled = True Then
+                                                                                                      RunOwnedServerTask(page, task, msg.AddtionalMessage)
+                                                                                                  End If
+                                                                                              End If
+                                                                                          Next
                                                                                       Case MCMessageType.PlayerLogout
                                                                                           If NotifyChooseListBox.CheckedIndices.Contains(1) Then _
                                                                                                              NotifyInfoMessage(msg.AddtionalMessage("player") & " 離開 " & bServer.ServerAlias, Text)
                                                                                           BeginInvoke(Sub() PlayerListBox.Items.Remove(msg.AddtionalMessage("player") & " (" & bServer.ServerAlias & ")"))
+                                                                                          For Each task In ownedTaskForServers(server)
+                                                                                              If task.Mode = ServerTask.TaskMode.Trigger AndAlso
+                                                                                                                       task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogout Then
+                                                                                                  If task.Enabled = True Then
+                                                                                                      RunOwnedServerTask(page, task, msg.AddtionalMessage)
+                                                                                                  End If
+                                                                                              End If
+                                                                                          Next
+                                                                                      Case MCMessageType.PlayerInputCommand
+                                                                                          For Each task In ownedTaskForServers(server)
+                                                                                              If task.Mode = ServerTask.TaskMode.Trigger AndAlso
+                                                                                                           task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerInputCommand Then
+                                                                                                  If task.Enabled = True Then
+                                                                                                      Dim testRegex As New Text.RegularExpressions.Regex(task.CheckRegex)
+                                                                                                      If String.IsNullOrWhiteSpace(task.CheckRegex) OrElse
+                                                                                                      (testRegex.IsMatch(msg.AddtionalMessage("command")) AndAlso testRegex.Match(msg.AddtionalMessage("command")).Value = msg.AddtionalMessage("command")) Then
+                                                                                                          RunOwnedServerTask(page, task, msg.AddtionalMessage)
+                                                                                                      End If
+                                                                                                  End If
+                                                                                              End If
+                                                                                          Next
                                                                                       Case Else
                                                                                   End Select
                                                                                   Try
@@ -252,11 +469,135 @@ Public Class BungeeCordConsole
                                                          End Try
                                                      End Sub
         AddHandler changeProcess.Exited, Sub(sender, e)
+                                             Try
+                                                 If ownedTaskForServers(server) IsNot Nothing Then
+                                                     For Each task In ownedTaskForServers(server)
+                                                         If task.Mode = ServerTask.TaskMode.Trigger AndAlso
+                task.TriggerEvent = ServerTask.TaskTriggerEvent.ServerClosed Then
+                                                             If task.Enabled = True Then
+                                                                 RunOwnedServerTask(page, task, New Dictionary(Of String, String))
+                                                             End If
+                                                         End If
+                                                     Next
+                                                 End If
+                                             Catch ex As Exception
+                                             End Try
                                              bServer.Server.IsRunning = False
                                              bServer.Server.ProcessID = 0
                                          End Sub
         ownedProcesses.Add(changeProcess)
         If changeProcess IsNot Nothing Then bServer.Server.ProcessID = changeProcess.Id
+    End Sub
+    Sub RunOwnedServerTask(page As TabPage, task As ServerTask, AddtionalParameters As Dictionary(Of String, String))
+        Dim TaskRandomGenerator As New Random
+        Static TaskRandomGenNumber As Integer = -1
+        Dim server As Server = CType(page.Tag, ValueTuple(Of Server, Process)).Item1
+        Select Case task.Command.Action
+            Case ServerTask.TaskCommand.CommandAction.StopServer
+                Dim thread As New Threading.Thread(Sub()
+                                                       If backgroundProcess IsNot Nothing Then
+                                                           If backgroundProcess.HasExited = False Then
+                                                               Try
+                                                                   backgroundProcess.StandardInput.WriteLine("stop")
+                                                                   Dim dog As New Watchdog(backgroundProcess)
+                                                                   dog.Run()
+                                                               Catch ex As Exception
+                                                               End Try
+                                                               backgroundProcess.WaitForExit()
+                                                           End If
+                                                       End If
+                                                       server.IsRunning = False
+                                                   End Sub) With {
+    .Name = "Server Manager Close Server Thread",
+    .IsBackground = True
+                                                             }
+                thread.Start()
+            Case ServerTask.TaskCommand.CommandAction.RestartServer
+
+                Dim thread As New Threading.Thread(Sub()
+
+
+                                                       If backgroundProcess IsNot Nothing Then
+                                                           If backgroundProcess.HasExited = False Then
+                                                               Try
+                                                                   backgroundProcess.StandardInput.WriteLine("stop")
+                                                                   Dim dog As New Watchdog(backgroundProcess)
+                                                                   dog.Run()
+                                                               Catch ex As Exception
+                                                               End Try
+                                                               backgroundProcess.WaitForExit()
+                                                           End If
+                                                       End If
+                                                       BeginInvokeIfRequired(Me, Sub() RestartButton_Click(Me, New EventArgs))
+                                                   End Sub) With {
+            .Name = "Server Manager Restart Server Thread",
+            .IsBackground = True
+                                                                     }
+                thread.Start()
+            Case ServerTask.TaskCommand.CommandAction.RunCommand
+                If backgroundProcess IsNot Nothing Then
+                    If backgroundProcess.HasExited = False Then
+                        Try
+                            Dim command As String = task.Command.Data
+                            Select Case task.TriggerEvent
+                                Case ServerTask.TaskTriggerEvent.PlayerLogin
+                                    command = command.Replace("<$ID>", AddtionalParameters("player"))
+                                Case ServerTask.TaskTriggerEvent.PlayerLogout
+                                    command = command.Replace("<$ID>", AddtionalParameters("player"))
+                                Case ServerTask.TaskTriggerEvent.PlayerInputCommand
+                                    Dim playerCommand As String = AddtionalParameters("command")
+                                    Dim commandName As String = IIf(playerCommand.Contains(" "), playerCommand.Split(New Char() {" "}, 2, StringSplitOptions.None)(0), playerCommand)
+                                    Dim commandArg As String = ""
+                                    Try
+                                        commandArg = IIf(playerCommand.Contains(" "), playerCommand.Split(New Char() {" "}, 2, StringSplitOptions.None)(1), "")
+                                    Catch ex As Exception
+
+                                    End Try
+                                    command = command.Replace("<$ID>", AddtionalParameters("player"))
+                                    command = command.Replace("<$COMMANDNAME>", commandName)
+                                    command = command.Replace("<$COMMANDARG>", commandArg)
+                                    command = command.Replace("<$COMMANDFULL>", playerCommand)
+                                    Dim time = Now
+                                    command = command.Replace("<#YEAR>", time.Year)
+                                    command = command.Replace("<#MONTH>", time.Month)
+                                    command = command.Replace("<#DAY>", time.Day)
+                                    command = command.Replace("<#HOUR>", time.Hour)
+                                    command = command.Replace("<#MINUTE>", time.Minute)
+                                    command = command.Replace("<#SECOND>", time.Second)
+                                    command = command.Replace("<#DAYOFWEEK>", CInt(time.DayOfWeek))
+                            End Select
+                            Dim _thread As New Threading.Thread(Sub()
+                                                                    Try
+                                                                        Dim SleepRegex As New Text.RegularExpressions.Regex("#sleep [0-9]{1,}")
+                                                                        Dim RandomiseRegex As New Text.RegularExpressions.Regex("#randomise [0-9]{1,}")
+                                                                        If command.Contains(vbNewLine) Then
+                                                                            For Each line In command.Split(vbNewLine)
+                                                                                line = line.TrimStart(vbLf)
+                                                                                If line.StartsWith("#") Then
+                                                                                    If SleepRegex.IsMatch(line) AndAlso SleepRegex.Match(line).Value = line.Trim Then
+                                                                                        SpinWait.SpinUntil(Function() False, 50 * New Text.RegularExpressions.Regex("[0-9]{1,}").Match(line).Value)
+                                                                                    ElseIf RandomiseRegex.IsMatch(line) AndAlso RandomiseRegex.Match(line).Value = line.Trim Then
+                                                                                        TaskRandomGenNumber = New Text.RegularExpressions.Regex("[0-9]{1,}").Match(line).Value
+                                                                                    End If
+                                                                                Else
+                                                                                    line.Replace("<#RANDOM>", IIf(TaskRandomGenNumber > -1, TaskRandomGenerator.Next(TaskRandomGenNumber), 0))
+                                                                                    ownedWriterForServers(server).WriteLine(line)
+                                                                                End If
+                                                                            Next
+                                                                        Else
+                                                                            ownedWriterForServers(server).WriteLine(command)
+                                                                        End If
+                                                                    Catch ex As Exception
+
+                                                                    End Try
+                                                                End Sub)
+                            _thread.IsBackground = True
+                            _thread.Start()
+                        Catch ex As Exception
+                        End Try
+                    End If
+                End If
+        End Select
     End Sub
 
     Private Overloads Sub Run()
@@ -535,13 +876,14 @@ Public Class BungeeCordConsole
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If ownedConsole.ContainsKey(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1) = False OrElse
-                ownedConsole(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1).IsDisposed Then
-            Dim console As New ServerConsole(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1, MainTabControl.SelectedTab.Text, CType(MainTabControl.SelectedTab.Controls(0).Controls(0), ListView).Items, CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item2)
-            If ownedConsole.ContainsKey(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1) Then
-                ownedConsole(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1) = console
+        Dim server = CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1
+        If ownedConsole.ContainsKey(server) = False OrElse
+                ownedConsole(server).IsDisposed Then
+            Dim console As New ServerConsole(server, MainTabControl.SelectedTab.Text, CloneListViewItemCollectionAndChangeToServerConsoleFormat(CType(MainTabControl.SelectedTab.Controls(0).Controls(0), ListView).Items), CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item2, ownedTaskForServers(server), ownedTasksAndTimersForServers(server))
+            If ownedConsole.ContainsKey(server) Then
+                ownedConsole(server) = console
             Else
-                ownedConsole.Add(CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1, console)
+                ownedConsole.Add(server, console)
             End If
             AddHandler console.ServerRestarted, Sub(ByRef process As Process)
                                                     RunOwnedServer(Nothing, True, MainTabControl.SelectedTab, process)
@@ -549,4 +891,15 @@ Public Class BungeeCordConsole
             console.Show()
         End If
     End Sub
+    Shared Function CloneListViewItemCollectionAndChangeToServerConsoleFormat(collection As ListView.ListViewItemCollection) As ListViewItem()
+        Dim newList As New List(Of ListViewItem)
+        For Each item As ListViewItem In collection
+            item = item.Clone()
+            Dim subitem = item.SubItems(2)
+            item.SubItems(2) = item.SubItems(3)
+            item.SubItems(3) = subitem
+            newList.Add(item)
+        Next
+        Return newList.ToArray
+    End Function
 End Class
