@@ -466,7 +466,7 @@ Public Class ServerSetter
                     Try
                         Dim taskList As New List(Of ServerTask)
                         For Each index In TaskListBox.SelectedIndices
-                            taskList.Add(taskList(index))
+                            taskList.Add(Me.TaskList(index))
                         Next
                         For Each task As ServerTask In taskList
                             Dim jsonObject As New JObject

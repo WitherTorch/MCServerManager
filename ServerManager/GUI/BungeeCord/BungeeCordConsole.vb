@@ -54,7 +54,12 @@ Public Class BungeeCordConsole
         Next
     End Sub
     Private Sub RunOwnedServer(bServer As BungeeCordHost.BungeeServer, Optional justChangeProcess As Boolean = False, Optional page As TabPage = Nothing, Optional changeProcess As Process = Nothing)
-        Dim server = bServer.Server
+        Dim server As Server
+        If justChangeProcess Then
+            server = CType(page.Tag, ValueTuple(Of Server, Process)).Item1
+        Else
+            server = bServer.Server
+        End If
         Dim dataListView As ListView
         Dim commandBox As TextBox
         Static CurrentListLocation As Integer = -1
@@ -315,12 +320,14 @@ Public Class BungeeCordConsole
 
                                                                                                  End Try
                                                                                              End Sub
-        If CType(page.Controls(0).Controls(2).Controls(0), CheckBox).Checked = False Then
-            changeProcess.BeginErrorReadLine()
-            changeProcess.BeginOutputReadLine()
-        Else
-            changeProcess.CancelErrorRead()
-            changeProcess.CancelOutputRead()
+        If justChangeProcess = False Then
+            If CType(page.Controls(0).Controls(2).Controls(0), CheckBox).Checked = False Then
+                changeProcess.BeginErrorReadLine()
+                changeProcess.BeginOutputReadLine()
+            Else
+                changeProcess.CancelErrorRead()
+                changeProcess.CancelOutputRead()
+            End If
         End If
         AddHandler changeProcess.ErrorDataReceived, Sub(sender, e)
                                                         Try
@@ -352,11 +359,11 @@ Public Class BungeeCordConsole
                                                                                  If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
                                                                                                                     NotifyInfoMessage(bServer.ServerAlias & " 發出錯誤訊息:" & vbNewLine & e.Data, Text)
 
-                                                                                 BeginInvokeIfRequired(DataListView, Sub()
-                                                                                                                         SyncLock DataListView
-                                                                                                                             DataListView.Items.Add(item)
+                                                                                 BeginInvokeIfRequired(dataListView, Sub()
+                                                                                                                         SyncLock dataListView
+                                                                                                                             dataListView.Items.Add(item)
                                                                                                                              Try
-                                                                                                                                 If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                                 If dataListView.GetItemRect(dataListView.Items.Count - 2).Y < dataListView.Height Then item.EnsureVisible()
                                                                                                                              Catch ex As Exception
 
                                                                                                                              End Try
@@ -876,18 +883,22 @@ Public Class BungeeCordConsole
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim server = CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1
+        Dim server As Server = CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1
+        Dim currentPage As TabPage = MainTabControl.SelectedTab
         If ownedConsole.ContainsKey(server) = False OrElse
                 ownedConsole(server).IsDisposed Then
-            Dim console As New ServerConsole(server, MainTabControl.SelectedTab.Text, CloneListViewItemCollectionAndChangeToServerConsoleFormat(CType(MainTabControl.SelectedTab.Controls(0).Controls(0), ListView).Items), CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item2, ownedTaskForServers(server), ownedTasksAndTimersForServers(server))
+            Dim console As New ServerConsole(server, currentPage.Text, CloneListViewItemCollectionAndChangeToServerConsoleFormat(CType(currentPage.Controls(0).Controls(0), ListView).Items), CType(currentPage.Tag, ValueTuple(Of Server, Process)).Item2, ownedTaskForServers(server), ownedTasksAndTimersForServers(server), CType(currentPage.Controls(0).Controls(2).Controls(0), CheckBox).Checked)
             If ownedConsole.ContainsKey(server) Then
                 ownedConsole(server) = console
             Else
                 ownedConsole.Add(server, console)
             End If
             AddHandler console.ServerRestarted, Sub(ByRef process As Process)
-                                                    RunOwnedServer(Nothing, True, MainTabControl.SelectedTab, process)
+                                                    RunOwnedServer(Nothing, True, currentPage, process)
                                                 End Sub
+            AddHandler console.ServerStopLoadingStateChanged, Sub(state)
+                                                                  BeginInvokeIfRequired(Me, Sub() CType(currentPage.Controls(0).Controls(2).Controls(0), CheckBox).Checked = state)
+                                                              End Sub
             console.Show()
         End If
     End Sub
