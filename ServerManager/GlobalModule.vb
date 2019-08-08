@@ -6,7 +6,7 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.6.2 Alpha 1a"
+    Public Const SERVER_MANAGER_VER As String = "1.6.2 Alpha 2"
     Friend Manager As Manager
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
@@ -213,7 +213,7 @@ Module GlobalModule
             Case Server.EServerVersionType.VanillaBedrock
                 Return "原版(基岩)"
             Case Server.EServerVersionType.Nukkit
-                Return "Nukkit"
+                Return "NukkitX"
             Case Server.EServerVersionType.Cauldron
                 If version <> "" Then
                     If version = "1.5.2" OrElse version = "1.6.4" Then

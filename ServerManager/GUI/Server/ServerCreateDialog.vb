@@ -8,25 +8,6 @@ Public Class ServerCreateDialog
     Friend server As Server = Server.CreateServer
     Friend serverOptions As IServerOptions
     Dim ipType As ServerIPType = ServerIPType.Default
-
-    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
-        IPBox.Text = ""
-        IPBox.ReadOnly = True
-        ipType = ServerIPType.Float
-    End Sub
-
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
-        IPBox.Text = GlobalModule.Manager.ip(0)
-        IPBox.ReadOnly = True
-        ipType = ServerIPType.Default
-    End Sub
-
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
-        IPBox.ReadOnly = False
-        ipType = ServerIPType.Custom
-    End Sub
-
-
     Private Sub Version_SelectedIndexChanged(sender As Object, e As EventArgs) Handles VersionBox.SelectedIndexChanged, VersionTypeBox.SelectedIndexChanged
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
         If sender Is VersionBox Then
@@ -217,6 +198,9 @@ Public Class ServerCreateDialog
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
     End Sub
     Private Sub ServerCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
+        IPAddressComboBox.Items.AddRange(GlobalModule.Manager.ip.ToArray)
+        ipType = ServerIPType.Float
+        IPStyleComboBox.SelectedIndex = 0
         Dim groupedItems = {New With {.Group = "Java 版",
     .Value = 0,
     .Display = "原版"
@@ -271,7 +255,7 @@ Public Class ServerCreateDialog
 }, New With {
     .Group = "基岩版",
     .Value = 13,
-    .Display = "Nukkit"
+    .Display = "NukkitX"
 }, New With {
     .Group = "其他",
     .Value = 255,
@@ -298,20 +282,20 @@ Public Class ServerCreateDialog
         If ServerDirBox.Text.Trim <> "" Then
             If (ipType <> ServerIPType.Custom) OrElse
             (ipType = ServerIPType.Custom AndAlso
-            (IPBox.Text.Trim <> "" AndAlso IsNumeric(IPBox.Text.Replace(".", "")))) Then
+            (IPAddressComboBox.Text.Trim <> "" AndAlso IsNumeric(IPAddressComboBox.Text.Replace(".", "")))) Then
                 If VersionTypeBox.SelectedIndex <> -1 And VersionBox.SelectedIndex <> -1 Then
                     Dim mapView As MapView = MapPanel.Controls(0)
                     If mapView.MapNameLabel.Text <> "" Then
                         server.SetPath(ServerDirBox.Text)
                         If serverOptions Is Nothing Then
                             Select Case server.ServerType
-                                Case server.EServerType.Java
+                                Case Server.EServerType.Java
                                     serverOptions = New JavaServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
-                                Case server.EServerType.Bedrock
+                                Case Server.EServerType.Bedrock
                                     serverOptions = New NukkitServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
-                                Case server.EServerType.Custom
+                                Case Server.EServerType.Custom
                                     serverOptions = New JavaServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
                             End Select
@@ -320,15 +304,15 @@ Public Class ServerCreateDialog
                         Select Case ipType
                             Case ServerIPType.Float
                                 Select Case server.ServerType
-                                    Case server.EServerType.Java
+                                    Case Server.EServerType.Java
                                         server.ServerOptions("server-ip") = ""
-                                    Case server.EServerType.Bedrock
+                                    Case Server.EServerType.Bedrock
                                         server.ServerOptions("server-ip") = "0.0.0.0"
                                 End Select
                             Case ServerIPType.Default
-                                server.ServerOptions("server-ip") = GlobalModule.Manager.ip(0)
+                                server.ServerOptions("server-ip") = GlobalModule.Manager.ip(IPAddressComboBox.SelectedIndex)
                             Case ServerIPType.Custom
-                                server.ServerOptions("server-ip") = IPBox.Text
+                                server.ServerOptions("server-ip") = IPAddressComboBox.Text
                         End Select
                         If server.ServerVersionType = Server.EServerVersionType.Forge AndAlso CustomForgeVersion Then
                             Dim chooser As New ForgeBranchChooser(server, ServerDirBox.Text)
@@ -412,6 +396,27 @@ Public Class ServerCreateDialog
         MyBase.Finalize()
     End Sub
 
+    Private Sub IPStyleComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles IPStyleComboBox.SelectedIndexChanged
+        Select Case IPStyleComboBox.SelectedIndex
+            Case 0
+                Label5.Enabled = False
+                IPAddressComboBox.Enabled = False
+                ipType = ServerIPType.Float
+            Case 1
+                Label5.Enabled = True
+                IPAddressComboBox.Enabled = True
+                IPAddressComboBox.DropDownStyle = ComboBoxStyle.DropDownList
+                ipType = ServerIPType.Default
+            Case 2
+                Label5.Enabled = True
+                IPAddressComboBox.Enabled = True
+                IPAddressComboBox.DropDownStyle = ComboBoxStyle.DropDown
+                ipType = ServerIPType.Custom
+            Case Else
+                Label5.Enabled = False
+                IPAddressComboBox.Enabled = False
+        End Select
+    End Sub
 End Class
 Enum ServerIPType
     Float

@@ -29,22 +29,20 @@ Partial Class ModPackServerCreateDialog
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.IPBox = New System.Windows.Forms.TextBox()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.PortBox = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ServerDirBrowseBtn = New System.Windows.Forms.Button()
         Me.ServerDirBox = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.IPAddressComboBox = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.IPStyleComboBox = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -64,22 +62,24 @@ Partial Class ModPackServerCreateDialog
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(528, 230)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(465, 230)
         Me.TableLayoutPanel1.TabIndex = 2
         '
         'Panel1
         '
+        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel1.AutoSize = True
         Me.Panel1.Controls.Add(Me.CreateButton)
         Me.Panel1.Location = New System.Drawing.Point(3, 194)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(522, 29)
+        Me.Panel1.Size = New System.Drawing.Size(459, 29)
         Me.Panel1.TabIndex = 0
         '
         'CreateButton
         '
         Me.CreateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CreateButton.Location = New System.Drawing.Point(422, 3)
+        Me.CreateButton.Location = New System.Drawing.Point(359, 3)
         Me.CreateButton.Name = "CreateButton"
         Me.CreateButton.Size = New System.Drawing.Size(96, 23)
         Me.CreateButton.TabIndex = 0
@@ -95,94 +95,38 @@ Partial Class ModPackServerCreateDialog
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(522, 185)
+        Me.Panel2.Size = New System.Drawing.Size(459, 185)
         Me.Panel2.TabIndex = 1
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TableLayoutPanel2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TableLayoutPanel2.ColumnCount = 1
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 513.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.GroupBox2, 0, 0)
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 36)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(513, 146)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(459, 146)
         Me.TableLayoutPanel2.TabIndex = 49
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.GroupBox1)
+        Me.GroupBox2.Controls.Add(Me.IPAddressComboBox)
+        Me.GroupBox2.Controls.Add(Me.Label5)
+        Me.GroupBox2.Controls.Add(Me.IPStyleComboBox)
+        Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.PortBox)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(507, 140)
+        Me.GroupBox2.Size = New System.Drawing.Size(453, 140)
         Me.GroupBox2.TabIndex = 43
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "連接"
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.IPBox)
-        Me.GroupBox1.Controls.Add(Me.RadioButton3)
-        Me.GroupBox1.Controls.Add(Me.RadioButton1)
-        Me.GroupBox1.Controls.Add(Me.RadioButton2)
-        Me.GroupBox1.Location = New System.Drawing.Point(6, 52)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(495, 89)
-        Me.GroupBox1.TabIndex = 40
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "IP 選項"
-        '
-        'IPBox
-        '
-        Me.IPBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.IPBox.Location = New System.Drawing.Point(77, 58)
-        Me.IPBox.Name = "IPBox"
-        Me.IPBox.ReadOnly = True
-        Me.IPBox.Size = New System.Drawing.Size(411, 22)
-        Me.IPBox.TabIndex = 34
-        '
-        'RadioButton3
-        '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Checked = True
-        Me.RadioButton3.Location = New System.Drawing.Point(12, 21)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(47, 16)
-        Me.RadioButton3.TabIndex = 33
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "浮動"
-        Me.RadioButton3.UseVisualStyleBackColor = True
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(12, 61)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(59, 16)
-        Me.RadioButton1.TabIndex = 31
-        Me.RadioButton1.Text = "自訂："
-        Me.RadioButton1.UseVisualStyleBackColor = True
-        '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(12, 41)
-        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(3, 1, 3, 1)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(47, 16)
-        Me.RadioButton2.TabIndex = 32
-        Me.RadioButton2.Text = "預設"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.GroupBox2.Text = "連線"
         '
         'PortBox
         '
@@ -208,7 +152,7 @@ Partial Class ModPackServerCreateDialog
         'ServerDirBrowseBtn
         '
         Me.ServerDirBrowseBtn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ServerDirBrowseBtn.Location = New System.Drawing.Point(462, 8)
+        Me.ServerDirBrowseBtn.Location = New System.Drawing.Point(399, 8)
         Me.ServerDirBrowseBtn.Name = "ServerDirBrowseBtn"
         Me.ServerDirBrowseBtn.Size = New System.Drawing.Size(51, 23)
         Me.ServerDirBrowseBtn.TabIndex = 48
@@ -221,7 +165,7 @@ Partial Class ModPackServerCreateDialog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ServerDirBox.Location = New System.Drawing.Point(86, 8)
         Me.ServerDirBox.Name = "ServerDirBox"
-        Me.ServerDirBox.Size = New System.Drawing.Size(370, 22)
+        Me.ServerDirBox.Size = New System.Drawing.Size(307, 22)
         Me.ServerDirBox.TabIndex = 47
         '
         'Label1
@@ -235,12 +179,57 @@ Partial Class ModPackServerCreateDialog
         Me.Label1.Text = "伺服器路徑："
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'IPAddressComboBox
+        '
+        Me.IPAddressComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.IPAddressComboBox.FormattingEnabled = True
+        Me.IPAddressComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
+        Me.IPAddressComboBox.Location = New System.Drawing.Point(62, 75)
+        Me.IPAddressComboBox.Name = "IPAddressComboBox"
+        Me.IPAddressComboBox.Size = New System.Drawing.Size(385, 20)
+        Me.IPAddressComboBox.TabIndex = 50
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(5, 79)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(54, 12)
+        Me.Label5.TabIndex = 49
+        Me.Label5.Text = "IP 位址："
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'IPStyleComboBox
+        '
+        Me.IPStyleComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.IPStyleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.IPStyleComboBox.FormattingEnabled = True
+        Me.IPStyleComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
+        Me.IPStyleComboBox.Location = New System.Drawing.Point(62, 49)
+        Me.IPStyleComboBox.Name = "IPStyleComboBox"
+        Me.IPStyleComboBox.Size = New System.Drawing.Size(385, 20)
+        Me.IPStyleComboBox.TabIndex = 48
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(5, 53)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(54, 12)
+        Me.Label4.TabIndex = 47
+        Me.Label4.Text = "IP 模式："
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'ModPackServerCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(528, 230)
+        Me.ClientSize = New System.Drawing.Size(465, 230)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -257,8 +246,6 @@ Partial Class ModPackServerCreateDialog
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -269,14 +256,13 @@ Partial Class ModPackServerCreateDialog
     Friend WithEvents Panel2 As Panel
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents IPBox As TextBox
-    Friend WithEvents RadioButton3 As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents PortBox As NumericUpDown
     Friend WithEvents Label2 As Label
     Friend WithEvents ServerDirBrowseBtn As Button
     Friend WithEvents ServerDirBox As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents IPAddressComboBox As ComboBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents IPStyleComboBox As ComboBox
+    Friend WithEvents Label4 As Label
 End Class

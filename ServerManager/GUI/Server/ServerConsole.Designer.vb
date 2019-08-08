@@ -49,6 +49,8 @@ Partial Class ServerConsole
         Me.TaskGroupBox = New System.Windows.Forms.GroupBox()
         Me.TaskListBox = New System.Windows.Forms.CheckedListBox()
         Me.TaskControlPanel = New System.Windows.Forms.Panel()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.RemoveTaskButton = New System.Windows.Forms.Button()
         Me.EditTaskButton = New System.Windows.Forms.Button()
         Me.AddTaskButton = New System.Windows.Forms.Button()
@@ -67,8 +69,6 @@ Partial Class ServerConsole
         Me.ListBoxTImer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ContextTaskMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Panel1 = New System.Windows.Forms.Panel()
         Me.MainTabControl.SuspendLayout
         Me.MainTabPage.SuspendLayout
@@ -329,6 +329,26 @@ Partial Class ServerConsole
         Me.TaskControlPanel.Size = New System.Drawing.Size(89, 117)
         Me.TaskControlPanel.TabIndex = 2
         '
+        'Button2
+        '
+        Me.Button2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button2.Location = New System.Drawing.Point(0, 92)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(89, 23)
+        Me.Button2.TabIndex = 4
+        Me.Button2.Text = "匯出工作..."
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button1.Location = New System.Drawing.Point(0, 69)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(89, 23)
+        Me.Button1.TabIndex = 3
+        Me.Button1.Text = "匯入工作..."
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'RemoveTaskButton
         '
         Me.RemoveTaskButton.Dock = System.Windows.Forms.DockStyle.Top
@@ -478,26 +498,6 @@ Partial Class ServerConsole
         '
         Me.ContextTaskMenu.Name = "ContextTaskMenu"
         Me.ContextTaskMenu.Size = New System.Drawing.Size(61, 4)
-        '
-        'Button1
-        '
-        Me.Button1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Button1.Location = New System.Drawing.Point(0, 69)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(89, 23)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "匯入工作..."
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Button2.Location = New System.Drawing.Point(0, 92)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(89, 23)
-        Me.Button2.TabIndex = 4
-        Me.Button2.Text = "匯出工作..."
-        Me.Button2.UseVisualStyleBackColor = True
         '
         'ServerConsole
         '

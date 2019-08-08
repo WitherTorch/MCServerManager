@@ -987,6 +987,12 @@ Public Class ServerConsole
                         End If
                     End If
                 End If
+            Case Keys.Back
+                If e.Control = True And e.Alt = False And e.Shift = False Then
+                    e.Handled = True
+                    e.SuppressKeyPress = True
+                    BeginInvokeIfRequired(Me, Sub() CommandTextBox.Clear())
+                End If
         End Select
     End Sub
 

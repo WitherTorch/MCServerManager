@@ -6,22 +6,7 @@ Public Class ModPackServerCreateDialog
     Friend server As ModPackServer = ModPackServer.CreateServer
     Friend serverOptions As IServerOptions
     Dim ipType As ServerIPType = ServerIPType.Default
-    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
-        IPBox.Text = ""
-        IPBox.ReadOnly = True
-        ipType = ServerIPType.Float
-    End Sub
 
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
-        IPBox.Text = GlobalModule.Manager.ip(0)
-        IPBox.ReadOnly = True
-        ipType = ServerIPType.Default
-    End Sub
-
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
-        IPBox.ReadOnly = False
-        ipType = ServerIPType.Custom
-    End Sub
 
 
 
@@ -29,7 +14,7 @@ Public Class ModPackServerCreateDialog
         If ServerDirBox.Text.Trim <> "" Then
             If (ipType <> ServerIPType.Custom) OrElse
         (ipType = ServerIPType.Custom AndAlso
-        (IPBox.Text.Trim <> "" AndAlso IsNumeric(IPBox.Text.Replace(".", "")))) Then
+        (IPAddressComboBox.Text.Trim <> "" AndAlso IsNumeric(IPAddressComboBox.Text.Replace(".", "")))) Then
                 server.SetPath(ServerDirBox.Text)
                 If serverOptions Is Nothing Then
                     serverOptions = New JavaServerOptions
@@ -40,9 +25,9 @@ Public Class ModPackServerCreateDialog
                     Case ServerIPType.Float
                         server.ServerOptions("server-ip") = ""
                     Case ServerIPType.Default
-                        server.ServerOptions("server-ip") = GlobalModule.Manager.ip(0)
+                        server.ServerOptions("server-ip") = GlobalModule.Manager.ip(IPAddressComboBox.SelectedIndex)
                     Case ServerIPType.Custom
-                        server.ServerOptions("server-ip") = IPBox.Text
+                        server.ServerOptions("server-ip") = IPAddressComboBox.Text
                 End Select
                 Dim modpackExplorer As New ModpackExplorer(server)
                 modpackExplorer.Show()
@@ -74,6 +59,34 @@ Public Class ModPackServerCreateDialog
         If dir.ShowDialog = DialogResult.OK Then
             ServerDirBox.Text = dir.SelectedPath
         End If
+    End Sub
+
+    Private Sub IPStyleComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles IPStyleComboBox.SelectedIndexChanged
+        Select Case IPStyleComboBox.SelectedIndex
+            Case 0
+                Label5.Enabled = False
+                IPAddressComboBox.Enabled = False
+                ipType = ServerIPType.Float
+            Case 1
+                Label5.Enabled = True
+                IPAddressComboBox.Enabled = True
+                IPAddressComboBox.DropDownStyle = ComboBoxStyle.DropDownList
+                ipType = ServerIPType.Default
+            Case 2
+                Label5.Enabled = True
+                IPAddressComboBox.Enabled = True
+                IPAddressComboBox.DropDownStyle = ComboBoxStyle.DropDown
+                ipType = ServerIPType.Custom
+            Case Else
+                Label5.Enabled = False
+                IPAddressComboBox.Enabled = False
+        End Select
+    End Sub
+
+    Private Sub ModPackServerCreateDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        IPAddressComboBox.Items.AddRange(GlobalModule.Manager.ip.ToArray)
+        ipType = ServerIPType.Float
+        IPStyleComboBox.SelectedIndex = 0
     End Sub
 End Class
 

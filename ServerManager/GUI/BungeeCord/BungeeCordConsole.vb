@@ -140,6 +140,28 @@ Public Class BungeeCordConsole
                 End If
             Next
             ownedTasksAndTimersForServers.Add(server, taskTimerDictionary)
+            AddHandler CType(page.Controls(0).Controls(2).Controls(0), CheckBox).CheckedChanged, Sub(obj, args)
+                                                                                                     Try
+                                                                                                         Dim process As Process = CType(page.Tag, ValueTuple(Of Server, Process)).Item2
+                                                                                                         If process IsNot Nothing AndAlso process.HasExited = False Then
+                                                                                                             If Not (ownedConsole.ContainsKey(server) = False OrElse ownedConsole(server).IsDisposed) Then
+                                                                                                                 ownedConsole(server).StopLoadingCheckBox.Checked = CType(obj, CheckBox).Checked
+                                                                                                             Else
+                                                                                                                 If CType(obj, CheckBox).Checked = False Then
+                                                                                                                     process.BeginErrorReadLine()
+                                                                                                                     process.BeginOutputReadLine()
+                                                                                                                 Else
+                                                                                                                     process.CancelErrorRead()
+                                                                                                                     process.CancelOutputRead()
+                                                                                                                 End If
+                                                                                                             End If
+                                                                                                         End If
+
+
+                                                                                                     Catch ex As Exception
+
+                                                                                                     End Try
+                                                                                                 End Sub
             AddHandler commandBox.KeyDown, Sub(obj, args)
                                                Select Case args.KeyCode
                                                    Case Keys.Enter
@@ -288,6 +310,12 @@ Public Class BungeeCordConsole
                                                                End If
                                                            End If
                                                        End If
+                                                   Case Keys.Back
+                                                       If args.Control = True And args.Alt = False And args.Shift = False Then
+                                                           args.Handled = True
+                                                           args.SuppressKeyPress = True
+                                                           BeginInvokeIfRequired(Me, Sub() commandBox.Clear())
+                                                       End If
                                                End Select
                                            End Sub
             Select Case ConsoleMode
@@ -307,19 +335,6 @@ Public Class BungeeCordConsole
         Else
             ownedWriterForServers.Add(server, alternateInputWriter)
         End If
-        AddHandler CType(page.Controls(0).Controls(2).Controls(0), CheckBox).CheckedChanged, Sub()
-                                                                                                 Try
-                                                                                                     If changeProcess IsNot Nothing AndAlso changeProcess.HasExited = False AndAlso CType(page.Controls(0).Controls(2).Controls(0), CheckBox).Checked = False Then
-                                                                                                         changeProcess.BeginErrorReadLine()
-                                                                                                         changeProcess.BeginOutputReadLine()
-                                                                                                     Else
-                                                                                                         changeProcess.CancelErrorRead()
-                                                                                                         changeProcess.CancelOutputRead()
-                                                                                                     End If
-                                                                                                 Catch ex As Exception
-
-                                                                                                 End Try
-                                                                                             End Sub
         If justChangeProcess = False Then
             If CType(page.Controls(0).Controls(2).Controls(0), CheckBox).Checked = False Then
                 changeProcess.BeginErrorReadLine()
@@ -771,6 +786,12 @@ Public Class BungeeCordConsole
                     CommandTextBox.Text = tmp
                     CurrentListLocation = tmp2
                 End Try
+            Case Keys.Back
+                If e.Control = True And e.Alt = False And e.Shift = False Then
+                    e.Handled = True
+                    e.SuppressKeyPress = True
+                    BeginInvokeIfRequired(Me, Sub() CommandTextBox.Clear())
+                End If
         End Select
     End Sub
 
