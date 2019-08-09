@@ -29,15 +29,15 @@ Partial Class ModPackServerCreateDialog
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.IPAddressComboBox = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.IPStyleComboBox = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.PortBox = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ServerDirBrowseBtn = New System.Windows.Forms.Button()
         Me.ServerDirBox = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.IPAddressComboBox = New System.Windows.Forms.ComboBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.IPStyleComboBox = New System.Windows.Forms.ComboBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -56,13 +56,9 @@ Partial Class ModPackServerCreateDialog
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 191.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 344.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(465, 230)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(465, 182)
         Me.TableLayoutPanel1.TabIndex = 2
         '
         'Panel1
@@ -71,7 +67,7 @@ Partial Class ModPackServerCreateDialog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel1.AutoSize = True
         Me.Panel1.Controls.Add(Me.CreateButton)
-        Me.Panel1.Location = New System.Drawing.Point(3, 194)
+        Me.Panel1.Location = New System.Drawing.Point(3, 153)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(459, 29)
         Me.Panel1.TabIndex = 0
@@ -95,7 +91,7 @@ Partial Class ModPackServerCreateDialog
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(459, 185)
+        Me.Panel2.Size = New System.Drawing.Size(459, 144)
         Me.Panel2.TabIndex = 1
         '
         'TableLayoutPanel2
@@ -128,9 +124,54 @@ Partial Class ModPackServerCreateDialog
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "連線"
         '
+        'IPAddressComboBox
+        '
+        Me.IPAddressComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.IPAddressComboBox.FormattingEnabled = True
+        Me.IPAddressComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
+        Me.IPAddressComboBox.Location = New System.Drawing.Point(62, 48)
+        Me.IPAddressComboBox.Name = "IPAddressComboBox"
+        Me.IPAddressComboBox.Size = New System.Drawing.Size(385, 20)
+        Me.IPAddressComboBox.TabIndex = 50
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(5, 52)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(54, 12)
+        Me.Label5.TabIndex = 49
+        Me.Label5.Text = "IP 位址："
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'IPStyleComboBox
+        '
+        Me.IPStyleComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.IPStyleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.IPStyleComboBox.FormattingEnabled = True
+        Me.IPStyleComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
+        Me.IPStyleComboBox.Location = New System.Drawing.Point(62, 21)
+        Me.IPStyleComboBox.Name = "IPStyleComboBox"
+        Me.IPStyleComboBox.Size = New System.Drawing.Size(243, 20)
+        Me.IPStyleComboBox.TabIndex = 48
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(5, 25)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(54, 12)
+        Me.Label4.TabIndex = 47
+        Me.Label4.Text = "IP 模式："
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'PortBox
         '
-        Me.PortBox.Location = New System.Drawing.Point(62, 21)
+        Me.PortBox.Location = New System.Drawing.Point(367, 20)
         Me.PortBox.Maximum = New Decimal(New Integer() {65534, 0, 0, 0})
         Me.PortBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.PortBox.Name = "PortBox"
@@ -141,7 +182,7 @@ Partial Class ModPackServerCreateDialog
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 26)
+        Me.Label2.Location = New System.Drawing.Point(311, 25)
         Me.Label2.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(53, 12)
@@ -179,57 +220,12 @@ Partial Class ModPackServerCreateDialog
         Me.Label1.Text = "伺服器路徑："
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'IPAddressComboBox
-        '
-        Me.IPAddressComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.IPAddressComboBox.FormattingEnabled = True
-        Me.IPAddressComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
-        Me.IPAddressComboBox.Location = New System.Drawing.Point(62, 75)
-        Me.IPAddressComboBox.Name = "IPAddressComboBox"
-        Me.IPAddressComboBox.Size = New System.Drawing.Size(385, 20)
-        Me.IPAddressComboBox.TabIndex = 50
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(5, 79)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(54, 12)
-        Me.Label5.TabIndex = 49
-        Me.Label5.Text = "IP 位址："
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'IPStyleComboBox
-        '
-        Me.IPStyleComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.IPStyleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.IPStyleComboBox.FormattingEnabled = True
-        Me.IPStyleComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
-        Me.IPStyleComboBox.Location = New System.Drawing.Point(62, 49)
-        Me.IPStyleComboBox.Name = "IPStyleComboBox"
-        Me.IPStyleComboBox.Size = New System.Drawing.Size(385, 20)
-        Me.IPStyleComboBox.TabIndex = 48
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(5, 53)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(54, 12)
-        Me.Label4.TabIndex = 47
-        Me.Label4.Text = "IP 模式："
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'ModPackServerCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(465, 230)
+        Me.ClientSize = New System.Drawing.Size(465, 182)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)

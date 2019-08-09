@@ -34,6 +34,11 @@ Partial Class ServerCreateDialog
         Me.Label10 = New System.Windows.Forms.Label()
         Me.VersionBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.IPAddressComboBox = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.IPStyleComboBox = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.PortBox = New System.Windows.Forms.NumericUpDown()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.將連接埠設成預設值ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -45,21 +50,16 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CreateButton = New System.Windows.Forms.Button()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.IPStyleComboBox = New System.Windows.Forms.ComboBox()
-        Me.IPAddressComboBox = New System.Windows.Forms.ComboBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.PortBox = New System.Windows.Forms.NumericUpDown()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.PortBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        CType(Me.PortBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -70,7 +70,7 @@ Partial Class ServerCreateDialog
         Me.TabControl1.Location = New System.Drawing.Point(3, 3)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(509, 414)
+        Me.TabControl1.Size = New System.Drawing.Size(509, 314)
         Me.TabControl1.TabIndex = 1
         '
         'TabPage1
@@ -83,7 +83,7 @@ Partial Class ServerCreateDialog
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(501, 388)
+        Me.TabPage1.Size = New System.Drawing.Size(501, 288)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "伺服器"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -97,7 +97,7 @@ Partial Class ServerCreateDialog
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Controls.Add(Me.VersionBox)
-        Me.GroupBox3.Location = New System.Drawing.Point(12, 146)
+        Me.GroupBox3.Location = New System.Drawing.Point(12, 115)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(479, 150)
         Me.GroupBox3.TabIndex = 44
@@ -183,10 +183,64 @@ Partial Class ServerCreateDialog
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 34)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(479, 106)
+        Me.GroupBox2.Size = New System.Drawing.Size(479, 75)
         Me.GroupBox2.TabIndex = 43
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "連線"
+        '
+        'IPAddressComboBox
+        '
+        Me.IPAddressComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.IPAddressComboBox.FormattingEnabled = True
+        Me.IPAddressComboBox.Location = New System.Drawing.Point(62, 44)
+        Me.IPAddressComboBox.Name = "IPAddressComboBox"
+        Me.IPAddressComboBox.Size = New System.Drawing.Size(411, 20)
+        Me.IPAddressComboBox.TabIndex = 46
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(5, 48)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(54, 12)
+        Me.Label5.TabIndex = 45
+        Me.Label5.Text = "IP 位址："
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'IPStyleComboBox
+        '
+        Me.IPStyleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.IPStyleComboBox.FormattingEnabled = True
+        Me.IPStyleComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
+        Me.IPStyleComboBox.Location = New System.Drawing.Point(62, 17)
+        Me.IPStyleComboBox.Name = "IPStyleComboBox"
+        Me.IPStyleComboBox.Size = New System.Drawing.Size(229, 20)
+        Me.IPStyleComboBox.TabIndex = 44
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(5, 21)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(54, 12)
+        Me.Label4.TabIndex = 43
+        Me.Label4.Text = "IP 模式："
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'PortBox
+        '
+        Me.PortBox.ContextMenuStrip = Me.ContextMenuStrip1
+        Me.PortBox.DataBindings.Add(New System.Windows.Forms.Binding("Value", Global.ServerManager.My.MySettings.Default, "CreateServerDialog_PortBoxValue", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.PortBox.Location = New System.Drawing.Point(353, 16)
+        Me.PortBox.Maximum = New Decimal(New Integer() {65534, 0, 0, 0})
+        Me.PortBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.PortBox.Name = "PortBox"
+        Me.PortBox.Size = New System.Drawing.Size(120, 22)
+        Me.PortBox.TabIndex = 42
+        Me.PortBox.Value = Global.ServerManager.My.MySettings.Default.CreateServerDialog_PortBoxValue
         '
         'ContextMenuStrip1
         '
@@ -203,7 +257,7 @@ Partial Class ServerCreateDialog
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 26)
+        Me.Label2.Location = New System.Drawing.Point(297, 21)
         Me.Label2.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(53, 12)
@@ -272,9 +326,9 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 420.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 320.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(515, 454)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(515, 354)
         Me.TableLayoutPanel1.TabIndex = 2
         '
         'Panel1
@@ -282,7 +336,7 @@ Partial Class ServerCreateDialog
         Me.Panel1.AutoSize = True
         Me.Panel1.Controls.Add(Me.CreateButton)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 423)
+        Me.Panel1.Location = New System.Drawing.Point(3, 323)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(509, 29)
         Me.Panel1.TabIndex = 0
@@ -297,67 +351,11 @@ Partial Class ServerCreateDialog
         Me.CreateButton.Text = "建立"
         Me.CreateButton.UseVisualStyleBackColor = True
         '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(5, 53)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(54, 12)
-        Me.Label4.TabIndex = 43
-        Me.Label4.Text = "IP 模式："
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'IPStyleComboBox
-        '
-        Me.IPStyleComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.IPStyleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.IPStyleComboBox.FormattingEnabled = True
-        Me.IPStyleComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
-        Me.IPStyleComboBox.Location = New System.Drawing.Point(62, 49)
-        Me.IPStyleComboBox.Name = "IPStyleComboBox"
-        Me.IPStyleComboBox.Size = New System.Drawing.Size(411, 20)
-        Me.IPStyleComboBox.TabIndex = 44
-        '
-        'IPAddressComboBox
-        '
-        Me.IPAddressComboBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.IPAddressComboBox.FormattingEnabled = True
-        Me.IPAddressComboBox.Location = New System.Drawing.Point(62, 75)
-        Me.IPAddressComboBox.Name = "IPAddressComboBox"
-        Me.IPAddressComboBox.Size = New System.Drawing.Size(411, 20)
-        Me.IPAddressComboBox.TabIndex = 46
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(5, 79)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(54, 12)
-        Me.Label5.TabIndex = 45
-        Me.Label5.Text = "IP 位址："
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'PortBox
-        '
-        Me.PortBox.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.PortBox.DataBindings.Add(New System.Windows.Forms.Binding("Value", Global.ServerManager.My.MySettings.Default, "CreateServerDialog_PortBoxValue", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.PortBox.Location = New System.Drawing.Point(62, 21)
-        Me.PortBox.Maximum = New Decimal(New Integer() {65534, 0, 0, 0})
-        Me.PortBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.PortBox.Name = "PortBox"
-        Me.PortBox.Size = New System.Drawing.Size(120, 22)
-        Me.PortBox.TabIndex = 42
-        Me.PortBox.Value = Global.ServerManager.My.MySettings.Default.CreateServerDialog_PortBoxValue
-        '
         'ServerCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(515, 454)
+        Me.ClientSize = New System.Drawing.Size(515, 354)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -374,12 +372,12 @@ Partial Class ServerCreateDialog
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.PortBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
-        CType(Me.PortBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
