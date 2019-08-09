@@ -18,9 +18,11 @@ Public Class CharcoalEngine
         Bukkit_PluginMainPage
         Bukkit_PluginDownloadListPage
         CurseForge_PluginListPage
+        CurseForge_PluginSearchPage
         CurseForge_PluginMainPage
         CurseForge_PluginDownloadListPage
         CurseForge_ModListPage
+        CurseForge_ModSearchPage
         CurseForge_ModMainPage
         CurseForge_ModDownloadListPage
         Spigot_PluginListPage
@@ -31,6 +33,7 @@ Public Class CharcoalEngine
         FeedTheBeast_ModpackMainPage
         FeedTheBeast_ModpackDownloadListPage
         CurseForge_ModpackListPage
+        CurseForge_ModpackSearchPage
         CurseForge_ModpackMainPage
         CurseForge_ModpackDownloadListPage
     End Enum
@@ -126,14 +129,14 @@ Public Class CharcoalEngine
                                                                                   End If
                                                                                   AddHandler pluginItem.pluginIcon.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[2]/div[1]/div[1]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.Bukkit_PluginMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
                                                                                   pluginItem.pluginName.Text = nameNode.InnerText
                                                                                   pluginItem.pluginName.Cursor = Cursors.Hand
                                                                                   pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
                                                                                   AddHandler pluginItem.pluginName.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[2]/div[1]/div[1]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.Bukkit_PluginMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
                                                                                   pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[2]/div[4]/p[1]").InnerText
                                                                                   pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
@@ -371,6 +374,15 @@ Public Class CharcoalEngine
                                                                                       strip.Items.Add(label)
                                                                                   End If
                                                                               Next
+                                                                              strip.Items.Add(New ToolStripSeparator)
+                                                                              strip.Items.Add(New ToolStripLabel() With {.Text = "搜尋："})
+                                                                              Dim searchBox As New ToolStripTextBox
+                                                                              AddHandler searchBox.KeyDown, Sub(obj, args)
+                                                                                                                If args.KeyData = Keys.Enter AndAlso String.IsNullOrWhiteSpace(searchBox.Text) = False Then
+                                                                                                                    LoadPage("https://www.curseforge.com/minecraft/bukkit-plugins/search?search=" & searchBox.Text, RenderPageType.CurseForge_PluginSearchPage, parent)
+                                                                                                                End If
+                                                                                                            End Sub
+                                                                              strip.Items.Add(searchBox)
                                                                               For Each element In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[2]/div[1]/div[3]/div[1]/*")
                                                                                   Dim pluginItem As New PluginListItem()
                                                                                   pluginItem.Dock = DockStyle.Fill
@@ -386,20 +398,92 @@ Public Class CharcoalEngine
                                                                                   End If
                                                                                   AddHandler pluginItem.pluginIcon.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_PluginMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
-                                                                                  pluginItem.pluginName.Text = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                  pluginItem.pluginName.Text = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                   pluginItem.pluginName.Cursor = Cursors.Hand
                                                                                   pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
                                                                                   AddHandler pluginItem.pluginName.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_PluginMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
-                                                                                  pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim
+                                                                                  If element.SelectSingleNode("div[1]/div[2]/p[1]") IsNot Nothing Then
+                                                                                      pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim
+                                                                                  ElseIf element.SelectSingleNode("div[1]//p[1]") IsNot Nothing Then
+                                                                                      pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]//p[1]").InnerText.Trim
+                                                                                  End If
                                                                                   pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
                                                                                   layout.RowStyles.Add(New RowStyle(SizeType.Absolute, pluginItem.Height))
                                                                                   layout.Controls.Add(pluginItem, 0, layout.RowCount - 1)
                                                                               Next
+                                                                              parent.Controls.Add(layout)
+                                                                              RaiseEvent NavigationEnded(Me, New EventArgs)
+                                                                              RemoveHandler client.DownloadProgressChanged, e1
+                                                                              RemoveHandler client.DownloadStringCompleted, e2
+                                                                          End Sub)
+                    AddHandler client.DownloadStringCompleted, e2
+
+                    client.DownloadStringAsync(New Uri(url))
+                Case RenderPageType.CurseForge_PluginSearchPage
+                    pluginName = ""
+                    Dim layout As New TableLayoutPanel
+                    layout.Dock = DockStyle.Fill
+                    layout.AutoScroll = True
+                    layout.CellBorderStyle = TableLayoutPanelCellBorderStyle.InsetDouble
+                    Dim e1 As New Net.DownloadProgressChangedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadProgressChanged(sender, e)
+                                                                          End Sub)
+                    AddHandler client.DownloadProgressChanged, e1
+                    Dim e2 As New Net.DownloadStringCompletedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadCompleted(sender, e)
+                                                                              parser.LoadHtml(e.Result)
+                                                                              Dim strip As New ToolStrip
+                                                                              strip.Height = 27
+                                                                              layout.RowStyles.Add(New RowStyle(SizeType.Absolute, 27))
+                                                                              strip.Items.Add(New ToolStripLabel() With {.Text = "搜尋："})
+                                                                              Dim searchBox As New ToolStripTextBox With {.Text = url.Substring("https://www.curseforge.com/minecraft/bukkit-plugins/search?search=".Length)}
+                                                                              AddHandler searchBox.KeyDown, Sub(obj, args)
+                                                                                                                If args.KeyData = Keys.Enter AndAlso String.IsNullOrWhiteSpace(searchBox.Text) = False Then
+                                                                                                                    LoadPage("https://www.curseforge.com/minecraft/bukkit-plugins/search?search=" & searchBox.Text, RenderPageType.CurseForge_PluginSearchPage, parent)
+                                                                                                                End If
+                                                                                                            End Sub
+                                                                              strip.Items.Add(searchBox)
+                                                                              layout.Controls.Add(strip, 0, 0)
+                                                                              If parser.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/main[1]/div[1]/div[3]") IsNot Nothing Then
+                                                                                  For Each element In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/main[1]/div[1]/div[3]/ul[1]/div[1]/*")
+                                                                                      Dim pluginItem As New PluginListItem()
+                                                                                      pluginItem.Dock = DockStyle.Fill
+
+                                                                                      Dim iconNode As HtmlAgilityPack.HtmlNode = element.SelectSingleNode("div[1]/div[1]/div[1]/div[1]/a[1]/img[1]")
+
+                                                                                      Dim nameNode = element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]/h3[1]")
+                                                                                      pluginItem.pluginIcon.Cursor = Cursors.Hand
+                                                                                      If IsNothing(iconNode) = False Then
+                                                                                          pluginItem.pluginIcon.ImageLocation = iconNode.GetAttributeValue("src", "https://media.forgecdn.net/avatars/thumbnails/65/443/48/48/636162895990633284.png")
+                                                                                      Else
+                                                                                          pluginItem.pluginIcon.Image = My.Resources.bukkit
+                                                                                      End If
+                                                                                      AddHandler pluginItem.pluginIcon.Click, Sub()
+                                                                                                                                  LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_PluginMainPage, parent)
+                                                                                                                                  pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
+                                                                                                                              End Sub
+                                                                                      pluginItem.pluginName.Text = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
+                                                                                      pluginItem.pluginName.Cursor = Cursors.Hand
+                                                                                      pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
+                                                                                      AddHandler pluginItem.pluginName.Click, Sub()
+                                                                                                                                  LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_PluginMainPage, parent)
+                                                                                                                                  pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
+                                                                                                                              End Sub
+                                                                                      If element.SelectSingleNode("div[1]/div[2]/p[1]") IsNot Nothing Then
+                                                                                          pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim
+                                                                                      ElseIf element.SelectSingleNode("div[1]//p[1]") IsNot Nothing Then
+                                                                                          pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]//p[1]").InnerText.Trim
+                                                                                      End If
+                                                                                      pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
+                                                                                      layout.RowStyles.Add(New RowStyle(SizeType.Absolute, pluginItem.Height))
+                                                                                      layout.Controls.Add(pluginItem, 0, layout.RowCount - 1)
+                                                                                  Next
+                                                                              End If
                                                                               parent.Controls.Add(layout)
                                                                               RaiseEvent NavigationEnded(Me, New EventArgs)
                                                                               RemoveHandler client.DownloadProgressChanged, e1
@@ -629,6 +713,15 @@ Public Class CharcoalEngine
                                                                                       strip.Items.Add(label)
                                                                                   End If
                                                                               Next
+                                                                              strip.Items.Add(New ToolStripSeparator)
+                                                                              strip.Items.Add(New ToolStripLabel() With {.Text = "搜尋："})
+                                                                              Dim searchBox As New ToolStripTextBox
+                                                                              AddHandler searchBox.KeyDown, Sub(obj, args)
+                                                                                                                If args.KeyData = Keys.Enter AndAlso String.IsNullOrWhiteSpace(searchBox.Text) = False Then
+                                                                                                                    LoadPage("https://www.curseforge.com/minecraft/mc-mods/search?search=" & searchBox.Text, RenderPageType.CurseForge_ModSearchPage, parent)
+                                                                                                                End If
+                                                                                                            End Sub
+                                                                              strip.Items.Add(searchBox)
                                                                               For Each element In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[2]/div[1]/div[3]/div[1]/*")
                                                                                   Dim pluginItem As New PluginListItem()
                                                                                   pluginItem.Dock = DockStyle.Fill
@@ -644,20 +737,92 @@ Public Class CharcoalEngine
                                                                                   End If
                                                                                   AddHandler pluginItem.pluginIcon.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_ModMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
-                                                                                  pluginItem.pluginName.Text = nameNode.InnerText.Trim.Replace("&amp;", "&").Replace("&amp;", "&")
+                                                                                  pluginItem.pluginName.Text = System.Net.WebUtility.HtmlDecode(nameNode.InnerText).Replace("&amp;", "&")
                                                                                   pluginItem.pluginName.Cursor = Cursors.Hand
                                                                                   pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
                                                                                   AddHandler pluginItem.pluginName.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_ModMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
-                                                                                  pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim
+                                                                                  If element.SelectSingleNode("div[1]/div[2]/p[1]") IsNot Nothing Then
+                                                                                      pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim
+                                                                                  ElseIf element.SelectSingleNode("div[1]//p[1]") IsNot Nothing Then
+                                                                                      pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]//p[1]").InnerText.Trim
+                                                                                  End If
                                                                                   pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
                                                                                   layout.RowStyles.Add(New RowStyle(SizeType.Absolute, pluginItem.Height))
                                                                                   layout.Controls.Add(pluginItem, 0, layout.RowCount - 1)
                                                                               Next
+                                                                              parent.Controls.Add(layout)
+                                                                              RaiseEvent NavigationEnded(Me, New EventArgs)
+                                                                              RemoveHandler client.DownloadProgressChanged, e1
+                                                                              RemoveHandler client.DownloadStringCompleted, e2
+                                                                          End Sub)
+                    AddHandler client.DownloadStringCompleted, e2
+
+                    client.DownloadStringAsync(New Uri(url))
+                Case RenderPageType.CurseForge_ModSearchPage
+                    pluginName = ""
+                    Dim layout As New TableLayoutPanel
+                    layout.Dock = DockStyle.Fill
+                    layout.AutoScroll = True
+                    layout.CellBorderStyle = TableLayoutPanelCellBorderStyle.InsetDouble
+                    Dim e1 As New Net.DownloadProgressChangedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadProgressChanged(sender, e)
+                                                                          End Sub)
+                    AddHandler client.DownloadProgressChanged, e1
+                    Dim e2 As New Net.DownloadStringCompletedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadCompleted(sender, e)
+                                                                              parser.LoadHtml(e.Result)
+                                                                              Dim strip As New ToolStrip
+                                                                              strip.Height = 27
+                                                                              layout.RowStyles.Add(New RowStyle(SizeType.Absolute, 27))
+                                                                              strip.Items.Add(New ToolStripLabel() With {.Text = "搜尋："})
+                                                                              Dim searchBox As New ToolStripTextBox With {.Text = url.Substring("https://www.curseforge.com/minecraft/mc-mods/search?search=".Length)}
+                                                                              AddHandler searchBox.KeyDown, Sub(obj, args)
+                                                                                                                If args.KeyData = Keys.Enter AndAlso String.IsNullOrWhiteSpace(searchBox.Text) = False Then
+                                                                                                                    LoadPage("https://www.curseforge.com/minecraft/mc-mods/search?search=" & searchBox.Text, RenderPageType.CurseForge_ModSearchPage, parent)
+                                                                                                                End If
+                                                                                                            End Sub
+                                                                              strip.Items.Add(searchBox)
+                                                                              layout.Controls.Add(strip, 0, 0)
+                                                                              If parser.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/main[1]/div[1]/div[3]") IsNot Nothing Then
+                                                                                  For Each element In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/main[1]/div[1]/div[3]/ul[1]/div[1]/*")
+                                                                                      Dim pluginItem As New PluginListItem()
+                                                                                      pluginItem.Dock = DockStyle.Fill
+
+                                                                                      Dim iconNode As HtmlAgilityPack.HtmlNode = element.SelectSingleNode("div[1]/div[1]/div[1]/div[1]/a[1]/img[1]")
+
+                                                                                      Dim nameNode = element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]/h3[1]")
+                                                                                      pluginItem.pluginIcon.Cursor = Cursors.Hand
+                                                                                      If IsNothing(iconNode) = False Then
+                                                                                          pluginItem.pluginIcon.ImageLocation = iconNode.GetAttributeValue("src", "https://media.forgecdn.net/avatars/thumbnails/65/443/48/48/636162895990633284.png")
+                                                                                      Else
+                                                                                          pluginItem.pluginIcon.Image = My.Resources.bukkit
+                                                                                      End If
+                                                                                      AddHandler pluginItem.pluginIcon.Click, Sub()
+                                                                                                                                  LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_ModMainPage, parent)
+                                                                                                                                  pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
+                                                                                                                              End Sub
+                                                                                      pluginItem.pluginName.Text = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
+                                                                                      pluginItem.pluginName.Cursor = Cursors.Hand
+                                                                                      pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
+                                                                                      AddHandler pluginItem.pluginName.Click, Sub()
+                                                                                                                                  LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_ModMainPage, parent)
+                                                                                                                                  pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
+                                                                                                                              End Sub
+                                                                                      If element.SelectSingleNode("div[1]/div[2]/p[1]") IsNot Nothing Then
+                                                                                          pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim
+                                                                                      ElseIf element.SelectSingleNode("div[1]//p[1]") IsNot Nothing Then
+                                                                                          pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]//p[1]").InnerText.Trim
+                                                                                      End If
+                                                                                      pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
+                                                                                      layout.RowStyles.Add(New RowStyle(SizeType.Absolute, pluginItem.Height))
+                                                                                      layout.Controls.Add(pluginItem, 0, layout.RowCount - 1)
+                                                                                  Next
+                                                                              End If
                                                                               parent.Controls.Add(layout)
                                                                               RaiseEvent NavigationEnded(Me, New EventArgs)
                                                                               RemoveHandler client.DownloadProgressChanged, e1
@@ -848,6 +1013,7 @@ Public Class CharcoalEngine
                     AddHandler client.DownloadStringCompleted, e4
                     client.DownloadStringAsync(New Uri(url))
 #End Region
+#If Charcoal_Unsupported_1 = True Then
 #Region "nukkitx.com/resources/categories/nukkit-plugins"
                 Case RenderPageType.Nukkit_PluginListPage
                     pluginName = ""
@@ -939,14 +1105,14 @@ Public Class CharcoalEngine
                                                                                   End If
                                                                                   AddHandler pluginItem.pluginIcon.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), nameNode.GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.Nukkit_PluginMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
-                                                                                  pluginItem.pluginName.Text = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                  pluginItem.pluginName.Text = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                   pluginItem.pluginName.Cursor = Cursors.Hand
                                                                                   pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
                                                                                   AddHandler pluginItem.pluginName.Click, Sub()
                                                                                                                               LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), nameNode.GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.Nukkit_PluginMainPage, parent)
-                                                                                                                              pluginName = nameNode.InnerText.Trim.Replace("&amp;", "&")
+                                                                                                                              pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
                                                                                                                           End Sub
                                                                                   pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[2]/div[1]/div[2]").InnerText.Trim
                                                                                   pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
@@ -1225,6 +1391,7 @@ Public Class CharcoalEngine
                     AddHandler client.DownloadStringCompleted, e2
                     client.DownloadStringAsync(uri)
 #End Region
+#End If
 #Region "www.feed-the-beast.com/modpacks"
                 Case RenderPageType.FeedTheBeast_ModpackListPage
                     pluginName = ""
@@ -1478,6 +1645,15 @@ Public Class CharcoalEngine
                                                                                       End If
                                                                                   Next
                                                                               End If
+                                                                              strip.Items.Add(New ToolStripSeparator)
+                                                                              strip.Items.Add(New ToolStripLabel() With {.Text = "搜尋："})
+                                                                              Dim searchBox As New ToolStripTextBox
+                                                                              AddHandler searchBox.KeyDown, Sub(obj, args)
+                                                                                                                If args.KeyData = Keys.Enter AndAlso String.IsNullOrWhiteSpace(searchBox.Text) = False Then
+                                                                                                                    LoadPage("https://www.curseforge.com/minecraft/modpacks/search?search=" & searchBox.Text, RenderPageType.CurseForge_ModpackSearchPage, parent)
+                                                                                                                End If
+                                                                                                            End Sub
+                                                                              strip.Items.Add(searchBox)
                                                                               Dim nodeBody = parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[2]/div[1]/div[3]/div[1]/*")
                                                                               If nodeBody IsNot Nothing Then
                                                                                   For Each element In nodeBody
@@ -1504,7 +1680,79 @@ Public Class CharcoalEngine
                                                                                                                                   LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_ModpackMainPage, parent)
                                                                                                                                   pluginName = Net.WebUtility.HtmlDecode(nameNode.InnerText.Trim)
                                                                                                                               End Sub
-                                                                                      pluginItem.DescriptionLabel.Text = Net.WebUtility.HtmlDecode(element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim)
+                                                                                      If element.SelectSingleNode("div[1]/div[2]/p[1]") IsNot Nothing Then
+                                                                                          pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim
+                                                                                      ElseIf element.SelectSingleNode("div[1]//p[1]") IsNot Nothing Then
+                                                                                          pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]//p[1]").InnerText.Trim
+                                                                                      End If
+                                                                                      pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
+                                                                                      layout.RowStyles.Add(New RowStyle(SizeType.Absolute, pluginItem.Height))
+                                                                                      layout.Controls.Add(pluginItem, 0, layout.RowCount - 1)
+                                                                                  Next
+                                                                              End If
+                                                                              parent.Controls.Add(layout)
+                                                                              RaiseEvent NavigationEnded(Me, New EventArgs)
+                                                                              RemoveHandler client.DownloadProgressChanged, e1
+                                                                              RemoveHandler client.DownloadStringCompleted, e2
+                                                                          End Sub)
+                    AddHandler client.DownloadStringCompleted, e2
+
+                    client.DownloadStringAsync(New Uri(url))
+                Case RenderPageType.CurseForge_ModpackSearchPage
+                    pluginName = ""
+                    Dim layout As New TableLayoutPanel
+                    layout.Dock = DockStyle.Fill
+                    layout.AutoScroll = True
+                    layout.CellBorderStyle = TableLayoutPanelCellBorderStyle.InsetDouble
+                    Dim e1 As New Net.DownloadProgressChangedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadProgressChanged(sender, e)
+                                                                          End Sub)
+                    AddHandler client.DownloadProgressChanged, e1
+                    Dim e2 As New Net.DownloadStringCompletedEventHandler(Sub(sender, e)
+                                                                              RaiseEvent DownloadCompleted(sender, e)
+                                                                              parser.LoadHtml(e.Result)
+                                                                              Dim strip As New ToolStrip
+                                                                              strip.Height = 27
+                                                                              layout.RowStyles.Add(New RowStyle(SizeType.Absolute, 27))
+                                                                              strip.Items.Add(New ToolStripLabel() With {.Text = "搜尋："})
+                                                                              Dim searchBox As New ToolStripTextBox With {.Text = url.Substring("https://www.curseforge.com/minecraft/modpacks/search?search=".Length)}
+                                                                              AddHandler searchBox.KeyDown, Sub(obj, args)
+                                                                                                                If args.KeyData = Keys.Enter AndAlso String.IsNullOrWhiteSpace(searchBox.Text) = False Then
+                                                                                                                    LoadPage("https://www.curseforge.com/minecraft/modpacks/search?search=" & searchBox.Text, RenderPageType.CurseForge_ModpackSearchPage, parent)
+                                                                                                                End If
+                                                                                                            End Sub
+                                                                              strip.Items.Add(searchBox)
+                                                                              layout.Controls.Add(strip, 0, 0)
+                                                                              If parser.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/main[1]/div[1]/div[3]") IsNot Nothing Then
+                                                                                  For Each element In parser.DocumentNode.SelectNodes("/html[1]/body[1]/div[1]/main[1]/div[1]/div[3]/ul[1]/div[1]/*")
+                                                                                      Dim pluginItem As New PluginListItem()
+                                                                                      pluginItem.Dock = DockStyle.Fill
+
+                                                                                      Dim iconNode As HtmlAgilityPack.HtmlNode = element.SelectSingleNode("div[1]/div[1]/div[1]/div[1]/a[1]/img[1]")
+
+                                                                                      Dim nameNode = element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]/h3[1]")
+                                                                                      pluginItem.pluginIcon.Cursor = Cursors.Hand
+                                                                                      If IsNothing(iconNode) = False Then
+                                                                                          pluginItem.pluginIcon.ImageLocation = iconNode.GetAttributeValue("src", "https://media.forgecdn.net/avatars/thumbnails/65/443/48/48/636162895990633284.png")
+                                                                                      Else
+                                                                                          pluginItem.pluginIcon.Image = My.Resources.bukkit
+                                                                                      End If
+                                                                                      AddHandler pluginItem.pluginIcon.Click, Sub()
+                                                                                                                                  LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_ModpackMainPage, parent)
+                                                                                                                                  pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
+                                                                                                                              End Sub
+                                                                                      pluginItem.pluginName.Text = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
+                                                                                      pluginItem.pluginName.Cursor = Cursors.Hand
+                                                                                      pluginItem.pluginName.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 18, GraphicsUnit.Pixel)
+                                                                                      AddHandler pluginItem.pluginName.Click, Sub()
+                                                                                                                                  LoadPage(New Uri(New Uri("https://" & uri.DnsSafeHost), element.SelectSingleNode("div[1]/div[1]/div[2]/a[1]").GetAttributeValue("href", "")).AbsoluteUri, RenderPageType.CurseForge_ModpackMainPage, parent)
+                                                                                                                                  pluginName = System.Net.WebUtility.HtmlDecode(nameNode.InnerText)
+                                                                                                                              End Sub
+                                                                                      If element.SelectSingleNode("div[1]/div[2]/p[1]") IsNot Nothing Then
+                                                                                          pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]/div[2]/p[1]").InnerText.Trim
+                                                                                      ElseIf element.SelectSingleNode("div[1]//p[1]") IsNot Nothing Then
+                                                                                          pluginItem.DescriptionLabel.Text = element.SelectSingleNode("div[1]//p[1]").InnerText.Trim
+                                                                                      End If
                                                                                       pluginItem.DescriptionLabel.Font = New Font(New FontFamily(Drawing.Text.GenericFontFamilies.SansSerif), 13, GraphicsUnit.Pixel)
                                                                                       layout.RowStyles.Add(New RowStyle(SizeType.Absolute, pluginItem.Height))
                                                                                       layout.Controls.Add(pluginItem, 0, layout.RowCount - 1)
