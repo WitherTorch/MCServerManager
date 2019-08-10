@@ -295,46 +295,46 @@
     <Compile Include="Classes\Server\ServerTask.vb" />
     <Compile Include="Classes\Server\SpigotOptions.vb" />
     <Compile Include="Classes\Watchdog.vb" />
-    <Compile Include="GUI\BungeeCord\BungeeCordCreateDialog.Designer.vb">
-      <DependentUpon>BungeeCordCreateDialog.vb</DependentUpon>
+    <Compile Include="GUI\Intergrate Solution Server\SolutionCreateDialog.Designer.vb">
+      <DependentUpon>SolutionCreateDialog.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordCreateDialog.vb">
+    <Compile Include="GUI\Intergrate Solution Server\SolutionCreateDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordCreateHelper.Designer.vb">
-      <DependentUpon>BungeeCordCreateHelper.vb</DependentUpon>
+    <Compile Include="GUI\Intergrate Solution Server\SolutionCreateHelper.Designer.vb">
+      <DependentUpon>SolutionCreateHelper.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordCreateHelper.vb">
+    <Compile Include="GUI\Intergrate Solution Server\SolutionCreateHelper.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordServerChooseForm.Designer.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerChooseForm.Designer.vb">
       <DependentUpon>BungeeCordServerChooseForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordServerChooseForm.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerChooseForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordSetting.Designer.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordSetting.Designer.vb">
       <DependentUpon>BungeeCordSetting.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordSetting.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordSetting.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordServerStatus.Designer.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerStatus.Designer.vb">
       <DependentUpon>BungeeCordServerStatus.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordServerStatus.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerStatus.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordStatus.Designer.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordStatus.Designer.vb">
       <DependentUpon>BungeeCordStatus.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordStatus.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordStatus.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordConsole.Designer.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordConsole.Designer.vb">
       <DependentUpon>BungeeCordConsole.vb</DependentUpon>
     </Compile>
-    <Compile Include="GUI\BungeeCord\BungeeCordConsole.vb">
+    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordConsole.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\CMDForm.Designer.vb">
@@ -556,25 +556,25 @@
     <EmbeddedResource Include="Charcoal\PluginListItem.resx">
       <DependentUpon>PluginListItem.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\BungeeCord\BungeeCordCreateDialog.resx">
-      <DependentUpon>BungeeCordCreateDialog.vb</DependentUpon>
+    <EmbeddedResource Include="GUI\Intergrate Solution Server\SolutionCreateDialog.resx">
+      <DependentUpon>SolutionCreateDialog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\BungeeCord\BungeeCordCreateHelper.resx">
-      <DependentUpon>BungeeCordCreateHelper.vb</DependentUpon>
+    <EmbeddedResource Include="GUI\Intergrate Solution Server\SolutionCreateHelper.resx">
+      <DependentUpon>SolutionCreateHelper.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\BungeeCord\BungeeCordServerChooseForm.resx">
+    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerChooseForm.resx">
       <DependentUpon>BungeeCordServerChooseForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\BungeeCord\BungeeCordSetting.resx">
+    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordSetting.resx">
       <DependentUpon>BungeeCordSetting.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\BungeeCord\BungeeCordServerStatus.resx">
+    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerStatus.resx">
       <DependentUpon>BungeeCordServerStatus.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\BungeeCord\BungeeCordStatus.resx">
+    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordStatus.resx">
       <DependentUpon>BungeeCordStatus.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\BungeeCord\BungeeCordConsole.resx">
+    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordConsole.resx">
       <DependentUpon>BungeeCordConsole.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\CMDForm.resx">
@@ -717,6 +717,7 @@
     <None Include="Resources\bukkit.ico" />
     <None Include="Resources\bukkit.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PostBuildEvent>echo Making Merged Folder in $(OutDir)Merged\

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class BungeeCordCreateDialog
+Partial Class SolutionCreateDialog
     Inherits System.Windows.Forms.Form
 
     'Form 覆寫 Dispose 以清除元件清單。
@@ -92,7 +92,7 @@ Partial Class BungeeCordCreateDialog
         Me.Label10.Text = "BungeeCord 版本："
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'BungeeCordCreateDialog
+        'SolutionCreateDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -105,8 +105,8 @@ Partial Class BungeeCordCreateDialog
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "BungeeCordCreateDialog"
-        Me.Text = "建立方案"
+        Me.Name = "SolutionCreateDialog"
+        Me.Text = "建立整合方案"
         Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()

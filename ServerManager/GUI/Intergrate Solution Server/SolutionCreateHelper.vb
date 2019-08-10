@@ -1,6 +1,6 @@
 ﻿Imports System.Threading.Tasks
 
-Public Class BungeeCordCreateHelper
+Public Class SolutionCreateHelper
     Dim _host As BungeeCordHost
     Public Sub New(host As BungeeCordHost)
 

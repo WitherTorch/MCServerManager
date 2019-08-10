@@ -79,7 +79,7 @@ Partial Class Manager
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
-        Me.BungeeCordPage = New System.Windows.Forms.TabPage()
+        Me.ServerIntergratePage = New System.Windows.Forms.TabPage()
         Me.SolutionListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Button3 = New System.Windows.Forms.Button()
@@ -179,7 +179,7 @@ Partial Class Manager
         Me.BottomButtons.SuspendLayout()
         Me.PackServerListPage.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
-        Me.BungeeCordPage.SuspendLayout()
+        Me.ServerIntergratePage.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.ConnectionTabPage.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -219,7 +219,7 @@ Partial Class Manager
         Me.MainTabControl.Controls.Add(Me.MainPage)
         Me.MainTabControl.Controls.Add(Me.ServerListPage)
         Me.MainTabControl.Controls.Add(Me.PackServerListPage)
-        Me.MainTabControl.Controls.Add(Me.BungeeCordPage)
+        Me.MainTabControl.Controls.Add(Me.ServerIntergratePage)
         Me.MainTabControl.Controls.Add(Me.ConnectionTabPage)
         Me.MainTabControl.Controls.Add(Me.SettingTabPage)
         Me.MainTabControl.Controls.Add(Me.AboutPage)
@@ -709,17 +709,17 @@ Partial Class Manager
         Me.Button7.Text = "加入伺服器"
         Me.Button7.UseVisualStyleBackColor = True
         '
-        'BungeeCordPage
+        'ServerIntergratePage
         '
-        Me.BungeeCordPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.BungeeCordPage.Controls.Add(Me.SolutionListPanel)
-        Me.BungeeCordPage.Controls.Add(Me.TableLayoutPanel2)
-        Me.BungeeCordPage.Location = New System.Drawing.Point(4, 22)
-        Me.BungeeCordPage.Name = "BungeeCordPage"
-        Me.BungeeCordPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.BungeeCordPage.Size = New System.Drawing.Size(776, 489)
-        Me.BungeeCordPage.TabIndex = 2
-        Me.BungeeCordPage.Text = "BungeeCord 方案列表"
+        Me.ServerIntergratePage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.ServerIntergratePage.Controls.Add(Me.SolutionListPanel)
+        Me.ServerIntergratePage.Controls.Add(Me.TableLayoutPanel2)
+        Me.ServerIntergratePage.Location = New System.Drawing.Point(4, 22)
+        Me.ServerIntergratePage.Name = "ServerIntergratePage"
+        Me.ServerIntergratePage.Padding = New System.Windows.Forms.Padding(3)
+        Me.ServerIntergratePage.Size = New System.Drawing.Size(776, 489)
+        Me.ServerIntergratePage.TabIndex = 2
+        Me.ServerIntergratePage.Text = "伺服器整合方案列表"
         '
         'SolutionListPanel
         '
@@ -758,7 +758,7 @@ Partial Class Manager
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(748, 28)
         Me.Button3.TabIndex = 3
-        Me.Button3.Text = "建立方案"
+        Me.Button3.Text = "建立整合方案"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'ConnectionTabPage
@@ -1733,8 +1733,8 @@ Partial Class Manager
         Me.PackServerListPage.ResumeLayout(False)
         Me.PackServerListPage.PerformLayout()
         Me.TableLayoutPanel5.ResumeLayout(False)
-        Me.BungeeCordPage.ResumeLayout(False)
-        Me.BungeeCordPage.PerformLayout()
+        Me.ServerIntergratePage.ResumeLayout(False)
+        Me.ServerIntergratePage.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.ConnectionTabPage.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
@@ -1790,7 +1790,7 @@ Partial Class Manager
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents MainPanel As TableLayoutPanel
-    Friend WithEvents BungeeCordPage As TabPage
+    Friend WithEvents ServerIntergratePage As TabPage
     Friend WithEvents SolutionListPanel As TableLayoutPanel
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents Button3 As Button

@@ -1,4 +1,4 @@
-﻿Public Class BungeeCordCreateDialog
+﻿Public Class SolutionCreateDialog
     Private Sub SolutionDirBrowseBtn_Click(sender As Object, e As EventArgs) Handles SolutionDirBrowseBtn.Click
         Static dir As New FolderBrowserDialog
         dir = New FolderBrowserDialog
@@ -19,7 +19,7 @@
         If SolutionDirBox.Text.Trim <> "" Then
             Dim _host As BungeeCordHost = BungeeCordHost.GetEmptyBungeeCordHost(SolutionDirBox.Text)
             _host.SetVersion(BungeeCordUpdater.GetLatestVersionNumber)
-            Dim u As New BungeeCordCreateHelper(_host)
+            Dim u As New SolutionCreateHelper(_host)
             u.ShowDialog(Owner)
             Close()
         End If
