@@ -25,6 +25,7 @@ Public Class ManagerUpdater
                     If checkVersions.ContainsKey("Master") Then
                         latestVersion = checkVersions("Master")
                     ElseIf checkVersions.ContainsKey("Stable") Then
+                        channel = "Stable"
                         latestVersion = checkVersions("Stable")
                     Else
                         Return False
