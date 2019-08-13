@@ -10,96 +10,142 @@ Public Class ManagerUpdater
             Dim client As New Net.WebClient()
             Dim checkVerStriing As String = client.DownloadString(UpdateTextURL)
             Dim unstableRegex As New Text.RegularExpressions.Regex("[0-9]{1,].[0-9]{1,}(.[0-9]{1,}){0,1} (Alpha|Beta) [0-9]{1,}([a-z]{1})")
+            Dim checkVersions As New Dictionary(Of String, String)
+            For Each verString As String In checkVerStriing.Split(vbLf)
+                verString = verString.TrimStart(vbLf)
+                verString = verString.TrimStart(vbCr)
+                If verString.Contains("=") Then
+                    Dim splitString As String() = verString.Split(New Char() {"="}, 2)
+                    checkVersions.Add(splitString(0), splitString(1))
+                End If
+            Next
             Select Case channel
                 Case "Master"
-                    For Each verString As String In checkVerStriing.Split(vbLf)
-                        verString = verString.TrimStart(vbLf)
-                        If verString.StartsWith(channel & "=") Then
-                            verString = verString.Substring(channel.Length + 1)
-                            If verString = SERVER_MANAGER_VER Then
-                                Return False
-                            Else
-                                Dim currentVersionStrings As String() = SERVER_MANAGER_VER.Split(" ")
-                                Dim latestVersionStrings As String() = verString.Split(" ")
-                                For i As Integer = 0 To currentVersionStrings.Length - 1
-                                    Select Case i
-                                        Case 0
-                                            If New Version(currentVersionStrings(0)) < New Version(latestVersionStrings(i)) Then
+                    Dim latestVersion As String
+                    If checkVersions.ContainsKey("Master") Then
+                        latestVersion = checkVersions("Master")
+                    ElseIf checkVersions.ContainsKey("Stable") Then
+                        latestVersion = checkVersions("Stable")
+                    Else
+                        Return False
+                    End If
+                    If latestVersion.Contains(" ") Then ' Check if the latest version is a unstable version
+                        If SERVER_MANAGER_VER.Contains(" ") Then
+                            Dim CurrentVersionSplit As String() = SERVER_MANAGER_VER.Split(" ")
+                            Dim ItemCounter As Integer = 0
+                            For Each versionItem As String In latestVersion.Split(" ")
+                                versionItem = versionItem.Trim(" ")
+                                Select Case ItemCounter
+                                    Case 0 ' Compare main version number
+                                        Dim currentVersion1 As Version = Version.Parse(CurrentVersionSplit(ItemCounter).Trim(" "))
+                                        Dim latestVersion1 As Version = Version.Parse(versionItem)
+                                        If currentVersion1 < latestVersion1 Then
+                                            Return True
+                                        ElseIf currentVersion1 > latestVersion1 Then
+                                            Return False
+                                        Else
+                                            ItemCounter += 1
+                                            Continue For ' Check second item
+                                        End If
+                                    Case 1 ' Compare second version number
+                                        If CurrentVersionSplit.Length > ItemCounter Then
+                                            Dim currentVersion2 As Integer = IIf(CurrentVersionSplit(ItemCounter).Trim(" ") = "Alpha", 1, IIf(CurrentVersionSplit(ItemCounter).Trim(" ") = "Beta", 2, 0))
+                                            Dim latestVersion2 As Integer = IIf(versionItem = "Alpha", 1, IIf(versionItem = "Beta", 2, 0))
+                                            If currentVersion2 < latestVersion2 Then
                                                 Return True
-                                            ElseIf New Version(currentVersionStrings(0)) = New Version(latestVersionStrings(i)) AndAlso currentVersionStrings.Length > latestVersionStrings.Length Then
-                                                Return True
+                                            ElseIf currentVersion2 > latestVersion2 Then
+                                                Return False
+                                            Else
+                                                ItemCounter += 1
+                                                Continue For ' Check third item
                                             End If
-                                        Case 1
-                                            If currentVersionStrings(i) <> latestVersionStrings(i) Then
-                                                If currentVersionStrings(i) = "Alpha" AndAlso latestVersionStrings(i) = "Beta" Then
+                                        Else
+                                            Return False
+                                        End If
+                                    Case 2 ' Compare thid version number
+                                        If CurrentVersionSplit.Length > ItemCounter Then
+                                            If IsNumeric(latestVersion) = False Then
+                                                Dim currentVersion3 As Single = CInt(CurrentVersionSplit(ItemCounter).Trim(" ").Substring(0, CurrentVersionSplit(ItemCounter).Trim(" ").Length - 1)) + (Asc(CurrentVersionSplit(ItemCounter).Trim(" ").Last) - Asc("a") + 1) / 100
+                                                Dim latestVersion3 As Single = CInt(versionItem.Substring(0, versionItem.Length - 1)) + (Asc(versionItem.Last) - Asc("a") + 1) / 100
+                                                If currentVersion3 < latestVersion3 Then
                                                     Return True
+                                                ElseIf currentVersion3 > latestVersion3 Then
+                                                    Return False
                                                 Else
                                                     Return False
                                                 End If
                                             End If
-                                        Case 2
-                                            Dim currentLastNumber As String = currentVersionStrings(i)
-                                            Dim latestLastNumber As String = latestVersionStrings(i)
-                                            Dim numberSideRegex As New Text.RegularExpressions.Regex("[0-9]{1,}")
-                                            If numberSideRegex.Match(currentLastNumber).Value > numberSideRegex.Match(latestLastNumber).Value Then
-                                                Return False
-                                            ElseIf numberSideRegex.Match(currentLastNumber).Value < numberSideRegex.Match(latestLastNumber).Value Then
-                                                Return True
-                                            Else
-                                                Dim subNumberRegex As New Text.RegularExpressions.Regex("[a-z]{1,}")
-                                                If subNumberRegex.IsMatch(currentLastNumber) = False Then
-                                                    If subNumberRegex.IsMatch(latestLastNumber) Then
-                                                        Return True
-                                                    Else
-                                                        Return False
-                                                    End If
-                                                Else
-                                                    If subNumberRegex.IsMatch(latestLastNumber) Then
-                                                        Return Asc(subNumberRegex.Match(currentLastNumber).Value) < Asc(subNumberRegex.Match(latestLastNumber).Value)
-                                                    Else
-                                                        Return False
-                                                    End If
-                                                End If
-                                            End If
-                                    End Select
-                                Next
-                            End If
-                        End If
-                    Next
-                    channel = "Stable"
-                    For Each verString As String In checkVerStriing.Split(vbNewLine)
-                        verString = verString.TrimStart(vbLf)
-                        If verString.StartsWith(channel & "=") Then
-                            Dim curVersionStrings As String() = SERVER_MANAGER_VER.Split(" ")
-                            Dim latVersionStrings As String = verString
-                            If New Version(curVersionStrings(0)) < New Version(latVersionStrings) Then
+                                        End If
+                                    Case Else ' Wait,How do you go here?
+                                        Return False
+                                End Select
+                            Next
+                        Else
+                            Dim currentVersion As Version = Version.Parse(SERVER_MANAGER_VER.Trim)
+                            Dim latestVersion1 As Version = Version.Parse(latestVersion.Split(" ")(0).Trim)
+                            If currentVersion < latestVersion1 Then
                                 Return True
-                            ElseIf New Version(curVersionStrings(0)) = New Version(latVersionStrings) AndAlso curVersionStrings.Length > 1 Then
-                                Return True
+                            ElseIf currentVersion > latestVersion1 Then
+                                Return False
                             Else
                                 Return False
                             End If
                         End If
-                    Next
-                    Return False
+                    Else
+                        If SERVER_MANAGER_VER.Contains(" ") Then
+                            Dim currentVersion As Version = Version.Parse(SERVER_MANAGER_VER.Split(" ")(0).Trim)
+                            Dim latestVersion1 As Version = Version.Parse(latestVersion.Trim)
+                            If currentVersion < latestVersion1 Then
+                                Return True
+                            ElseIf currentVersion > latestVersion1 Then
+                                Return False
+                            Else
+                                Return True ' First item is same = this is a stable, stable > unstable
+                            End If
+                        Else
+                            Dim currentVersion As Version = Version.Parse(SERVER_MANAGER_VER.Trim)
+                            Dim latestVersion1 As Version = Version.Parse(latestVersion.Trim)
+                            If currentVersion < latestVersion1 Then
+                                Return True
+                            ElseIf currentVersion > latestVersion1 Then
+                                Return False
+                            Else
+                                Return False
+                            End If
+                        End If
+                    End If
+                    Return False ' Default Choose
                 Case "Stable"
-                    For Each verString As String In checkVerStriing.Split(vbNewLine)
-                        verString = verString.TrimStart(vbLf)
-                        If verString.StartsWith(channel & "=") Then
-                            Dim curVersionStrings As String() = SERVER_MANAGER_VER.Split(" ")
-                            Dim latVersionStrings As String = verString
-                            If New Version(curVersionStrings(0)) < New Version(latVersionStrings) Then
-                                Return True
-                            ElseIf New Version(curVersionStrings(0)) = New Version(latVersionStrings) AndAlso curVersionStrings.Length > 1 Then
-                                Return True
-                            Else
-                                Return False
-                            End If
+                    Dim latestVersion As String
+                    If checkVersions.ContainsKey("Stable") Then
+                        latestVersion = checkVersions("Stable")
+                    Else
+                        Return False
+                    End If
+                    If SERVER_MANAGER_VER.Contains(" ") Then
+                        Dim currentVersion As Version = Version.Parse(SERVER_MANAGER_VER.Split(" ")(0).Trim)
+                        Dim latestVersion1 As Version = Version.Parse(latestVersion.Trim)
+                        If currentVersion < latestVersion1 Then
+                            Return True
+                        ElseIf currentVersion > latestVersion1 Then
+                            Return False
+                        Else
+                            Return True ' First item is same = this is a stable, stable > unstable
                         End If
-                    Next
-                    Return False
+                    Else
+                        Dim currentVersion As Version = Version.Parse(SERVER_MANAGER_VER.Trim)
+                        Dim latestVersion1 As Version = Version.Parse(latestVersion.Trim)
+                        If currentVersion < latestVersion1 Then
+                            Return True
+                        ElseIf currentVersion > latestVersion1 Then
+                            Return False
+                        Else
+                            Return False
+                        End If
+                    End If
+                    Return False ' Default Choose
                 Case Else
-                    Return False
+                    Return False ' Default Choose
             End Select
         Catch ex As Exception
             Return False
