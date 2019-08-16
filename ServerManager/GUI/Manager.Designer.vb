@@ -54,6 +54,7 @@ Partial Class Manager
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
+        Me.PocketMineLoadingLabel = New System.Windows.Forms.Label()
         Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
         Me.KettleLoadingLabel = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
@@ -141,6 +142,11 @@ Partial Class Manager
         Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.PHPBrowseButton = New System.Windows.Forms.Button()
+        Me.PHPPathBox = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
         Me.GitGroupBox = New System.Windows.Forms.GroupBox()
         Me.GitBashBrowseButton = New System.Windows.Forms.Button()
         Me.GitBashPathBox = New System.Windows.Forms.TextBox()
@@ -204,6 +210,7 @@ Partial Class Manager
         CType(Me.ServerMemoryMinBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        Me.GroupBox10.SuspendLayout()
         Me.GitGroupBox.SuspendLayout()
         Me.AboutPage.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
@@ -397,7 +404,7 @@ Partial Class Manager
         Me.GroupBox7.Controls.Add(Me.VListLoadingBox)
         Me.GroupBox7.Location = New System.Drawing.Point(3, 119)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(764, 256)
+        Me.GroupBox7.Size = New System.Drawing.Size(764, 226)
         Me.GroupBox7.TabIndex = 32
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "列表載入進度"
@@ -407,6 +414,7 @@ Partial Class Manager
         Me.VListLoadingBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.VListLoadingBox.BackColor = System.Drawing.Color.Transparent
+        Me.VListLoadingBox.Controls.Add(Me.PocketMineLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.ContigoLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.KettleLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.Label17)
@@ -424,10 +432,20 @@ Partial Class Manager
         Me.VListLoadingBox.Controls.Add(Me.VanillaLoadingLabel)
         Me.VListLoadingBox.Location = New System.Drawing.Point(6, 21)
         Me.VListLoadingBox.Name = "VListLoadingBox"
-        Me.VListLoadingBox.Size = New System.Drawing.Size(751, 214)
+        Me.VListLoadingBox.Size = New System.Drawing.Size(751, 193)
         Me.VListLoadingBox.TabIndex = 30
         Me.VListLoadingBox.TabStop = False
         Me.VListLoadingBox.Text = "伺服器軟體"
+        '
+        'PocketMineLoadingLabel
+        '
+        Me.PocketMineLoadingLabel.Location = New System.Drawing.Point(410, 41)
+        Me.PocketMineLoadingLabel.Name = "PocketMineLoadingLabel"
+        Me.PocketMineLoadingLabel.Size = New System.Drawing.Size(197, 23)
+        Me.PocketMineLoadingLabel.TabIndex = 15
+        Me.PocketMineLoadingLabel.Text = "PocketMine-MP："
+        Me.PocketMineLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.PocketMineLoadingLabel, "用PHP 撰寫而成，適用於基岩版的伺服器軟體，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "可以使用插件來擴展伺服器彈性。")
         '
         'ContigoLoadingLabel
         '
@@ -501,7 +519,7 @@ Partial Class Manager
         '
         'VanillaBedrockLoadingLabel
         '
-        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(6, 156)
+        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(410, 18)
         Me.VanillaBedrockLoadingLabel.Name = "VanillaBedrockLoadingLabel"
         Me.VanillaBedrockLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.VanillaBedrockLoadingLabel.TabIndex = 7
@@ -522,7 +540,7 @@ Partial Class Manager
         '
         'NukkitLoadingLabel
         '
-        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(207, 156)
+        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(410, 64)
         Me.NukkitLoadingLabel.Name = "NukkitLoadingLabel"
         Me.NukkitLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.NukkitLoadingLabel.TabIndex = 5
@@ -532,7 +550,7 @@ Partial Class Manager
         '
         'VersionListReloadButton
         '
-        Me.VersionListReloadButton.Location = New System.Drawing.Point(8, 182)
+        Me.VersionListReloadButton.Location = New System.Drawing.Point(6, 159)
         Me.VersionListReloadButton.Name = "VersionListReloadButton"
         Me.VersionListReloadButton.Size = New System.Drawing.Size(195, 23)
         Me.VersionListReloadButton.TabIndex = 4
@@ -1406,6 +1424,7 @@ Partial Class Manager
         '
         'TabPage3
         '
+        Me.TabPage3.Controls.Add(Me.GroupBox10)
         Me.TabPage3.Controls.Add(Me.GitGroupBox)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
@@ -1414,6 +1433,62 @@ Partial Class Manager
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "外部工具"
         Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'GroupBox10
+        '
+        Me.GroupBox10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox10.Controls.Add(Me.PHPBrowseButton)
+        Me.GroupBox10.Controls.Add(Me.PHPPathBox)
+        Me.GroupBox10.Controls.Add(Me.Label27)
+        Me.GroupBox10.Controls.Add(Me.Label28)
+        Me.GroupBox10.Location = New System.Drawing.Point(6, 80)
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.Size = New System.Drawing.Size(750, 68)
+        Me.GroupBox10.TabIndex = 4
+        Me.GroupBox10.TabStop = False
+        Me.GroupBox10.Text = "PHP"
+        '
+        'PHPBrowseButton
+        '
+        Me.PHPBrowseButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PHPBrowseButton.Font = New System.Drawing.Font("新細明體", 11.0!)
+        Me.PHPBrowseButton.Location = New System.Drawing.Point(717, 37)
+        Me.PHPBrowseButton.Name = "PHPBrowseButton"
+        Me.PHPBrowseButton.Size = New System.Drawing.Size(27, 22)
+        Me.PHPBrowseButton.TabIndex = 3
+        Me.PHPBrowseButton.Text = "..."
+        Me.PHPBrowseButton.UseVisualStyleBackColor = True
+        '
+        'PHPPathBox
+        '
+        Me.PHPPathBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PHPPathBox.Location = New System.Drawing.Point(47, 37)
+        Me.PHPPathBox.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
+        Me.PHPPathBox.Name = "PHPPathBox"
+        Me.PHPPathBox.Size = New System.Drawing.Size(664, 22)
+        Me.PHPPathBox.TabIndex = 2
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(6, 42)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(3, 0, 0, 0)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(41, 12)
+        Me.Label27.TabIndex = 1
+        Me.Label27.Text = "路徑："
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(6, 18)
+        Me.Label28.Margin = New System.Windows.Forms.Padding(3, 0, 3, 4)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(218, 12)
+        Me.Label28.TabIndex = 0
+        Me.Label28.Text = "運行 PocketMine-MP 伺服器所需的軟體。"
         '
         'GitGroupBox
         '
@@ -1768,6 +1843,8 @@ Partial Class Manager
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
         Me.GitGroupBox.ResumeLayout(False)
         Me.GitGroupBox.PerformLayout()
         Me.AboutPage.ResumeLayout(False)
@@ -1912,4 +1989,10 @@ Partial Class Manager
     Friend WithEvents Label25 As Label
     Friend WithEvents ModpackServerMemoryMinBox As NumericUpDown
     Friend WithEvents Label26 As Label
+    Friend WithEvents GroupBox10 As GroupBox
+    Friend WithEvents PHPBrowseButton As Button
+    Friend WithEvents PHPPathBox As TextBox
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label28 As Label
+    Friend WithEvents PocketMineLoadingLabel As Label
 End Class

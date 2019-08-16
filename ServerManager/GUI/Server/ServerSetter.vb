@@ -74,6 +74,13 @@ Public Class ServerSetter
                                                                 AdvancedPropertyGrid.SelectedObject = serverOptions
                                                                 GroupBox1.Enabled = False
                                                             End Sub)
+                                            Case Server.EServerVersionType.PocketMine
+                                                serverOptions = New VanillaBedrockServerOptions
+                                                serverOptions.InputOption(server.ServerOptions)
+                                                BeginInvoke(Sub()
+                                                                AdvancedPropertyGrid.SelectedObject = serverOptions
+                                                                GroupBox1.Enabled = False
+                                                            End Sub)
                                         End Select
                                 End Select
                             End Sub))

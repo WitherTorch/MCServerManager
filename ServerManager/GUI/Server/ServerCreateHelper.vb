@@ -478,6 +478,8 @@ Public Class ServerCreateHelper
                 Dim branchID As String = New Regex("[0-9a-f]{7}", RegexOptions.IgnoreCase).Match(KettleVersionDict(server.ServerVersion).Item2).Value
                 server.SetVersion(server.ServerVersion, branchID)
                 client.DownloadFileAsync(New Uri(KettleVersionDict(server.ServerVersion).Item1), IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), KettleVersionDict(server.ServerVersion).Item2))
+            Case Server.EServerVersionType.PocketMine
+                DownloadFile(PocketMineVersionDict(server.ServerVersion), IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "PocketMine-MP.phar"), Server.EServerVersionType.PocketMine, server.ServerVersion)
         End Select
     End Sub
 

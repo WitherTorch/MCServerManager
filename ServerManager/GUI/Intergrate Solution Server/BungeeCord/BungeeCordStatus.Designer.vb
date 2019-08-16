@@ -96,7 +96,7 @@ Partial Class BungeeCordStatus
         Me.RunButton.TabIndex = 3
         Me.RunButton.TabStop = False
         Me.RunButton.Text = ""
-        Me.ToolTip1.SetToolTip(Me.RunButton, "啟動伺服器")
+        Me.ToolTip1.SetToolTip(Me.RunButton, "啟動整合方案")
         Me.RunButton.UseVisualStyleBackColor = False
         '
         'SettingButton
@@ -113,7 +113,7 @@ Partial Class BungeeCordStatus
         Me.SettingButton.Name = "SettingButton"
         Me.SettingButton.Size = New System.Drawing.Size(34, 34)
         Me.SettingButton.TabIndex = 4
-        Me.ToolTip1.SetToolTip(Me.SettingButton, "設定伺服器")
+        Me.ToolTip1.SetToolTip(Me.SettingButton, "設定整合方案")
         Me.SettingButton.UseVisualStyleBackColor = False
         '
         'CloseButton

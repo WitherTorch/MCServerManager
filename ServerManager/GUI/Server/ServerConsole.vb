@@ -450,6 +450,8 @@ Public Class ServerConsole
                             Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M " & JavaArguments & " -jar " & """" & IO.Path.Combine(Server.ServerPath, "nukkit-" & Server.Server2ndVersion & ".jar") & """", Server.ServerPath)
                         Case Server.EServerVersionType.VanillaBedrock
                             Run("""" & IO.Path.Combine(Server.ServerPath, "bedrock_server.exe") & """", "", Server.ServerPath, True, False)
+                        Case Server.EServerVersionType.PocketMine
+                            Run(PHPPath, """" & IO.Path.Combine(Server.ServerPath, "PocketMine-MP.phar") & """", Server.ServerPath, True, True)
                     End Select
                 Case Server.EServerType.Custom
                     Select Case Server.ServerVersionType
@@ -804,7 +806,7 @@ Public Class ServerConsole
             If args = "" Then
                 processInfo = New ProcessStartInfo(program)
             Else
-                If UTF8Encoding Then args = "-Dfile.encoding=UTF-8 " & args
+                If UTF8Encoding AndAlso Server.ServerVersionType <> Server.EServerVersionType.PocketMine Then args = "-Dfile.encoding=UTF-8 " & args
                 ' processInfo = New ProcessStartInfo("cmd.exe", "/c chcp 65001 && " & """" & program & """ " & args)
                 processInfo = New ProcessStartInfo(program, args)
             End If

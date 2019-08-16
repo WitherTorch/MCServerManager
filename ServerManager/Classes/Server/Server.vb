@@ -77,6 +77,7 @@ Public NotInheritable Class Server
         SpongeVanilla
         VanillaBedrock
         Nukkit
+        PocketMine
     End Enum
     Friend Shared Function CreateServer() As Server
         Return New Server
@@ -139,6 +140,9 @@ Public NotInheritable Class Server
                                             Case "kettle"
                                                 server._ServerVersionType = EServerVersionType.Kettle
                                                 server._ServerType = EServerType.Java
+                                            Case "pocketmine"
+                                                server._ServerVersionType = EServerVersionType.PocketMine
+                                                server._ServerType = EServerType.Bedrock
                                             Case "custom"
                                                 server._ServerVersionType = EServerVersionType.Custom
                                                 server._ServerType = EServerType.Custom

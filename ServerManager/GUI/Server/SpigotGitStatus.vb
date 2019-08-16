@@ -176,6 +176,7 @@
                                                      RunButton.Image = My.Resources.Run32Spigot
                                                      RunButton2.Image = My.Resources.Run32_Bukkit
                                                  End If
+                                                 CheckRequirement()
                                                  SetVersionLabel()
                                                  Select Case Server.ServerType
                                                      Case Server.EServerType.Java
@@ -197,5 +198,22 @@
 
                                              End Sub))
     End Sub
+    Friend Overrides Sub CheckRequirement()
+        BeginInvokeIfRequired(Me, Sub()
+                                      If GlobalModule.Manager.HasJava Then
+                                          RunButton.Enabled = True
+                                          RunButton2.Enabled = True
+                                      Else
+                                          RunButton.Enabled = False
+                                          RunButton2.Enabled = False
+                                          ToolTip1.SetToolTip(RunButton, "需要 Java 來運行這個伺服器")
+                                          ToolTip1.SetToolTip(RunButton2, "需要 Java 來運行這個伺服器")
+                                      End If
+                                  End Sub)
+    End Sub
 
+    Private Sub SpigotGitStatus_Load(sender As Object, e As EventArgs) Handles Me.Load
+        AddHandler GlobalModule.Manager.CheckRequirement, AddressOf CheckRequirement
+        CheckRequirement()
+    End Sub
 End Class

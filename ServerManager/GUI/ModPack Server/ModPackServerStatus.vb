@@ -82,6 +82,7 @@ Public Class ModPackServerStatus
                                                      ToolTip1.SetToolTip(RunButton, "啟動伺服器")
                                                      RunButton.Image = My.Resources.Run32
                                                  End If
+                                                 CheckRequirement()
                                                  SetVersionLabel()
                                                  Update()
                                              End Sub))
@@ -179,4 +180,19 @@ Public Class ModPackServerStatus
             Process.Start(Server.ServerPath)
         End If
     End Sub
+    Protected Overridable Sub ServerStatus_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If isOverrides = False Then AddHandler GlobalModule.Manager.CheckRequirement, AddressOf CheckRequirement
+        CheckRequirement()
+    End Sub
+    Protected Overridable Sub CheckRequirement()
+        BeginInvokeIfRequired(Me, Sub()
+                                      If GlobalModule.Manager.HasJava Then
+                                          RunButton.Enabled = True
+                                      Else
+                                          RunButton.Enabled = False
+                                          ToolTip1.SetToolTip(RunButton, "需要 Java 來運行這個伺服器")
+                                      End If
+                                  End Sub)
+    End Sub
+
 End Class

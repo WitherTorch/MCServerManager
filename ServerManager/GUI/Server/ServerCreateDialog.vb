@@ -167,6 +167,20 @@ Public Class ServerCreateDialog
                         VersionBox.Enabled = False
                     End If
                 Case 13
+                    If IsUnixLikeSystem Then
+                        server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
+                        VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
+                    Else
+                        If String.IsNullOrEmpty(PHPPath) = False AndAlso IO.File.Exists(PHPPath) Then
+                            server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
+                            VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
+                        Else
+                            MsgBox("尚未指定PHP的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
+                            VersionTypeBox.SelectedIndex = _typeSelectedIndex
+                            Exit Sub
+                        End If
+                    End If
+                Case 14
                     If Environment.OSVersion.Version.Major < 10 Then
                         server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
                         VersionBox.Items.Add("(無)")
@@ -178,7 +192,7 @@ Public Class ServerCreateDialog
                         VersionBox.SelectedIndex = 0
                         VersionBox.Enabled = False
                     End If
-                Case 14
+                Case 15
                     server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
                     VersionBox.Items.Add("(無)")
                     VersionBox.SelectedIndex = 0
@@ -252,9 +266,13 @@ Public Class ServerCreateDialog
     .Group = "基岩版",
     .Value = 12,
     .Display = "原版"
-}, New With {
+ }, New With {
     .Group = "基岩版",
     .Value = 13,
+    .Display = "PocketMine-MP"
+}, New With {
+    .Group = "基岩版",
+    .Value = 14,
     .Display = "NukkitX"
 }, New With {
     .Group = "其他",
@@ -293,14 +311,25 @@ Public Class ServerCreateDialog
                                     serverOptions = New JavaServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
                                 Case Server.EServerType.Bedrock
-                                    serverOptions = New NukkitServerOptions
-                                    serverOptions.InputOption(server.ServerOptions)
+                                    Select Case server.ServerVersionType
+                                        Case Server.EServerVersionType.Nukkit
+                                            serverOptions = New NukkitServerOptions
+                                            serverOptions.InputOption(server.ServerOptions)
+                                        Case Server.EServerVersionType.PocketMine
+                                            serverOptions = New PocketMineServerOptions
+                                            serverOptions.InputOption(server.ServerOptions)
+                                        Case Server.EServerVersionType.VanillaBedrock
+                                            serverOptions = New VanillaBedrockServerOptions
+                                            serverOptions.InputOption(server.ServerOptions)
+                                    End Select
                                 Case Server.EServerType.Custom
                                     serverOptions = New JavaServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
                             End Select
                         End If
-                        server.ServerOptions = serverOptions.OutputOption
+                        If serverOptions IsNot Nothing Then
+                            server.ServerOptions = serverOptions.OutputOption
+                        End If
                         Select Case ipType
                             Case ServerIPType.Float
                                 Select Case server.ServerType
@@ -364,7 +393,19 @@ Public Class ServerCreateDialog
                         serverOptions.InputOption(server.ServerOptions)
                         AdvancedPropertyGrid.SelectedObject = serverOptions
                     Case Server.EServerType.Bedrock
-                        serverOptions = New NukkitServerOptions
+                        Select Case server.ServerVersionType
+                            Case Server.EServerVersionType.Nukkit
+                                serverOptions = New NukkitServerOptions
+                                serverOptions.InputOption(server.ServerOptions)
+                                AdvancedPropertyGrid.SelectedObject = serverOptions
+                            Case Server.EServerVersionType.PocketMine
+                            Case Server.EServerVersionType.VanillaBedrock
+                                serverOptions = New VanillaBedrockServerOptions
+                                serverOptions.InputOption(server.ServerOptions)
+                                AdvancedPropertyGrid.SelectedObject = serverOptions
+                        End Select
+                    Case Server.EServerType.Custom
+                        serverOptions = New JavaServerOptions
                         serverOptions.InputOption(server.ServerOptions)
                         AdvancedPropertyGrid.SelectedObject = serverOptions
                 End Select

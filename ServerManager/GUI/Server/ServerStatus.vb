@@ -15,7 +15,6 @@ Public Class ServerStatus
         _Server = server
         AddHandler _Server.Initallised, AddressOf UpdateComponentOnFirstRun
         GlobalModule.Manager.ServerEntityList.Add(_Server)
-
     End Sub
     Sub New(serverDir As String)
 
@@ -37,6 +36,7 @@ Public Class ServerStatus
         AddHandler _Server.ServerUpdateStart, Sub() SetVersionLabel(True)
         AddHandler _Server.ServerUpdating, Sub(progress) SetVersionLabel(True, progress)
         AddHandler _Server.ServerUpdateEnd, Sub() SetVersionLabel()
+        AddHandler GlobalModule.Manager.CheckRequirement, AddressOf CheckRequirement
         System.Threading.Tasks.Task.Run(Sub()
                                             If Not (IsNothing(_Server) = False AndAlso _Server.ServerType <> Server.EServerType.Error) Then
                                                 RaiseEvent DeleteServer(True)
@@ -109,6 +109,7 @@ Public Class ServerStatus
                                                      ToolTip1.SetToolTip(RunButton, "啟動伺服器")
                                                      RunButton.Image = My.Resources.Run32
                                                  End If
+                                                 CheckRequirement()
                                                  SetVersionLabel()
                                                  Select Case Server.ServerType
                                                      Case Server.EServerType.Java
@@ -247,6 +248,8 @@ Public Class ServerStatus
                                 filename = IO.Path.Combine(Server.ServerPath, "nukkit-" & Server.Server2ndVersion & ".jar")
                             Case Server.EServerVersionType.VanillaBedrock
                                 filename = IO.Path.Combine(Server.ServerPath, "bedrock_server.exe")
+                            Case Server.EServerVersionType.PocketMine
+                                filename = IO.Path.Combine(Server.ServerPath, "PocketMine-MP.phar")
                         End Select
                     Case Server.EServerType.Custom
                         Select Case Server.ServerVersionType
@@ -276,6 +279,11 @@ Public Class ServerStatus
                             MsgBox("此伺服器類型只能在Windows 10系統上運行!",, Application.ProductName)
                             Exit Sub
                         End If
+                    ElseIf Server.ServerVersionType = Server.EServerVersionType.PocketMine Then
+                        If String.IsNullOrWhiteSpace(PHPPath) Then
+                            MsgBox("未指定PHP 路徑",, Application.ProductName)
+                            Exit Sub
+                        End If
                     Else
                         If GlobalModule.Manager.HasJava = False Then
                             MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
@@ -286,6 +294,11 @@ Public Class ServerStatus
                     If Server.ServerVersionType = Server.EServerVersionType.VanillaBedrock Then
                         MsgBox("此伺服器類型只能在Windows 10系統上運行!",, Application.ProductName)
                         Exit Sub
+                    ElseIf Server.ServerVersionType = Server.EServerVersionType.PocketMine Then
+                        If String.IsNullOrWhiteSpace(PHPPath) Then
+                            MsgBox("未指定PHP 路徑",, Application.ProductName)
+                            Exit Sub
+                        End If
                     Else
                         If GlobalModule.Manager.HasJava = False Then
                             MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
@@ -383,4 +396,36 @@ Public Class ServerStatus
         End If
     End Sub
 
+    Friend Overridable Sub CheckRequirement()
+        If isOverrides = False Then
+            BeginInvokeIfRequired(Me, Sub()
+                                          If Server.ServerVersionType = Server.EServerVersionType.VanillaBedrock Then
+                                              If Environment.OSVersion.Version.Major < 10 Then
+                                                  RunButton.Enabled = True
+                                              Else
+                                                  RunButton.Enabled = False
+                                                  ToolTip1.SetToolTip(RunButton, "此伺服器類型只能在 Windows 10 系統上運行")
+                                              End If
+                                          ElseIf Server.ServerVersionType = Server.EServerVersionType.PocketMine Then
+                                              If String.IsNullOrWhiteSpace(PHPPath) = False AndAlso IO.File.Exists(PHPPath) Then
+                                                  RunButton.Enabled = True
+                                              Else
+                                                  RunButton.Enabled = False
+                                                  ToolTip1.SetToolTip(RunButton, "需要 PHP 來運行這個伺服器")
+                                              End If
+                                          Else
+                                              If GlobalModule.Manager.HasJava Then
+                                                  RunButton.Enabled = True
+                                              Else
+                                                  RunButton.Enabled = False
+                                                  ToolTip1.SetToolTip(RunButton, "需要 Java 來運行這個伺服器")
+                                              End If
+                                          End If
+                                      End Sub)
+        End If
+    End Sub
+
+    Private Sub ServerStatus_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CheckRequirement()
+    End Sub
 End Class

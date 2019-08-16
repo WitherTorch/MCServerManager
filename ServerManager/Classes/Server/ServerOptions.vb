@@ -1,7 +1,8 @@
-﻿#Region "ServerOptionEnums"
-Imports System.ComponentModel
+﻿Imports System.ComponentModel
 Imports System.Dynamic
 Imports ServerManager
+#Region "ServerOptionEnums"
+
 ''' <summary>
 ''' 遊戲難度
 ''' </summary>
@@ -142,7 +143,43 @@ Enum Bedrock_Player_Permission_Level
     ''' </summary>
     [Operator]
 End Enum
-
+Enum PocketMineLanguageEnum
+    Arabic
+    Bulgarian
+    Czech
+    Chinese_Simplified
+    Chinese_Traditional
+    German
+    Greek
+    English
+    Estonian
+    Finnish
+    French
+    Irish
+    Hebrew
+    Croatian
+    Hungarian
+    Indonesia
+    Italian
+    Japanese
+    Korean
+    Latvian
+    Maltese
+    Malay
+    Dutch
+    Norwegian
+    Polish
+    Portuguese
+    Russian
+    Spanish
+    Swedish
+    Tagalog
+    Thai
+    Klingon
+    Turkish
+    Ukrainian
+    Vietnamese
+End Enum
 #End Region
 Interface IServerOptions
     Sub InputOption(serverOption As IDictionary(Of String, String))
@@ -922,6 +959,20 @@ Class NukkitServerOptions
                                                              vbNewLine & "True - 玩家可以互相殘殺。" &
                                                              vbNewLine & "False - 玩家無法互相造成傷害。")>
     Public Property PvP As Boolean = True
+    Dim _Rcon_Port As Integer = 19132
+    <DisplayName("遠程訪問埠")> <DefaultValue(19162)> <Category("技術性")> <Description("設置遠程訪問的埠號")>
+    Public Property Rcon_Port As Integer
+        Get
+            Return _Rcon_Port
+        End Get
+        Set(value As Integer)
+            If value >= 1 And value <= 65534 Then
+                _Rcon_Port = value
+            Else
+                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+            End If
+        End Set
+    End Property
     <DisplayName("遠程訪問密碼")> <DefaultValue("")> <Category("技術性")> <Description("設置遠程訪問的密碼")>
     Public Property Rcon_Password As String = ""
     <DisplayName("伺服器IP")> <DefaultValue("0.0.0.0")> <Category("技術性")> <Description("將伺服器與一個特定IP綁定。強烈建議你留空本屬性值！" &
@@ -1002,6 +1053,7 @@ Class NukkitServerOptions
         Max_Players = serverOption("max-players")
         Motd = serverOption("motd")
         PvP = ToStandardBoolean(serverOption("pvp"))
+        Rcon_Port = serverOption("rcon.port")
         Rcon_Password = serverOption("rcon.password")
         Server_Ip = serverOption("server-ip")
         Server_Port = serverOption("server-port")
@@ -1045,6 +1097,8 @@ Class NukkitServerOptions
                 PvP = ToStandardBoolean(value)
             Case "rcon.password"
                 Rcon_Password = value
+            Case "rcon.port"
+                Rcon_Port = value
             Case "server-ip"
                 Server_Ip = value
             Case "server-port"
@@ -1082,6 +1136,7 @@ Class NukkitServerOptions
         options.Add("max-players", Max_Players)
         options.Add("motd", Motd)
         options.Add("pvp", ToStandardOnOff(PvP))
+        options.Add("rcon.port", Rcon_Port)
         options.Add("rcon.password", Rcon_Password)
         options.Add("server-ip", Server_Ip)
         options.Add("server-port", Server_Port)
@@ -1359,4 +1414,439 @@ Class VanillaBedrockServerOptions
         Return options
     End Function
 End Class
+''' <summary>
+''' server.properties 的對應.NET 類別(PocketMine 專用)
+''' </summary>
+Class PocketMineServerOptions
+    Implements IServerOptions
 
+    <DisplayName("啟用自動儲存")> <DefaultValue(True)> <Category("遊戲")> <Description("自動儲存伺服器資料。" &
+                                                              vbNewLine & "False - 允許自動儲存伺服器資料。" &
+                                                              vbNewLine & "True - 伺服器關閉時儲存資料。")>
+    Public Property Auto_Save As Boolean = True
+    <DisplayName("難度")> <DefaultValue(Difficulty.Easy)> <Category("玩家")> <Description("定義伺服器的遊戲難度（例如生物對玩家造成的傷害，飢餓與中毒對玩家的影響方式等）。  " &
+                                                              vbNewLine & "Peaceful - 和平" &
+                                                              vbNewLine & "Easy - 簡單" &
+                                                              vbNewLine & "Normal - 普通" &
+                                                              vbNewLine & "Hard - 困難")>
+    Public Property Difficulty As Difficulty = Difficulty.Easy
+    <DisplayName("允許收集信息")> <DefaultValue(False)> <Category("技術性")> <Description("允許使用GameSpy4協議的伺服器監聽器。它被用於收集伺服器信息。")>
+    Public Property Enable_Query As Boolean = False
+    <DisplayName("允許遠程訪問")> <DefaultValue(False)> <Category("技術性")> <Description("是否允許遠程訪問伺服器控制台。")>
+    Public Property Enable_Rcon As Boolean = False
+    <DisplayName("強制遊戲模式")> <DefaultValue(False)> <Category("玩家")> <Description("強制玩家加入時為默認遊戲模式" &
+                                                              vbNewLine & "False - 玩家將以退出前的遊戲模式加入" &
+                                                              vbNewLine & "True - 玩家總是以默認遊戲模式加入")>
+    Public Property Force_Gamemode As Boolean = False
+    <DisplayName("預設遊戲模式")> <DefaultValue(Gamemode.Survival)> <Category("玩家")> <Description("定義默認遊戲模式" &
+                                                              vbNewLine & "Survival - 生存模式" &
+                                                              vbNewLine & "Creative - 創造模式" &
+                                                              vbNewLine & "Adventure - 冒險模式")>
+    Public Property Gamemode As Gamemode = Gamemode.Survival
+    <DisplayName("生成器設定")> <DefaultValue("")> <Category("地圖")> <Description("本屬性只用於自訂平坦世界的生成。")>
+    Public ReadOnly Property Generator_Settings As String = ""
+    <DisplayName("極限模式")> <DefaultValue(False)> <Category("玩家")> <Description("一旦啟用，玩家在死後會自動被伺服器封禁（即開啟極限模式）。")>
+    Public Property Hardcore As Boolean = False
+    <DisplayName("介面語言")> <DefaultValue(PocketMineLanguageEnum.Chinese_Traditional)> <Category("一般")> <Description("多語言設定" &
+                                                                                                                                vbNewLine & “Arabic - 阿拉伯语” &
+                                                                                                                                vbNewLine & “Bulgarian - 保加利亞語” &
+                                                                                                                                vbNewLine & “Czech - 捷克語” &
+                                                                                                                                vbNewLine & “Chinese_Simplified - 簡體中文” &
+                                                                                                                                vbNewLine & “Chinese_Traditional - 繁體中文” &
+                                                                                                                                vbNewLine & “German - 德語” &
+                                                                                                                                vbNewLine & “Greek - 希臘語” &
+                                                                                                                                vbNewLine & “English - 英語” &
+                                                                                                                                vbNewLine & “Estonian - 愛沙尼亞語” &
+                                                                                                                                vbNewLine & “Finnish - 芬蘭語” &
+                                                                                                                                vbNewLine & “French - 法語” &
+                                                                                                                                vbNewLine & “Irish - 愛爾蘭語” &
+                                                                                                                                vbNewLine & “Hebrew - 希伯來語” &
+                                                                                                                                vbNewLine & “Croatian - 克羅地亞語” &
+                                                                                                                                vbNewLine & “Hungarian - 匈牙利語” &
+                                                                                                                                vbNewLine & “Indonesia - 印度尼西亞語” &
+                                                                                                                                vbNewLine & “Italian - 意大利語” &
+                                                                                                                                vbNewLine & “Japanese - 日語” &
+                                                                                                                                vbNewLine & “Korean - 韓語” &
+                                                                                                                                vbNewLine & “Latvian - 拉脫維亞語” &
+                                                                                                                                vbNewLine & “Maltese - 馬耳他語” &
+                                                                                                                                vbNewLine & “Malay - 馬來語” &
+                                                                                                                                vbNewLine & "Dutch - 荷蘭語" &
+                                                                                                                                vbNewLine & “Norwegian - 挪威語” &
+                                                                                                                                vbNewLine & “Polish - 波蘭語” &
+                                                                                                                                vbNewLine & “Portuguese - 葡萄牙語” &
+                                                                                                                                vbNewLine & “Russian - 俄語” &
+                                                                                                                                vbNewLine & “Spanish - 西班牙語” &
+                                                                                                                                vbNewLine & “Swedish - 瑞典語” &
+                                                                                                                                vbNewLine & “Tagalog - 塔加洛語” &
+                                                                                                                                vbNewLine & “Thai - 泰語” &
+                                                                                                                                vbNewLine & “Klingon - 克林貢語” &
+                                                                                                                                vbNewLine & “Turkish - 土耳其語” &
+                                                                                                                                vbNewLine & “Ukrainian - 烏克蘭語” &
+                                                                                                                                vbNewLine & “Vietnamese - 越語"
+                                                                                                                                     )>
+    Public Property Language As PocketMineLanguageEnum = PocketMineLanguageEnum.Chinese_Traditional
+    <DisplayName("地圖名稱")> <DefaultValue("world")> <Category("地圖")> <Description("""地圖名稱""的值將作為世界名稱及其資料夾名。")>
+    Public ReadOnly Property Level_Name As String = "world"
+    <DisplayName("地圖種子")> <DefaultValue("")> <Category("地圖")> <Description("與單人遊戲類似，為世界定義一個種子。")>
+    Public ReadOnly Property Level_Seed As String = ""
+    <DisplayName("地圖類型")> <DefaultValue(Bedrock_Level_Type.INFINITE)> <Category("地圖")> <Description("確定地圖所生成的類型" &
+                                                              vbNewLine & "INFINITE - 標準的世界，帶有丘陵，河谷，海洋等" &
+                                                              vbNewLine & "FLAT - 一個沒有特色的平坦世界，適合用於建設" &
+                                                              vbNewLine & "OLD - 同無限世界，但世界大小限制為256×256，且被隱形的基岩屏障所包圍。")>
+    Public ReadOnly Property Level_Type As Bedrock_Level_Type = Bedrock_Level_Type.INFINITE
+    Dim _Max_Players As Integer = 20
+    <DisplayName("玩家最大數量")> <DefaultValue(20)> <Category("玩家")> <Description("伺服器同時能容納的最大玩家數量。但請注意在線玩家越多，對伺服器造成的負擔也就越大。" &
+                                                              vbNewLine & "伺服器的OP具有在人滿的情況下強行進入伺服器的權力，找到在伺服器根目錄下叫ops.json的文件並打開，" &
+                                                              vbNewLine & "設置你要突破人數限制的OP下的bypassesPlayerLimit選項為true即可（默認值為false），" &
+                                                              vbNewLine & "這意味著OP將不需要在伺服器人滿時等待玩家離開再加入，過大的數值會使客戶端顯示的玩家列表崩壞。")>
+    Public Property Max_Players As Integer
+        Get
+            Return _Max_Players
+        End Get
+        Set(value As Integer)
+            If value >= 1 And value <= 2147483647 Then
+                _Max_Players = value
+            Else
+                MsgBox("最大玩家人數只能在1~2147483647之間",, Application.ProductName)
+            End If
+        End Set
+    End Property
+    <DisplayName("MOTD")> <DefaultValue("A Minecraft PE Server")> <Category("技術性")> <Description("本屬性值是玩家客戶端的多人遊戲伺服器列表中顯示的伺服器主信息，顯示於名稱下方。" &
+                                                              vbNewLine & vbTab & "MOTD 支持樣式代碼。" &
+                                                              vbNewLine & vbTab & "MOTD 支持特殊符號， 比如「♥」。 然而，這些符號需要被轉換為Unicode轉義字符。")>
+    Public Property Motd As String = "A Minecraft PE Server"
+    <DisplayName("允許PVP")> <DefaultValue(True)> <Category("玩家")> <Description("是否允許PvP。玩家自己的箭也只有在允許PvP時才可能傷害到自己。 " &
+                                                             vbNewLine & "註： 來源於玩家的間接傷害，例如熔岩，火，TNT等，還是會造成傷害。" &
+                                                             vbNewLine & "True - 玩家可以互相殘殺。" &
+                                                             vbNewLine & "False - 玩家無法互相造成傷害。")>
+    Public Property PvP As Boolean = True
+    Dim _Rcon_Port As Integer = 19132
+    <DisplayName("遠程訪問埠")> <DefaultValue(19132)> <Category("技術性")> <Description("設置遠程訪問的埠號")>
+    Public Property Rcon_Port As Integer
+        Get
+            Return _Rcon_Port
+        End Get
+        Set(value As Integer)
+            If value >= 1 And value <= 65534 Then
+                _Rcon_Port = value
+            Else
+                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+            End If
+        End Set
+    End Property
+    <DisplayName("遠程訪問密碼")> <DefaultValue("")> <Category("技術性")> <Description("設置遠程訪問的密碼")>
+    Public Property Rcon_Password As String = ""
+    <DisplayName("伺服器IP")> <DefaultValue("0.0.0.0")> <Category("技術性")> <Description("將伺服器與一個特定IP綁定。強烈建議你留空本屬性值！" &
+                                                             vbNewLine & "      留空，或是填入你想讓伺服器綁定的IP。")>
+    Public Property Server_Ip As String = "0.0.0.0"
+    Dim _Server_Port As Integer = 19132
+    <DisplayName("伺服器埠")> <DefaultValue(19132)> <Category("技術性")> <Description("改變伺服器埠號。如果伺服器通過路由器與外界連接的話，該埠必須也能夠通過路由器。 ")>
+    Public Property Server_Port As Integer
+        Get
+            Return _Server_Port
+        End Get
+        Set(value As Integer)
+            If value >= 1 And value <= 65534 Then
+                _Server_Port = value
+            Else
+                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+            End If
+        End Set
+    End Property
+    Public Property Spawn_Protection As Integer = 16
+    Dim _View_Distance As Integer = 10
+    <DisplayName("視野距離")> <DefaultValue(10)> <Category("地圖")> <Description("設置服務端傳送給客戶端的數據量，也就是設置玩家各個方向上的區塊數量 (是以玩家為中心的半徑，不是直徑)。 " &
+                                                              vbNewLine & "它決定了服務端的可視距離。 " &
+                                                             vbNewLine & "默認/推薦設置為10，如果很卡的話，減少該數值。")>
+    Public Property View_Distance As Integer
+        Get
+            Return _View_Distance
+        End Get
+        Set(value As Integer)
+            If value >= 3 And value <= 15 Then
+                _View_Distance = value
+            Else
+                MsgBox("渲染距離必須在3~15之間",, Application.ProductName)
+            End If
+        End Set
+    End Property
+    <DisplayName("允許白名單")> <DefaultValue(False)> <Category("玩家")> <Description("伺服器的白名單 " &
+                                                            vbNewLine & "當啟用時，只有白名單上的用戶才能連接伺服器。" &
+                                                            vbNewLine & "白名單主要用於私人伺服器，例如相識的朋友等。" &
+                                                             vbNewLine & "True - 從 whitelist.json 文件加載白名單。" &
+                                                             vbNewLine & "False - 不使用白名單。")>
+    Public Property White_List As Boolean = False
+    <DisplayName("正版驗證")> <DefaultValue(True)> <Category("玩家")> <Description("伺服器是否需要玩家用Xbox 帳戶連線(即正版驗證)。" &
+                                                             vbNewLine & "True - 啟用。伺服器需要玩家有Xbox 帳戶才能連線。" &
+                                                             vbNewLine & "False - 禁用。伺服器不需要玩家有Xbox 帳戶。")>
+    Public Property Xbox_Auth As Boolean = True
+    Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerOptions.InputOption
+        On Error Resume Next
+        Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty"))
+        Enable_Query = ToStandardBoolean(serverOption("enable-query"))
+        Enable_Rcon = ToStandardBoolean(serverOption("enable-rcon"))
+        Force_Gamemode = ToStandardBoolean(serverOption("force-gamemode"))
+        Gamemode = [Enum].Parse(GetType(Gamemode), serverOption("gamemode"))
+        _Generator_Settings = serverOption("generator-settings")
+        Hardcore = ToStandardBoolean(serverOption("hardcore"))
+        Language = GetLanguageByLanguageCode(serverOption("language"))
+        _Level_Name = serverOption("level-name")
+        _Level_Seed = serverOption("level-seed")
+        _Level_Type = [Enum].Parse(GetType(Bedrock_Level_Type), serverOption("level-type").ToUpper)
+        Max_Players = serverOption("max-players")
+        Motd = serverOption("motd")
+        PvP = ToStandardBoolean(serverOption("pvp"))
+        Rcon_Port = serverOption("rcon.port")
+        Rcon_Password = serverOption("rcon.password")
+        Server_Ip = serverOption("server-ip")
+        Server_Port = serverOption("server-port")
+        Spawn_Protection = Integer.Parse(serverOption("spawn-protection"))
+        View_Distance = Integer.Parse(serverOption("view-distance"))
+        White_List = ToStandardBoolean(serverOption("white-list"))
+        Xbox_Auth = ToStandardBoolean(serverOption("xbox-auth"))
+    End Sub
+    Public Sub SetValue(optionName As String, value As String) Implements IServerOptions.SetValue
+        Select Case optionName
+            Case "difficulty"
+                Difficulty = [Enum].Parse(GetType(Difficulty), value)
+            Case "enable-query"
+                Enable_Query = ToStandardBoolean(value)
+            Case "enable-rcon"
+                Enable_Rcon = ToStandardBoolean(value)
+            Case "force-gamemode"
+                Force_Gamemode = ToStandardBoolean(value)
+            Case "gamemode"
+                Gamemode = [Enum].Parse(GetType(Gamemode), value)
+            Case "generator-settings"
+                _Generator_Settings = value
+            Case "hardcore"
+                Hardcore = ToStandardBoolean(value)
+            Case "language"
+                Language = GetLanguageByLanguageCode(value)
+            Case "level-name"
+                _Level_Name = value
+            Case "level-seed"
+                _Level_Seed = value
+            Case "level-type"
+                _Level_Type = [Enum].Parse(GetType(Bedrock_Level_Type), value.ToUpper)
+            Case "motd"
+                Motd = value
+            Case "pvp"
+                PvP = ToStandardBoolean(value)
+            Case "rcon.port"
+                Rcon_Port = value
+            Case "rcon.password"
+                Rcon_Password = value
+            Case "server-ip"
+                Server_Ip = value
+            Case "server-port"
+                Server_Port = value
+            Case "spawn-protection"
+                Spawn_Protection = Integer.Parse(value)
+            Case "view-distance"
+                View_Distance = Integer.Parse(value)
+            Case "white-list"
+                White_List = ToStandardBoolean(value)
+            Case "xbox-auth"
+                Xbox_Auth = ToStandardBoolean(value)
+        End Select
+    End Sub
+    Public Function OutputOption() As IDictionary(Of String, String) Implements IServerOptions.OutputOption
+        Dim options As New Dictionary(Of String, String)
+        options.Add("difficulty", Difficulty)
+        options.Add("enable-query", ToStandardOnOff(Enable_Query))
+        options.Add("enable-rcon", ToStandardOnOff(Enable_Rcon))
+        options.Add("force-gamemode", ToStandardOnOff(Force_Gamemode))
+        options.Add("gamemode", Gamemode)
+        options.Add("generator-settings", Generator_Settings)
+        options.Add("hardcore", ToStandardOnOff(Hardcore))
+        options.Add("language", GetLanguageCodeByLanguage(Language))
+        options.Add("level-name", Level_Name)
+        options.Add("level-seed", Level_Seed)
+        options.Add("level-type", Level_Type.ToString)
+        options.Add("max-players", Max_Players)
+        options.Add("motd", Motd)
+        options.Add("pvp", ToStandardOnOff(PvP))
+        options.Add("rcon.port", Rcon_Port)
+        options.Add("rcon.password", Rcon_Password)
+        options.Add("server-ip", Server_Ip)
+        options.Add("server-port", Server_Port)
+        options.Add("spawn-protection", Spawn_Protection)
+        options.Add("view-distance", View_Distance)
+        options.Add("white-list", ToStandardOnOff(White_List))
+        options.Add("xbox-auth", ToStandardOnOff(Xbox_Auth))
+        Return options
+    End Function
+    Private Function ToStandardOnOff([boolean] As Boolean) As String
+        Select Case [boolean]
+            Case True
+                Return "on"
+            Case False
+                Return "off"
+            Case Else
+                Return ""
+        End Select
+    End Function
+    Private Function ToStandardBoolean(OnOff As String) As Boolean
+        Select Case OnOff
+            Case "on"
+                Return True
+            Case "off"
+                Return False
+            Case Else
+                Throw New InvalidCastException()
+        End Select
+    End Function
+    Private Shared Function GetLanguageByLanguageCode(code As String) As PocketMineLanguageEnum
+        Select Case code
+            Case "ara"
+                Return PocketMineLanguageEnum.Arabic
+            Case "bul"
+                Return PocketMineLanguageEnum.Bulgarian
+            Case "ces"
+                Return PocketMineLanguageEnum.Czech
+            Case "chs"
+                Return PocketMineLanguageEnum.Chinese_Simplified
+            Case "zho"
+                Return PocketMineLanguageEnum.Chinese_Traditional
+            Case "deu"
+                Return PocketMineLanguageEnum.German
+            Case "ell"
+                Return PocketMineLanguageEnum.Greek
+            Case "eng"
+                Return PocketMineLanguageEnum.English
+            Case "est"
+                Return PocketMineLanguageEnum.Estonian
+            Case "fin"
+                Return PocketMineLanguageEnum.Finnish
+            Case "fra"
+                Return PocketMineLanguageEnum.French
+            Case "gle"
+                Return PocketMineLanguageEnum.Irish
+            Case "heb"
+                Return PocketMineLanguageEnum.Hebrew
+            Case "hrv"
+                Return PocketMineLanguageEnum.Croatian
+            Case "fun"
+                Return PocketMineLanguageEnum.Hungarian
+            Case "ind"
+                Return PocketMineLanguageEnum.Indonesia
+            Case "ita"
+                Return PocketMineLanguageEnum.Italian
+            Case "jpn"
+                Return PocketMineLanguageEnum.Japanese
+            Case "kor"
+                Return PocketMineLanguageEnum.Korean
+            Case "lav"
+                Return PocketMineLanguageEnum.Latvian
+            Case "mlt"
+                Return PocketMineLanguageEnum.Maltese
+            Case "msa"
+                Return PocketMineLanguageEnum.Malay
+            Case "nld"
+                Return PocketMineLanguageEnum.Dutch
+            Case "nor"
+                Return PocketMineLanguageEnum.Norwegian
+            Case "pol"
+                Return PocketMineLanguageEnum.Polish
+            Case "por"
+                Return PocketMineLanguageEnum.Portuguese
+            Case "rus"
+                Return PocketMineLanguageEnum.Russian
+            Case "spa"
+                Return PocketMineLanguageEnum.Spanish
+            Case "swe"
+                Return PocketMineLanguageEnum.Swedish
+            Case "tgl"
+                Return PocketMineLanguageEnum.Tagalog
+            Case "tha"
+                Return PocketMineLanguageEnum.Thai
+            Case "tlh"
+                Return PocketMineLanguageEnum.Klingon
+            Case "tur"
+                Return PocketMineLanguageEnum.Turkish
+            Case "ukr"
+                Return PocketMineLanguageEnum.Ukrainian
+            Case "vie"
+                Return PocketMineLanguageEnum.Vietnamese
+            Case Else
+                Return PocketMineLanguageEnum.Chinese_Traditional
+        End Select
+    End Function
+    Private Shared Function GetLanguageCodeByLanguage(lang As PocketMineLanguageEnum) As String
+        Select Case lang
+            Case PocketMineLanguageEnum.Arabic
+                Return "ara"
+            Case PocketMineLanguageEnum.Bulgarian
+                Return "bul"
+            Case PocketMineLanguageEnum.Czech
+                Return "ces"
+            Case PocketMineLanguageEnum.Chinese_Simplified
+                Return "chs"
+            Case PocketMineLanguageEnum.Chinese_Traditional
+                Return "zho"
+            Case PocketMineLanguageEnum.German
+                Return "deu"
+            Case PocketMineLanguageEnum.Greek
+                Return "ell"
+            Case PocketMineLanguageEnum.English
+                Return "eng"
+            Case PocketMineLanguageEnum.Estonian
+                Return "est"
+            Case PocketMineLanguageEnum.Finnish
+                Return "fin"
+            Case PocketMineLanguageEnum.French
+                Return "fra"
+            Case PocketMineLanguageEnum.Irish
+                Return "gle"
+            Case PocketMineLanguageEnum.Hebrew
+                Return "heb"
+            Case PocketMineLanguageEnum.Croatian
+                Return "hrv"
+            Case PocketMineLanguageEnum.Hungarian
+                Return "fun"
+            Case PocketMineLanguageEnum.Indonesia
+                Return "ind"
+            Case PocketMineLanguageEnum.Italian
+                Return "ita"
+            Case PocketMineLanguageEnum.Japanese
+                Return "jpn"
+            Case PocketMineLanguageEnum.Korean
+                Return "kor"
+            Case PocketMineLanguageEnum.Latvian
+                Return "lav"
+            Case PocketMineLanguageEnum.Maltese
+                Return "mlt"
+            Case PocketMineLanguageEnum.Malay
+                Return "msa"
+            Case PocketMineLanguageEnum.Dutch
+                Return "nld"
+            Case PocketMineLanguageEnum.Norwegian
+                Return "nor"
+            Case PocketMineLanguageEnum.Polish
+                Return "pol"
+            Case PocketMineLanguageEnum.Portuguese
+                Return "por"
+            Case PocketMineLanguageEnum.Russian
+                Return "rus"
+            Case PocketMineLanguageEnum.Spanish
+                Return "spa"
+            Case PocketMineLanguageEnum.Swedish
+                Return "swe"
+            Case PocketMineLanguageEnum.Tagalog
+                Return "tgl"
+            Case PocketMineLanguageEnum.Thai
+                Return "tha"
+            Case PocketMineLanguageEnum.Klingon
+                Return "tlh"
+            Case PocketMineLanguageEnum.Turkish
+                Return "tur"
+            Case PocketMineLanguageEnum.Ukrainian
+                Return "ukr"
+            Case PocketMineLanguageEnum.Vietnamese
+                Return "vie"
+            Case Else
+                Return "zho"
+        End Select
+    End Function
+End Class
