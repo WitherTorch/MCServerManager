@@ -278,9 +278,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Charcoal\SpongeForgeProvider.vb" />
-    <Compile Include="Classes\BungeeCord\BungeeCordHost.vb" />
-    <Compile Include="Classes\BungeeCord\BungeeCordOptions.vb" />
-    <Compile Include="Classes\BungeeCord\BungeeCordUpdater.vb" />
+    <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordHost.vb" />
+    <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordOptions.vb" />
+    <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordUpdater.vb" />
     <Compile Include="Classes\ForgeModUnpatcher.vb" />
     <Compile Include="Classes\JavaPathsProvider.vb" />
     <Compile Include="Classes\MinecraftLogParser.vb" />

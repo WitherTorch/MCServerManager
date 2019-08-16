@@ -21,6 +21,7 @@ Public Class Manager
     Dim PaperGetVersionThread As Thread
     Dim AkarinGetVersionThread As Thread
     Dim KettleGetVersionThread As Thread
+    Dim PocketMineGetVersionThread As Thread
     Friend ServerPathList As New List(Of String)
     Friend BungeePathList As New List(Of String)
     Friend ModpackServerPathList As New List(Of String)
@@ -31,6 +32,7 @@ Public Class Manager
     Friend ip As New List(Of String)
     Friend HasJava As Boolean = False
     Friend Is32BitJava As Boolean = True
+    Friend Event CheckRequirement()
     Public Sub New()
 
         ' 設計工具需要此呼叫。
@@ -45,8 +47,8 @@ Public Class Manager
                                                  VanillaVersionDict.Clear()
                                                  Dim manifestListURL As String = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
                                                  Try
-
                                                      Dim client As New Net.WebClient()
+                                                     client.Encoding = System.Text.Encoding.UTF8
                                                      BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "下載列表中..."))
                                                      Dim docHtml = client.DownloadString(manifestListURL)
                                                      BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "載入列表中..."))
@@ -76,6 +78,7 @@ Public Class Manager
                                                      Dim listURL As String = "https://getbukkit.org/download/craftbukkit"
                                                      Try
                                                          Dim client As New Net.WebClient()
+                                                         client.Encoding = System.Text.Encoding.UTF8
                                                          BeginInvoke(New Action(Sub() CraftBukkitLoadingLabel.Text = "CraftBukkit：" & "下載列表中..."))
                                                          Dim versionList = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectNodes("//div[4]/div[1]/div[1]/div[1]/*")
                                                          BeginInvoke(New Action(Sub() CraftBukkitLoadingLabel.Text = "CraftBukkit：" & "載入列表中..."))
@@ -98,6 +101,7 @@ Public Class Manager
                                                 Dim listURL As String = "https://getbukkit.org/download/spigot"
                                                 Try
                                                     Dim client As New Net.WebClient()
+                                                    client.Encoding = System.Text.Encoding.UTF8
                                                     BeginInvoke(New Action(Sub() SpigotLoadingLabel.Text = "Spigot：" & "下載列表中..."))
                                                     Dim versionList = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectNodes("//div[4]/div[1]/div[1]/div[1]/*")
                                                     BeginInvoke(New Action(Sub() SpigotLoadingLabel.Text = "Spigot：" & "載入列表中..."))
@@ -120,6 +124,7 @@ Public Class Manager
                                                    Dim listURL As String = "https://hub.spigotmc.org/versions/"
                                                    Try
                                                        Dim client As New Net.WebClient()
+                                                       client.Encoding = System.Text.Encoding.UTF8
                                                        BeginInvoke(New Action(Sub() SpigotGitLoadingLabel.Text = "Spigot (Git 手動組建)：" & "下載列表中..."))
                                                        Dim versionList = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectNodes("/html[1]/body[1]/pre[1]/a")
                                                        BeginInvoke(New Action(Sub() SpigotGitLoadingLabel.Text = "Spigot (Git 手動組建)：" & "載入列表中..."))
@@ -156,6 +161,7 @@ Public Class Manager
                                                Dim manifestListURL As String = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml"
                                                Try
                                                    Dim client As New Net.WebClient()
+                                                   client.Encoding = System.Text.Encoding.UTF8
                                                    BeginInvoke(New Action(Sub() ForgeLoadingLabel.Text = "Forge：" & "下載列表中..."))
                                                    Dim docHtml = client.DownloadString(manifestListURL)
                                                    BeginInvoke(New Action(Sub() ForgeLoadingLabel.Text = "Forge：" & "載入列表中..."))
@@ -206,6 +212,7 @@ Public Class Manager
                                                 Dim manifestListURL As String = "https://ci.nukkitx.com/job/NukkitX/job/Nukkit/job/master/api/json"
                                                 Try
                                                     Dim client As New Net.WebClient()
+                                                    client.Encoding = System.Text.Encoding.UTF8
                                                     BeginInvoke(New Action(Sub() NukkitLoadingLabel.Text = "Nukkit：" & "下載列表中..."))
                                                     Dim docHtml = client.DownloadString(manifestListURL)
                                                     BeginInvoke(New Action(Sub() NukkitLoadingLabel.Text = "Nukkit：" & "載入列表中..."))
@@ -229,6 +236,7 @@ Public Class Manager
                                                        Dim manifestListURL As String = "https://repo.spongepowered.org/maven/org/spongepowered/spongevanilla/maven-metadata.xml"
                                                        Try
                                                            Dim client As New Net.WebClient()
+                                                           client.Encoding = System.Text.Encoding.UTF8
                                                            BeginInvoke(New Action(Sub() SpongeVanillaLoadingLabel.Text = "SpongeVanilla：" & "下載列表中..."))
                                                            Dim docHtml = client.DownloadString(manifestListURL)
                                                            BeginInvoke(New Action(Sub() SpongeVanillaLoadingLabel.Text = "SpongeVanilla：" & "載入列表中..."))
@@ -334,6 +342,7 @@ Public Class Manager
                                                Dim manifestListURL As String = "https://papermc.io/api/v1/paper"
                                                Try
                                                    Dim client As New Net.WebClient()
+                                                   client.Encoding = System.Text.Encoding.UTF8
                                                    BeginInvoke(New Action(Sub() PaperLoadingLabel.Text = "Paper：" & "下載列表中..."))
                                                    Dim docHtml = client.DownloadString(manifestListURL)
                                                    BeginInvoke(New Action(Sub() PaperLoadingLabel.Text = "Paper：" & "載入列表中..."))
@@ -362,6 +371,7 @@ Public Class Manager
                                                 Dim manifestListURL As String = "https://api.github.com/repos/Akarin-project/Akarin/branches"
                                                 Try
                                                     Dim client As New Net.WebClient()
+                                                    client.Encoding = System.Text.Encoding.UTF8
                                                     client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
                                                     BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "下載列表中..."))
                                                     Dim docHtml = client.DownloadString(manifestListURL)
@@ -394,6 +404,7 @@ Public Class Manager
                                                 Dim manifestListURL As String = "https://api.github.com/repos/KettleFoundation/Kettle/releases"
                                                 Try
                                                     Dim client As New Net.WebClient()
+                                                    client.Encoding = System.Text.Encoding.UTF8
                                                     client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
                                                     BeginInvoke(New Action(Sub() KettleLoadingLabel.Text = "Kettle：" & "下載列表中..."))
                                                     Dim docHtml = client.DownloadString(manifestListURL)
@@ -441,6 +452,44 @@ Public Class Manager
         KettleGetVersionThread.Name = "Kettle GetVersion Thread"
         KettleGetVersionThread.IsBackground = True
         KettleGetVersionThread.Start()
+    End Sub
+    Private Sub GetPocketMineServerVersionList()
+        PocketMineGetVersionThread = New Thread(Sub()
+                                                    PocketMineVersionDict.Clear()
+                                                    Dim manifestListURL As String = "https://api.github.com/repos/pmmp/PocketMine-MP/releases"
+                                                    Try
+                                                        Dim client As New Net.WebClient()
+                                                        client.Encoding = System.Text.Encoding.UTF8
+                                                        client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
+                                                        BeginInvoke(New Action(Sub() PocketMineLoadingLabel.Text = "PocketMine-MP：" & "下載列表中..."))
+                                                        Dim docHtml = client.DownloadString(manifestListURL)
+                                                        BeginInvoke(New Action(Sub() PocketMineLoadingLabel.Text = "PocketMine-MP：" & "載入列表中..."))
+                                                        Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
+                                                        For Each jsonObject As JObject In jsonArray
+                                                            Try
+                                                                Dim tag_name As String = jsonObject.GetValue("tag_name")
+                                                                For Each subJsonObject As JObject In CType(jsonObject.GetValue("assets"), JArray)
+                                                                    If subJsonObject.GetValue("name") <> "PocketMine-MP.phar" Then
+                                                                        Continue For
+                                                                    End If
+                                                                    Dim url As String = subJsonObject.GetValue("browser_download_url")
+                                                                    PocketMineVersionDict.Add(tag_name, url)
+                                                                    Exit For
+                                                                Next
+                                                            Catch ex As Exception
+
+                                                            End Try
+                                                        Next
+                                                        docHtml = Nothing
+                                                        client.Dispose()
+                                                        BeginInvoke(New Action(Sub() PocketMineLoadingLabel.Text = "PocketMine-MP：" & "載入完成"))
+                                                    Catch ex As Exception
+                                                        BeginInvoke(New Action(Sub() PocketMineLoadingLabel.Text = "PocketMine-MP：" & "(無)"))
+                                                    End Try
+                                                End Sub)
+        PocketMineGetVersionThread.Name = "PocketMine GetVersion Thread"
+        PocketMineGetVersionThread.IsBackground = True
+        PocketMineGetVersionThread.Start()
     End Sub
     Private Sub VersionListReloadButton_Click(sender As Object, e As EventArgs) Handles VersionListReloadButton.Click
         UpdateVersionLists()
@@ -535,6 +584,14 @@ Public Class Manager
                 End Try
                 VanillaBedrockGetVersionThread = Nothing
             End If
+            If IsNothing(PocketMineGetVersionThread) = False AndAlso PocketMineGetVersionThread.IsAlive = True Then
+                Try
+                    PocketMineGetVersionThread.Abort()
+                Catch ex As Exception
+
+                End Try
+                PocketMineGetVersionThread = Nothing
+            End If
             GetVanillaServerVersionList()
             GetForgeServerVersionList()
             GetSpigotServerVersionList()
@@ -546,6 +603,7 @@ Public Class Manager
             GetKettleServerVersionList()
             GetNukkitServerVersionList()
             GetVanillaBedrockServerVersionList()
+            GetPocketMineServerVersionList()
         Else
             VanillaLoadingLabel.Text = "原版：" & "(無)"
             ForgeLoadingLabel.Text = "Forge：" & "(無)"
@@ -627,7 +685,7 @@ Public Class Manager
                                                                              End If
                                                                          End Sub)
                                            Else
-                                                   BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(無)")
+                                               BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(無)")
                                            End If
                                        Catch ex As Exception
                                            BeginInvoke(Sub() IPLabel.Text = "內部IP位址：(錯誤)")
@@ -690,36 +748,6 @@ Public Class Manager
         CheckNetwork()
         ComboBox1.SelectedIndex = 1
         ComboBox2.SelectedIndex = 0
-        If JavaServerDirs <> "" Then
-            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(JavaServerDirs), Newtonsoft.Json.Linq.JArray)
-                Task.Run(Sub()
-                             AddServer(s.ToString)
-                         End Sub)
-            Next
-        End If
-        '1.5.1 相容
-        If ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt")) <> "" Then
-            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"))), Newtonsoft.Json.Linq.JArray)
-                Task.Run(Sub()
-                             AddServer(s.ToString)
-                         End Sub)
-            Next
-        End If
-        If SolutionDirs <> "" Then
-            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(SolutionDirs), Newtonsoft.Json.Linq.JArray)
-                Task.Run(Sub()
-                             AddBungeeSolution(s.ToString)
-                         End Sub)
-            Next
-        End If
-        If ModpackServerDirs <> "" Then
-            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(ModpackServerDirs), Newtonsoft.Json.Linq.JArray)
-                Task.Run(Sub()
-                             AddModpackServer(s.ToString)
-                         End Sub)
-            Next
-        End If
-
         If My.Computer.FileSystem.FileExists(IO.Path.Combine(My.Application.Info.DirectoryPath, "manager-setting.txt")) Then
             Using reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(My.Application.Info.DirectoryPath, "manager-setting.txt"), IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
                 Dim username = ""
@@ -793,6 +821,13 @@ Public Class Manager
                                     If IO.File.Exists(info(1)) Then
                                         GitBashPathBox.Text = info(1)
                                         GitBashPath = info(1)
+                                    End If
+                                End If
+                            Case "php-path"
+                                If info(1) <> "" Then
+                                    If IO.File.Exists(info(1)) Then
+                                        PHPPathBox.Text = info(1)
+                                        PHPPath = info(1)
                                     End If
                                 End If
                             Case "show-vanilla-snaps"
@@ -996,6 +1031,7 @@ Public Class Manager
                                                                                                                                     JavaPath = ""
                                                                                                                                     Is32BitJava = (JavaArch = 32)
                                                                                                                                     HasJava = True
+                                                                                                                                    RaiseEvent CheckRequirement()
                                                                                                                                     Try
                                                                                                                                         process.Kill()
                                                                                                                                     Catch ex As Exception
@@ -1013,6 +1049,7 @@ Public Class Manager
                                                                                                                            JavaPath = ""
                                                                                                                        End Sub)
                                                                                                                 HasJava = False
+                                                                                                                RaiseEvent CheckRequirement()
                                                                                                                 MsgBox("請確定電腦已經安裝Java", MsgBoxStyle.OkOnly, "偵測不到系統 Java")
 
                                                                                                             Else
@@ -1027,6 +1064,7 @@ Public Class Manager
                                                                                         JavaPath = ""
                                                                                     End Sub)
                                                                              HasJava = False
+                                                                             RaiseEvent CheckRequirement()
                                                                              MsgBox("請確定電腦已經安裝Java", MsgBoxStyle.OkOnly, "偵測不到系統 Java")
                                                                          End Try
                                                                      End Sub))
@@ -1067,12 +1105,13 @@ Public Class Manager
                                                                                                                                    GlobalModule.JavaPath = JavaPath
                                                                                                                                    Is32BitJava = (JavaArch = 32)
                                                                                                                                    HasJava = True
+                                                                                                                                   RaiseEvent CheckRequirement()
                                                                                                                                    Try
-                                                                                                                                       process.Kill()
-                                                                                                                                   Catch ex As Exception
-                                                                                                                                   End Try
+                                                                                                                                           process.Kill()
+                                                                                                                                       Catch ex As Exception
+                                                                                                                                       End Try
+                                                                                                                                   End If
                                                                                                                                End If
-                                                                                                                           End If
                                                                                                                        Catch ex As Exception
                                                                                                                        End Try
                                                                                                                    End Sub
@@ -1084,6 +1123,7 @@ Public Class Manager
 
                                                                                                                        End Sub)
                                                                                                                 HasJava = False
+                                                                                                                RaiseEvent CheckRequirement()
                                                                                                                 MsgBox("請確定Java路徑", MsgBoxStyle.OkOnly, "偵測不到 Java")
                                                                                                             Else
                                                                                                                 BeginInvoke(Sub() JavaDefaultBtn.Enabled = True)
@@ -1096,6 +1136,7 @@ Public Class Manager
 
                                                                                     End Sub)
                                                                              HasJava = False
+                                                                             RaiseEvent CheckRequirement()
                                                                              MsgBox("請確定Java路徑", MsgBoxStyle.OkOnly, "偵測不到 Java")
                                                                          End Try
                                                                      End Sub))
@@ -1131,6 +1172,7 @@ Public Class Manager
                                                         ServerListPanel.Controls.Add(status, 0, index)
                                                     End If
                                                 End Sub
+                status.CheckRequirement()
                 status.LoadStatus()
                 ServerPathList.Add(serverDirectory)
                 AddHandler status.DeleteServer, Sub(NoUI)
@@ -1300,6 +1342,7 @@ Public Class Manager
    "noip-password=" & password & vbNewLine &
    "noip-hosts= " & hosts & vbNewLine &
    "git-bash-path=" & GitBashPath & vbNewLine &
+   "php-path=" & PHPPath & vbNewLine &
    "show-vanilla-snaps=" & ShowVanillaSnapshot.ToString.ToLower & vbNewLine &
    "custom-forge-ver=" & CustomForgeVersion.ToString.ToLower & vbNewLine &
    "console-input-mode=" & ConsoleMode.ToString.ToLower & vbNewLine &
@@ -1623,6 +1666,36 @@ Public Class Manager
             JavaChooseBtn.Enabled = False
             SettingTabControl.TabPages.Remove(TabPage3)
         End If
+
+        If JavaServerDirs <> "" Then
+            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(JavaServerDirs), Newtonsoft.Json.Linq.JArray)
+                Task.Run(Sub()
+                             AddServer(s.ToString)
+                         End Sub)
+            Next
+        End If
+        '1.5.1 相容
+        If ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt")) <> "" Then
+            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"))), Newtonsoft.Json.Linq.JArray)
+                Task.Run(Sub()
+                             AddServer(s.ToString)
+                         End Sub)
+            Next
+        End If
+        If SolutionDirs <> "" Then
+            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(SolutionDirs), Newtonsoft.Json.Linq.JArray)
+                Task.Run(Sub()
+                             AddBungeeSolution(s.ToString)
+                         End Sub)
+            Next
+        End If
+        If ModpackServerDirs <> "" Then
+            For Each s In CType(Newtonsoft.Json.JsonConvert.DeserializeObject(ModpackServerDirs), Newtonsoft.Json.Linq.JArray)
+                Task.Run(Sub()
+                             AddModpackServer(s.ToString)
+                         End Sub)
+            Next
+        End If
         Label9.Text = Label9.Text.Replace("<Version>", SERVER_MANAGER_VER)
         Dim r As New Random()
         Select Case r.Next(20)
@@ -1653,7 +1726,7 @@ Public Class Manager
         If openFileDialog Is Nothing Then openFileDialog = New OpenFileDialog
         openFileDialog.Filter = "bash.exe (Git Bash CMD)| bash.exe"
         openFileDialog.SupportMultiDottedExtensions = True
-        openFileDialog.Title = "選擇 Git Bash"
+        openFileDialog.Title = "選擇 Git Bash 路徑"
         If openFileDialog.ShowDialog = DialogResult.OK Then
             GitBashPathBox.Text = openFileDialog.FileName
         End If
@@ -1871,5 +1944,19 @@ Public Class Manager
         End If
     End Sub
 
+    Private Sub PHPPathBox_TextChanged(sender As Object, e As EventArgs) Handles PHPPathBox.TextChanged
+        If IO.File.Exists(PHPPathBox.Text) Then PHPPath = PHPPathBox.Text
+        RaiseEvent CheckRequirement()
+    End Sub
 
+    Private Sub PHPBrowseButton_Click(sender As Object, e As EventArgs) Handles PHPBrowseButton.Click
+        Static openFileDialog As New OpenFileDialog
+        If openFileDialog Is Nothing Then openFileDialog = New OpenFileDialog
+        openFileDialog.Filter = "php.exe (PHP)| php.exe"
+        openFileDialog.SupportMultiDottedExtensions = True
+        openFileDialog.Title = "選擇 PHP 路徑"
+        If openFileDialog.ShowDialog = DialogResult.OK Then
+            GitBashPathBox.Text = openFileDialog.FileName
+        End If
+    End Sub
 End Class

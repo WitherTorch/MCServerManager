@@ -47,18 +47,18 @@ Public Class MinecraftLogParser
     Shared timeRegex As New Regex("[0-9]{2}\:[0-9]{2}\:[0-9]{2}")
     'Spigot/CraftBukkit Regex
     Shared bukkitCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2} [A-Z]{4,5}\]")
-    'Vanilla Regex
-    Shared vanillaCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 #$_-]*\/[A-Z]{4,5}\]\:")
+    'Vanilla + PocketMine Regex
+    Shared vanillaCheckRegex As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 #$_-]*\/[A-Z]{4,8}\]\:")
     'SpongeVanilla Regex
-    Shared spongeVanillaCheckRegex As New Regex("\[[0-9]{2}:[0-9]{2}:[0-9]{2} [A-Z]{4,5}\] \[[A-Za-z0-9 #$_-]*\]\:")
+    Shared spongeVanillaCheckRegex As New Regex("\[[0-9]{2}:[0-9]{2}:[0-9]{2} [A-Z]{4,8}\] \[[A-Za-z0-9 #$_-]*\]\:")
     'Nukkit Regex
     Shared nukkitCheckRegex As New Regex("\u001b\[[0-9]{2}m[0-9]{2}\:[0-9]{2}\:[0-9]{2}\u001b\[m \[\u001b\[[0-9]{2}m[A-Z]{4,5} \u001b\[m\]")
     'Forge Regex
-    Shared forgeCheckRegex1 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 _\-+\*\:\/\\\.\[\]]*\]\:")
+    Shared forgeCheckRegex1 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,8}\] [[A-Za-z0-9 _\-+\*\:\/\\\.\[\]]*\]\:")
     'Forge Regex (1.13 up)
-    Shared forgeCheckRegex2 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,5}\] [[A-Za-z0-9 _\-+\*\:\/\\\.\[\]]*\]\:")
+    Shared forgeCheckRegex2 As New Regex("\[[0-9]{2}\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}\] \[[A-Za-z0-9 \:#$_-]*\/[A-Z]{4,8}\] [[A-Za-z0-9 _\-+\*\:\/\\\.\[\]]*\]\:")
     'Vanilla Bedrock Regex
-    Shared vanillaBedrockRegex As New Regex("\[[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [A-Za-z0-9 \:#$_-]{4,5}\]")
+    Shared vanillaBedrockRegex As New Regex("\[[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [A-Za-z0-9 \:#$_-]{4,8}\]")
     'BungeeCord Regex
     Shared bungeeCordCheckRegex As New Regex("[0-9]{2}\:[0-9]{2}\:[0-9]{2} \[[^ ]*\]")
     'Java Other Message Regex 1
@@ -304,6 +304,8 @@ Public Class MinecraftLogParser
                         msg.ServerMessageType = MCServerMessageType.Debug
                     Case "TRACE"
                         msg.ServerMessageType = MCServerMessageType.Trace
+                    Case "NOTICE"
+                        msg.ServerMessageType = MCServerMessageType.Info
                     Case Else
                         msg.ServerMessageType = MCServerMessageType.Info
                 End Select

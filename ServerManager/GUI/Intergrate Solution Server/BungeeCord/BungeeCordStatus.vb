@@ -17,7 +17,8 @@
         Else
             UpdateComponentOnFirstRun()
             AddHandler _Host.BungeeInfoUpdated, AddressOf UpdateComponent
-
+            AddHandler GlobalModule.Manager.CheckRequirement, AddressOf CheckRequirement
+            CheckRequirement()
         End If
     End Sub
     Private Sub UpdateComponentOnFirstRun()
@@ -156,4 +157,15 @@
         Catch ex As Exception
         End Try
     End Sub
+    Protected Overridable Sub CheckRequirement()
+        BeginInvokeIfRequired(Me, Sub()
+                                      If GlobalModule.Manager.HasJava Then
+                                          RunButton.Enabled = True
+                                      Else
+                                          RunButton.Enabled = False
+                                          ToolTip1.SetToolTip(RunButton, "需要 Java 來運行這個整合方案")
+                                      End If
+                                  End Sub)
+    End Sub
+
 End Class
