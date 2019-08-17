@@ -1956,7 +1956,7 @@ Public Class Manager
         openFileDialog.SupportMultiDottedExtensions = True
         openFileDialog.Title = "選擇 PHP 路徑"
         If openFileDialog.ShowDialog = DialogResult.OK Then
-            GitBashPathBox.Text = openFileDialog.FileName
+            PHPPathBox.Text = openFileDialog.FileName
         End If
     End Sub
 End Class

@@ -399,6 +399,9 @@ Public Class ServerCreateDialog
                                 serverOptions.InputOption(server.ServerOptions)
                                 AdvancedPropertyGrid.SelectedObject = serverOptions
                             Case Server.EServerVersionType.PocketMine
+                                serverOptions = New PocketMineServerOptions
+                                serverOptions.InputOption(server.ServerOptions)
+                                AdvancedPropertyGrid.SelectedObject = serverOptions
                             Case Server.EServerVersionType.VanillaBedrock
                                 serverOptions = New VanillaBedrockServerOptions
                                 serverOptions.InputOption(server.ServerOptions)
