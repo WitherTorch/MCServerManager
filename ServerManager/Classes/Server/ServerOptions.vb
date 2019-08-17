@@ -1604,7 +1604,8 @@ Class PocketMineServerOptions
                 _Level_Type = Bedrock_Level_Type.OLD
             Case "DEFAULT"
                 _Level_Type = Bedrock_Level_Type.INFINITE
-        End Select        Max_Players = serverOption("max-players")
+        End Select
+        Max_Players = serverOption("max-players")
         Motd = serverOption("motd")
         PvP = ToStandardBoolean(serverOption("pvp"))
         Rcon_Port = serverOption("rcon.port")
@@ -1646,7 +1647,8 @@ Class PocketMineServerOptions
                         _Level_Type = Bedrock_Level_Type.OLD
                     Case "DEFAULT"
                         _Level_Type = Bedrock_Level_Type.INFINITE
-                End Select            Case "motd"
+                End Select
+            Case "motd"
                 Motd = value
             Case "pvp"
                 PvP = ToStandardBoolean(value)
@@ -1687,7 +1689,8 @@ Class PocketMineServerOptions
                 options.Add("level-type", "LEGACY")
             Case Bedrock_Level_Type.INFINITE
                 options.Add("level-type", "DEFAULT")
-        End Select        options.Add("max-players", Max_Players)
+        End Select
+        options.Add("max-players", Max_Players)
         options.Add("motd", Motd)
         options.Add("pvp", ToStandardOnOff(PvP))
         options.Add("rcon.port", Rcon_Port)
