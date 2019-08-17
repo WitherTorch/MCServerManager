@@ -291,6 +291,7 @@
     <Compile Include="Classes\Server\CauldronOptions.vb" />
     <Compile Include="Classes\Server\NukkitOptions.vb" />
     <Compile Include="Classes\Server\PaperOptions.vb" />
+    <Compile Include="Classes\Server\PocketMineOptions.vb" />
     <Compile Include="Classes\Server\ServerOptions.vb" />
     <Compile Include="Classes\Server\ServerTask.vb" />
     <Compile Include="Classes\Server\SpigotOptions.vb" />
