@@ -1553,6 +1553,11 @@ Class PocketMineServerOptions
             End If
         End Set
     End Property
+    <DisplayName("出生點保護距離")> <DefaultValue(16)> <Category("技術性")> <Description("通過將該值進行(x*2)+1的運算來決定出生點的保護半徑。" &
+                                                              vbNewLine & "設置為0將不會禁用出生點保護。設置為0將會保護位於出生點的1x1方塊區域，" &
+                                                             vbNewLine & "設置為1將會保護以出生點為中心的3x3方塊區域。" &
+                                                              vbNewLine & "設置為2會保護5x5的方塊區域，設置為3將會保護7x7的方塊區域，以此類推。 " &
+                                                             vbNewLine & "這個選項只會在第一個玩家進行伺服器時生成。如果伺服器沒有設置OP，這個選項將會自動禁用。")>
     Public Property Spawn_Protection As Integer = 16
     Dim _View_Distance As Integer = 10
     <DisplayName("視野距離")> <DefaultValue(10)> <Category("地圖")> <Description("設置服務端傳送給客戶端的數據量，也就是設置玩家各個方向上的區塊數量 (是以玩家為中心的半徑，不是直徑)。 " &
