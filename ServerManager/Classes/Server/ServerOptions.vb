@@ -1597,8 +1597,14 @@ Class PocketMineServerOptions
         Language = GetLanguageByLanguageCode(serverOption("language"))
         _Level_Name = serverOption("level-name")
         _Level_Seed = serverOption("level-seed")
-        _Level_Type = [Enum].Parse(GetType(Bedrock_Level_Type), serverOption("level-type").ToUpper)
-        Max_Players = serverOption("max-players")
+        Select Case serverOption("level-type").ToUpper
+            Case "FLAT"
+                _Level_Type = Bedrock_Level_Type.FLAT
+            Case "LEGACY"
+                _Level_Type = Bedrock_Level_Type.OLD
+            Case "DEFAULT"
+                _Level_Type = Bedrock_Level_Type.INFINITE
+        End Select        Max_Players = serverOption("max-players")
         Motd = serverOption("motd")
         PvP = ToStandardBoolean(serverOption("pvp"))
         Rcon_Port = serverOption("rcon.port")
@@ -1633,8 +1639,14 @@ Class PocketMineServerOptions
             Case "level-seed"
                 _Level_Seed = value
             Case "level-type"
-                _Level_Type = [Enum].Parse(GetType(Bedrock_Level_Type), value.ToUpper)
-            Case "motd"
+                Select Case value.ToUpper
+                    Case "FLAT"
+                        _Level_Type = Bedrock_Level_Type.FLAT
+                    Case "LEGACY"
+                        _Level_Type = Bedrock_Level_Type.OLD
+                    Case "DEFAULT"
+                        _Level_Type = Bedrock_Level_Type.INFINITE
+                End Select            Case "motd"
                 Motd = value
             Case "pvp"
                 PvP = ToStandardBoolean(value)
@@ -1668,8 +1680,14 @@ Class PocketMineServerOptions
         options.Add("language", GetLanguageCodeByLanguage(Language))
         options.Add("level-name", Level_Name)
         options.Add("level-seed", Level_Seed)
-        options.Add("level-type", Level_Type.ToString)
-        options.Add("max-players", Max_Players)
+        Select Case Level_Type
+            Case Bedrock_Level_Type.FLAT
+                options.Add("level-type", "FLAT")
+            Case Bedrock_Level_Type.OLD
+                options.Add("level-type", "LEGACY")
+            Case Bedrock_Level_Type.INFINITE
+                options.Add("level-type", "DEFAULT")
+        End Select        options.Add("max-players", Max_Players)
         options.Add("motd", Motd)
         options.Add("pvp", ToStandardOnOff(PvP))
         options.Add("rcon.port", Rcon_Port)
