@@ -1448,7 +1448,7 @@ Class PocketMineServerOptions
     <DisplayName("極限模式")> <DefaultValue(False)> <Category("玩家")> <Description("一旦啟用，玩家在死後會自動被伺服器封禁（即開啟極限模式）。")>
     Public Property Hardcore As Boolean = False
     <DisplayName("介面語言")> <DefaultValue(PocketMineLanguageEnum.Chinese_Traditional)> <Category("一般")> <Description("多語言設定" &
-                                                                                                                                vbNewLine & “Arabic - 阿拉伯语” &
+                                                                                                                                vbNewLine & “Arabic - 阿拉伯語” &
                                                                                                                                 vbNewLine & “Bulgarian - 保加利亞語” &
                                                                                                                                 vbNewLine & “Czech - 捷克語” &
                                                                                                                                 vbNewLine & “Chinese_Simplified - 簡體中文” &
