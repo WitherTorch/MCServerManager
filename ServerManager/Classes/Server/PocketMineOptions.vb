@@ -1,4 +1,7 @@
 ﻿Imports System.ComponentModel
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
+Imports YamlDotNet.Serialization
 ''' <summary>
 ''' pocketmine.yml 的對應.NET 類別
 ''' </summary>
@@ -53,8 +56,8 @@ Public Class PocketMineOptions
 #End Region
     <DisplayName("轉儲執行緒記憶體")> <DefaultValue(True)> <Category("記憶體")> <Description("是否從非同步執行緒及主執行緒轉儲內存")>
     Public Property Dump_Async_Worker As Boolean = True
-    <DisplayName("達記憶體限制時的視野距離")> <DefaultValue(3)> <Category("記憶體")> <Description("決定在達記憶體限制時玩家的視野距離")>
-    Public Property Max_Chunk_Radius As Integer = 3
+    <DisplayName("達記憶體限制時的視野距離")> <DefaultValue(4)> <Category("記憶體")> <Description("決定在達記憶體限制時玩家的視野距離")>
+    Public Property Max_Chunk_Radius As Integer = 4
     <DisplayName("啟用達記憶體限制時的區塊回收機制")> <DefaultValue(True)> <Category("記憶體")> <Description("是否要啟用達記憶體限制時的區塊回收機制")>
     Public Property Max_Chunk_Trigger_Chunk_Collect As Boolean = True
     <DisplayName("在達記憶體限制時禁止增加區塊快取")> <DefaultValue(True)> <Category("記憶體")> <Description("是否在達記憶體限制時禁止增加區塊快取")>
@@ -125,6 +128,265 @@ Public Class PocketMineOptions
     <DisplayName("更新頻道")> <DefaultValue(PocketMineAutoUpdaterChannel.Stable)> <Category("自動更新(不支援)")> <Description("自動更新所使用的頻道")>
     Public Property Preferred_Channel As PocketMineAutoUpdaterChannel = PocketMineAutoUpdaterChannel.Stable
 #End Region
+    Private Sub New()
+    End Sub
+    Friend Shared Function CreateOptionsWithDefaultSetting(path As String) As PocketMineOptions
+        Dim op As New PocketMineOptions With {
+            .path = path
+        }
+        Return op
+    End Function
+    Friend Shared Function LoadOptions(filepath As String) As PocketMineOptions
+        Dim pocketMineOption As New PocketMineOptions
+        If IO.File.Exists(filepath) Then
+            With pocketMineOption
+                Dim reader As New IO.StreamReader(New IO.FileStream(filepath, IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
+                Dim deserializer = New DeserializerBuilder().Build()
+                Dim yamlObject = deserializer.Deserialize(reader)
+                deserializer = Nothing
+                Dim serializer = New SerializerBuilder().JsonCompatible().Build()
+                Dim jsonString = serializer.Serialize(yamlObject)
+                serializer = Nothing
+                Dim jsonObject = GetDeserialisedObject(jsonString)
+                Dim settingsRegion As JObject = GetJsonObject(jsonObject, "settings")
+                Dim memoryRegion As JObject = GetJsonObject(jsonObject, "memory")
+                Dim networkRegion As JObject = GetJsonObject(jsonObject, "network")
+                Dim debugRegion As JObject = GetJsonObject(jsonObject, "debug")
+                Dim playerRegion As JObject = GetJsonObject(jsonObject, "player")
+                Dim chunkSendingRegion As JObject = GetJsonObject(jsonObject, "chunk-sending")
+                Dim chunkTickingRegion As JObject = GetJsonObject(jsonObject, "chunk-ticking")
+                Dim chunkGenerationRegion As JObject = GetJsonObject(jsonObject, "chunk-generation")
+                Dim ticksPerRegion As JObject = GetJsonObject(jsonObject, "ticks-per")
+                Dim autoReportRegion As JObject = GetJsonObject(jsonObject, "auto-report")
+                Dim autoUpdaterRegion As JObject = GetJsonObject(jsonObject, "auto-updater")
+#Region "Settings"
+                InputPropertyValue(settingsRegion, "force-language", .Force_Language)
+                InputPropertyValue(settingsRegion, "shutdown-message", .Shutdown_Message)
+                InputPropertyValue(settingsRegion, "query-plugins", .Query_Plugins)
+                InputPropertyValue(settingsRegion, "deprecated-verbose", .Deprecated_Verbose)
+                InputPropertyValue(settingsRegion, "enable-profiling", .Enable_Profiling)
+                InputPropertyValue(settingsRegion, "profile-report-trigger", .Profile_Report_Trigger)
+                InputPropertyValue(settingsRegion, "async-workers", .Async_Workers)
+                InputPropertyValue(settingsRegion, "enable-dev-builds", .Enable_Dev_Builds)
+#End Region
+#Region "Memory"
+                InputPropertyValue(memoryRegion, "global-limit", .Global_Limit)
+                InputPropertyValue(memoryRegion, "main-limit", .Main_Limit)
+                InputPropertyValue(memoryRegion, "main-hard-limit", .Main_Hard_Limit)
+                InputPropertyValue(memoryRegion, "async-worker-hard-limit", .Async_Worker_Hard_Limit)
+                InputPropertyValue(memoryRegion, "check-rate", .Check_Rate)
+                InputPropertyValue(memoryRegion, "continuous-trigger", .Continuous_Trigger)
+                InputPropertyValue(memoryRegion, "continuous-trigger-rate", .Continuous_Trigger_Rate)
+#Region "GC"
+                Dim memoryGCRegion As JObject = GetJsonObject(memoryRegion, "garbage-collection")
+                InputPropertyValue(memoryGCRegion, "period", .Garbage_Collection_Period)
+                InputPropertyValue(memoryGCRegion, "collect-async-worker", .GC_Collect_Async_Worker)
+                InputPropertyValue(memoryGCRegion, "low-memory-trigger", .GC_Low_Memory_Trigger)
+#End Region
+#Region "Memory Dump"
+                Dim memoryDumpRegion As JObject = GetJsonObject(memoryRegion, "memory-dump")
+                InputPropertyValue(memoryDumpRegion, "dump-async-worker", .Dump_Async_Worker)
+#End Region
+#Region "Max Chunks"
+                Dim memoryMaxChunksRegion As JObject = GetJsonObject(memoryRegion, "max-chunks")
+                InputPropertyValue(memoryMaxChunksRegion, "chunk-radius", .Max_Chunk_Radius)
+                InputPropertyValue(memoryMaxChunksRegion, "trigger-chunk-collect", .Max_Chunk_Trigger_Chunk_Collect)
+#End Region
+#Region "World Caches"
+                Dim worldCachesRegion As JObject = GetJsonObject(memoryRegion, "world-caches")
+                InputPropertyValue(worldCachesRegion, "disable-chunk-cache", .Disable_Chunk_Cache)
+                InputPropertyValue(worldCachesRegion, "low-memory-trigger", .World_Low_Memory_Trigger)
+#End Region
+#End Region
+#Region "Network"
+                InputPropertyValue(networkRegion, "batch-threshold", .Batch_Threshold)
+                InputPropertyValue(networkRegion, "compression-level", .Compression_Level)
+                InputPropertyValue(networkRegion, "async-compression", .Async_Compression)
+                InputPropertyValue(networkRegion, "max-mtu-size", .Max_Mtu_Size)
+#End Region
+#Region "Debug"
+                InputPropertyValue(debugRegion, "level", .Debug_Level)
+#End Region
+#Region "Player"
+                InputPropertyValue(playerRegion, "save-player-data", .Save_Player_Data)
+                Dim playerAntiCheatRegion As JObject = GetJsonObject(playerRegion, "anti-cheat")
+                InputPropertyValue(playerAntiCheatRegion, "allow-movement-cheats", .Allow_Movement_Cheats)
+#End Region
+#Region "Chunks"
+                InputPropertyValue(chunkSendingRegion, "per-tick", .Chunk_Sending_Per_Tick)
+                InputPropertyValue(chunkSendingRegion, "spawn-radius", .Chunk_Sending_Spawn_Radius)
+                InputPropertyValue(chunkTickingRegion, "per-tick", .Chunk_Ticking_Per_Tick)
+                InputPropertyValue(chunkTickingRegion, "tick-radius", .Chunk_Ticking_Tick_Radius)
+                InputPropertyValue(chunkTickingRegion, "light-updates", .Chunk_Ticking_Light_Updates)
+                InputPropertyValue(chunkGenerationRegion, "population-queue-size", .Chunk_Generation_Population_Queue_Size)
+#End Region
+#Region "Auto Report"
+                InputPropertyValue(autoReportRegion, "enabled", .Auto_Report_Enabled)
+                InputPropertyValue(autoReportRegion, "send-code", .Auto_Report_Send_Code)
+                InputPropertyValue(autoReportRegion, "send-settings", .Auto_Report_Send_Settings)
+                InputPropertyValue(autoReportRegion, "send-phpinfo", .Auto_Report_Send_PHPInfo)
+                InputPropertyValue(autoReportRegion, "use-https", .Auto_Report_Use_HTTPS)
+#End Region
+#Region "Auto Updater"
+                InputPropertyValue(autoUpdaterRegion, "enabled", .Auto_Updater_Enabled)
+#Region "On Update"
+                Dim autoUpdaterOnUpdateRegion As JObject = GetJsonObject(autoUpdaterRegion, "on-update")
+                InputPropertyValue(autoUpdaterOnUpdateRegion, "warn-console", .On_Update_Warn_Console)
+                InputPropertyValue(autoUpdaterOnUpdateRegion, "warn-ops", .On_Update_Warn_Ops)
+#End Region
+                InputPropertyValue(autoUpdaterRegion, "preferred-channel", .Auto_Report_Send_Code)
+                InputPropertyValue(autoUpdaterRegion, "suggest-channels", .Auto_Report_Send_Settings)
+#End Region
+                .path = filepath
+                reader.Close()
+                GC.Collect()
+            End With
+            Return pocketMineOption
+        Else
+            CreateOptionsWithDefaultSetting(filepath)
+        End If
+    End Function
+    Friend Sub SaveOption(Optional isBefore1120 As Boolean = False)
+        Dim jsonObject As JObject
+        If IO.File.Exists(path) Then
+            Try
+                Dim reader As New IO.StreamReader(New IO.FileStream(path, IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
+                Dim deserializer = New DeserializerBuilder().Build()
+                Dim yamlObject = deserializer.Deserialize(reader)
+                deserializer = Nothing
+                Dim jsonSerializer = New SerializerBuilder().JsonCompatible().Build()
+                Dim jsonString = jsonSerializer.Serialize(yamlObject)
+                jsonSerializer = Nothing
+                jsonObject = GetDeserialisedObject(jsonString)
+                reader.Close()
+            Catch ex As Exception
+                jsonObject = New JObject
+            End Try
+        Else
+            jsonObject = New JObject
+        End If
+        Dim settingsRegion As JObject = GetJsonObject(jsonObject, "settings")
+        Dim memoryRegion As JObject = GetJsonObject(jsonObject, "memory")
+        Dim networkRegion As JObject = GetJsonObject(jsonObject, "network")
+        Dim debugRegion As JObject = GetJsonObject(jsonObject, "debug")
+        Dim playerRegion As JObject = GetJsonObject(jsonObject, "player")
+        Dim chunkSendingRegion As JObject = GetJsonObject(jsonObject, "chunk-sending")
+        Dim chunkTickingRegion As JObject = GetJsonObject(jsonObject, "chunk-ticking")
+        Dim chunkGenerationRegion As JObject = GetJsonObject(jsonObject, "chunk-generation")
+        Dim ticksPerRegion As JObject = GetJsonObject(jsonObject, "ticks-per")
+        Dim autoReportRegion As JObject = GetJsonObject(jsonObject, "auto-report")
+        Dim autoUpdaterRegion As JObject = GetJsonObject(jsonObject, "auto-updater")
+        With Me
+#Region "Settings"
+            SetPropertyValue(settingsRegion, "force-language", .Force_Language)
+            SetPropertyValue(settingsRegion, "shutdown-message", .Shutdown_Message)
+            SetPropertyValue(settingsRegion, "query-plugins", .Query_Plugins)
+            SetPropertyValue(settingsRegion, "deprecated-verbose", .Deprecated_Verbose)
+            SetPropertyValue(settingsRegion, "enable-profiling", .Enable_Profiling)
+            SetPropertyValue(settingsRegion, "profile-report-trigger", .Profile_Report_Trigger)
+            SetPropertyValue(settingsRegion, "async-workers", .Async_Workers)
+            SetPropertyValue(settingsRegion, "enable-dev-builds", .Enable_Dev_Builds)
+#End Region
+#Region "Memory"
+            SetPropertyValue(memoryRegion, "global-limit", .Global_Limit)
+            SetPropertyValue(memoryRegion, "main-limit", .Main_Limit)
+            SetPropertyValue(memoryRegion, "main-hard-limit", .Main_Hard_Limit)
+            SetPropertyValue(memoryRegion, "async-worker-hard-limit", .Async_Worker_Hard_Limit)
+            SetPropertyValue(memoryRegion, "check-rate", .Check_Rate)
+            SetPropertyValue(memoryRegion, "continuous-trigger", .Continuous_Trigger)
+            SetPropertyValue(memoryRegion, "continuous-trigger-rate", .Continuous_Trigger_Rate)
+#Region "GC"
+            Dim memoryGCRegion As JObject = GetJsonObject(memoryRegion, "garbage-collection")
+            SetPropertyValue(memoryGCRegion, "period", .Garbage_Collection_Period)
+            SetPropertyValue(memoryGCRegion, "collect-async-worker", .GC_Collect_Async_Worker)
+            SetPropertyValue(memoryGCRegion, "low-memory-trigger", .GC_Low_Memory_Trigger)
+            SetPropertyValue(memoryRegion, "garbage-collection", memoryGCRegion)
+#End Region
+#Region "Memory Dump"
+            Dim memoryDumpRegion As JObject = GetJsonObject(memoryRegion, "memory-dump")
+            SetPropertyValue(memoryDumpRegion, "dump-async-worker", .Dump_Async_Worker)
+            SetPropertyValue(memoryRegion, "memory-dump", memoryDumpRegion)
+#End Region
+#Region "Max Chunks"
+            Dim memoryMaxChunksRegion As JObject = GetJsonObject(memoryRegion, "max-chunks")
+            SetPropertyValue(memoryMaxChunksRegion, "chunk-radius", .Max_Chunk_Radius)
+            SetPropertyValue(memoryMaxChunksRegion, "trigger-chunk-collect", .Max_Chunk_Trigger_Chunk_Collect)
+            SetPropertyValue(memoryRegion, "max-chunks", memoryMaxChunksRegion)
+#End Region
+#Region "World Caches"
+            Dim worldCachesRegion As JObject = GetJsonObject(memoryRegion, "world-caches")
+            SetPropertyValue(worldCachesRegion, "disable-chunk-cache", .Disable_Chunk_Cache)
+            SetPropertyValue(worldCachesRegion, "low-memory-trigger", .World_Low_Memory_Trigger)
+            SetPropertyValue(memoryRegion, "world-caches", worldCachesRegion)
+#End Region
+#End Region
+#Region "Network"
+            SetPropertyValue(networkRegion, "batch-threshold", .Batch_Threshold)
+            SetPropertyValue(networkRegion, "compression-level", .Compression_Level)
+            SetPropertyValue(networkRegion, "async-compression", .Async_Compression)
+            SetPropertyValue(networkRegion, "max-mtu-size", .Max_Mtu_Size)
+#End Region
+#Region "Debug"
+            SetPropertyValue(debugRegion, "level", .Debug_Level)
+#End Region
+#Region "Player"
+            SetPropertyValue(playerRegion, "save-player-data", .Save_Player_Data)
+            Dim playerAntiCheatRegion As JObject = GetJsonObject(playerRegion, "anti-cheat")
+            SetPropertyValue(playerAntiCheatRegion, "allow-movement-cheats", .Allow_Movement_Cheats)
+            SetPropertyValue(playerRegion, "anti-cheat", playerAntiCheatRegion)
+#End Region
+#Region "Chunks"
+            SetPropertyValue(chunkSendingRegion, "per-tick", .Chunk_Sending_Per_Tick)
+            SetPropertyValue(chunkSendingRegion, "spawn-radius", .Chunk_Sending_Spawn_Radius)
+            SetPropertyValue(chunkTickingRegion, "per-tick", .Chunk_Ticking_Per_Tick)
+            SetPropertyValue(chunkTickingRegion, "tick-radius", .Chunk_Ticking_Tick_Radius)
+            SetPropertyValue(chunkTickingRegion, "light-updates", .Chunk_Ticking_Light_Updates)
+            SetPropertyValue(chunkGenerationRegion, "population-queue-size", .Chunk_Generation_Population_Queue_Size)
+#End Region
+#Region "Auto Report"
+            SetPropertyValue(autoReportRegion, "enabled", .Auto_Report_Enabled)
+            SetPropertyValue(autoReportRegion, "send-code", .Auto_Report_Send_Code)
+            SetPropertyValue(autoReportRegion, "send-settings", .Auto_Report_Send_Settings)
+            SetPropertyValue(autoReportRegion, "send-phpinfo", .Auto_Report_Send_PHPInfo)
+            SetPropertyValue(autoReportRegion, "use-https", .Auto_Report_Use_HTTPS)
+#End Region
+#Region "Auto Updater"
+            SetPropertyValue(autoUpdaterRegion, "enabled", .Auto_Updater_Enabled)
+#Region "On Update"
+            Dim autoUpdaterOnUpdateRegion As JObject = GetJsonObject(autoUpdaterRegion, "on-update")
+            SetPropertyValue(autoUpdaterOnUpdateRegion, "warn-console", .On_Update_Warn_Console)
+            SetPropertyValue(autoUpdaterOnUpdateRegion, "warn-ops", .On_Update_Warn_Ops)
+            SetPropertyValue(autoUpdaterRegion, "on-update", autoUpdaterOnUpdateRegion)
+#End Region
+            SetPropertyValue(autoUpdaterRegion, "preferred-channel", .Auto_Report_Send_Code)
+            SetPropertyValue(autoUpdaterRegion, "suggest-channels", .Auto_Report_Send_Settings)
+#End Region
+        End With
+        SetPropertyValue(jsonObject, "settings", settingsRegion)
+        SetPropertyValue(jsonObject, "memory", memoryRegion)
+        SetPropertyValue(jsonObject, "network", networkRegion)
+        SetPropertyValue(jsonObject, "debug", debugRegion)
+        SetPropertyValue(jsonObject, "player", playerRegion)
+        SetPropertyValue(jsonObject, "chunk-sending", chunkSendingRegion)
+        SetPropertyValue(jsonObject, "chunk-ticking", chunkTickingRegion)
+        SetPropertyValue(jsonObject, "chunk-generation", chunkGenerationRegion)
+        SetPropertyValue(jsonObject, "ticks-per", ticksPerRegion)
+        SetPropertyValue(jsonObject, "auto-report", autoReportRegion)
+        SetPropertyValue(jsonObject, "auto-updater", autoUpdaterRegion)
+        Dim expConverter = New Newtonsoft.Json.Converters.ExpandoObjectConverter()
+        Dim deserializedObject = JsonConvert.DeserializeObject(Of Dynamic.ExpandoObject)(JsonConvert.SerializeObject(jsonObject), expConverter)
+        Dim serializer As New YamlDotNet.Serialization.Serializer()
+        Dim writer As IO.StreamWriter
+        If IO.File.Exists(path) Then
+            writer = New IO.StreamWriter(New IO.FileStream(path, IO.FileMode.Truncate, IO.FileAccess.Write))
+        Else
+            writer = New IO.StreamWriter(New IO.FileStream(path, IO.FileMode.CreateNew, IO.FileAccess.Write))
+        End If
+        serializer.Serialize(writer, deserializedObject)
+        writer.Flush()
+        writer.Close()
+    End Sub
+
 #Region "PocketMine YAML Object"
     Enum PocketMineAutoUpdaterChannel
         Development

@@ -43,6 +43,7 @@ Public NotInheritable Class Server
     Public Property AkarinOptions As AkarinOptions
     Public Property CauldronOptions As CauldronOptions
     Public Property NukkitOptions As NukkitOptions
+    Public Property PocketMineOptions As PocketMineOptions
     Public Property ServerPlugins As New List(Of BukkitPlugin)
     Public Property ServerMods As New List(Of ForgeMod)
     Public ReadOnly Property SpongeVersionType As String
@@ -421,6 +422,12 @@ Public NotInheritable Class Server
                                                      CauldronOptions = CauldronOptions.LoadOptions(IO.Path.Combine(ServerPath, "cauldron.yml"))
                                                  Else
                                                      CauldronOptions = CauldronOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "cauldron.yml"))
+                                                 End If
+                                             Case EServerVersionType.PocketMine
+                                                 If IO.File.Exists(IO.Path.Combine(ServerPath, "pocketmine.yml")) Then
+                                                     PocketMineOptions = PocketMineOptions.LoadOptions(IO.Path.Combine(ServerPath, "pocketmine.yml"))
+                                                 Else
+                                                     PocketMineOptions = PocketMineOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "pocketmine.yml"))
                                                  End If
                                          End Select
                                          CheckForUpdate()
@@ -1047,11 +1054,12 @@ Public NotInheritable Class Server
                 ServerVersionType = EServerVersionType.Akarin OrElse
                 ServerVersionType = EServerVersionType.Cauldron OrElse
         ServerVersionType = EServerVersionType.Thermos OrElse
-        ServerVersionType = EServerVersionType.Contigo OrElse
-        ServerVersionType = EServerVersionType.Kettle Then
+        ServerVersionType = EServerVersionType.Contigo Then
             If Version.Parse(_ServerVersion) <= New Version(1, 11, 2) Then
                 spigotSaveFlag = True
             End If
+        ElseIf ServerVersionType = EServerVersionType.Kettle Then
+            spigotSaveFlag = True
         End If
         If SavePluginOrMods Then
             Select Case ServerVersionType
@@ -1099,6 +1107,8 @@ Public NotInheritable Class Server
                     If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(spigotSaveFlag)
                 Case EServerVersionType.Forge
                     SaveMods()
+                Case EServerVersionType.PocketMine
+                    If PocketMineOptions IsNot Nothing Then PocketMineOptions.SaveOption()
                 Case EServerVersionType.Nukkit
                     If NukkitOptions IsNot Nothing Then NukkitOptions.SaveOption()
                     SavePlugins()

@@ -213,6 +213,19 @@ Public Class ServerSetter
                 Dim cauldronTab As New TabPage("Cauldron 設定")
                 cauldronTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.CauldronOptions})
                 SettingTabControl.TabPages.Add(cauldronTab)
+            Case Server.EServerVersionType.Kettle
+                AdvancedTabPage.Text = "伺服器主設定檔"
+                Dim bukkitTab As New TabPage("Bukkit 設定")
+                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
+                SettingTabControl.TabPages.Add(bukkitTab)
+                Dim spigotTab As New TabPage("Spigot 設定")
+                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
+                SettingTabControl.TabPages.Add(spigotTab)
+            Case Server.EServerVersionType.PocketMine
+                AdvancedTabPage.Text = "伺服器主設定檔"
+                Dim pocketMineTab As New TabPage("PocketMine-MP 設定")
+                pocketMineTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.PocketMineOptions})
+                SettingTabControl.TabPages.Add(pocketMineTab)
             Case Else
                 AdvancedTabPage.Text = "伺服器設定檔"
         End Select
