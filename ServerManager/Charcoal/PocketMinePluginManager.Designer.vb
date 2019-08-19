@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class BukkitPluginManager
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class PocketMinePluginManager
     Inherits System.Windows.Forms.Form
 
     'Form 覆寫 Dispose 以清除元件清單。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,12 +20,11 @@ Partial Class BukkitPluginManager
     '注意: 以下為 Windows Form 設計工具所需的程序
     '可以使用 Windows Form 設計工具進行修改。
     '請勿使用程式碼編輯器進行修改。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BukkitPluginManager))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PocketMinePluginManager))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.瀏覽插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.移除插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.重新整理ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PluginList = New System.Windows.Forms.ListView()
@@ -38,7 +37,7 @@ Partial Class BukkitPluginManager
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.瀏覽插件ToolStripMenuItem, Me.移除插件ToolStripMenuItem, Me.重新整理ToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.移除插件ToolStripMenuItem, Me.重新整理ToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
@@ -49,12 +48,6 @@ Partial Class BukkitPluginManager
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(12, 20)
-        '
-        '瀏覽插件ToolStripMenuItem
-        '
-        Me.瀏覽插件ToolStripMenuItem.Name = "瀏覽插件ToolStripMenuItem"
-        Me.瀏覽插件ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
-        Me.瀏覽插件ToolStripMenuItem.Text = "瀏覽插件"
         '
         '移除插件ToolStripMenuItem
         '
@@ -107,7 +100,7 @@ Partial Class BukkitPluginManager
         Me.ColumnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.ColumnHeader3.Width = 554
         '
-        'BukkitPluginManager
+        'PocketMinePluginManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -117,9 +110,9 @@ Partial Class BukkitPluginManager
         Me.DoubleBuffered = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Name = "BukkitPluginManager"
+        Me.Name = "PocketMinePluginManager"
         Me.ShowIcon = False
-        Me.Text = "Bukkit 插件管理員"
+        Me.Text = "PocketMine-MP 插件管理員"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -129,7 +122,6 @@ Partial Class BukkitPluginManager
 
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents 瀏覽插件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 移除插件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PluginList As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader

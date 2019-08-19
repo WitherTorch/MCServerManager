@@ -66,7 +66,7 @@ Public Class ForgeModExplorer
                                                                                           _server.ServerMods.Remove(forgeMod)
                                                                                       End If
                                                                                   Next
-                                                                                  _server.ServerMods.Add(New Server.ForgeMod("SpongeForge", filename, versions(versionListBox.SelectedIndices(0)).OriginalString, Now, IO.File.GetLastWriteTime(filename)))
+                                                                                  _server.ServerMods.Add(New Server.ServerMod("SpongeForge", filename, versions(versionListBox.SelectedIndices(0)).OriginalString, Now, IO.File.GetLastWriteTime(filename)))
                                                                               End Sub
                                   End Sub)
         spongeThread.IsBackground = True

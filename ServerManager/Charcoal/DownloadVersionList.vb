@@ -73,7 +73,7 @@ Public Class DownloadVersionList
                         server.ServerPlugins.Remove(plugin)
                     End If
                 Next
-                Dim _plugin As New Server.BukkitPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
+                Dim _plugin As New Server.ServerPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
                 Using unpatcher As New BukkitPluginUnpatcher(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"))
                     Dim info = unpatcher.GetPluginInfo()
                     If info.IsNull = False Then
@@ -90,7 +90,7 @@ Public Class DownloadVersionList
                         server.ServerMods.Remove(forgeMod)
                     End If
                 Next
-                Dim _mod As New Server.ForgeMod(pluginName, IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"), "", Date.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar")))
+                Dim _mod As New Server.ServerMod(pluginName, IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"), "", Date.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar")))
                 Using unpatcher As New ForgeModUnpatcher(IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"))
                     Dim info = unpatcher.GetModInfo()
                     If info.IsNull = False Then
@@ -99,7 +99,7 @@ Public Class DownloadVersionList
                         server.ServerMods.Add(_mod)
                     End If
                 End Using
-                server.ServerMods.Add(New Server.ForgeMod(pluginName, IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"), "", DateTime.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"))))
+                server.ServerMods.Add(New Server.ServerMod(pluginName, IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"), "", DateTime.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"))))
             ElseIf website = BrowsingWebsite.Nukkit_PluginDownloadList Then
                 My.Computer.Network.DownloadFile(realURI, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", "", True, 100, True)
                 For Each plugin In server.ServerPlugins
@@ -113,7 +113,7 @@ Public Class DownloadVersionList
                     t = t.Remove(t.IndexOf("at"))
                     t = t.Trim
                 End If
-                Dim _plugin As New Server.BukkitPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
+                Dim _plugin As New Server.ServerPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
                 Using unpatcher As New BukkitPluginUnpatcher(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"))
                     Dim info = unpatcher.GetPluginInfo()
                     If info.IsNull = False Then
@@ -136,7 +136,7 @@ Public Class DownloadVersionList
                     t = t.Remove(t.IndexOf("at"))
                     t = t.Trim
                 End If
-                Dim _plugin As New Server.BukkitPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
+                Dim _plugin As New Server.ServerPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
                 Using unpatcher As New BukkitPluginUnpatcher(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"))
                     Dim info = unpatcher.GetPluginInfo()
                     If info.IsNull = False Then

@@ -96,6 +96,9 @@ Public Class ServerSetter
         ElseIf server.ServerVersionType = Server.EServerVersionType.Nukkit Then
             PluginManageButton.Enabled = True
             PluginManageButton.Text = "管理插件"
+        ElseIf server.ServerVersionType = Server.EServerVersionType.PocketMine Then
+            PluginManageButton.Enabled = True
+            PluginManageButton.Text = "管理插件"
         ElseIf server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
                 server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
                 server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
@@ -305,6 +308,9 @@ Public Class ServerSetter
             CType(addonManager, Form).Show()
         ElseIf server.ServerVersionType = Server.EServerVersionType.Nukkit Then
             addonManager = New NukkitPluginManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
+            CType(addonManager, Form).Show()
+        ElseIf server.ServerVersionType = Server.EServerVersionType.PocketMine Then
+            addonManager = New PocketMinePluginManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
             CType(addonManager, Form).Show()
         ElseIf server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
             server.ServerVersionType = Server.EServerVersionType.Thermos OrElse

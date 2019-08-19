@@ -207,6 +207,10 @@ Class JavaServerOptions
                                                               vbNewLine & "False - 玩家獲得 成就/進度 時的提示僅自己可見，不會向其他玩家進行顯示。" &
                                                               vbNewLine & "True - 玩家獲得 成就/進度 時將在其他在線玩家的聊天欄進行提示。")>
     Public Property Announce_Player_Achievements As Boolean = True
+    <DisplayName("指令執行時通知管理員")> <DefaultValue(False)> <Category("技術性")> <Description("指令執行時是否要通知管理員")>
+    Public Property Broadcast_Console_To_Ops As Boolean = False
+    <DisplayName("偵錯模式")> <DefaultValue(False)> <Category("技術性")> <Description("是否啟動偵錯模式")>
+    Public Property Debug As Boolean = False
     <DisplayName("難度")> <DefaultValue(Difficulty.Easy)> <Category("玩家")> <Description("定義伺服器的遊戲難度（例如生物對玩家造成的傷害，飢餓與中毒對玩家的影響方式等）。  " &
                                                               vbNewLine & "Peaceful - 和平" &
                                                               vbNewLine & "Easy - 簡單" &
@@ -392,6 +396,8 @@ Class JavaServerOptions
     <DisplayName("資源包驗證碼")> <DefaultValue("")> <Category("技術性")> <Description("資源包的SHA-1值，必須為小寫十六進位，建議填寫它，" &
                                                           vbNewLine & "這還沒有用於驗證資源包的完整性，但是它提高了資源包緩存的有效性和可靠性。 ")>
     Public Property Resource_Pack_Sha1 As String = ""
+    <DisplayName("伺服器名稱")> <DefaultValue("Unknown Server")> <Category("技術性")> <Description("伺服器的名稱（未知用途）")>
+    Public Property Server_Name As String = "Unknown Server"
     <DisplayName("伺服器IP")> <DefaultValue("")> <Category("技術性")> <Description("將伺服器與一個特定IP綁定。強烈建議你留空本屬性值！" &
                                                              vbNewLine & "      留空，或是填入你想讓伺服器綁定的IP。")>
     Public Property Server_Ip As String = ""
@@ -516,6 +522,10 @@ Class JavaServerOptions
                             Allow_Nether = [option].Value
                         Case "announce-player-achievements"
                             Announce_Player_Achievements = [option].Value
+                        Case "broadcast-console-to-ops"
+                            Broadcast_Console_To_Ops = [option].Value
+                        Case "debug"
+                            Debug = [option].Value
                         Case "difficulty"
                             Difficulty = [Enum].Parse(GetType(Difficulty), [option].Value)
                         Case "enable-query"
@@ -547,7 +557,7 @@ Class JavaServerOptions
                         Case "max-world-size"
                             Max_World_Size = [option].Value
                         Case "motd"
-                            Motd = [option].Value
+                            Motd = GetDeUnicodedText([option].Value)
                         Case "network-compression-threshold"
                             Network_Compression_Threshold = [option].Value
                         Case "online-mode"
@@ -570,6 +580,8 @@ Class JavaServerOptions
                             _Resource_Pack = [option].Value
                         Case "resource-pack-sha1"
                             _Resource_Pack_Sha1 = [option].Value
+                        Case "server-name"
+                            Server_Name = GetDeUnicodedText([option].Value)
                         Case "server-ip"
                             Server_Ip = [option].Value
                         Case "server-port"
@@ -618,6 +630,10 @@ Class JavaServerOptions
                 Allow_Nether = Boolean.Parse(value)
             Case "announce-player-achievements"
                 Announce_Player_Achievements = Boolean.Parse(value)
+            Case "broadcast-console-to-ops"
+                Broadcast_Console_To_Ops = value
+            Case "debug"
+                Debug = value
             Case "difficulty"
                 Difficulty = [Enum].Parse(GetType(Difficulty), value)
             Case "enable-query"
@@ -672,6 +688,8 @@ Class JavaServerOptions
                 _Resource_Pack = value
             Case "resource-pack-sha1"
                 _Resource_Pack_Sha1 = value
+            Case "server-name"
+                Server_Name = value
             Case "server-ip"
                 Server_Ip = value
             Case "server-port"
@@ -710,6 +728,8 @@ Class JavaServerOptions
         options.Add("allow-flight", Allow_Flight.ToString.ToLower)
         options.Add("allow-nether", Allow_Nether.ToString.ToLower)
         options.Add("announce-player-achievements", Announce_Player_Achievements.ToString.ToLower)
+        options.Add("broadcast-console-to-ops", Broadcast_Console_To_Ops.ToString.ToLower)
+        options.Add("debug", Debug.ToString.ToLower)
         options.Add("difficulty", Difficulty)
         options.Add("enable-query", Enable_Query.ToString.ToLower)
         options.Add("enable-rcon", Enable_Rcon.ToString.ToLower)
@@ -725,7 +745,7 @@ Class JavaServerOptions
         options.Add("max-players", Max_Players)
         options.Add("max-tick-time", Max_Tick_Time)
         options.Add("max-world-size", Max_World_Size)
-        options.Add("motd", Motd)
+        options.Add("motd", GetUnicodedText(Motd))
         options.Add("network-compression-threshold", Network_Compression_Threshold)
         options.Add("online-mode", Online_Mode.ToString.ToLower)
         options.Add("op-permission-level", Op_Permission_Level)
@@ -737,6 +757,7 @@ Class JavaServerOptions
         options.Add("rcon.port", Rcon_Port)
         options.Add("resource-pack", Resource_Pack)
         options.Add("resource-pack-sha1", Resource_Pack_Sha1)
+        options.Add("server-name", GetUnicodedText(Server_Name))
         options.Add("server-ip", Server_Ip)
         options.Add("server-port", Server_Port)
         options.Add("snooper-enabled", Snooper_Enabled.ToString.ToLower)

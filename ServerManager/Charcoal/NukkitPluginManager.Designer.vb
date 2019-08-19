@@ -22,6 +22,7 @@ Partial Class NukkitPluginManager
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NukkitPluginManager))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.移除插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -107,6 +108,7 @@ Partial Class NukkitPluginManager
         Me.Controls.Add(Me.PluginList)
         Me.Controls.Add(Me.MenuStrip1)
         Me.DoubleBuffered = True
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "NukkitPluginManager"
         Me.ShowIcon = False

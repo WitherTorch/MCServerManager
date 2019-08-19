@@ -44,8 +44,8 @@ Public NotInheritable Class Server
     Public Property CauldronOptions As CauldronOptions
     Public Property NukkitOptions As NukkitOptions
     Public Property PocketMineOptions As PocketMineOptions
-    Public Property ServerPlugins As New List(Of BukkitPlugin)
-    Public Property ServerMods As New List(Of ForgeMod)
+    Public Property ServerPlugins As New List(Of ServerPlugin)
+    Public Property ServerMods As New List(Of ServerMod)
     Public ReadOnly Property SpongeVersionType As String
     Public ReadOnly Property Server3rdVersion As String
     Private _IsRunning As Boolean
@@ -439,7 +439,8 @@ Public NotInheritable Class Server
                                              _ServerVersionType = EServerVersionType.Cauldron OrElse
                                              _ServerVersionType = EServerVersionType.Thermos OrElse
                                              _ServerVersionType = EServerVersionType.Contigo OrElse
-                                             _ServerVersionType = EServerVersionType.Kettle Then
+                                             _ServerVersionType = EServerVersionType.Kettle OrElse
+                                             _ServerVersionType = EServerVersionType.PocketMine Then
                                              Try
                                                  LoadPlugins()
                                              Catch ex As Exception
@@ -597,18 +598,29 @@ Public NotInheritable Class Server
                         Try
                             If IO.File.Exists(jsonObject.GetValue("Path").ToString) = False Then
                                 If jsonObject.ContainsKey("LastAccessedDate") = False Or IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString) <> jsonObject.GetValue("LastAccessedDate") Then
-                                    Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
-                                    Using unpatcher As New BukkitPluginUnpatcher(item.Path)
-                                        Dim info = unpatcher.GetPluginInfo()
-                                        If info.IsNull = False Then
-                                            item.Name = info.Name
-                                            item.Version = info.Version
-                                            ServerPlugins.Add(item)
-                                        End If
-                                    End Using
+                                    Dim item As New ServerPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
+                                    If ServerVersionType = EServerVersionType.PocketMine Then
+                                        Using unpatcher As New PocketMinePluginUnpatcher(item.Path)
+                                            Dim info = unpatcher.GetPluginInfo()
+                                            If info.IsNull = False Then
+                                                item.Name = info.Name
+                                                item.Version = info.Version
+                                                ServerPlugins.Add(item)
+                                            End If
+                                        End Using
+                                    Else
+                                        Using unpatcher As New BukkitPluginUnpatcher(item.Path)
+                                            Dim info = unpatcher.GetPluginInfo()
+                                            If info.IsNull = False Then
+                                                item.Name = info.Name
+                                                item.Version = info.Version
+                                                ServerPlugins.Add(item)
+                                            End If
+                                        End Using
+                                    End If
                                     paths.Add(jsonObject.GetValue("Path").ToString)
                                 Else
-                                    Dim item As New BukkitPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), jsonObject.GetValue("LastAccessedDate"))
+                                    Dim item As New ServerPlugin(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), jsonObject.GetValue("LastAccessedDate"))
                                     paths.Add(jsonObject.GetValue("Path").ToString)
                                     ServerPlugins.Add(item)
                                 End If
@@ -620,23 +632,43 @@ Public NotInheritable Class Server
                 End If
             End If
             Dim pluginPathInfo As New IO.DirectoryInfo(pluginPath)
-            For Each pluginFileInfo In pluginPathInfo.GetFiles("*.jar", IO.SearchOption.TopDirectoryOnly)
-                Try
-                    Dim item As New BukkitPlugin(pluginFileInfo.Name, pluginFileInfo.FullName, "", pluginFileInfo.CreationTime, pluginFileInfo.LastWriteTime)
-                    If paths.Contains(item.Path) = False Then
-                        Using unpatcher As New BukkitPluginUnpatcher(item.Path)
-                            Dim info = unpatcher.GetPluginInfo()
-                            If info.IsNull = False Then
-                                item.Name = info.Name
-                                item.Version = info.Version
-                                ServerPlugins.Add(item)
-                            End If
-                        End Using
-                    End If
-                Catch ex As Exception
+            If ServerVersionType = EServerVersionType.PocketMine Then
+                For Each pluginFileInfo In pluginPathInfo.GetFiles("*.phar", IO.SearchOption.TopDirectoryOnly)
+                    Try
+                        Dim item As New ServerPlugin(pluginFileInfo.Name, pluginFileInfo.FullName, "", pluginFileInfo.CreationTime, pluginFileInfo.LastWriteTime)
+                        If paths.Contains(item.Path) = False Then
+                            Using unpatcher As New PocketMinePluginUnpatcher(item.Path)
+                                Dim info = unpatcher.GetPluginInfo()
+                                If info.IsNull = False Then
+                                    item.Name = info.Name
+                                    item.Version = info.Version
+                                    ServerPlugins.Add(item)
+                                End If
+                            End Using
+                        End If
+                    Catch ex As Exception
 
-                End Try
-            Next
+                    End Try
+                Next
+            Else
+                For Each pluginFileInfo In pluginPathInfo.GetFiles("*.jar", IO.SearchOption.TopDirectoryOnly)
+                    Try
+                        Dim item As New ServerPlugin(pluginFileInfo.Name, pluginFileInfo.FullName, "", pluginFileInfo.CreationTime, pluginFileInfo.LastWriteTime)
+                        If paths.Contains(item.Path) = False Then
+                            Using unpatcher As New BukkitPluginUnpatcher(item.Path)
+                                Dim info = unpatcher.GetPluginInfo()
+                                If info.IsNull = False Then
+                                    item.Name = info.Name
+                                    item.Version = info.Version
+                                    ServerPlugins.Add(item)
+                                End If
+                            End Using
+                        End If
+                    Catch ex As Exception
+
+                    End Try
+                Next
+            End If
         End If
     End Sub
     Sub SavePlugins()
@@ -677,7 +709,7 @@ Public NotInheritable Class Server
                         Try
                             If IO.File.Exists(jsonObject.GetValue("Path").ToString) = False Then
                                 If jsonObject.ContainsKey("LastAccessedDate") = False Or IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString) <> jsonObject.GetValue("LastAccessedDate") Then
-                                    Dim item As New ForgeMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
+                                    Dim item As New ServerMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
                                     Using unpatcher As New ForgeModUnpatcher(item.Path)
                                         Dim info = unpatcher.GetModInfo()
                                         If info.IsNull = False Then
@@ -688,7 +720,7 @@ Public NotInheritable Class Server
                                     End Using
                                     paths.Add(jsonObject.GetValue("Path").ToString)
                                 Else
-                                    Dim item As New ForgeMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), jsonObject.GetValue("LastAccessedDate"))
+                                    Dim item As New ServerMod(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), jsonObject.GetValue("LastAccessedDate"))
                                     paths.Add(jsonObject.GetValue("Path").ToString)
                                     ServerMods.Add(item)
                                 End If
@@ -700,9 +732,9 @@ Public NotInheritable Class Server
                 End If
             End If
             Dim modPathInfo As New IO.DirectoryInfo(modPath)
-            For Each modFileInfo In modPathInfo.GetFiles("*.jar", IO.SearchOption.TopDirectoryOnly)
+            For Each modFileInfo In modPathInfo.GetFiles("*.jar", IO.SearchOption.AllDirectories)
                 Try
-                    Dim item As New ForgeMod(modFileInfo.Name, modFileInfo.FullName, "", modFileInfo.CreationTime, modFileInfo.LastWriteTime)
+                    Dim item As New ServerMod(modFileInfo.Name, modFileInfo.FullName, "", modFileInfo.CreationTime, modFileInfo.LastWriteTime)
                     If paths.Contains(item.Path) = False Then
                         Using unpatcher As New ForgeModUnpatcher(item.Path)
                             Dim info = unpatcher.GetModInfo()
@@ -1038,7 +1070,7 @@ Public NotInheritable Class Server
 
     Friend Sub SaveServer(Optional SavePluginOrMods As Boolean = True)
         My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
-        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), System.Text.Encoding.UTF8)
+        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
         writer.WriteLine("# Minecraft server properties")
         writer.WriteLine("#" & Now.ToString("ddd MMM dd HH:mm:ss K yyyy", System.Globalization.CultureInfo.CurrentUICulture))
         For Each [option] In ServerOptions
@@ -1109,6 +1141,7 @@ Public NotInheritable Class Server
                     SaveMods()
                 Case EServerVersionType.PocketMine
                     If PocketMineOptions IsNot Nothing Then PocketMineOptions.SaveOption()
+                    SavePlugins()
                 Case EServerVersionType.Nukkit
                     If NukkitOptions IsNot Nothing Then NukkitOptions.SaveOption()
                     SavePlugins()
@@ -1133,7 +1166,7 @@ Public NotInheritable Class Server
         _ServerType = serverType
         _ServerVersionType = serverVersionType
     End Sub
-    Public Class BukkitPlugin
+    Public Class ServerPlugin
         Friend Property Name As String
         Friend Property Version As String
         Friend ReadOnly Property Path As String
@@ -1146,14 +1179,14 @@ Public NotInheritable Class Server
             _VersionDate = VersionDate
             _LastDate = LastDate
         End Sub
-        Public Shared Operator =(plugin1 As BukkitPlugin, plugin2 As BukkitPlugin) As Boolean
+        Public Shared Operator =(plugin1 As ServerPlugin, plugin2 As ServerPlugin) As Boolean
             Return plugin1.Path = plugin2.Path
         End Operator
-        Public Shared Operator <>(plugin1 As BukkitPlugin, plugin2 As BukkitPlugin) As Boolean
+        Public Shared Operator <>(plugin1 As ServerPlugin, plugin2 As ServerPlugin) As Boolean
             Return plugin1.Path <> plugin2.Path
         End Operator
     End Class
-    Public Class ForgeMod
+    Public Class ServerMod
         Friend Property Name As String
         Friend Property Version As String
         Friend ReadOnly Property Path As String
@@ -1166,10 +1199,10 @@ Public NotInheritable Class Server
             _VersionDate = VersionDate
             _LastDate = LastDate
         End Sub
-        Public Shared Operator =(mod1 As ForgeMod, mod2 As ForgeMod) As Boolean
+        Public Shared Operator =(mod1 As ServerMod, mod2 As ServerMod) As Boolean
             Return mod1.Path = mod2.Path
         End Operator
-        Public Shared Operator <>(mod1 As ForgeMod, mod2 As ForgeMod) As Boolean
+        Public Shared Operator <>(mod1 As ServerMod, mod2 As ServerMod) As Boolean
             Return mod1.Path <> mod2.Path
         End Operator
     End Class

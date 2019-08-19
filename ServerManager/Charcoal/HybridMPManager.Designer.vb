@@ -30,22 +30,22 @@ Partial Class HybridMPManager
         Me.重新整理ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PagesControl = New System.Windows.Forms.TabControl()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.ModList = New System.Windows.Forms.ListView()
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader8 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.PluginList = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader7 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ModList = New System.Windows.Forms.ListView()
-        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader8 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.MenuStrip1.SuspendLayout
-        Me.PagesControl.SuspendLayout
-        Me.TabPage2.SuspendLayout
-        Me.TabPage1.SuspendLayout
-        Me.SuspendLayout
+        Me.MenuStrip1.SuspendLayout()
+        Me.PagesControl.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.SuspendLayout()
         '
         'MenuStrip1
         '
@@ -101,55 +101,6 @@ Partial Class HybridMPManager
         Me.TabPage2.Text = "模組"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'TabPage1
-        '
-        Me.TabPage1.Controls.Add(Me.PluginList)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(792, 400)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "插件"
-        Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'PluginList
-        '
-        Me.PluginList.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.PluginList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader7})
-        Me.PluginList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PluginList.GridLines = True
-        Me.PluginList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.PluginList.Location = New System.Drawing.Point(3, 3)
-        Me.PluginList.MultiSelect = False
-        Me.PluginList.Name = "PluginList"
-        Me.PluginList.Size = New System.Drawing.Size(786, 394)
-        Me.PluginList.TabIndex = 2
-        Me.PluginList.UseCompatibleStateImageBehavior = False
-        Me.PluginList.View = System.Windows.Forms.View.Details
-        '
-        'ColumnHeader1
-        '
-        Me.ColumnHeader1.Text = "名稱"
-        Me.ColumnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader1.Width = 116
-        '
-        'ColumnHeader2
-        '
-        Me.ColumnHeader2.Text = "版本"
-        Me.ColumnHeader2.Width = 76
-        '
-        'ColumnHeader3
-        '
-        Me.ColumnHeader3.Text = "版本發布時間"
-        Me.ColumnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader3.Width = 113
-        '
-        'ColumnHeader7
-        '
-        Me.ColumnHeader7.Text = "檔案路徑"
-        Me.ColumnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.ColumnHeader7.Width = 554
-        '
         'ModList
         '
         Me.ModList.Activation = System.Windows.Forms.ItemActivation.OneClick
@@ -157,6 +108,7 @@ Partial Class HybridMPManager
         Me.ModList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ModList.GridLines = True
         Me.ModList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.ModList.HideSelection = False
         Me.ModList.Location = New System.Drawing.Point(3, 3)
         Me.ModList.MultiSelect = False
         Me.ModList.Name = "ModList"
@@ -188,6 +140,56 @@ Partial Class HybridMPManager
         Me.ColumnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.ColumnHeader8.Width = 554
         '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.PluginList)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(792, 400)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "插件"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'PluginList
+        '
+        Me.PluginList.Activation = System.Windows.Forms.ItemActivation.OneClick
+        Me.PluginList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader7})
+        Me.PluginList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PluginList.GridLines = True
+        Me.PluginList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.PluginList.HideSelection = False
+        Me.PluginList.Location = New System.Drawing.Point(3, 3)
+        Me.PluginList.MultiSelect = False
+        Me.PluginList.Name = "PluginList"
+        Me.PluginList.Size = New System.Drawing.Size(786, 394)
+        Me.PluginList.TabIndex = 2
+        Me.PluginList.UseCompatibleStateImageBehavior = False
+        Me.PluginList.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "名稱"
+        Me.ColumnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader1.Width = 116
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "版本"
+        Me.ColumnHeader2.Width = 76
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "版本發布時間"
+        Me.ColumnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader3.Width = 113
+        '
+        'ColumnHeader7
+        '
+        Me.ColumnHeader7.Text = "檔案路徑"
+        Me.ColumnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ColumnHeader7.Width = 554
+        '
         'HybridMPManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -202,12 +204,12 @@ Partial Class HybridMPManager
         Me.ShowIcon = False
         Me.Text = "Cauldron 插件/模組管理員"
         Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout
+        Me.MenuStrip1.PerformLayout()
         Me.PagesControl.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout
+        Me.PerformLayout()
 
     End Sub
 
