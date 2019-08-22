@@ -50,7 +50,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>false</DefineTrace>
     <Optimize>false</Optimize>
-    <OutputPath>Release\</OutputPath>
+    <OutputPath>Release_WinTest\</OutputPath>
     <DocumentationFile>ServerManager.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
@@ -749,7 +749,7 @@ mkdir Merged\
 echo on
 IF EXIST C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe (
         echo Starting ILMerge...
-        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll DropDownControls.dll NBT.dll Devsense.PHP.Phar.dll
+        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll DropDownControls.dll NBT.dll Devsense.PHP.Phar.dll MetroFramework.dll MetroFramework.Design.dll MetroFramework.Fonts.dll
     ) ELSE (
 echo missing ILMerge , please install MCSMPack.
 )
