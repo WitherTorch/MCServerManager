@@ -396,8 +396,6 @@ Class JavaServerOptions
     <DisplayName("資源包驗證碼")> <DefaultValue("")> <Category("技術性")> <Description("資源包的SHA-1值，必須為小寫十六進位，建議填寫它，" &
                                                           vbNewLine & "這還沒有用於驗證資源包的完整性，但是它提高了資源包緩存的有效性和可靠性。 ")>
     Public Property Resource_Pack_Sha1 As String = ""
-    <DisplayName("伺服器名稱")> <DefaultValue("Unknown Server")> <Category("技術性")> <Description("伺服器的名稱（未知用途）")>
-    Public Property Server_Name As String = "Unknown Server"
     <DisplayName("伺服器IP")> <DefaultValue("")> <Category("技術性")> <Description("將伺服器與一個特定IP綁定。強烈建議你留空本屬性值！" &
                                                              vbNewLine & "      留空，或是填入你想讓伺服器綁定的IP。")>
     Public Property Server_Ip As String = ""
@@ -580,8 +578,6 @@ Class JavaServerOptions
                             _Resource_Pack = [option].Value
                         Case "resource-pack-sha1"
                             _Resource_Pack_Sha1 = [option].Value
-                        Case "server-name"
-                            Server_Name = GetDeUnicodedText([option].Value)
                         Case "server-ip"
                             Server_Ip = [option].Value
                         Case "server-port"
@@ -688,8 +684,6 @@ Class JavaServerOptions
                 _Resource_Pack = value
             Case "resource-pack-sha1"
                 _Resource_Pack_Sha1 = value
-            Case "server-name"
-                Server_Name = value
             Case "server-ip"
                 Server_Ip = value
             Case "server-port"
@@ -757,7 +751,6 @@ Class JavaServerOptions
         options.Add("rcon.port", Rcon_Port)
         options.Add("resource-pack", Resource_Pack)
         options.Add("resource-pack-sha1", Resource_Pack_Sha1)
-        options.Add("server-name", GetUnicodedText(Server_Name))
         options.Add("server-ip", Server_Ip)
         options.Add("server-port", Server_Port)
         options.Add("snooper-enabled", Snooper_Enabled.ToString.ToLower)
