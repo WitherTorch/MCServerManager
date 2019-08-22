@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class BungeeCordConsole
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -24,18 +24,18 @@ Partial Class BungeeCordConsole
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BungeeCordConsole))
-        Me.MainTabControl = New System.Windows.Forms.TabControl()
-        Me.MainTabPage = New System.Windows.Forms.TabPage()
+        Me.MainTabControl = New MetroFramework.Controls.MetroTabControl()
+        Me.MainTabPage = New MetroFramework.Controls.MetroTabPage()
         Me.PlayerGroupBox = New System.Windows.Forms.GroupBox()
         Me.PlayerListBox = New System.Windows.Forms.ListBox()
         Me.SystemGroupBox = New System.Windows.Forms.GroupBox()
         Me.IDLabel = New System.Windows.Forms.Label()
         Me.MemoryLabel = New System.Windows.Forms.Label()
         Me.ServerStatusLabel = New System.Windows.Forms.Label()
-        Me.SettingTabPage = New System.Windows.Forms.TabPage()
+        Me.SettingTabPage = New MetroFramework.Controls.MetroTabPage()
         Me.NotifyGroupBox = New System.Windows.Forms.GroupBox()
         Me.NotifyChooseListBox = New System.Windows.Forms.CheckedListBox()
-        Me.DataStreamTabPage = New System.Windows.Forms.TabPage()
+        Me.DataStreamTabPage = New MetroFramework.Controls.MetroTabPage()
         Me.ContentPanel = New System.Windows.Forms.Panel()
         Me.DataListView = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -44,7 +44,7 @@ Partial Class BungeeCordConsole
         Me.TopPanel = New System.Windows.Forms.Panel()
         Me.StopLoadingCheckBox = New System.Windows.Forms.CheckBox()
         Me.CloseCheckBox = New System.Windows.Forms.CheckBox()
-        Me.CommandTextBox = New System.Windows.Forms.TextBox()
+        Me.CommandTextBox = New MetroFramework.Controls.MetroTextBox()
         Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
@@ -65,24 +65,31 @@ Partial Class BungeeCordConsole
         Me.MainTabControl.Controls.Add(Me.SettingTabPage)
         Me.MainTabControl.Controls.Add(Me.DataStreamTabPage)
         Me.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MainTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 0
-        Me.MainTabControl.Size = New System.Drawing.Size(800, 450)
+        Me.MainTabControl.SelectedIndex = 2
+        Me.MainTabControl.Size = New System.Drawing.Size(760, 420)
         Me.MainTabControl.TabIndex = 0
+        Me.MainTabControl.UseSelectable = True
         '
         'MainTabPage
         '
         Me.MainTabPage.Controls.Add(Me.PlayerGroupBox)
         Me.MainTabPage.Controls.Add(Me.SystemGroupBox)
         Me.MainTabPage.Controls.Add(Me.ServerStatusLabel)
-        Me.MainTabPage.Location = New System.Drawing.Point(4, 22)
+        Me.MainTabPage.HorizontalScrollbarBarColor = True
+        Me.MainTabPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.MainTabPage.HorizontalScrollbarSize = 10
+        Me.MainTabPage.Location = New System.Drawing.Point(4, 38)
         Me.MainTabPage.Name = "MainTabPage"
         Me.MainTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.MainTabPage.Size = New System.Drawing.Size(792, 424)
+        Me.MainTabPage.Size = New System.Drawing.Size(752, 378)
         Me.MainTabPage.TabIndex = 0
         Me.MainTabPage.Text = "BungeeCord 資訊"
         Me.MainTabPage.UseVisualStyleBackColor = True
+        Me.MainTabPage.VerticalScrollbarBarColor = True
+        Me.MainTabPage.VerticalScrollbarHighlightOnWheel = False
+        Me.MainTabPage.VerticalScrollbarSize = 10
         '
         'PlayerGroupBox
         '
@@ -92,7 +99,7 @@ Partial Class BungeeCordConsole
         Me.PlayerGroupBox.Controls.Add(Me.PlayerListBox)
         Me.PlayerGroupBox.Location = New System.Drawing.Point(8, 108)
         Me.PlayerGroupBox.Name = "PlayerGroupBox"
-        Me.PlayerGroupBox.Size = New System.Drawing.Size(776, 308)
+        Me.PlayerGroupBox.Size = New System.Drawing.Size(736, 274)
         Me.PlayerGroupBox.TabIndex = 37
         Me.PlayerGroupBox.TabStop = False
         Me.PlayerGroupBox.Text = "玩家"
@@ -104,7 +111,7 @@ Partial Class BungeeCordConsole
         Me.PlayerListBox.ItemHeight = 12
         Me.PlayerListBox.Location = New System.Drawing.Point(3, 18)
         Me.PlayerListBox.Name = "PlayerListBox"
-        Me.PlayerListBox.Size = New System.Drawing.Size(770, 287)
+        Me.PlayerListBox.Size = New System.Drawing.Size(730, 253)
         Me.PlayerListBox.TabIndex = 0
         '
         'SystemGroupBox
@@ -115,7 +122,7 @@ Partial Class BungeeCordConsole
         Me.SystemGroupBox.Controls.Add(Me.MemoryLabel)
         Me.SystemGroupBox.Location = New System.Drawing.Point(8, 33)
         Me.SystemGroupBox.Name = "SystemGroupBox"
-        Me.SystemGroupBox.Size = New System.Drawing.Size(776, 69)
+        Me.SystemGroupBox.Size = New System.Drawing.Size(736, 69)
         Me.SystemGroupBox.TabIndex = 31
         Me.SystemGroupBox.TabStop = False
         Me.SystemGroupBox.Text = "系統"
@@ -126,7 +133,7 @@ Partial Class BungeeCordConsole
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.IDLabel.Location = New System.Drawing.Point(6, 39)
         Me.IDLabel.Name = "IDLabel"
-        Me.IDLabel.Size = New System.Drawing.Size(764, 21)
+        Me.IDLabel.Size = New System.Drawing.Size(724, 21)
         Me.IDLabel.TabIndex = 4
         Me.IDLabel.Text = "處理序ID："
         Me.IDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -137,7 +144,7 @@ Partial Class BungeeCordConsole
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MemoryLabel.Location = New System.Drawing.Point(6, 18)
         Me.MemoryLabel.Name = "MemoryLabel"
-        Me.MemoryLabel.Size = New System.Drawing.Size(770, 21)
+        Me.MemoryLabel.Size = New System.Drawing.Size(730, 21)
         Me.MemoryLabel.TabIndex = 3
         Me.MemoryLabel.Text = "占用記憶體："
         Me.MemoryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -149,7 +156,7 @@ Partial Class BungeeCordConsole
         Me.ServerStatusLabel.Location = New System.Drawing.Point(6, 6)
         Me.ServerStatusLabel.Margin = New System.Windows.Forms.Padding(3)
         Me.ServerStatusLabel.Name = "ServerStatusLabel"
-        Me.ServerStatusLabel.Size = New System.Drawing.Size(697, 21)
+        Me.ServerStatusLabel.Size = New System.Drawing.Size(657, 21)
         Me.ServerStatusLabel.TabIndex = 29
         Me.ServerStatusLabel.Text = "BungeeCord 狀態：關閉"
         Me.ServerStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -157,13 +164,19 @@ Partial Class BungeeCordConsole
         'SettingTabPage
         '
         Me.SettingTabPage.Controls.Add(Me.NotifyGroupBox)
-        Me.SettingTabPage.Location = New System.Drawing.Point(4, 22)
+        Me.SettingTabPage.HorizontalScrollbarBarColor = True
+        Me.SettingTabPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.SettingTabPage.HorizontalScrollbarSize = 10
+        Me.SettingTabPage.Location = New System.Drawing.Point(4, 38)
         Me.SettingTabPage.Name = "SettingTabPage"
         Me.SettingTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.SettingTabPage.Size = New System.Drawing.Size(792, 424)
+        Me.SettingTabPage.Size = New System.Drawing.Size(752, 378)
         Me.SettingTabPage.TabIndex = 3
         Me.SettingTabPage.Text = "BungeeCord 操作"
         Me.SettingTabPage.UseVisualStyleBackColor = True
+        Me.SettingTabPage.VerticalScrollbarBarColor = True
+        Me.SettingTabPage.VerticalScrollbarHighlightOnWheel = False
+        Me.SettingTabPage.VerticalScrollbarSize = 10
         '
         'NotifyGroupBox
         '
@@ -192,13 +205,19 @@ Partial Class BungeeCordConsole
         '
         Me.DataStreamTabPage.Controls.Add(Me.ContentPanel)
         Me.DataStreamTabPage.Controls.Add(Me.CommandTextBox)
-        Me.DataStreamTabPage.Location = New System.Drawing.Point(4, 22)
+        Me.DataStreamTabPage.HorizontalScrollbarBarColor = True
+        Me.DataStreamTabPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.DataStreamTabPage.HorizontalScrollbarSize = 10
+        Me.DataStreamTabPage.Location = New System.Drawing.Point(4, 38)
         Me.DataStreamTabPage.Name = "DataStreamTabPage"
         Me.DataStreamTabPage.Padding = New System.Windows.Forms.Padding(0, 0, 0, 3)
-        Me.DataStreamTabPage.Size = New System.Drawing.Size(792, 424)
+        Me.DataStreamTabPage.Size = New System.Drawing.Size(752, 378)
         Me.DataStreamTabPage.TabIndex = 1
         Me.DataStreamTabPage.Text = "BungeeCord 主資料列表"
         Me.DataStreamTabPage.UseVisualStyleBackColor = True
+        Me.DataStreamTabPage.VerticalScrollbarBarColor = True
+        Me.DataStreamTabPage.VerticalScrollbarHighlightOnWheel = False
+        Me.DataStreamTabPage.VerticalScrollbarSize = 10
         '
         'ContentPanel
         '
@@ -207,7 +226,7 @@ Partial Class BungeeCordConsole
         Me.ContentPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContentPanel.Location = New System.Drawing.Point(0, 0)
         Me.ContentPanel.Name = "ContentPanel"
-        Me.ContentPanel.Size = New System.Drawing.Size(792, 399)
+        Me.ContentPanel.Size = New System.Drawing.Size(752, 353)
         Me.ContentPanel.TabIndex = 13
         '
         'DataListView
@@ -221,7 +240,7 @@ Partial Class BungeeCordConsole
         Me.DataListView.Margin = New System.Windows.Forms.Padding(0, 0, 0, 3)
         Me.DataListView.MultiSelect = False
         Me.DataListView.Name = "DataListView"
-        Me.DataListView.Size = New System.Drawing.Size(792, 377)
+        Me.DataListView.Size = New System.Drawing.Size(752, 331)
         Me.DataListView.TabIndex = 15
         Me.DataListView.UseCompatibleStateImageBehavior = False
         Me.DataListView.View = System.Windows.Forms.View.Details
@@ -251,14 +270,14 @@ Partial Class BungeeCordConsole
         Me.TopPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TopPanel.Location = New System.Drawing.Point(0, 0)
         Me.TopPanel.Name = "TopPanel"
-        Me.TopPanel.Size = New System.Drawing.Size(792, 22)
+        Me.TopPanel.Size = New System.Drawing.Size(752, 22)
         Me.TopPanel.TabIndex = 16
         '
         'StopLoadingCheckBox
         '
         Me.StopLoadingCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.StopLoadingCheckBox.AutoSize = True
-        Me.StopLoadingCheckBox.Location = New System.Drawing.Point(716, 3)
+        Me.StopLoadingCheckBox.Location = New System.Drawing.Point(587, 3)
         Me.StopLoadingCheckBox.Name = "StopLoadingCheckBox"
         Me.StopLoadingCheckBox.Size = New System.Drawing.Size(72, 16)
         Me.StopLoadingCheckBox.TabIndex = 4
@@ -269,7 +288,7 @@ Partial Class BungeeCordConsole
         '
         Me.CloseCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CloseCheckBox.AutoSize = True
-        Me.CloseCheckBox.Location = New System.Drawing.Point(626, 3)
+        Me.CloseCheckBox.Location = New System.Drawing.Point(665, 3)
         Me.CloseCheckBox.Name = "CloseCheckBox"
         Me.CloseCheckBox.Size = New System.Drawing.Size(84, 16)
         Me.CloseCheckBox.TabIndex = 7
@@ -278,11 +297,34 @@ Partial Class BungeeCordConsole
         '
         'CommandTextBox
         '
+        '
+        '
+        '
+        Me.CommandTextBox.CustomButton.Image = Nothing
+        Me.CommandTextBox.CustomButton.Location = New System.Drawing.Point(732, 2)
+        Me.CommandTextBox.CustomButton.Name = ""
+        Me.CommandTextBox.CustomButton.Size = New System.Drawing.Size(17, 17)
+        Me.CommandTextBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.CommandTextBox.CustomButton.TabIndex = 1
+        Me.CommandTextBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.CommandTextBox.CustomButton.UseSelectable = True
+        Me.CommandTextBox.CustomButton.Visible = False
         Me.CommandTextBox.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.CommandTextBox.Location = New System.Drawing.Point(0, 399)
+        Me.CommandTextBox.Lines = New String(-1) {}
+        Me.CommandTextBox.Location = New System.Drawing.Point(0, 353)
+        Me.CommandTextBox.MaxLength = 32767
         Me.CommandTextBox.Name = "CommandTextBox"
-        Me.CommandTextBox.Size = New System.Drawing.Size(792, 22)
+        Me.CommandTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.CommandTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.CommandTextBox.SelectedText = ""
+        Me.CommandTextBox.SelectionLength = 0
+        Me.CommandTextBox.SelectionStart = 0
+        Me.CommandTextBox.ShortcutsEnabled = True
+        Me.CommandTextBox.Size = New System.Drawing.Size(752, 22)
         Me.CommandTextBox.TabIndex = 12
+        Me.CommandTextBox.UseSelectable = True
+        Me.CommandTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.CommandTextBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'TaskTimer
         '
@@ -291,7 +333,7 @@ Partial Class BungeeCordConsole
         'Button1
         '
         Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(701, 0)
+        Me.Button1.Location = New System.Drawing.Point(701, -30)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(95, 22)
         Me.Button1.TabIndex = 1
@@ -303,12 +345,13 @@ Partial Class BungeeCordConsole
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(800, 470)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.MainTabControl)
-        Me.DoubleBuffered = True
+        Me.DisplayHeader = False
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "BungeeCordConsole"
+        Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.Text = "BungeeCord 控制台"
         Me.MainTabControl.ResumeLayout(False)
         Me.MainTabPage.ResumeLayout(False)
@@ -317,7 +360,6 @@ Partial Class BungeeCordConsole
         Me.SettingTabPage.ResumeLayout(False)
         Me.NotifyGroupBox.ResumeLayout(False)
         Me.DataStreamTabPage.ResumeLayout(False)
-        Me.DataStreamTabPage.PerformLayout()
         Me.ContentPanel.ResumeLayout(False)
         Me.ContentPanel.PerformLayout()
         Me.TopPanel.ResumeLayout(False)
@@ -325,10 +367,6 @@ Partial Class BungeeCordConsole
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents MainTabControl As TabControl
-    Friend WithEvents MainTabPage As TabPage
-    Friend WithEvents DataStreamTabPage As TabPage
     Friend WithEvents StopLoadingCheckBox As CheckBox
     Friend WithEvents ServerStatusLabel As Label
     Friend WithEvents TaskTimer As Timer
@@ -336,18 +374,21 @@ Partial Class BungeeCordConsole
     Friend WithEvents SystemGroupBox As GroupBox
     Friend WithEvents IDLabel As Label
     Friend WithEvents MemoryLabel As Label
-    Friend WithEvents CommandTextBox As TextBox
+    Friend WithEvents CommandTextBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents ContentPanel As Panel
     Friend WithEvents DataListView As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
     Friend WithEvents ColumnHeader4 As ColumnHeader
     Friend WithEvents TopPanel As Panel
-    Friend WithEvents SettingTabPage As TabPage
     Friend WithEvents NotifyGroupBox As GroupBox
     Friend WithEvents NotifyChooseListBox As CheckedListBox
     Friend WithEvents PlayerGroupBox As GroupBox
     Friend WithEvents PlayerListBox As ListBox
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents Button1 As Button
+    Friend WithEvents MainTabControl As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents MainTabPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents DataStreamTabPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents SettingTabPage As MetroFramework.Controls.MetroTabPage
 End Class

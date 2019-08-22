@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class NukkitPluginExplorer
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -45,13 +45,13 @@ Partial Class NukkitPluginExplorer
         'ToolStripContainer1.ContentPanel
         '
         Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.LayoutPanel)
-        Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(800, 425)
+        Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(760, 345)
         Me.ToolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ToolStripContainer1.LeftToolStripPanelVisible = False
-        Me.ToolStripContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStripContainer1.Location = New System.Drawing.Point(20, 60)
         Me.ToolStripContainer1.Name = "ToolStripContainer1"
         Me.ToolStripContainer1.RightToolStripPanelVisible = False
-        Me.ToolStripContainer1.Size = New System.Drawing.Size(800, 450)
+        Me.ToolStripContainer1.Size = New System.Drawing.Size(760, 370)
         Me.ToolStripContainer1.TabIndex = 0
         Me.ToolStripContainer1.Text = "ToolStripContainer1"
         '
@@ -70,7 +70,7 @@ Partial Class NukkitPluginExplorer
         Me.LayoutPanel.Name = "LayoutPanel"
         Me.LayoutPanel.RowCount = 1
         Me.LayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.LayoutPanel.Size = New System.Drawing.Size(800, 425)
+        Me.LayoutPanel.Size = New System.Drawing.Size(760, 345)
         Me.LayoutPanel.TabIndex = 0
         '
         'Panel1
@@ -79,7 +79,7 @@ Partial Class NukkitPluginExplorer
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(794, 419)
+        Me.Panel1.Size = New System.Drawing.Size(794, 339)
         Me.Panel1.TabIndex = 2
         '
         'CharcoalEnginePanel
@@ -88,7 +88,7 @@ Partial Class NukkitPluginExplorer
         Me.CharcoalEnginePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CharcoalEnginePanel.Location = New System.Drawing.Point(0, 0)
         Me.CharcoalEnginePanel.Name = "CharcoalEnginePanel"
-        Me.CharcoalEnginePanel.Size = New System.Drawing.Size(794, 419)
+        Me.CharcoalEnginePanel.Size = New System.Drawing.Size(794, 339)
         Me.CharcoalEnginePanel.TabIndex = 3
         '
         'ToolStrip1

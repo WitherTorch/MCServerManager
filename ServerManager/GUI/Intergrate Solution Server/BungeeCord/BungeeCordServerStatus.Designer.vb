@@ -121,8 +121,7 @@ Partial Class BungeeCordServerStatus
         '
         'BungeeCordServerStatus
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.Controls.Add(Me.RestrictedCheckBox)
         Me.Controls.Add(Me.ServerIcon)

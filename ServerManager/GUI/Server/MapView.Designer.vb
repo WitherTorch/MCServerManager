@@ -80,8 +80,7 @@ Partial Class MapView
         '
         'MapView
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.Controls.Add(Me.MapOption)
         Me.Controls.Add(Me.MapNameLabel)
         Me.Controls.Add(Me.IconBox)

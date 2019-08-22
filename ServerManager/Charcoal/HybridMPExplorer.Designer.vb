@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class HybridMPExplorer
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -30,8 +30,8 @@ Partial Class HybridMPExplorer
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton3 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripButton3 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripContainer1.ContentPanel.SuspendLayout()
         Me.ToolStripContainer1.TopToolStripPanel.SuspendLayout()
@@ -48,18 +48,19 @@ Partial Class HybridMPExplorer
         'ToolStripContainer1.ContentPanel
         '
         Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.LayoutPanel)
-        Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(800, 425)
+        Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(760, 345)
         Me.ToolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ToolStripContainer1.LeftToolStripPanelVisible = False
-        Me.ToolStripContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStripContainer1.Location = New System.Drawing.Point(20, 60)
         Me.ToolStripContainer1.Name = "ToolStripContainer1"
         Me.ToolStripContainer1.RightToolStripPanelVisible = False
-        Me.ToolStripContainer1.Size = New System.Drawing.Size(800, 450)
+        Me.ToolStripContainer1.Size = New System.Drawing.Size(760, 370)
         Me.ToolStripContainer1.TabIndex = 0
         Me.ToolStripContainer1.Text = "ToolStripContainer1"
         '
         'ToolStripContainer1.TopToolStripPanel
         '
+        Me.ToolStripContainer1.TopToolStripPanel.BackColor = System.Drawing.Color.White
         Me.ToolStripContainer1.TopToolStripPanel.Controls.Add(Me.ToolStrip1)
         '
         'LayoutPanel
@@ -73,7 +74,7 @@ Partial Class HybridMPExplorer
         Me.LayoutPanel.Name = "LayoutPanel"
         Me.LayoutPanel.RowCount = 1
         Me.LayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.LayoutPanel.Size = New System.Drawing.Size(800, 425)
+        Me.LayoutPanel.Size = New System.Drawing.Size(760, 345)
         Me.LayoutPanel.TabIndex = 0
         '
         'Panel1
@@ -82,7 +83,7 @@ Partial Class HybridMPExplorer
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(794, 419)
+        Me.Panel1.Size = New System.Drawing.Size(794, 339)
         Me.Panel1.TabIndex = 2
         '
         'CharcoalEnginePanel
@@ -91,11 +92,12 @@ Partial Class HybridMPExplorer
         Me.CharcoalEnginePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CharcoalEnginePanel.Location = New System.Drawing.Point(0, 0)
         Me.CharcoalEnginePanel.Name = "CharcoalEnginePanel"
-        Me.CharcoalEnginePanel.Size = New System.Drawing.Size(794, 419)
+        Me.CharcoalEnginePanel.Size = New System.Drawing.Size(794, 339)
         Me.CharcoalEnginePanel.TabIndex = 3
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.BackColor = System.Drawing.Color.White
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripButton2, Me.ToolStripSeparator1, Me.ToolStripButton3, Me.ToolStripProgressBar1})
         Me.ToolStrip1.Location = New System.Drawing.Point(3, 0)
@@ -119,6 +121,11 @@ Partial Class HybridMPExplorer
         Me.ToolStripButton2.Size = New System.Drawing.Size(126, 22)
         Me.ToolStripButton2.Text = "CurseForge - 插件"
         '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
         'ToolStripButton3
         '
         Me.ToolStripButton3.Image = Global.ServerManager.My.Resources.Resources.CFLogo
@@ -126,11 +133,6 @@ Partial Class HybridMPExplorer
         Me.ToolStripButton3.Name = "ToolStripButton3"
         Me.ToolStripButton3.Size = New System.Drawing.Size(126, 22)
         Me.ToolStripButton3.Text = "CurseForge - 模組"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
         'ToolStripProgressBar1
         '

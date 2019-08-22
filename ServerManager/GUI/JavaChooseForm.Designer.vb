@@ -1,9 +1,9 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class JavaChooseForm
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class JavaChooseForm
     '注意: 以下為 Windows Form 設計工具所需的程序
     '可以使用 Windows Form 設計工具進行修改。
     '請勿使用程式碼編輯器進行修改。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(JavaChooseForm))
         Me.JavaListView = New System.Windows.Forms.ListView()
@@ -38,10 +38,10 @@ Partial Class JavaChooseForm
         Me.JavaListView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.JavaListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.JavaListView.HideSelection = False
-        Me.JavaListView.Location = New System.Drawing.Point(0, 0)
+        Me.JavaListView.Location = New System.Drawing.Point(20, 30)
         Me.JavaListView.MultiSelect = False
         Me.JavaListView.Name = "JavaListView"
-        Me.JavaListView.Size = New System.Drawing.Size(440, 300)
+        Me.JavaListView.Size = New System.Drawing.Size(400, 250)
         Me.JavaListView.TabIndex = 0
         Me.JavaListView.UseCompatibleStateImageBehavior = False
         Me.JavaListView.View = System.Windows.Forms.View.Details
@@ -64,19 +64,19 @@ Partial Class JavaChooseForm
         Me.TableLayoutPanel1.Controls.Add(Me.Button2, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Button1, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 300)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(20, 280)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(440, 28)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(400, 28)
         Me.TableLayoutPanel1.TabIndex = 1
         '
         'Button2
         '
         Me.Button2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Button2.Location = New System.Drawing.Point(223, 3)
+        Me.Button2.Location = New System.Drawing.Point(203, 3)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(214, 22)
+        Me.Button2.Size = New System.Drawing.Size(194, 22)
         Me.Button2.TabIndex = 1
         Me.Button2.Text = "確定"
         Me.Button2.UseVisualStyleBackColor = True
@@ -86,23 +86,25 @@ Partial Class JavaChooseForm
         Me.Button1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Button1.Location = New System.Drawing.Point(3, 3)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(214, 22)
+        Me.Button1.Size = New System.Drawing.Size(194, 22)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "選擇外部Java..."
         Me.Button1.UseVisualStyleBackColor = True
         '
         'JavaChooseForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(440, 328)
         Me.Controls.Add(Me.JavaListView)
         Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.DisplayHeader = False
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "JavaChooseForm"
+        Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.ShowIcon = False
         Me.Text = "選擇 Java"
         Me.TableLayoutPanel1.ResumeLayout(False)

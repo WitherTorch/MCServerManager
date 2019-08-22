@@ -1,9 +1,9 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class ServerCreateHelper
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class ServerCreateHelper
     '注意: 以下為 Windows Form 設計工具所需的程序
     '可以使用 Windows Form 設計工具進行修改。
     '請勿使用程式碼編輯器進行修改。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerCreateHelper))
         Me.Cancel_Button = New System.Windows.Forms.Button()
@@ -66,15 +66,14 @@ Partial Class ServerCreateHelper
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(471, 123)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Cancel_Button)
         Me.Controls.Add(Me.StatusLabel)
         Me.Controls.Add(Me.ProgressBar)
-        Me.Controls.Add(Me.Cancel_Button)
-        Me.DoubleBuffered = True
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "ServerCreateHelper"
+        Me.Resizable = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "建立伺服器"
         Me.ResumeLayout(False)

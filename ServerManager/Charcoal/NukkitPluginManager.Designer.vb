@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class NukkitPluginManager
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -37,10 +37,11 @@ Partial Class NukkitPluginManager
         '
         'MenuStrip1
         '
+        Me.MenuStrip1.BackColor = System.Drawing.Color.White
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.移除插件ToolStripMenuItem, Me.重新整理ToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Location = New System.Drawing.Point(20, 60)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(760, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -69,10 +70,10 @@ Partial Class NukkitPluginManager
         Me.PluginList.GridLines = True
         Me.PluginList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.PluginList.HideSelection = False
-        Me.PluginList.Location = New System.Drawing.Point(0, 24)
+        Me.PluginList.Location = New System.Drawing.Point(20, 84)
         Me.PluginList.MultiSelect = False
         Me.PluginList.Name = "PluginList"
-        Me.PluginList.Size = New System.Drawing.Size(800, 426)
+        Me.PluginList.Size = New System.Drawing.Size(760, 346)
         Me.PluginList.TabIndex = 2
         Me.PluginList.UseCompatibleStateImageBehavior = False
         Me.PluginList.View = System.Windows.Forms.View.Details
@@ -107,7 +108,6 @@ Partial Class NukkitPluginManager
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.PluginList)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.DoubleBuffered = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "NukkitPluginManager"

@@ -61,7 +61,7 @@ Public Class BungeeCordConsole
             server = bServer.Server
         End If
         Dim dataListView As ListView
-        Dim commandBox As TextBox
+        Dim commandBox As MetroFramework.Controls.MetroTextBox
         Static CurrentListLocation As Integer = -1
         Static upNumber As Integer = 0
         Static menu As TableLayoutPanel
@@ -69,7 +69,7 @@ Public Class BungeeCordConsole
         If justChangeProcess = False Then
             page = New TabPage(bServer.ServerAlias & " (" & server.ServerPathName & ") 資料列表") With {.Size = New Size(792, 424)}
             Dim layout As New Panel() With {.Dock = DockStyle.Fill}
-            commandBox = New TextBox() With {.Dock = DockStyle.Bottom}
+            commandBox = New MetroFramework.Controls.MetroTextBox() With {.Dock = DockStyle.Bottom}
             dataListView = New ListView()
             Dim topPanel As New Panel()
             Dim pauseLoad As New CheckBox()
@@ -326,7 +326,7 @@ Public Class BungeeCordConsole
             End Select
         Else
             dataListView = CType(page.Controls(0).Controls(0), ListView)
-            commandBox = CType(page.Controls(0).Controls(1), TextBox)
+            commandBox = CType(page.Controls(0).Controls(1), MetroFramework.Controls.MetroTextBox)
         End If
         page.Tag = (server, changeProcess)
         Dim alternateInputWriter As New IO.StreamWriter(changeProcess.StandardInput.BaseStream, New Text.UTF8Encoding(False)) With {.AutoFlush = True}

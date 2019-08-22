@@ -60,6 +60,6 @@ Partial Class ServerCheckingForm
 
     End Sub
 
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
     Friend WithEvents Button1 As Button
 End Class

@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class HybridMPManager
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -28,14 +28,14 @@ Partial Class HybridMPManager
         Me.瀏覽插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.移除插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.重新整理ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PagesControl = New System.Windows.Forms.TabControl()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.PagesControl = New MetroFramework.Controls.MetroTabControl()
+        Me.TabPage2 = New MetroFramework.Controls.MetroTabPage()
         Me.ModList = New System.Windows.Forms.ListView()
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader5 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader6 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader8 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage1 = New MetroFramework.Controls.MetroTabPage()
         Me.PluginList = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -49,10 +49,11 @@ Partial Class HybridMPManager
         '
         'MenuStrip1
         '
+        Me.MenuStrip1.BackColor = System.Drawing.Color.White
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.瀏覽插件ToolStripMenuItem, Me.移除插件ToolStripMenuItem, Me.重新整理ToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Location = New System.Drawing.Point(20, 60)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(760, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -84,22 +85,29 @@ Partial Class HybridMPManager
         Me.PagesControl.Controls.Add(Me.TabPage2)
         Me.PagesControl.Controls.Add(Me.TabPage1)
         Me.PagesControl.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PagesControl.Location = New System.Drawing.Point(0, 24)
+        Me.PagesControl.Location = New System.Drawing.Point(20, 84)
         Me.PagesControl.Name = "PagesControl"
         Me.PagesControl.SelectedIndex = 0
-        Me.PagesControl.Size = New System.Drawing.Size(800, 426)
+        Me.PagesControl.Size = New System.Drawing.Size(760, 346)
         Me.PagesControl.TabIndex = 2
+        Me.PagesControl.UseSelectable = True
         '
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.ModList)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.HorizontalScrollbarBarColor = True
+        Me.TabPage2.HorizontalScrollbarHighlightOnWheel = False
+        Me.TabPage2.HorizontalScrollbarSize = 10
+        Me.TabPage2.Location = New System.Drawing.Point(4, 38)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(792, 400)
+        Me.TabPage2.Size = New System.Drawing.Size(752, 304)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "模組"
         Me.TabPage2.UseVisualStyleBackColor = True
+        Me.TabPage2.VerticalScrollbarBarColor = True
+        Me.TabPage2.VerticalScrollbarHighlightOnWheel = False
+        Me.TabPage2.VerticalScrollbarSize = 10
         '
         'ModList
         '
@@ -112,7 +120,7 @@ Partial Class HybridMPManager
         Me.ModList.Location = New System.Drawing.Point(3, 3)
         Me.ModList.MultiSelect = False
         Me.ModList.Name = "ModList"
-        Me.ModList.Size = New System.Drawing.Size(786, 394)
+        Me.ModList.Size = New System.Drawing.Size(746, 298)
         Me.ModList.TabIndex = 3
         Me.ModList.UseCompatibleStateImageBehavior = False
         Me.ModList.View = System.Windows.Forms.View.Details
@@ -143,13 +151,19 @@ Partial Class HybridMPManager
         'TabPage1
         '
         Me.TabPage1.Controls.Add(Me.PluginList)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.HorizontalScrollbarBarColor = True
+        Me.TabPage1.HorizontalScrollbarHighlightOnWheel = False
+        Me.TabPage1.HorizontalScrollbarSize = 10
+        Me.TabPage1.Location = New System.Drawing.Point(4, 38)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(792, 400)
+        Me.TabPage1.Size = New System.Drawing.Size(792, 384)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "插件"
         Me.TabPage1.UseVisualStyleBackColor = True
+        Me.TabPage1.VerticalScrollbarBarColor = True
+        Me.TabPage1.VerticalScrollbarHighlightOnWheel = False
+        Me.TabPage1.VerticalScrollbarSize = 10
         '
         'PluginList
         '
@@ -162,7 +176,7 @@ Partial Class HybridMPManager
         Me.PluginList.Location = New System.Drawing.Point(3, 3)
         Me.PluginList.MultiSelect = False
         Me.PluginList.Name = "PluginList"
-        Me.PluginList.Size = New System.Drawing.Size(786, 394)
+        Me.PluginList.Size = New System.Drawing.Size(786, 378)
         Me.PluginList.TabIndex = 2
         Me.PluginList.UseCompatibleStateImageBehavior = False
         Me.PluginList.View = System.Windows.Forms.View.Details
@@ -197,7 +211,6 @@ Partial Class HybridMPManager
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.PagesControl)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.DoubleBuffered = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "HybridMPManager"
@@ -218,9 +231,6 @@ Partial Class HybridMPManager
     Friend WithEvents 瀏覽插件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 移除插件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PagesControl As TabControl
-    Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents TabPage1 As TabPage
     Friend WithEvents PluginList As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
@@ -231,4 +241,7 @@ Partial Class HybridMPManager
     Friend WithEvents ColumnHeader5 As ColumnHeader
     Friend WithEvents ColumnHeader6 As ColumnHeader
     Friend WithEvents ColumnHeader8 As ColumnHeader
+    Friend WithEvents PagesControl As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents TabPage2 As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents TabPage1 As MetroFramework.Controls.MetroTabPage
 End Class
