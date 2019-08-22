@@ -130,6 +130,7 @@ Partial Class SolutionCreateDialog
         Me.MinimizeBox = False
         Me.Name = "SolutionCreateDialog"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "建立整合方案"
         Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)

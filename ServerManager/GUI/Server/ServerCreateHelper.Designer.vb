@@ -32,7 +32,7 @@ Partial Class ServerCreateHelper
         '
         Me.Cancel_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(392, 91)
+        Me.Cancel_Button.Location = New System.Drawing.Point(381, 100)
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 21)
         Me.Cancel_Button.TabIndex = 1
@@ -42,9 +42,9 @@ Partial Class ServerCreateHelper
         '
         Me.ProgressBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar.Location = New System.Drawing.Point(12, 51)
+        Me.ProgressBar.Location = New System.Drawing.Point(27, 71)
         Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(447, 23)
+        Me.ProgressBar.Size = New System.Drawing.Size(421, 23)
         Me.ProgressBar.TabIndex = 2
         '
         'StatusLabel
@@ -52,9 +52,9 @@ Partial Class ServerCreateHelper
         Me.StatusLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.StatusLabel.Font = New System.Drawing.Font("微軟正黑體", 13.0!)
-        Me.StatusLabel.Location = New System.Drawing.Point(12, 10)
+        Me.StatusLabel.Location = New System.Drawing.Point(23, 30)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(447, 38)
+        Me.StatusLabel.Size = New System.Drawing.Size(425, 38)
         Me.StatusLabel.TabIndex = 3
         Me.StatusLabel.Text = "狀態："
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -64,17 +64,20 @@ Partial Class ServerCreateHelper
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(471, 123)
+        Me.ClientSize = New System.Drawing.Size(471, 133)
         Me.ControlBox = False
         Me.Controls.Add(Me.Cancel_Button)
         Me.Controls.Add(Me.StatusLabel)
         Me.Controls.Add(Me.ProgressBar)
+        Me.DisplayHeader = False
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "ServerCreateHelper"
+        Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.Resizable = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "建立伺服器"
         Me.ResumeLayout(False)
 

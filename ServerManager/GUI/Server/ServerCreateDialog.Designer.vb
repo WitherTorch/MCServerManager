@@ -67,10 +67,12 @@ Partial Class ServerCreateDialog
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.TabControl1.Location = New System.Drawing.Point(3, 3)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(469, 314)
+        Me.TabControl1.Style = MetroFramework.MetroColorStyle.Green
         Me.TabControl1.TabIndex = 1
         Me.TabControl1.UseSelectable = True
         '
@@ -401,6 +403,7 @@ Partial Class ServerCreateDialog
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.Resizable = False
         Me.ShowIcon = False
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "建立伺服器"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)

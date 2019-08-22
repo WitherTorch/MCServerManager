@@ -256,6 +256,7 @@ Partial Class ModPackServerCreateDialog
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.Resizable = False
         Me.ShowIcon = False
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "建立模組包伺服器 - 基本設定"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()

@@ -68,10 +68,12 @@ Partial Class ServerSetter
         Me.SettingTabControl.Controls.Add(Me.NormalTabPage)
         Me.SettingTabControl.Controls.Add(Me.AdvancedTabPage)
         Me.SettingTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SettingTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.SettingTabControl.Location = New System.Drawing.Point(20, 30)
         Me.SettingTabControl.Name = "SettingTabControl"
         Me.SettingTabControl.SelectedIndex = 0
         Me.SettingTabControl.Size = New System.Drawing.Size(544, 515)
+        Me.SettingTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.SettingTabControl.TabIndex = 0
         Me.SettingTabControl.UseSelectable = True
         '
@@ -381,7 +383,7 @@ Partial Class ServerSetter
         Me.AdvancedTabPage.Location = New System.Drawing.Point(4, 38)
         Me.AdvancedTabPage.Name = "AdvancedTabPage"
         Me.AdvancedTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AdvancedTabPage.Size = New System.Drawing.Size(576, 523)
+        Me.AdvancedTabPage.Size = New System.Drawing.Size(536, 473)
         Me.AdvancedTabPage.TabIndex = 1
         Me.AdvancedTabPage.Text = "進階"
         Me.AdvancedTabPage.UseVisualStyleBackColor = True
@@ -396,7 +398,7 @@ Partial Class ServerSetter
         Me.AdvancedPropertyGrid.Location = New System.Drawing.Point(3, 3)
         Me.AdvancedPropertyGrid.Margin = New System.Windows.Forms.Padding(0)
         Me.AdvancedPropertyGrid.Name = "AdvancedPropertyGrid"
-        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(570, 517)
+        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(530, 467)
         Me.AdvancedPropertyGrid.TabIndex = 0
         '
         'ServerSetter
@@ -411,6 +413,7 @@ Partial Class ServerSetter
         Me.Name = "ServerSetter"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.ShowIcon = False
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "伺服器設定"
         Me.SettingTabControl.ResumeLayout(False)
         Me.NormalTabPage.ResumeLayout(False)

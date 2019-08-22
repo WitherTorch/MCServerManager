@@ -62,6 +62,7 @@ Partial Class ModPackServerCreateHelper
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.Resizable = False
         Me.ShowIcon = False
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "建立模組包伺服器 - 下載及安裝"
         Me.ResumeLayout(False)
 
