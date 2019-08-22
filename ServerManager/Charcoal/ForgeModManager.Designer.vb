@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class ForgeModManager
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -37,10 +37,11 @@ Partial Class ForgeModManager
         '
         'MenuStrip1
         '
+        Me.MenuStrip1.BackColor = System.Drawing.Color.White
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.瀏覽模組ToolStripMenuItem, Me.移除模組ToolStripMenuItem, Me.重新整理ToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Location = New System.Drawing.Point(20, 60)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(760, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -74,10 +75,11 @@ Partial Class ForgeModManager
         Me.ModList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ModList.GridLines = True
         Me.ModList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.ModList.Location = New System.Drawing.Point(0, 24)
+        Me.ModList.HideSelection = False
+        Me.ModList.Location = New System.Drawing.Point(20, 84)
         Me.ModList.MultiSelect = False
         Me.ModList.Name = "ModList"
-        Me.ModList.Size = New System.Drawing.Size(800, 426)
+        Me.ModList.Size = New System.Drawing.Size(760, 346)
         Me.ModList.TabIndex = 2
         Me.ModList.UseCompatibleStateImageBehavior = False
         Me.ModList.View = System.Windows.Forms.View.Details
@@ -112,7 +114,6 @@ Partial Class ForgeModManager
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ModList)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.DoubleBuffered = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "ForgeModManager"
         Me.ShowIcon = False

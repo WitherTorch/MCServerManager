@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ModPackServerCreateDialog
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -36,7 +36,7 @@ Partial Class ModPackServerCreateDialog
         Me.PortBox = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ServerDirBrowseBtn = New System.Windows.Forms.Button()
-        Me.ServerDirBox = New System.Windows.Forms.TextBox()
+        Me.ServerDirBox = New MetroFramework.Controls.MetroTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -53,12 +53,12 @@ Partial Class ModPackServerCreateDialog
         Me.TableLayoutPanel1.Controls.Add(Me.Panel1, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel2, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(20, 30)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(465, 182)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(425, 187)
         Me.TableLayoutPanel1.TabIndex = 2
         '
         'Panel1
@@ -69,13 +69,13 @@ Partial Class ModPackServerCreateDialog
         Me.Panel1.Controls.Add(Me.CreateButton)
         Me.Panel1.Location = New System.Drawing.Point(3, 153)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(459, 29)
+        Me.Panel1.Size = New System.Drawing.Size(419, 29)
         Me.Panel1.TabIndex = 0
         '
         'CreateButton
         '
         Me.CreateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CreateButton.Location = New System.Drawing.Point(359, 3)
+        Me.CreateButton.Location = New System.Drawing.Point(319, 3)
         Me.CreateButton.Name = "CreateButton"
         Me.CreateButton.Size = New System.Drawing.Size(96, 23)
         Me.CreateButton.TabIndex = 0
@@ -91,7 +91,7 @@ Partial Class ModPackServerCreateDialog
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(459, 144)
+        Me.Panel2.Size = New System.Drawing.Size(419, 144)
         Me.Panel2.TabIndex = 1
         '
         'TableLayoutPanel2
@@ -105,7 +105,7 @@ Partial Class ModPackServerCreateDialog
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(459, 146)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(419, 146)
         Me.TableLayoutPanel2.TabIndex = 49
         '
         'GroupBox2
@@ -119,7 +119,7 @@ Partial Class ModPackServerCreateDialog
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(453, 140)
+        Me.GroupBox2.Size = New System.Drawing.Size(413, 140)
         Me.GroupBox2.TabIndex = 43
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "連線"
@@ -132,7 +132,7 @@ Partial Class ModPackServerCreateDialog
         Me.IPAddressComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
         Me.IPAddressComboBox.Location = New System.Drawing.Point(62, 48)
         Me.IPAddressComboBox.Name = "IPAddressComboBox"
-        Me.IPAddressComboBox.Size = New System.Drawing.Size(385, 20)
+        Me.IPAddressComboBox.Size = New System.Drawing.Size(345, 20)
         Me.IPAddressComboBox.TabIndex = 50
         '
         'Label5
@@ -155,7 +155,7 @@ Partial Class ModPackServerCreateDialog
         Me.IPStyleComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
         Me.IPStyleComboBox.Location = New System.Drawing.Point(62, 21)
         Me.IPStyleComboBox.Name = "IPStyleComboBox"
-        Me.IPStyleComboBox.Size = New System.Drawing.Size(243, 20)
+        Me.IPStyleComboBox.Size = New System.Drawing.Size(203, 20)
         Me.IPStyleComboBox.TabIndex = 48
         '
         'Label4
@@ -171,7 +171,7 @@ Partial Class ModPackServerCreateDialog
         '
         'PortBox
         '
-        Me.PortBox.Location = New System.Drawing.Point(367, 20)
+        Me.PortBox.Location = New System.Drawing.Point(327, 20)
         Me.PortBox.Maximum = New Decimal(New Integer() {65534, 0, 0, 0})
         Me.PortBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.PortBox.Name = "PortBox"
@@ -182,7 +182,7 @@ Partial Class ModPackServerCreateDialog
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(311, 25)
+        Me.Label2.Location = New System.Drawing.Point(271, 25)
         Me.Label2.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(53, 12)
@@ -193,7 +193,7 @@ Partial Class ModPackServerCreateDialog
         'ServerDirBrowseBtn
         '
         Me.ServerDirBrowseBtn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ServerDirBrowseBtn.Location = New System.Drawing.Point(399, 8)
+        Me.ServerDirBrowseBtn.Location = New System.Drawing.Point(359, 8)
         Me.ServerDirBrowseBtn.Name = "ServerDirBrowseBtn"
         Me.ServerDirBrowseBtn.Size = New System.Drawing.Size(51, 23)
         Me.ServerDirBrowseBtn.TabIndex = 48
@@ -204,10 +204,33 @@ Partial Class ModPackServerCreateDialog
         '
         Me.ServerDirBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        '
+        '
+        '
+        Me.ServerDirBox.CustomButton.Image = Nothing
+        Me.ServerDirBox.CustomButton.Location = New System.Drawing.Point(247, 2)
+        Me.ServerDirBox.CustomButton.Name = ""
+        Me.ServerDirBox.CustomButton.Size = New System.Drawing.Size(17, 17)
+        Me.ServerDirBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.ServerDirBox.CustomButton.TabIndex = 1
+        Me.ServerDirBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.ServerDirBox.CustomButton.UseSelectable = True
+        Me.ServerDirBox.CustomButton.Visible = False
+        Me.ServerDirBox.Lines = New String(-1) {}
         Me.ServerDirBox.Location = New System.Drawing.Point(86, 8)
+        Me.ServerDirBox.MaxLength = 32767
         Me.ServerDirBox.Name = "ServerDirBox"
-        Me.ServerDirBox.Size = New System.Drawing.Size(307, 22)
+        Me.ServerDirBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.ServerDirBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.ServerDirBox.SelectedText = ""
+        Me.ServerDirBox.SelectionLength = 0
+        Me.ServerDirBox.SelectionStart = 0
+        Me.ServerDirBox.ShortcutsEnabled = True
+        Me.ServerDirBox.Size = New System.Drawing.Size(267, 22)
         Me.ServerDirBox.TabIndex = 47
+        Me.ServerDirBox.UseSelectable = True
+        Me.ServerDirBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.ServerDirBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'Label1
         '
@@ -222,16 +245,16 @@ Partial Class ModPackServerCreateDialog
         '
         'ModPackServerCreateDialog
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(465, 182)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
+        Me.ClientSize = New System.Drawing.Size(465, 237)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.DisplayHeader = False
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "ModPackServerCreateDialog"
+        Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.Resizable = False
         Me.ShowIcon = False
         Me.Text = "建立模組包伺服器 - 基本設定"
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -255,7 +278,7 @@ Partial Class ModPackServerCreateDialog
     Friend WithEvents PortBox As NumericUpDown
     Friend WithEvents Label2 As Label
     Friend WithEvents ServerDirBrowseBtn As Button
-    Friend WithEvents ServerDirBox As TextBox
+    Friend WithEvents ServerDirBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents IPAddressComboBox As ComboBox
     Friend WithEvents Label5 As Label

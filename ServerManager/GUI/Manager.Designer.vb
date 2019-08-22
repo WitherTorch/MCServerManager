@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Manager
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -36,8 +36,8 @@ Partial Class Manager
         Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
         Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
-        Me.MainTabControl = New System.Windows.Forms.TabControl()
-        Me.MainPage = New System.Windows.Forms.TabPage()
+        Me.MainTabControl = New MetroFramework.Controls.MetroTabControl()
+        Me.MainPage = New MetroFramework.Controls.MetroTabPage()
         Me.MainPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.MemoryGroupBox = New System.Windows.Forms.GroupBox()
@@ -70,21 +70,21 @@ Partial Class Manager
         Me.SpigotLoadingLabel = New System.Windows.Forms.Label()
         Me.ForgeLoadingLabel = New System.Windows.Forms.Label()
         Me.VanillaLoadingLabel = New System.Windows.Forms.Label()
-        Me.ServerListPage = New System.Windows.Forms.TabPage()
+        Me.ServerListPage = New MetroFramework.Controls.MetroTabPage()
         Me.ServerListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.BottomButtons = New System.Windows.Forms.TableLayoutPanel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.PackServerListPage = New System.Windows.Forms.TabPage()
+        Me.PackServerListPage = New MetroFramework.Controls.MetroTabPage()
         Me.ModpackServerListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
-        Me.ServerIntergratePage = New System.Windows.Forms.TabPage()
+        Me.ServerIntergratePage = New MetroFramework.Controls.MetroTabPage()
         Me.SolutionListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.ConnectionTabPage = New System.Windows.Forms.TabPage()
+        Me.ConnectionTabPage = New MetroFramework.Controls.MetroTabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.UPnPLabel = New System.Windows.Forms.Label()
@@ -95,22 +95,22 @@ Partial Class Manager
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.NoIPAccountBox = New System.Windows.Forms.TextBox()
-        Me.NoIPPasswordBox = New System.Windows.Forms.TextBox()
+        Me.NoIPAccountBox = New MetroFramework.Controls.MetroTextBox()
+        Me.NoIPPasswordBox = New MetroFramework.Controls.MetroTextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.NoIPUpdateTimeSpanLabel = New System.Windows.Forms.Label()
         Me.HostCheckList = New System.Windows.Forms.CheckedListBox()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.SettingTabPage = New System.Windows.Forms.TabPage()
-        Me.SettingTabControl = New System.Windows.Forms.TabControl()
-        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.SettingTabPage = New MetroFramework.Controls.MetroTabPage()
+        Me.SettingTabControl = New MetroFramework.Controls.MetroTabControl()
+        Me.TabPage4 = New MetroFramework.Controls.MetroTabPage()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label21 = New System.Windows.Forms.Label()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage1 = New MetroFramework.Controls.MetroTabPage()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox9 = New System.Windows.Forms.GroupBox()
         Me.Label23 = New System.Windows.Forms.Label()
@@ -135,24 +135,24 @@ Partial Class Manager
         Me.Label13 = New System.Windows.Forms.Label()
         Me.JavaDefaultBtn = New System.Windows.Forms.Button()
         Me.JavaChooseBtn = New System.Windows.Forms.Button()
-        Me.ArguBox = New System.Windows.Forms.TextBox()
+        Me.ArguBox = New MetroFramework.Controls.MetroTextBox()
         Me.ArguLabel = New System.Windows.Forms.Label()
         Me.JavaVersionLabel = New System.Windows.Forms.Label()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New MetroFramework.Controls.MetroTabPage()
         Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.SnapshotCheckBox = New System.Windows.Forms.CheckBox()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TabPage3 = New MetroFramework.Controls.MetroTabPage()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
         Me.PHPBrowseButton = New System.Windows.Forms.Button()
-        Me.PHPPathBox = New System.Windows.Forms.TextBox()
+        Me.PHPPathBox = New MetroFramework.Controls.MetroTextBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.GitGroupBox = New System.Windows.Forms.GroupBox()
         Me.GitBashBrowseButton = New System.Windows.Forms.Button()
-        Me.GitBashPathBox = New System.Windows.Forms.TextBox()
+        Me.GitBashPathBox = New MetroFramework.Controls.MetroTextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.AboutPage = New System.Windows.Forms.TabPage()
+        Me.AboutPage = New MetroFramework.Controls.MetroTabPage()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.ServerSoftwareLinkList = New System.Windows.Forms.ListView()
@@ -231,22 +231,30 @@ Partial Class Manager
         Me.MainTabControl.Controls.Add(Me.SettingTabPage)
         Me.MainTabControl.Controls.Add(Me.AboutPage)
         Me.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MainTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
         Me.MainTabControl.SelectedIndex = 0
-        Me.MainTabControl.Size = New System.Drawing.Size(784, 515)
+        Me.MainTabControl.Size = New System.Drawing.Size(744, 465)
+        Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
+        Me.MainTabControl.UseSelectable = True
         '
         'MainPage
         '
         Me.MainPage.BackColor = System.Drawing.Color.Transparent
         Me.MainPage.Controls.Add(Me.MainPanel)
-        Me.MainPage.Location = New System.Drawing.Point(4, 22)
+        Me.MainPage.HorizontalScrollbarBarColor = True
+        Me.MainPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.MainPage.HorizontalScrollbarSize = 10
+        Me.MainPage.Location = New System.Drawing.Point(4, 38)
         Me.MainPage.Name = "MainPage"
         Me.MainPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.MainPage.Size = New System.Drawing.Size(776, 489)
+        Me.MainPage.Size = New System.Drawing.Size(736, 423)
         Me.MainPage.TabIndex = 0
         Me.MainPage.Text = "概觀 "
+        Me.MainPage.VerticalScrollbarBarColor = True
+        Me.MainPage.VerticalScrollbarHighlightOnWheel = False
+        Me.MainPage.VerticalScrollbarSize = 10
         '
         'MainPanel
         '
@@ -262,7 +270,7 @@ Partial Class Manager
         Me.MainPanel.RowCount = 2
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.MainPanel.Size = New System.Drawing.Size(770, 483)
+        Me.MainPanel.Size = New System.Drawing.Size(730, 417)
         Me.MainPanel.TabIndex = 5
         '
         'GroupBox8
@@ -275,7 +283,7 @@ Partial Class Manager
         Me.GroupBox8.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox8.Margin = New System.Windows.Forms.Padding(3, 3, 0, 3)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(767, 110)
+        Me.GroupBox8.Size = New System.Drawing.Size(727, 110)
         Me.GroupBox8.TabIndex = 14
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "系統"
@@ -298,7 +306,7 @@ Partial Class Manager
         Me.Label20.Location = New System.Drawing.Point(6, 21)
         Me.Label20.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(123, 12)
+        Me.Label20.Size = New System.Drawing.Size(128, 16)
         Me.Label20.TabIndex = 15
         Me.Label20.Text = "CPU 使用率：載入中..."
         '
@@ -308,7 +316,7 @@ Partial Class Manager
         Me.Label19.Location = New System.Drawing.Point(6, 59)
         Me.Label19.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(122, 12)
+        Me.Label19.Size = New System.Drawing.Size(125, 16)
         Me.Label19.TabIndex = 14
         Me.Label19.Text = "虛擬記憶體：載入中..."
         '
@@ -318,7 +326,7 @@ Partial Class Manager
         Me.Label18.Location = New System.Drawing.Point(6, 40)
         Me.Label18.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(122, 12)
+        Me.Label18.Size = New System.Drawing.Size(125, 16)
         Me.Label18.TabIndex = 13
         Me.Label18.Text = "實體記憶體：載入中..."
         '
@@ -333,7 +341,7 @@ Partial Class Manager
         Me.NetworkGroupBox.Location = New System.Drawing.Point(384, 21)
         Me.NetworkGroupBox.Margin = New System.Windows.Forms.Padding(3, 3, 0, 3)
         Me.NetworkGroupBox.Name = "NetworkGroupBox"
-        Me.NetworkGroupBox.Size = New System.Drawing.Size(377, 84)
+        Me.NetworkGroupBox.Size = New System.Drawing.Size(337, 84)
         Me.NetworkGroupBox.TabIndex = 4
         Me.NetworkGroupBox.TabStop = False
         Me.NetworkGroupBox.Text = "網路"
@@ -346,7 +354,7 @@ Partial Class Manager
         Me.ExternalIPLabel.Location = New System.Drawing.Point(6, 59)
         Me.ExternalIPLabel.Margin = New System.Windows.Forms.Padding(3)
         Me.ExternalIPLabel.Name = "ExternalIPLabel"
-        Me.ExternalIPLabel.Size = New System.Drawing.Size(120, 12)
+        Me.ExternalIPLabel.Size = New System.Drawing.Size(123, 16)
         Me.ExternalIPLabel.TabIndex = 12
         Me.ExternalIPLabel.Text = "外部IP位址：取得中..."
         '
@@ -368,7 +376,7 @@ Partial Class Manager
         Me.IPALabel.Location = New System.Drawing.Point(6, 21)
         Me.IPALabel.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.IPALabel.Name = "IPALabel"
-        Me.IPALabel.Size = New System.Drawing.Size(110, 12)
+        Me.IPALabel.Size = New System.Drawing.Size(113, 16)
         Me.IPALabel.TabIndex = 13
         Me.IPALabel.Text = "網路狀態：檢查中..."
         '
@@ -381,7 +389,7 @@ Partial Class Manager
         Me.IPLabel.Location = New System.Drawing.Point(6, 40)
         Me.IPLabel.Margin = New System.Windows.Forms.Padding(3)
         Me.IPLabel.Name = "IPLabel"
-        Me.IPLabel.Size = New System.Drawing.Size(120, 12)
+        Me.IPLabel.Size = New System.Drawing.Size(123, 16)
         Me.IPLabel.TabIndex = 9
         Me.IPLabel.Text = "內部IP位址：取得中..."
         '
@@ -404,7 +412,7 @@ Partial Class Manager
         Me.GroupBox7.Controls.Add(Me.VListLoadingBox)
         Me.GroupBox7.Location = New System.Drawing.Point(3, 119)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(764, 226)
+        Me.GroupBox7.Size = New System.Drawing.Size(724, 226)
         Me.GroupBox7.TabIndex = 32
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "列表載入進度"
@@ -432,7 +440,7 @@ Partial Class Manager
         Me.VListLoadingBox.Controls.Add(Me.VanillaLoadingLabel)
         Me.VListLoadingBox.Location = New System.Drawing.Point(6, 21)
         Me.VListLoadingBox.Name = "VListLoadingBox"
-        Me.VListLoadingBox.Size = New System.Drawing.Size(751, 193)
+        Me.VListLoadingBox.Size = New System.Drawing.Size(711, 193)
         Me.VListLoadingBox.TabIndex = 30
         Me.VListLoadingBox.TabStop = False
         Me.VListLoadingBox.Text = "伺服器軟體"
@@ -602,12 +610,18 @@ Partial Class Manager
         Me.ServerListPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.ServerListPage.Controls.Add(Me.ServerListPanel)
         Me.ServerListPage.Controls.Add(Me.BottomButtons)
-        Me.ServerListPage.Location = New System.Drawing.Point(4, 22)
+        Me.ServerListPage.HorizontalScrollbarBarColor = True
+        Me.ServerListPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.ServerListPage.HorizontalScrollbarSize = 10
+        Me.ServerListPage.Location = New System.Drawing.Point(4, 36)
         Me.ServerListPage.Name = "ServerListPage"
         Me.ServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerListPage.Size = New System.Drawing.Size(776, 489)
+        Me.ServerListPage.Size = New System.Drawing.Size(736, 425)
         Me.ServerListPage.TabIndex = 1
         Me.ServerListPage.Text = "伺服器列表"
+        Me.ServerListPage.VerticalScrollbarBarColor = True
+        Me.ServerListPage.VerticalScrollbarHighlightOnWheel = False
+        Me.ServerListPage.VerticalScrollbarSize = 10
         '
         'ServerListPanel
         '
@@ -619,7 +633,7 @@ Partial Class Manager
         Me.ServerListPanel.Name = "ServerListPanel"
         Me.ServerListPanel.RowCount = 1
         Me.ServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ServerListPanel.Size = New System.Drawing.Size(770, 447)
+        Me.ServerListPanel.Size = New System.Drawing.Size(730, 383)
         Me.ServerListPanel.TabIndex = 6
         '
         'BottomButtons
@@ -633,11 +647,11 @@ Partial Class Manager
         Me.BottomButtons.Controls.Add(Me.Button1, 0, 0)
         Me.BottomButtons.Controls.Add(Me.Button2, 1, 0)
         Me.BottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BottomButtons.Location = New System.Drawing.Point(3, 450)
+        Me.BottomButtons.Location = New System.Drawing.Point(3, 386)
         Me.BottomButtons.Name = "BottomButtons"
         Me.BottomButtons.RowCount = 1
         Me.BottomButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.BottomButtons.Size = New System.Drawing.Size(770, 36)
+        Me.BottomButtons.Size = New System.Drawing.Size(730, 36)
         Me.BottomButtons.TabIndex = 5
         '
         'Button1
@@ -646,7 +660,7 @@ Partial Class Manager
         Me.Button1.Location = New System.Drawing.Point(11, 4)
         Me.Button1.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(363, 28)
+        Me.Button1.Size = New System.Drawing.Size(343, 28)
         Me.Button1.TabIndex = 3
         Me.Button1.Text = "建立伺服器"
         Me.Button1.UseVisualStyleBackColor = True
@@ -654,10 +668,10 @@ Partial Class Manager
         'Button2
         '
         Me.Button2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Button2.Location = New System.Drawing.Point(395, 4)
+        Me.Button2.Location = New System.Drawing.Point(375, 4)
         Me.Button2.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(364, 28)
+        Me.Button2.Size = New System.Drawing.Size(344, 28)
         Me.Button2.TabIndex = 2
         Me.Button2.Text = "加入伺服器"
         Me.Button2.UseVisualStyleBackColor = True
@@ -667,12 +681,18 @@ Partial Class Manager
         Me.PackServerListPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.PackServerListPage.Controls.Add(Me.ModpackServerListPanel)
         Me.PackServerListPage.Controls.Add(Me.TableLayoutPanel5)
-        Me.PackServerListPage.Location = New System.Drawing.Point(4, 22)
+        Me.PackServerListPage.HorizontalScrollbarBarColor = True
+        Me.PackServerListPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.PackServerListPage.HorizontalScrollbarSize = 10
+        Me.PackServerListPage.Location = New System.Drawing.Point(4, 36)
         Me.PackServerListPage.Name = "PackServerListPage"
         Me.PackServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.PackServerListPage.Size = New System.Drawing.Size(776, 489)
+        Me.PackServerListPage.Size = New System.Drawing.Size(736, 425)
         Me.PackServerListPage.TabIndex = 7
         Me.PackServerListPage.Text = "模組包伺服器列表"
+        Me.PackServerListPage.VerticalScrollbarBarColor = True
+        Me.PackServerListPage.VerticalScrollbarHighlightOnWheel = False
+        Me.PackServerListPage.VerticalScrollbarSize = 10
         '
         'ModpackServerListPanel
         '
@@ -684,7 +704,7 @@ Partial Class Manager
         Me.ModpackServerListPanel.Name = "ModpackServerListPanel"
         Me.ModpackServerListPanel.RowCount = 1
         Me.ModpackServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ModpackServerListPanel.Size = New System.Drawing.Size(770, 447)
+        Me.ModpackServerListPanel.Size = New System.Drawing.Size(730, 383)
         Me.ModpackServerListPanel.TabIndex = 6
         '
         'TableLayoutPanel5
@@ -698,11 +718,11 @@ Partial Class Manager
         Me.TableLayoutPanel5.Controls.Add(Me.Button6, 0, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.Button7, 1, 0)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 450)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 386)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 1
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(770, 36)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(730, 36)
         Me.TableLayoutPanel5.TabIndex = 8
         '
         'Button6
@@ -711,7 +731,7 @@ Partial Class Manager
         Me.Button6.Location = New System.Drawing.Point(11, 4)
         Me.Button6.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(363, 28)
+        Me.Button6.Size = New System.Drawing.Size(343, 28)
         Me.Button6.TabIndex = 3
         Me.Button6.Text = "建立伺服器"
         Me.Button6.UseVisualStyleBackColor = True
@@ -719,10 +739,10 @@ Partial Class Manager
         'Button7
         '
         Me.Button7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Button7.Location = New System.Drawing.Point(395, 4)
+        Me.Button7.Location = New System.Drawing.Point(375, 4)
         Me.Button7.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
         Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(364, 28)
+        Me.Button7.Size = New System.Drawing.Size(344, 28)
         Me.Button7.TabIndex = 2
         Me.Button7.Text = "加入伺服器"
         Me.Button7.UseVisualStyleBackColor = True
@@ -732,12 +752,18 @@ Partial Class Manager
         Me.ServerIntergratePage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.ServerIntergratePage.Controls.Add(Me.SolutionListPanel)
         Me.ServerIntergratePage.Controls.Add(Me.TableLayoutPanel2)
-        Me.ServerIntergratePage.Location = New System.Drawing.Point(4, 22)
+        Me.ServerIntergratePage.HorizontalScrollbarBarColor = True
+        Me.ServerIntergratePage.HorizontalScrollbarHighlightOnWheel = False
+        Me.ServerIntergratePage.HorizontalScrollbarSize = 10
+        Me.ServerIntergratePage.Location = New System.Drawing.Point(4, 36)
         Me.ServerIntergratePage.Name = "ServerIntergratePage"
         Me.ServerIntergratePage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerIntergratePage.Size = New System.Drawing.Size(776, 489)
+        Me.ServerIntergratePage.Size = New System.Drawing.Size(736, 425)
         Me.ServerIntergratePage.TabIndex = 2
         Me.ServerIntergratePage.Text = "伺服器整合方案列表"
+        Me.ServerIntergratePage.VerticalScrollbarBarColor = True
+        Me.ServerIntergratePage.VerticalScrollbarHighlightOnWheel = False
+        Me.ServerIntergratePage.VerticalScrollbarSize = 10
         '
         'SolutionListPanel
         '
@@ -749,7 +775,7 @@ Partial Class Manager
         Me.SolutionListPanel.Name = "SolutionListPanel"
         Me.SolutionListPanel.RowCount = 1
         Me.SolutionListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.SolutionListPanel.Size = New System.Drawing.Size(770, 447)
+        Me.SolutionListPanel.Size = New System.Drawing.Size(730, 383)
         Me.SolutionListPanel.TabIndex = 8
         '
         'TableLayoutPanel2
@@ -761,11 +787,11 @@ Partial Class Manager
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.Button3, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 450)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 386)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(770, 36)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(730, 36)
         Me.TableLayoutPanel2.TabIndex = 7
         '
         'Button3
@@ -774,7 +800,7 @@ Partial Class Manager
         Me.Button3.Location = New System.Drawing.Point(11, 4)
         Me.Button3.Margin = New System.Windows.Forms.Padding(10, 3, 10, 3)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(748, 28)
+        Me.Button3.Size = New System.Drawing.Size(708, 28)
         Me.Button3.TabIndex = 3
         Me.Button3.Text = "建立整合方案"
         Me.Button3.UseVisualStyleBackColor = True
@@ -783,13 +809,19 @@ Partial Class Manager
         '
         Me.ConnectionTabPage.Controls.Add(Me.GroupBox2)
         Me.ConnectionTabPage.Controls.Add(Me.GroupBox3)
-        Me.ConnectionTabPage.Location = New System.Drawing.Point(4, 22)
+        Me.ConnectionTabPage.HorizontalScrollbarBarColor = True
+        Me.ConnectionTabPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.ConnectionTabPage.HorizontalScrollbarSize = 10
+        Me.ConnectionTabPage.Location = New System.Drawing.Point(4, 36)
         Me.ConnectionTabPage.Name = "ConnectionTabPage"
         Me.ConnectionTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ConnectionTabPage.Size = New System.Drawing.Size(776, 489)
+        Me.ConnectionTabPage.Size = New System.Drawing.Size(736, 425)
         Me.ConnectionTabPage.TabIndex = 4
         Me.ConnectionTabPage.Text = "連接"
         Me.ConnectionTabPage.UseVisualStyleBackColor = True
+        Me.ConnectionTabPage.VerticalScrollbarBarColor = True
+        Me.ConnectionTabPage.VerticalScrollbarHighlightOnWheel = False
+        Me.ConnectionTabPage.VerticalScrollbarSize = 10
         '
         'GroupBox2
         '
@@ -799,7 +831,7 @@ Partial Class Manager
         Me.GroupBox2.Controls.Add(Me.UPnPLabel)
         Me.GroupBox2.Location = New System.Drawing.Point(8, 6)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(760, 45)
+        Me.GroupBox2.Size = New System.Drawing.Size(720, 45)
         Me.GroupBox2.TabIndex = 33
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "UPnP"
@@ -810,7 +842,7 @@ Partial Class Manager
         Me.CheckBox1.Appearance = System.Windows.Forms.Appearance.Button
         Me.CheckBox1.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.CheckBox1.Enabled = False
-        Me.CheckBox1.Location = New System.Drawing.Point(687, 16)
+        Me.CheckBox1.Location = New System.Drawing.Point(647, 16)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(67, 23)
         Me.CheckBox1.TabIndex = 12
@@ -824,7 +856,7 @@ Partial Class Manager
         Me.UPnPLabel.Location = New System.Drawing.Point(6, 21)
         Me.UPnPLabel.Margin = New System.Windows.Forms.Padding(3)
         Me.UPnPLabel.Name = "UPnPLabel"
-        Me.UPnPLabel.Size = New System.Drawing.Size(115, 12)
+        Me.UPnPLabel.Size = New System.Drawing.Size(122, 16)
         Me.UPnPLabel.TabIndex = 11
         Me.UPnPLabel.Text = "UPnP 狀態：檢查中..."
         '
@@ -835,7 +867,7 @@ Partial Class Manager
         Me.GroupBox3.Controls.Add(Me.TableLayoutPanel3)
         Me.GroupBox3.Location = New System.Drawing.Point(8, 57)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(763, 125)
+        Me.GroupBox3.Size = New System.Drawing.Size(723, 125)
         Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "No-IP 動態DNS服務"
@@ -848,11 +880,11 @@ Partial Class Manager
         Me.TableLayoutPanel3.Controls.Add(Me.Panel1, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.Panel2, 1, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 18)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 19)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(757, 104)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(717, 103)
         Me.TableLayoutPanel3.TabIndex = 0
         '
         'Panel1
@@ -866,7 +898,7 @@ Partial Class Manager
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(249, 98)
+        Me.Panel1.Size = New System.Drawing.Size(249, 97)
         Me.Panel1.TabIndex = 17
         '
         'CheckBox2
@@ -876,7 +908,7 @@ Partial Class Manager
         Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.ServerManager.My.MySettings.Default, "NoIPPasswordViewChecked", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.CheckBox2.Location = New System.Drawing.Point(50, 67)
         Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
+        Me.CheckBox2.Size = New System.Drawing.Size(75, 20)
         Me.CheckBox2.TabIndex = 17
         Me.CheckBox2.Text = "顯示密碼"
         Me.CheckBox2.UseVisualStyleBackColor = True
@@ -896,7 +928,7 @@ Partial Class Manager
         Me.Label5.Location = New System.Drawing.Point(3, 11)
         Me.Label5.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(41, 12)
+        Me.Label5.Size = New System.Drawing.Size(44, 16)
         Me.Label5.TabIndex = 14
         Me.Label5.Text = "帳號："
         '
@@ -906,23 +938,70 @@ Partial Class Manager
         Me.Label6.Location = New System.Drawing.Point(3, 39)
         Me.Label6.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(41, 12)
+        Me.Label6.Size = New System.Drawing.Size(44, 16)
         Me.Label6.TabIndex = 15
         Me.Label6.Text = "密碼："
         '
         'NoIPAccountBox
         '
+        '
+        '
+        '
+        Me.NoIPAccountBox.CustomButton.Image = Nothing
+        Me.NoIPAccountBox.CustomButton.Location = New System.Drawing.Point(173, 2)
+        Me.NoIPAccountBox.CustomButton.Name = ""
+        Me.NoIPAccountBox.CustomButton.Size = New System.Drawing.Size(17, 17)
+        Me.NoIPAccountBox.CustomButton.Style = MetroFramework.MetroColorStyle.Green
+        Me.NoIPAccountBox.CustomButton.TabIndex = 1
+        Me.NoIPAccountBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.NoIPAccountBox.CustomButton.UseSelectable = True
+        Me.NoIPAccountBox.CustomButton.Visible = False
+        Me.NoIPAccountBox.Lines = New String() {"dd"}
         Me.NoIPAccountBox.Location = New System.Drawing.Point(50, 6)
+        Me.NoIPAccountBox.MaxLength = 32767
         Me.NoIPAccountBox.Name = "NoIPAccountBox"
+        Me.NoIPAccountBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.NoIPAccountBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.NoIPAccountBox.SelectedText = ""
+        Me.NoIPAccountBox.SelectionLength = 0
+        Me.NoIPAccountBox.SelectionStart = 0
+        Me.NoIPAccountBox.ShortcutsEnabled = True
         Me.NoIPAccountBox.Size = New System.Drawing.Size(193, 22)
         Me.NoIPAccountBox.TabIndex = 1
+        Me.NoIPAccountBox.Text = "dd"
+        Me.NoIPAccountBox.UseSelectable = True
+        Me.NoIPAccountBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.NoIPAccountBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'NoIPPasswordBox
         '
+        '
+        '
+        '
+        Me.NoIPPasswordBox.CustomButton.Image = Nothing
+        Me.NoIPPasswordBox.CustomButton.Location = New System.Drawing.Point(173, 2)
+        Me.NoIPPasswordBox.CustomButton.Name = ""
+        Me.NoIPPasswordBox.CustomButton.Size = New System.Drawing.Size(17, 17)
+        Me.NoIPPasswordBox.CustomButton.Style = MetroFramework.MetroColorStyle.Green
+        Me.NoIPPasswordBox.CustomButton.TabIndex = 1
+        Me.NoIPPasswordBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.NoIPPasswordBox.CustomButton.UseSelectable = True
+        Me.NoIPPasswordBox.CustomButton.Visible = False
+        Me.NoIPPasswordBox.Lines = New String(-1) {}
         Me.NoIPPasswordBox.Location = New System.Drawing.Point(50, 34)
+        Me.NoIPPasswordBox.MaxLength = 32767
         Me.NoIPPasswordBox.Name = "NoIPPasswordBox"
+        Me.NoIPPasswordBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.NoIPPasswordBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.NoIPPasswordBox.SelectedText = ""
+        Me.NoIPPasswordBox.SelectionLength = 0
+        Me.NoIPPasswordBox.SelectionStart = 0
+        Me.NoIPPasswordBox.ShortcutsEnabled = True
         Me.NoIPPasswordBox.Size = New System.Drawing.Size(193, 22)
         Me.NoIPPasswordBox.TabIndex = 2
+        Me.NoIPPasswordBox.UseSelectable = True
+        Me.NoIPPasswordBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.NoIPPasswordBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'Panel2
         '
@@ -934,7 +1013,7 @@ Partial Class Manager
         Me.Panel2.Enabled = False
         Me.Panel2.Location = New System.Drawing.Point(258, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(496, 98)
+        Me.Panel2.Size = New System.Drawing.Size(456, 97)
         Me.Panel2.TabIndex = 18
         '
         'NoIPUpdateTimeSpanLabel
@@ -942,7 +1021,7 @@ Partial Class Manager
         Me.NoIPUpdateTimeSpanLabel.AutoSize = True
         Me.NoIPUpdateTimeSpanLabel.Location = New System.Drawing.Point(48, 77)
         Me.NoIPUpdateTimeSpanLabel.Name = "NoIPUpdateTimeSpanLabel"
-        Me.NoIPUpdateTimeSpanLabel.Size = New System.Drawing.Size(0, 12)
+        Me.NoIPUpdateTimeSpanLabel.Size = New System.Drawing.Size(0, 16)
         Me.NoIPUpdateTimeSpanLabel.TabIndex = 20
         '
         'HostCheckList
@@ -953,13 +1032,13 @@ Partial Class Manager
         Me.HostCheckList.FormattingEnabled = True
         Me.HostCheckList.Location = New System.Drawing.Point(50, 6)
         Me.HostCheckList.Name = "HostCheckList"
-        Me.HostCheckList.Size = New System.Drawing.Size(440, 55)
+        Me.HostCheckList.Size = New System.Drawing.Size(400, 40)
         Me.HostCheckList.TabIndex = 19
         '
         'Button5
         '
         Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button5.Location = New System.Drawing.Point(415, 69)
+        Me.Button5.Location = New System.Drawing.Point(375, 68)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(75, 23)
         Me.Button5.TabIndex = 18
@@ -972,20 +1051,26 @@ Partial Class Manager
         Me.Label7.Location = New System.Drawing.Point(3, 8)
         Me.Label7.Margin = New System.Windows.Forms.Padding(3, 3, 3, 4)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(41, 12)
+        Me.Label7.Size = New System.Drawing.Size(44, 16)
         Me.Label7.TabIndex = 16
         Me.Label7.Text = "主機："
         '
         'SettingTabPage
         '
         Me.SettingTabPage.Controls.Add(Me.SettingTabControl)
-        Me.SettingTabPage.Location = New System.Drawing.Point(4, 22)
+        Me.SettingTabPage.HorizontalScrollbarBarColor = True
+        Me.SettingTabPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.SettingTabPage.HorizontalScrollbarSize = 10
+        Me.SettingTabPage.Location = New System.Drawing.Point(4, 36)
         Me.SettingTabPage.Name = "SettingTabPage"
         Me.SettingTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.SettingTabPage.Size = New System.Drawing.Size(776, 489)
+        Me.SettingTabPage.Size = New System.Drawing.Size(736, 425)
         Me.SettingTabPage.TabIndex = 6
         Me.SettingTabPage.Text = "設定"
         Me.SettingTabPage.UseVisualStyleBackColor = True
+        Me.SettingTabPage.VerticalScrollbarBarColor = True
+        Me.SettingTabPage.VerticalScrollbarHighlightOnWheel = False
+        Me.SettingTabPage.VerticalScrollbarSize = 10
         '
         'SettingTabControl
         '
@@ -997,19 +1082,26 @@ Partial Class Manager
         Me.SettingTabControl.Location = New System.Drawing.Point(3, 3)
         Me.SettingTabControl.Name = "SettingTabControl"
         Me.SettingTabControl.SelectedIndex = 0
-        Me.SettingTabControl.Size = New System.Drawing.Size(770, 483)
+        Me.SettingTabControl.Size = New System.Drawing.Size(730, 419)
         Me.SettingTabControl.TabIndex = 0
+        Me.SettingTabControl.UseSelectable = True
         '
         'TabPage4
         '
         Me.TabPage4.Controls.Add(Me.GroupBox6)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage4.HorizontalScrollbarBarColor = True
+        Me.TabPage4.HorizontalScrollbarHighlightOnWheel = False
+        Me.TabPage4.HorizontalScrollbarSize = 10
+        Me.TabPage4.Location = New System.Drawing.Point(4, 38)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(762, 457)
+        Me.TabPage4.Size = New System.Drawing.Size(722, 377)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "一般"
         Me.TabPage4.UseVisualStyleBackColor = True
+        Me.TabPage4.VerticalScrollbarBarColor = True
+        Me.TabPage4.VerticalScrollbarHighlightOnWheel = False
+        Me.TabPage4.VerticalScrollbarSize = 10
         '
         'GroupBox6
         '
@@ -1021,7 +1113,7 @@ Partial Class Manager
         Me.GroupBox6.Controls.Add(Me.Label21)
         Me.GroupBox6.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(750, 80)
+        Me.GroupBox6.Size = New System.Drawing.Size(710, 80)
         Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "自動更新"
@@ -1033,7 +1125,7 @@ Partial Class Manager
         Me.ComboBox2.Items.AddRange(New Object() {"僅安裝穩定版本", "穩定版本及預覽版本"})
         Me.ComboBox2.Location = New System.Drawing.Point(77, 47)
         Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(200, 20)
+        Me.ComboBox2.Size = New System.Drawing.Size(200, 24)
         Me.ComboBox2.TabIndex = 6
         '
         'Label22
@@ -1041,7 +1133,7 @@ Partial Class Manager
         Me.Label22.AutoSize = True
         Me.Label22.Location = New System.Drawing.Point(6, 52)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(65, 12)
+        Me.Label22.Size = New System.Drawing.Size(68, 16)
         Me.Label22.TabIndex = 5
         Me.Label22.Text = "更新頻道："
         '
@@ -1052,7 +1144,7 @@ Partial Class Manager
         Me.ComboBox1.Items.AddRange(New Object() {"自動偵測更新並安裝", "自動偵測更新並跳出提示視窗", "不自動更新"})
         Me.ComboBox1.Location = New System.Drawing.Point(77, 21)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(200, 20)
+        Me.ComboBox1.Size = New System.Drawing.Size(200, 24)
         Me.ComboBox1.TabIndex = 4
         '
         'Label21
@@ -1060,7 +1152,7 @@ Partial Class Manager
         Me.Label21.AutoSize = True
         Me.Label21.Location = New System.Drawing.Point(6, 26)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(65, 12)
+        Me.Label21.Size = New System.Drawing.Size(68, 16)
         Me.Label21.TabIndex = 1
         Me.Label21.Text = "更新方式："
         '
@@ -1072,13 +1164,19 @@ Partial Class Manager
         Me.TabPage1.Controls.Add(Me.ArguBox)
         Me.TabPage1.Controls.Add(Me.ArguLabel)
         Me.TabPage1.Controls.Add(Me.JavaVersionLabel)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.HorizontalScrollbarBarColor = True
+        Me.TabPage1.HorizontalScrollbarHighlightOnWheel = False
+        Me.TabPage1.HorizontalScrollbarSize = 10
+        Me.TabPage1.Location = New System.Drawing.Point(4, 36)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(762, 457)
+        Me.TabPage1.Size = New System.Drawing.Size(722, 377)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Java"
         Me.TabPage1.UseVisualStyleBackColor = True
+        Me.TabPage1.VerticalScrollbarBarColor = True
+        Me.TabPage1.VerticalScrollbarHighlightOnWheel = False
+        Me.TabPage1.VerticalScrollbarSize = 10
         '
         'TableLayoutPanel1
         '
@@ -1120,7 +1218,7 @@ Partial Class Manager
         Me.Label23.Location = New System.Drawing.Point(6, 26)
         Me.Label23.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(89, 12)
+        Me.Label23.Size = New System.Drawing.Size(92, 16)
         Me.Label23.TabIndex = 25
         Me.Label23.Text = "記憶體最大值："
         Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1131,7 +1229,7 @@ Partial Class Manager
         Me.Label24.Location = New System.Drawing.Point(179, 26)
         Me.Label24.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(23, 12)
+        Me.Label24.Size = New System.Drawing.Size(27, 16)
         Me.Label24.TabIndex = 27
         Me.Label24.Text = "MB"
         Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1141,7 +1239,7 @@ Partial Class Manager
         Me.ModpackServerMemoryMaxBox.Location = New System.Drawing.Point(98, 21)
         Me.ModpackServerMemoryMaxBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
         Me.ModpackServerMemoryMaxBox.Name = "ModpackServerMemoryMaxBox"
-        Me.ModpackServerMemoryMaxBox.Size = New System.Drawing.Size(78, 22)
+        Me.ModpackServerMemoryMaxBox.Size = New System.Drawing.Size(78, 23)
         Me.ModpackServerMemoryMaxBox.TabIndex = 26
         Me.ModpackServerMemoryMaxBox.Tag = ""
         Me.ModpackServerMemoryMaxBox.Value = New Decimal(New Integer() {4096, 0, 0, 0})
@@ -1152,7 +1250,7 @@ Partial Class Manager
         Me.Label25.Location = New System.Drawing.Point(179, 53)
         Me.Label25.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(23, 12)
+        Me.Label25.Size = New System.Drawing.Size(27, 16)
         Me.Label25.TabIndex = 30
         Me.Label25.Text = "MB"
         Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1162,7 +1260,7 @@ Partial Class Manager
         Me.ModpackServerMemoryMinBox.Location = New System.Drawing.Point(98, 49)
         Me.ModpackServerMemoryMinBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
         Me.ModpackServerMemoryMinBox.Name = "ModpackServerMemoryMinBox"
-        Me.ModpackServerMemoryMinBox.Size = New System.Drawing.Size(78, 22)
+        Me.ModpackServerMemoryMinBox.Size = New System.Drawing.Size(78, 23)
         Me.ModpackServerMemoryMinBox.TabIndex = 29
         Me.ModpackServerMemoryMinBox.Tag = ""
         Me.ModpackServerMemoryMinBox.Value = New Decimal(New Integer() {4096, 0, 0, 0})
@@ -1173,7 +1271,7 @@ Partial Class Manager
         Me.Label26.Location = New System.Drawing.Point(6, 53)
         Me.Label26.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(89, 12)
+        Me.Label26.Size = New System.Drawing.Size(92, 16)
         Me.Label26.TabIndex = 28
         Me.Label26.Text = "記憶體最小值："
         Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1200,7 +1298,7 @@ Partial Class Manager
         Me.Label1.Location = New System.Drawing.Point(6, 26)
         Me.Label1.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(89, 12)
+        Me.Label1.Size = New System.Drawing.Size(92, 16)
         Me.Label1.TabIndex = 25
         Me.Label1.Text = "記憶體最大值："
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1211,7 +1309,7 @@ Partial Class Manager
         Me.Label2.Location = New System.Drawing.Point(179, 26)
         Me.Label2.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(23, 12)
+        Me.Label2.Size = New System.Drawing.Size(27, 16)
         Me.Label2.TabIndex = 27
         Me.Label2.Text = "MB"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1221,7 +1319,7 @@ Partial Class Manager
         Me.BungeeMemoryMaxBox.Location = New System.Drawing.Point(98, 21)
         Me.BungeeMemoryMaxBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
         Me.BungeeMemoryMaxBox.Name = "BungeeMemoryMaxBox"
-        Me.BungeeMemoryMaxBox.Size = New System.Drawing.Size(78, 22)
+        Me.BungeeMemoryMaxBox.Size = New System.Drawing.Size(78, 23)
         Me.BungeeMemoryMaxBox.TabIndex = 26
         Me.BungeeMemoryMaxBox.Tag = ""
         Me.BungeeMemoryMaxBox.Value = New Decimal(New Integer() {16, 0, 0, 0})
@@ -1232,7 +1330,7 @@ Partial Class Manager
         Me.Label3.Location = New System.Drawing.Point(179, 53)
         Me.Label3.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(23, 12)
+        Me.Label3.Size = New System.Drawing.Size(27, 16)
         Me.Label3.TabIndex = 30
         Me.Label3.Text = "MB"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1242,7 +1340,7 @@ Partial Class Manager
         Me.BungeeMemoryMinBox.Location = New System.Drawing.Point(98, 49)
         Me.BungeeMemoryMinBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
         Me.BungeeMemoryMinBox.Name = "BungeeMemoryMinBox"
-        Me.BungeeMemoryMinBox.Size = New System.Drawing.Size(78, 22)
+        Me.BungeeMemoryMinBox.Size = New System.Drawing.Size(78, 23)
         Me.BungeeMemoryMinBox.TabIndex = 29
         Me.BungeeMemoryMinBox.Tag = ""
         Me.BungeeMemoryMinBox.Value = New Decimal(New Integer() {16, 0, 0, 0})
@@ -1253,7 +1351,7 @@ Partial Class Manager
         Me.Label4.Location = New System.Drawing.Point(6, 53)
         Me.Label4.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(89, 12)
+        Me.Label4.Size = New System.Drawing.Size(92, 16)
         Me.Label4.TabIndex = 28
         Me.Label4.Text = "記憶體最小值："
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1280,7 +1378,7 @@ Partial Class Manager
         Me.Label11.Location = New System.Drawing.Point(6, 26)
         Me.Label11.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(89, 12)
+        Me.Label11.Size = New System.Drawing.Size(92, 16)
         Me.Label11.TabIndex = 25
         Me.Label11.Text = "記憶體最大值："
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1291,7 +1389,7 @@ Partial Class Manager
         Me.Label12.Location = New System.Drawing.Point(179, 26)
         Me.Label12.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(23, 12)
+        Me.Label12.Size = New System.Drawing.Size(27, 16)
         Me.Label12.TabIndex = 27
         Me.Label12.Text = "MB"
         Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1301,7 +1399,7 @@ Partial Class Manager
         Me.ServerMemoryMaxBox.Location = New System.Drawing.Point(98, 21)
         Me.ServerMemoryMaxBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
         Me.ServerMemoryMaxBox.Name = "ServerMemoryMaxBox"
-        Me.ServerMemoryMaxBox.Size = New System.Drawing.Size(78, 22)
+        Me.ServerMemoryMaxBox.Size = New System.Drawing.Size(78, 23)
         Me.ServerMemoryMaxBox.TabIndex = 26
         Me.ServerMemoryMaxBox.Tag = ""
         Me.ServerMemoryMaxBox.Value = New Decimal(New Integer() {1024, 0, 0, 0})
@@ -1312,7 +1410,7 @@ Partial Class Manager
         Me.Label14.Location = New System.Drawing.Point(179, 53)
         Me.Label14.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(23, 12)
+        Me.Label14.Size = New System.Drawing.Size(27, 16)
         Me.Label14.TabIndex = 30
         Me.Label14.Text = "MB"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1322,7 +1420,7 @@ Partial Class Manager
         Me.ServerMemoryMinBox.Location = New System.Drawing.Point(98, 49)
         Me.ServerMemoryMinBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
         Me.ServerMemoryMinBox.Name = "ServerMemoryMinBox"
-        Me.ServerMemoryMinBox.Size = New System.Drawing.Size(78, 22)
+        Me.ServerMemoryMinBox.Size = New System.Drawing.Size(78, 23)
         Me.ServerMemoryMinBox.TabIndex = 29
         Me.ServerMemoryMinBox.Tag = ""
         Me.ServerMemoryMinBox.Value = New Decimal(New Integer() {1024, 0, 0, 0})
@@ -1333,7 +1431,7 @@ Partial Class Manager
         Me.Label13.Location = New System.Drawing.Point(6, 53)
         Me.Label13.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(89, 12)
+        Me.Label13.Size = New System.Drawing.Size(92, 16)
         Me.Label13.TabIndex = 28
         Me.Label13.Text = "記憶體最小值："
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1363,11 +1461,33 @@ Partial Class Manager
         '
         Me.ArguBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ArguBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        '
+        '
+        '
+        Me.ArguBox.CustomButton.Image = Nothing
+        Me.ArguBox.CustomButton.Location = New System.Drawing.Point(637, 2)
+        Me.ArguBox.CustomButton.Name = ""
+        Me.ArguBox.CustomButton.Size = New System.Drawing.Size(17, 17)
+        Me.ArguBox.CustomButton.Style = MetroFramework.MetroColorStyle.Green
+        Me.ArguBox.CustomButton.TabIndex = 1
+        Me.ArguBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.ArguBox.CustomButton.UseSelectable = True
+        Me.ArguBox.CustomButton.Visible = False
+        Me.ArguBox.Lines = New String(-1) {}
         Me.ArguBox.Location = New System.Drawing.Point(99, 35)
+        Me.ArguBox.MaxLength = 32767
         Me.ArguBox.Name = "ArguBox"
+        Me.ArguBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.ArguBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.ArguBox.SelectedText = ""
+        Me.ArguBox.SelectionLength = 0
+        Me.ArguBox.SelectionStart = 0
+        Me.ArguBox.ShortcutsEnabled = True
         Me.ArguBox.Size = New System.Drawing.Size(657, 22)
         Me.ArguBox.TabIndex = 38
+        Me.ArguBox.UseSelectable = True
+        Me.ArguBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.ArguBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'ArguLabel
         '
@@ -1375,7 +1495,7 @@ Partial Class Manager
         Me.ArguLabel.Location = New System.Drawing.Point(7, 39)
         Me.ArguLabel.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.ArguLabel.Name = "ArguLabel"
-        Me.ArguLabel.Size = New System.Drawing.Size(88, 12)
+        Me.ArguLabel.Size = New System.Drawing.Size(96, 16)
         Me.ArguLabel.TabIndex = 37
         Me.ArguLabel.Text = "Java 額外參數："
         Me.ArguLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1386,7 +1506,7 @@ Partial Class Manager
         Me.JavaVersionLabel.Location = New System.Drawing.Point(7, 11)
         Me.JavaVersionLabel.Margin = New System.Windows.Forms.Padding(3)
         Me.JavaVersionLabel.Name = "JavaVersionLabel"
-        Me.JavaVersionLabel.Size = New System.Drawing.Size(109, 12)
+        Me.JavaVersionLabel.Size = New System.Drawing.Size(117, 16)
         Me.JavaVersionLabel.TabIndex = 36
         Me.JavaVersionLabel.Text = "Java 版本：取得中..."
         '
@@ -1394,20 +1514,26 @@ Partial Class Manager
         '
         Me.TabPage2.Controls.Add(Me.CheckBox3)
         Me.TabPage2.Controls.Add(Me.SnapshotCheckBox)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.HorizontalScrollbarBarColor = True
+        Me.TabPage2.HorizontalScrollbarHighlightOnWheel = False
+        Me.TabPage2.HorizontalScrollbarSize = 10
+        Me.TabPage2.Location = New System.Drawing.Point(4, 36)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(762, 457)
+        Me.TabPage2.Size = New System.Drawing.Size(722, 377)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "伺服器"
         Me.TabPage2.UseVisualStyleBackColor = True
+        Me.TabPage2.VerticalScrollbarBarColor = True
+        Me.TabPage2.VerticalScrollbarHighlightOnWheel = False
+        Me.TabPage2.VerticalScrollbarSize = 10
         '
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
         Me.CheckBox3.Location = New System.Drawing.Point(6, 28)
         Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(159, 16)
+        Me.CheckBox3.Size = New System.Drawing.Size(168, 20)
         Me.CheckBox3.TabIndex = 33
         Me.CheckBox3.Text = "是否可選擇安裝舊版Forge"
         Me.CheckBox3.UseVisualStyleBackColor = True
@@ -1417,7 +1543,7 @@ Partial Class Manager
         Me.SnapshotCheckBox.AutoSize = True
         Me.SnapshotCheckBox.Location = New System.Drawing.Point(6, 6)
         Me.SnapshotCheckBox.Name = "SnapshotCheckBox"
-        Me.SnapshotCheckBox.Size = New System.Drawing.Size(168, 16)
+        Me.SnapshotCheckBox.Size = New System.Drawing.Size(171, 20)
         Me.SnapshotCheckBox.TabIndex = 32
         Me.SnapshotCheckBox.Text = "在列表內顯示原版快照版本"
         Me.SnapshotCheckBox.UseVisualStyleBackColor = True
@@ -1426,13 +1552,19 @@ Partial Class Manager
         '
         Me.TabPage3.Controls.Add(Me.GroupBox10)
         Me.TabPage3.Controls.Add(Me.GitGroupBox)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.HorizontalScrollbarBarColor = True
+        Me.TabPage3.HorizontalScrollbarHighlightOnWheel = False
+        Me.TabPage3.HorizontalScrollbarSize = 10
+        Me.TabPage3.Location = New System.Drawing.Point(4, 36)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(762, 457)
+        Me.TabPage3.Size = New System.Drawing.Size(722, 377)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "外部工具"
         Me.TabPage3.UseVisualStyleBackColor = True
+        Me.TabPage3.VerticalScrollbarBarColor = True
+        Me.TabPage3.VerticalScrollbarHighlightOnWheel = False
+        Me.TabPage3.VerticalScrollbarSize = 10
         '
         'GroupBox10
         '
@@ -1464,11 +1596,34 @@ Partial Class Manager
         '
         Me.PHPPathBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        '
+        '
+        '
+        Me.PHPPathBox.CustomButton.Image = Nothing
+        Me.PHPPathBox.CustomButton.Location = New System.Drawing.Point(644, 2)
+        Me.PHPPathBox.CustomButton.Name = ""
+        Me.PHPPathBox.CustomButton.Size = New System.Drawing.Size(17, 17)
+        Me.PHPPathBox.CustomButton.Style = MetroFramework.MetroColorStyle.Green
+        Me.PHPPathBox.CustomButton.TabIndex = 1
+        Me.PHPPathBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.PHPPathBox.CustomButton.UseSelectable = True
+        Me.PHPPathBox.CustomButton.Visible = False
+        Me.PHPPathBox.Lines = New String(-1) {}
         Me.PHPPathBox.Location = New System.Drawing.Point(47, 37)
         Me.PHPPathBox.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
+        Me.PHPPathBox.MaxLength = 32767
         Me.PHPPathBox.Name = "PHPPathBox"
+        Me.PHPPathBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.PHPPathBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.PHPPathBox.SelectedText = ""
+        Me.PHPPathBox.SelectionLength = 0
+        Me.PHPPathBox.SelectionStart = 0
+        Me.PHPPathBox.ShortcutsEnabled = True
         Me.PHPPathBox.Size = New System.Drawing.Size(664, 22)
         Me.PHPPathBox.TabIndex = 2
+        Me.PHPPathBox.UseSelectable = True
+        Me.PHPPathBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.PHPPathBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'Label27
         '
@@ -1476,7 +1631,7 @@ Partial Class Manager
         Me.Label27.Location = New System.Drawing.Point(6, 42)
         Me.Label27.Margin = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(41, 12)
+        Me.Label27.Size = New System.Drawing.Size(44, 16)
         Me.Label27.TabIndex = 1
         Me.Label27.Text = "路徑："
         '
@@ -1486,7 +1641,7 @@ Partial Class Manager
         Me.Label28.Location = New System.Drawing.Point(6, 18)
         Me.Label28.Margin = New System.Windows.Forms.Padding(3, 0, 3, 4)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(218, 12)
+        Me.Label28.Size = New System.Drawing.Size(237, 16)
         Me.Label28.TabIndex = 0
         Me.Label28.Text = "運行 PocketMine-MP 伺服器所需的軟體。"
         '
@@ -1520,11 +1675,34 @@ Partial Class Manager
         '
         Me.GitBashPathBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        '
+        '
+        '
+        Me.GitBashPathBox.CustomButton.Image = Nothing
+        Me.GitBashPathBox.CustomButton.Location = New System.Drawing.Point(644, 2)
+        Me.GitBashPathBox.CustomButton.Name = ""
+        Me.GitBashPathBox.CustomButton.Size = New System.Drawing.Size(17, 17)
+        Me.GitBashPathBox.CustomButton.Style = MetroFramework.MetroColorStyle.Green
+        Me.GitBashPathBox.CustomButton.TabIndex = 1
+        Me.GitBashPathBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.GitBashPathBox.CustomButton.UseSelectable = True
+        Me.GitBashPathBox.CustomButton.Visible = False
+        Me.GitBashPathBox.Lines = New String(-1) {}
         Me.GitBashPathBox.Location = New System.Drawing.Point(47, 37)
         Me.GitBashPathBox.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
+        Me.GitBashPathBox.MaxLength = 32767
         Me.GitBashPathBox.Name = "GitBashPathBox"
+        Me.GitBashPathBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.GitBashPathBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.GitBashPathBox.SelectedText = ""
+        Me.GitBashPathBox.SelectionLength = 0
+        Me.GitBashPathBox.SelectionStart = 0
+        Me.GitBashPathBox.ShortcutsEnabled = True
         Me.GitBashPathBox.Size = New System.Drawing.Size(664, 22)
         Me.GitBashPathBox.TabIndex = 2
+        Me.GitBashPathBox.UseSelectable = True
+        Me.GitBashPathBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.GitBashPathBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'Label16
         '
@@ -1532,7 +1710,7 @@ Partial Class Manager
         Me.Label16.Location = New System.Drawing.Point(6, 42)
         Me.Label16.Margin = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(41, 12)
+        Me.Label16.Size = New System.Drawing.Size(44, 16)
         Me.Label16.TabIndex = 1
         Me.Label16.Text = "路徑："
         '
@@ -1542,20 +1720,26 @@ Partial Class Manager
         Me.Label15.Location = New System.Drawing.Point(6, 18)
         Me.Label15.Margin = New System.Windows.Forms.Padding(3, 0, 3, 4)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(197, 12)
+        Me.Label15.Size = New System.Drawing.Size(200, 16)
         Me.Label15.TabIndex = 0
         Me.Label15.Text = "用於建置需手動建置的伺服器軟體。"
         '
         'AboutPage
         '
         Me.AboutPage.Controls.Add(Me.TableLayoutPanel4)
-        Me.AboutPage.Location = New System.Drawing.Point(4, 22)
+        Me.AboutPage.HorizontalScrollbarBarColor = True
+        Me.AboutPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.AboutPage.HorizontalScrollbarSize = 10
+        Me.AboutPage.Location = New System.Drawing.Point(4, 36)
         Me.AboutPage.Name = "AboutPage"
         Me.AboutPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AboutPage.Size = New System.Drawing.Size(776, 489)
+        Me.AboutPage.Size = New System.Drawing.Size(736, 425)
         Me.AboutPage.TabIndex = 5
         Me.AboutPage.Text = "關於"
         Me.AboutPage.UseVisualStyleBackColor = True
+        Me.AboutPage.VerticalScrollbarBarColor = True
+        Me.AboutPage.VerticalScrollbarHighlightOnWheel = False
+        Me.AboutPage.VerticalScrollbarSize = 10
         '
         'TableLayoutPanel4
         '
@@ -1569,7 +1753,7 @@ Partial Class Manager
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(770, 483)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 419)
         Me.TableLayoutPanel4.TabIndex = 1
         '
         'GroupBox5
@@ -1577,9 +1761,9 @@ Partial Class Manager
         Me.GroupBox5.Controls.Add(Me.ServerSoftwareLinkList)
         Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Left
         Me.GroupBox5.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.GroupBox5.Location = New System.Drawing.Point(388, 3)
+        Me.GroupBox5.Location = New System.Drawing.Point(368, 3)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(379, 477)
+        Me.GroupBox5.Size = New System.Drawing.Size(359, 413)
         Me.GroupBox5.TabIndex = 5
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "各伺服器軟體官網(按兩下即可開啟)"
@@ -1588,7 +1772,7 @@ Partial Class Manager
         '
         Me.ServerSoftwareLinkList.AutoArrange = False
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 11.0!)
+        Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 10.5!)
         Me.ServerSoftwareLinkList.HideSelection = False
         ListViewItem1.Checked = True
         ListViewItem1.StateImageIndex = 2
@@ -1628,7 +1812,7 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
-        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(373, 455)
+        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 391)
         Me.ServerSoftwareLinkList.StateImageList = Me.ServerSoftwareImageList
         Me.ServerSoftwareLinkList.TabIndex = 0
         Me.ServerSoftwareLinkList.UseCompatibleStateImageBehavior = False
@@ -1663,7 +1847,7 @@ Partial Class Manager
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(3, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(379, 477)
+        Me.Panel3.Size = New System.Drawing.Size(359, 413)
         Me.Panel3.TabIndex = 1
         '
         'LinkLabel2
@@ -1697,7 +1881,7 @@ Partial Class Manager
         Me.GroupBox4.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(3, 159)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(372, 310)
+        Me.GroupBox4.Size = New System.Drawing.Size(352, 246)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "使用的函式庫"
@@ -1711,7 +1895,7 @@ Partial Class Manager
         Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)", "DropDownControls (用於顯示群組項目)", "NBT_Library (用於解析NBT檔案)"})
         Me.LibraryListBox.Location = New System.Drawing.Point(3, 19)
         Me.LibraryListBox.Name = "LibraryListBox"
-        Me.LibraryListBox.Size = New System.Drawing.Size(366, 288)
+        Me.LibraryListBox.Size = New System.Drawing.Size(346, 224)
         Me.LibraryListBox.TabIndex = 0
         '
         'Label10
@@ -1780,14 +1964,15 @@ Partial Class Manager
         '
         'Manager
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(784, 515)
         Me.Controls.Add(Me.MainTabControl)
-        Me.DoubleBuffered = True
+        Me.DisplayHeader = False
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Manager"
+        Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "Minecraft 伺服器管理員"
         Me.MainTabControl.ResumeLayout(False)
         Me.MainPage.ResumeLayout(False)
@@ -1858,16 +2043,11 @@ Partial Class Manager
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents MainTabControl As TabControl
-    Friend WithEvents MainPage As TabPage
-    Friend WithEvents ServerListPage As TabPage
     Friend WithEvents ServerListPanel As TableLayoutPanel
     Friend WithEvents BottomButtons As TableLayoutPanel
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents MainPanel As TableLayoutPanel
-    Friend WithEvents ServerIntergratePage As TabPage
     Friend WithEvents SolutionListPanel As TableLayoutPanel
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents Button3 As Button
@@ -1881,13 +2061,12 @@ Partial Class Manager
     Friend WithEvents SpigotLoadingLabel As Label
     Friend WithEvents ForgeLoadingLabel As Label
     Friend WithEvents VanillaLoadingLabel As Label
-    Friend WithEvents ConnectionTabPage As TabPage
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Button4 As Button
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
-    Friend WithEvents NoIPPasswordBox As TextBox
-    Friend WithEvents NoIPAccountBox As TextBox
+    Friend WithEvents NoIPPasswordBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents NoIPAccountBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel2 As Panel
@@ -1900,7 +2079,6 @@ Partial Class Manager
     Friend WithEvents VanillaBedrockLoadingLabel As Label
     Friend WithEvents PaperLoadingLabel As Label
     Friend WithEvents AkarinLoadingLabel As Label
-    Friend WithEvents AboutPage As TabPage
     Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
     Friend WithEvents Panel3 As Panel
     Friend WithEvents PictureBox1 As PictureBox
@@ -1912,16 +2090,12 @@ Partial Class Manager
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents ServerSoftwareLinkList As ListView
     Friend WithEvents ServerSoftwareImageList As ImageList
-    Friend WithEvents SettingTabPage As TabPage
-    Friend WithEvents SettingTabControl As TabControl
-    Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TabPage2 As TabPage
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents UPnPLabel As Label
     Friend WithEvents JavaDefaultBtn As Button
     Friend WithEvents JavaChooseBtn As Button
-    Friend WithEvents ArguBox As TextBox
+    Friend WithEvents ArguBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents ArguLabel As Label
     Friend WithEvents JavaVersionLabel As Label
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
@@ -1941,15 +2115,13 @@ Partial Class Manager
     Friend WithEvents Label13 As Label
     Friend WithEvents SnapshotCheckBox As CheckBox
     Friend WithEvents SpigotGitLoadingLabel As Label
-    Friend WithEvents TabPage3 As TabPage
     Friend WithEvents GitGroupBox As GroupBox
     Friend WithEvents GitBashBrowseButton As Button
-    Friend WithEvents GitBashPathBox As TextBox
+    Friend WithEvents GitBashPathBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents Label16 As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents CauldronLoadingLabel As Label
     Friend WithEvents Label17 As Label
-    Friend WithEvents PackServerListPage As TabPage
     Friend WithEvents ModpackServerListPanel As TableLayoutPanel
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
     Friend WithEvents Button6 As Button
@@ -1974,7 +2146,6 @@ Partial Class Manager
     Friend WithEvents InternalIPContextMenu As ContextMenuStrip
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents PerformanceCounter1 As PerformanceCounter
-    Friend WithEvents TabPage4 As TabPage
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents ComboBox2 As ComboBox
     Friend WithEvents Label22 As Label
@@ -1991,8 +2162,21 @@ Partial Class Manager
     Friend WithEvents Label26 As Label
     Friend WithEvents GroupBox10 As GroupBox
     Friend WithEvents PHPBrowseButton As Button
-    Friend WithEvents PHPPathBox As TextBox
+    Friend WithEvents PHPPathBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents Label27 As Label
     Friend WithEvents Label28 As Label
     Friend WithEvents PocketMineLoadingLabel As Label
+    Friend WithEvents MainTabControl As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents MainPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents ServerListPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents ServerIntergratePage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents ConnectionTabPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents AboutPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents SettingTabPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents SettingTabControl As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents TabPage1 As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents TabPage2 As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents TabPage3 As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents PackServerListPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents TabPage4 As MetroFramework.Controls.MetroTabPage
 End Class

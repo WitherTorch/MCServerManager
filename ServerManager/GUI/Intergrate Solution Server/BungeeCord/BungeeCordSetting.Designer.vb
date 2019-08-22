@@ -1,9 +1,9 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class BungeeCordSetting
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,18 +20,18 @@ Partial Class BungeeCordSetting
     '注意: 以下為 Windows Form 設計工具所需的程序
     '可以使用 Windows Form 設計工具進行修改。
     '請勿使用程式碼編輯器進行修改。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BungeeCordSetting))
-        Me.BungeeSetTab = New System.Windows.Forms.TabControl()
-        Me.ServerManagePage = New System.Windows.Forms.TabPage()
+        Me.BungeeSetTab = New MetroFramework.Controls.MetroTabControl()
+        Me.ServerManagePage = New MetroFramework.Controls.MetroTabPage()
         Me.ServerListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.AddServerButton = New System.Windows.Forms.Button()
-        Me.ListenerManageTab = New System.Windows.Forms.TabPage()
+        Me.ListenerManageTab = New MetroFramework.Controls.MetroTabPage()
         Me.RemoveListenerButton = New System.Windows.Forms.Button()
         Me.AddListenerButton = New System.Windows.Forms.Button()
-        Me.ListenerPropertyTab = New System.Windows.Forms.TabControl()
-        Me.OtherSettingPage = New System.Windows.Forms.TabPage()
+        Me.ListenerPropertyTab = New MetroFramework.Controls.MetroTabControl()
+        Me.OtherSettingPage = New MetroFramework.Controls.MetroTabPage()
         Me.BungeeSettingGrid = New System.Windows.Forms.PropertyGrid()
         Me.BungeeSetTab.SuspendLayout()
         Me.ServerManagePage.SuspendLayout()
@@ -45,23 +45,30 @@ Partial Class BungeeCordSetting
         Me.BungeeSetTab.Controls.Add(Me.ListenerManageTab)
         Me.BungeeSetTab.Controls.Add(Me.OtherSettingPage)
         Me.BungeeSetTab.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.BungeeSetTab.Location = New System.Drawing.Point(0, 0)
+        Me.BungeeSetTab.Location = New System.Drawing.Point(20, 30)
         Me.BungeeSetTab.Name = "BungeeSetTab"
         Me.BungeeSetTab.SelectedIndex = 0
-        Me.BungeeSetTab.Size = New System.Drawing.Size(584, 461)
+        Me.BungeeSetTab.Size = New System.Drawing.Size(544, 411)
         Me.BungeeSetTab.TabIndex = 0
+        Me.BungeeSetTab.UseSelectable = True
         '
         'ServerManagePage
         '
         Me.ServerManagePage.Controls.Add(Me.ServerListPanel)
         Me.ServerManagePage.Controls.Add(Me.AddServerButton)
-        Me.ServerManagePage.Location = New System.Drawing.Point(4, 22)
+        Me.ServerManagePage.HorizontalScrollbarBarColor = True
+        Me.ServerManagePage.HorizontalScrollbarHighlightOnWheel = False
+        Me.ServerManagePage.HorizontalScrollbarSize = 10
+        Me.ServerManagePage.Location = New System.Drawing.Point(4, 38)
         Me.ServerManagePage.Name = "ServerManagePage"
         Me.ServerManagePage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerManagePage.Size = New System.Drawing.Size(576, 435)
+        Me.ServerManagePage.Size = New System.Drawing.Size(536, 369)
         Me.ServerManagePage.TabIndex = 0
         Me.ServerManagePage.Text = "伺服器"
         Me.ServerManagePage.UseVisualStyleBackColor = True
+        Me.ServerManagePage.VerticalScrollbarBarColor = True
+        Me.ServerManagePage.VerticalScrollbarHighlightOnWheel = False
+        Me.ServerManagePage.VerticalScrollbarSize = 10
         '
         'ServerListPanel
         '
@@ -74,15 +81,15 @@ Partial Class BungeeCordSetting
         Me.ServerListPanel.Name = "ServerListPanel"
         Me.ServerListPanel.RowCount = 1
         Me.ServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ServerListPanel.Size = New System.Drawing.Size(570, 400)
+        Me.ServerListPanel.Size = New System.Drawing.Size(530, 334)
         Me.ServerListPanel.TabIndex = 7
         '
         'AddServerButton
         '
         Me.AddServerButton.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.AddServerButton.Location = New System.Drawing.Point(3, 403)
+        Me.AddServerButton.Location = New System.Drawing.Point(3, 337)
         Me.AddServerButton.Name = "AddServerButton"
-        Me.AddServerButton.Size = New System.Drawing.Size(570, 29)
+        Me.AddServerButton.Size = New System.Drawing.Size(530, 29)
         Me.AddServerButton.TabIndex = 8
         Me.AddServerButton.Text = "加入伺服器"
         Me.AddServerButton.UseVisualStyleBackColor = True
@@ -92,13 +99,19 @@ Partial Class BungeeCordSetting
         Me.ListenerManageTab.Controls.Add(Me.RemoveListenerButton)
         Me.ListenerManageTab.Controls.Add(Me.AddListenerButton)
         Me.ListenerManageTab.Controls.Add(Me.ListenerPropertyTab)
-        Me.ListenerManageTab.Location = New System.Drawing.Point(4, 22)
+        Me.ListenerManageTab.HorizontalScrollbarBarColor = True
+        Me.ListenerManageTab.HorizontalScrollbarHighlightOnWheel = False
+        Me.ListenerManageTab.HorizontalScrollbarSize = 10
+        Me.ListenerManageTab.Location = New System.Drawing.Point(4, 36)
         Me.ListenerManageTab.Name = "ListenerManageTab"
         Me.ListenerManageTab.Padding = New System.Windows.Forms.Padding(3)
-        Me.ListenerManageTab.Size = New System.Drawing.Size(576, 435)
+        Me.ListenerManageTab.Size = New System.Drawing.Size(536, 371)
         Me.ListenerManageTab.TabIndex = 1
         Me.ListenerManageTab.Text = "監聽器"
         Me.ListenerManageTab.UseVisualStyleBackColor = True
+        Me.ListenerManageTab.VerticalScrollbarBarColor = True
+        Me.ListenerManageTab.VerticalScrollbarHighlightOnWheel = False
+        Me.ListenerManageTab.VerticalScrollbarSize = 10
         '
         'RemoveListenerButton
         '
@@ -127,40 +140,47 @@ Partial Class BungeeCordSetting
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListenerPropertyTab.Location = New System.Drawing.Point(3, 6)
         Me.ListenerPropertyTab.Name = "ListenerPropertyTab"
-        Me.ListenerPropertyTab.SelectedIndex = 0
         Me.ListenerPropertyTab.Size = New System.Drawing.Size(570, 426)
         Me.ListenerPropertyTab.TabIndex = 0
+        Me.ListenerPropertyTab.UseSelectable = True
         '
         'OtherSettingPage
         '
         Me.OtherSettingPage.Controls.Add(Me.BungeeSettingGrid)
-        Me.OtherSettingPage.Location = New System.Drawing.Point(4, 22)
+        Me.OtherSettingPage.HorizontalScrollbarBarColor = True
+        Me.OtherSettingPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.OtherSettingPage.HorizontalScrollbarSize = 10
+        Me.OtherSettingPage.Location = New System.Drawing.Point(4, 36)
         Me.OtherSettingPage.Name = "OtherSettingPage"
         Me.OtherSettingPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.OtherSettingPage.Size = New System.Drawing.Size(576, 435)
+        Me.OtherSettingPage.Size = New System.Drawing.Size(536, 371)
         Me.OtherSettingPage.TabIndex = 2
         Me.OtherSettingPage.Text = "其他設定"
         Me.OtherSettingPage.UseVisualStyleBackColor = True
+        Me.OtherSettingPage.VerticalScrollbarBarColor = True
+        Me.OtherSettingPage.VerticalScrollbarHighlightOnWheel = False
+        Me.OtherSettingPage.VerticalScrollbarSize = 10
         '
         'BungeeSettingGrid
         '
         Me.BungeeSettingGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BungeeSettingGrid.Location = New System.Drawing.Point(3, 3)
         Me.BungeeSettingGrid.Name = "BungeeSettingGrid"
-        Me.BungeeSettingGrid.Size = New System.Drawing.Size(570, 429)
+        Me.BungeeSettingGrid.Size = New System.Drawing.Size(530, 365)
         Me.BungeeSettingGrid.TabIndex = 0
         '
         'BungeeCordSetting
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(584, 461)
         Me.Controls.Add(Me.BungeeSetTab)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.DisplayHeader = False
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "BungeeCordSetting"
+        Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.Resizable = False
         Me.ShowIcon = False
         Me.Text = "BungeeCord 設定"
         Me.BungeeSetTab.ResumeLayout(False)
@@ -170,15 +190,14 @@ Partial Class BungeeCordSetting
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents BungeeSetTab As TabControl
-    Friend WithEvents ServerManagePage As TabPage
-    Friend WithEvents ListenerManageTab As TabPage
-    Friend WithEvents OtherSettingPage As TabPage
     Friend WithEvents BungeeSettingGrid As PropertyGrid
     Friend WithEvents RemoveListenerButton As Button
     Friend WithEvents AddListenerButton As Button
-    Friend WithEvents ListenerPropertyTab As TabControl
     Friend WithEvents ServerListPanel As TableLayoutPanel
     Friend WithEvents AddServerButton As Button
+    Friend WithEvents BungeeSetTab As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents ServerManagePage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents ListenerManageTab As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents OtherSettingPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents ListenerPropertyTab As MetroFramework.Controls.MetroTabControl
 End Class

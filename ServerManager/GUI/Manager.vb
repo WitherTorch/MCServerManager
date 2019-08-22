@@ -1394,10 +1394,12 @@ Public Class Manager
             AddHandler status.BungeeCordLoaded, Sub()
                                                     status.Update()
                                                 End Sub
-            Dim index = SolutionListPanel.RowStyles.Count
-            SolutionListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
-            SolutionListPanel.Controls.Add(status, 0, index)
-            BungeePathList.Add(solutionDirectory)
+            BeginInvokeIfRequired(Me, Sub()
+                                          Dim index = SolutionListPanel.RowStyles.Count
+                                          SolutionListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                          SolutionListPanel.Controls.Add(status, 0, index)
+                                          BungeePathList.Add(solutionDirectory)
+                                      End Sub)
             AddHandler status.DeleteBungeeCordSolution, Sub(NoUI)
                                                             If NoUI Then
                                                                 Try

@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ServerSetter
-    Inherits System.Windows.Forms.Form
+    Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -23,8 +23,8 @@ Partial Class ServerSetter
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerSetter))
-        Me.SettingTabControl = New System.Windows.Forms.TabControl()
-        Me.NormalTabPage = New System.Windows.Forms.TabPage()
+        Me.SettingTabControl = New MetroFramework.Controls.MetroTabControl()
+        Me.NormalTabPage = New MetroFramework.Controls.MetroTabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -35,6 +35,8 @@ Partial Class ServerSetter
         Me.TaskGroupBox = New System.Windows.Forms.GroupBox()
         Me.TaskListBox = New System.Windows.Forms.CheckedListBox()
         Me.TaskControlPanel = New System.Windows.Forms.Panel()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.RemoveTaskButton = New System.Windows.Forms.Button()
         Me.EditTaskButton = New System.Windows.Forms.Button()
         Me.AddTaskButton = New System.Windows.Forms.Button()
@@ -47,10 +49,8 @@ Partial Class ServerSetter
         Me.Button1 = New System.Windows.Forms.Button()
         Me.PluginManageButton = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
-        Me.AdvancedTabPage = New System.Windows.Forms.TabPage()
+        Me.AdvancedTabPage = New MetroFramework.Controls.MetroTabPage()
         Me.AdvancedPropertyGrid = New System.Windows.Forms.PropertyGrid()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
         Me.SettingTabControl.SuspendLayout()
         Me.NormalTabPage.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -68,11 +68,12 @@ Partial Class ServerSetter
         Me.SettingTabControl.Controls.Add(Me.NormalTabPage)
         Me.SettingTabControl.Controls.Add(Me.AdvancedTabPage)
         Me.SettingTabControl.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SettingTabControl.Location = New System.Drawing.Point(0, 0)
+        Me.SettingTabControl.Location = New System.Drawing.Point(20, 30)
         Me.SettingTabControl.Name = "SettingTabControl"
         Me.SettingTabControl.SelectedIndex = 0
-        Me.SettingTabControl.Size = New System.Drawing.Size(584, 565)
+        Me.SettingTabControl.Size = New System.Drawing.Size(544, 515)
         Me.SettingTabControl.TabIndex = 0
+        Me.SettingTabControl.UseSelectable = True
         '
         'NormalTabPage
         '
@@ -84,13 +85,21 @@ Partial Class ServerSetter
         Me.NormalTabPage.Controls.Add(Me.Button1)
         Me.NormalTabPage.Controls.Add(Me.PluginManageButton)
         Me.NormalTabPage.Controls.Add(Me.Button4)
-        Me.NormalTabPage.Location = New System.Drawing.Point(4, 22)
+        Me.NormalTabPage.HorizontalScrollbar = True
+        Me.NormalTabPage.HorizontalScrollbarBarColor = True
+        Me.NormalTabPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.NormalTabPage.HorizontalScrollbarSize = 10
+        Me.NormalTabPage.Location = New System.Drawing.Point(4, 38)
         Me.NormalTabPage.Name = "NormalTabPage"
         Me.NormalTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.NormalTabPage.Size = New System.Drawing.Size(576, 539)
+        Me.NormalTabPage.Size = New System.Drawing.Size(536, 473)
         Me.NormalTabPage.TabIndex = 0
         Me.NormalTabPage.Text = "一般"
         Me.NormalTabPage.UseVisualStyleBackColor = True
+        Me.NormalTabPage.VerticalScrollbar = True
+        Me.NormalTabPage.VerticalScrollbarBarColor = True
+        Me.NormalTabPage.VerticalScrollbarHighlightOnWheel = False
+        Me.NormalTabPage.VerticalScrollbarSize = 10
         '
         'GroupBox1
         '
@@ -104,7 +113,7 @@ Partial Class ServerSetter
         Me.GroupBox1.Controls.Add(Me.Label13)
         Me.GroupBox1.Location = New System.Drawing.Point(3, 69)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(565, 66)
+        Me.GroupBox1.Size = New System.Drawing.Size(508, 66)
         Me.GroupBox1.TabIndex = 49
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "執行記憶體(如果最大或最小值小於等於0的話的話就參照預設)"
@@ -179,7 +188,7 @@ Partial Class ServerSetter
         Me.TaskGroupBox.Controls.Add(Me.TaskControlPanel)
         Me.TaskGroupBox.Location = New System.Drawing.Point(3, 247)
         Me.TaskGroupBox.Name = "TaskGroupBox"
-        Me.TaskGroupBox.Size = New System.Drawing.Size(565, 137)
+        Me.TaskGroupBox.Size = New System.Drawing.Size(508, 137)
         Me.TaskGroupBox.TabIndex = 53
         Me.TaskGroupBox.TabStop = False
         Me.TaskGroupBox.Text = "排定工作"
@@ -193,7 +202,7 @@ Partial Class ServerSetter
         Me.TaskListBox.FormattingEnabled = True
         Me.TaskListBox.Location = New System.Drawing.Point(6, 14)
         Me.TaskListBox.Name = "TaskListBox"
-        Me.TaskListBox.Size = New System.Drawing.Size(461, 106)
+        Me.TaskListBox.Size = New System.Drawing.Size(404, 106)
         Me.TaskListBox.TabIndex = 1
         '
         'TaskControlPanel
@@ -205,10 +214,30 @@ Partial Class ServerSetter
         Me.TaskControlPanel.Controls.Add(Me.RemoveTaskButton)
         Me.TaskControlPanel.Controls.Add(Me.EditTaskButton)
         Me.TaskControlPanel.Controls.Add(Me.AddTaskButton)
-        Me.TaskControlPanel.Location = New System.Drawing.Point(473, 14)
+        Me.TaskControlPanel.Location = New System.Drawing.Point(416, 14)
         Me.TaskControlPanel.Name = "TaskControlPanel"
         Me.TaskControlPanel.Size = New System.Drawing.Size(89, 117)
         Me.TaskControlPanel.TabIndex = 2
+        '
+        'Button5
+        '
+        Me.Button5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button5.Location = New System.Drawing.Point(0, 92)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(89, 23)
+        Me.Button5.TabIndex = 4
+        Me.Button5.Text = "匯出工作..."
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button3.Location = New System.Drawing.Point(0, 69)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(89, 23)
+        Me.Button3.TabIndex = 3
+        Me.Button3.Text = "匯入工作..."
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'RemoveTaskButton
         '
@@ -247,7 +276,7 @@ Partial Class ServerSetter
         Me.GroupBox4.Controls.Add(Me.MapPanel)
         Me.GroupBox4.Location = New System.Drawing.Point(3, 141)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(565, 100)
+        Me.GroupBox4.Size = New System.Drawing.Size(508, 100)
         Me.GroupBox4.TabIndex = 52
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "地圖"
@@ -259,7 +288,7 @@ Partial Class ServerSetter
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MapPanel.Location = New System.Drawing.Point(6, 21)
         Me.MapPanel.Name = "MapPanel"
-        Me.MapPanel.Size = New System.Drawing.Size(552, 70)
+        Me.MapPanel.Size = New System.Drawing.Size(495, 70)
         Me.MapPanel.TabIndex = 0
         '
         'UpdateGroupBox
@@ -271,7 +300,7 @@ Partial Class ServerSetter
         Me.UpdateGroupBox.Controls.Add(Me.VersionLabel)
         Me.UpdateGroupBox.Location = New System.Drawing.Point(3, 6)
         Me.UpdateGroupBox.Name = "UpdateGroupBox"
-        Me.UpdateGroupBox.Size = New System.Drawing.Size(565, 57)
+        Me.UpdateGroupBox.Size = New System.Drawing.Size(508, 57)
         Me.UpdateGroupBox.TabIndex = 48
         Me.UpdateGroupBox.TabStop = False
         Me.UpdateGroupBox.Text = "軟體"
@@ -280,7 +309,7 @@ Partial Class ServerSetter
         '
         Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button2.AutoSize = True
-        Me.Button2.Location = New System.Drawing.Point(444, 18)
+        Me.Button2.Location = New System.Drawing.Point(387, 18)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(63, 29)
         Me.Button2.TabIndex = 2
@@ -291,7 +320,7 @@ Partial Class ServerSetter
         '
         Me.UpdateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.UpdateButton.AutoSize = True
-        Me.UpdateButton.Location = New System.Drawing.Point(513, 18)
+        Me.UpdateButton.Location = New System.Drawing.Point(456, 18)
         Me.UpdateButton.Name = "UpdateButton"
         Me.UpdateButton.Size = New System.Drawing.Size(46, 29)
         Me.UpdateButton.TabIndex = 1
@@ -305,7 +334,7 @@ Partial Class ServerSetter
         Me.VersionLabel.Location = New System.Drawing.Point(6, 18)
         Me.VersionLabel.Margin = New System.Windows.Forms.Padding(3)
         Me.VersionLabel.Name = "VersionLabel"
-        Me.VersionLabel.Size = New System.Drawing.Size(501, 29)
+        Me.VersionLabel.Size = New System.Drawing.Size(444, 29)
         Me.VersionLabel.TabIndex = 0
         Me.VersionLabel.Text = "<ServerVersionType>：<ServerVersionStatus>"
         Me.VersionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -316,7 +345,7 @@ Partial Class ServerSetter
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button1.Location = New System.Drawing.Point(3, 490)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(565, 44)
+        Me.Button1.Size = New System.Drawing.Size(508, 44)
         Me.Button1.TabIndex = 51
         Me.Button1.Text = "設定白名單"
         Me.Button1.UseVisualStyleBackColor = True
@@ -327,7 +356,7 @@ Partial Class ServerSetter
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PluginManageButton.Location = New System.Drawing.Point(3, 440)
         Me.PluginManageButton.Name = "PluginManageButton"
-        Me.PluginManageButton.Size = New System.Drawing.Size(565, 44)
+        Me.PluginManageButton.Size = New System.Drawing.Size(508, 44)
         Me.PluginManageButton.TabIndex = 50
         Me.PluginManageButton.Text = "管理插件"
         Me.PluginManageButton.UseVisualStyleBackColor = True
@@ -338,7 +367,7 @@ Partial Class ServerSetter
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button4.Location = New System.Drawing.Point(3, 390)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(565, 44)
+        Me.Button4.Size = New System.Drawing.Size(508, 44)
         Me.Button4.TabIndex = 49
         Me.Button4.Text = "選擇伺服器圖示"
         Me.Button4.UseVisualStyleBackColor = True
@@ -346,13 +375,19 @@ Partial Class ServerSetter
         'AdvancedTabPage
         '
         Me.AdvancedTabPage.Controls.Add(Me.AdvancedPropertyGrid)
-        Me.AdvancedTabPage.Location = New System.Drawing.Point(4, 22)
+        Me.AdvancedTabPage.HorizontalScrollbarBarColor = True
+        Me.AdvancedTabPage.HorizontalScrollbarHighlightOnWheel = False
+        Me.AdvancedTabPage.HorizontalScrollbarSize = 10
+        Me.AdvancedTabPage.Location = New System.Drawing.Point(4, 38)
         Me.AdvancedTabPage.Name = "AdvancedTabPage"
         Me.AdvancedTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AdvancedTabPage.Size = New System.Drawing.Size(576, 497)
+        Me.AdvancedTabPage.Size = New System.Drawing.Size(576, 523)
         Me.AdvancedTabPage.TabIndex = 1
         Me.AdvancedTabPage.Text = "進階"
         Me.AdvancedTabPage.UseVisualStyleBackColor = True
+        Me.AdvancedTabPage.VerticalScrollbarBarColor = True
+        Me.AdvancedTabPage.VerticalScrollbarHighlightOnWheel = False
+        Me.AdvancedTabPage.VerticalScrollbarSize = 10
         '
         'AdvancedPropertyGrid
         '
@@ -361,28 +396,8 @@ Partial Class ServerSetter
         Me.AdvancedPropertyGrid.Location = New System.Drawing.Point(3, 3)
         Me.AdvancedPropertyGrid.Margin = New System.Windows.Forms.Padding(0)
         Me.AdvancedPropertyGrid.Name = "AdvancedPropertyGrid"
-        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(570, 491)
+        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(570, 517)
         Me.AdvancedPropertyGrid.TabIndex = 0
-        '
-        'Button3
-        '
-        Me.Button3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Button3.Location = New System.Drawing.Point(0, 69)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(89, 23)
-        Me.Button3.TabIndex = 3
-        Me.Button3.Text = "匯入工作..."
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button5
-        '
-        Me.Button5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Button5.Location = New System.Drawing.Point(0, 92)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(89, 23)
-        Me.Button5.TabIndex = 4
-        Me.Button5.Text = "匯出工作..."
-        Me.Button5.UseVisualStyleBackColor = True
         '
         'ServerSetter
         '
@@ -391,9 +406,10 @@ Partial Class ServerSetter
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(584, 565)
         Me.Controls.Add(Me.SettingTabControl)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
+        Me.DisplayHeader = False
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ServerSetter"
+        Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.ShowIcon = False
         Me.Text = "伺服器設定"
         Me.SettingTabControl.ResumeLayout(False)
@@ -411,9 +427,6 @@ Partial Class ServerSetter
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents SettingTabControl As TabControl
-    Friend WithEvents NormalTabPage As TabPage
-    Friend WithEvents AdvancedTabPage As TabPage
     Friend WithEvents AdvancedPropertyGrid As PropertyGrid
     Friend WithEvents TaskGroupBox As GroupBox
     Friend WithEvents TaskListBox As CheckedListBox
@@ -439,4 +452,7 @@ Partial Class ServerSetter
     Friend WithEvents Label13 As Label
     Friend WithEvents Button5 As Button
     Friend WithEvents Button3 As Button
+    Friend WithEvents SettingTabControl As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents NormalTabPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents AdvancedTabPage As MetroFramework.Controls.MetroTabPage
 End Class

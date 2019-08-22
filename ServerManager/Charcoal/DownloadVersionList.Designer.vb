@@ -39,6 +39,7 @@ Partial Class DownloadVersionList
         Me.VersionList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.VersionList.FullRowSelect = True
         Me.VersionList.GridLines = True
+        Me.VersionList.HideSelection = False
         Me.VersionList.Location = New System.Drawing.Point(0, 25)
         Me.VersionList.MultiSelect = False
         Me.VersionList.Name = "VersionList"
@@ -84,6 +85,7 @@ Partial Class DownloadVersionList
         '
         'NaviBar
         '
+        Me.NaviBar.BackColor = System.Drawing.Color.White
         Me.NaviBar.Location = New System.Drawing.Point(0, 0)
         Me.NaviBar.Name = "NaviBar"
         Me.NaviBar.Size = New System.Drawing.Size(546, 25)
