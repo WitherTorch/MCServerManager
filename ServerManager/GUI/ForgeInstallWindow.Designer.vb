@@ -49,6 +49,7 @@ Partial Class ForgeInstallWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ForgeInstallWindow"
         Me.ShowIcon = False
+        Me.Style = MetroFramework.MetroColorStyle.Black
         Me.Text = "Forge 安裝程序"
         Me.ResumeLayout(False)
         Me.PerformLayout()

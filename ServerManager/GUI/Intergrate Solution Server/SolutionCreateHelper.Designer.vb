@@ -72,6 +72,7 @@ Partial Class SolutionCreateHelper
         Me.Name = "SolutionCreateHelper"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.Resizable = False
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "建立方案"
         Me.ResumeLayout(False)
 

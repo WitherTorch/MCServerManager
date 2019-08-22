@@ -45,10 +45,12 @@ Partial Class BungeeCordSetting
         Me.BungeeSetTab.Controls.Add(Me.ListenerManageTab)
         Me.BungeeSetTab.Controls.Add(Me.OtherSettingPage)
         Me.BungeeSetTab.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.BungeeSetTab.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.BungeeSetTab.Location = New System.Drawing.Point(20, 30)
         Me.BungeeSetTab.Name = "BungeeSetTab"
         Me.BungeeSetTab.SelectedIndex = 0
         Me.BungeeSetTab.Size = New System.Drawing.Size(544, 411)
+        Me.BungeeSetTab.Style = MetroFramework.MetroColorStyle.Green
         Me.BungeeSetTab.TabIndex = 0
         Me.BungeeSetTab.UseSelectable = True
         '
@@ -182,6 +184,7 @@ Partial Class BungeeCordSetting
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.Resizable = False
         Me.ShowIcon = False
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "BungeeCord 設定"
         Me.BungeeSetTab.ResumeLayout(False)
         Me.ServerManagePage.ResumeLayout(False)

@@ -65,10 +65,12 @@ Partial Class BungeeCordConsole
         Me.MainTabControl.Controls.Add(Me.SettingTabPage)
         Me.MainTabControl.Controls.Add(Me.DataStreamTabPage)
         Me.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 2
+        Me.MainTabControl.SelectedIndex = 0
         Me.MainTabControl.Size = New System.Drawing.Size(760, 420)
+        Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
         Me.MainTabControl.UseSelectable = True
         '
@@ -352,6 +354,7 @@ Partial Class BungeeCordConsole
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "BungeeCordConsole"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "BungeeCord 控制台"
         Me.MainTabControl.ResumeLayout(False)
         Me.MainTabPage.ResumeLayout(False)
