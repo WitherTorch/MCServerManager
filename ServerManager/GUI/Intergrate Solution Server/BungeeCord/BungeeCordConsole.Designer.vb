@@ -48,6 +48,7 @@ Partial Class BungeeCordConsole
         Me.TaskTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.MainTabControl.SuspendLayout()
         Me.MainTabPage.SuspendLayout()
         Me.PlayerGroupBox.SuspendLayout()
@@ -57,6 +58,7 @@ Partial Class BungeeCordConsole
         Me.DataStreamTabPage.SuspendLayout()
         Me.ContentPanel.SuspendLayout()
         Me.TopPanel.SuspendLayout()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MainTabControl
@@ -110,10 +112,10 @@ Partial Class BungeeCordConsole
         '
         Me.PlayerListBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PlayerListBox.FormattingEnabled = True
-        Me.PlayerListBox.ItemHeight = 12
-        Me.PlayerListBox.Location = New System.Drawing.Point(3, 18)
+        Me.PlayerListBox.ItemHeight = 16
+        Me.PlayerListBox.Location = New System.Drawing.Point(3, 19)
         Me.PlayerListBox.Name = "PlayerListBox"
-        Me.PlayerListBox.Size = New System.Drawing.Size(730, 253)
+        Me.PlayerListBox.Size = New System.Drawing.Size(730, 252)
         Me.PlayerListBox.TabIndex = 0
         '
         'SystemGroupBox
@@ -198,9 +200,9 @@ Partial Class BungeeCordConsole
         Me.NotifyChooseListBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.NotifyChooseListBox.FormattingEnabled = True
         Me.NotifyChooseListBox.Items.AddRange(New Object() {"玩家進入一個伺服器", "玩家離開一個伺服器", "伺服器發出警告訊息", "伺服器發出錯誤訊息"})
-        Me.NotifyChooseListBox.Location = New System.Drawing.Point(3, 18)
+        Me.NotifyChooseListBox.Location = New System.Drawing.Point(3, 19)
         Me.NotifyChooseListBox.Name = "NotifyChooseListBox"
-        Me.NotifyChooseListBox.Size = New System.Drawing.Size(770, 63)
+        Me.NotifyChooseListBox.Size = New System.Drawing.Size(770, 62)
         Me.NotifyChooseListBox.TabIndex = 0
         '
         'DataStreamTabPage
@@ -238,11 +240,11 @@ Partial Class BungeeCordConsole
         Me.DataListView.FullRowSelect = True
         Me.DataListView.GridLines = True
         Me.DataListView.HideSelection = False
-        Me.DataListView.Location = New System.Drawing.Point(0, 22)
+        Me.DataListView.Location = New System.Drawing.Point(0, 26)
         Me.DataListView.Margin = New System.Windows.Forms.Padding(0, 0, 0, 3)
         Me.DataListView.MultiSelect = False
         Me.DataListView.Name = "DataListView"
-        Me.DataListView.Size = New System.Drawing.Size(752, 331)
+        Me.DataListView.Size = New System.Drawing.Size(752, 327)
         Me.DataListView.TabIndex = 15
         Me.DataListView.UseCompatibleStateImageBehavior = False
         Me.DataListView.View = System.Windows.Forms.View.Details
@@ -272,16 +274,16 @@ Partial Class BungeeCordConsole
         Me.TopPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TopPanel.Location = New System.Drawing.Point(0, 0)
         Me.TopPanel.Name = "TopPanel"
-        Me.TopPanel.Size = New System.Drawing.Size(752, 22)
+        Me.TopPanel.Size = New System.Drawing.Size(752, 26)
         Me.TopPanel.TabIndex = 16
         '
         'StopLoadingCheckBox
         '
         Me.StopLoadingCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.StopLoadingCheckBox.AutoSize = True
-        Me.StopLoadingCheckBox.Location = New System.Drawing.Point(587, 3)
+        Me.StopLoadingCheckBox.Location = New System.Drawing.Point(584, 3)
         Me.StopLoadingCheckBox.Name = "StopLoadingCheckBox"
-        Me.StopLoadingCheckBox.Size = New System.Drawing.Size(72, 16)
+        Me.StopLoadingCheckBox.Size = New System.Drawing.Size(75, 20)
         Me.StopLoadingCheckBox.TabIndex = 4
         Me.StopLoadingCheckBox.Text = "暫停載入"
         Me.StopLoadingCheckBox.UseVisualStyleBackColor = True
@@ -290,9 +292,9 @@ Partial Class BungeeCordConsole
         '
         Me.CloseCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CloseCheckBox.AutoSize = True
-        Me.CloseCheckBox.Location = New System.Drawing.Point(665, 3)
+        Me.CloseCheckBox.Location = New System.Drawing.Point(662, 3)
         Me.CloseCheckBox.Name = "CloseCheckBox"
-        Me.CloseCheckBox.Size = New System.Drawing.Size(84, 16)
+        Me.CloseCheckBox.Size = New System.Drawing.Size(87, 20)
         Me.CloseCheckBox.TabIndex = 7
         Me.CloseCheckBox.Text = "停止時關閉"
         Me.CloseCheckBox.UseVisualStyleBackColor = True
@@ -343,14 +345,19 @@ Partial Class BungeeCordConsole
         Me.Button1.UseVisualStyleBackColor = True
         Me.Button1.Visible = False
         '
+        'MetroStyleManager1
+        '
+        Me.MetroStyleManager1.Owner = Me
+        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
+        '
         'BungeeCordConsole
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(800, 470)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.MainTabControl)
         Me.DisplayHeader = False
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "BungeeCordConsole"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
@@ -367,6 +374,7 @@ Partial Class BungeeCordConsole
         Me.ContentPanel.PerformLayout()
         Me.TopPanel.ResumeLayout(False)
         Me.TopPanel.PerformLayout()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -394,4 +402,5 @@ Partial Class BungeeCordConsole
     Friend WithEvents MainTabPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents DataStreamTabPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents SettingTabPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
 End Class

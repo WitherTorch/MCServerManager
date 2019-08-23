@@ -50,6 +50,7 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CreateButton = New System.Windows.Forms.Button()
+        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -60,6 +61,7 @@ Partial Class ServerCreateDialog
         Me.TabPage2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -104,8 +106,8 @@ Partial Class ServerCreateDialog
         Me.GroupBox3.Controls.Add(Me.VersionTypeBox)
         Me.GroupBox3.Controls.Add(Me.GroupBox4)
         Me.GroupBox3.Controls.Add(Me.Label3)
-        Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Controls.Add(Me.VersionBox)
+        Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Location = New System.Drawing.Point(12, 115)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(439, 150)
@@ -152,7 +154,7 @@ Partial Class ServerCreateDialog
         Me.Label3.Location = New System.Drawing.Point(6, 21)
         Me.Label3.Margin = New System.Windows.Forms.Padding(3)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(77, 12)
+        Me.Label3.Size = New System.Drawing.Size(80, 16)
         Me.Label3.TabIndex = 25
         Me.Label3.Text = "伺服器軟體："
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -163,7 +165,7 @@ Partial Class ServerCreateDialog
         Me.Label10.Location = New System.Drawing.Point(233, 21)
         Me.Label10.Margin = New System.Windows.Forms.Padding(3)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(65, 12)
+        Me.Label10.Size = New System.Drawing.Size(68, 16)
         Me.Label10.TabIndex = 28
         Me.Label10.Text = "軟體版本："
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -175,9 +177,9 @@ Partial Class ServerCreateDialog
         Me.VersionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.VersionBox.Font = New System.Drawing.Font("微軟正黑體", 9.0!)
         Me.VersionBox.FormattingEnabled = True
-        Me.VersionBox.Location = New System.Drawing.Point(298, 15)
+        Me.VersionBox.Location = New System.Drawing.Point(300, 15)
         Me.VersionBox.Name = "VersionBox"
-        Me.VersionBox.Size = New System.Drawing.Size(135, 24)
+        Me.VersionBox.Size = New System.Drawing.Size(133, 24)
         Me.VersionBox.TabIndex = 29
         '
         'GroupBox2
@@ -204,7 +206,7 @@ Partial Class ServerCreateDialog
         Me.IPAddressComboBox.FormattingEnabled = True
         Me.IPAddressComboBox.Location = New System.Drawing.Point(62, 44)
         Me.IPAddressComboBox.Name = "IPAddressComboBox"
-        Me.IPAddressComboBox.Size = New System.Drawing.Size(371, 20)
+        Me.IPAddressComboBox.Size = New System.Drawing.Size(371, 24)
         Me.IPAddressComboBox.TabIndex = 46
         '
         'Label5
@@ -213,7 +215,7 @@ Partial Class ServerCreateDialog
         Me.Label5.Location = New System.Drawing.Point(5, 48)
         Me.Label5.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(54, 12)
+        Me.Label5.Size = New System.Drawing.Size(57, 16)
         Me.Label5.TabIndex = 45
         Me.Label5.Text = "IP 位址："
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -225,7 +227,7 @@ Partial Class ServerCreateDialog
         Me.IPStyleComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
         Me.IPStyleComboBox.Location = New System.Drawing.Point(62, 17)
         Me.IPStyleComboBox.Name = "IPStyleComboBox"
-        Me.IPStyleComboBox.Size = New System.Drawing.Size(229, 20)
+        Me.IPStyleComboBox.Size = New System.Drawing.Size(229, 24)
         Me.IPStyleComboBox.TabIndex = 44
         '
         'Label4
@@ -234,7 +236,7 @@ Partial Class ServerCreateDialog
         Me.Label4.Location = New System.Drawing.Point(5, 21)
         Me.Label4.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(54, 12)
+        Me.Label4.Size = New System.Drawing.Size(57, 16)
         Me.Label4.TabIndex = 43
         Me.Label4.Text = "IP 模式："
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -247,7 +249,7 @@ Partial Class ServerCreateDialog
         Me.PortBox.Maximum = New Decimal(New Integer() {65534, 0, 0, 0})
         Me.PortBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.PortBox.Name = "PortBox"
-        Me.PortBox.Size = New System.Drawing.Size(120, 22)
+        Me.PortBox.Size = New System.Drawing.Size(80, 23)
         Me.PortBox.TabIndex = 42
         Me.PortBox.Value = Global.ServerManager.My.MySettings.Default.CreateServerDialog_PortBoxValue
         '
@@ -255,12 +257,12 @@ Partial Class ServerCreateDialog
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.將連接埠設成預設值ToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(183, 26)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(185, 26)
         '
         '將連接埠設成預設值ToolStripMenuItem
         '
         Me.將連接埠設成預設值ToolStripMenuItem.Name = "將連接埠設成預設值ToolStripMenuItem"
-        Me.將連接埠設成預設值ToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
+        Me.將連接埠設成預設值ToolStripMenuItem.Size = New System.Drawing.Size(184, 22)
         Me.將連接埠設成預設值ToolStripMenuItem.Text = "將連接埠設成預設值"
         '
         'Label2
@@ -269,7 +271,7 @@ Partial Class ServerCreateDialog
         Me.Label2.Location = New System.Drawing.Point(297, 21)
         Me.Label2.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(53, 12)
+        Me.Label2.Size = New System.Drawing.Size(56, 16)
         Me.Label2.TabIndex = 41
         Me.Label2.Text = "連接埠："
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -322,7 +324,7 @@ Partial Class ServerCreateDialog
         Me.Label1.Location = New System.Drawing.Point(10, 11)
         Me.Label1.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(77, 12)
+        Me.Label1.Size = New System.Drawing.Size(80, 16)
         Me.Label1.TabIndex = 37
         Me.Label1.Text = "伺服器路徑："
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -389,13 +391,18 @@ Partial Class ServerCreateDialog
         Me.CreateButton.Text = "建立"
         Me.CreateButton.UseVisualStyleBackColor = True
         '
+        'MetroStyleManager1
+        '
+        Me.MetroStyleManager1.Owner = Me
+        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
+        '
         'ServerCreateDialog
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(515, 405)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.DisplayHeader = False
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -419,6 +426,7 @@ Partial Class ServerCreateDialog
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -448,4 +456,5 @@ Partial Class ServerCreateDialog
     Friend WithEvents TabControl1 As MetroFramework.Controls.MetroTabControl
     Friend WithEvents TabPage1 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents TabPage2 As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
 End Class

@@ -84,6 +84,7 @@ Partial Class MapView
         Me.Controls.Add(Me.MapOption)
         Me.Controls.Add(Me.MapNameLabel)
         Me.Controls.Add(Me.IconBox)
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Name = "MapView"
         Me.Size = New System.Drawing.Size(579, 70)
         CType(Me.IconBox, System.ComponentModel.ISupportInitialize).EndInit()

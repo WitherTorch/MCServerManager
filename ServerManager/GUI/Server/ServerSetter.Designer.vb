@@ -22,6 +22,7 @@ Partial Class ServerSetter
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerSetter))
         Me.SettingTabControl = New MetroFramework.Controls.MetroTabControl()
         Me.NormalTabPage = New MetroFramework.Controls.MetroTabPage()
@@ -51,6 +52,7 @@ Partial Class ServerSetter
         Me.Button4 = New System.Windows.Forms.Button()
         Me.AdvancedTabPage = New MetroFramework.Controls.MetroTabPage()
         Me.AdvancedPropertyGrid = New System.Windows.Forms.PropertyGrid()
+        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.SettingTabControl.SuspendLayout()
         Me.NormalTabPage.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -61,6 +63,7 @@ Partial Class ServerSetter
         Me.GroupBox4.SuspendLayout()
         Me.UpdateGroupBox.SuspendLayout()
         Me.AdvancedTabPage.SuspendLayout()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SettingTabControl
@@ -115,7 +118,7 @@ Partial Class ServerSetter
         Me.GroupBox1.Controls.Add(Me.Label13)
         Me.GroupBox1.Location = New System.Drawing.Point(3, 69)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(508, 66)
+        Me.GroupBox1.Size = New System.Drawing.Size(508, 74)
         Me.GroupBox1.TabIndex = 49
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "執行記憶體(如果最大或最小值小於等於0的話的話就參照預設)"
@@ -123,10 +126,10 @@ Partial Class ServerSetter
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(6, 18)
+        Me.Label11.Location = New System.Drawing.Point(6, 21)
         Me.Label11.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(53, 12)
+        Me.Label11.Size = New System.Drawing.Size(56, 16)
         Me.Label11.TabIndex = 31
         Me.Label11.Text = "最大值："
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -134,50 +137,50 @@ Partial Class ServerSetter
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(140, 18)
+        Me.Label12.Location = New System.Drawing.Point(143, 22)
         Me.Label12.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(23, 12)
+        Me.Label12.Size = New System.Drawing.Size(27, 16)
         Me.Label12.TabIndex = 33
         Me.Label12.Text = "MB"
         Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ServerMemoryMaxBox
         '
-        Me.ServerMemoryMaxBox.Location = New System.Drawing.Point(59, 13)
+        Me.ServerMemoryMaxBox.Location = New System.Drawing.Point(62, 17)
         Me.ServerMemoryMaxBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
         Me.ServerMemoryMaxBox.Name = "ServerMemoryMaxBox"
-        Me.ServerMemoryMaxBox.Size = New System.Drawing.Size(78, 22)
+        Me.ServerMemoryMaxBox.Size = New System.Drawing.Size(78, 23)
         Me.ServerMemoryMaxBox.TabIndex = 32
         Me.ServerMemoryMaxBox.Tag = ""
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(140, 45)
+        Me.Label14.Location = New System.Drawing.Point(143, 49)
         Me.Label14.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(23, 12)
+        Me.Label14.Size = New System.Drawing.Size(27, 16)
         Me.Label14.TabIndex = 36
         Me.Label14.Text = "MB"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ServerMemoryMinBox
         '
-        Me.ServerMemoryMinBox.Location = New System.Drawing.Point(59, 41)
+        Me.ServerMemoryMinBox.Location = New System.Drawing.Point(62, 45)
         Me.ServerMemoryMinBox.Maximum = New Decimal(New Integer() {1048576, 0, 0, 0})
         Me.ServerMemoryMinBox.Name = "ServerMemoryMinBox"
-        Me.ServerMemoryMinBox.Size = New System.Drawing.Size(78, 22)
+        Me.ServerMemoryMinBox.Size = New System.Drawing.Size(78, 23)
         Me.ServerMemoryMinBox.TabIndex = 35
         Me.ServerMemoryMinBox.Tag = ""
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(6, 45)
+        Me.Label13.Location = New System.Drawing.Point(6, 48)
         Me.Label13.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(53, 12)
+        Me.Label13.Size = New System.Drawing.Size(56, 16)
         Me.Label13.TabIndex = 34
         Me.Label13.Text = "最小值："
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -188,7 +191,7 @@ Partial Class ServerSetter
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TaskGroupBox.Controls.Add(Me.TaskListBox)
         Me.TaskGroupBox.Controls.Add(Me.TaskControlPanel)
-        Me.TaskGroupBox.Location = New System.Drawing.Point(3, 247)
+        Me.TaskGroupBox.Location = New System.Drawing.Point(3, 251)
         Me.TaskGroupBox.Name = "TaskGroupBox"
         Me.TaskGroupBox.Size = New System.Drawing.Size(508, 137)
         Me.TaskGroupBox.TabIndex = 53
@@ -204,7 +207,7 @@ Partial Class ServerSetter
         Me.TaskListBox.FormattingEnabled = True
         Me.TaskListBox.Location = New System.Drawing.Point(6, 14)
         Me.TaskListBox.Name = "TaskListBox"
-        Me.TaskListBox.Size = New System.Drawing.Size(404, 106)
+        Me.TaskListBox.Size = New System.Drawing.Size(404, 94)
         Me.TaskListBox.TabIndex = 1
         '
         'TaskControlPanel
@@ -276,7 +279,7 @@ Partial Class ServerSetter
         Me.GroupBox4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox4.Controls.Add(Me.MapPanel)
-        Me.GroupBox4.Location = New System.Drawing.Point(3, 141)
+        Me.GroupBox4.Location = New System.Drawing.Point(3, 145)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(508, 100)
         Me.GroupBox4.TabIndex = 52
@@ -311,9 +314,9 @@ Partial Class ServerSetter
         '
         Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button2.AutoSize = True
-        Me.Button2.Location = New System.Drawing.Point(387, 18)
+        Me.Button2.Location = New System.Drawing.Point(384, 18)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(63, 29)
+        Me.Button2.Size = New System.Drawing.Size(66, 29)
         Me.Button2.TabIndex = 2
         Me.Button2.Text = "檢查更新"
         Me.Button2.UseVisualStyleBackColor = True
@@ -345,7 +348,7 @@ Partial Class ServerSetter
         '
         Me.Button1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(3, 490)
+        Me.Button1.Location = New System.Drawing.Point(3, 494)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(508, 44)
         Me.Button1.TabIndex = 51
@@ -356,7 +359,7 @@ Partial Class ServerSetter
         '
         Me.PluginManageButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PluginManageButton.Location = New System.Drawing.Point(3, 440)
+        Me.PluginManageButton.Location = New System.Drawing.Point(3, 444)
         Me.PluginManageButton.Name = "PluginManageButton"
         Me.PluginManageButton.Size = New System.Drawing.Size(508, 44)
         Me.PluginManageButton.TabIndex = 50
@@ -367,7 +370,7 @@ Partial Class ServerSetter
         '
         Me.Button4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Location = New System.Drawing.Point(3, 390)
+        Me.Button4.Location = New System.Drawing.Point(3, 394)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(508, 44)
         Me.Button4.TabIndex = 49
@@ -401,14 +404,19 @@ Partial Class ServerSetter
         Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(530, 467)
         Me.AdvancedPropertyGrid.TabIndex = 0
         '
+        'MetroStyleManager1
+        '
+        Me.MetroStyleManager1.Owner = Me
+        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
+        '
         'ServerSetter
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(584, 565)
         Me.Controls.Add(Me.SettingTabControl)
         Me.DisplayHeader = False
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ServerSetter"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
@@ -427,6 +435,7 @@ Partial Class ServerSetter
         Me.UpdateGroupBox.ResumeLayout(False)
         Me.UpdateGroupBox.PerformLayout()
         Me.AdvancedTabPage.ResumeLayout(False)
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -458,4 +467,5 @@ Partial Class ServerSetter
     Friend WithEvents SettingTabControl As MetroFramework.Controls.MetroTabControl
     Friend WithEvents NormalTabPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents AdvancedTabPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
 End Class

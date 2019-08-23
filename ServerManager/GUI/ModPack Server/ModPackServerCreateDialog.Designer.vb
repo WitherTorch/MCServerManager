@@ -22,6 +22,7 @@ Partial Class ModPackServerCreateDialog
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ModPackServerCreateDialog))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -38,12 +39,14 @@ Partial Class ModPackServerCreateDialog
         Me.ServerDirBrowseBtn = New System.Windows.Forms.Button()
         Me.ServerDirBox = New MetroFramework.Controls.MetroTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -132,7 +135,7 @@ Partial Class ModPackServerCreateDialog
         Me.IPAddressComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
         Me.IPAddressComboBox.Location = New System.Drawing.Point(62, 48)
         Me.IPAddressComboBox.Name = "IPAddressComboBox"
-        Me.IPAddressComboBox.Size = New System.Drawing.Size(345, 20)
+        Me.IPAddressComboBox.Size = New System.Drawing.Size(345, 24)
         Me.IPAddressComboBox.TabIndex = 50
         '
         'Label5
@@ -141,7 +144,7 @@ Partial Class ModPackServerCreateDialog
         Me.Label5.Location = New System.Drawing.Point(5, 52)
         Me.Label5.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(54, 12)
+        Me.Label5.Size = New System.Drawing.Size(57, 16)
         Me.Label5.TabIndex = 49
         Me.Label5.Text = "IP 位址："
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -155,7 +158,7 @@ Partial Class ModPackServerCreateDialog
         Me.IPStyleComboBox.Items.AddRange(New Object() {"浮動 IP", "綁定內部IP", "自訂綁定IP"})
         Me.IPStyleComboBox.Location = New System.Drawing.Point(62, 21)
         Me.IPStyleComboBox.Name = "IPStyleComboBox"
-        Me.IPStyleComboBox.Size = New System.Drawing.Size(203, 20)
+        Me.IPStyleComboBox.Size = New System.Drawing.Size(203, 24)
         Me.IPStyleComboBox.TabIndex = 48
         '
         'Label4
@@ -164,7 +167,7 @@ Partial Class ModPackServerCreateDialog
         Me.Label4.Location = New System.Drawing.Point(5, 25)
         Me.Label4.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(54, 12)
+        Me.Label4.Size = New System.Drawing.Size(57, 16)
         Me.Label4.TabIndex = 47
         Me.Label4.Text = "IP 模式："
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -175,7 +178,7 @@ Partial Class ModPackServerCreateDialog
         Me.PortBox.Maximum = New Decimal(New Integer() {65534, 0, 0, 0})
         Me.PortBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.PortBox.Name = "PortBox"
-        Me.PortBox.Size = New System.Drawing.Size(80, 22)
+        Me.PortBox.Size = New System.Drawing.Size(80, 23)
         Me.PortBox.TabIndex = 42
         Me.PortBox.Value = New Decimal(New Integer() {25565, 0, 0, 0})
         '
@@ -185,7 +188,7 @@ Partial Class ModPackServerCreateDialog
         Me.Label2.Location = New System.Drawing.Point(271, 25)
         Me.Label2.Margin = New System.Windows.Forms.Padding(3, 8, 3, 3)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(53, 12)
+        Me.Label2.Size = New System.Drawing.Size(56, 16)
         Me.Label2.TabIndex = 41
         Me.Label2.Text = "連接埠："
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -238,10 +241,15 @@ Partial Class ModPackServerCreateDialog
         Me.Label1.Location = New System.Drawing.Point(9, 13)
         Me.Label1.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(77, 12)
+        Me.Label1.Size = New System.Drawing.Size(80, 16)
         Me.Label1.TabIndex = 46
         Me.Label1.Text = "伺服器路徑："
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'MetroStyleManager1
+        '
+        Me.MetroStyleManager1.Owner = Me
+        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
         '
         'ModPackServerCreateDialog
         '
@@ -249,6 +257,7 @@ Partial Class ModPackServerCreateDialog
         Me.ClientSize = New System.Drawing.Size(465, 237)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.DisplayHeader = False
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -267,6 +276,7 @@ Partial Class ModPackServerCreateDialog
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.PortBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -285,4 +295,5 @@ Partial Class ModPackServerCreateDialog
     Friend WithEvents Label5 As Label
     Friend WithEvents IPStyleComboBox As ComboBox
     Friend WithEvents Label4 As Label
+    Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
 End Class

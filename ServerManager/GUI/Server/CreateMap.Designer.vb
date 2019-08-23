@@ -46,7 +46,7 @@ Partial Class CreateMap
         Me.LevelTypeBox.FormattingEnabled = True
         Me.LevelTypeBox.Location = New System.Drawing.Point(80, 60)
         Me.LevelTypeBox.Name = "LevelTypeBox"
-        Me.LevelTypeBox.Size = New System.Drawing.Size(367, 20)
+        Me.LevelTypeBox.Size = New System.Drawing.Size(367, 24)
         Me.LevelTypeBox.TabIndex = 45
         '
         'Label9
@@ -55,7 +55,7 @@ Partial Class CreateMap
         Me.Label9.Location = New System.Drawing.Point(12, 64)
         Me.Label9.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(65, 12)
+        Me.Label9.Size = New System.Drawing.Size(68, 16)
         Me.Label9.TabIndex = 44
         Me.Label9.Text = "地圖類型："
         Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -66,7 +66,7 @@ Partial Class CreateMap
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LevelSeedBox.Location = New System.Drawing.Point(80, 32)
         Me.LevelSeedBox.Name = "LevelSeedBox"
-        Me.LevelSeedBox.Size = New System.Drawing.Size(367, 22)
+        Me.LevelSeedBox.Size = New System.Drawing.Size(367, 23)
         Me.LevelSeedBox.TabIndex = 43
         '
         'Label8
@@ -75,7 +75,7 @@ Partial Class CreateMap
         Me.Label8.Location = New System.Drawing.Point(12, 37)
         Me.Label8.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(65, 12)
+        Me.Label8.Size = New System.Drawing.Size(68, 16)
         Me.Label8.TabIndex = 42
         Me.Label8.Text = "世界種子："
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -86,7 +86,7 @@ Partial Class CreateMap
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LevelNameBox.Location = New System.Drawing.Point(80, 4)
         Me.LevelNameBox.Name = "LevelNameBox"
-        Me.LevelNameBox.Size = New System.Drawing.Size(367, 22)
+        Me.LevelNameBox.Size = New System.Drawing.Size(367, 23)
         Me.LevelNameBox.TabIndex = 41
         '
         'Label7
@@ -95,7 +95,7 @@ Partial Class CreateMap
         Me.Label7.Location = New System.Drawing.Point(12, 9)
         Me.Label7.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(65, 12)
+        Me.Label7.Size = New System.Drawing.Size(68, 16)
         Me.Label7.TabIndex = 40
         Me.Label7.Text = "世界名稱："
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -108,7 +108,7 @@ Partial Class CreateMap
         Me.GeneratorSettingBox.Enabled = False
         Me.GeneratorSettingBox.Location = New System.Drawing.Point(80, 86)
         Me.GeneratorSettingBox.Name = "GeneratorSettingBox"
-        Me.GeneratorSettingBox.Size = New System.Drawing.Size(296, 22)
+        Me.GeneratorSettingBox.Size = New System.Drawing.Size(296, 23)
         Me.GeneratorSettingBox.TabIndex = 39
         '
         'Label6
@@ -117,7 +117,7 @@ Partial Class CreateMap
         Me.Label6.Location = New System.Drawing.Point(0, 91)
         Me.Label6.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(77, 12)
+        Me.Label6.Size = New System.Drawing.Size(80, 16)
         Me.Label6.TabIndex = 38
         Me.Label6.Text = "生成器設置："
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -168,8 +168,7 @@ Partial Class CreateMap
         '
         'CreateMap
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(459, 153)
         Me.Controls.Add(Me.TableLayoutPanel1)
@@ -182,6 +181,7 @@ Partial Class CreateMap
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.GeneratorSettingBox)
         Me.Controls.Add(Me.Label6)
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "CreateMap"

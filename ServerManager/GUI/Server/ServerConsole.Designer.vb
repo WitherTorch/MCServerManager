@@ -69,6 +69,7 @@ Partial Class ServerConsole
         Me.ListBoxTImer = New System.Windows.Forms.Timer(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ContextTaskMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Panel1 = New System.Windows.Forms.Panel()
         Me.MainTabControl.SuspendLayout()
         Me.MainTabPage.SuspendLayout()
@@ -81,6 +82,7 @@ Partial Class ServerConsole
         Me.TaskControlPanel.SuspendLayout()
         Me.NotifyGroupBox.SuspendLayout()
         Me.DataTabPage.SuspendLayout()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -100,7 +102,7 @@ Partial Class ServerConsole
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 0
+        Me.MainTabControl.SelectedIndex = 2
         Me.MainTabControl.Size = New System.Drawing.Size(760, 456)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
@@ -165,56 +167,56 @@ Partial Class ServerConsole
         Me.PlayerListBox.ContextMenuStrip = Me.UserContextMenu
         Me.PlayerListBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PlayerListBox.FormattingEnabled = True
-        Me.PlayerListBox.ItemHeight = 12
-        Me.PlayerListBox.Location = New System.Drawing.Point(3, 18)
+        Me.PlayerListBox.ItemHeight = 16
+        Me.PlayerListBox.Location = New System.Drawing.Point(3, 19)
         Me.PlayerListBox.Name = "PlayerListBox"
-        Me.PlayerListBox.Size = New System.Drawing.Size(730, 286)
+        Me.PlayerListBox.Size = New System.Drawing.Size(730, 285)
         Me.PlayerListBox.TabIndex = 0
         '
         'UserContextMenu
         '
         Me.UserContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.封禁ToolStripMenuItem, Me.踢出ToolStripMenuItem, Me.ToolStripSeparator1, Me.設定OPToolStripMenuItem, Me.解除OPToolStripMenuItem, Me.ToolStripSeparator2, Me.更新列表用listToolStripMenuItem})
         Me.UserContextMenu.Name = "UserContextMenu"
-        Me.UserContextMenu.Size = New System.Drawing.Size(123, 126)
+        Me.UserContextMenu.Size = New System.Drawing.Size(125, 126)
         '
         '封禁ToolStripMenuItem
         '
         Me.封禁ToolStripMenuItem.Name = "封禁ToolStripMenuItem"
-        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.封禁ToolStripMenuItem.Text = "封禁"
         '
         '踢出ToolStripMenuItem
         '
         Me.踢出ToolStripMenuItem.Name = "踢出ToolStripMenuItem"
-        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.踢出ToolStripMenuItem.Text = "踢出"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(119, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(121, 6)
         '
         '設定OPToolStripMenuItem
         '
         Me.設定OPToolStripMenuItem.Name = "設定OPToolStripMenuItem"
-        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.設定OPToolStripMenuItem.Text = "設定OP"
         '
         '解除OPToolStripMenuItem
         '
         Me.解除OPToolStripMenuItem.Name = "解除OPToolStripMenuItem"
-        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.解除OPToolStripMenuItem.Text = "解除OP"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(119, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(121, 6)
         '
         '更新列表用listToolStripMenuItem
         '
         Me.更新列表用listToolStripMenuItem.Name = "更新列表用listToolStripMenuItem"
-        Me.更新列表用listToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.更新列表用listToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.更新列表用listToolStripMenuItem.Text = "更新列表"
         '
         'SystemGroupBox
@@ -414,9 +416,9 @@ Partial Class ServerConsole
         Me.NotifyChooseListBox.Dock = System.Windows.Forms.DockStyle.Fill
         Me.NotifyChooseListBox.FormattingEnabled = True
         Me.NotifyChooseListBox.Items.AddRange(New Object() {"玩家登入", "玩家登出", "伺服器發出警告訊息", "伺服器發出錯誤訊息"})
-        Me.NotifyChooseListBox.Location = New System.Drawing.Point(3, 18)
+        Me.NotifyChooseListBox.Location = New System.Drawing.Point(3, 19)
         Me.NotifyChooseListBox.Name = "NotifyChooseListBox"
-        Me.NotifyChooseListBox.Size = New System.Drawing.Size(730, 63)
+        Me.NotifyChooseListBox.Size = New System.Drawing.Size(730, 62)
         Me.NotifyChooseListBox.TabIndex = 0
         '
         'DataTabPage
@@ -424,9 +426,9 @@ Partial Class ServerConsole
         Me.DataTabPage.Controls.Add(Me.DataListView)
         Me.DataTabPage.Controls.Add(Panel1)
         Me.DataTabPage.Controls.Add(Me.CommandTextBox)
-        Me.DataTabPage.HorizontalScrollbarBarColor = True
+        Me.DataTabPage.HorizontalScrollbarBarColor = False
         Me.DataTabPage.HorizontalScrollbarHighlightOnWheel = False
-        Me.DataTabPage.HorizontalScrollbarSize = 10
+        Me.DataTabPage.HorizontalScrollbarSize = 0
         Me.DataTabPage.Location = New System.Drawing.Point(4, 38)
         Me.DataTabPage.Name = "DataTabPage"
         Me.DataTabPage.Padding = New System.Windows.Forms.Padding(0, 0, 0, 3)
@@ -434,9 +436,9 @@ Partial Class ServerConsole
         Me.DataTabPage.TabIndex = 1
         Me.DataTabPage.Text = "資料列表"
         Me.DataTabPage.UseVisualStyleBackColor = True
-        Me.DataTabPage.VerticalScrollbarBarColor = True
+        Me.DataTabPage.VerticalScrollbarBarColor = False
         Me.DataTabPage.VerticalScrollbarHighlightOnWheel = False
-        Me.DataTabPage.VerticalScrollbarSize = 10
+        Me.DataTabPage.VerticalScrollbarSize = 0
         '
         'DataListView
         '
@@ -513,9 +515,9 @@ Partial Class ServerConsole
         '
         Me.CloseCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CloseCheckBox.AutoSize = True
-        Me.CloseCheckBox.Location = New System.Drawing.Point(688, 38)
+        Me.CloseCheckBox.Location = New System.Drawing.Point(685, 38)
         Me.CloseCheckBox.Name = "CloseCheckBox"
-        Me.CloseCheckBox.Size = New System.Drawing.Size(84, 16)
+        Me.CloseCheckBox.Size = New System.Drawing.Size(87, 20)
         Me.CloseCheckBox.TabIndex = 7
         Me.CloseCheckBox.Text = "停止時關閉"
         Me.CloseCheckBox.UseVisualStyleBackColor = True
@@ -524,9 +526,9 @@ Partial Class ServerConsole
         '
         Me.StopLoadingCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.StopLoadingCheckBox.AutoSize = True
-        Me.StopLoadingCheckBox.Location = New System.Drawing.Point(613, 38)
+        Me.StopLoadingCheckBox.Location = New System.Drawing.Point(610, 38)
         Me.StopLoadingCheckBox.Name = "StopLoadingCheckBox"
-        Me.StopLoadingCheckBox.Size = New System.Drawing.Size(72, 16)
+        Me.StopLoadingCheckBox.Size = New System.Drawing.Size(75, 20)
         Me.StopLoadingCheckBox.TabIndex = 4
         Me.StopLoadingCheckBox.Text = "暫停載入"
         Me.StopLoadingCheckBox.UseVisualStyleBackColor = True
@@ -545,15 +547,20 @@ Partial Class ServerConsole
         Me.ContextTaskMenu.Name = "ContextTaskMenu"
         Me.ContextTaskMenu.Size = New System.Drawing.Size(61, 4)
         '
+        'MetroStyleManager1
+        '
+        Me.MetroStyleManager1.Owner = Me
+        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
+        '
         'ServerConsole
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(800, 506)
         Me.Controls.Add(Me.StopLoadingCheckBox)
         Me.Controls.Add(Me.CloseCheckBox)
         Me.Controls.Add(Me.MainTabControl)
         Me.DisplayHeader = False
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "ServerConsole"
@@ -571,6 +578,7 @@ Partial Class ServerConsole
         Me.TaskControlPanel.ResumeLayout(False)
         Me.NotifyGroupBox.ResumeLayout(False)
         Me.DataTabPage.ResumeLayout(False)
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -619,4 +627,5 @@ Partial Class ServerConsole
     Friend WithEvents MainTabPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents DataTabPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents SettingTabPage As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
 End Class

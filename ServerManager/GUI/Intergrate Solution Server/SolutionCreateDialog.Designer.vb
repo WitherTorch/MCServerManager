@@ -22,13 +22,16 @@ Partial Class SolutionCreateDialog
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.SolutionDirBrowseBtn = New System.Windows.Forms.Button()
         Me.SolutionDirBox = New MetroFramework.Controls.MetroTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CreateButton = New System.Windows.Forms.Button()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.Panel1.SuspendLayout()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SolutionDirBrowseBtn
@@ -58,7 +61,7 @@ Partial Class SolutionCreateDialog
         Me.SolutionDirBox.CustomButton.UseSelectable = True
         Me.SolutionDirBox.CustomButton.Visible = False
         Me.SolutionDirBox.Lines = New String(-1) {}
-        Me.SolutionDirBox.Location = New System.Drawing.Point(118, 33)
+        Me.SolutionDirBox.Location = New System.Drawing.Point(132, 33)
         Me.SolutionDirBox.MaxLength = 32767
         Me.SolutionDirBox.Name = "SolutionDirBox"
         Me.SolutionDirBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -67,7 +70,7 @@ Partial Class SolutionCreateDialog
         Me.SolutionDirBox.SelectionLength = 0
         Me.SolutionDirBox.SelectionStart = 0
         Me.SolutionDirBox.ShortcutsEnabled = True
-        Me.SolutionDirBox.Size = New System.Drawing.Size(240, 22)
+        Me.SolutionDirBox.Size = New System.Drawing.Size(226, 22)
         Me.SolutionDirBox.TabIndex = 41
         Me.SolutionDirBox.UseSelectable = True
         Me.SolutionDirBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -76,10 +79,10 @@ Partial Class SolutionCreateDialog
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(47, 38)
+        Me.Label1.Location = New System.Drawing.Point(58, 38)
         Me.Label1.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(65, 12)
+        Me.Label1.Size = New System.Drawing.Size(68, 16)
         Me.Label1.TabIndex = 40
         Me.Label1.Text = "方案路徑："
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -110,15 +113,19 @@ Partial Class SolutionCreateDialog
         Me.Label10.Location = New System.Drawing.Point(8, 66)
         Me.Label10.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(104, 12)
+        Me.Label10.Size = New System.Drawing.Size(118, 16)
         Me.Label10.TabIndex = 44
         Me.Label10.Text = "BungeeCord 版本："
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'MetroStyleManager1
+        '
+        Me.MetroStyleManager1.Owner = Me
+        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
+        '
         'SolutionCreateDialog
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(459, 139)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Panel1)
@@ -126,6 +133,7 @@ Partial Class SolutionCreateDialog
         Me.Controls.Add(Me.SolutionDirBox)
         Me.Controls.Add(Me.Label1)
         Me.DisplayHeader = False
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "SolutionCreateDialog"
@@ -133,6 +141,7 @@ Partial Class SolutionCreateDialog
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "建立整合方案"
         Me.Panel1.ResumeLayout(False)
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -144,4 +153,5 @@ Partial Class SolutionCreateDialog
     Friend WithEvents Panel1 As Panel
     Friend WithEvents CreateButton As Button
     Friend WithEvents Label10 As Label
+    Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
 End Class

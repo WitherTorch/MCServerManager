@@ -60,7 +60,7 @@ Partial Class ServerTaskCreateDialog
         Me.TaskTypeComboBox.Items.AddRange(New Object() {"定時執行", "事件觸發", "快捷欄手動觸發"})
         Me.TaskTypeComboBox.Location = New System.Drawing.Point(80, 40)
         Me.TaskTypeComboBox.Name = "TaskTypeComboBox"
-        Me.TaskTypeComboBox.Size = New System.Drawing.Size(292, 20)
+        Me.TaskTypeComboBox.Size = New System.Drawing.Size(292, 24)
         Me.TaskTypeComboBox.TabIndex = 0
         '
         'Label1
@@ -68,7 +68,7 @@ Partial Class ServerTaskCreateDialog
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(12, 44)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(65, 12)
+        Me.Label1.Size = New System.Drawing.Size(68, 16)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "行程類型："
         '
@@ -112,7 +112,7 @@ Partial Class ServerTaskCreateDialog
         Me.Label7.Location = New System.Drawing.Point(6, 44)
         Me.Label7.Margin = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(65, 12)
+        Me.Label7.Size = New System.Drawing.Size(68, 16)
         Me.Label7.TabIndex = 16
         Me.Label7.Text = "執行參數："
         '
@@ -121,7 +121,7 @@ Partial Class ServerTaskCreateDialog
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(6, 18)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(41, 12)
+        Me.Label6.Size = New System.Drawing.Size(44, 16)
         Me.Label6.TabIndex = 15
         Me.Label6.Text = "執行："
         '
@@ -132,7 +132,7 @@ Partial Class ServerTaskCreateDialog
         Me.RunComboBox.Items.AddRange(New Object() {"停止伺服器", "重啟伺服器", "執行指令"})
         Me.RunComboBox.Location = New System.Drawing.Point(71, 14)
         Me.RunComboBox.Name = "RunComboBox"
-        Me.RunComboBox.Size = New System.Drawing.Size(283, 20)
+        Me.RunComboBox.Size = New System.Drawing.Size(283, 24)
         Me.RunComboBox.TabIndex = 14
         '
         'GroupBox2
@@ -157,7 +157,7 @@ Partial Class ServerTaskCreateDialog
         Me.Label5.Location = New System.Drawing.Point(280, 44)
         Me.Label5.Margin = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(68, 12)
+        Me.Label5.Size = New System.Drawing.Size(71, 16)
         Me.Label5.TabIndex = 16
         Me.Label5.Text = " 觸發時執行"
         '
@@ -168,7 +168,7 @@ Partial Class ServerTaskCreateDialog
         Me.Label4.Location = New System.Drawing.Point(6, 44)
         Me.Label4.Margin = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(20, 12)
+        Me.Label4.Size = New System.Drawing.Size(23, 16)
         Me.Label4.TabIndex = 15
         Me.Label4.Text = "當 "
         '
@@ -178,10 +178,10 @@ Partial Class ServerTaskCreateDialog
         Me.EventComboBox.Enabled = False
         Me.EventComboBox.FormattingEnabled = True
         Me.EventComboBox.Items.AddRange(New Object() {"玩家登入", "玩家登出", "伺服器啟動", "伺服器關閉", "玩家輸入指令"})
-        Me.EventComboBox.Location = New System.Drawing.Point(26, 40)
+        Me.EventComboBox.Location = New System.Drawing.Point(29, 40)
         Me.EventComboBox.Margin = New System.Windows.Forms.Padding(0, 3, 0, 3)
         Me.EventComboBox.Name = "EventComboBox"
-        Me.EventComboBox.Size = New System.Drawing.Size(254, 20)
+        Me.EventComboBox.Size = New System.Drawing.Size(251, 24)
         Me.EventComboBox.TabIndex = 14
         '
         'TaskPeriodUpDown
@@ -191,7 +191,7 @@ Partial Class ServerTaskCreateDialog
         Me.TaskPeriodUpDown.Maximum = New Decimal(New Integer() {-1981284352, -1966660860, 0, 0})
         Me.TaskPeriodUpDown.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.TaskPeriodUpDown.Name = "TaskPeriodUpDown"
-        Me.TaskPeriodUpDown.Size = New System.Drawing.Size(107, 22)
+        Me.TaskPeriodUpDown.Size = New System.Drawing.Size(107, 23)
         Me.TaskPeriodUpDown.TabIndex = 13
         Me.TaskPeriodUpDown.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
@@ -201,7 +201,7 @@ Partial Class ServerTaskCreateDialog
         Me.Label3.Enabled = False
         Me.Label3.Location = New System.Drawing.Point(170, 17)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(65, 12)
+        Me.Label3.Size = New System.Drawing.Size(68, 16)
         Me.Label3.TabIndex = 12
         Me.Label3.Text = "觸發間隔："
         '
@@ -211,7 +211,7 @@ Partial Class ServerTaskCreateDialog
         Me.Label2.Enabled = False
         Me.Label2.Location = New System.Drawing.Point(6, 18)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(65, 12)
+        Me.Label2.Size = New System.Drawing.Size(68, 16)
         Me.Label2.TabIndex = 11
         Me.Label2.Text = "計時單位："
         '
@@ -223,14 +223,14 @@ Partial Class ServerTaskCreateDialog
         Me.TaskPeriodUnitCombo.Items.AddRange(New Object() {"遊戲刻", "秒鐘", "分鐘", "小時", "天"})
         Me.TaskPeriodUnitCombo.Location = New System.Drawing.Point(77, 14)
         Me.TaskPeriodUnitCombo.Name = "TaskPeriodUnitCombo"
-        Me.TaskPeriodUnitCombo.Size = New System.Drawing.Size(87, 20)
+        Me.TaskPeriodUnitCombo.Size = New System.Drawing.Size(87, 24)
         Me.TaskPeriodUnitCombo.TabIndex = 10
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(300, 371)
+        Me.Button1.Location = New System.Drawing.Point(300, 369)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(72, 21)
+        Me.Button1.Size = New System.Drawing.Size(72, 23)
         Me.Button1.TabIndex = 12
         Me.Button1.Text = "排定"
         Me.Button1.UseVisualStyleBackColor = True
@@ -240,7 +240,7 @@ Partial Class ServerTaskCreateDialog
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(12, 16)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(65, 12)
+        Me.Label8.Size = New System.Drawing.Size(68, 16)
         Me.Label8.TabIndex = 14
         Me.Label8.Text = "行程名稱："
         '
@@ -249,7 +249,7 @@ Partial Class ServerTaskCreateDialog
         Me.TaskNameTextBox.Location = New System.Drawing.Point(80, 12)
         Me.TaskNameTextBox.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
         Me.TaskNameTextBox.Name = "TaskNameTextBox"
-        Me.TaskNameTextBox.Size = New System.Drawing.Size(292, 22)
+        Me.TaskNameTextBox.Size = New System.Drawing.Size(292, 23)
         Me.TaskNameTextBox.TabIndex = 18
         '
         'GroupBox3
@@ -267,7 +267,7 @@ Partial Class ServerTaskCreateDialog
         '
         Me.TextBox1.Location = New System.Drawing.Point(113, 22)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(241, 22)
+        Me.TextBox1.Size = New System.Drawing.Size(241, 23)
         Me.TextBox1.TabIndex = 16
         '
         'Label10
@@ -276,14 +276,13 @@ Partial Class ServerTaskCreateDialog
         Me.Label10.Location = New System.Drawing.Point(-3, 20)
         Me.Label10.Margin = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(113, 24)
+        Me.Label10.Size = New System.Drawing.Size(116, 32)
         Me.Label10.TabIndex = 15
         Me.Label10.Text = "　輸入指令比對：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "（使用正規表示式）"
         '
         'ServerTaskCreateDialog
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(384, 404)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.TaskNameTextBox)
@@ -293,6 +292,7 @@ Partial Class ServerTaskCreateDialog
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TaskTypeComboBox)
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False

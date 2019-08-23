@@ -32,12 +32,12 @@ Partial Class ForgeInstallWindow
         Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TextBox1.Font = New System.Drawing.Font("新細明體", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.TextBox1.ForeColor = System.Drawing.Color.White
-        Me.TextBox1.Location = New System.Drawing.Point(20, 60)
+        Me.TextBox1.Location = New System.Drawing.Point(20, 30)
         Me.TextBox1.MaxLength = 0
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(760, 370)
+        Me.TextBox1.Size = New System.Drawing.Size(760, 400)
         Me.TextBox1.TabIndex = 2
         '
         'ForgeInstallWindow
@@ -45,9 +45,11 @@ Partial Class ForgeInstallWindow
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.TextBox1)
+        Me.DisplayHeader = False
         Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ForgeInstallWindow"
+        Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.ShowIcon = False
         Me.Style = MetroFramework.MetroColorStyle.Black
         Me.Text = "Forge 安裝程序"

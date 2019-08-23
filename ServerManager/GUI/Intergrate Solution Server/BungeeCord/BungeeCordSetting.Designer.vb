@@ -22,6 +22,7 @@ Partial Class BungeeCordSetting
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BungeeCordSetting))
         Me.BungeeSetTab = New MetroFramework.Controls.MetroTabControl()
         Me.ServerManagePage = New MetroFramework.Controls.MetroTabPage()
@@ -33,10 +34,12 @@ Partial Class BungeeCordSetting
         Me.ListenerPropertyTab = New MetroFramework.Controls.MetroTabControl()
         Me.OtherSettingPage = New MetroFramework.Controls.MetroTabPage()
         Me.BungeeSettingGrid = New System.Windows.Forms.PropertyGrid()
+        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.BungeeSetTab.SuspendLayout()
         Me.ServerManagePage.SuspendLayout()
         Me.ListenerManageTab.SuspendLayout()
         Me.OtherSettingPage.SuspendLayout()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BungeeSetTab
@@ -104,10 +107,10 @@ Partial Class BungeeCordSetting
         Me.ListenerManageTab.HorizontalScrollbarBarColor = True
         Me.ListenerManageTab.HorizontalScrollbarHighlightOnWheel = False
         Me.ListenerManageTab.HorizontalScrollbarSize = 10
-        Me.ListenerManageTab.Location = New System.Drawing.Point(4, 36)
+        Me.ListenerManageTab.Location = New System.Drawing.Point(4, 38)
         Me.ListenerManageTab.Name = "ListenerManageTab"
         Me.ListenerManageTab.Padding = New System.Windows.Forms.Padding(3)
-        Me.ListenerManageTab.Size = New System.Drawing.Size(536, 371)
+        Me.ListenerManageTab.Size = New System.Drawing.Size(536, 369)
         Me.ListenerManageTab.TabIndex = 1
         Me.ListenerManageTab.Text = "監聽器"
         Me.ListenerManageTab.UseVisualStyleBackColor = True
@@ -118,7 +121,7 @@ Partial Class BungeeCordSetting
         'RemoveListenerButton
         '
         Me.RemoveListenerButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RemoveListenerButton.Location = New System.Drawing.Point(522, 6)
+        Me.RemoveListenerButton.Location = New System.Drawing.Point(487, 6)
         Me.RemoveListenerButton.Name = "RemoveListenerButton"
         Me.RemoveListenerButton.Size = New System.Drawing.Size(46, 22)
         Me.RemoveListenerButton.TabIndex = 2
@@ -128,7 +131,7 @@ Partial Class BungeeCordSetting
         'AddListenerButton
         '
         Me.AddListenerButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.AddListenerButton.Location = New System.Drawing.Point(470, 6)
+        Me.AddListenerButton.Location = New System.Drawing.Point(435, 6)
         Me.AddListenerButton.Name = "AddListenerButton"
         Me.AddListenerButton.Size = New System.Drawing.Size(46, 22)
         Me.AddListenerButton.TabIndex = 1
@@ -142,7 +145,7 @@ Partial Class BungeeCordSetting
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListenerPropertyTab.Location = New System.Drawing.Point(3, 6)
         Me.ListenerPropertyTab.Name = "ListenerPropertyTab"
-        Me.ListenerPropertyTab.Size = New System.Drawing.Size(570, 426)
+        Me.ListenerPropertyTab.Size = New System.Drawing.Size(533, 360)
         Me.ListenerPropertyTab.TabIndex = 0
         Me.ListenerPropertyTab.UseSelectable = True
         '
@@ -152,10 +155,10 @@ Partial Class BungeeCordSetting
         Me.OtherSettingPage.HorizontalScrollbarBarColor = True
         Me.OtherSettingPage.HorizontalScrollbarHighlightOnWheel = False
         Me.OtherSettingPage.HorizontalScrollbarSize = 10
-        Me.OtherSettingPage.Location = New System.Drawing.Point(4, 36)
+        Me.OtherSettingPage.Location = New System.Drawing.Point(4, 38)
         Me.OtherSettingPage.Name = "OtherSettingPage"
         Me.OtherSettingPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.OtherSettingPage.Size = New System.Drawing.Size(536, 371)
+        Me.OtherSettingPage.Size = New System.Drawing.Size(536, 369)
         Me.OtherSettingPage.TabIndex = 2
         Me.OtherSettingPage.Text = "其他設定"
         Me.OtherSettingPage.UseVisualStyleBackColor = True
@@ -168,8 +171,13 @@ Partial Class BungeeCordSetting
         Me.BungeeSettingGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BungeeSettingGrid.Location = New System.Drawing.Point(3, 3)
         Me.BungeeSettingGrid.Name = "BungeeSettingGrid"
-        Me.BungeeSettingGrid.Size = New System.Drawing.Size(530, 365)
+        Me.BungeeSettingGrid.Size = New System.Drawing.Size(530, 363)
         Me.BungeeSettingGrid.TabIndex = 0
+        '
+        'MetroStyleManager1
+        '
+        Me.MetroStyleManager1.Owner = Me
+        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
         '
         'BungeeCordSetting
         '
@@ -177,6 +185,7 @@ Partial Class BungeeCordSetting
         Me.ClientSize = New System.Drawing.Size(584, 461)
         Me.Controls.Add(Me.BungeeSetTab)
         Me.DisplayHeader = False
+        Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -190,6 +199,7 @@ Partial Class BungeeCordSetting
         Me.ServerManagePage.ResumeLayout(False)
         Me.ListenerManageTab.ResumeLayout(False)
         Me.OtherSettingPage.ResumeLayout(False)
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -203,4 +213,5 @@ Partial Class BungeeCordSetting
     Friend WithEvents ListenerManageTab As MetroFramework.Controls.MetroTabPage
     Friend WithEvents OtherSettingPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents ListenerPropertyTab As MetroFramework.Controls.MetroTabControl
+    Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
 End Class

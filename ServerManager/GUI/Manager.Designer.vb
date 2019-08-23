@@ -171,6 +171,7 @@ Partial Class Manager
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
+        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -219,6 +220,7 @@ Partial Class Manager
         Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MainTabControl
@@ -234,7 +236,7 @@ Partial Class Manager
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 0
+        Me.MainTabControl.SelectedIndex = 3
         Me.MainTabControl.Size = New System.Drawing.Size(744, 465)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
@@ -363,12 +365,12 @@ Partial Class Manager
         '
         Me.ExternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.重新載入外部IPRToolStripMenuItem})
         Me.ExternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
         '
         '重新載入外部IPRToolStripMenuItem
         '
         Me.重新載入外部IPRToolStripMenuItem.Name = "重新載入外部IPRToolStripMenuItem"
-        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.重新載入外部IPRToolStripMenuItem.Text = "重新載入外部IP(&R)"
         '
         'IPALabel
@@ -398,12 +400,12 @@ Partial Class Manager
         '
         Me.InternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
         Me.InternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.InternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        Me.InternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(172, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(174, 22)
         Me.ToolStripMenuItem1.Text = "重新載入內部IP(&R)"
         '
         'GroupBox7
@@ -608,16 +610,16 @@ Partial Class Manager
         '
         'ServerListPage
         '
-        Me.ServerListPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.ServerListPage.BackColor = System.Drawing.Color.Transparent
         Me.ServerListPage.Controls.Add(Me.ServerListPanel)
         Me.ServerListPage.Controls.Add(Me.BottomButtons)
         Me.ServerListPage.HorizontalScrollbarBarColor = True
         Me.ServerListPage.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerListPage.HorizontalScrollbarSize = 10
-        Me.ServerListPage.Location = New System.Drawing.Point(4, 36)
+        Me.ServerListPage.Location = New System.Drawing.Point(4, 38)
         Me.ServerListPage.Name = "ServerListPage"
         Me.ServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerListPage.Size = New System.Drawing.Size(736, 425)
+        Me.ServerListPage.Size = New System.Drawing.Size(736, 423)
         Me.ServerListPage.TabIndex = 1
         Me.ServerListPage.Text = "伺服器列表"
         Me.ServerListPage.VerticalScrollbarBarColor = True
@@ -634,7 +636,7 @@ Partial Class Manager
         Me.ServerListPanel.Name = "ServerListPanel"
         Me.ServerListPanel.RowCount = 1
         Me.ServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ServerListPanel.Size = New System.Drawing.Size(730, 383)
+        Me.ServerListPanel.Size = New System.Drawing.Size(730, 381)
         Me.ServerListPanel.TabIndex = 6
         '
         'BottomButtons
@@ -648,7 +650,7 @@ Partial Class Manager
         Me.BottomButtons.Controls.Add(Me.Button1, 0, 0)
         Me.BottomButtons.Controls.Add(Me.Button2, 1, 0)
         Me.BottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BottomButtons.Location = New System.Drawing.Point(3, 386)
+        Me.BottomButtons.Location = New System.Drawing.Point(3, 384)
         Me.BottomButtons.Name = "BottomButtons"
         Me.BottomButtons.RowCount = 1
         Me.BottomButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -679,16 +681,16 @@ Partial Class Manager
         '
         'PackServerListPage
         '
-        Me.PackServerListPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.PackServerListPage.BackColor = System.Drawing.Color.Transparent
         Me.PackServerListPage.Controls.Add(Me.ModpackServerListPanel)
         Me.PackServerListPage.Controls.Add(Me.TableLayoutPanel5)
         Me.PackServerListPage.HorizontalScrollbarBarColor = True
         Me.PackServerListPage.HorizontalScrollbarHighlightOnWheel = False
         Me.PackServerListPage.HorizontalScrollbarSize = 10
-        Me.PackServerListPage.Location = New System.Drawing.Point(4, 36)
+        Me.PackServerListPage.Location = New System.Drawing.Point(4, 38)
         Me.PackServerListPage.Name = "PackServerListPage"
         Me.PackServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.PackServerListPage.Size = New System.Drawing.Size(736, 425)
+        Me.PackServerListPage.Size = New System.Drawing.Size(736, 423)
         Me.PackServerListPage.TabIndex = 7
         Me.PackServerListPage.Text = "模組包伺服器列表"
         Me.PackServerListPage.VerticalScrollbarBarColor = True
@@ -705,7 +707,7 @@ Partial Class Manager
         Me.ModpackServerListPanel.Name = "ModpackServerListPanel"
         Me.ModpackServerListPanel.RowCount = 1
         Me.ModpackServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ModpackServerListPanel.Size = New System.Drawing.Size(730, 383)
+        Me.ModpackServerListPanel.Size = New System.Drawing.Size(730, 381)
         Me.ModpackServerListPanel.TabIndex = 6
         '
         'TableLayoutPanel5
@@ -719,7 +721,7 @@ Partial Class Manager
         Me.TableLayoutPanel5.Controls.Add(Me.Button6, 0, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.Button7, 1, 0)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 386)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 384)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 1
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -750,16 +752,16 @@ Partial Class Manager
         '
         'ServerIntergratePage
         '
-        Me.ServerIntergratePage.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.ServerIntergratePage.BackColor = System.Drawing.Color.Transparent
         Me.ServerIntergratePage.Controls.Add(Me.SolutionListPanel)
         Me.ServerIntergratePage.Controls.Add(Me.TableLayoutPanel2)
         Me.ServerIntergratePage.HorizontalScrollbarBarColor = True
         Me.ServerIntergratePage.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerIntergratePage.HorizontalScrollbarSize = 10
-        Me.ServerIntergratePage.Location = New System.Drawing.Point(4, 36)
+        Me.ServerIntergratePage.Location = New System.Drawing.Point(4, 38)
         Me.ServerIntergratePage.Name = "ServerIntergratePage"
         Me.ServerIntergratePage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerIntergratePage.Size = New System.Drawing.Size(736, 425)
+        Me.ServerIntergratePage.Size = New System.Drawing.Size(736, 423)
         Me.ServerIntergratePage.TabIndex = 2
         Me.ServerIntergratePage.Text = "伺服器整合方案列表"
         Me.ServerIntergratePage.VerticalScrollbarBarColor = True
@@ -776,7 +778,7 @@ Partial Class Manager
         Me.SolutionListPanel.Name = "SolutionListPanel"
         Me.SolutionListPanel.RowCount = 1
         Me.SolutionListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.SolutionListPanel.Size = New System.Drawing.Size(730, 383)
+        Me.SolutionListPanel.Size = New System.Drawing.Size(730, 381)
         Me.SolutionListPanel.TabIndex = 8
         '
         'TableLayoutPanel2
@@ -788,7 +790,7 @@ Partial Class Manager
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.Button3, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 386)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 384)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -1062,10 +1064,10 @@ Partial Class Manager
         Me.SettingTabPage.HorizontalScrollbarBarColor = True
         Me.SettingTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.SettingTabPage.HorizontalScrollbarSize = 10
-        Me.SettingTabPage.Location = New System.Drawing.Point(4, 36)
+        Me.SettingTabPage.Location = New System.Drawing.Point(4, 38)
         Me.SettingTabPage.Name = "SettingTabPage"
         Me.SettingTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.SettingTabPage.Size = New System.Drawing.Size(736, 425)
+        Me.SettingTabPage.Size = New System.Drawing.Size(736, 423)
         Me.SettingTabPage.TabIndex = 6
         Me.SettingTabPage.Text = "設定"
         Me.SettingTabPage.UseVisualStyleBackColor = True
@@ -1080,10 +1082,12 @@ Partial Class Manager
         Me.SettingTabControl.Controls.Add(Me.TabPage2)
         Me.SettingTabControl.Controls.Add(Me.TabPage3)
         Me.SettingTabControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SettingTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.SettingTabControl.Location = New System.Drawing.Point(3, 3)
         Me.SettingTabControl.Name = "SettingTabControl"
         Me.SettingTabControl.SelectedIndex = 0
-        Me.SettingTabControl.Size = New System.Drawing.Size(730, 419)
+        Me.SettingTabControl.Size = New System.Drawing.Size(730, 417)
+        Me.SettingTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.SettingTabControl.TabIndex = 0
         Me.SettingTabControl.UseSelectable = True
         '
@@ -1096,7 +1100,7 @@ Partial Class Manager
         Me.TabPage4.Location = New System.Drawing.Point(4, 38)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage4.Size = New System.Drawing.Size(722, 375)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "一般"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -1168,10 +1172,10 @@ Partial Class Manager
         Me.TabPage1.HorizontalScrollbarBarColor = True
         Me.TabPage1.HorizontalScrollbarHighlightOnWheel = False
         Me.TabPage1.HorizontalScrollbarSize = 10
-        Me.TabPage1.Location = New System.Drawing.Point(4, 36)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 38)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage1.Size = New System.Drawing.Size(722, 375)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Java"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -1194,7 +1198,7 @@ Partial Class Manager
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(750, 164)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(710, 164)
         Me.TableLayoutPanel1.TabIndex = 41
         '
         'GroupBox9
@@ -1208,7 +1212,7 @@ Partial Class Manager
         Me.GroupBox9.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox9.Location = New System.Drawing.Point(3, 85)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(369, 76)
+        Me.GroupBox9.Size = New System.Drawing.Size(349, 76)
         Me.GroupBox9.TabIndex = 33
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "模組包伺服器"
@@ -1286,9 +1290,9 @@ Partial Class Manager
         Me.GroupBox1.Controls.Add(Me.BungeeMemoryMinBox)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(378, 3)
+        Me.GroupBox1.Location = New System.Drawing.Point(358, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(369, 76)
+        Me.GroupBox1.Size = New System.Drawing.Size(349, 76)
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "BungeeCord 主程式"
@@ -1368,7 +1372,7 @@ Partial Class Manager
         Me.ServerGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerGroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.ServerGroupBox1.Name = "ServerGroupBox1"
-        Me.ServerGroupBox1.Size = New System.Drawing.Size(369, 76)
+        Me.ServerGroupBox1.Size = New System.Drawing.Size(349, 76)
         Me.ServerGroupBox1.TabIndex = 30
         Me.ServerGroupBox1.TabStop = False
         Me.ServerGroupBox1.Text = "伺服器"
@@ -1441,7 +1445,7 @@ Partial Class Manager
         '
         Me.JavaDefaultBtn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.JavaDefaultBtn.Enabled = False
-        Me.JavaDefaultBtn.Location = New System.Drawing.Point(638, 6)
+        Me.JavaDefaultBtn.Location = New System.Drawing.Point(598, 6)
         Me.JavaDefaultBtn.Name = "JavaDefaultBtn"
         Me.JavaDefaultBtn.Size = New System.Drawing.Size(56, 23)
         Me.JavaDefaultBtn.TabIndex = 40
@@ -1451,7 +1455,7 @@ Partial Class Manager
         'JavaChooseBtn
         '
         Me.JavaChooseBtn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.JavaChooseBtn.Location = New System.Drawing.Point(700, 6)
+        Me.JavaChooseBtn.Location = New System.Drawing.Point(660, 6)
         Me.JavaChooseBtn.Name = "JavaChooseBtn"
         Me.JavaChooseBtn.Size = New System.Drawing.Size(56, 23)
         Me.JavaChooseBtn.TabIndex = 39
@@ -1466,7 +1470,7 @@ Partial Class Manager
         '
         '
         Me.ArguBox.CustomButton.Image = Nothing
-        Me.ArguBox.CustomButton.Location = New System.Drawing.Point(637, 2)
+        Me.ArguBox.CustomButton.Location = New System.Drawing.Point(597, 2)
         Me.ArguBox.CustomButton.Name = ""
         Me.ArguBox.CustomButton.Size = New System.Drawing.Size(17, 17)
         Me.ArguBox.CustomButton.Style = MetroFramework.MetroColorStyle.Green
@@ -1484,7 +1488,7 @@ Partial Class Manager
         Me.ArguBox.SelectionLength = 0
         Me.ArguBox.SelectionStart = 0
         Me.ArguBox.ShortcutsEnabled = True
-        Me.ArguBox.Size = New System.Drawing.Size(657, 22)
+        Me.ArguBox.Size = New System.Drawing.Size(617, 22)
         Me.ArguBox.TabIndex = 38
         Me.ArguBox.UseSelectable = True
         Me.ArguBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
@@ -1521,7 +1525,7 @@ Partial Class Manager
         Me.TabPage2.Location = New System.Drawing.Point(4, 36)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage2.Size = New System.Drawing.Size(722, 379)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "伺服器"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -1556,10 +1560,10 @@ Partial Class Manager
         Me.TabPage3.HorizontalScrollbarBarColor = True
         Me.TabPage3.HorizontalScrollbarHighlightOnWheel = False
         Me.TabPage3.HorizontalScrollbarSize = 10
-        Me.TabPage3.Location = New System.Drawing.Point(4, 36)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 38)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage3.Size = New System.Drawing.Size(722, 375)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "外部工具"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -1731,10 +1735,10 @@ Partial Class Manager
         Me.AboutPage.HorizontalScrollbarBarColor = True
         Me.AboutPage.HorizontalScrollbarHighlightOnWheel = False
         Me.AboutPage.HorizontalScrollbarSize = 10
-        Me.AboutPage.Location = New System.Drawing.Point(4, 36)
+        Me.AboutPage.Location = New System.Drawing.Point(4, 38)
         Me.AboutPage.Name = "AboutPage"
         Me.AboutPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AboutPage.Size = New System.Drawing.Size(736, 425)
+        Me.AboutPage.Size = New System.Drawing.Size(736, 423)
         Me.AboutPage.TabIndex = 5
         Me.AboutPage.Text = "關於"
         Me.AboutPage.UseVisualStyleBackColor = True
@@ -1754,7 +1758,7 @@ Partial Class Manager
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 419)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 417)
         Me.TableLayoutPanel4.TabIndex = 1
         '
         'GroupBox5
@@ -1764,7 +1768,7 @@ Partial Class Manager
         Me.GroupBox5.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox5.Location = New System.Drawing.Point(368, 3)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(359, 413)
+        Me.GroupBox5.Size = New System.Drawing.Size(359, 411)
         Me.GroupBox5.TabIndex = 5
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "各伺服器軟體官網(按兩下即可開啟)"
@@ -1813,7 +1817,7 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
-        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 391)
+        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 389)
         Me.ServerSoftwareLinkList.StateImageList = Me.ServerSoftwareImageList
         Me.ServerSoftwareLinkList.TabIndex = 0
         Me.ServerSoftwareLinkList.UseCompatibleStateImageBehavior = False
@@ -1848,7 +1852,7 @@ Partial Class Manager
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(3, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(359, 413)
+        Me.Panel3.Size = New System.Drawing.Size(359, 411)
         Me.Panel3.TabIndex = 1
         '
         'LinkLabel2
@@ -1882,7 +1886,7 @@ Partial Class Manager
         Me.GroupBox4.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(3, 159)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(352, 246)
+        Me.GroupBox4.Size = New System.Drawing.Size(352, 244)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "使用的函式庫"
@@ -1896,7 +1900,7 @@ Partial Class Manager
         Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)", "DropDownControls (用於顯示群組項目)", "NBT_Library (用於解析NBT檔案)"})
         Me.LibraryListBox.Location = New System.Drawing.Point(3, 19)
         Me.LibraryListBox.Name = "LibraryListBox"
-        Me.LibraryListBox.Size = New System.Drawing.Size(346, 224)
+        Me.LibraryListBox.Size = New System.Drawing.Size(346, 222)
         Me.LibraryListBox.TabIndex = 0
         '
         'Label10
@@ -1962,6 +1966,11 @@ Partial Class Manager
         Me.PerformanceCounter1.CategoryName = "Processor"
         Me.PerformanceCounter1.CounterName = "% Processor Time"
         Me.PerformanceCounter1.InstanceName = "_Total"
+        '
+        'MetroStyleManager1
+        '
+        Me.MetroStyleManager1.Owner = Me
+        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
         '
         'Manager
         '
@@ -2041,6 +2050,7 @@ Partial Class Manager
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PerformanceCounter1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2180,4 +2190,5 @@ Partial Class Manager
     Friend WithEvents TabPage3 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents PackServerListPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents TabPage4 As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
 End Class
