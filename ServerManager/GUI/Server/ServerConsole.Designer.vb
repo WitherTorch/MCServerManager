@@ -82,10 +82,7 @@ Partial Class ServerConsole
         Me.TaskControlPanel.SuspendLayout()
         Me.NotifyGroupBox.SuspendLayout()
         Me.DataTabPage.SuspendLayout()
-<<<<<<< HEAD
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
-=======
->>>>>>> Change GUI to MetroFramework
         Me.SuspendLayout()
         '
         'Panel1
@@ -102,18 +99,12 @@ Partial Class ServerConsole
         Me.MainTabControl.Controls.Add(Me.SettingTabPage)
         Me.MainTabControl.Controls.Add(Me.DataTabPage)
         Me.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill
-<<<<<<< HEAD
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
-=======
->>>>>>> Change GUI to MetroFramework
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
         Me.MainTabControl.SelectedIndex = 2
         Me.MainTabControl.Size = New System.Drawing.Size(760, 456)
-<<<<<<< HEAD
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
-=======
->>>>>>> Change GUI to MetroFramework
         Me.MainTabControl.TabIndex = 0
         Me.MainTabControl.UseSelectable = True
         '
@@ -179,11 +170,7 @@ Partial Class ServerConsole
         Me.PlayerListBox.ItemHeight = 16
         Me.PlayerListBox.Location = New System.Drawing.Point(3, 19)
         Me.PlayerListBox.Name = "PlayerListBox"
-<<<<<<< HEAD
         Me.PlayerListBox.Size = New System.Drawing.Size(730, 285)
-=======
-        Me.PlayerListBox.Size = New System.Drawing.Size(730, 286)
->>>>>>> Change GUI to MetroFramework
         Me.PlayerListBox.TabIndex = 0
         '
         'UserContextMenu
@@ -431,11 +418,7 @@ Partial Class ServerConsole
         Me.NotifyChooseListBox.Items.AddRange(New Object() {"玩家登入", "玩家登出", "伺服器發出警告訊息", "伺服器發出錯誤訊息"})
         Me.NotifyChooseListBox.Location = New System.Drawing.Point(3, 19)
         Me.NotifyChooseListBox.Name = "NotifyChooseListBox"
-<<<<<<< HEAD
         Me.NotifyChooseListBox.Size = New System.Drawing.Size(730, 62)
-=======
-        Me.NotifyChooseListBox.Size = New System.Drawing.Size(730, 63)
->>>>>>> Change GUI to MetroFramework
         Me.NotifyChooseListBox.TabIndex = 0
         '
         'DataTabPage
@@ -443,15 +426,9 @@ Partial Class ServerConsole
         Me.DataTabPage.Controls.Add(Me.DataListView)
         Me.DataTabPage.Controls.Add(Panel1)
         Me.DataTabPage.Controls.Add(Me.CommandTextBox)
-<<<<<<< HEAD
         Me.DataTabPage.HorizontalScrollbarBarColor = False
         Me.DataTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.DataTabPage.HorizontalScrollbarSize = 0
-=======
-        Me.DataTabPage.HorizontalScrollbarBarColor = True
-        Me.DataTabPage.HorizontalScrollbarHighlightOnWheel = False
-        Me.DataTabPage.HorizontalScrollbarSize = 10
->>>>>>> Change GUI to MetroFramework
         Me.DataTabPage.Location = New System.Drawing.Point(4, 38)
         Me.DataTabPage.Name = "DataTabPage"
         Me.DataTabPage.Padding = New System.Windows.Forms.Padding(0, 0, 0, 3)
@@ -459,15 +436,9 @@ Partial Class ServerConsole
         Me.DataTabPage.TabIndex = 1
         Me.DataTabPage.Text = "資料列表"
         Me.DataTabPage.UseVisualStyleBackColor = True
-<<<<<<< HEAD
         Me.DataTabPage.VerticalScrollbarBarColor = False
         Me.DataTabPage.VerticalScrollbarHighlightOnWheel = False
         Me.DataTabPage.VerticalScrollbarSize = 0
-=======
-        Me.DataTabPage.VerticalScrollbarBarColor = True
-        Me.DataTabPage.VerticalScrollbarHighlightOnWheel = False
-        Me.DataTabPage.VerticalScrollbarSize = 10
->>>>>>> Change GUI to MetroFramework
         '
         'DataListView
         '
@@ -544,11 +515,7 @@ Partial Class ServerConsole
         '
         Me.CloseCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CloseCheckBox.AutoSize = True
-<<<<<<< HEAD
         Me.CloseCheckBox.Location = New System.Drawing.Point(685, 38)
-=======
-        Me.CloseCheckBox.Location = New System.Drawing.Point(688, 38)
->>>>>>> Change GUI to MetroFramework
         Me.CloseCheckBox.Name = "CloseCheckBox"
         Me.CloseCheckBox.Size = New System.Drawing.Size(87, 20)
         Me.CloseCheckBox.TabIndex = 7
@@ -559,11 +526,7 @@ Partial Class ServerConsole
         '
         Me.StopLoadingCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.StopLoadingCheckBox.AutoSize = True
-<<<<<<< HEAD
         Me.StopLoadingCheckBox.Location = New System.Drawing.Point(610, 38)
-=======
-        Me.StopLoadingCheckBox.Location = New System.Drawing.Point(613, 38)
->>>>>>> Change GUI to MetroFramework
         Me.StopLoadingCheckBox.Name = "StopLoadingCheckBox"
         Me.StopLoadingCheckBox.Size = New System.Drawing.Size(75, 20)
         Me.StopLoadingCheckBox.TabIndex = 4
@@ -591,29 +554,18 @@ Partial Class ServerConsole
         '
         'ServerConsole
         '
-<<<<<<< HEAD
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-=======
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
->>>>>>> Change GUI to MetroFramework
         Me.ClientSize = New System.Drawing.Size(800, 506)
         Me.Controls.Add(Me.StopLoadingCheckBox)
         Me.Controls.Add(Me.CloseCheckBox)
         Me.Controls.Add(Me.MainTabControl)
         Me.DisplayHeader = False
-<<<<<<< HEAD
         Me.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-=======
->>>>>>> Change GUI to MetroFramework
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "ServerConsole"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
-<<<<<<< HEAD
         Me.Style = MetroFramework.MetroColorStyle.Green
-=======
->>>>>>> Change GUI to MetroFramework
         Me.Text = "伺服器控制台"
         Me.MainTabControl.ResumeLayout(False)
         Me.MainTabPage.ResumeLayout(False)
@@ -626,10 +578,7 @@ Partial Class ServerConsole
         Me.TaskControlPanel.ResumeLayout(False)
         Me.NotifyGroupBox.ResumeLayout(False)
         Me.DataTabPage.ResumeLayout(False)
-<<<<<<< HEAD
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
-=======
->>>>>>> Change GUI to MetroFramework
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -678,8 +627,5 @@ Partial Class ServerConsole
     Friend WithEvents MainTabPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents DataTabPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents SettingTabPage As MetroFramework.Controls.MetroTabPage
-<<<<<<< HEAD
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
-=======
->>>>>>> Change GUI to MetroFramework
 End Class
