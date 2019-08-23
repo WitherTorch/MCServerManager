@@ -84,11 +84,13 @@ Partial Class NukkitPluginExplorer
         '
         'CharcoalEnginePanel
         '
+        Me.CharcoalEnginePanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CharcoalEnginePanel.BackColor = System.Drawing.Color.White
-        Me.CharcoalEnginePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CharcoalEnginePanel.Location = New System.Drawing.Point(0, 0)
         Me.CharcoalEnginePanel.Name = "CharcoalEnginePanel"
-        Me.CharcoalEnginePanel.Size = New System.Drawing.Size(794, 339)
+        Me.CharcoalEnginePanel.Size = New System.Drawing.Size(757, 339)
         Me.CharcoalEnginePanel.TabIndex = 3
         '
         'ToolStrip1
@@ -97,7 +99,7 @@ Partial Class NukkitPluginExplorer
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripSeparator1, Me.ToolStripProgressBar1})
         Me.ToolStrip1.Location = New System.Drawing.Point(3, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(214, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(184, 25)
         Me.ToolStrip1.TabIndex = 0
         '
         'ToolStripButton1
@@ -105,7 +107,7 @@ Partial Class NukkitPluginExplorer
         Me.ToolStripButton1.Image = Global.ServerManager.My.Resources.Resources.Nukkit
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(63, 22)
+        Me.ToolStripButton1.Size = New System.Drawing.Size(64, 22)
         Me.ToolStripButton1.Text = "Nukkit"
         '
         'ToolStripSeparator1
