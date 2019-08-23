@@ -88,7 +88,7 @@ Partial Class ModPackServerConsole
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 2
+        Me.MainTabControl.SelectedIndex = 0
         Me.MainTabControl.Size = New System.Drawing.Size(760, 410)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
