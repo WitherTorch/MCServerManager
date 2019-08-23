@@ -38,10 +38,10 @@ Partial Class ModPackServerStatus
         'ShowDirButton
         '
         Me.ShowDirButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ShowDirButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.ShowDirButton.BackColor = System.Drawing.Color.Transparent
         Me.ShowDirButton.BackgroundImage = CType(resources.GetObject("ShowDirButton.BackgroundImage"), System.Drawing.Image)
         Me.ShowDirButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.ShowDirButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.ShowDirButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.ShowDirButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.ShowDirButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.ShowDirButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -82,13 +82,13 @@ Partial Class ModPackServerStatus
         'RunButton
         '
         Me.RunButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RunButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.RunButton.BackColor = System.Drawing.Color.Transparent
         Me.RunButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.RunButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.RunButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.RunButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.RunButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.RunButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RunButton.Image = Global.ServerManager.My.Resources.Resources.Run32
+        Me.RunButton.Image = CType(resources.GetObject("RunButton.Image"), System.Drawing.Image)
         Me.RunButton.Location = New System.Drawing.Point(675, 101)
         Me.RunButton.Name = "RunButton"
         Me.RunButton.Size = New System.Drawing.Size(34, 34)
@@ -102,7 +102,7 @@ Partial Class ModPackServerStatus
         Me.ServerRunStatus.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ServerRunStatus.AutoEllipsis = True
-        Me.ServerRunStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.ServerRunStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.ServerRunStatus.Font = New System.Drawing.Font("微軟正黑體", 13.0!)
         Me.ServerRunStatus.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ServerRunStatus.Location = New System.Drawing.Point(73, 72)
@@ -118,7 +118,7 @@ Partial Class ModPackServerStatus
         Me.PackInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PackInfo.AutoEllipsis = True
-        Me.PackInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.PackInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.PackInfo.Font = New System.Drawing.Font("微軟正黑體", 13.0!)
         Me.PackInfo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.PackInfo.Location = New System.Drawing.Point(73, 43)
@@ -134,7 +134,7 @@ Partial Class ModPackServerStatus
         Me.ServerName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ServerName.AutoEllipsis = True
-        Me.ServerName.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.ServerName.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.ServerName.Font = New System.Drawing.Font("微軟正黑體", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.ServerName.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ServerName.Location = New System.Drawing.Point(73, 3)
@@ -148,7 +148,7 @@ Partial Class ModPackServerStatus
         'ModPackServerStatus
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.Controls.Add(Me.ShowDirButton)
         Me.Controls.Add(Me.ServerIcon)
         Me.Controls.Add(Me.CloseButton)

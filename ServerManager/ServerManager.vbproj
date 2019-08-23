@@ -701,13 +701,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\showDir.png" />
+    <None Include="Resources\Setting32.png" />
     <None Include="Resources\Run32Spigot.png" />
     <None Include="Resources\Run32_Bukkit.png" />
+    <None Include="Resources\Run32.png" />
     <None Include="Resources\Icon.png" />
     <None Include="Resources\Nukkit.png" />
     <None Include="Resources\nukkitPlguinDefault.png" />
     <None Include="Resources\showDir1.png" />
-    <None Include="Resources\showDir.png" />
     <None Include="Resources\SpongeIcon.ico" />
     <None Include="Resources\SpongeIcon.bmp" />
     <None Include="Resources\Sponge.png" />
@@ -726,11 +728,9 @@
     <None Include="Resources\minecraft_redstone_block.png" />
     <None Include="Resources\Update.png" />
     <None Include="Resources\DisUpdate.png" />
-    <None Include="Resources\Run32.png" />
     <None Include="Resources\Plugin32.png" />
     <None Include="Resources\Stop32.png" />
     <None Include="Resources\close32.png" />
-    <None Include="Resources\Setting32.png" />
     <None Include="Resources\ChevonRightSmall.png" />
     <None Include="Resources\IconTemplate_3Border.png" />
     <None Include="Resources\IconTemplate.png" />

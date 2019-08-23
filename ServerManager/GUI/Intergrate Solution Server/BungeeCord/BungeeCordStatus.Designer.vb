@@ -23,6 +23,7 @@ Partial Class BungeeCordStatus
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BungeeCordStatus))
         Me.BungeeCordName = New System.Windows.Forms.Label()
         Me.BungeeCordVersion = New System.Windows.Forms.Label()
         Me.BungeeCordRunStatus = New System.Windows.Forms.Label()
@@ -37,7 +38,7 @@ Partial Class BungeeCordStatus
         Me.BungeeCordName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BungeeCordName.AutoEllipsis = True
-        Me.BungeeCordName.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.BungeeCordName.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.BungeeCordName.Font = New System.Drawing.Font("微軟正黑體", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.BungeeCordName.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BungeeCordName.Location = New System.Drawing.Point(3, 3)
@@ -53,7 +54,7 @@ Partial Class BungeeCordStatus
         Me.BungeeCordVersion.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BungeeCordVersion.AutoEllipsis = True
-        Me.BungeeCordVersion.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.BungeeCordVersion.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.BungeeCordVersion.Font = New System.Drawing.Font("微軟正黑體", 13.0!)
         Me.BungeeCordVersion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BungeeCordVersion.Location = New System.Drawing.Point(3, 43)
@@ -69,7 +70,7 @@ Partial Class BungeeCordStatus
         Me.BungeeCordRunStatus.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BungeeCordRunStatus.AutoEllipsis = True
-        Me.BungeeCordRunStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.BungeeCordRunStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.BungeeCordRunStatus.Font = New System.Drawing.Font("微軟正黑體", 13.0!)
         Me.BungeeCordRunStatus.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.BungeeCordRunStatus.Location = New System.Drawing.Point(3, 72)
@@ -83,13 +84,13 @@ Partial Class BungeeCordStatus
         'RunButton
         '
         Me.RunButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RunButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.RunButton.BackColor = System.Drawing.Color.Transparent
         Me.RunButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.RunButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.RunButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.RunButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.RunButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.RunButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RunButton.Image = Global.ServerManager.My.Resources.Resources.Run32
+        Me.RunButton.Image = CType(resources.GetObject("RunButton.Image"), System.Drawing.Image)
         Me.RunButton.Location = New System.Drawing.Point(675, 101)
         Me.RunButton.Name = "RunButton"
         Me.RunButton.Size = New System.Drawing.Size(34, 34)
@@ -102,10 +103,10 @@ Partial Class BungeeCordStatus
         'SettingButton
         '
         Me.SettingButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SettingButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
-        Me.SettingButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.Setting32
+        Me.SettingButton.BackColor = System.Drawing.Color.Transparent
+        Me.SettingButton.BackgroundImage = CType(resources.GetObject("SettingButton.BackgroundImage"), System.Drawing.Image)
         Me.SettingButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.SettingButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.SettingButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.SettingButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.SettingButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.SettingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -137,7 +138,7 @@ Partial Class BungeeCordStatus
         'BungeeCordStatus
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.Controls.Add(Me.CloseButton)
         Me.Controls.Add(Me.SettingButton)
         Me.Controls.Add(Me.RunButton)
