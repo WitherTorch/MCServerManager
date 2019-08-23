@@ -155,18 +155,25 @@ Public Class ServerCreateDialog
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Kettle)
                     VersionBox.Items.AddRange(KettleVersionDict.Keys.ToArray)
                 Case 12
-                    If IsUnixLikeSystem Then
-                        server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
-                        VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
-                    Else
-                        If String.IsNullOrEmpty(PHPPath) = False AndAlso IO.File.Exists(PHPPath) Then
+                    If Environment.OSVersion.Version.Major < 10 Then
+                        If IsUnixLikeSystem Then
                             server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
                             VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
                         Else
-                            MsgBox("尚未指定PHP的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
-                            VersionTypeBox.SelectedIndex = _typeSelectedIndex
-                            Exit Sub
+                            If String.IsNullOrEmpty(PHPPath) = False AndAlso IO.File.Exists(PHPPath) Then
+                                server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
+                                VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
+                            Else
+                                MsgBox("尚未指定PHP的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
+                                VersionTypeBox.SelectedIndex = _typeSelectedIndex
+                                Exit Sub
+                            End If
                         End If
+                    Else
+                        server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.VanillaBedrock)
+                        VersionBox.Items.Add(String.Format("最新版 ({0})", VanillaBedrockVersion.ToString))
+                        VersionBox.SelectedIndex = 0
+                        VersionBox.Enabled = False
                     End If
                 Case 13
                     If Environment.OSVersion.Version.Major < 10 Then
@@ -175,10 +182,19 @@ Public Class ServerCreateDialog
                         VersionBox.SelectedIndex = 0
                         VersionBox.Enabled = False
                     Else
-                        server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.VanillaBedrock)
-                        VersionBox.Items.Add(String.Format("最新版 ({0})", VanillaBedrockVersion.ToString))
-                        VersionBox.SelectedIndex = 0
-                        VersionBox.Enabled = False
+                        If IsUnixLikeSystem Then
+                            server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
+                            VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
+                        Else
+                            If String.IsNullOrEmpty(PHPPath) = False AndAlso IO.File.Exists(PHPPath) Then
+                                server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
+                                VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
+                            Else
+                                MsgBox("尚未指定PHP的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
+                                VersionTypeBox.SelectedIndex = _typeSelectedIndex
+                                Exit Sub
+                            End If
+                        End If
                     End If
                 Case 14
                     If Environment.OSVersion.Version.Major < 10 Then
