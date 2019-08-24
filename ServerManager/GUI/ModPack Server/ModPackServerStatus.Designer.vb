@@ -39,7 +39,7 @@ Partial Class ModPackServerStatus
         '
         Me.ShowDirButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ShowDirButton.BackColor = System.Drawing.Color.Transparent
-        Me.ShowDirButton.BackgroundImage = CType(resources.GetObject("ShowDirButton.BackgroundImage"), System.Drawing.Image)
+        Me.ShowDirButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.showDir
         Me.ShowDirButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.ShowDirButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.ShowDirButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
@@ -83,6 +83,7 @@ Partial Class ModPackServerStatus
         '
         Me.RunButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RunButton.BackColor = System.Drawing.Color.Transparent
+        Me.RunButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.Run32
         Me.RunButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.RunButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.RunButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))

@@ -701,6 +701,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Stop32.png" />
     <None Include="Resources\showDir.png" />
     <None Include="Resources\Setting32.png" />
     <None Include="Resources\Run32Spigot.png" />
@@ -729,7 +730,6 @@
     <None Include="Resources\Update.png" />
     <None Include="Resources\DisUpdate.png" />
     <None Include="Resources\Plugin32.png" />
-    <None Include="Resources\Stop32.png" />
     <None Include="Resources\close32.png" />
     <None Include="Resources\ChevonRightSmall.png" />
     <None Include="Resources\IconTemplate_3Border.png" />

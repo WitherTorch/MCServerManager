@@ -23,7 +23,6 @@ Partial Class ServerStatus
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ServerStatus))
         Me.ServerName = New System.Windows.Forms.Label()
         Me.ServerVersion = New System.Windows.Forms.Label()
         Me.ServerRunStatus = New System.Windows.Forms.Label()
@@ -107,7 +106,7 @@ Partial Class ServerStatus
         '
         Me.SettingButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SettingButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
-        Me.SettingButton.BackgroundImage = CType(resources.GetObject("SettingButton.BackgroundImage"), System.Drawing.Image)
+        Me.SettingButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.Setting32
         Me.SettingButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.SettingButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.SettingButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
@@ -124,7 +123,7 @@ Partial Class ServerStatus
         '
         Me.RunButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RunButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
-        Me.RunButton.BackgroundImage = CType(resources.GetObject("RunButton.BackgroundImage"), System.Drawing.Image)
+        Me.RunButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.Run32
         Me.RunButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.RunButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.RunButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
