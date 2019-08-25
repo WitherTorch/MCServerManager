@@ -7,8 +7,8 @@ Public Class ServerTaskCreateDialog
     Dim isEditMode As Boolean = False
     Dim inSetting As Boolean = False
 
-    Dim taskMethods As String() = {"#sleep 20", "#randomise 100", "<#YEAR>", "<#MONTH>", "<#DAY>", "<#HOUR>", "<#MINUTE>", "<#SECOND>", "<#DAYOFWEEK>", "<#RANDOM>"}
-    Dim taskMethodsDescriptions As String() = {"在指定的遊戲刻數內暫停輸出排程指令(預設指令中的20可以替換)", "計算1到指定數字的亂數序列(預設指令中的100可以替換)", "現在系統時間的年分", "現在系統時間的月份", "現在系統時間的天數", "現在系統時間的小時數", "現在系統時間的分鐘數", "現在系統時間的秒數", "現在系統時間於一周內的天數", "取出亂數序列中的數字"}
+    Dim taskMethods As String() = {"#sleep 20", "#randomise 100", "#backup C:\backupServer\", "<#YEAR>", "<#MONTH>", "<#DAY>", "<#HOUR>", "<#MINUTE>", "<#SECOND>", "<#DAYOFWEEK>", "<#RANDOM>"}
+    Dim taskMethodsDescriptions As String() = {"在指定的遊戲刻數內暫停輸出排程指令(預設指令中的20可以替換)", "計算1到指定數字的亂數序列(預設指令中的100可以替換)", "備份伺服器到指定的資料夾", "現在系統時間的年分", "現在系統時間的月份", "現在系統時間的天數", "現在系統時間的小時數", "現在系統時間的分鐘數", "現在系統時間的秒數", "現在系統時間於一周內的天數", "取出亂數序列中的數字"}
 
     Dim playerLoginParameters As String() = {"<$ID>"}
     Dim playerLoginParameterDescriptions As String() = {"目標玩家的ID"}
@@ -177,33 +177,35 @@ Public Class ServerTaskCreateDialog
     End Sub
 
     Private Sub InputArgsButton_Click(sender As Object, e As EventArgs) Handles InputArgsButton.Click
-        Dim paraDialog As New TaskParameterDialog(Me)
-        For Each para In taskMethods
-            Dim item As New ListViewItem(para)
-            item.SubItems.Add(taskMethodsDescriptions(taskMethods.ToList.IndexOf(para)))
-            paraDialog.ListView1.Items.Add(item)
-        Next
-        Select Case EventComboBox.SelectedIndex
-            Case 0
-                For Each para In playerLoginParameters
-                    Dim item As New ListViewItem(para)
-                    item.SubItems.Add(playerLoginParameterDescriptions(playerLoginParameters.ToList.IndexOf(para)))
-                    paraDialog.ListView1.Items.Add(item)
-                Next
-            Case 1
-                For Each para In playerLogoutParameters
-                    Dim item As New ListViewItem(para)
-                    item.SubItems.Add(playerLogoutParameterDescriptions(playerLogoutParameters.ToList.IndexOf(para)))
-                    paraDialog.ListView1.Items.Add(item)
-                Next
-            Case 4
-                For Each para In playerInputCommandParameters
-                    Dim item As New ListViewItem(para)
-                    item.SubItems.Add(playerInputCommandParameterDescriptions(playerInputCommandParameters.ToList.IndexOf(para)))
-                    paraDialog.ListView1.Items.Add(item)
-                Next
-        End Select
-        paraDialog.ShowDialog()
+        If RunComboBox.SelectedIndex = 2 Then
+            Dim paraDialog As New TaskParameterDialog(Me)
+            For Each para In taskMethods
+                Dim item As New ListViewItem(para)
+                item.SubItems.Add(taskMethodsDescriptions(taskMethods.ToList.IndexOf(para)))
+                paraDialog.ListView1.Items.Add(item)
+            Next
+            Select Case EventComboBox.SelectedIndex
+                Case 0
+                    For Each para In playerLoginParameters
+                        Dim item As New ListViewItem(para)
+                        item.SubItems.Add(playerLoginParameterDescriptions(playerLoginParameters.ToList.IndexOf(para)))
+                        paraDialog.ListView1.Items.Add(item)
+                    Next
+                Case 1
+                    For Each para In playerLogoutParameters
+                        Dim item As New ListViewItem(para)
+                        item.SubItems.Add(playerLogoutParameterDescriptions(playerLogoutParameters.ToList.IndexOf(para)))
+                        paraDialog.ListView1.Items.Add(item)
+                    Next
+                Case 4
+                    For Each para In playerInputCommandParameters
+                        Dim item As New ListViewItem(para)
+                        item.SubItems.Add(playerInputCommandParameterDescriptions(playerInputCommandParameters.ToList.IndexOf(para)))
+                        paraDialog.ListView1.Items.Add(item)
+                    Next
+            End Select
+            paraDialog.ShowDialog()
+        End If
     End Sub
     Private Sub EventComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EventComboBox.SelectedIndexChanged
         Select Case EventComboBox.SelectedIndex
