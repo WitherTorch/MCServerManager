@@ -25,6 +25,7 @@
             StopServer
             RestartServer
             RunCommand
+            BackupServer
         End Enum
         Public Property Action As CommandAction = CommandAction.None
         Public Property Data As String = ""

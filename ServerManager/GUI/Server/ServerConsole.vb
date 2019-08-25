@@ -1343,6 +1343,12 @@ Public Class ServerConsole
                                                                               SpinWait.SpinUntil(Function() False, 50 * New Text.RegularExpressions.Regex("[0-9]{1,}").Match(line).Value)
                                                                           ElseIf RandomiseRegex.IsMatch(line) AndAlso RandomiseRegex.Match(line).Value = line.Trim Then
                                                                               TaskRandomGenNumber = New Text.RegularExpressions.Regex("[0-9]{1,}").Match(line).Value
+                                                                          ElseIf line.StartsWith("#backup ") AndAlso String.IsNullOrWhiteSpace(line.Substring(8)) = False Then
+                                                                              Try
+                                                                                  My.Computer.FileSystem.CopyDirectory(Server.ServerPath, line.Substring(8), True)
+                                                                              Catch ex As Exception
+
+                                                                              End Try
                                                                           End If
                                                                       Else
                                                                           line.Replace("<#RANDOM>", IIf(TaskRandomGenNumber > -1, TaskRandomGenerator.Next(TaskRandomGenNumber), 0))
@@ -1362,6 +1368,18 @@ Public Class ServerConsole
                         End Try
                     End If
                 End If
+            Case ServerTask.TaskCommand.CommandAction.BackupServer
+                Dim _thread As New Thread(Sub()
+                                              Try
+                                                  If String.IsNullOrWhiteSpace(task.Command.Data) = False Then
+                                                      My.Computer.FileSystem.CopyDirectory(Server.ServerPath, task.Command.Data, True)
+                                                  End If
+                                              Catch ex As Exception
+
+                                              End Try
+                                          End Sub)
+                _thread.IsBackground = True
+                _thread.Start()
         End Select
     End Sub
     Shared Function GetBaseIntervalValue(type As ServerTask.TaskPeriodUnit) As Integer

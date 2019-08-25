@@ -47,11 +47,11 @@ Partial Class ServerTaskCreateDialog
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout
+        Me.GroupBox2.SuspendLayout
         CType(Me.TaskPeriodUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox3.SuspendLayout()
-        Me.SuspendLayout()
+        Me.GroupBox3.SuspendLayout
+        Me.SuspendLayout
         '
         'TaskTypeComboBox
         '
@@ -129,7 +129,7 @@ Partial Class ServerTaskCreateDialog
         '
         Me.RunComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.RunComboBox.FormattingEnabled = True
-        Me.RunComboBox.Items.AddRange(New Object() {"停止伺服器", "重啟伺服器", "執行指令"})
+        Me.RunComboBox.Items.AddRange(New Object() {"停止伺服器", "重啟伺服器", "執行指令", "備份伺服器"})
         Me.RunComboBox.Location = New System.Drawing.Point(71, 14)
         Me.RunComboBox.Name = "RunComboBox"
         Me.RunComboBox.Size = New System.Drawing.Size(283, 20)
@@ -301,14 +301,14 @@ Partial Class ServerTaskCreateDialog
         Me.ShowIcon = False
         Me.Text = "排定行程"
         Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.GroupBox1.PerformLayout
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.GroupBox2.PerformLayout
         CType(Me.TaskPeriodUpDown, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        Me.GroupBox3.PerformLayout
         Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.PerformLayout
 
     End Sub
 
