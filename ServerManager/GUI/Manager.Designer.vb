@@ -35,6 +35,7 @@ Partial Class Manager
         Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
         Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
         Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
+        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
@@ -1624,7 +1625,9 @@ Partial Class Manager
         ListViewItem12.Checked = True
         ListViewItem12.StateImageIndex = 7
         ListViewItem12.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12})
+        ListViewItem13.Checked = True
+        ListViewItem13.StateImageIndex = 12
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1650,6 +1653,7 @@ Partial Class Manager
         Me.ServerSoftwareImageList.Images.SetKeyName(9, "cauldron.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(10, "Contigo.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(11, "kettle.png")
+        Me.ServerSoftwareImageList.Images.SetKeyName(12, "PocketMine.jpg")
         '
         'Panel3
         '
