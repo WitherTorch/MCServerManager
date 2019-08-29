@@ -320,6 +320,8 @@ Public Class ServerConsole
                                  item.ForeColor = Color.YellowGreen
                              Case MCServerMessageType.Trace
                                  item.ForeColor = Color.Green
+                             Case MCServerMessageType.Notify
+                                 item.ForeColor = Color.Blue
                          End Select
                          Select Case message.MessageType
                              Case MCMessageType.PlayerConnected
@@ -670,6 +672,8 @@ Public Class ServerConsole
                                                                                                           item.ForeColor = Color.YellowGreen
                                                                                                       Case MCServerMessageType.Trace
                                                                                                           item.ForeColor = Color.Green
+                                                                                                      Case MCServerMessageType.Notify
+                                                                                                          item.ForeColor = Color.Blue
                                                                                                   End Select
                                                                                                   Select Case msg.MessageType
                                                                                                       Case MCMessageType.PlayerConnected
@@ -1345,7 +1349,7 @@ Public Class ServerConsole
                                                                               TaskRandomGenNumber = New Text.RegularExpressions.Regex("[0-9]{1,}").Match(line).Value
                                                                           ElseIf line.StartsWith("#backup ") AndAlso String.IsNullOrWhiteSpace(line.Substring(8)) = False Then
                                                                               Try
-                                                                                  My.Computer.FileSystem.CopyDirectory(Server.ServerPath, line.Substring(8), True)
+                                                                                  BackupServer(line.Substring(8))
                                                                               Catch ex As Exception
 
                                                                               End Try
@@ -1356,7 +1360,23 @@ Public Class ServerConsole
                                                                       End If
                                                                   Next
                                                               Else
-                                                                  alternateInputStreamWriter.WriteLine(command)
+                                                                  command = command.TrimStart(vbLf)
+                                                                  If command.StartsWith("#") Then
+                                                                      If SleepRegex.IsMatch(command) AndAlso SleepRegex.Match(command).Value = command.Trim Then
+                                                                          SpinWait.SpinUntil(Function() False, 50 * New Text.RegularExpressions.Regex("[0-9]{1,}").Match(command).Value)
+                                                                      ElseIf RandomiseRegex.IsMatch(command) AndAlso RandomiseRegex.Match(command).Value = command.Trim Then
+                                                                          TaskRandomGenNumber = New Text.RegularExpressions.Regex("[0-9]{1,}").Match(command).Value
+                                                                      ElseIf command.StartsWith("#backup ") AndAlso String.IsNullOrWhiteSpace(command.Substring(8)) = False Then
+                                                                          Try
+                                                                              BackupServer(command.Substring(8))
+                                                                          Catch ex As Exception
+
+                                                                          End Try
+                                                                      End If
+                                                                  Else
+                                                                      command.Replace("<#RANDOM>", IIf(TaskRandomGenNumber > -1, TaskRandomGenerator.Next(TaskRandomGenNumber), 0))
+                                                                      alternateInputStreamWriter.WriteLine(command)
+                                                                  End If
                                                               End If
                                                           Catch ex As Exception
 
@@ -1372,7 +1392,7 @@ Public Class ServerConsole
                 Dim _thread As New Thread(Sub()
                                               Try
                                                   If String.IsNullOrWhiteSpace(task.Command.Data) = False Then
-                                                      My.Computer.FileSystem.CopyDirectory(Server.ServerPath, task.Command.Data, True)
+                                                      BackupServer(task.Command.Data)
                                                   End If
                                               Catch ex As Exception
 
@@ -1665,5 +1685,68 @@ Public Class ServerConsole
                 End If
             End Using
         End If
+    End Sub
+    Sub BackupServer(path As String)
+        Dim msg As New MinecraftLogParser.MinecraftConsoleMessage
+        msg.ServerMessageType = MCServerMessageType.Notify
+        msg.Message = "伺服器備份中..."
+        msg.Time = Now
+        msg.Thread = Application.ProductName
+        msg.MessageType = MCMessageType.None
+        Dim item As New ListViewItem(msg.ServerMessageTypeString)
+        Select Case Server.ServerVersionType
+            Case Server.EServerVersionType.Spigot
+            Case Server.EServerVersionType.CraftBukkit
+            Case Server.EServerVersionType.Nukkit
+            Case Server.EServerVersionType.VanillaBedrock
+            Case Server.EServerVersionType.Paper
+            Case Server.EServerVersionType.Akarin
+            Case Server.EServerVersionType.Spigot_Git
+            Case Server.EServerVersionType.Cauldron
+            Case Server.EServerVersionType.Thermos
+            Case Server.EServerVersionType.Contigo
+            Case Else
+                item.SubItems.Add(msg.Thread)
+        End Select
+        item.ForeColor = Color.Blue
+        item.SubItems.Add(msg.Message)
+        item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
+        Try
+            BeginInvokeIfRequired(Me, Sub() DataListView.Items.Add(item))
+        Catch ex As Exception
+        End Try
+        Try
+            My.Computer.FileSystem.CopyDirectory(Server.ServerPath, path)
+        Catch ex As Exception
+
+        End Try
+        Dim msg2 As New MinecraftLogParser.MinecraftConsoleMessage
+        msg2.ServerMessageType = MCServerMessageType.Notify
+        msg2.Message = "伺服器備份完成..."
+        msg2.Time = Now
+        msg2.Thread = Application.ProductName
+        msg2.MessageType = MCMessageType.None
+        Dim item2 As New ListViewItem(msg.ServerMessageTypeString)
+        Select Case Server.ServerVersionType
+            Case Server.EServerVersionType.Spigot
+            Case Server.EServerVersionType.CraftBukkit
+            Case Server.EServerVersionType.Nukkit
+            Case Server.EServerVersionType.VanillaBedrock
+            Case Server.EServerVersionType.Paper
+            Case Server.EServerVersionType.Akarin
+            Case Server.EServerVersionType.Spigot_Git
+            Case Server.EServerVersionType.Cauldron
+            Case Server.EServerVersionType.Thermos
+            Case Server.EServerVersionType.Contigo
+            Case Else
+                item2.SubItems.Add(msg.Thread)
+        End Select
+        item2.ForeColor = Color.Blue
+        item2.SubItems.Add(msg.Message)
+        item2.SubItems.Add(String.Format("{0}:{1}:{2}", msg2.Time.Hour.ToString.PadLeft(2, "0"), msg2.Time.Minute.ToString.PadLeft(2, "0"), msg2.Time.Second.ToString.PadLeft(2, "0")))
+        Try
+            BeginInvokeIfRequired(Me, Sub() DataListView.Items.Add(item2))
+        Catch ex As Exception
+        End Try
     End Sub
 End Class
