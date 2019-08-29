@@ -35,6 +35,7 @@ Partial Class Manager
         Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
         Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
         Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
+        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New MetroFramework.Controls.MetroTabControl()
         Me.MainPage = New MetroFramework.Controls.MetroTabPage()
@@ -236,7 +237,7 @@ Partial Class Manager
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 0
+        Me.MainTabControl.SelectedIndex = 6
         Me.MainTabControl.Size = New System.Drawing.Size(744, 465)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
@@ -616,10 +617,10 @@ Partial Class Manager
         Me.ServerListPage.HorizontalScrollbarBarColor = True
         Me.ServerListPage.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerListPage.HorizontalScrollbarSize = 10
-        Me.ServerListPage.Location = New System.Drawing.Point(4, 38)
+        Me.ServerListPage.Location = New System.Drawing.Point(4, 36)
         Me.ServerListPage.Name = "ServerListPage"
         Me.ServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerListPage.Size = New System.Drawing.Size(736, 423)
+        Me.ServerListPage.Size = New System.Drawing.Size(736, 425)
         Me.ServerListPage.TabIndex = 1
         Me.ServerListPage.Text = "伺服器列表"
         Me.ServerListPage.VerticalScrollbarBarColor = True
@@ -636,7 +637,7 @@ Partial Class Manager
         Me.ServerListPanel.Name = "ServerListPanel"
         Me.ServerListPanel.RowCount = 1
         Me.ServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ServerListPanel.Size = New System.Drawing.Size(730, 381)
+        Me.ServerListPanel.Size = New System.Drawing.Size(730, 383)
         Me.ServerListPanel.TabIndex = 6
         '
         'BottomButtons
@@ -650,7 +651,7 @@ Partial Class Manager
         Me.BottomButtons.Controls.Add(Me.Button1, 0, 0)
         Me.BottomButtons.Controls.Add(Me.Button2, 1, 0)
         Me.BottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BottomButtons.Location = New System.Drawing.Point(3, 384)
+        Me.BottomButtons.Location = New System.Drawing.Point(3, 386)
         Me.BottomButtons.Name = "BottomButtons"
         Me.BottomButtons.RowCount = 1
         Me.BottomButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -758,10 +759,10 @@ Partial Class Manager
         Me.ServerIntergratePage.HorizontalScrollbarBarColor = True
         Me.ServerIntergratePage.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerIntergratePage.HorizontalScrollbarSize = 10
-        Me.ServerIntergratePage.Location = New System.Drawing.Point(4, 36)
+        Me.ServerIntergratePage.Location = New System.Drawing.Point(4, 38)
         Me.ServerIntergratePage.Name = "ServerIntergratePage"
         Me.ServerIntergratePage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerIntergratePage.Size = New System.Drawing.Size(736, 425)
+        Me.ServerIntergratePage.Size = New System.Drawing.Size(736, 423)
         Me.ServerIntergratePage.TabIndex = 2
         Me.ServerIntergratePage.Text = "伺服器整合方案列表"
         Me.ServerIntergratePage.VerticalScrollbarBarColor = True
@@ -778,7 +779,7 @@ Partial Class Manager
         Me.SolutionListPanel.Name = "SolutionListPanel"
         Me.SolutionListPanel.RowCount = 1
         Me.SolutionListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.SolutionListPanel.Size = New System.Drawing.Size(730, 383)
+        Me.SolutionListPanel.Size = New System.Drawing.Size(730, 381)
         Me.SolutionListPanel.TabIndex = 8
         '
         'TableLayoutPanel2
@@ -790,7 +791,7 @@ Partial Class Manager
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.Button3, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 386)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 384)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -1064,10 +1065,10 @@ Partial Class Manager
         Me.SettingTabPage.HorizontalScrollbarBarColor = True
         Me.SettingTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.SettingTabPage.HorizontalScrollbarSize = 10
-        Me.SettingTabPage.Location = New System.Drawing.Point(4, 36)
+        Me.SettingTabPage.Location = New System.Drawing.Point(4, 38)
         Me.SettingTabPage.Name = "SettingTabPage"
         Me.SettingTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.SettingTabPage.Size = New System.Drawing.Size(736, 425)
+        Me.SettingTabPage.Size = New System.Drawing.Size(736, 423)
         Me.SettingTabPage.TabIndex = 6
         Me.SettingTabPage.Text = "設定"
         Me.SettingTabPage.UseVisualStyleBackColor = True
@@ -1086,7 +1087,7 @@ Partial Class Manager
         Me.SettingTabControl.Location = New System.Drawing.Point(3, 3)
         Me.SettingTabControl.Name = "SettingTabControl"
         Me.SettingTabControl.SelectedIndex = 0
-        Me.SettingTabControl.Size = New System.Drawing.Size(730, 419)
+        Me.SettingTabControl.Size = New System.Drawing.Size(730, 417)
         Me.SettingTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.SettingTabControl.TabIndex = 0
         Me.SettingTabControl.UseSelectable = True
@@ -1100,7 +1101,7 @@ Partial Class Manager
         Me.TabPage4.Location = New System.Drawing.Point(4, 38)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage4.Size = New System.Drawing.Size(722, 375)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "一般"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -1775,6 +1776,7 @@ Partial Class Manager
         '
         'ServerSoftwareLinkList
         '
+        Me.ServerSoftwareLinkList.Alignment = System.Windows.Forms.ListViewAlignment.Left
         Me.ServerSoftwareLinkList.AutoArrange = False
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 10.5!)
@@ -1813,7 +1815,9 @@ Partial Class Manager
         ListViewItem12.Checked = True
         ListViewItem12.StateImageIndex = 7
         ListViewItem12.Tag = "https://nukkitx.com/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12})
+        ListViewItem13.Checked = True
+        ListViewItem13.StateImageIndex = 12
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1839,6 +1843,7 @@ Partial Class Manager
         Me.ServerSoftwareImageList.Images.SetKeyName(9, "cauldron.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(10, "Contigo.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(11, "kettle.png")
+        Me.ServerSoftwareImageList.Images.SetKeyName(12, "PocketMine.jpg")
         '
         'Panel3
         '

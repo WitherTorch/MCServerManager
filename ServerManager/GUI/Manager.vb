@@ -1678,15 +1678,7 @@ Public Class Manager
                          End Sub)
             Next
         End If
-        If IsUnixLikeSystem Then
-            Label9.Text = Label9.Text.Replace("<Version>", SERVER_MANAGER_VER)
-        Else
-            If SERVER_MANAGER_ARCH = "Windows" Then
-                Label9.Text = Label9.Text.Replace("<Version>", SERVER_MANAGER_VER & " (Windows 介面優化版)")
-            Else
-                Label9.Text = Label9.Text.Replace("<Version>", SERVER_MANAGER_VER & " (傳統介面版)")
-            End If
-        End If
+        Label9.Text = Label9.Text.Replace("<Version>", SERVER_MANAGER_VER)
         Dim r As New Random()
         Select Case r.Next(20)
             Case 1
