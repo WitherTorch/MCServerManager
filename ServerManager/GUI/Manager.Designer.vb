@@ -236,7 +236,7 @@ Partial Class Manager
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 6
+        Me.MainTabControl.SelectedIndex = 0
         Me.MainTabControl.Size = New System.Drawing.Size(744, 465)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
@@ -616,10 +616,10 @@ Partial Class Manager
         Me.ServerListPage.HorizontalScrollbarBarColor = True
         Me.ServerListPage.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerListPage.HorizontalScrollbarSize = 10
-        Me.ServerListPage.Location = New System.Drawing.Point(4, 36)
+        Me.ServerListPage.Location = New System.Drawing.Point(4, 38)
         Me.ServerListPage.Name = "ServerListPage"
         Me.ServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerListPage.Size = New System.Drawing.Size(736, 425)
+        Me.ServerListPage.Size = New System.Drawing.Size(736, 423)
         Me.ServerListPage.TabIndex = 1
         Me.ServerListPage.Text = "伺服器列表"
         Me.ServerListPage.VerticalScrollbarBarColor = True
@@ -636,7 +636,7 @@ Partial Class Manager
         Me.ServerListPanel.Name = "ServerListPanel"
         Me.ServerListPanel.RowCount = 1
         Me.ServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ServerListPanel.Size = New System.Drawing.Size(730, 383)
+        Me.ServerListPanel.Size = New System.Drawing.Size(730, 381)
         Me.ServerListPanel.TabIndex = 6
         '
         'BottomButtons
@@ -650,7 +650,7 @@ Partial Class Manager
         Me.BottomButtons.Controls.Add(Me.Button1, 0, 0)
         Me.BottomButtons.Controls.Add(Me.Button2, 1, 0)
         Me.BottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BottomButtons.Location = New System.Drawing.Point(3, 386)
+        Me.BottomButtons.Location = New System.Drawing.Point(3, 384)
         Me.BottomButtons.Name = "BottomButtons"
         Me.BottomButtons.RowCount = 1
         Me.BottomButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -687,10 +687,10 @@ Partial Class Manager
         Me.PackServerListPage.HorizontalScrollbarBarColor = True
         Me.PackServerListPage.HorizontalScrollbarHighlightOnWheel = False
         Me.PackServerListPage.HorizontalScrollbarSize = 10
-        Me.PackServerListPage.Location = New System.Drawing.Point(4, 36)
+        Me.PackServerListPage.Location = New System.Drawing.Point(4, 38)
         Me.PackServerListPage.Name = "PackServerListPage"
         Me.PackServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.PackServerListPage.Size = New System.Drawing.Size(736, 425)
+        Me.PackServerListPage.Size = New System.Drawing.Size(736, 423)
         Me.PackServerListPage.TabIndex = 7
         Me.PackServerListPage.Text = "模組包伺服器列表"
         Me.PackServerListPage.VerticalScrollbarBarColor = True
@@ -707,7 +707,7 @@ Partial Class Manager
         Me.ModpackServerListPanel.Name = "ModpackServerListPanel"
         Me.ModpackServerListPanel.RowCount = 1
         Me.ModpackServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ModpackServerListPanel.Size = New System.Drawing.Size(730, 383)
+        Me.ModpackServerListPanel.Size = New System.Drawing.Size(730, 381)
         Me.ModpackServerListPanel.TabIndex = 6
         '
         'TableLayoutPanel5
@@ -721,7 +721,7 @@ Partial Class Manager
         Me.TableLayoutPanel5.Controls.Add(Me.Button6, 0, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.Button7, 1, 0)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 386)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 384)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 1
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -1175,7 +1175,7 @@ Partial Class Manager
         Me.TabPage1.Location = New System.Drawing.Point(4, 36)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage1.Size = New System.Drawing.Size(722, 379)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Java"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -1525,7 +1525,7 @@ Partial Class Manager
         Me.TabPage2.Location = New System.Drawing.Point(4, 36)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage2.Size = New System.Drawing.Size(722, 379)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "伺服器"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -1563,7 +1563,7 @@ Partial Class Manager
         Me.TabPage3.Location = New System.Drawing.Point(4, 36)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage3.Size = New System.Drawing.Size(722, 379)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "外部工具"
         Me.TabPage3.UseVisualStyleBackColor = True
