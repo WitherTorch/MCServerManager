@@ -106,7 +106,6 @@ Partial Class ServerCreateDialog
         '
         'VersionTypeBox
         '
-        Me.VersionTypeBox.DataSource = Nothing
         Me.VersionTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.VersionTypeBox.Font = New System.Drawing.Font("微軟正黑體", 9.0!)
         Me.VersionTypeBox.FormattingEnabled = True
@@ -301,7 +300,7 @@ Partial Class ServerCreateDialog
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(501, 388)
+        Me.TabPage2.Size = New System.Drawing.Size(501, 288)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "進階設定"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -313,7 +312,7 @@ Partial Class ServerCreateDialog
         Me.AdvancedPropertyGrid.Location = New System.Drawing.Point(3, 3)
         Me.AdvancedPropertyGrid.Margin = New System.Windows.Forms.Padding(0)
         Me.AdvancedPropertyGrid.Name = "AdvancedPropertyGrid"
-        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(495, 382)
+        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(495, 282)
         Me.AdvancedPropertyGrid.TabIndex = 1
         '
         'TableLayoutPanel1
