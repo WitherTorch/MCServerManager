@@ -134,7 +134,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAA8
-        hQAAAk1TRnQBSQFMAgEBDQEAAfABAQHwAQEBIAEAASABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAGA
+        hQAAAk1TRnQBSQFMAgEBDQEAAfgBAQH4AQEBIAEAASABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAGA
         AwABgAMAAQEBAAEYBgABwBIAA5kDmgOKA4QDdANtA2kJZgNfIV4DZAlmA2oDbQN9A4QDlAOa/wAhAAOR
         A5IDhgN/A3IDbQNaA04BdQFuAWQBhgF3AWUBeAFuAVQCcQFTAnMBUwF5AW8BUgGJAXoBVwGOAXsBWgFZ
         AVQBTwFJAUYBSwJnAVMCcAFPAnEBUAFzAXABUAGCAX0BYQGHAXkBYAFaAVcBTQNOA2ADbQN4A38DjgOS
@@ -705,9 +705,6 @@
         AgAC/wH+ARkC/wH4AR8B/wQAAf8CAAb/Af4BfwH/BAAL
 </value>
   </data>
-  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <metadata name="NotifyIcon1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>374, 17</value>
   </metadata>
