@@ -942,6 +942,26 @@ Public Class Manager
         Else
             GetJava()
         End If
+        Dim thread As New Thread(Sub()
+                                     Dim channelName As String = ""
+                                     If ManagerUpdater.CheckForUpdate(ComboBox2.SelectedIndex, channelName) Then
+                                         Select Case ComboBox1.SelectedIndex
+                                             Case 0
+                                                 BeginInvokeIfRequired(Me, Sub() Text = Text & "(自動更新中...)")
+                                                 ManagerUpdater.UpdateProgram(channelName)
+                                                 BeginInvokeIfRequired(Me, Sub() Text = Text.Substring(0, Text.Length - "(自動更新中...)".Length) & "(自動更新完成，重啟即可套用更新)")
+                                             Case 1
+                                                 If MsgBox("已偵測到此程式有可安裝的更新，是否安裝？", vbYesNo, "自動更新程式") = MsgBoxResult.Yes Then
+                                                     BeginInvokeIfRequired(Me, Sub() Text = Text & "(自動更新中...)")
+                                                     ManagerUpdater.UpdateProgram(channelName)
+                                                     BeginInvokeIfRequired(Me, Sub() Text = Text.Substring(0, Text.Length - "(自動更新中...)".Length) & "(自動更新完成，重啟即可套用更新)")
+                                                 End If
+                                         End Select
+                                     End If
+                                 End Sub)
+        thread.IsBackground = False
+        thread.Name = "Minecraft Server Manager Update Thread"
+        thread.Start()
     End Sub
     Friend Overloads Sub GetJava(Optional notInStartup As Boolean = False)
         JavaVersionLabel.Text = "Java 版本：取得中..."
