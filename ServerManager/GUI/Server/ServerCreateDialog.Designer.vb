@@ -27,7 +27,7 @@ Partial Class ServerCreateDialog
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.VersionTypeBox = New GroupedComboBox()
+        Me.VersionTypeBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.MapPanel = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -402,7 +402,7 @@ Partial Class ServerCreateDialog
     Friend WithEvents AdvancedPropertyGrid As PropertyGrid
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents 將連接埠設成預設值ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents VersionTypeBox As GroupedComboBox
+    Friend WithEvents VersionTypeBox As System.Windows.Forms.ComboBox
     Friend WithEvents IPAddressComboBox As ComboBox
     Friend WithEvents Label5 As Label
     Friend WithEvents IPStyleComboBox As ComboBox
