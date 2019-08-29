@@ -1,8 +1,8 @@
 ﻿Imports System.Runtime.InteropServices
 
 Public Class ManagerUpdater
-    Friend Const StableChannelURL As String = "https://github.com/new1271/MCServerManagerResources/raw/master/stable.exe"
-    Friend Const MasterChannelURL As String = "https://github.com/new1271/MCServerManagerResources/raw/master/master.exe"
+    Friend Const StableChannelURL As String = "https://github.com/new1271/MCServerManagerResources/raw/master/stable_uni.exe"
+    Friend Const MasterChannelURL As String = "https://github.com/new1271/MCServerManagerResources/raw/master/master_uni.exe"
     Private Const UpdateTextURL As String = "https://raw.githubusercontent.com/new1271/MCServerManagerResources/master/check4Version.txt"
     Friend Shared Function CheckForUpdate(channelInt As Integer, ByRef channel As String) As Boolean
         Try
