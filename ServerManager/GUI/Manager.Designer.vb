@@ -23,19 +23,19 @@ Partial Class Manager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
-        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
-        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
-        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
-        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
-        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
-        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
-        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
+        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
+        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
+        Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
+        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
+        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
+        Dim ListViewItem19 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
+        Dim ListViewItem20 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
+        Dim ListViewItem21 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
+        Dim ListViewItem22 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
+        Dim ListViewItem23 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
+        Dim ListViewItem24 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
+        Dim ListViewItem25 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
+        Dim ListViewItem26 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New MetroFramework.Controls.MetroTabControl()
         Me.MainPage = New MetroFramework.Controls.MetroTabPage()
@@ -237,7 +237,7 @@ Partial Class Manager
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 6
+        Me.MainTabControl.SelectedIndex = 0
         Me.MainTabControl.Size = New System.Drawing.Size(744, 465)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
@@ -688,10 +688,10 @@ Partial Class Manager
         Me.PackServerListPage.HorizontalScrollbarBarColor = True
         Me.PackServerListPage.HorizontalScrollbarHighlightOnWheel = False
         Me.PackServerListPage.HorizontalScrollbarSize = 10
-        Me.PackServerListPage.Location = New System.Drawing.Point(4, 38)
+        Me.PackServerListPage.Location = New System.Drawing.Point(4, 36)
         Me.PackServerListPage.Name = "PackServerListPage"
         Me.PackServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.PackServerListPage.Size = New System.Drawing.Size(736, 423)
+        Me.PackServerListPage.Size = New System.Drawing.Size(736, 425)
         Me.PackServerListPage.TabIndex = 7
         Me.PackServerListPage.Text = "模組包伺服器列表"
         Me.PackServerListPage.VerticalScrollbarBarColor = True
@@ -708,7 +708,7 @@ Partial Class Manager
         Me.ModpackServerListPanel.Name = "ModpackServerListPanel"
         Me.ModpackServerListPanel.RowCount = 1
         Me.ModpackServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ModpackServerListPanel.Size = New System.Drawing.Size(730, 381)
+        Me.ModpackServerListPanel.Size = New System.Drawing.Size(730, 383)
         Me.ModpackServerListPanel.TabIndex = 6
         '
         'TableLayoutPanel5
@@ -722,7 +722,7 @@ Partial Class Manager
         Me.TableLayoutPanel5.Controls.Add(Me.Button6, 0, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.Button7, 1, 0)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 384)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 386)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 1
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -759,10 +759,10 @@ Partial Class Manager
         Me.ServerIntergratePage.HorizontalScrollbarBarColor = True
         Me.ServerIntergratePage.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerIntergratePage.HorizontalScrollbarSize = 10
-        Me.ServerIntergratePage.Location = New System.Drawing.Point(4, 38)
+        Me.ServerIntergratePage.Location = New System.Drawing.Point(4, 36)
         Me.ServerIntergratePage.Name = "ServerIntergratePage"
         Me.ServerIntergratePage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerIntergratePage.Size = New System.Drawing.Size(736, 423)
+        Me.ServerIntergratePage.Size = New System.Drawing.Size(736, 425)
         Me.ServerIntergratePage.TabIndex = 2
         Me.ServerIntergratePage.Text = "伺服器整合方案列表"
         Me.ServerIntergratePage.VerticalScrollbarBarColor = True
@@ -779,7 +779,7 @@ Partial Class Manager
         Me.SolutionListPanel.Name = "SolutionListPanel"
         Me.SolutionListPanel.RowCount = 1
         Me.SolutionListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.SolutionListPanel.Size = New System.Drawing.Size(730, 381)
+        Me.SolutionListPanel.Size = New System.Drawing.Size(730, 383)
         Me.SolutionListPanel.TabIndex = 8
         '
         'TableLayoutPanel2
@@ -791,7 +791,7 @@ Partial Class Manager
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.Button3, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 384)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 386)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -1065,10 +1065,10 @@ Partial Class Manager
         Me.SettingTabPage.HorizontalScrollbarBarColor = True
         Me.SettingTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.SettingTabPage.HorizontalScrollbarSize = 10
-        Me.SettingTabPage.Location = New System.Drawing.Point(4, 38)
+        Me.SettingTabPage.Location = New System.Drawing.Point(4, 36)
         Me.SettingTabPage.Name = "SettingTabPage"
         Me.SettingTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.SettingTabPage.Size = New System.Drawing.Size(736, 423)
+        Me.SettingTabPage.Size = New System.Drawing.Size(736, 425)
         Me.SettingTabPage.TabIndex = 6
         Me.SettingTabPage.Text = "設定"
         Me.SettingTabPage.UseVisualStyleBackColor = True
@@ -1087,7 +1087,7 @@ Partial Class Manager
         Me.SettingTabControl.Location = New System.Drawing.Point(3, 3)
         Me.SettingTabControl.Name = "SettingTabControl"
         Me.SettingTabControl.SelectedIndex = 0
-        Me.SettingTabControl.Size = New System.Drawing.Size(730, 417)
+        Me.SettingTabControl.Size = New System.Drawing.Size(730, 419)
         Me.SettingTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.SettingTabControl.TabIndex = 0
         Me.SettingTabControl.UseSelectable = True
@@ -1101,7 +1101,7 @@ Partial Class Manager
         Me.TabPage4.Location = New System.Drawing.Point(4, 38)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(722, 375)
+        Me.TabPage4.Size = New System.Drawing.Size(722, 377)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "一般"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -1176,7 +1176,7 @@ Partial Class Manager
         Me.TabPage1.Location = New System.Drawing.Point(4, 36)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(722, 379)
+        Me.TabPage1.Size = New System.Drawing.Size(722, 377)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Java"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -1526,7 +1526,7 @@ Partial Class Manager
         Me.TabPage2.Location = New System.Drawing.Point(4, 36)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(722, 379)
+        Me.TabPage2.Size = New System.Drawing.Size(722, 377)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "伺服器"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -1564,7 +1564,7 @@ Partial Class Manager
         Me.TabPage3.Location = New System.Drawing.Point(4, 36)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(722, 379)
+        Me.TabPage3.Size = New System.Drawing.Size(722, 377)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "外部工具"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -1781,43 +1781,44 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 10.5!)
         Me.ServerSoftwareLinkList.HideSelection = False
-        ListViewItem1.Checked = True
-        ListViewItem1.StateImageIndex = 2
-        ListViewItem1.Tag = "https://www.minecraft.net/zh-hant/"
-        ListViewItem2.Checked = True
-        ListViewItem2.StateImageIndex = 3
-        ListViewItem2.Tag = "https://files.minecraftforge.net/"
-        ListViewItem3.StateImageIndex = 0
-        ListViewItem3.Tag = "https://bukkit.org/"
-        ListViewItem4.Checked = True
-        ListViewItem4.StateImageIndex = 1
-        ListViewItem4.Tag = "https://www.spigotmc.org/"
-        ListViewItem5.Checked = True
-        ListViewItem5.StateImageIndex = 4
-        ListViewItem5.Tag = "https://www.spongepowered.org/"
-        ListViewItem6.Checked = True
-        ListViewItem6.StateImageIndex = 5
-        ListViewItem6.Tag = "https://papermc.io/"
-        ListViewItem7.Checked = True
-        ListViewItem7.StateImageIndex = 6
-        ListViewItem7.Tag = "https://akarin.io/"
-        ListViewItem8.Checked = True
-        ListViewItem8.StateImageIndex = 9
-        ListViewItem9.Checked = True
-        ListViewItem9.StateImageIndex = 8
-        ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
-        ListViewItem10.Checked = True
-        ListViewItem10.StateImageIndex = 10
-        ListViewItem10.Tag = "https://github.com/djoveryde/Contigo"
-        ListViewItem11.Checked = True
-        ListViewItem11.StateImageIndex = 11
-        ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem12.Checked = True
-        ListViewItem12.StateImageIndex = 7
-        ListViewItem12.Tag = "https://nukkitx.com/"
-        ListViewItem13.Checked = True
-        ListViewItem13.StateImageIndex = 12
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13})
+        ListViewItem14.Checked = True
+        ListViewItem14.StateImageIndex = 2
+        ListViewItem14.Tag = "https://www.minecraft.net/zh-hant/"
+        ListViewItem15.Checked = True
+        ListViewItem15.StateImageIndex = 3
+        ListViewItem15.Tag = "https://files.minecraftforge.net/"
+        ListViewItem16.StateImageIndex = 0
+        ListViewItem16.Tag = "https://bukkit.org/"
+        ListViewItem17.Checked = True
+        ListViewItem17.StateImageIndex = 1
+        ListViewItem17.Tag = "https://www.spigotmc.org/"
+        ListViewItem18.Checked = True
+        ListViewItem18.StateImageIndex = 4
+        ListViewItem18.Tag = "https://www.spongepowered.org/"
+        ListViewItem19.Checked = True
+        ListViewItem19.StateImageIndex = 5
+        ListViewItem19.Tag = "https://papermc.io/"
+        ListViewItem20.Checked = True
+        ListViewItem20.StateImageIndex = 6
+        ListViewItem20.Tag = "https://akarin.io/"
+        ListViewItem21.Checked = True
+        ListViewItem21.StateImageIndex = 9
+        ListViewItem22.Checked = True
+        ListViewItem22.StateImageIndex = 8
+        ListViewItem22.Tag = "https://cyberdynecc.github.io/Thermos/"
+        ListViewItem23.Checked = True
+        ListViewItem23.StateImageIndex = 10
+        ListViewItem23.Tag = "https://github.com/djoveryde/Contigo"
+        ListViewItem24.Checked = True
+        ListViewItem24.StateImageIndex = 11
+        ListViewItem24.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem25.Checked = True
+        ListViewItem25.StateImageIndex = 7
+        ListViewItem25.Tag = "https://nukkitx.com/"
+        ListViewItem26.Checked = True
+        ListViewItem26.StateImageIndex = 12
+        ListViewItem26.Tag = "https://pmmp.io/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17, ListViewItem18, ListViewItem19, ListViewItem20, ListViewItem21, ListViewItem22, ListViewItem23, ListViewItem24, ListViewItem25, ListViewItem26})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
