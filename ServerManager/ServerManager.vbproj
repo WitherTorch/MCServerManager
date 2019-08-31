@@ -287,6 +287,7 @@
     <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordOptions.vb" />
     <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordUpdater.vb" />
     <Compile Include="Classes\ForgeModUnpatcher.vb" />
+    <Compile Include="Classes\Intergrate Solution Server\SubServer\SubServerHost.vb" />
     <Compile Include="Classes\JavaPathsProvider.vb" />
     <Compile Include="Classes\MinecraftLogParser.vb" />
     <Compile Include="Classes\MinecraftUUIDProvider.vb" />
@@ -727,7 +728,9 @@
     <None Include="Resources\bukkit.ico" />
     <None Include="Resources\bukkit.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="GUI\Intergrate Solution Server\SubServer\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PostBuildEvent>echo Making Merged Folder in $(OutDir)Merged\
