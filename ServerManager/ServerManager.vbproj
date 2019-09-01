@@ -310,6 +310,7 @@
     <Compile Include="Classes\Rebase Server\ServerBase.vb" />
     <Compile Include="Classes\Rebase Server\ServerMaker.vb" />
     <Compile Include="Classes\Rebase Server\Taskable.vb" />
+    <Compile Include="Classes\Rebase Server\VanillaServer.vb" />
     <Compile Include="Classes\Server\AkarinOptions.vb" />
     <Compile Include="Classes\Server\BukkitOptions.vb" />
     <Compile Include="Classes\Server\CauldronOptions.vb" />

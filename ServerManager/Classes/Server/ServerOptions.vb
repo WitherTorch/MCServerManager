@@ -189,7 +189,7 @@ End Interface
 ''' <summary>
 ''' server.properties 的對應.NET 類別(Java 版)
 ''' </summary>
-Class JavaServerOptions
+Public Class JavaServerOptions
     Inherits Dynamic.DynamicObject
     Implements IServerOptions, ICustomTypeDescriptor, INotifyPropertyChanged
     Dim dictionary As New Dictionary(Of String, String)

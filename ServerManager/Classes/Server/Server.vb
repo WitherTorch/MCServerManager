@@ -1067,7 +1067,6 @@ Public NotInheritable Class Server
             writer.Close()
         End Using
     End Sub
-
     Friend Sub SaveServer(Optional SavePluginOrMods As Boolean = True)
         My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
         Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
