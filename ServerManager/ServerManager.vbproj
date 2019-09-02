@@ -126,10 +126,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AlphaBuild|AnyCPU'">
     <OutputPath>AlphaBuild\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AlphaBuild|x86'">
     <OutputPath>bin\x86\AlphaBuild\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -308,6 +312,7 @@
     <Compile Include="Classes\PocketMinePluginUnpatcher.vb" />
     <Compile Include="Classes\Rebase Server\Memoryable.vb" />
     <Compile Include="Classes\Rebase Server\ServerBase.vb" />
+    <Compile Include="Classes\Rebase Server\ServerDownloadTask.vb" />
     <Compile Include="Classes\Rebase Server\ServerMaker.vb" />
     <Compile Include="Classes\Rebase Server\Taskable.vb" />
     <Compile Include="Classes\Rebase Server\VanillaServer.vb" />

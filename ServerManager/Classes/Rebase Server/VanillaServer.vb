@@ -1,4 +1,7 @@
-﻿Imports ServerManager
+﻿Imports System.Text.RegularExpressions
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
+Imports ServerManager
 
 Public Class VanillaServer
     Inherits ServerBase
@@ -95,7 +98,6 @@ Public Class VanillaServer
             Return Process.GetProcessById(ProcessID)
         End If
     End Function
-    ''' <inheritdoc/>
     Public Overrides Sub SaveServer()
         My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
         Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
@@ -138,4 +140,47 @@ Public Class VanillaServer
                                                   "server-memory-min=" & ServerMemoryMin,
                                                   "vanilla-build-version=" & Server2ndVersion}
     End Function
+    Dim vanilla_isSnap As Boolean = False
+    Dim vanilla_isPre As Boolean = False
+    Private Function GetVanillaServerURL() As String
+        Dim manifestListURL As String = ""
+        If IsNothing(Server2ndVersion) = False OrElse Server2ndVersion <> "" Then
+            Dim preReleaseRegex As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
+            Dim preReleaseRegex2 As New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*")
+            Dim preReleaseRegex3 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
+            If preReleaseRegex.IsMatch(Server2ndVersion) Then
+                manifestListURL = VanillaVersionDict(Server2ndVersion)
+                vanilla_isPre = True
+            ElseIf preReleaseRegex3.IsMatch(Server2ndVersion) Then
+                manifestListURL = VanillaVersionDict(Server2ndVersion)
+                vanilla_isPre = True
+            ElseIf ServerVersion = "snapshot" Then
+                manifestListURL = VanillaVersionDict(Server2ndVersion)
+                vanilla_isSnap = True
+            ElseIf preReleaseRegex2.IsMatch(Server2ndVersion) Then
+                manifestListURL = VanillaVersionDict(Server2ndVersion)
+                vanilla_isPre = True
+            Else
+                manifestListURL = VanillaVersionDict(ServerVersion)
+            End If
+        Else
+            manifestListURL = VanillaVersionDict(ServerVersion)
+        End If
+        If manifestListURL <> "" Then
+            Dim client As New Net.WebClient()
+            Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(client.DownloadString(manifestListURL))
+            If vanilla_isPre OrElse vanilla_isSnap Then
+                Dim assets As String = jsonObject.GetValue("assets").ToString
+                assets = New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(assets).Value
+                ServerVersion = assets
+            End If
+            Return jsonObject.GetValue("downloads").Item("server").Item("url").ToString
+        End If
+    End Function
+    Public Overrides Sub DownloadServer()
+
+    End Sub
+    Public Overrides Sub UpdateServer()
+
+    End Sub
 End Class

@@ -12,21 +12,45 @@ Public MustInherit Class ServerBase
     Public Event ServerUpdateEnd()
 #End Region
 #Region "Properties"
+    Dim _ServerVersion As String
     ''' <summary>
     ''' 伺服器的軟體版本
     ''' </summary>
     ''' <returns></returns>
-    Public ReadOnly Property ServerVersion As String
+    Public Property ServerVersion As String
+        Get
+            Return _ServerVersion
+        End Get
+        Protected Set(value As String)
+            _ServerVersion = value
+        End Set
+    End Property
+    Dim _ServerPath As String
     ''' <summary>
     ''' 伺服器的資料夾路徑
     ''' </summary>
     ''' <returns></returns>
-    Public ReadOnly Property ServerPath As String
+    Public Property ServerPath As String
+        Get
+            Return _ServerPath
+        End Get
+        Protected Set(value As String)
+            _ServerPath = value
+        End Set
+    End Property
+    Dim _ServerPathName As String
     ''' <summary>
     ''' 伺服器的資料夾名稱
     ''' </summary>
     ''' <returns></returns>
-    Public ReadOnly Property ServerPathName As String
+    Public Property ServerPathName As String
+        Get
+            Return _ServerPathName
+        End Get
+        Protected Set(value As String)
+            _ServerPathName = value
+        End Set
+    End Property
     ''' <summary>
     ''' 伺服器的圖示
     ''' </summary>
@@ -131,6 +155,14 @@ Public MustInherit Class ServerBase
     ''' 關閉伺服器
     ''' </summary>
     Public MustOverride Sub ShutdownServer()
+    ''' <summary>
+    ''' 下載伺服器
+    ''' </summary>
+    Public MustOverride Sub DownloadServer()
+    ''' <summary>
+    ''' 更新伺服器
+    ''' </summary>
+    Public MustOverride Sub UpdateServer()
     Public Sub New()
     End Sub
     Public Sub New(serverPath As String)
