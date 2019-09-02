@@ -95,9 +95,7 @@ Public Class VanillaServer
             Return Process.GetProcessById(ProcessID)
         End If
     End Function
-    ''' <summary>
-    ''' 儲存伺服器
-    ''' </summary>
+    ''' <inheritdoc/>
     Public Overrides Sub SaveServer()
         My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
         Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
@@ -111,9 +109,6 @@ Public Class VanillaServer
         writer.Close()
         GenerateServerInfo()
     End Sub
-    ''' <summary>
-    ''' 關閉伺服器
-    ''' </summary>
     Public Overrides Sub ShutdownServer()
         If ProcessID <> 0 Then
             Dim process As Process = RunServer() '取得目前的處理序

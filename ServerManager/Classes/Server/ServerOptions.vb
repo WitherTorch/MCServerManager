@@ -6,7 +6,7 @@ Imports ServerManager
 ''' <summary>
 ''' 遊戲難度
 ''' </summary>
-Enum Difficulty
+Public Enum Difficulty
     ''' <summary>
     ''' 和平
     ''' </summary>
@@ -27,7 +27,7 @@ End Enum
 ''' <summary>
 ''' 遊戲模式
 ''' </summary>
-Enum Gamemode
+Public Enum Gamemode
     ''' <summary>
     ''' 生存模式
     ''' </summary>
@@ -48,7 +48,7 @@ End Enum
 ''' <summary>
 ''' OP 權限等級
 ''' </summary>
-Enum Op_Permission_Level
+Public Enum Op_Permission_Level
     ''' <summary>
     ''' 最低
     ''' </summary>
@@ -66,7 +66,7 @@ Enum Op_Permission_Level
     ''' </summary>
     Highest = 4
 End Enum
-Enum Function_Permission_Level
+Public Enum Function_Permission_Level
     ''' <summary>
     ''' 預設(與命令方塊同等級)
     ''' </summary>
@@ -83,7 +83,7 @@ End Enum
 ''' <summary>
 ''' 世界類型
 ''' </summary>
-Enum Java_Level_Type
+Public Enum Java_Level_Type
     ''' <summary>
     ''' 預設
     ''' </summary>
@@ -112,7 +112,7 @@ End Enum
 ''' <summary>
 ''' 世界類型
 ''' </summary>
-Enum Bedrock_Level_Type
+Public Enum Bedrock_Level_Type
     ''' <summary>
     ''' 無限
     ''' </summary>
@@ -129,7 +129,7 @@ End Enum
 ''' <summary>
 ''' 
 ''' </summary>
-Enum Bedrock_Player_Permission_Level
+Public Enum Bedrock_Player_Permission_Level
     ''' <summary>
     ''' 訪客
     ''' </summary>
@@ -143,7 +143,7 @@ Enum Bedrock_Player_Permission_Level
     ''' </summary>
     [Operator]
 End Enum
-Enum PocketMineLanguageEnum
+Public Enum PocketMineLanguageEnum
     Arabic
     Bulgarian
     Czech
@@ -181,7 +181,7 @@ Enum PocketMineLanguageEnum
     Vietnamese
 End Enum
 #End Region
-Interface IServerOptions
+Public Interface IServerOptions
     Sub InputOption(serverOption As IDictionary(Of String, String))
     Sub SetValue(optionName As String, value As String)
     Function OutputOption() As IDictionary(Of String, String)

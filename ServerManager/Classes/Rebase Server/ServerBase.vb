@@ -71,6 +71,9 @@ Public MustInherit Class ServerBase
     ''' 啟動伺服器
     ''' </summary>
     Public MustOverride Function RunServer() As Process
+    ''' <summary>
+    ''' 生成伺服器資訊文件(server.info)
+    ''' </summary>
     Public Sub GenerateServerInfo()
         My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.info"), "", False)
         Using writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.info"), IO.FileMode.Truncate, IO.FileAccess.Write), System.Text.Encoding.UTF8)
@@ -120,7 +123,13 @@ Public MustInherit Class ServerBase
             writer.Close()
         End Using
     End Sub
+    ''' <summary>
+    ''' 儲存伺服器
+    ''' </summary>
     Public MustOverride Sub SaveServer()
+    ''' <summary>
+    ''' 關閉伺服器
+    ''' </summary>
     Public MustOverride Sub ShutdownServer()
     Public Sub New()
     End Sub
