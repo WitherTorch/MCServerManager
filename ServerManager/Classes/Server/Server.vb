@@ -1150,10 +1150,6 @@ Public NotInheritable Class Server
         GenerateServerInfo()
     End Sub
     Friend Sub SetPath(path As String)
-        If My.Computer.FileSystem.DirectoryExists(path) Then
-        Else
-            My.Computer.FileSystem.CreateDirectory(path)
-        End If
         _ServerPath = path
     End Sub
     Friend Sub SetVersion(version As String, Optional secVersion As String = "", Optional thirdVersion As String = "", Optional sp_verType As SpongeVersionType = GlobalModule.SpongeVersionType.None)

@@ -31,8 +31,8 @@ Partial Class ServerCreateDialog
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.MapPanel = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.VersionBox = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.IPAddressComboBox = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -159,17 +159,6 @@ Partial Class ServerCreateDialog
         Me.Label3.Text = "伺服器軟體："
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(233, 21)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(3)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(68, 16)
-        Me.Label10.TabIndex = 28
-        Me.Label10.Text = "軟體版本："
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'VersionBox
         '
         Me.VersionBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -181,6 +170,17 @@ Partial Class ServerCreateDialog
         Me.VersionBox.Name = "VersionBox"
         Me.VersionBox.Size = New System.Drawing.Size(133, 24)
         Me.VersionBox.TabIndex = 29
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(233, 21)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(3)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(68, 16)
+        Me.Label10.TabIndex = 28
+        Me.Label10.Text = "軟體版本："
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'GroupBox2
         '
@@ -335,10 +335,10 @@ Partial Class ServerCreateDialog
         Me.TabPage2.HorizontalScrollbarBarColor = True
         Me.TabPage2.HorizontalScrollbarHighlightOnWheel = False
         Me.TabPage2.HorizontalScrollbarSize = 10
-        Me.TabPage2.Location = New System.Drawing.Point(4, 38)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 36)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(461, 272)
+        Me.TabPage2.Size = New System.Drawing.Size(461, 274)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "進階設定"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -353,7 +353,7 @@ Partial Class ServerCreateDialog
         Me.AdvancedPropertyGrid.Location = New System.Drawing.Point(3, 3)
         Me.AdvancedPropertyGrid.Margin = New System.Windows.Forms.Padding(0)
         Me.AdvancedPropertyGrid.Name = "AdvancedPropertyGrid"
-        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(455, 266)
+        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(455, 268)
         Me.AdvancedPropertyGrid.TabIndex = 1
         '
         'TableLayoutPanel1

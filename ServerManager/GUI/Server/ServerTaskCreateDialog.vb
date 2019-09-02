@@ -221,6 +221,9 @@ Public Class ServerTaskCreateDialog
             Case 2
                 RunCommandArgBox.Enabled = True
                 InputArgsButton.Enabled = True
+            Case 3
+                RunCommandArgBox.Enabled = True
+                InputArgsButton.Enabled = True
             Case Else
                 RunCommandArgBox.Enabled = False
                 InputArgsButton.Enabled = False
