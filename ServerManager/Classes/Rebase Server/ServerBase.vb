@@ -7,9 +7,27 @@ Public MustInherit Class ServerBase
     Public Event Initallised()
     Public Event ServerInfoUpdated()
     Public Event ServerIconUpdated()
-    Public Event ServerUpdateStart()
-    Public Event ServerUpdating(percent As Integer)
-    Public Event ServerUpdateEnd()
+    Public Event ServerDownloadStart()
+    Public Event ServerDownloading(percent As Integer)
+    Public Event ServerDownloadEnd(isCanceled As Boolean)
+    Protected Sub OnInitallised()
+        RaiseEvent Initallised()
+    End Sub
+    Protected Sub OnServerInfoUpdated()
+        RaiseEvent ServerInfoUpdated()
+    End Sub
+    Protected Sub OnServerIconUpdated()
+        RaiseEvent ServerIconUpdated()
+    End Sub
+    Protected Sub OnServerDownloadStart()
+        RaiseEvent ServerDownloadStart()
+    End Sub
+    Protected Sub OnServerDownloading(percent As Integer)
+        RaiseEvent ServerDownloading(percent)
+    End Sub
+    Protected Sub OnServerDownloadEnd(isCanceled As Boolean)
+        RaiseEvent ServerDownloadEnd(isCanceled)
+    End Sub
 #End Region
 #Region "Properties"
     Dim _ServerVersion As String
@@ -158,7 +176,7 @@ Public MustInherit Class ServerBase
     ''' <summary>
     ''' 下載伺服器
     ''' </summary>
-    Public MustOverride Sub DownloadServer()
+    Public MustOverride Function DownloadServer() As ServerDownloadTask
     ''' <summary>
     ''' 更新伺服器
     ''' </summary>

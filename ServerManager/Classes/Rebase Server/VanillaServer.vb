@@ -177,9 +177,31 @@ Public Class VanillaServer
             Return jsonObject.GetValue("downloads").Item("server").Item("url").ToString
         End If
     End Function
-    Public Overrides Sub DownloadServer()
-
-    End Sub
+    Public Overrides Function DownloadServer() As ServerDownloadTask
+        Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
+        Dim URL = GetVanillaServerURL()
+        Dim DownloadPath As String = ""
+        If vanilla_isPre OrElse vanilla_isSnap Then
+            DownloadPath = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "minecraft_server." & Server2ndVersion & ".jar")
+        Else
+            DownloadPath = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "minecraft_server." & ServerVersion & ".jar")
+        End If
+        Dim task As New ServerDownloadTask
+        AddHandler task.DownloadProgressChanged, Sub(percent As Integer)
+                                                     Call OnServerDownloading(percent)
+                                                 End Sub
+        AddHandler task.DownloadCanceled, Sub()
+                                              Call OnServerDownloadEnd(True)
+                                          End Sub
+        AddHandler task.DownloadCompleted, Sub()
+                                               Call OnServerDownloadEnd(False)
+                                           End Sub
+        AddHandler task.DownloadStarted, Sub()
+                                             Call OnServerDownloadStart()
+                                         End Sub
+        task.Download(GetVanillaServerURL(), DownloadPath)
+        Return task
+    End Function
     Public Overrides Sub UpdateServer()
 
     End Sub
