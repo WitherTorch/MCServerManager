@@ -108,6 +108,11 @@ Public MustInherit Class ServerBase
     ''' </summary>
     ''' <returns></returns>
     Public MustOverride Function GetReadableName() As String
+    ''' <summary>
+    ''' 取得伺服器軟體版本的字串形式
+    ''' </summary>
+    ''' <returns></returns>
+    Public MustOverride Function GetSoftwareVersionString() As String
     Public MustOverride Function GetAdditionalServerInfo() As String()
     ''' <summary>
     ''' 啟動伺服器

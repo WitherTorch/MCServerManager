@@ -3,6 +3,9 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports ServerManager
 
+''' <summary>
+''' 原版伺服器
+''' </summary>
 Public Class VanillaServer
     Inherits ServerBase
     Implements Memoryable
@@ -134,6 +137,13 @@ Public Class VanillaServer
     End Function
     Public Overrides Function GetReadableName() As String
         Return "原版(Java)"
+    End Function
+    Public Overrides Function GetSoftwareVersionString() As String
+        If Server2ndVersion = "" Then
+            Return ServerVersion
+        Else
+            Return Server2ndVersion
+        End If
     End Function
     Public Overrides Function GetAdditionalServerInfo() As String()
         Return New String() {"server-memory-max=" & ServerMemoryMax,
