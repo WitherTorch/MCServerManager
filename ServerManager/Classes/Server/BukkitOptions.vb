@@ -8,6 +8,7 @@ Imports YamlDotNet.Serialization
 ''' bukkit.yml 的對應.NET 類別
 ''' </summary>
 Public Class BukkitOptions
+    Inherits AbstractSoftwareOptions
     Dim path As String = ""
 #Region "通用設定"
     <DisplayName("允許終界")> <DefaultValue(True)> <Category("通用設定")> <Description("是否啟用終界。")>
@@ -60,12 +61,10 @@ Public Class BukkitOptions
     Public Property Autosave As Integer = 6000
 #End Region
     Friend ReadOnly Property Aliases As String = "now-in-commands.yml"
-    Private Sub New()
-    End Sub
-    Friend Shared Function LoadOptions(filepath As String) As BukkitOptions
-        Dim bukkitOption As New BukkitOptions
+    Friend Sub New(filepath As String)
+        MyBase.New(filepath)
         If IO.File.Exists(filepath) Then
-            With bukkitOption
+            With Me
                 Dim jsonObject As JObject
                 If IO.File.Exists(filepath) Then
                     Try
@@ -110,12 +109,11 @@ Public Class BukkitOptions
                 InputPropertyValue(jsonObject, "aliases", .Aliases)
                 .path = filepath
             End With
-            Return bukkitOption
         Else
-            Return CreateOptionsWithDefaultSetting(filepath)
+            path = filepath
         End If
-    End Function
-    Friend Sub SaveOption()
+    End Sub
+    Public Overrides Sub SaveOption()
         Dim jsonObject As JObject
         If IO.File.Exists(path) Then
             Try
@@ -174,9 +172,4 @@ Public Class BukkitOptions
         writer.Flush()
         writer.Close()
     End Sub
-    Friend Shared Function CreateOptionsWithDefaultSetting(path As String) As BukkitOptions
-        Dim op As New BukkitOptions
-        op.path = path
-        Return op
-    End Function
 End Class

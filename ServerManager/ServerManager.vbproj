@@ -320,6 +320,7 @@
     <Compile Include="Classes\Server\AkarinOptions.vb" />
     <Compile Include="Classes\Server\BukkitOptions.vb" />
     <Compile Include="Classes\Server\CauldronOptions.vb" />
+    <Compile Include="Classes\Server\AbstractSoftwareOptions.vb" />
     <Compile Include="Classes\Server\NukkitOptions.vb" />
     <Compile Include="Classes\Server\PaperOptions.vb" />
     <Compile Include="Classes\Server\PocketMineOptions.vb" />

@@ -113,6 +113,7 @@ Public MustInherit Class ServerBase
     ''' </summary>
     ''' <returns></returns>
     Public MustOverride Function GetSoftwareVersionString() As String
+    Public MustOverride Function GetOptionObjects() As AbstractSoftwareOptions()
     Public MustOverride Function GetAdditionalServerInfo() As String()
     ''' <summary>
     ''' 啟動伺服器
