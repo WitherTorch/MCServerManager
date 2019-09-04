@@ -9,16 +9,23 @@ Imports ServerManager
 Public Class VanillaServer
     Inherits ServerBase
     Implements Memoryable
+    Private Shared VanillaVersionDict As New Dictionary(Of String, String)
     Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
     Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
     Public ReadOnly Property Server2ndVersion As String
     Public Sub New()
         MyBase.New()
         SetMainServerOptions()
+        If VersionListLoader.HasVersionListFunction(Of VanillaServer) = False Then
+            VersionListLoader.RegisterVersionListFunction(Of VanillaServer)(Sub() LoadVersionList())
+        End If
     End Sub
     Public Sub New(path As String)
         MyBase.New(path)
         SetMainServerOptions()
+        If VersionListLoader.HasVersionListFunction(Of VanillaServer) = False Then
+            VersionListLoader.RegisterVersionListFunction(Of VanillaServer)(Sub() LoadVersionList())
+        End If
     End Sub
     Private _ServerOptions As JavaServerOptions
     ''' <summary>
@@ -187,7 +194,8 @@ Public Class VanillaServer
             Return jsonObject.GetValue("downloads").Item("server").Item("url").ToString
         End If
     End Function
-    Public Overrides Function DownloadServer() As ServerDownloadTask
+    Public Overrides Function DownloadServer(targetServerVersion As String) As ServerDownloadTask
+
         Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
         Dim URL = GetVanillaServerURL()
         Dim DownloadPath As String = ""
@@ -214,5 +222,31 @@ Public Class VanillaServer
     End Function
     Public Overrides Sub UpdateServer()
 
+    End Sub
+
+    Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()
+        Return {}
+    End Function
+    Private Sub LoadVersionList()
+        VanillaVersionDict.Clear()
+        Dim manifestListURL As String = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
+        Try
+            Dim client As New Net.WebClient()
+            client.Encoding = System.Text.Encoding.UTF8
+            Dim docHtml = client.DownloadString(manifestListURL)
+            Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
+            For Each jsonValue In jsonObject.GetValue("versions").ToObject(Of JArray)
+                If jsonValue.Item("type").ToString() = "release" Then
+                    VanillaVersionDict.Add(jsonValue.Item("id").ToString(), jsonValue.Item("url").ToString())
+                    If (jsonValue.Item("id").ToString() = "1.2.2") Then
+                        Exit For
+                    End If
+                ElseIf jsonValue.Item("type").ToString() = "snapshot" Then
+                    VanillaVersionDict.Add(jsonValue.Item("id").ToString(), jsonValue.Item("url").ToString())
+                End If
+            Next
+        Catch ex As Exception
+            Throw New GetAvailableVersionsException
+        End Try
     End Sub
 End Class

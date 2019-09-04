@@ -300,6 +300,8 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Charcoal\SpongeForgeProvider.vb" />
+    <Compile Include="Classes.rebase\Server\GetAvailableVersionsException.vb" />
+    <Compile Include="Classes.rebase\Server\VersionListLoader.vb" />
     <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordHost.vb" />
     <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordOptions.vb" />
     <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordUpdater.vb" />
