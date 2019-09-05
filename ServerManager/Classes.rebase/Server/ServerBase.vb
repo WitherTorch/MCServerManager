@@ -113,6 +113,11 @@ Public MustInherit Class ServerBase
     ''' </summary>
     ''' <returns></returns>
     Public MustOverride Function GetSoftwareVersionString() As String
+    ''' <summary>
+    ''' 取得伺服器所有的可用設定物件
+    ''' </summary>
+    ''' <returns></returns>
+    Public MustOverride Function GetOptionObjects() As AbstractSoftwareOptions()
     Public MustOverride Function GetAdditionalServerInfo() As String()
     ''' <summary>
     ''' 啟動伺服器
@@ -181,7 +186,7 @@ Public MustInherit Class ServerBase
     ''' <summary>
     ''' 下載伺服器
     ''' </summary>
-    Public MustOverride Function DownloadServer() As ServerDownloadTask
+    Public MustOverride Function DownloadServer(targetServerVersion As String) As ServerDownloadTask
     ''' <summary>
     ''' 更新伺服器
     ''' </summary>

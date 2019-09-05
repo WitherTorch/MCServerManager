@@ -280,13 +280,13 @@ Public NotInheritable Class Server
                                          Select Case ServerVersionType
                                              Case EServerVersionType.CraftBukkit
                                                  If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
-                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                     BukkitOptions = BukkitOptions.[New](IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  Else
                                                      BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  End If
                                              Case EServerVersionType.Spigot
                                                  If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
-                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                     BukkitOptions = BukkitOptions.[New](IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  Else
                                                      BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  End If
@@ -297,7 +297,7 @@ Public NotInheritable Class Server
                                                  End If
                                              Case EServerVersionType.Spigot_Git
                                                  If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
-                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                     BukkitOptions = BukkitOptions.[New](IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  Else
                                                      BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  End If
@@ -308,7 +308,7 @@ Public NotInheritable Class Server
                                                  End If
                                              Case EServerVersionType.Paper
                                                  If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
-                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                     BukkitOptions = BukkitOptions.[New](IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  Else
                                                      BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  End If
@@ -324,7 +324,7 @@ Public NotInheritable Class Server
                                                  End If
                                              Case EServerVersionType.Akarin
                                                  If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
-                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                     BukkitOptions = BukkitOptions.[New](IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  Else
                                                      BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  End If
@@ -351,7 +351,7 @@ Public NotInheritable Class Server
                                                  End If
                                              Case EServerVersionType.Cauldron
                                                  If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
-                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                     BukkitOptions = BukkitOptions.[New](IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  Else
                                                      BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  End If
@@ -393,7 +393,7 @@ Public NotInheritable Class Server
                                                  End Select
                                              Case EServerVersionType.Thermos
                                                  If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
-                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                     BukkitOptions = BukkitOptions.[New](IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  Else
                                                      BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  End If
@@ -409,7 +409,7 @@ Public NotInheritable Class Server
                                                  End If
                                              Case EServerVersionType.Contigo
                                                  If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
-                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                     BukkitOptions = BukkitOptions.[New](IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  Else
                                                      BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
                                                  End If
