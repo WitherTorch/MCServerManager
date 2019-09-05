@@ -69,11 +69,19 @@ Public MustInherit Class ServerBase
             _ServerPathName = value
         End Set
     End Property
+    Dim _ServerIcon As Image = New Bitmap(64, 64)
     ''' <summary>
     ''' 伺服器的圖示
     ''' </summary>
     ''' <returns></returns>
-    Public ReadOnly Property ServerIcon As Image = New Bitmap(64, 64)
+    Public Property ServerIcon As Image
+        Get
+            Return _ServerIcon
+        End Get
+        Protected Set(value As Image)
+            _ServerIcon = value
+        End Set
+    End Property
     Public Property ServerTasks As ServerTask() Implements Taskable.ServerTasks
     Private _IsRunning As Boolean
     Public Property IsRunning As Boolean
@@ -103,11 +111,6 @@ Public MustInherit Class ServerBase
     ''' </summary>
     ''' <returns></returns>
     Public MustOverride Function GetInternalName() As String
-    ''' <summary>
-    ''' 傳回傳回可讀性高的伺服器軟體名稱
-    ''' </summary>
-    ''' <returns></returns>
-    Public MustOverride Function GetReadableName() As String
     ''' <summary>
     ''' 取得伺服器軟體版本的字串形式
     ''' </summary>
@@ -186,7 +189,7 @@ Public MustInherit Class ServerBase
     ''' <summary>
     ''' 下載伺服器
     ''' </summary>
-    Public MustOverride Function DownloadServer(targetServerVersion As String) As ServerDownloadTask
+    Public MustOverride Function DownloadAndInstallServer(targetServerVersion As String) As ServerDownloadTask
     ''' <summary>
     ''' 更新伺服器
     ''' </summary>
@@ -196,11 +199,10 @@ Public MustInherit Class ServerBase
     Public Sub New(serverPath As String)
         _ServerPath = serverPath
         _ServerPathName = IO.Path.GetDirectoryName(serverPath)
+        GetServer()
     End Sub
-    Protected Sub OnReadServerInfo(key As String, value As String)
-
-    End Sub
-    Friend Overloads Sub GetServer()
+    Protected MustOverride Sub OnReadServerInfo(key As String, value As String)
+    Private Sub GetServer()
         If ServerPath <> "" Then
             Try
                 Dim taskList As New List(Of ServerTask)
@@ -251,9 +253,29 @@ Public MustInherit Class ServerBase
             End If
             ServerPathName = (New IO.DirectoryInfo(ServerPath)).Name
         Else
-            Throw
+            Throw New GetServerException
         End If
     End Sub
-
+    Friend Shared Function GetServerTypeString(path As String) As String
+        If path <> "" Then
+            Try
+                Dim taskList As New List(Of ServerTask)
+                If My.Computer.FileSystem.FileExists(IO.Path.Combine(path, "server.info")) Then
+                    Using reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(path, "server.info"), IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
+                        Do Until reader.EndOfStream
+                            Dim infoText As String = reader.ReadLine
+                            If infoText.StartsWith("server-version-type") Then
+                                Return infoText.Substring(19)
+                            End If
+                        Loop
+                    End Using
+                End If
+            Catch ex As IO.FileNotFoundException
+                Throw New GetServerException
+            End Try
+        Else
+            Throw New GetServerException
+        End If
+    End Function
 #End Region
 End Class

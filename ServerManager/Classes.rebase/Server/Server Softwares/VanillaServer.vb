@@ -9,6 +9,7 @@ Imports ServerManager
 Public Class VanillaServer
     Inherits ServerBase
     Implements Memoryable
+    Protected seperator As String = IIf(IsUnixLikeSystem, "/", "\")
     Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
     Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
     Public ReadOnly Property Server2ndVersion As String
@@ -84,7 +85,7 @@ Public Class VanillaServer
                                                 String.Format("-Dfile.encoding=UTF-8 -Djline.terminal=jline.UnsupportedTerminal -Xms{0}M -Xmx{1}M {2} ""{3}"" nogui",
                                                               IIf(ServerMemoryMin > 0, ServerMemoryMin, GlobalModule.ServerMemoryMin),
                                                               IIf(ServerMemoryMax > 0, ServerMemoryMin, GlobalModule.ServerMemoryMax),
-                                                               JavaArguments, GetServerFileName()))
+                                                               JavaArguments, ServerPath.TrimEnd(seperator) & seperator & GetServerFileName()))
             processInfo.UseShellExecute = False
             processInfo.CreateNoWindow = True
             processInfo.StandardErrorEncoding = System.Text.Encoding.UTF8
@@ -135,9 +136,6 @@ Public Class VanillaServer
     Public Overrides Function GetInternalName() As String
         Return "Vanilla"
     End Function
-    Public Overrides Function GetReadableName() As String
-        Return "原版(Java)"
-    End Function
     Public Overrides Function GetSoftwareVersionString() As String
         If Server2ndVersion = "" Then
             Return ServerVersion
@@ -152,44 +150,52 @@ Public Class VanillaServer
     End Function
     Dim vanilla_isSnap As Boolean = False
     Dim vanilla_isPre As Boolean = False
-    Private Function GetVanillaServerURL() As String
-        Dim manifestListURL As String = ""
-        If IsNothing(Server2ndVersion) = False OrElse Server2ndVersion <> "" Then
-            Dim preReleaseRegex As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
-            Dim preReleaseRegex2 As New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*")
-            Dim preReleaseRegex3 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
-            If preReleaseRegex.IsMatch(Server2ndVersion) Then
-                manifestListURL = VanillaVersionDict(Server2ndVersion)
-                vanilla_isPre = True
-            ElseIf preReleaseRegex3.IsMatch(Server2ndVersion) Then
-                manifestListURL = VanillaVersionDict(Server2ndVersion)
-                vanilla_isPre = True
-            ElseIf ServerVersion = "snapshot" Then
-                manifestListURL = VanillaVersionDict(Server2ndVersion)
-                vanilla_isSnap = True
-            ElseIf preReleaseRegex2.IsMatch(Server2ndVersion) Then
-                manifestListURL = VanillaVersionDict(Server2ndVersion)
-                vanilla_isPre = True
+    Private Function GetVanillaServerURL(targetVersion As String) As String
+        Dim preReleaseRegex1 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
+        Dim preReleaseRegex2 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
+        Dim snapshotRegex As New Regex("[0-9]{2}w[0-9]{2}[a-z]{1}")
+        If Version.TryParse(targetVersion, Nothing) Then
+        ElseIf preReleaseRegex1.IsMatch(targetVersion) Then
+            vanilla_isPre = True
+            If preReleaseRegex1.Match(targetVersion).Value.Contains("1.RV") Then
+                targetVersion = preReleaseRegex1.Match(targetVersion).Value
             Else
-                manifestListURL = VanillaVersionDict(ServerVersion)
+                targetVersion = preReleaseRegex1.Match(targetVersion).Value
             End If
+        ElseIf preReleaseRegex2.IsMatch(targetVersion) Then
+            vanilla_isPre = True
+            If preReleaseRegex2.Match(targetVersion).Value.Contains("1.RV") Then
+                targetVersion = preReleaseRegex2.Match(targetVersion).Value
+            Else
+                targetVersion = preReleaseRegex2.Match(targetVersion).Value
+            End If
+        ElseIf snapshotRegex.IsMatch(targetVersion) Then
+            vanilla_isSnap = True
+            targetVersion = snapshotRegex.Match(targetVersion).Value
         Else
-            manifestListURL = VanillaVersionDict(ServerVersion)
+            If targetVersion <> "" Then
+                Throw New IllegalServerVersionException
+            End If
         End If
+        Dim manifestListURL As String = ""
+        manifestListURL = VanillaVersionDict(targetVersion)
         If manifestListURL <> "" Then
             Dim client As New Net.WebClient()
             Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(client.DownloadString(manifestListURL))
             If vanilla_isPre OrElse vanilla_isSnap Then
                 Dim assets As String = jsonObject.GetValue("assets").ToString
                 assets = New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(assets).Value
-                ServerVersion = assets
+                ServerVersion = assets 'Pre/Snapshot Version Only
+            Else
+                ServerVersion = targetVersion ' Release Version Only
             End If
             Return jsonObject.GetValue("downloads").Item("server").Item("url").ToString
+        Else
+            Return ""
         End If
     End Function
-    Public Overrides Function DownloadServer() As ServerDownloadTask
-        Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
-        Dim URL = GetVanillaServerURL()
+    Public Overrides Function DownloadAndInstallServer(targetServerVersion As String) As ServerDownloadTask
+        Dim URL = GetVanillaServerURL(targetServerVersion)
         Dim DownloadPath As String = ""
         If vanilla_isPre OrElse vanilla_isSnap Then
             DownloadPath = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "minecraft_server." & Server2ndVersion & ".jar")
@@ -209,10 +215,24 @@ Public Class VanillaServer
         AddHandler task.DownloadStarted, Sub()
                                              Call OnServerDownloadStart()
                                          End Sub
-        task.Download(GetVanillaServerURL(), DownloadPath)
+        task.Download(URL, DownloadPath)
         Return task
     End Function
     Public Overrides Sub UpdateServer()
 
+    End Sub
+
+    Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()
+        Return {}
+    End Function
+    Protected Overrides Sub OnReadServerInfo(key As String, value As String)
+        Select Case key
+            Case "vanilla-build-version"
+                _Server2ndVersion = value
+            Case "server-memory-max"
+                ServerMemoryMax = IIf(IsNumeric(value), value, 0)
+            Case "server-memory-min"
+                ServerMemoryMin = IIf(IsNumeric(value), value, 0)
+        End Select
     End Sub
 End Class
