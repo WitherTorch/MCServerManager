@@ -1,7 +1,7 @@
 ﻿Public Class CraftBukkitServer
     Inherits VanillaServer
-    Protected Friend Overrides Sub SetMainServerOptions()
-        MyBase.SetMainServerOptions()
+    Protected Friend Overrides Sub SetOptions()
+        MyBase.SetOptions()
 
     End Sub
 End Class

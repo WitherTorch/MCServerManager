@@ -192,5 +192,63 @@ Public MustInherit Class ServerBase
         _ServerPath = serverPath
         _ServerPathName = IO.Path.GetDirectoryName(serverPath)
     End Sub
+    Protected Sub OnReadServerInfo(key As String, value As String)
+
+    End Sub
+    Friend Overloads Sub GetServer()
+        If ServerPath <> "" Then
+            Try
+                Dim taskList As New List(Of ServerTask)
+                If My.Computer.FileSystem.FileExists(IO.Path.Combine(ServerPath, "server.info")) Then
+                    Using reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(ServerPath, "server.info"), IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
+                        Do Until reader.EndOfStream
+                            Dim infoText As String = reader.ReadLine
+                            Dim info = infoText.Split("=", 2, StringSplitOptions.None)
+                            If info.Length >= 2 Then
+                                Select Case info(0)
+                                    Case "server-version"
+                                        ServerVersion = info(1)
+                                    Case "tasks"
+                                        Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(info(1))
+                                        For Each jsonObject As JObject In jsonArray
+                                            Dim task As New ServerTask(CInt(jsonObject.GetValue("mode")), jsonObject.GetValue("name"))
+                                            task.Enabled = jsonObject.GetValue("enabled")
+                                            Select Case task.Mode
+                                                Case ServerTask.TaskMode.Repeating
+                                                    task.RepeatingPeriod = jsonObject.GetValue("period")
+                                                    task.RepeatingPeriodUnit = CInt(jsonObject.GetValue("periodUnit"))
+                                                Case ServerTask.TaskMode.Trigger
+                                                    task.TriggerEvent = CInt(jsonObject.GetValue("event"))
+                                                    task.CheckRegex = IIf(jsonObject.ContainsKey("regex"), jsonObject.GetValue("regex"), "")
+                                            End Select
+                                            Dim command As JObject = jsonObject.GetValue("command")
+                                            Dim taskCommand As New ServerTask.TaskCommand()
+                                            taskCommand.Action = CInt(command.GetValue("action"))
+                                            taskCommand.Data = command.GetValue("data")
+                                            task.Command = taskCommand
+                                            taskList.Add(task)
+                                        Next
+                                    Case Else
+                                        OnReadServerInfo(info(0), info(1))
+                                End Select
+                            End If
+                        Loop
+                    End Using
+                End If
+                ServerTasks = taskList.ToArray
+            Catch ex As IO.FileNotFoundException
+                Throw ex
+            End Try
+            If My.Computer.FileSystem.FileExists(IO.Path.Combine(ServerPath, "server-icon.png")) Then
+                ServerIcon = Image.FromFile(IO.Path.Combine(ServerPath, "server-icon.png"))
+            Else
+                ServerIcon = My.Resources.ServerDefaultIcon
+            End If
+            ServerPathName = (New IO.DirectoryInfo(ServerPath)).Name
+        Else
+            Throw
+        End If
+    End Sub
+
 #End Region
 End Class

@@ -14,11 +14,11 @@ Public Class VanillaServer
     Public ReadOnly Property Server2ndVersion As String
     Public Sub New()
         MyBase.New()
-        SetMainServerOptions()
+        SetOptions()
     End Sub
     Public Sub New(path As String)
         MyBase.New(path)
-        SetMainServerOptions()
+        SetOptions()
     End Sub
     Private _ServerOptions As JavaServerOptions
     ''' <summary>
@@ -33,7 +33,7 @@ Public Class VanillaServer
             _ServerOptions = value
         End Set
     End Property
-    Protected Friend Overridable Sub SetMainServerOptions()
+    Protected Friend Overridable Sub SetOptions()
         If String.IsNullOrWhiteSpace(ServerPath) Then
             Dim serverOptions As New JavaServerOptions()
             Me.ServerOptions = serverOptions.OutputOption
