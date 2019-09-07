@@ -2,7 +2,7 @@
 
 Public Class CraftBukkitServer
     Inherits VanillaServer
-    Dim bukkitOptions As BukkitOptions
+    Protected bukkitOptions As BukkitOptions
     Protected Friend Overrides Sub SetOptions()
         MyBase.SetOptions()
         bukkitOptions = New BukkitOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
