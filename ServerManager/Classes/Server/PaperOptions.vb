@@ -9,6 +9,7 @@ Imports YamlDotNet.Serialization
 ''' paper.yml 的對應.NET 類別
 ''' </summary>
 Public Class PaperOptions
+    Inherits AbstractSoftwareOptions
     Dim path As String
 #Region "一般"
     Dim Config_version As Integer = 13
@@ -76,19 +77,14 @@ Public Class PaperOptions
 #End Region
     <DisplayName("世界設定")> <Editor(GetType(PaperWorldSettingsCollectionEditor), GetType(UITypeEditor))> <Category("世界設定")> <Description("各世界的單一設定，沒有的話將採用""default""設定。")>
     Public Property World_settings As List(Of PaperWorldSettings) = New List(Of PaperWorldSettings)
-    Private Sub New()
+    Friend Sub CreateOptionsWithDefaultSetting(path As String)
+        Me.path = path
+        World_settings.Add(New PaperWorldSettings With {.Name = "default"})
     End Sub
-    Friend Shared Function CreateOptionsWithDefaultSetting(path As String) As PaperOptions
-        Dim op As New PaperOptions With {
-            .path = path
-        }
-        op.World_settings.Add(New PaperWorldSettings With {.Name = "default"})
-        Return op
-    End Function
-    Friend Shared Function LoadOptions(filepath As String) As PaperOptions
-        Dim paperOption As New PaperOptions
+    Friend Sub New(filepath As String)
+        MyBase.New(filepath)
         If IO.File.Exists(filepath) Then
-            With paperOption
+            With Me
                 Dim jsonObject As JObject
                 Try
                     Dim reader As New IO.StreamReader(New IO.FileStream(filepath, IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
@@ -263,12 +259,11 @@ Public Class PaperOptions
                 .path = filepath
                 GC.Collect()
             End With
-            Return paperOption
         Else
-            Return CreateOptionsWithDefaultSetting(filepath)
+            CreateOptionsWithDefaultSetting(filepath)
         End If
-    End Function
-    Friend Sub SaveOption()
+    End Sub
+    Public Overrides Sub SaveOption()
         Dim jsonObject As JObject
         If IO.File.Exists(path) Then
             Try

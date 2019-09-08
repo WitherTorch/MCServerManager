@@ -12,7 +12,9 @@ Public Class VanillaServer
     Protected seperator As String = IIf(IsUnixLikeSystem, "/", "\")
     Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
     Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
-    Public ReadOnly Property Server2ndVersion As String
+    Private Property Server2ndVersion As String
+    Private Shared VanillaVersionDict As New Dictionary(Of String, String)
+    Private Shared SnapshotList As List(Of String)
     Public Sub New()
         MyBase.New()
         SetOptions()
@@ -20,6 +22,29 @@ Public Class VanillaServer
     Public Sub New(path As String)
         MyBase.New(path)
         SetOptions()
+    End Sub
+    Friend Shared Sub GetVersionList()
+        VanillaVersionDict.Clear()
+        Dim manifestListURL As String = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
+        Try
+            Dim client As New Net.WebClient()
+            client.Encoding = System.Text.Encoding.UTF8
+            Dim docHtml = client.DownloadString(manifestListURL)
+            Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
+            For Each jsonValue In jsonObject.GetValue("versions").ToObject(Of JArray)
+                If jsonValue.Item("type").ToString() = "release" Then
+                    VanillaVersionDict.Add(jsonValue.Item("id").ToString(), jsonValue.Item("url").ToString())
+                    If (jsonValue.Item("id").ToString() = "1.2.2") Then
+                        Exit For
+                    End If
+                ElseIf jsonValue.Item("type").ToString() = "snapshot" Then
+                    VanillaVersionDict.Add(jsonValue.Item("id").ToString(), jsonValue.Item("url").ToString())
+                    SnapshotList.Add(jsonValue.Item("id").ToString())
+                End If
+            Next
+        Catch ex As Exception
+            Throw New GetAvailableVersionsException
+        End Try
     End Sub
     Private _ServerOptions As JavaServerOptions
     ''' <summary>
@@ -34,6 +59,7 @@ Public Class VanillaServer
             _ServerOptions = value
         End Set
     End Property
+
     Protected Friend Overridable Sub SetOptions()
         If String.IsNullOrWhiteSpace(ServerPath) Then
             Dim serverOptions As New JavaServerOptions()
@@ -185,6 +211,7 @@ Public Class VanillaServer
             If vanilla_isPre OrElse vanilla_isSnap Then
                 Dim assets As String = jsonObject.GetValue("assets").ToString
                 assets = New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(assets).Value
+                Server2ndVersion = targetVersion
                 ServerVersion = assets 'Pre/Snapshot Version Only
             Else
                 ServerVersion = targetVersion ' Release Version Only
@@ -235,4 +262,33 @@ Public Class VanillaServer
                 ServerMemoryMin = IIf(IsNumeric(value), value, 0)
         End Select
     End Sub
+
+    Public Overrides Function GetAvaillableVersions() As String()
+        Return VanillaVersionDict.Keys.ToArray
+    End Function
+
+    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
+        Dim haveSnapshot As Boolean = True
+        For Each arg In args
+            Try
+                If arg.Item1 = "snapshots" Then
+                    haveSnapshot = Boolean.Parse(arg.Item1)
+                    Exit For
+                End If
+            Catch ex As Exception
+                Throw New GetAvailableVersionsException
+            End Try
+        Next
+        If haveSnapshot Then
+            Return VanillaVersionDict.Keys.ToArray
+        Else
+            Dim result As New List(Of String)
+            For Each item In VanillaVersionDict.Keys
+                If SnapshotList.Contains(item) = False Then
+                    result.Add(item)
+                End If
+            Next
+            Return result.ToArray
+        End If
+    End Function
 End Class

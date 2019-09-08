@@ -3,6 +3,27 @@
 Public Class CraftBukkitServer
     Inherits VanillaServer
     Protected bukkitOptions As BukkitOptions
+    Private Shared CraftBukkitVersionDict As New Dictionary(Of String, String)
+    Public Sub New()
+        MyBase.New()
+    End Sub
+    Public Sub New(path As String)
+        MyBase.New(path)
+    End Sub
+    Friend Shared Shadows Sub GetVersionList()
+        CraftBukkitVersionDict.Clear()
+        Dim listURL As String = "https://getbukkit.org/download/craftbukkit"
+        Try
+            Dim client As New Net.WebClient()
+            client.Encoding = System.Text.Encoding.UTF8
+            Dim versionList = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectNodes("//div[4]/div[1]/div[1]/div[1]/*")
+            For Each version In versionList
+                CraftBukkitVersionDict.Add(version.SelectNodes("div[1]/div[1]/h2[1]")(0).InnerText, version.SelectSingleNode("div[1]/div[4]/div[2]/a[1]").GetAttributeValue("href", ""))
+            Next
+        Catch ex As Exception
+            Throw New GetAvailableVersionsException
+        End Try
+    End Sub
     Protected Friend Overrides Sub SetOptions()
         MyBase.SetOptions()
         bukkitOptions = New BukkitOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
@@ -72,7 +93,7 @@ Public Class CraftBukkitServer
     End Sub
     Public Overrides Function DownloadAndInstallServer(targetVersion As String) As ServerDownloadTask
         Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
-        Dim targetURL As String = CraftBukkitVersionDict(ServerVersion)
+        Dim targetURL As String = CraftBukkitVersionDict(targetVersion)
         Dim url = (New HtmlAgilityPack.HtmlWeb).Load(targetURL).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[4]/div[1]/div[1]/div[1]/div[1]/h2[1]/a[1]").GetAttributeValue("href", "")
         Dim DownloadPath As String = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "craftbukkit-" & ServerVersion & ".jar")
         Dim task As New ServerDownloadTask
@@ -83,6 +104,7 @@ Public Class CraftBukkitServer
                                               Call OnServerDownloadEnd(True)
                                           End Sub
         AddHandler task.DownloadCompleted, Sub()
+                                               ServerVersion = targetVersion
                                                Call OnServerDownloadEnd(False)
                                            End Sub
         AddHandler task.DownloadStarted, Sub()
@@ -91,5 +113,12 @@ Public Class CraftBukkitServer
         task.Download(url, DownloadPath)
         Return task
 
+    End Function
+    Public Overrides Function GetAvaillableVersions() As String()
+        Return CraftBukkitVersionDict.Keys.ToArray
+    End Function
+
+    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
+        Return GetAvaillableVersions()
     End Function
 End Class

@@ -9,7 +9,7 @@
     ''' 註冊伺服器軟體的版本載入程式
     ''' </summary>
     ''' <typeparam name="T">伺服器軟體類型</typeparam>
-    ''' <param name="func">版本載入程式，傳回值為整個清單</param>
+    ''' <param name="func">版本載入程式</param>
     Public Shared Sub RegisterVersionListFunction(Of T As ServerBase)(func As Action)
         If SoftwareVersionListFunction.ContainsKey(GetType(T)) Then
             SoftwareVersionListFunction(GetType(T)) = func

@@ -17,11 +17,8 @@ Module GlobalModule
     Friend ModpackServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"))
 #End Region
 #Region "Version List"
-    Friend VanillaVersionDict As New Dictionary(Of String, String)
     Friend ForgeVersionDict As New Dictionary(Of Version, Version)
-    Friend SpigotVersionDict As New Dictionary(Of String, String)
     Friend SpigotGitVersionList As New List(Of String)
-    Friend CraftBukkitVersionDict As New Dictionary(Of String, String)
     Friend NukkitVersion As String
     Friend NukkitVersionUrl As String
     Friend SpongeVanillaVersionList As New Dictionary(Of String, SpongeVersion)

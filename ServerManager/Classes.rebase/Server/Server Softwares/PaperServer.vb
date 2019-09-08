@@ -1,9 +1,11 @@
-﻿Imports ServerManager 
+﻿Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
-Public Class SpigotServer
-    Inherits CraftBukkitServer
-    Protected spigotOptions As SpigotOptions
-    Private Shared SpigotVersionDict As New Dictionary(Of String, String)
+Public Class PaperServer
+    Inherits SpigotServer
+    Protected paperOptions As PaperOptions
+    Private Shadows Property Server2ndVersion As String
+    Private Shared PaperVersionDict As New Dictionary(Of Version, String)
     Public Sub New()
         MyBase.New()
     End Sub
@@ -11,35 +13,41 @@ Public Class SpigotServer
         MyBase.New(path)
     End Sub
     Friend Shared Shadows Sub GetVersionList()
-        SpigotVersionDict.Clear()
-        Dim listURL As String = "https://getbukkit.org/download/spigot"
+        PaperVersionDict.Clear()
+        Dim manifestListURL As String = "https://papermc.io/api/v1/paper"
         Try
             Dim client As New Net.WebClient()
             client.Encoding = System.Text.Encoding.UTF8
-            Dim versionList = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectNodes("//div[4]/div[1]/div[1]/div[1]/*")
-            For Each version In versionList
-                SpigotVersionDict.Add(version.SelectNodes("div[1]/div[1]/h2[1]")(0).InnerText, version.SelectSingleNode("div[1]/div[4]/div[2]/a[1]").GetAttributeValue("href", ""))
+            Dim docHtml = client.DownloadString(manifestListURL)
+            Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
+            Dim versions As JArray = jsonObject.GetValue("versions")
+            For Each version In versions
+                Dim mcVersion As Version = Nothing
+                If System.Version.TryParse(version, mcVersion) Then
+                    PaperVersionDict.Add(mcVersion, "https://papermc.io/api/v1/paper/" & version.ToString)
+                End If
             Next
+            docHtml = Nothing
+            client.Dispose()
         Catch ex As Exception
             Throw New GetAvailableVersionsException
         End Try
     End Sub
     Protected Friend Overrides Sub SetOptions()
         MyBase.SetOptions()
-        spigotOptions = New SpigotOptions(IO.Path.Combine(ServerPath, "spigot.yml"))
-        spigotOptions.UseOldVersionSetting = New Version(ServerVersion) <= New Version(1, 11, 2)
+        paperOptions = New PaperOptions(IO.Path.Combine(ServerPath, "paper.yml"))
     End Sub
     Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()
         Return {bukkitOptions, spigotOptions}
     End Function
     Public Overrides Function GetInternalName() As String
-        Return "Spigot"
+        Return "Paper"
     End Function
     Public Overrides Function CanUpdate() As Boolean
         Return False
     End Function
     Public Overrides Function GetServerFileName() As String
-        Return "spigot-" & ServerVersion & ".jar"
+        Return "paper-" & ServerVersion & ".jar"
     End Function
     Public Overrides Function GetSoftwareVersionString() As String
         Return ServerVersion
@@ -54,9 +62,14 @@ Public Class SpigotServer
     End Sub
     Public Overrides Function DownloadAndInstallServer(targetVersion As String) As ServerDownloadTask
         Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
-        Dim targetURL As String = SpigotVersionDict(targetVersion)
-        Dim url = (New HtmlAgilityPack.HtmlWeb).Load(targetURL).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[4]/div[1]/div[1]/div[1]/div[1]/h2[1]/a[1]").GetAttributeValue("href", "")
-        Dim DownloadPath As String = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "spigot-" & ServerVersion & ".jar")
+        Dim subClient As New Net.WebClient
+        Dim subDocHtml = subClient.DownloadString(PaperVersionDict(Version.Parse(targetVersion)))
+        Dim subJsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(subDocHtml)
+        Dim subJsonToken As JToken = CType(subJsonObject.GetValue("builds"), JObject).GetValue("latest")
+        ServerVersion = targetVersion
+        Server2ndVersion = subJsonToken
+        Dim targetURL As String = String.Format("https://papermc.io/api/v1/paper/{0}/{1}/download", ServerVersion, subJsonToken)
+        Dim DownloadPath As String = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "paper-" & ServerVersion & ".jar")
         Dim task As New ServerDownloadTask
         AddHandler task.DownloadProgressChanged, Sub(percent As Integer)
                                                      Call OnServerDownloading(percent)
@@ -71,10 +84,18 @@ Public Class SpigotServer
         AddHandler task.DownloadStarted, Sub()
                                              Call OnServerDownloadStart()
                                          End Sub
-        task.Download(url, DownloadPath)
+        task.Download(targetURL, DownloadPath)
         Return task
     End Function
     Public Overrides Function GetAvaillableVersions() As String()
-        Return SpigotVersionDict.Keys.ToArray
+        Dim keys = PaperVersionDict.Keys.ToList
+        keys.Sort()
+        keys.Reverse()
+        Dim result As New List(Of String)
+        For Each version In keys
+            result.Add(version.ToString)
+        Next
+        keys = Nothing
+        Return result.ToArray
     End Function
 End Class

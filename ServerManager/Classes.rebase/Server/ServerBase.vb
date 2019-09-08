@@ -121,6 +121,16 @@ Public MustInherit Class ServerBase
     ''' </summary>
     ''' <returns></returns>
     Public MustOverride Function GetOptionObjects() As AbstractSoftwareOptions()
+    ''' <summary>
+    ''' 取得伺服器軟體的可用版本列表
+    ''' </summary>
+    ''' <returns></returns>
+    Public MustOverride Function GetAvaillableVersions() As String()
+    ''' <summary>
+    ''' 取得伺服器軟體在指定參數下的可用版本列表
+    ''' </summary>
+    ''' <returns></returns>
+    Public MustOverride Function GetAvaillableVersions(ParamArray args As (String, String)()) As String()
     Public MustOverride Function GetAdditionalServerInfo() As String()
     ''' <summary>
     ''' 啟動伺服器
