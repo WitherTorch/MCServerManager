@@ -9,6 +9,7 @@ Imports YamlDotNet.Serialization
 ''' akarin.yml 的對應.NET 類別
 ''' </summary>
 Public Class AkarinOptions
+    Inherits AbstractSoftwareOptions
     Dim path As String
     Dim Config_Version As Integer = 1
 #Region "Alternative"
@@ -48,17 +49,13 @@ Public Class AkarinOptions
     Public Property Extra_Local_Address As String() = {}
 
 #End Region
-    Private Sub New()
+    Friend Sub CreateOptionsWithDefaultSetting(path As String)
+        Me.path = path
     End Sub
-    Friend Shared Function CreateOptionsWithDefaultSetting(path As String) As AkarinOptions
-        Dim op As New AkarinOptions
-        op.path = path
-        Return op
-    End Function
-    Friend Shared Function LoadOptions(filepath As String) As AkarinOptions
-        Dim akarinOption As New AkarinOptions
+    Friend Sub New(filepath As String)
+        MyBase.New(filepath)
         If IO.File.Exists(filepath) Then
-            With akarinOption
+            With Me
                 Dim jsonObject As JObject
                 Try
                     Dim reader As New IO.StreamReader(New IO.FileStream(filepath, IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
@@ -90,12 +87,11 @@ Public Class AkarinOptions
                 .path = filepath
                 GC.Collect()
             End With
-            Return akarinOption
         Else
-            Return CreateOptionsWithDefaultSetting(filepath)
+            CreateOptionsWithDefaultSetting(filepath)
         End If
-    End Function
-    Friend Sub SaveOption()
+    End Sub
+    Public Overrides Sub SaveOption()
         Dim jsonObject As JObject
         If IO.File.Exists(path) Then
             Try

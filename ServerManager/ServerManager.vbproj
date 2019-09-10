@@ -304,6 +304,7 @@
     <Compile Include="Classes.rebase\Server\GetServerException.vb" />
     <Compile Include="Classes.rebase\Server\GetAvailableVersionsException.vb" />
     <Compile Include="Classes.rebase\Server\InternalSoftwareStartup.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\AkarinServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\PaperServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\SpigotServer.vb" />
     <Compile Include="Classes.rebase\Server\VersionListLoader.vb" />

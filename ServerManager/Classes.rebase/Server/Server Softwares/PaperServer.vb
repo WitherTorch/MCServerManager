@@ -38,7 +38,7 @@ Public Class PaperServer
         paperOptions = New PaperOptions(IO.Path.Combine(ServerPath, "paper.yml"))
     End Sub
     Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()
-        Return {bukkitOptions, spigotOptions}
+        Return {bukkitOptions, spigotOptions, paperOptions}
     End Function
     Public Overrides Function GetInternalName() As String
         Return "Paper"
