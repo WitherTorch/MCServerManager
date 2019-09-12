@@ -50,7 +50,13 @@ Public Class AkarinServer
         Return "Akarin"
     End Function
     Public Overrides Function CanUpdate() As Boolean
-        Return False
+        Dim webClient As New Net.WebClient
+        webClient.Headers.Add(Net.HttpRequestHeader.Accept, "application/json")
+        Dim downloadURL = "https://circleci.com/api/v1.1/project/github/Akarin-project/Akarin/tree/" & Server3rdVersion & "?filter=%22successful%22&limit=1"
+        Dim docHtml = webClient.DownloadString(downloadURL)
+        Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JArray)(docHtml)(0)
+        Dim buildNum As Integer = jsonObject.GetValue("build_num")
+        Return Server2ndVersion < buildNum
     End Function
     Public Overrides Function GetServerFileName() As String
         Return "akarin-" & ServerVersion & ".jar"
@@ -130,4 +136,8 @@ Public Class AkarinServer
         Next
         Return result.ToArray
     End Function
+    Public Overrides Sub UpdateServer()
+        DownloadAndInstallServer(ServerVersion)
+    End Sub
+
 End Class
