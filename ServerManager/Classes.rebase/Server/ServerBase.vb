@@ -203,7 +203,7 @@ Public MustInherit Class ServerBase
     ''' <summary>
     ''' 更新伺服器
     ''' </summary>
-    Public MustOverride Sub UpdateServer()
+    Public MustOverride Function UpdateServer() As ServerDownloadTask
     Public Sub New()
     End Sub
     Public Sub New(serverPath As String)

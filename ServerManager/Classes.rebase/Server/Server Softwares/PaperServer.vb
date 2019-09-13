@@ -58,8 +58,15 @@ Public Class PaperServer
                 ServerMemoryMax = IIf(IsNumeric(value), value, 0)
             Case "server-memory-min"
                 ServerMemoryMin = IIf(IsNumeric(value), value, 0)
+            Case "paper-build-version"
+                Server2ndVersion = value
         End Select
     End Sub
+    Public Overrides Function GetAdditionalServerInfo() As String()
+        Return New String() {"server-memory-max=" & ServerMemoryMax,
+                                                  "server-memory-min=" & ServerMemoryMin,
+                                                  "paper-build-version=" & Server2ndVersion}
+    End Function
     Public Overrides Function DownloadAndInstallServer(targetVersion As String) As ServerDownloadTask
         Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
         Dim subClient As New Net.WebClient

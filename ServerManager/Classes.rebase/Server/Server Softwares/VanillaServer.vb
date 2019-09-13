@@ -245,9 +245,9 @@ Public Class VanillaServer
         task.Download(URL, DownloadPath)
         Return task
     End Function
-    Public Overrides Sub UpdateServer()
+    Public Overrides Function UpdateServer() As ServerDownloadTask
 
-    End Sub
+    End Function
 
     Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()
         Return {}

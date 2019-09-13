@@ -300,12 +300,14 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Charcoal\SpongeForgeProvider.vb" />
+    <Compile Include="Classes.rebase\Server\ForgeInstaller.vb" />
     <Compile Include="Classes.rebase\Server\IllegalServerVersionException.vb" />
     <Compile Include="Classes.rebase\Server\GetServerException.vb" />
     <Compile Include="Classes.rebase\Server\GetAvailableVersionsException.vb" />
     <Compile Include="Classes.rebase\Server\InternalSoftwareStartup.vb" />
     <Compile Include="Classes.rebase\Server\ProcessMessageHub.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\AkarinServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\ForgeServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\IBukkit.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\IForge.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\PaperServer.vb" />
