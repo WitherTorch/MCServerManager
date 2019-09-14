@@ -300,6 +300,8 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Charcoal\SpongeForgeProvider.vb" />
+    <Compile Include="Classes.rebase\Player.vb" />
+    <Compile Include="Classes.rebase\RunningServerInfo.vb" />
     <Compile Include="Classes.rebase\Server\ForgeInstaller.vb" />
     <Compile Include="Classes.rebase\Server\IllegalServerVersionException.vb" />
     <Compile Include="Classes.rebase\Server\GetServerException.vb" />
