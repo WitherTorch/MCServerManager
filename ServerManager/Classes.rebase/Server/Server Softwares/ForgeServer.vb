@@ -1,4 +1,5 @@
-﻿Imports Newtonsoft.Json.Linq
+﻿Imports System.Xml
+Imports Newtonsoft.Json.Linq
 Imports ServerManager
 
 Public Class ForgeServer
@@ -96,6 +97,48 @@ Public Class ForgeServer
             Return False
         End If
     End Function
+    Friend Shared Shadows Sub GetVersionList()
+        ForgeVersionDict.Clear()
+        Dim manifestListURL As String = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml"
+        Try
+            Dim client As New Net.WebClient()
+            client.Encoding = System.Text.Encoding.UTF8
+            Dim docHtml = client.DownloadString(manifestListURL)
+            Dim xmlDocument = New XmlDocument()
+            xmlDocument.Load(New IO.StringReader(docHtml))
+            Dim tempDict As New Dictionary(Of Version, List(Of Version))
+            Dim versionNodes = xmlDocument.SelectNodes("//metadata/versioning/versions/*")
+            For Each versionNode As XmlNode In versionNodes
+                Dim version As String = versionNode.InnerText
+                Try
+                    Dim mcVersion As Version = New Version(version.Split(New Char() {"-"})(0))
+                    Dim forgeVersion As Version = New Version(version.Split(New Char() {"-"})(1))
+                    Dim versionList As List(Of Version)
+                    If tempDict.ContainsKey(mcVersion) Then
+                        versionList = tempDict(mcVersion)
+                    Else
+                        versionList = New List(Of Version)()
+                    End If
+                    versionList.Add(forgeVersion)
+                    If tempDict.ContainsKey(mcVersion) Then
+                        tempDict(mcVersion) = versionList
+                    Else
+                        tempDict.Add(mcVersion, versionList)
+                    End If
+                Catch ex As Exception
+                End Try
+            Next
+            For Each versionListPair In tempDict
+                ForgeVersionDict.Add(versionListPair.Key, versionListPair.Value.Last)
+            Next
+            tempDict.Clear()
+            tempDict = Nothing
+            docHtml = Nothing
+            client.Dispose()
+        Catch ex As Exception
+            Throw New GetAvailableVersionsException
+        End Try
+    End Sub
     Public Overrides Function DownloadAndInstallServer(targetServerVersion As String) As ServerDownloadTask
         Dim installer As New ForgeInstaller(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
         Dim craftVersion = targetServerVersion

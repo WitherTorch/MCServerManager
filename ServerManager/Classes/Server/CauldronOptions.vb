@@ -7,6 +7,7 @@ Imports YamlDotNet.Serialization
 
 ' Caudron Options (Base on Caudron 1.7.10)
 Public Class CauldronOptions
+    Inherits AbstractSoftwareOptions
     Dim path As String
     Dim Config_Version As Integer = 1
 #Region "紀錄"
@@ -73,19 +74,15 @@ Public Class CauldronOptions
     Public Property World_settings As List(Of CauldronWorldSettings) = New List(Of CauldronWorldSettings)
     <DisplayName("插件設定")> <Editor(GetType(CauldronPluginSettingsCollectionEditor), GetType(UITypeEditor))> <Category("插件設定")> <Description("各插件的單一設定，沒有的話將採用""default""設定。")>
     Public Property Plugin_settings As List(Of CauldronPluginSettings) = New List(Of CauldronPluginSettings)
-    Private Sub New()
+    Friend Sub CreateOptionsWithDefaultSetting(path As String)
+        Me.path = path
+        World_settings.Add(New CauldronWorldSettings With {.Name = "default"})
+        Plugin_settings.Add(New CauldronPluginSettings With {.Name = "default"})
     End Sub
-    Friend Shared Function CreateOptionsWithDefaultSetting(path As String) As CauldronOptions
-        Dim op As New CauldronOptions
-        op.path = path
-        op.World_settings.Add(New CauldronWorldSettings With {.Name = "default"})
-        op.Plugin_settings.Add(New CauldronPluginSettings With {.Name = "default"})
-        Return op
-    End Function
-    Friend Shared Function LoadOptions(filepath As String) As CauldronOptions
-        Dim cauldronOption As New CauldronOptions
+    Public Sub New(filepath As String)
+        MyBase.New(filepath)
         If IO.File.Exists(filepath) Then
-            With cauldronOption
+            With Me
                 Dim jsonObject As JObject
                 Try
                     Dim reader As New IO.StreamReader(New IO.FileStream(filepath, IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
@@ -158,12 +155,11 @@ Public Class CauldronOptions
                 .path = filepath
                 GC.Collect()
             End With
-            Return cauldronOption
         Else
-            Return CreateOptionsWithDefaultSetting(filepath)
+            CreateOptionsWithDefaultSetting(filepath)
         End If
-    End Function
-    Friend Sub SaveOption()
+    End Sub
+    Public Overrides Sub SaveOption()
         Dim jsonObject As JObject
         If IO.File.Exists(path) Then
             Try

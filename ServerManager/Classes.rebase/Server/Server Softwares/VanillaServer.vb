@@ -17,11 +17,14 @@ Public Class VanillaServer
     Private Shared SnapshotList As List(Of String)
     Public Sub New()
         MyBase.New()
-        SetOptions()
     End Sub
     Public Sub New(path As String)
         MyBase.New(path)
-        SetOptions()
+        GetOptions()
+    End Sub
+    Public Overrides Sub ReloadServer()
+        MyBase.ReloadServer()
+        GetOptions()
     End Sub
     Friend Shared Sub GetVersionList()
         VanillaVersionDict.Clear()
@@ -60,7 +63,7 @@ Public Class VanillaServer
         End Set
     End Property
 
-    Protected Friend Overridable Sub SetOptions()
+    Protected Friend Overridable Sub GetOptions()
         If String.IsNullOrWhiteSpace(ServerPath) Then
             Dim serverOptions As New JavaServerOptions()
             Me.ServerOptions = serverOptions.OutputOption

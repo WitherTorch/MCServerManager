@@ -211,6 +211,9 @@ Public MustInherit Class ServerBase
         _ServerPathName = IO.Path.GetDirectoryName(serverPath)
         GetServer()
     End Sub
+    Overridable Sub ReloadServer()
+        GetServer()
+    End Sub
     Protected MustOverride Sub OnReadServerInfo(key As String, value As String)
     Private Sub GetServer()
         If ServerPath <> "" Then

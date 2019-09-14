@@ -309,11 +309,15 @@
     <Compile Include="Classes.rebase\Server\InternalSoftwareStartup.vb" />
     <Compile Include="Classes.rebase\Server\ProcessMessageHub.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\AkarinServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\CauldronServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\ContigoServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\ForgeServer.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\IBukkit.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\IForge.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Interfaces\IBukkit.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Interfaces\IForge.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\PaperServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\SpigotWithGitServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\SpongeVanillaServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\ThermosServer.vb" />
     <Compile Include="Classes.rebase\Server\ServerAddons.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\SpigotServer.vb" />
     <Compile Include="Classes.rebase\Server\VersionListLoader.vb" />

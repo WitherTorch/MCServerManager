@@ -33,8 +33,8 @@ Public Class PaperServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Protected Friend Overrides Sub SetOptions()
-        MyBase.SetOptions()
+    Protected Friend Overrides Sub GetOptions()
+        MyBase.GetOptions()
         paperOptions = New PaperOptions(IO.Path.Combine(ServerPath, "paper.yml"))
     End Sub
     Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()

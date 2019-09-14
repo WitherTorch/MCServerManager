@@ -110,8 +110,8 @@ Public Class CraftBukkitServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Protected Friend Overrides Sub SetOptions()
-        MyBase.SetOptions()
+    Protected Friend Overrides Sub GetOptions()
+        MyBase.GetOptions()
         bukkitOptions = New BukkitOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
     End Sub
     Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()
@@ -144,7 +144,7 @@ Public Class CraftBukkitServer
     Public Overrides Function RunServer() As Process
         If ProcessID = 0 Then
             Dim processInfo As New ProcessStartInfo(GetJavaPath(),
-                                                String.Format("-Xms{0}M -Xmx{1}M {2} ""{3}"" nogui",
+                                                String.Format("-Xms{0}M -Xmx{1}M {2} ""{3}""",
                                                               IIf(ServerMemoryMin > 0, ServerMemoryMin, GlobalModule.ServerMemoryMin),
                                                               IIf(ServerMemoryMax > 0, ServerMemoryMin, GlobalModule.ServerMemoryMax),
                                                                JavaArguments, ServerPath.TrimEnd(seperator) & seperator & GetServerFileName()))

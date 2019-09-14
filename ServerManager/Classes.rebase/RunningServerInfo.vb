@@ -5,6 +5,7 @@
     Public ProcessID As Integer
     Public MessageHub As New ProcessMessageHub
     Public Players As New List(Of Player)
+    Public IsRunning As Boolean
     MustOverride Sub Kill(force As Boolean)
     Sub New()
         AddHandler MessageHub.MessageProcessed, Sub(messages As MinecraftProcessMessage())
@@ -36,9 +37,11 @@ Friend Class ProcessRunningServerInfo
         AddHandler process.ErrorDataReceived, AddressOf Process_ErrorDataReceived
         AddHandler process.OutputDataReceived, AddressOf Process_OutputDataReceived
         AddHandler process.Exited, AddressOf Process_Exited
+        IsRunning = Not process.HasExited
         _process = process
     End Sub
     Private Sub Process_Exited(sender As Object, e As EventArgs)
+        IsRunning = False
         OnServerKilled(force)
     End Sub
     Private Sub Process_OutputDataReceived(sender As Object, e As DataReceivedEventArgs)
