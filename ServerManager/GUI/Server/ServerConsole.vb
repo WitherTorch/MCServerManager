@@ -1243,7 +1243,7 @@ Public Class ServerConsole
                 If ThreadTaskDictionary.ContainsKey(TaskList(e.Index)) = False Then
                     Dim task As ServerTask = TaskList(e.Index)
                     task.Enabled = True
-                    If task.Mode = ServerTask.TaskMode.Repeating AndAlso ThreadTaskDictionary(TaskList(e.Index)) IsNot Nothing Then
+                    If task.Mode = ServerTask.TaskMode.Repeating Then
                         Dim timer As New System.Windows.Forms.Timer()
                         timer.Interval = task.RepeatingPeriod * GetBaseIntervalValue(task.RepeatingPeriodUnit)
                         ThreadTaskDictionary.Add(task, timer)

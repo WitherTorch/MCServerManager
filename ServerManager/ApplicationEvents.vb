@@ -50,9 +50,9 @@ Namespace My
             System.Threading.ThreadPool.GetMaxThreads(Nothing, cThread)
             Select Case logicCore'假定其1核有2條並行執行緒
                 Case 1
-                    System.Threading.ThreadPool.SetMaxThreads(2, cThread)
+                    System.Threading.ThreadPool.SetMaxThreads(4, cThread)
                 Case 2
-                    System.Threading.ThreadPool.SetMaxThreads(3, cThread)
+                    System.Threading.ThreadPool.SetMaxThreads(4, cThread)
                 Case 3 To 7
                     System.Threading.ThreadPool.SetMaxThreads(Math.Round(logicCore * 6 / 2), cThread)
                 Case 8 To 15
