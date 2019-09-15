@@ -13,7 +13,7 @@ Public Class VanillaServer
     Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
     Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
     Private Property Server2ndVersion As String
-    Private Shared VanillaVersionDict As New Dictionary(Of String, String)
+    Protected Shared VanillaVersionDict As New Dictionary(Of String, String)
     Private Shared SnapshotList As List(Of String)
     Public Sub New()
         MyBase.New()
@@ -177,8 +177,8 @@ Public Class VanillaServer
                                                   "server-memory-min=" & ServerMemoryMin,
                                                   "vanilla-build-version=" & Server2ndVersion}
     End Function
-    Dim vanilla_isSnap As Boolean = False
-    Dim vanilla_isPre As Boolean = False
+    Protected vanilla_isSnap As Boolean = False
+    Protected vanilla_isPre As Boolean = False
     Private Function GetVanillaServerURL(targetVersion As String) As String
         Dim preReleaseRegex1 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
         Dim preReleaseRegex2 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")

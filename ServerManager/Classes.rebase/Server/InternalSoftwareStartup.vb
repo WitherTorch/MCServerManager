@@ -12,6 +12,7 @@
         VersionListLoader.RegisterVersionListFunction(Of CauldronServer)(AddressOf ContigoServer.GetVersionList)
         VersionListLoader.RegisterVersionListFunction(Of ThermosServer)(AddressOf ThermosServer.GetVersionList)
         VersionListLoader.RegisterVersionListFunction(Of ContigoServer)(AddressOf ContigoServer.GetVersionList)
+        VersionListLoader.RegisterVersionListFunction(Of KettleServer)(AddressOf KettleServer.GetVersionList)
         ' 登錄伺服器軟體
         ServerMaker.RegisterServerSoftware(Of VanillaServer)("Vanilla", "原版 (Java)")
         ServerMaker.RegisterServerSoftware(Of CraftBukkitServer)("CraftBukkit", "CraftBukkit")
@@ -24,5 +25,6 @@
         ServerMaker.RegisterServerSoftware(Of CauldronServer)("Cauldron", "Cauldron")
         ServerMaker.RegisterServerSoftware(Of ThermosServer)("Thermos", "Thermos")
         ServerMaker.RegisterServerSoftware(Of ContigoServer)("Contigo", "Contigo")
+        ServerMaker.RegisterServerSoftware(Of ContigoServer)("Kettle", "Kettle")
     End Sub
 End Class
