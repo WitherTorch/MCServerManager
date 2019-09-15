@@ -1355,7 +1355,11 @@ Public Class ServerConsole
                                                                               End Try
                                                                           End If
                                                                       Else
-                                                                          line.Replace("<#RANDOM>", IIf(TaskRandomGenNumber > -1, TaskRandomGenerator.Next(TaskRandomGenNumber), 0))
+                                                                          Try
+                                                                              line.Replace("<#RANDOM>", IIf(TaskRandomGenNumber > -1, TaskRandomGenerator.Next(TaskRandomGenNumber), 0))
+                                                                          Catch ex As Exception
+
+                                                                          End Try
                                                                           alternateInputStreamWriter.WriteLine(line)
                                                                       End If
                                                                   Next
@@ -1374,7 +1378,11 @@ Public Class ServerConsole
                                                                           End Try
                                                                       End If
                                                                   Else
-                                                                      command.Replace("<#RANDOM>", IIf(TaskRandomGenNumber > -1, TaskRandomGenerator.Next(TaskRandomGenNumber), 0))
+                                                                      Try
+                                                                          command.Replace("<#RANDOM>", IIf(TaskRandomGenNumber > -1, TaskRandomGenerator.Next(TaskRandomGenNumber), 0))
+                                                                      Catch ex As Exception
+
+                                                                      End Try
                                                                       alternateInputStreamWriter.WriteLine(command)
                                                                   End If
                                                               End If
