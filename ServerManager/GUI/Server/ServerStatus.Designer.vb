@@ -35,7 +35,7 @@ Partial Class ServerStatus
         Me.ServerIcon = New System.Windows.Forms.PictureBox()
         Me.CloseButton = New System.Windows.Forms.Button()
         CType(Me.ServerIcon, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
+        Me.SuspendLayout
         '
         'ServerName
         '
@@ -123,12 +123,12 @@ Partial Class ServerStatus
         '
         Me.RunButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RunButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
-        Me.RunButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.Run32
         Me.RunButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.RunButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
         Me.RunButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(120, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.RunButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.RunButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.RunButton.Image = Global.ServerManager.My.Resources.Resources.Run32
         Me.RunButton.Location = New System.Drawing.Point(675, 101)
         Me.RunButton.Name = "RunButton"
         Me.RunButton.Size = New System.Drawing.Size(34, 34)
@@ -204,7 +204,7 @@ Partial Class ServerStatus
         Me.Size = New System.Drawing.Size(712, 138)
         CType(Me.ServerIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.PerformLayout
 
     End Sub
 
