@@ -314,6 +314,7 @@
     <Compile Include="Classes.rebase\Server\Server Softwares\ForgeServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\Interfaces\IBukkit.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\Interfaces\IForge.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\KettleServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\PaperServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\SpigotWithGitServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\SpongeVanillaServer.vb" />
