@@ -68,7 +68,7 @@ Public Class ServerSetter
                                                                 ServerMemoryMinBox.Value = server.ServerMemoryMin
                                                             End Sub)
                                             Case Server.EServerVersionType.VanillaBedrock
-                                                serverOptions = New VanillaBedrockServerOptions
+                                                serverOptions = New BDSServerOptions
                                                 serverOptions.InputOption(server.ServerOptions)
                                                 BeginInvoke(Sub()
                                                                 AdvancedPropertyGrid.SelectedObject = serverOptions

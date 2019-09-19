@@ -335,7 +335,7 @@ Public Class ServerCreateDialog
                                             serverOptions = New PocketMineServerOptions
                                             serverOptions.InputOption(server.ServerOptions)
                                         Case Server.EServerVersionType.VanillaBedrock
-                                            serverOptions = New VanillaBedrockServerOptions
+                                            serverOptions = New BDSServerOptions
                                             serverOptions.InputOption(server.ServerOptions)
                                     End Select
                                 Case Server.EServerType.Custom
@@ -419,7 +419,7 @@ Public Class ServerCreateDialog
                                 serverOptions.InputOption(server.ServerOptions)
                                 AdvancedPropertyGrid.SelectedObject = serverOptions
                             Case Server.EServerVersionType.VanillaBedrock
-                                serverOptions = New VanillaBedrockServerOptions
+                                serverOptions = New BDSServerOptions
                                 serverOptions.InputOption(server.ServerOptions)
                                 AdvancedPropertyGrid.SelectedObject = serverOptions
                         End Select

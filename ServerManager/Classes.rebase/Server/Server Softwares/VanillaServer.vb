@@ -266,11 +266,11 @@ Public Class VanillaServer
         End Select
     End Sub
 
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Return VanillaVersionDict.Keys.ToArray
     End Function
 
-    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
+    Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
         Dim haveSnapshot As Boolean = True
         For Each arg In args
             Try

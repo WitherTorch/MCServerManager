@@ -120,11 +120,11 @@ Public Class CauldronServer
     End Sub
     Friend Shared Shadows Sub GetVersionList()
     End Sub
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Return {"1.5.2", "1.6.4", "1.7.2", "1.7.10"}
     End Function
-    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
-        Return GetAvaillableVersions()
+    Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
+        Return GetAvailableVersions()
     End Function
     Public Overrides Function GetInternalName() As String
         Return "Cauldron"

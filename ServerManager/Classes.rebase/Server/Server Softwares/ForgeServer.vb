@@ -169,7 +169,7 @@ Public Class ForgeServer
     Public Overrides Function UpdateServer() As ServerDownloadTask
         Return DownloadAndInstallServer(ServerVersion)
     End Function
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Dim keys = ForgeVersionDict.Keys.ToList
         keys.Sort()
         keys.Reverse()
@@ -179,8 +179,8 @@ Public Class ForgeServer
         Next
         Return result.ToArray()
     End Function
-    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
-        Return GetAvaillableVersions()
+    Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
+        Return GetAvailableVersions()
     End Function
     Public Overrides Function GetInternalName() As String
         Return "Forge"

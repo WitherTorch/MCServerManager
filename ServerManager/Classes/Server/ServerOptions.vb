@@ -1187,7 +1187,7 @@ End Class
 ''' <summary>
 ''' server.properties 的對應.NET 類別(Vanilla(基岩)專用)
 ''' </summary>
-Class VanillaBedrockServerOptions
+Class BDSServerOptions
     Implements IServerOptions
     <DisplayName("最大執行緒量")> <DefaultValue(8)> <Category("伺服器")> <Description("設定伺服器能使用的執行緒數量。")>
     Public Property Max_Threads As Integer = 8

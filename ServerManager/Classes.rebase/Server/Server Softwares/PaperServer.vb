@@ -94,7 +94,7 @@ Public Class PaperServer
         task.Download(targetURL, DownloadPath)
         Return task
     End Function
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Dim keys = PaperVersionDict.Keys.ToList
         keys.Sort()
         keys.Reverse()
