@@ -898,7 +898,7 @@ End Class
 ''' <summary>
 ''' server.properties 的對應.NET 類別(Nukkit 專用)
 ''' </summary>
-Class NukkitServerOptions
+Public Class NukkitServerOptions
     Implements IServerOptions
 
     <DisplayName("允許玩家飛行")> <DefaultValue(False)> <Category("玩家")> <Description("允許玩家在安裝添加飛行功能的 mod 前提下在生存模式下飛行。" &
@@ -1187,7 +1187,7 @@ End Class
 ''' <summary>
 ''' server.properties 的對應.NET 類別(Vanilla(基岩)專用)
 ''' </summary>
-Class BDSServerOptions
+Public Class BDSServerOptions
     Implements IServerOptions
     <DisplayName("最大執行緒量")> <DefaultValue(8)> <Category("伺服器")> <Description("設定伺服器能使用的執行緒數量。")>
     Public Property Max_Threads As Integer = 8

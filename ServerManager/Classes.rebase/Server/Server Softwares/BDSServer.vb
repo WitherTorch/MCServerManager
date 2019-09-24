@@ -1,4 +1,5 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.IO.Compression
+Imports System.Text.RegularExpressions
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports ServerManager
@@ -7,7 +8,6 @@ Public Class BDSServer
     Inherits ServerBase
     Protected seperator As String = IIf(IsUnixLikeSystem, "/", "\")
     Protected Shared VanillaBedrockVersion As Version
-    Private Shared SnapshotList As List(Of String)
     Public Sub New()
         MyBase.New()
     End Sub
@@ -37,16 +37,16 @@ Public Class BDSServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Private _ServerOptions As JavaServerOptions
+    Private _ServerOptions As BDSServerOptions
     ''' <summary>
     ''' 伺服器主設定檔(server.properties)
     ''' </summary>
     ''' <returns></returns>
-    Property ServerOptions As JavaServerOptions
+    Property ServerOptions As BDSServerOptions
         Get
             Return _ServerOptions
         End Get
-        Protected Set(value As JavaServerOptions)
+        Protected Set(value As BDSServerOptions)
             _ServerOptions = value
         End Set
     End Property
@@ -84,10 +84,10 @@ Public Class BDSServer
         End If
     End Sub
     Public Overrides Function CanUpdate() As Boolean
-        Return False
+        Return Version.Parse(ServerVersion) < VanillaBedrockVersion
     End Function
     Public Overrides Function GetServerFileName() As String
-        Return "bedrock-." & ServerVersion & ".jar"
+        Return "bedrock-" & ServerVersion & ".jar"
     End Function
     ''' <summary>
     ''' 啟動伺服器
@@ -154,13 +154,14 @@ Public Class BDSServer
         Dim DownloadPath As String = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "bedrock-" & targetServerVersion & ".zip")
         Dim task As New ServerDownloadTask
         AddHandler task.DownloadProgressChanged, Sub(percent As Integer)
-                                                     Call OnServerDownloading(percent)
+                                                     Call OnServerDownloading(percent * 0.8)
                                                  End Sub
         AddHandler task.DownloadCanceled, Sub()
                                               Call OnServerDownloadEnd(True)
                                           End Sub
         AddHandler task.DownloadCompleted, Sub()
                                                Call OnServerDownloadEnd(False)
+                                               UnZipPackage(DownloadPath)
                                            End Sub
         AddHandler task.DownloadStarted, Sub()
                                              Call OnServerDownloadStart()
@@ -185,4 +186,32 @@ Public Class BDSServer
     Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
         Return GetAvailableVersions()
     End Function
+    Protected Sub UnZipPackage(dist As String)
+        Using archive As ZipArchive = ZipFile.OpenRead(dist)
+            Dim i As Integer = 0
+            For Each entry As ZipArchiveEntry In archive.Entries
+                i += 1
+                OnServerDownloading(80 + i / archive.Entries.Count * 100 * 0.2)
+                Try
+                    If entry.FullName.EndsWith("\") OrElse entry.FullName.EndsWith("/") Then
+                        If New IO.DirectoryInfo(IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), entry.FullName)).Exists = False Then
+                            IO.Directory.CreateDirectory(IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), entry.FullName))
+                        End If
+                    Else
+                        If New IO.FileInfo(IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), entry.FullName)).Directory.Exists = False Then
+                            Dim info = New IO.FileInfo(IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), entry.FullName))
+                            info.Directory.Create()
+                        End If
+                        If New IO.FileInfo(IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), entry.FullName)).Exists = False Then
+                            Dim info = New IO.FileInfo(IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), entry.FullName))
+                            info.Delete()
+                        End If
+                        entry.ExtractToFile(IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), entry.FullName), True)
+                    End If
+                Catch ex As Exception
+                End Try
+            Next
+        End Using
+    End Sub
+
 End Class
