@@ -6,6 +6,7 @@ Imports YamlDotNet.Serialization
 ''' pocketmine.yml 的對應.NET 類別
 ''' </summary>
 Public Class PocketMineOptions
+    Inherits AbstractSoftwareOptions
     Dim path As String
 #Region "Setting"
     <DisplayName("是否強制使用語言")> <DefaultValue(False)> <Category("一般")> <Description("伺服器是否強制使用特定語言介面")>
@@ -128,18 +129,13 @@ Public Class PocketMineOptions
     <DisplayName("更新頻道")> <DefaultValue(PocketMineAutoUpdaterChannel.Stable)> <Category("自動更新(不支援)")> <Description("自動更新所使用的頻道")>
     Public Property Preferred_Channel As PocketMineAutoUpdaterChannel = PocketMineAutoUpdaterChannel.Stable
 #End Region
-    Private Sub New()
+    Private Sub CreateOptionsWithDefaultSetting(path As String)
+        Me.path = path
     End Sub
-    Friend Shared Function CreateOptionsWithDefaultSetting(path As String) As PocketMineOptions
-        Dim op As New PocketMineOptions With {
-            .path = path
-        }
-        Return op
-    End Function
-    Friend Shared Function LoadOptions(filepath As String) As PocketMineOptions
-        Dim pocketMineOption As New PocketMineOptions
+    Public Sub New(filepath As String)
+        MyBase.New(filepath)
         If IO.File.Exists(filepath) Then
-            With pocketMineOption
+            With Me
                 Dim reader As New IO.StreamReader(New IO.FileStream(filepath, IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
                 Dim deserializer = New DeserializerBuilder().Build()
                 Dim yamlObject = deserializer.Deserialize(reader)
@@ -241,12 +237,11 @@ Public Class PocketMineOptions
                 reader.Close()
                 GC.Collect()
             End With
-            Return pocketMineOption
         Else
             CreateOptionsWithDefaultSetting(filepath)
         End If
-    End Function
-    Friend Sub SaveOption(Optional isBefore1120 As Boolean = False)
+    End Sub
+    Public Overrides Sub SaveOption()
         Dim jsonObject As JObject
         If IO.File.Exists(path) Then
             Try

@@ -6,8 +6,11 @@ Imports ServerManager
 Public Class NukkitServer
     Inherits ServerBase
     Implements Memoryable
+    Implements IBukkit
     Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
     Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
+    Public Property nukkitOptions As NukkitOptions
+    Protected pluginList As New List(Of ServerAddons)
     Protected seperator As String = IIf(IsUnixLikeSystem, "/", "\")
     Protected Shared NukkitVersion As Integer
     Protected Shared NukkitVersionURL As String
@@ -18,6 +21,90 @@ Public Class NukkitServer
         MyBase.New(path)
         GetOptions()
     End Sub
+    Protected Overridable Sub LoadPlugins() Implements IBukkit.LoadPlugins
+        pluginList.Clear()
+        Dim pluginPath = IO.Path.Combine(ServerPath, "plugins")
+        Dim paths As New List(Of String)
+        If IO.Directory.Exists(pluginPath) Then
+            If My.Computer.FileSystem.FileExists(IO.Path.Combine(pluginPath, "pluginList.json")) Then
+                Dim reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(pluginPath, "pluginList.json"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read, 4096, True))
+                Dim jsonArray As Newtonsoft.Json.Linq.JArray = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(reader.ReadToEnd())
+                If jsonArray IsNot Nothing Then
+                    For Each jsonObject As JObject In jsonArray
+                        Try
+                            If IO.File.Exists(jsonObject.GetValue("Path").ToString) = False Then
+                                If jsonObject.ContainsKey("LastAccessedDate") = False Or IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString) <> jsonObject.GetValue("LastAccessedDate") Then
+                                    Dim item As New ServerAddons(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), IO.File.GetLastWriteTime(jsonObject.GetValue("Path").ToString))
+                                    Using unpatcher As New BukkitPluginUnpatcher(item.Path)
+                                        Dim info = unpatcher.GetPluginInfo()
+                                        If info.IsNull = False Then
+                                            item.Name = info.Name
+                                            item.Version = info.Version
+                                            pluginList.Add(item)
+                                        End If
+                                    End Using
+                                    paths.Add(jsonObject.GetValue("Path").ToString)
+                                Else
+                                    Dim item As New ServerAddons(jsonObject.GetValue("Name").ToString, jsonObject.GetValue("Path").ToString, jsonObject.GetValue("Version"), jsonObject.GetValue("VersionDate"), jsonObject.GetValue("LastAccessedDate"))
+                                    paths.Add(jsonObject.GetValue("Path").ToString)
+                                    pluginList.Add(item)
+                                End If
+                            End If
+                        Catch ex As Exception
+
+                        End Try
+                    Next
+                End If
+            End If
+            Dim pluginPathInfo As New IO.DirectoryInfo(pluginPath)
+            For Each pluginFileInfo In pluginPathInfo.GetFiles("*.jar", IO.SearchOption.TopDirectoryOnly)
+                Try
+                    Dim item As New ServerAddons(pluginFileInfo.Name, pluginFileInfo.FullName, "", pluginFileInfo.CreationTime, pluginFileInfo.LastWriteTime)
+                    If paths.Contains(item.Path) = False Then
+                        Using unpatcher As New BukkitPluginUnpatcher(item.Path)
+                            Dim info = unpatcher.GetPluginInfo()
+                            If info.IsNull = False Then
+                                item.Name = info.Name
+                                item.Version = info.Version
+                                pluginList.Add(item)
+                            End If
+                        End Using
+                    End If
+                Catch ex As Exception
+
+                End Try
+            Next
+        End If
+    End Sub
+    Protected Overridable Sub SavePlugin() Implements IBukkit.SavePlugins
+        Dim pluginPath = IO.Path.Combine(ServerPath, "plugins")
+        If IO.Directory.Exists(pluginPath) = False Then
+            IO.Directory.CreateDirectory(pluginPath)
+        End If
+        If My.Computer.FileSystem.FileExists(IO.Path.Combine(pluginPath, "pluginList.json")) = False Then
+            IO.File.Create(IO.Path.Combine(pluginPath, "pluginList.json"))
+        End If
+        Try
+            Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(pluginPath, "pluginList.json"), IO.FileMode.Truncate, IO.FileAccess.Write, IO.FileShare.Read, 4096, True))
+            Dim jsonArray As New Newtonsoft.Json.Linq.JArray()
+            For Each plugin In pluginList
+                Dim jsonObject As New Newtonsoft.Json.Linq.JObject()
+                jsonObject.Add("Name", New Newtonsoft.Json.Linq.JValue(plugin.Name))
+                jsonObject.Add("Version", New Newtonsoft.Json.Linq.JValue(plugin.Version))
+                jsonObject.Add("VersionDate", New Newtonsoft.Json.Linq.JValue(plugin.VersionDate))
+                jsonObject.Add("Path", New Newtonsoft.Json.Linq.JValue(plugin.Path))
+                jsonArray.Add(jsonObject)
+            Next
+            writer.Write(Newtonsoft.Json.JsonConvert.SerializeObject(jsonArray))
+            writer.Flush()
+            writer.Close()
+        Catch ex As IO.IOException
+        End Try
+    End Sub
+    Public Overridable Function GetPlugins() As ServerAddons() Implements IBukkit.GetPlugins
+        Return pluginList.ToArray()
+    End Function
+
     Public Overrides Sub ReloadServer()
         MyBase.ReloadServer()
         GetOptions()
@@ -32,7 +119,7 @@ Public Class NukkitServer
             Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
             Dim lastSuccessfulBuild = jsonObject.GetValue("lastSuccessfulBuild").ToObject(Of JObject)
             NukkitVersion = lastSuccessfulBuild.Item("number")
-            NukkitVersionUrl = lastSuccessfulBuild.Item("url")
+            NukkitVersionURL = lastSuccessfulBuild.Item("url")
             docHtml = Nothing
             client.Dispose()
         Catch ex As Exception
@@ -83,6 +170,7 @@ Public Class NukkitServer
             Catch fileException As IO.FileNotFoundException
             End Try
         End If
+        nukkitOptions = New NukkitOptions(IO.Path.Combine(ServerPath, "nukkit.yml"))
     End Sub
     Public Overrides Function CanUpdate() As Boolean
         Return ServerVersion < NukkitVersion
@@ -127,7 +215,16 @@ Public Class NukkitServer
         writer.WriteLine()
         writer.Flush()
         writer.Close()
-        GenerateServerInfo()
+        Try
+            GenerateServerInfo()
+        Catch ex As Exception
+
+        End Try
+        Try
+            nukkitOptions.SaveOption()
+        Catch ex As Exception
+
+        End Try
     End Sub
     Public Overrides Sub ShutdownServer()
         If ProcessID <> 0 Then
@@ -180,7 +277,7 @@ Public Class NukkitServer
     End Function
 
     Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()
-        Return {}
+        Return {nukkitOptions}
     End Function
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key

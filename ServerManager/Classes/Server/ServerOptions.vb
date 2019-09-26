@@ -1431,7 +1431,7 @@ End Class
 ''' <summary>
 ''' server.properties 的對應.NET 類別(PocketMine 專用)
 ''' </summary>
-Class PocketMineServerOptions
+Public Class PocketMineServerOptions
     Implements IServerOptions
 
     <DisplayName("啟用自動儲存")> <DefaultValue(True)> <Category("遊戲")> <Description("自動儲存伺服器資料。" &
