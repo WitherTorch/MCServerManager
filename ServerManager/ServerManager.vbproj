@@ -343,16 +343,16 @@
     <Compile Include="Classes.rebase\Server\ServerMaker.vb" />
     <Compile Include="Classes.rebase\Server\Taskable.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\VanillaServer.vb" />
-    <Compile Include="Classes\Server\AkarinOptions.vb" />
-    <Compile Include="Classes\Server\BukkitOptions.vb" />
-    <Compile Include="Classes\Server\CauldronOptions.vb" />
-    <Compile Include="Classes\Server\AbstractSoftwareOptions.vb" />
-    <Compile Include="Classes\Server\NukkitOptions.vb" />
-    <Compile Include="Classes\Server\PaperOptions.vb" />
-    <Compile Include="Classes\Server\PocketMineOptions.vb" />
-    <Compile Include="Classes\Server\ServerOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\AkarinOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\BukkitOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\CauldronOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\AbstractSoftwareOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\NukkitOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\PaperOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\PocketMineOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\ServerOptions.vb" />
     <Compile Include="Classes\Server\ServerTask.vb" />
-    <Compile Include="Classes\Server\SpigotOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\SpigotOptions.vb" />
     <Compile Include="Classes\Watchdog.vb" />
     <Compile Include="GUI\Intergrate Solution Server\SolutionCreateDialog.Designer.vb">
       <DependentUpon>SolutionCreateDialog.vb</DependentUpon>
