@@ -307,6 +307,7 @@
     <Compile Include="Classes.rebase\Server\GetServerException.vb" />
     <Compile Include="Classes.rebase\Server\GetAvailableVersionsException.vb" />
     <Compile Include="Classes.rebase\Server\InternalSoftwareStartup.vb" />
+    <Compile Include="Classes.rebase\Server\ModpackServerBase.vb" />
     <Compile Include="Classes.rebase\Server\ProcessMessageHub.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\AkarinServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\BDSServer.vb" />
@@ -779,6 +780,7 @@
     <None Include="Resources\bukkit.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Classes.rebase\Server\Modpack Server Softwares\" />
     <Folder Include="GUI\Intergrate Solution Server\SubServer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
