@@ -1,5 +1,6 @@
 ﻿Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
+Imports ServerManager
 
 Public Class PocketMineServer
     Inherits ServerBase
@@ -134,19 +135,10 @@ Public Class PocketMineServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Private _ServerOptions As PocketMineServerOptions
-    ''' <summary>
-    ''' 伺服器主設定檔(server.properties)
-    ''' </summary>
-    ''' <returns></returns>
-    Property ServerOptions As PocketMineServerOptions
-        Get
-            Return _ServerOptions
-        End Get
-        Protected Set(value As PocketMineServerOptions)
-            _ServerOptions = value
-        End Set
-    End Property
+    Private ServerOptions As PocketMineServerOptions
+    Public Overrides Function GetServerProperties() As IServerProperties
+        Return ServerOptions
+    End Function
     Protected Friend Overridable Sub GetOptions()
         If String.IsNullOrWhiteSpace(ServerPath) Then
             Dim serverOptions As New PocketMineServerOptions()

@@ -181,7 +181,7 @@ Public Enum PocketMineLanguageEnum
     Vietnamese
 End Enum
 #End Region
-Public Interface IServerOptions
+Public Interface IServerProperties
     Sub InputOption(serverOption As IDictionary(Of String, String))
     Sub SetValue(optionName As String, value As String)
     Function OutputOption() As IDictionary(Of String, String)
@@ -191,7 +191,7 @@ End Interface
 ''' </summary>
 Public Class JavaServerOptions
     Inherits Dynamic.DynamicObject
-    Implements IServerOptions, ICustomTypeDescriptor, INotifyPropertyChanged
+    Implements IServerProperties, ICustomTypeDescriptor, INotifyPropertyChanged
     Dim dictionary As New Dictionary(Of String, String)
     <DisplayName("允許玩家飛行")> <DefaultValue(False)> <Category("玩家")> <Description("允許玩家在安裝添加飛行功能的 mod 前提下在生存模式下飛行。" &
                                                                vbNewLine & "允許飛行可能會使作弊者更加常見，因為此設定會使他們更容易達成目的。" &
@@ -509,7 +509,7 @@ Public Class JavaServerOptions
             Return False
         End If
     End Function
-    Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerOptions.InputOption
+    Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerProperties.InputOption
         If serverOption IsNot Nothing Then
             For Each [option] In serverOption
                 Try
@@ -618,7 +618,7 @@ Public Class JavaServerOptions
             Next
         End If
     End Sub
-    Public Sub SetValue(optionName As String, value As String) Implements IServerOptions.SetValue
+    Public Sub SetValue(optionName As String, value As String) Implements IServerProperties.SetValue
         Select Case optionName
             Case "allow-flight"
                 Allow_Flight = Boolean.Parse(value)
@@ -717,7 +717,7 @@ Public Class JavaServerOptions
                 End If
         End Select
     End Sub
-    Public Function OutputOption() As IDictionary(Of String, String) Implements IServerOptions.OutputOption
+    Public Function OutputOption() As IDictionary(Of String, String) Implements IServerProperties.OutputOption
         Dim options As New Dictionary(Of String, String)
         options.Add("allow-flight", Allow_Flight.ToString.ToLower)
         options.Add("allow-nether", Allow_Nether.ToString.ToLower)
@@ -899,7 +899,7 @@ End Class
 ''' server.properties 的對應.NET 類別(Nukkit 專用)
 ''' </summary>
 Public Class NukkitServerOptions
-    Implements IServerOptions
+    Implements IServerProperties
 
     <DisplayName("允許玩家飛行")> <DefaultValue(False)> <Category("玩家")> <Description("允許玩家在安裝添加飛行功能的 mod 前提下在生存模式下飛行。" &
                                                                vbNewLine & "允許飛行可能會使作弊者更加常見，因為此設定會使他們更容易達成目的。" &
@@ -1050,7 +1050,7 @@ Public Class NukkitServerOptions
                                                              vbNewLine & "True - 啟用。伺服器需要玩家有Xbox 帳戶才能連線。" &
                                                              vbNewLine & "False - 禁用。伺服器不需要玩家有Xbox 帳戶。")>
     Public Property Xbox_Auth As Boolean = True
-    Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerOptions.InputOption
+    Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerProperties.InputOption
         On Error Resume Next
         Allow_Flight = ToStandardBoolean(serverOption("allow-flight"))
         Announce_Player_Achievements = ToStandardBoolean(serverOption("announce-player-achievements"))
@@ -1079,7 +1079,7 @@ Public Class NukkitServerOptions
         White_List = ToStandardBoolean(serverOption("white-list"))
         Xbox_Auth = ToStandardBoolean(serverOption("xbox-auth"))
     End Sub
-    Public Sub SetValue(optionName As String, value As String) Implements IServerOptions.SetValue
+    Public Sub SetValue(optionName As String, value As String) Implements IServerProperties.SetValue
         Select Case optionName
             Case "allow-flight"
                 Allow_Flight = ToStandardBoolean(value)
@@ -1133,7 +1133,7 @@ Public Class NukkitServerOptions
                 Xbox_Auth = ToStandardBoolean(value)
         End Select
     End Sub
-    Public Function OutputOption() As IDictionary(Of String, String) Implements IServerOptions.OutputOption
+    Public Function OutputOption() As IDictionary(Of String, String) Implements IServerProperties.OutputOption
         Dim options As New Dictionary(Of String, String)
         options.Add("allow-flight", ToStandardOnOff(Allow_Flight))
         options.Add("announce-player-achievements", ToStandardOnOff(Announce_Player_Achievements))
@@ -1188,7 +1188,7 @@ End Class
 ''' server.properties 的對應.NET 類別(Vanilla(基岩)專用)
 ''' </summary>
 Public Class BDSServerOptions
-    Implements IServerOptions
+    Implements IServerProperties
     <DisplayName("最大執行緒量")> <DefaultValue(8)> <Category("伺服器")> <Description("設定伺服器能使用的執行緒數量。")>
     Public Property Max_Threads As Integer = 8
     <DisplayName("玩家閒置時間")> <DefaultValue(30UI)> <Category("玩家")> <Description("如果不為0，伺服器將在玩家的空閒時間達到設置的時間（單位為分鐘）時將玩家踢出伺服器 " &
@@ -1311,7 +1311,7 @@ Public Class BDSServerOptions
                                                              vbNewLine & "True - 從 whitelist.json 文件加載白名單。" &
                                                              vbNewLine & "False - 不使用白名單。")>
     Public Property White_List As Boolean = False
-    Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerOptions.InputOption
+    Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerProperties.InputOption
         On Error Resume Next
         Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty"))
         Gamemode = [Enum].Parse(GetType(Gamemode), serverOption("gamemode"))
@@ -1346,7 +1346,7 @@ Public Class BDSServerOptions
         View_Distance = Integer.Parse(serverOption("view-distance"))
         White_List = Boolean.Parse(serverOption("white-list"))
     End Sub
-    Public Sub SetValue(optionName As String, value As String) Implements IServerOptions.SetValue
+    Public Sub SetValue(optionName As String, value As String) Implements IServerProperties.SetValue
         Select Case optionName
             Case "server-name"
                 Server_Name = value
@@ -1398,7 +1398,7 @@ Public Class BDSServerOptions
                 White_List = Boolean.Parse(value)
         End Select
     End Sub
-    Public Function OutputOption() As IDictionary(Of String, String) Implements IServerOptions.OutputOption
+    Public Function OutputOption() As IDictionary(Of String, String) Implements IServerProperties.OutputOption
         Dim options As New Dictionary(Of String, String)
         options.Add("server-name", Server_Name)
         options.Add("difficulty", Difficulty)
@@ -1432,7 +1432,7 @@ End Class
 ''' server.properties 的對應.NET 類別(PocketMine 專用)
 ''' </summary>
 Public Class PocketMineServerOptions
-    Implements IServerOptions
+    Implements IServerProperties
 
     <DisplayName("啟用自動儲存")> <DefaultValue(True)> <Category("遊戲")> <Description("自動儲存伺服器資料。" &
                                                               vbNewLine & "False - 允許自動儲存伺服器資料。" &
@@ -1599,7 +1599,7 @@ Public Class PocketMineServerOptions
                                                              vbNewLine & "True - 啟用。伺服器需要玩家有Xbox 帳戶才能連線。" &
                                                              vbNewLine & "False - 禁用。伺服器不需要玩家有Xbox 帳戶。")>
     Public Property Xbox_Auth As Boolean = True
-    Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerOptions.InputOption
+    Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerProperties.InputOption
         On Error Resume Next
         Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty"))
         Enable_Query = ToStandardBoolean(serverOption("enable-query"))
@@ -1631,7 +1631,7 @@ Public Class PocketMineServerOptions
         White_List = ToStandardBoolean(serverOption("white-list"))
         Xbox_Auth = ToStandardBoolean(serverOption("xbox-auth"))
     End Sub
-    Public Sub SetValue(optionName As String, value As String) Implements IServerOptions.SetValue
+    Public Sub SetValue(optionName As String, value As String) Implements IServerProperties.SetValue
         Select Case optionName
             Case "difficulty"
                 Difficulty = [Enum].Parse(GetType(Difficulty), value)
@@ -1684,7 +1684,7 @@ Public Class PocketMineServerOptions
                 Xbox_Auth = ToStandardBoolean(value)
         End Select
     End Sub
-    Public Function OutputOption() As IDictionary(Of String, String) Implements IServerOptions.OutputOption
+    Public Function OutputOption() As IDictionary(Of String, String) Implements IServerProperties.OutputOption
         Dim options As New Dictionary(Of String, String)
         options.Add("difficulty", Difficulty)
         options.Add("enable-query", ToStandardOnOff(Enable_Query))

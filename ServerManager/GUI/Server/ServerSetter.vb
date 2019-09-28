@@ -9,9 +9,9 @@ Imports YamlDotNet.Serialization
 Public Class ServerSetter
     Dim TaskList As New List(Of ServerTask)
     Dim ThreadTaskDictionary As New Dictionary(Of ServerTask, Timer)
-    Dim server As Server
-    Friend serverOptions As IServerOptions
-    Sub New(ByRef server As Server)
+    Dim server As ServerBase
+    Friend serverOptions As IServerProperties
+    Sub New(ByRef server As ServerBase)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
@@ -22,7 +22,7 @@ Public Class ServerSetter
     Sub SetUpdateInfo()
         BeginInvokeIfRequired(Me, Sub()
                                       Dim version As String = VersionLabel.Text
-                                      version = version.Replace("<ServerVersionType>", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
+                                      version = version.Replace("<ServerVersionType>", ServerMaker.SoftwareDictionary(server.GetInternalName).ReadableName)
                                       If server.CanUpdate Then
                                           version = version.Replace("<ServerVersionStatus>", "可更新")
                                       Else
@@ -34,55 +34,17 @@ Public Class ServerSetter
     Private Sub ServerSetter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MapPanel.Controls.Add(New MapView(server) With {.Dock = DockStyle.Fill})
         SetUpdateInfo()
-        If server.ServerVersionType = Server.EServerVersionType.Forge OrElse
-                server.ServerVersionType = Server.EServerVersionType.SpongeVanilla OrElse
-                server.ServerVersionType = Server.EServerVersionType.Nukkit OrElse
-                server.ServerVersionType = Server.EServerVersionType.VanillaBedrock OrElse
-                server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
-                server.ServerVersionType = Server.EServerVersionType.Akarin Then
-            UpdateButton.Enabled = server.CanUpdate
-        Else
-            Button2.Visible = False
-            UpdateButton.Visible = False
-            Button2.Enabled = False
-            UpdateButton.Enabled = False
-        End If
+        UpdateButton.Enabled = server.CanUpdate
         Task.Run(New Action(Sub()
-                                Select Case server.ServerType
-                                    Case Server.EServerType.Java
-                                        serverOptions = New JavaServerOptions
-                                        serverOptions.InputOption(server.ServerOptions)
-                                        BeginInvoke(Sub()
-                                                        AdvancedPropertyGrid.SelectedObject = serverOptions
-                                                        ServerMemoryMaxBox.Value = server.ServerMemoryMax
-                                                        ServerMemoryMinBox.Value = server.ServerMemoryMin
-                                                    End Sub)
-                                    Case Server.EServerType.Bedrock
-                                        Select Case server.ServerVersionType
-                                            Case Server.EServerVersionType.Nukkit
-                                                serverOptions = New NukkitServerOptions
-                                                serverOptions.InputOption(server.ServerOptions)
-                                                BeginInvoke(Sub()
-                                                                AdvancedPropertyGrid.SelectedObject = serverOptions
-                                                                ServerMemoryMaxBox.Value = server.ServerMemoryMax
-                                                                ServerMemoryMinBox.Value = server.ServerMemoryMin
-                                                            End Sub)
-                                            Case Server.EServerVersionType.VanillaBedrock
-                                                serverOptions = New BDSServerOptions
-                                                serverOptions.InputOption(server.ServerOptions)
-                                                BeginInvoke(Sub()
-                                                                AdvancedPropertyGrid.SelectedObject = serverOptions
-                                                                GroupBox1.Enabled = False
-                                                            End Sub)
-                                            Case Server.EServerVersionType.PocketMine
-                                                serverOptions = New PocketMineServerOptions
-                                                serverOptions.InputOption(server.ServerOptions)
-                                                BeginInvoke(Sub()
-                                                                AdvancedPropertyGrid.SelectedObject = serverOptions
-                                                                GroupBox1.Enabled = False
-                                                            End Sub)
-                                        End Select
-                                End Select
+                                serverOptions = server.GetServerProperties
+                                BeginInvoke(Sub()
+                                                AdvancedPropertyGrid.SelectedObject = serverOptions
+                                                If (TypeOf server Is Memoryable) Then
+                                                    Dim _server As Memoryable = DirectCast(server, Memoryable)
+                                                    ServerMemoryMaxBox.Value = _server.ServerMemoryMax
+                                                    ServerMemoryMinBox.Value = _server.ServerMemoryMin
+                                                End If
+                                            End Sub)
                             End Sub))
         If server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
             server.ServerVersionType = Server.EServerVersionType.Spigot OrElse

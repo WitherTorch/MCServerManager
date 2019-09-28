@@ -4,7 +4,7 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Public Class ModPackServerCreateDialog
     Friend server As ModPackServer = ModPackServer.CreateServer
-    Friend serverOptions As IServerOptions
+    Friend serverOptions As IServerProperties
     Dim ipType As ServerIPType = ServerIPType.Default
 
 

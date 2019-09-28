@@ -126,19 +126,10 @@ Public Class NukkitServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Private _ServerOptions As NukkitServerOptions
-    ''' <summary>
-    ''' 伺服器主設定檔(server.properties)
-    ''' </summary>
-    ''' <returns></returns>
-    Property ServerOptions As NukkitServerOptions
-        Get
-            Return _ServerOptions
-        End Get
-        Protected Set(value As NukkitServerOptions)
-            _ServerOptions = value
-        End Set
-    End Property
+    Private ServerOptions As NukkitServerOptions
+    Public Overrides Function GetServerProperties() As IServerProperties
+        Return ServerOptions
+    End Function
     Protected Friend Overridable Sub GetOptions()
         If String.IsNullOrWhiteSpace(ServerPath) Then
             Dim serverOptions As New NukkitServerOptions()

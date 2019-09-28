@@ -55,22 +55,7 @@ Partial Class Manager
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
-        Me.PocketMineLoadingLabel = New System.Windows.Forms.Label()
-        Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
-        Me.KettleLoadingLabel = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.CauldronLoadingLabel = New System.Windows.Forms.Label()
-        Me.SpigotGitLoadingLabel = New System.Windows.Forms.Label()
-        Me.AkarinLoadingLabel = New System.Windows.Forms.Label()
-        Me.PaperLoadingLabel = New System.Windows.Forms.Label()
-        Me.VanillaBedrockLoadingLabel = New System.Windows.Forms.Label()
-        Me.SpongeVanillaLoadingLabel = New System.Windows.Forms.Label()
-        Me.NukkitLoadingLabel = New System.Windows.Forms.Label()
         Me.VersionListReloadButton = New System.Windows.Forms.Button()
-        Me.CraftBukkitLoadingLabel = New System.Windows.Forms.Label()
-        Me.SpigotLoadingLabel = New System.Windows.Forms.Label()
-        Me.ForgeLoadingLabel = New System.Windows.Forms.Label()
-        Me.VanillaLoadingLabel = New System.Windows.Forms.Label()
         Me.ServerListPage = New MetroFramework.Controls.MetroTabPage()
         Me.ServerListPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.BottomButtons = New System.Windows.Forms.TableLayoutPanel()
@@ -173,6 +158,7 @@ Partial Class Manager
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
+        Me.LoaderListView = New System.Windows.Forms.ListView()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -426,139 +412,14 @@ Partial Class Manager
         Me.VListLoadingBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.VListLoadingBox.BackColor = System.Drawing.Color.Transparent
-        Me.VListLoadingBox.Controls.Add(Me.PocketMineLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.ContigoLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.KettleLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.Label17)
-        Me.VListLoadingBox.Controls.Add(Me.CauldronLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.SpigotGitLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.AkarinLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.PaperLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.VanillaBedrockLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.SpongeVanillaLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.NukkitLoadingLabel)
+        Me.VListLoadingBox.Controls.Add(Me.LoaderListView)
         Me.VListLoadingBox.Controls.Add(Me.VersionListReloadButton)
-        Me.VListLoadingBox.Controls.Add(Me.CraftBukkitLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.SpigotLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.ForgeLoadingLabel)
-        Me.VListLoadingBox.Controls.Add(Me.VanillaLoadingLabel)
         Me.VListLoadingBox.Location = New System.Drawing.Point(6, 21)
         Me.VListLoadingBox.Name = "VListLoadingBox"
         Me.VListLoadingBox.Size = New System.Drawing.Size(711, 193)
         Me.VListLoadingBox.TabIndex = 30
         Me.VListLoadingBox.TabStop = False
         Me.VListLoadingBox.Text = "伺服器軟體"
-        '
-        'PocketMineLoadingLabel
-        '
-        Me.PocketMineLoadingLabel.Location = New System.Drawing.Point(410, 41)
-        Me.PocketMineLoadingLabel.Name = "PocketMineLoadingLabel"
-        Me.PocketMineLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.PocketMineLoadingLabel.TabIndex = 15
-        Me.PocketMineLoadingLabel.Text = "PocketMine-MP："
-        Me.PocketMineLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.PocketMineLoadingLabel, "用PHP 撰寫而成，適用於基岩版的伺服器軟體，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "可以使用插件來擴展伺服器彈性。")
-        '
-        'ContigoLoadingLabel
-        '
-        Me.ContigoLoadingLabel.Location = New System.Drawing.Point(207, 110)
-        Me.ContigoLoadingLabel.Name = "ContigoLoadingLabel"
-        Me.ContigoLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.ContigoLoadingLabel.TabIndex = 14
-        Me.ContigoLoadingLabel.Text = "Contigo：載入完成"
-        Me.ContigoLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.ContigoLoadingLabel, "Thermos 的分支，已經停止開發。")
-        '
-        'KettleLoadingLabel
-        '
-        Me.KettleLoadingLabel.Location = New System.Drawing.Point(207, 133)
-        Me.KettleLoadingLabel.Name = "KettleLoadingLabel"
-        Me.KettleLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.KettleLoadingLabel.TabIndex = 13
-        Me.KettleLoadingLabel.Text = "Kettle："
-        Me.KettleLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.KettleLoadingLabel, "開發中的Minecraft伺服器版本，能夠同時使用模組及插件。")
-        '
-        'Label17
-        '
-        Me.Label17.Location = New System.Drawing.Point(207, 87)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(197, 23)
-        Me.Label17.TabIndex = 12
-        Me.Label17.Text = "Thermos：載入完成"
-        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.Label17, "Cauldron 的繼任者，目前已停止開發。")
-        '
-        'CauldronLoadingLabel
-        '
-        Me.CauldronLoadingLabel.Location = New System.Drawing.Point(207, 64)
-        Me.CauldronLoadingLabel.Name = "CauldronLoadingLabel"
-        Me.CauldronLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.CauldronLoadingLabel.TabIndex = 11
-        Me.CauldronLoadingLabel.Text = "MCPC / Cauldron：載入完成"
-        Me.CauldronLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.CauldronLoadingLabel, "已經停止開發的Minecraft伺服器版本，可同時使用插件及模組。")
-        '
-        'SpigotGitLoadingLabel
-        '
-        Me.SpigotGitLoadingLabel.Location = New System.Drawing.Point(6, 64)
-        Me.SpigotGitLoadingLabel.Name = "SpigotGitLoadingLabel"
-        Me.SpigotGitLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.SpigotGitLoadingLabel.TabIndex = 10
-        Me.SpigotGitLoadingLabel.Text = "Spigot (Git 手動組建)："
-        Me.SpigotGitLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.SpigotGitLoadingLabel, "Spigot 官方的手動組建版本，可使用Spigot與CraftBukkit兩種伺服器。")
-        '
-        'AkarinLoadingLabel
-        '
-        Me.AkarinLoadingLabel.Location = New System.Drawing.Point(6, 133)
-        Me.AkarinLoadingLabel.Name = "AkarinLoadingLabel"
-        Me.AkarinLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.AkarinLoadingLabel.TabIndex = 9
-        Me.AkarinLoadingLabel.Text = "Akarin："
-        Me.AkarinLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.AkarinLoadingLabel, "基於Paper 開發，最大特色是能夠用多核心的方式去運行整個伺服器。")
-        '
-        'PaperLoadingLabel
-        '
-        Me.PaperLoadingLabel.Location = New System.Drawing.Point(6, 110)
-        Me.PaperLoadingLabel.Name = "PaperLoadingLabel"
-        Me.PaperLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.PaperLoadingLabel.TabIndex = 8
-        Me.PaperLoadingLabel.Text = "Paper："
-        Me.PaperLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.PaperLoadingLabel, "Spigot 的第三方修改版本，允許使用者調控更多的設定。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "某些Spigot 插件無法在Paper上運作。")
-        '
-        'VanillaBedrockLoadingLabel
-        '
-        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(410, 18)
-        Me.VanillaBedrockLoadingLabel.Name = "VanillaBedrockLoadingLabel"
-        Me.VanillaBedrockLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.VanillaBedrockLoadingLabel.TabIndex = 7
-        Me.VanillaBedrockLoadingLabel.Text = "原版(基岩)："
-        Me.VanillaBedrockLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.VanillaBedrockLoadingLabel, "官方所發布的基岩版 Minecraft 伺服器軟體(目前處於Alpha 階段)，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "因為使用C++來撰寫，因而無法使用伺服器設定調控使用的記憶體量。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "備註：由於" &
-        "需要Microsoft Edge 的部分程式庫，所以只能在Windows 10上運行。")
-        '
-        'SpongeVanillaLoadingLabel
-        '
-        Me.SpongeVanillaLoadingLabel.Location = New System.Drawing.Point(207, 41)
-        Me.SpongeVanillaLoadingLabel.Name = "SpongeVanillaLoadingLabel"
-        Me.SpongeVanillaLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.SpongeVanillaLoadingLabel.TabIndex = 6
-        Me.SpongeVanillaLoadingLabel.Text = "SpongeVanilla："
-        Me.SpongeVanillaLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.SpongeVanillaLoadingLabel, "建立在原版的基礎上，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "能夠安裝用Sponge API寫成的特殊插件。")
-        '
-        'NukkitLoadingLabel
-        '
-        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(410, 64)
-        Me.NukkitLoadingLabel.Name = "NukkitLoadingLabel"
-        Me.NukkitLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.NukkitLoadingLabel.TabIndex = 5
-        Me.NukkitLoadingLabel.Text = "NukkitX："
-        Me.NukkitLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.NukkitLoadingLabel, "攜帶版(基岩版)的伺服器軟體，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "使用方法類似於Bukkit(水桶)，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "能夠安裝用Nukkit的API所寫出來的插件。")
         '
         'VersionListReloadButton
         '
@@ -568,46 +429,6 @@ Partial Class Manager
         Me.VersionListReloadButton.TabIndex = 4
         Me.VersionListReloadButton.Text = "重新載入"
         Me.VersionListReloadButton.UseVisualStyleBackColor = False
-        '
-        'CraftBukkitLoadingLabel
-        '
-        Me.CraftBukkitLoadingLabel.Location = New System.Drawing.Point(6, 87)
-        Me.CraftBukkitLoadingLabel.Name = "CraftBukkitLoadingLabel"
-        Me.CraftBukkitLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.CraftBukkitLoadingLabel.TabIndex = 3
-        Me.CraftBukkitLoadingLabel.Text = "CraftBukkit："
-        Me.CraftBukkitLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.CraftBukkitLoadingLabel, "俗稱水桶服，可以安裝插件來豐富玩法，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "與Forge不同的是，插件不能添加新的方塊或物品。")
-        '
-        'SpigotLoadingLabel
-        '
-        Me.SpigotLoadingLabel.Location = New System.Drawing.Point(6, 41)
-        Me.SpigotLoadingLabel.Name = "SpigotLoadingLabel"
-        Me.SpigotLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.SpigotLoadingLabel.TabIndex = 2
-        Me.SpigotLoadingLabel.Text = "Spigot："
-        Me.SpigotLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.SpigotLoadingLabel, "水桶服的分支，為目前最多人使用的伺服器軟體。")
-        '
-        'ForgeLoadingLabel
-        '
-        Me.ForgeLoadingLabel.Location = New System.Drawing.Point(207, 18)
-        Me.ForgeLoadingLabel.Name = "ForgeLoadingLabel"
-        Me.ForgeLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.ForgeLoadingLabel.TabIndex = 1
-        Me.ForgeLoadingLabel.Text = "Forge："
-        Me.ForgeLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.ForgeLoadingLabel, "建立在原版的基礎上，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "能夠透過安裝模組來豐富伺服器玩法的伺服器。")
-        '
-        'VanillaLoadingLabel
-        '
-        Me.VanillaLoadingLabel.Location = New System.Drawing.Point(6, 18)
-        Me.VanillaLoadingLabel.Name = "VanillaLoadingLabel"
-        Me.VanillaLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.VanillaLoadingLabel.TabIndex = 0
-        Me.VanillaLoadingLabel.Text = "原版(Java)："
-        Me.VanillaLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.VanillaLoadingLabel, "Mojang 官方發布的Java 版Minecraft 伺服器軟體，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "為大多數伺服器軟體的基礎。")
         '
         'ServerListPage
         '
@@ -1736,10 +1557,10 @@ Partial Class Manager
         Me.AboutPage.HorizontalScrollbarBarColor = True
         Me.AboutPage.HorizontalScrollbarHighlightOnWheel = False
         Me.AboutPage.HorizontalScrollbarSize = 10
-        Me.AboutPage.Location = New System.Drawing.Point(4, 38)
+        Me.AboutPage.Location = New System.Drawing.Point(4, 36)
         Me.AboutPage.Name = "AboutPage"
         Me.AboutPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AboutPage.Size = New System.Drawing.Size(736, 423)
+        Me.AboutPage.Size = New System.Drawing.Size(736, 425)
         Me.AboutPage.TabIndex = 5
         Me.AboutPage.Text = "關於"
         Me.AboutPage.UseVisualStyleBackColor = True
@@ -1759,7 +1580,7 @@ Partial Class Manager
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 417)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 419)
         Me.TableLayoutPanel4.TabIndex = 1
         '
         'GroupBox5
@@ -1769,7 +1590,7 @@ Partial Class Manager
         Me.GroupBox5.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox5.Location = New System.Drawing.Point(368, 3)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(359, 411)
+        Me.GroupBox5.Size = New System.Drawing.Size(359, 413)
         Me.GroupBox5.TabIndex = 5
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "各伺服器軟體官網(按兩下即可開啟)"
@@ -1822,7 +1643,7 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
-        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 389)
+        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 391)
         Me.ServerSoftwareLinkList.StateImageList = Me.ServerSoftwareImageList
         Me.ServerSoftwareLinkList.TabIndex = 0
         Me.ServerSoftwareLinkList.UseCompatibleStateImageBehavior = False
@@ -1858,7 +1679,7 @@ Partial Class Manager
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(3, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(359, 411)
+        Me.Panel3.Size = New System.Drawing.Size(359, 413)
         Me.Panel3.TabIndex = 1
         '
         'LinkLabel2
@@ -1892,7 +1713,7 @@ Partial Class Manager
         Me.GroupBox4.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(3, 159)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(352, 244)
+        Me.GroupBox4.Size = New System.Drawing.Size(352, 246)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "使用的函式庫"
@@ -1906,7 +1727,7 @@ Partial Class Manager
         Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)", "DropDownControls (用於顯示群組項目)", "NBT_Library (用於解析NBT檔案)", "MetroFramework (提供圖形介面)"})
         Me.LibraryListBox.Location = New System.Drawing.Point(3, 19)
         Me.LibraryListBox.Name = "LibraryListBox"
-        Me.LibraryListBox.Size = New System.Drawing.Size(346, 222)
+        Me.LibraryListBox.Size = New System.Drawing.Size(346, 224)
         Me.LibraryListBox.TabIndex = 0
         '
         'Label10
@@ -1977,6 +1798,15 @@ Partial Class Manager
         '
         Me.MetroStyleManager1.Owner = Me
         Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
+        '
+        'LoaderListView
+        '
+        Me.LoaderListView.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.LoaderListView.Location = New System.Drawing.Point(6, 22)
+        Me.LoaderListView.Name = "LoaderListView"
+        Me.LoaderListView.Size = New System.Drawing.Size(699, 131)
+        Me.LoaderListView.TabIndex = 5
+        Me.LoaderListView.UseCompatibleStateImageBehavior = False
         '
         'Manager
         '
@@ -2071,13 +1901,7 @@ Partial Class Manager
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents NotifyIcon1 As NotifyIcon
     Friend WithEvents VListLoadingBox As GroupBox
-    Friend WithEvents SpongeVanillaLoadingLabel As Label
-    Friend WithEvents NukkitLoadingLabel As Label
     Friend WithEvents VersionListReloadButton As Button
-    Friend WithEvents CraftBukkitLoadingLabel As Label
-    Friend WithEvents SpigotLoadingLabel As Label
-    Friend WithEvents ForgeLoadingLabel As Label
-    Friend WithEvents VanillaLoadingLabel As Label
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Button4 As Button
     Friend WithEvents Label6 As Label
@@ -2093,9 +1917,6 @@ Partial Class Manager
     Friend WithEvents HostCheckList As CheckedListBox
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents NoIPUpdateTimeSpanLabel As Label
-    Friend WithEvents VanillaBedrockLoadingLabel As Label
-    Friend WithEvents PaperLoadingLabel As Label
-    Friend WithEvents AkarinLoadingLabel As Label
     Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
     Friend WithEvents Panel3 As Panel
     Friend WithEvents PictureBox1 As PictureBox
@@ -2131,21 +1952,16 @@ Partial Class Manager
     Friend WithEvents ServerMemoryMinBox As NumericUpDown
     Friend WithEvents Label13 As Label
     Friend WithEvents SnapshotCheckBox As CheckBox
-    Friend WithEvents SpigotGitLoadingLabel As Label
     Friend WithEvents GitGroupBox As GroupBox
     Friend WithEvents GitBashBrowseButton As Button
     Friend WithEvents GitBashPathBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents Label16 As Label
     Friend WithEvents Label15 As Label
-    Friend WithEvents CauldronLoadingLabel As Label
-    Friend WithEvents Label17 As Label
     Friend WithEvents ModpackServerListPanel As TableLayoutPanel
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button
     Friend WithEvents Button8 As Button
-    Friend WithEvents ContigoLoadingLabel As Label
-    Friend WithEvents KettleLoadingLabel As Label
     Friend WithEvents GroupBox7 As GroupBox
     Friend WithEvents CheckBox3 As CheckBox
     Friend WithEvents GroupBox8 As GroupBox
@@ -2182,7 +1998,6 @@ Partial Class Manager
     Friend WithEvents PHPPathBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents Label27 As Label
     Friend WithEvents Label28 As Label
-    Friend WithEvents PocketMineLoadingLabel As Label
     Friend WithEvents MainTabControl As MetroFramework.Controls.MetroTabControl
     Friend WithEvents MainPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents ServerListPage As MetroFramework.Controls.MetroTabPage
@@ -2197,4 +2012,5 @@ Partial Class Manager
     Friend WithEvents PackServerListPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents TabPage4 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
+    Friend WithEvents LoaderListView As ListView
 End Class

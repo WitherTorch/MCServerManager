@@ -486,7 +486,6 @@
     <Compile Include="GUI\Server\MapView.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Classes\Server\Server.vb" />
     <Compile Include="GUI\Server\ServerConsole.Designer.vb">
       <DependentUpon>ServerConsole.vb</DependentUpon>
     </Compile>

@@ -6,7 +6,7 @@ Imports Newtonsoft.Json.Linq
 Public Class ServerCreateDialog
     Dim mapChooser As CreateMap
     Friend server As Server = Server.CreateServer
-    Friend serverOptions As IServerOptions
+    Friend serverOptions As IServerProperties
     Dim ipType As ServerIPType = ServerIPType.Default
     Private Sub Version_SelectedIndexChanged(sender As Object, e As EventArgs) Handles VersionBox.SelectedIndexChanged, VersionTypeBox.SelectedIndexChanged
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")

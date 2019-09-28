@@ -49,20 +49,10 @@ Public Class VanillaServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Private _ServerOptions As JavaServerOptions
-    ''' <summary>
-    ''' 伺服器主設定檔(server.properties)
-    ''' </summary>
-    ''' <returns></returns>
-    Property ServerOptions As JavaServerOptions
-        Get
-            Return _ServerOptions
-        End Get
-        Protected Set(value As JavaServerOptions)
-            _ServerOptions = value
-        End Set
-    End Property
-
+    Private ServerOptions As JavaServerOptions
+    Public Overrides Function GetServerProperties() As IServerProperties
+        Return ServerOptions
+    End Function
     Protected Friend Overridable Sub GetOptions()
         If String.IsNullOrWhiteSpace(ServerPath) Then
             Dim serverOptions As New JavaServerOptions()

@@ -117,6 +117,11 @@ Public MustInherit Class ServerBase
     ''' <returns></returns>
     Public MustOverride Function GetSoftwareVersionString() As String
     ''' <summary>
+    ''' 取得伺服器的server.properties
+    ''' </summary>
+    ''' <returns></returns>
+    Public MustOverride Function GetServerProperties() As IServerProperties
+    ''' <summary>
     ''' 取得伺服器所有的可用設定物件
     ''' </summary>
     ''' <returns></returns>
