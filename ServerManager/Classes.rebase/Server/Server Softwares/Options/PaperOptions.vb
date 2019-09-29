@@ -11,6 +11,9 @@ Imports YamlDotNet.Serialization
 Public Class PaperOptions
     Inherits AbstractSoftwareOptions
     Dim path As String
+    Public Overrides Function GetOptionsTitle() As String
+        Return "Paper 設定"
+    End Function
 #Region "一般"
     Dim Config_version As Integer = 13
     <DisplayName("紀錄詳細配置")> <DefaultValue(False)> <Category("一般")> <Description("是否在伺服器啟動時紀錄詳細配置。")>

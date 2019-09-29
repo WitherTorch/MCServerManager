@@ -130,13 +130,13 @@ Public Class SpongeVanillaServer
                                          End Sub
         Return task
     End Function
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Dim result As List(Of String) = SpongeVanillaVersionList.Keys.ToList()
         result.Reverse()
         Return result.ToArray()
     End Function
-    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
-        Return GetAvaillableVersions()
+    Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
+        Return GetAvailableVersions()
     End Function
     Public Overrides Function RunServer() As Process
         If ProcessID = 0 Then

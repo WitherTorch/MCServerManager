@@ -36,11 +36,11 @@ Public Class SpigotWithGitServer
                                                             End Function).ToList
         SpigotGitVersionList.Reverse()
     End Sub
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Return SpigotGitVersionList.ToArray()
     End Function
-    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
-        Return GetAvaillableVersions()
+    Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
+        Return GetAvailableVersions()
     End Function
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key

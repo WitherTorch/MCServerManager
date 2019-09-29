@@ -13,6 +13,8 @@
         VersionListLoader.RegisterVersionListFunction(Of ThermosServer)(AddressOf ThermosServer.GetVersionList)
         VersionListLoader.RegisterVersionListFunction(Of ContigoServer)(AddressOf ContigoServer.GetVersionList)
         VersionListLoader.RegisterVersionListFunction(Of KettleServer)(AddressOf KettleServer.GetVersionList)
+        VersionListLoader.RegisterVersionListFunction(Of BDSServer)(AddressOf BDSServer.GetVersionList)
+        VersionListLoader.RegisterVersionListFunction(Of NukkitServer)(AddressOf NukkitServer.GetVersionList)
         ' 登錄伺服器軟體
         ServerMaker.RegisterServerSoftware(Of VanillaServer)("Vanilla", "原版 (Java)")
         ServerMaker.RegisterServerSoftware(Of CraftBukkitServer)("CraftBukkit", "CraftBukkit")
@@ -26,5 +28,7 @@
         ServerMaker.RegisterServerSoftware(Of ThermosServer)("Thermos", "Thermos")
         ServerMaker.RegisterServerSoftware(Of ContigoServer)("Contigo", "Contigo")
         ServerMaker.RegisterServerSoftware(Of KettleServer)("Kettle", "Kettle")
+        ServerMaker.RegisterServerSoftware(Of BDSServer)("VanillaBedrock", "BDS")
+        ServerMaker.RegisterServerSoftware(Of NukkitServer)("Nukkit", "NukkitX")
     End Sub
 End Class

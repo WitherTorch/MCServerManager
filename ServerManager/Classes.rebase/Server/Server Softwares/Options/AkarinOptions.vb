@@ -52,6 +52,9 @@ Public Class AkarinOptions
     Friend Sub CreateOptionsWithDefaultSetting(path As String)
         Me.path = path
     End Sub
+    Public Overrides Function GetOptionsTitle() As String
+        Return "Akarin 設定"
+    End Function
     Friend Sub New(filepath As String)
         MyBase.New(filepath)
         If IO.File.Exists(filepath) Then

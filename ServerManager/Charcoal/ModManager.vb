@@ -1,5 +1,5 @@
-﻿Public Class ForgeModManager
-    Implements IManagerGUI
+﻿Public Class ModManager
+    Implements IAddonManagerGUI
     Dim server As Server
 
     Sub New(index As Integer)
@@ -11,7 +11,7 @@
         Me.server = GlobalModule.Manager.ServerEntityList(index)
     End Sub
     Private Sub 瀏覽插件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 瀏覽模組ToolStripMenuItem.Click
-        Dim explorer As New ForgeModExplorer(GlobalModule.Manager.ServerEntityList.IndexOf(server))
+        Dim explorer As New ModExplorer(GlobalModule.Manager.ServerEntityList.IndexOf(server))
         explorer.Show()
     End Sub
 

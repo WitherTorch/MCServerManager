@@ -117,6 +117,11 @@ Public MustInherit Class ServerBase
     ''' <returns></returns>
     Public MustOverride Function GetSoftwareVersionString() As String
     ''' <summary>
+    ''' 取得伺服器的server.properties
+    ''' </summary>
+    ''' <returns></returns>
+    Public MustOverride Function GetServerProperties() As IServerProperties
+    ''' <summary>
     ''' 取得伺服器所有的可用設定物件
     ''' </summary>
     ''' <returns></returns>
@@ -125,13 +130,18 @@ Public MustInherit Class ServerBase
     ''' 取得伺服器軟體的可用版本列表
     ''' </summary>
     ''' <returns></returns>
-    Public MustOverride Function GetAvaillableVersions() As String()
+    Public MustOverride Function GetAvailableVersions() As String()
     ''' <summary>
     ''' 取得伺服器軟體在指定參數下的可用版本列表
     ''' </summary>
     ''' <returns></returns>
-    Public MustOverride Function GetAvaillableVersions(ParamArray args As (String, String)()) As String()
+    Public MustOverride Function GetAvailableVersions(ParamArray args As (String, String)()) As String()
     Public MustOverride Function GetAdditionalServerInfo() As String()
+    ''' <summary>
+    ''' 在啟動伺服器要做的事(通常是檢查項目)
+    ''' </summary>
+    Public Overridable Function BeforeRunServer() As Boolean
+    End Function
     ''' <summary>
     ''' 啟動伺服器
     ''' </summary>
@@ -213,6 +223,9 @@ Public MustInherit Class ServerBase
     End Sub
     Overridable Sub ReloadServer()
         GetServer()
+    End Sub
+    Overridable Sub ReloadServerIcon()
+        ServerIcon = Image.FromFile(IO.Path.Combine(ServerPath, "server-icon.png"))
     End Sub
     Protected MustOverride Sub OnReadServerInfo(key As String, value As String)
     Private Sub GetServer()

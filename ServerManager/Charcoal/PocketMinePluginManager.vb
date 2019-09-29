@@ -1,5 +1,5 @@
 ﻿Public Class PocketMinePluginManager
-    Implements IManagerGUI
+    Implements IAddonManagerGUI
     Dim server As Server
     Sub New(index As Integer)
 

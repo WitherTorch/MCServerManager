@@ -1,8 +1,6 @@
-﻿Public Class NukkitPluginManager
-    Implements IManagerGUI
-    Dim index As Integer
+﻿Public Class PluginManager
+    Implements IAddonManagerGUI
     Dim server As Server
-
     Sub New(index As Integer)
 
         ' 設計工具需要此呼叫。
@@ -10,10 +8,9 @@
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         Me.server = GlobalModule.Manager.ServerEntityList(index)
-        Me.index = index
     End Sub
-    Private Sub 瀏覽插件ToolStripMenuItem_Click(sender As Object, e As EventArgs) 
-        Dim explorer As New NukkitPluginExplorer(index)
+    Private Sub 瀏覽插件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 瀏覽插件ToolStripMenuItem.Click
+        Dim explorer As New PluginExplorer(GlobalModule.Manager.ServerEntityList.IndexOf(server))
         explorer.Show()
     End Sub
 
@@ -26,7 +23,6 @@
         End Try
     End Sub
     Sub LoadPlugins()
-        server = GlobalModule.Manager.ServerEntityList(index)
         PluginList.Items.Clear()
         For Each plugin In server.ServerPlugins
             PluginList.Items.Add(New ListViewItem(New String() {plugin.Name, plugin.Version, plugin.VersionDate.ToString, plugin.Path}))
@@ -41,9 +37,7 @@
         If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(server.ServerPath, "plugins")) = False Then
             My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(server.ServerPath, "plugins"))
         End If
+        BeginInvoke(New Action(Sub() LoadPlugins()))
     End Sub
 
-    Private Sub NukkitPluginManager_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        LoadPlugins()
-    End Sub
 End Class

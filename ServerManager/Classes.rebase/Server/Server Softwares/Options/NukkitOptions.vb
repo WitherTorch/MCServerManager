@@ -4,7 +4,11 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports YamlDotNet.Serialization
 Public Class NukkitOptions
+    Inherits AbstractSoftwareOptions
     Dim path As String
+    Public Overrides Function GetOptionsTitle() As String
+        Return "Nukkit 設定"
+    End Function
     Enum NukkitLanguageEnum
         English
         Chinese_Simplified
@@ -120,17 +124,13 @@ Public Class NukkitOptions
     Public Property Ambient_Spawn_Limits As Integer = 15
     <DisplayName("儲存玩家資料")> <DefaultValue(True)> <Category("一般")> <Description("玩家資料是否將儲存為 player/<玩家ID>.dat")>
     Public Property Save_Player_Data As Boolean = True
-    Private Sub New()
+    Private Sub CreateOptionsWithDefaultSetting(path As String)
+        Me.path = path
     End Sub
-    Friend Shared Function CreateOptionsWithDefaultSetting(path As String) As NukkitOptions
-        Dim op As New NukkitOptions
-        op.path = path
-        Return op
-    End Function
-    Friend Shared Function LoadOptions(filepath As String) As NukkitOptions
-        Dim nukkitOption As New NukkitOptions
+    Public Sub New(filepath As String)
+        MyBase.New(filepath)
         If IO.File.Exists(filepath) Then
-            With nukkitOption
+            With Me
                 Dim jsonObject As JObject
                 Try
                     Dim reader As New IO.StreamReader(New IO.FileStream(filepath, IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
@@ -205,12 +205,11 @@ Public Class NukkitOptions
                 .path = filepath
                 GC.Collect()
             End With
-            Return nukkitOption
         Else
-            Return CreateOptionsWithDefaultSetting(filepath)
+            CreateOptionsWithDefaultSetting(filepath)
         End If
-    End Function
-    Friend Sub SaveOption()
+    End Sub
+    Public Overrides Sub SaveOption()
         Dim jsonObject As JObject
         If IO.File.Exists(path) Then
             Try

@@ -74,7 +74,7 @@ Public Class SpigotServer
         task.Download(url, DownloadPath)
         Return task
     End Function
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Return SpigotVersionDict.Keys.ToArray
     End Function
 End Class

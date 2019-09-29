@@ -1,9 +1,9 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class ForgeModManager
+Partial Class PluginManager
     Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
-    <System.Diagnostics.DebuggerNonUserCode()>
+    <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,14 +20,15 @@ Partial Class ForgeModManager
     '注意: 以下為 Windows Form 設計工具所需的程序
     '可以使用 Windows Form 設計工具進行修改。
     '請勿使用程式碼編輯器進行修改。
-    <System.Diagnostics.DebuggerStepThrough()>
+    <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PluginManager))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.瀏覽模組ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.移除模組ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.瀏覽插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.移除插件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.重新整理ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ModList = New System.Windows.Forms.ListView()
+        Me.PluginList = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -38,7 +39,7 @@ Partial Class ForgeModManager
         'MenuStrip1
         '
         Me.MenuStrip1.BackColor = System.Drawing.Color.White
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.瀏覽模組ToolStripMenuItem, Me.移除模組ToolStripMenuItem, Me.重新整理ToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.瀏覽插件ToolStripMenuItem, Me.移除插件ToolStripMenuItem, Me.重新整理ToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(20, 60)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(760, 24)
@@ -50,17 +51,17 @@ Partial Class ForgeModManager
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(12, 20)
         '
-        '瀏覽模組ToolStripMenuItem
+        '瀏覽插件ToolStripMenuItem
         '
-        Me.瀏覽模組ToolStripMenuItem.Name = "瀏覽模組ToolStripMenuItem"
-        Me.瀏覽模組ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
-        Me.瀏覽模組ToolStripMenuItem.Text = "瀏覽模組"
+        Me.瀏覽插件ToolStripMenuItem.Name = "瀏覽插件ToolStripMenuItem"
+        Me.瀏覽插件ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.瀏覽插件ToolStripMenuItem.Text = "瀏覽插件"
         '
-        '移除模組ToolStripMenuItem
+        '移除插件ToolStripMenuItem
         '
-        Me.移除模組ToolStripMenuItem.Name = "移除模組ToolStripMenuItem"
-        Me.移除模組ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
-        Me.移除模組ToolStripMenuItem.Text = "移除模組"
+        Me.移除插件ToolStripMenuItem.Name = "移除插件ToolStripMenuItem"
+        Me.移除插件ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.移除插件ToolStripMenuItem.Text = "移除插件"
         '
         '重新整理ToolStripMenuItem
         '
@@ -68,21 +69,21 @@ Partial Class ForgeModManager
         Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
         Me.重新整理ToolStripMenuItem.Text = "重新整理"
         '
-        'ModList
+        'PluginList
         '
-        Me.ModList.Activation = System.Windows.Forms.ItemActivation.OneClick
-        Me.ModList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader4, Me.ColumnHeader2, Me.ColumnHeader3})
-        Me.ModList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ModList.GridLines = True
-        Me.ModList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.ModList.HideSelection = False
-        Me.ModList.Location = New System.Drawing.Point(20, 84)
-        Me.ModList.MultiSelect = False
-        Me.ModList.Name = "ModList"
-        Me.ModList.Size = New System.Drawing.Size(760, 346)
-        Me.ModList.TabIndex = 2
-        Me.ModList.UseCompatibleStateImageBehavior = False
-        Me.ModList.View = System.Windows.Forms.View.Details
+        Me.PluginList.Activation = System.Windows.Forms.ItemActivation.OneClick
+        Me.PluginList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader4, Me.ColumnHeader2, Me.ColumnHeader3})
+        Me.PluginList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PluginList.GridLines = True
+        Me.PluginList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.PluginList.HideSelection = False
+        Me.PluginList.Location = New System.Drawing.Point(20, 84)
+        Me.PluginList.MultiSelect = False
+        Me.PluginList.Name = "PluginList"
+        Me.PluginList.Size = New System.Drawing.Size(760, 346)
+        Me.PluginList.TabIndex = 1
+        Me.PluginList.UseCompatibleStateImageBehavior = False
+        Me.PluginList.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader1
         '
@@ -107,17 +108,18 @@ Partial Class ForgeModManager
         Me.ColumnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.ColumnHeader3.Width = 554
         '
-        'ForgeModManager
+        'BukkitPluginManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.ModList)
+        Me.Controls.Add(Me.PluginList)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Name = "ForgeModManager"
+        Me.Name = "BukkitPluginManager"
         Me.ShowIcon = False
-        Me.Text = "Forge 模組管理員"
+        Me.Text = "Bukkit 插件管理員"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -127,12 +129,12 @@ Partial Class ForgeModManager
 
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents 瀏覽模組ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 移除模組ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ModList As ListView
+    Friend WithEvents 瀏覽插件ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 移除插件ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PluginList As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
-    Friend WithEvents ColumnHeader4 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
+    Friend WithEvents 重新整理ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ColumnHeader4 As ColumnHeader
 End Class

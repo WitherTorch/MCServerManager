@@ -9,9 +9,9 @@ Imports YamlDotNet.Serialization
 Public Class ServerSetter
     Dim TaskList As New List(Of ServerTask)
     Dim ThreadTaskDictionary As New Dictionary(Of ServerTask, Timer)
-    Dim server As Server
-    Friend serverOptions As IServerOptions
-    Sub New(ByRef server As Server)
+    Dim server As ServerBase
+    Friend serverOptions As IServerProperties
+    Sub New(ByRef server As ServerBase)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
@@ -22,7 +22,7 @@ Public Class ServerSetter
     Sub SetUpdateInfo()
         BeginInvokeIfRequired(Me, Sub()
                                       Dim version As String = VersionLabel.Text
-                                      version = version.Replace("<ServerVersionType>", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
+                                      version = version.Replace("<ServerVersionType>", ServerMaker.SoftwareDictionary(server.GetInternalName).ReadableName)
                                       If server.CanUpdate Then
                                           version = version.Replace("<ServerVersionStatus>", "可更新")
                                       Else
@@ -34,216 +34,58 @@ Public Class ServerSetter
     Private Sub ServerSetter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MapPanel.Controls.Add(New MapView(server) With {.Dock = DockStyle.Fill})
         SetUpdateInfo()
-        If server.ServerVersionType = Server.EServerVersionType.Forge OrElse
-                server.ServerVersionType = Server.EServerVersionType.SpongeVanilla OrElse
-                server.ServerVersionType = Server.EServerVersionType.Nukkit OrElse
-                server.ServerVersionType = Server.EServerVersionType.VanillaBedrock OrElse
-                server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
-                server.ServerVersionType = Server.EServerVersionType.Akarin Then
-            UpdateButton.Enabled = server.CanUpdate
-        Else
-            Button2.Visible = False
-            UpdateButton.Visible = False
-            Button2.Enabled = False
-            UpdateButton.Enabled = False
-        End If
+        UpdateButton.Enabled = server.CanUpdate
         Task.Run(New Action(Sub()
-                                Select Case server.ServerType
-                                    Case Server.EServerType.Java
-                                        serverOptions = New JavaServerOptions
-                                        serverOptions.InputOption(server.ServerOptions)
-                                        BeginInvoke(Sub()
-                                                        AdvancedPropertyGrid.SelectedObject = serverOptions
-                                                        ServerMemoryMaxBox.Value = server.ServerMemoryMax
-                                                        ServerMemoryMinBox.Value = server.ServerMemoryMin
-                                                    End Sub)
-                                    Case Server.EServerType.Bedrock
-                                        Select Case server.ServerVersionType
-                                            Case Server.EServerVersionType.Nukkit
-                                                serverOptions = New NukkitServerOptions
-                                                serverOptions.InputOption(server.ServerOptions)
-                                                BeginInvoke(Sub()
-                                                                AdvancedPropertyGrid.SelectedObject = serverOptions
-                                                                ServerMemoryMaxBox.Value = server.ServerMemoryMax
-                                                                ServerMemoryMinBox.Value = server.ServerMemoryMin
-                                                            End Sub)
-                                            Case Server.EServerVersionType.VanillaBedrock
-                                                serverOptions = New VanillaBedrockServerOptions
-                                                serverOptions.InputOption(server.ServerOptions)
-                                                BeginInvoke(Sub()
-                                                                AdvancedPropertyGrid.SelectedObject = serverOptions
-                                                                GroupBox1.Enabled = False
-                                                            End Sub)
-                                            Case Server.EServerVersionType.PocketMine
-                                                serverOptions = New PocketMineServerOptions
-                                                serverOptions.InputOption(server.ServerOptions)
-                                                BeginInvoke(Sub()
-                                                                AdvancedPropertyGrid.SelectedObject = serverOptions
-                                                                GroupBox1.Enabled = False
-                                                            End Sub)
-                                        End Select
-                                End Select
+                                serverOptions = server.GetServerProperties
+                                BeginInvoke(Sub()
+                                                AdvancedPropertyGrid.SelectedObject = serverOptions
+                                                If (TypeOf server Is Memoryable) Then
+                                                    Dim _server As Memoryable = DirectCast(server, Memoryable)
+                                                    ServerMemoryMaxBox.Value = _server.ServerMemoryMax
+                                                    ServerMemoryMinBox.Value = _server.ServerMemoryMin
+                                                End If
+                                            End Sub)
                             End Sub))
-        If server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
-            server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
-            server.ServerVersionType = Server.EServerVersionType.Paper OrElse
-            server.ServerVersionType = Server.EServerVersionType.Akarin Then
+        Dim enablePlugins As Boolean = TypeOf server Is IBukkit
+        Dim enableMods As Boolean = TypeOf server Is IForge
+        If enablePlugins And enableMods Then
+            PluginManageButton.Enabled = True
+            PluginManageButton.Text = "管理插件/模組"
+        ElseIf enablePlugins Then
             PluginManageButton.Enabled = True
             PluginManageButton.Text = "管理插件"
-        ElseIf server.ServerVersionType = Server.EServerVersionType.Forge Then
+        ElseIf enableMods Then
             PluginManageButton.Enabled = True
             PluginManageButton.Text = "管理模組"
-        ElseIf server.ServerVersionType = Server.EServerVersionType.Nukkit Then
-            PluginManageButton.Enabled = True
-            PluginManageButton.Text = "管理插件"
-        ElseIf server.ServerVersionType = Server.EServerVersionType.PocketMine Then
-            PluginManageButton.Enabled = True
-            PluginManageButton.Text = "管理插件"
-        ElseIf server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
-                server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
-                server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
-                server.ServerVersionType = Server.EServerVersionType.Kettle Then
-            PluginManageButton.Enabled = True
-            PluginManageButton.Text = "管理插件/模組"
         Else
             PluginManageButton.Enabled = False
-            PluginManageButton.Text = "管理插件/模組"
+            PluginManageButton.Text = "無可用的附加元件介面"
         End If
         TaskList = server.ServerTasks.ToList
         For Each task In TaskList
             TaskListBox.SetItemChecked(TaskListBox.Items.Add(task.Name), task.Enabled)
         Next
-        Select Case server.ServerVersionType
-            Case Server.EServerVersionType.CraftBukkit
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim tab As New TabPage("Bukkit 設定")
-                tab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
+        Dim optionObjects As AbstractSoftwareOptions() = server.GetOptionObjects
+        If optionObjects IsNot Nothing AndAlso optionObjects.Count > 0 Then
+            AdvancedTabPage.Text = "伺服器主設定檔"
+            For Each _option In optionObjects
+                Dim tab As New TabPage(_option.GetOptionsTitle)
+                tab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = _option})
                 SettingTabControl.TabPages.Add(tab)
-            Case Server.EServerVersionType.Spigot
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim bukkitTab As New TabPage("Bukkit 設定")
-                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
-                SettingTabControl.TabPages.Add(bukkitTab)
-                Dim spigotTab As New TabPage("Spigot 設定")
-                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
-                SettingTabControl.TabPages.Add(spigotTab)
-            Case Server.EServerVersionType.Spigot_Git
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim bukkitTab As New TabPage("Bukkit 設定")
-                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
-                SettingTabControl.TabPages.Add(bukkitTab)
-                Dim spigotTab As New TabPage("Spigot 設定")
-                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
-                SettingTabControl.TabPages.Add(spigotTab)
-            Case Server.EServerVersionType.Paper
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim bukkitTab As New TabPage("Bukkit 設定")
-                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
-                SettingTabControl.TabPages.Add(bukkitTab)
-                Dim spigotTab As New TabPage("Spigot 設定")
-                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
-                SettingTabControl.TabPages.Add(spigotTab)
-                Dim paperTab As New TabPage("Paper 設定")
-                paperTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.PaperOptions})
-                SettingTabControl.TabPages.Add(paperTab)
-            Case Server.EServerVersionType.Akarin
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim bukkitTab As New TabPage("Bukkit 設定")
-                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
-                SettingTabControl.TabPages.Add(bukkitTab)
-                Dim spigotTab As New TabPage("Spigot 設定")
-                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
-                SettingTabControl.TabPages.Add(spigotTab)
-                Dim paperTab As New TabPage("Paper 設定")
-                paperTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.PaperOptions})
-                SettingTabControl.TabPages.Add(paperTab)
-                Dim akarinTab As New TabPage("Akarin 設定")
-                akarinTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.AkarinOptions})
-                SettingTabControl.TabPages.Add(akarinTab)
-            Case Server.EServerVersionType.Nukkit
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim nukkitTab As New TabPage("Nukkit 設定")
-                nukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.NukkitOptions})
-                SettingTabControl.TabPages.Add(nukkitTab)
-            Case Server.EServerVersionType.Cauldron
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim bukkitTab As New TabPage("Bukkit 設定")
-                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
-                SettingTabControl.TabPages.Add(bukkitTab)
-                Select Case server.ServerVersion
-                    Case "1.5.2"
-                        Dim cauldronTab As New TabPage("MCPC 設定")
-                        cauldronTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.CauldronOptions})
-                        SettingTabControl.TabPages.Add(cauldronTab)
-                    Case "1.6.4"
-                        Dim spigotTab As New TabPage("Spigot 設定")
-                        spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
-                        SettingTabControl.TabPages.Add(spigotTab)
-                        Dim cauldronTab As New TabPage("MCPC 設定")
-                        cauldronTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.CauldronOptions})
-                        SettingTabControl.TabPages.Add(cauldronTab)
-                    Case "1.7.2"
-                        Dim spigotTab As New TabPage("Spigot 設定")
-                        spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
-                        SettingTabControl.TabPages.Add(spigotTab)
-                        Dim cauldronTab As New TabPage("Cauldron 設定")
-                        cauldronTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.CauldronOptions})
-                        SettingTabControl.TabPages.Add(cauldronTab)
-                    Case "1.7.10"
-                        Dim cauldronTab As New TabPage("Cauldron 設定")
-                        cauldronTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.CauldronOptions})
-                        SettingTabControl.TabPages.Add(cauldronTab)
-                End Select
-            Case Server.EServerVersionType.Thermos
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim bukkitTab As New TabPage("Bukkit 設定")
-                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
-                SettingTabControl.TabPages.Add(bukkitTab)
-                Dim spigotTab As New TabPage("Spigot 設定")
-                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
-                SettingTabControl.TabPages.Add(spigotTab)
-                Dim cauldronTab As New TabPage("Cauldron 設定")
-                cauldronTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.CauldronOptions})
-                SettingTabControl.TabPages.Add(cauldronTab)
-            Case Server.EServerVersionType.Contigo
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim bukkitTab As New TabPage("Bukkit 設定")
-                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
-                SettingTabControl.TabPages.Add(bukkitTab)
-                Dim spigotTab As New TabPage("Spigot 設定")
-                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
-                SettingTabControl.TabPages.Add(spigotTab)
-                Dim cauldronTab As New TabPage("Cauldron 設定")
-                cauldronTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.CauldronOptions})
-                SettingTabControl.TabPages.Add(cauldronTab)
-            Case Server.EServerVersionType.Kettle
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim bukkitTab As New TabPage("Bukkit 設定")
-                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
-                SettingTabControl.TabPages.Add(bukkitTab)
-                Dim spigotTab As New TabPage("Spigot 設定")
-                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
-                SettingTabControl.TabPages.Add(spigotTab)
-            Case Server.EServerVersionType.PocketMine
-                AdvancedTabPage.Text = "伺服器主設定檔"
-                Dim pocketMineTab As New TabPage("PocketMine-MP 設定")
-                pocketMineTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.PocketMineOptions})
-                SettingTabControl.TabPages.Add(pocketMineTab)
-            Case Else
-                AdvancedTabPage.Text = "伺服器設定檔"
-        End Select
+            Next
+        End If
     End Sub
 
     Private Sub UpdateButton_Click(sender As Object, e As EventArgs) Handles UpdateButton.Click
         AddHandler server.ServerInfoUpdated, AddressOf Server_ServerInfoUpdated
-        AddHandler server.ServerUpdateStart, Sub() AddHandler server.ServerUpdating, AddressOf Server_ServerUpdating
-        AddHandler server.ServerUpdateEnd, Sub() RemoveHandler server.ServerUpdating, AddressOf Server_ServerUpdating
+        AddHandler server.ServerDownloadStart, Sub() AddHandler server.ServerDownloading, AddressOf Server_ServerUpdating
+        AddHandler server.ServerDownloadEnd, Sub() RemoveHandler server.ServerDownloading, AddressOf Server_ServerUpdating
         server.UpdateServer()
     End Sub
     Private Sub Server_ServerInfoUpdated()
         BeginInvokeIfRequired(Me, Sub()
                                       Dim version As String = "<ServerVersionType>：<ServerVersionStatus>"
-                                      version = version.Replace("<ServerVersionType>", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
+                                      version = version.Replace("<ServerVersionType>", ServerMaker.SoftwareDictionary(server.GetInternalName).ReadableName)
                                       If server.CanUpdate Then
                                           version = version.Replace("<ServerVersionStatus>", "可更新")
                                       Else
@@ -257,7 +99,7 @@ Public Class ServerSetter
     Friend Overloads Sub Server_ServerUpdating(percent As Integer)
         BeginInvokeIfRequired(Me, Sub()
                                       Dim version As String = "<ServerVersionType>：<ServerVersionStatus>"
-                                      version = version.Replace("<ServerVersionType>", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
+                                      version = version.Replace("<ServerVersionType>", ServerMaker.SoftwareDictionary(server.GetInternalName).ReadableName)
                                       version = version.Replace("<ServerVersionStatus>", "更新中 (" & percent & "%)")
                                       VersionLabel.Text = version
                                   End Sub)
@@ -265,9 +107,6 @@ Public Class ServerSetter
 
     Private Sub ServerSetter_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         server.ServerTasks = TaskList.ToArray
-        If IsNothing(serverOptions) = False Then
-            server.ServerOptions = serverOptions.OutputOption
-        End If
         Try
             server.SaveServer()
         Catch ex As Exception
@@ -295,28 +134,15 @@ Public Class ServerSetter
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles PluginManageButton.Click
-        Static addonManager As IManagerGUI
-
-        If server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
-            server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
-            server.ServerVersionType = Server.EServerVersionType.Paper OrElse
-            server.ServerVersionType = Server.EServerVersionType.Akarin Then
-            addonManager = New BukkitPluginManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
-            CType(addonManager, Form).Show()
-        ElseIf server.ServerVersionType = Server.EServerVersionType.Forge Then
-            addonManager = New ForgeModManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
-            CType(addonManager, Form).Show()
-        ElseIf server.ServerVersionType = Server.EServerVersionType.Nukkit Then
-            addonManager = New NukkitPluginManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
-            CType(addonManager, Form).Show()
-        ElseIf server.ServerVersionType = Server.EServerVersionType.PocketMine Then
-            addonManager = New PocketMinePluginManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
-            CType(addonManager, Form).Show()
-        ElseIf server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
-            server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
-            server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
-            server.ServerVersionType = Server.EServerVersionType.Kettle Then
+        Static addonManager As IAddonManagerGUI
+        If TypeOf server Is IBukkit AndAlso TypeOf server Is IForge Then
             addonManager = New HybridMPManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
+            CType(addonManager, Form).Show()
+        ElseIf TypeOf server Is IBukkit Then
+            addonManager = New PluginManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
+            CType(addonManager, Form).Show()
+        ElseIf TypeOf server Is IForge Then
+            addonManager = New ModManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
             CType(addonManager, Form).Show()
         End If
     End Sub
@@ -425,28 +251,32 @@ Public Class ServerSetter
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         AddHandler server.ServerInfoUpdated, AddressOf Server_ServerInfoUpdated
-        server.CheckForUpdate()
+        UpdateButton.Enabled = server.CanUpdate
     End Sub
 
     Private Sub MemoryMaxBox_ValueChanged(sender As Object, e As EventArgs) Handles ServerMemoryMaxBox.ValueChanged
-        server.ServerMemoryMax = ServerMemoryMaxBox.Value
-        If GlobalModule.Manager.Is32BitJava = True And GlobalModule.Manager.HasJava And ServerMemoryMaxBox.Value > 1024 Then
-            Label12.Text = "MB (記憶體過大)"
-            Label12.ForeColor = Color.Red
-        Else
-            Label12.Text = "MB"
-            Label12.ForeColor = Color.Black
+        If TypeOf server Is Memoryable Then
+            DirectCast(server, Memoryable).ServerMemoryMax = ServerMemoryMaxBox.Value
+            If GlobalModule.Manager.Is32BitJava = True And GlobalModule.Manager.HasJava And ServerMemoryMaxBox.Value > 1024 Then
+                Label12.Text = "MB (記憶體過大)"
+                Label12.ForeColor = Color.Red
+            Else
+                Label12.Text = "MB"
+                Label12.ForeColor = Color.Black
+            End If
         End If
     End Sub
 
     Private Sub MemoryMinBox_ValueChanged(sender As Object, e As EventArgs) Handles ServerMemoryMinBox.ValueChanged
-        server.ServerMemoryMin = ServerMemoryMinBox.Value
-        If GlobalModule.Manager.Is32BitJava = True And GlobalModule.Manager.HasJava And ServerMemoryMinBox.Value > 1024 Then
-            Label14.Text = "MB (記憶體過大)"
-            Label14.ForeColor = Color.Red
-        Else
-            Label14.Text = "MB"
-            Label14.ForeColor = Color.Black
+        If TypeOf server Is Memoryable Then
+            DirectCast(server, Memoryable).ServerMemoryMin = ServerMemoryMinBox.Value
+            If GlobalModule.Manager.Is32BitJava = True And GlobalModule.Manager.HasJava And ServerMemoryMinBox.Value > 1024 Then
+                Label14.Text = "MB (記憶體過大)"
+                Label14.ForeColor = Color.Red
+            Else
+                Label14.Text = "MB"
+                Label14.ForeColor = Color.Black
+            End If
         End If
     End Sub
 

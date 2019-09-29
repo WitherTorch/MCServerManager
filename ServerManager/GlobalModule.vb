@@ -6,8 +6,8 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.7 Alpha 6"
-    Public Const SERVER_MANAGER_ARCH As String = "Windows"
+    Public Const SERVER_MANAGER_VER As String = "1.7 Edge Alpha 1"
+    Public Const SERVER_MANAGER_ARCH As String = "Windows_Edge"
     Friend Manager As Manager
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
@@ -306,7 +306,7 @@ Module GlobalModule
     End Function
     Friend Function GetDeUnicodedText(text As String) As String
         ' "\u0000"
-        Dim regex As New Regex("(\\u[0-9a-f]{4}|[a-zA-z0-9])")
+        Dim regex As New Regex("(\\u[0-9a-fA-F]{4}|[a-zA-z0-9])")
         Dim result As String = ""
         For Each match As Match In regex.Matches(text)
             Try

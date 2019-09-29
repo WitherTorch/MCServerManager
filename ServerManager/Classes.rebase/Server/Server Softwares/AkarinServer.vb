@@ -131,7 +131,7 @@ Public Class AkarinServer
         Next
         Return Nothing
     End Function
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Dim result As New List(Of String)
         For Each item In AkarinVersionList
             Dim buildVer As String = item.Build.ToString

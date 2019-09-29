@@ -8,11 +8,11 @@
         spigotOptions = New SpigotOptions(IO.Path.Combine(ServerPath, "spigot.yml"))
         cauldronOptions = New CauldronOptions(IO.Path.Combine(ServerPath, "cauldron.yml"))
     End Sub
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Return {"1.7.10"}
     End Function
-    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
-        Return GetAvaillableVersions()
+    Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
+        Return GetAvailableVersions()
     End Function
     Friend Shared Shadows Sub GetVersionList()
     End Sub

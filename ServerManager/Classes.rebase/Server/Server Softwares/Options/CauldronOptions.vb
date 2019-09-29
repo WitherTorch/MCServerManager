@@ -9,6 +9,9 @@ Imports YamlDotNet.Serialization
 Public Class CauldronOptions
     Inherits AbstractSoftwareOptions
     Dim path As String
+    Public Overrides Function GetOptionsTitle() As String
+        Return "Cauldron 設定"
+    End Function
     Dim Config_Version As Integer = 1
 #Region "紀錄"
     <DisplayName("記錄實體碰撞")> <DefaultValue(False)> <Category("紀錄")> <Description("是否記錄實體碰撞/記量檢查。")>

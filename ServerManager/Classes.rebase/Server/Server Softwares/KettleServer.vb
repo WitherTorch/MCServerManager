@@ -119,11 +119,11 @@ Public Class KettleServer
         task.Download(KettleVersionDict(targetVersion).Item1, IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), KettleVersionDict(targetVersion).Item2))
         Return task
     End Function
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Return KettleVersionDict.Keys.ToArray
     End Function
-    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
-        Return GetAvaillableVersions()
+    Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
+        Return GetAvailableVersions()
     End Function
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key

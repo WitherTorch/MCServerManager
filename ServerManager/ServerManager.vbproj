@@ -250,28 +250,16 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Charcoal\IManagerGUI.vb" />
-    <Compile Include="Charcoal\NukkitPluginExplorer.Designer.vb">
-      <DependentUpon>NukkitPluginExplorer.vb</DependentUpon>
+    <Compile Include="Charcoal\PluginExplorer.Designer.vb">
+      <DependentUpon>PluginExplorer.vb</DependentUpon>
     </Compile>
-    <Compile Include="Charcoal\NukkitPluginExplorer.vb">
+    <Compile Include="Charcoal\PluginExplorer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Charcoal\BukkitPluginExplorer.Designer.vb">
-      <DependentUpon>BukkitPluginExplorer.vb</DependentUpon>
+    <Compile Include="Charcoal\PluginManager.Designer.vb">
+      <DependentUpon>PluginManager.vb</DependentUpon>
     </Compile>
-    <Compile Include="Charcoal\BukkitPluginExplorer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\NukkitPluginManager.Designer.vb">
-      <DependentUpon>NukkitPluginManager.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\NukkitPluginManager.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\BukkitPluginManager.Designer.vb">
-      <DependentUpon>BukkitPluginManager.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\BukkitPluginManager.vb">
+    <Compile Include="Charcoal\PluginManager.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Charcoal\CharcoalEngine.vb" />
@@ -281,16 +269,16 @@
     <Compile Include="Charcoal\DownloadVersionList.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Charcoal\ForgeModExplorer.Designer.vb">
-      <DependentUpon>ForgeModExplorer.vb</DependentUpon>
+    <Compile Include="Charcoal\ModExplorer.Designer.vb">
+      <DependentUpon>ModExplorer.vb</DependentUpon>
     </Compile>
-    <Compile Include="Charcoal\ForgeModExplorer.vb">
+    <Compile Include="Charcoal\ModExplorer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Charcoal\ForgeModManager.Designer.vb">
-      <DependentUpon>ForgeModManager.vb</DependentUpon>
+    <Compile Include="Charcoal\ModManager.Designer.vb">
+      <DependentUpon>ModManager.vb</DependentUpon>
     </Compile>
-    <Compile Include="Charcoal\ForgeModManager.vb">
+    <Compile Include="Charcoal\ModManager.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Charcoal\PluginListItem.Designer.vb">
@@ -307,15 +295,20 @@
     <Compile Include="Classes.rebase\Server\GetServerException.vb" />
     <Compile Include="Classes.rebase\Server\GetAvailableVersionsException.vb" />
     <Compile Include="Classes.rebase\Server\InternalSoftwareStartup.vb" />
+    <Compile Include="Classes.rebase\Server\ModpackServerBase.vb" />
     <Compile Include="Classes.rebase\Server\ProcessMessageHub.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\AkarinServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\BDSServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\CauldronServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\ContigoServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\CustomServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\ForgeServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\Interfaces\IBukkit.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\Interfaces\IForge.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\KettleServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\NukkitServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\PaperServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\PocketMineServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\SpigotWithGitServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\SpongeVanillaServer.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\ThermosServer.vb" />
@@ -339,16 +332,16 @@
     <Compile Include="Classes.rebase\Server\ServerMaker.vb" />
     <Compile Include="Classes.rebase\Server\Taskable.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\VanillaServer.vb" />
-    <Compile Include="Classes\Server\AkarinOptions.vb" />
-    <Compile Include="Classes\Server\BukkitOptions.vb" />
-    <Compile Include="Classes\Server\CauldronOptions.vb" />
-    <Compile Include="Classes\Server\AbstractSoftwareOptions.vb" />
-    <Compile Include="Classes\Server\NukkitOptions.vb" />
-    <Compile Include="Classes\Server\PaperOptions.vb" />
-    <Compile Include="Classes\Server\PocketMineOptions.vb" />
-    <Compile Include="Classes\Server\ServerOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\AkarinOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\BukkitOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\CauldronOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\AbstractSoftwareOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\NukkitOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\PaperOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\PocketMineOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\ServerOptions.vb" />
     <Compile Include="Classes\Server\ServerTask.vb" />
-    <Compile Include="Classes\Server\SpigotOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options\SpigotOptions.vb" />
     <Compile Include="Classes\Watchdog.vb" />
     <Compile Include="GUI\Intergrate Solution Server\SolutionCreateDialog.Designer.vb">
       <DependentUpon>SolutionCreateDialog.vb</DependentUpon>
@@ -434,12 +427,6 @@
     <Compile Include="GUI\Server\MapChangeForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Server\SpigotGitStatus.Designer.vb">
-      <DependentUpon>SpigotGitStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\SpigotGitStatus.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="GUI\SpigotGitBuildWindow.Designer.vb">
       <DependentUpon>SpigotGitBuildWindow.vb</DependentUpon>
     </Compile>
@@ -482,7 +469,6 @@
     <Compile Include="GUI\Server\MapView.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Classes\Server\Server.vb" />
     <Compile Include="GUI\Server\ServerConsole.Designer.vb">
       <DependentUpon>ServerConsole.vb</DependentUpon>
     </Compile>
@@ -590,26 +576,20 @@
     <EmbeddedResource Include="Charcoal\HybridMPManager.resx">
       <DependentUpon>HybridMPManager.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\NukkitPluginExplorer.resx">
-      <DependentUpon>NukkitPluginExplorer.vb</DependentUpon>
+    <EmbeddedResource Include="Charcoal\PluginExplorer.resx">
+      <DependentUpon>PluginExplorer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\BukkitPluginExplorer.resx">
-      <DependentUpon>BukkitPluginExplorer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\NukkitPluginManager.resx">
-      <DependentUpon>NukkitPluginManager.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\BukkitPluginManager.resx">
-      <DependentUpon>BukkitPluginManager.vb</DependentUpon>
+    <EmbeddedResource Include="Charcoal\PluginManager.resx">
+      <DependentUpon>PluginManager.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Charcoal\DownloadVersionList.resx">
       <DependentUpon>DownloadVersionList.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\ForgeModExplorer.resx">
-      <DependentUpon>ForgeModExplorer.vb</DependentUpon>
+    <EmbeddedResource Include="Charcoal\ModExplorer.resx">
+      <DependentUpon>ModExplorer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\ForgeModManager.resx">
-      <DependentUpon>ForgeModManager.vb</DependentUpon>
+    <EmbeddedResource Include="Charcoal\ModManager.resx">
+      <DependentUpon>ModManager.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Charcoal\PluginListItem.resx">
       <DependentUpon>PluginListItem.vb</DependentUpon>
@@ -655,9 +635,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Server\MapChangeForm.resx">
       <DependentUpon>MapChangeForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\SpigotGitStatus.resx">
-      <DependentUpon>SpigotGitStatus.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SpigotGitBuildWindow.resx">
       <DependentUpon>SpigotGitBuildWindow.vb</DependentUpon>
@@ -776,6 +753,7 @@
     <None Include="Resources\bukkit.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Classes.rebase\Server\Modpack Server Softwares\" />
     <Folder Include="GUI\Intergrate Solution Server\SubServer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

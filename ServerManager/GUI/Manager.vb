@@ -9,19 +9,8 @@ Imports Newtonsoft.Json.Linq
 Imports NoIP
 
 Public Class Manager
-    Friend ServerEntityList As New List(Of Server)
-    Dim VanillaGetVersionThread As Thread
-    Dim ForgeGetVersionThread As Thread
-    Dim SpigotGetVersionThread As Thread
-    Dim SpigotGitGetVersionThread As Thread
-    Dim VanillaBedrockGetVersionThread As Thread
-    Dim CraftBukkitGetVersionThread As Thread
-    Dim NukkitGetVersionThread As Thread
-    Dim SpongeVanillaGetVersionThread As Thread
-    Dim PaperGetVersionThread As Thread
-    Dim AkarinGetVersionThread As Thread
-    Dim KettleGetVersionThread As Thread
-    Dim PocketMineGetVersionThread As Thread
+    Friend ServerEntityList As New List(Of ServerBase)
+    Private ServerStatusList As New List(Of ServerStatus)
     Friend ServerPathList As New List(Of String)
     Friend BungeePathList As New List(Of String)
     Friend ModpackServerPathList As New List(Of String)
@@ -33,6 +22,7 @@ Public Class Manager
     Friend HasJava As Boolean = False
     Friend Is32BitJava As Boolean = True
     Friend Event CheckRequirement()
+    Friend LoaderThreads As New Dictionary(Of String, Thread)
     Public Sub New()
 
         ' 設計工具需要此呼叫。
@@ -42,582 +32,45 @@ Public Class Manager
 
     End Sub
 
-    Private Sub GetVanillaServerVersionList()
-        VanillaGetVersionThread = New Thread(Sub()
-                                                 VanillaVersionDict.Clear()
-                                                 Dim manifestListURL As String = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
-                                                 Try
-                                                     Dim client As New Net.WebClient()
-                                                     client.Encoding = System.Text.Encoding.UTF8
-                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "下載列表中..."))
-                                                     Dim docHtml = client.DownloadString(manifestListURL)
-                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "載入列表中..."))
-                                                     Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
-                                                     For Each jsonValue In jsonObject.GetValue("versions").ToObject(Of JArray)
-                                                         If jsonValue.Item("type").ToString() = "release" Then
-                                                             VanillaVersionDict.Add(jsonValue.Item("id").ToString(), jsonValue.Item("url").ToString())
-                                                             If (jsonValue.Item("id").ToString() = "1.2.2") Then
-                                                                 Exit For
-                                                             End If
-                                                         ElseIf jsonValue.Item("type").ToString() = "snapshot" Then
-                                                             VanillaVersionDict.Add(jsonValue.Item("id").ToString(), jsonValue.Item("url").ToString())
-                                                         End If
-                                                     Next
-                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "載入完成"))
-                                                 Catch ex As Exception
-                                                     BeginInvoke(New Action(Sub() VanillaLoadingLabel.Text = "原版(Java)：" & "(無)"))
-                                                 End Try
-                                             End Sub)
-        VanillaGetVersionThread.Name = "Vanilla GetVersion Thread"
-        VanillaGetVersionThread.IsBackground = True
-        VanillaGetVersionThread.Start()
-    End Sub
-    Private Sub GetCraftBukkitServerVersionList()
-        CraftBukkitGetVersionThread = New Thread(Sub()
-                                                     CraftBukkitVersionDict.Clear()
-                                                     Dim listURL As String = "https://getbukkit.org/download/craftbukkit"
-                                                     Try
-                                                         Dim client As New Net.WebClient()
-                                                         client.Encoding = System.Text.Encoding.UTF8
-                                                         BeginInvoke(New Action(Sub() CraftBukkitLoadingLabel.Text = "CraftBukkit：" & "下載列表中..."))
-                                                         Dim versionList = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectNodes("//div[4]/div[1]/div[1]/div[1]/*")
-                                                         BeginInvoke(New Action(Sub() CraftBukkitLoadingLabel.Text = "CraftBukkit：" & "載入列表中..."))
-                                                         For Each version In versionList
-                                                             CraftBukkitVersionDict.Add(version.SelectNodes("div[1]/div[1]/h2[1]")(0).InnerText, version.SelectSingleNode("div[1]/div[4]/div[2]/a[1]").GetAttributeValue("href", ""))
-                                                         Next
-                                                         BeginInvoke(New Action(Sub() CraftBukkitLoadingLabel.Text = "CraftBukkit：" & "載入完成"))
-                                                     Catch ex As Exception
-                                                         BeginInvoke(New Action(Sub() CraftBukkitLoadingLabel.Text = "CraftBukkit：" & "(無)"))
-                                                     End Try
-                                                 End Sub)
-        CraftBukkitGetVersionThread.Name = "CraftBukkit GetVersion Thread"
-        CraftBukkitGetVersionThread.IsBackground = True
-        CraftBukkitGetVersionThread.Start()
-    End Sub
-    Private Sub GetSpigotServerVersionList()
-        SpigotGetVersionThread = New Thread(Sub()
-
-                                                SpigotVersionDict.Clear()
-                                                Dim listURL As String = "https://getbukkit.org/download/spigot"
-                                                Try
-                                                    Dim client As New Net.WebClient()
-                                                    client.Encoding = System.Text.Encoding.UTF8
-                                                    BeginInvoke(New Action(Sub() SpigotLoadingLabel.Text = "Spigot：" & "下載列表中..."))
-                                                    Dim versionList = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectNodes("//div[4]/div[1]/div[1]/div[1]/*")
-                                                    BeginInvoke(New Action(Sub() SpigotLoadingLabel.Text = "Spigot：" & "載入列表中..."))
-                                                    For Each version In versionList
-                                                        SpigotVersionDict.Add(version.SelectNodes("div[1]/div[1]/h2[1]")(0).InnerText, version.SelectSingleNode("div[1]/div[4]/div[2]/a[1]").GetAttributeValue("href", ""))
-                                                    Next
-                                                    BeginInvoke(New Action(Sub() SpigotLoadingLabel.Text = "Spigot：" & "載入完成"))
-                                                Catch ex As Exception
-                                                    BeginInvoke(New Action(Sub() SpigotLoadingLabel.Text = "Spigot：" & "(無)"))
-                                                End Try
-                                            End Sub)
-        SpigotGetVersionThread.Name = "Spigot GetVersion Thread"
-        SpigotGetVersionThread.IsBackground = True
-        SpigotGetVersionThread.Start()
-    End Sub
-    Private Sub GetSpigotGitServerVersionList()
-        SpigotGitGetVersionThread = New Thread(Sub()
-
-                                                   SpigotGitVersionList.Clear()
-                                                   Dim listURL As String = "https://hub.spigotmc.org/versions/"
-                                                   Try
-                                                       Dim client As New Net.WebClient()
-                                                       client.Encoding = System.Text.Encoding.UTF8
-                                                       BeginInvoke(New Action(Sub() SpigotGitLoadingLabel.Text = "Spigot (Git 手動組建)：" & "下載列表中..."))
-                                                       Dim versionList = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectNodes("/html[1]/body[1]/pre[1]/a")
-                                                       BeginInvoke(New Action(Sub() SpigotGitLoadingLabel.Text = "Spigot (Git 手動組建)：" & "載入列表中..."))
-                                                       For Each version In versionList
-                                                           Dim versionText As String = version.InnerText
-                                                           If versionText.EndsWith(".json") Then
-                                                               versionText = versionText.Substring(0, versionText.Length - 5)
-                                                               Dim versionRegex As New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*")
-                                                               If versionRegex.IsMatch(versionText) Then
-                                                                   If versionRegex.Match(versionText).Value = versionText Then
-                                                                       If versionText.Contains(".") Then
-                                                                           SpigotGitVersionList.Add(versionText)
-                                                                       End If
-                                                                   End If
-                                                               End If
-                                                           End If
-                                                       Next
-                                                       BeginInvoke(New Action(Sub() SpigotGitLoadingLabel.Text = "Spigot (Git 手動組建)：" & "載入完成"))
-                                                   Catch ex As Exception
-                                                       BeginInvoke(New Action(Sub() SpigotGitLoadingLabel.Text = "Spigot (Git 手動組建)：" & "(無)"))
-                                                   End Try
-                                                   SpigotGitVersionList = SpigotGitVersionList.OrderBy(Function(v As String) As Version
-                                                                                                           Return New Version(v)
-                                                                                                       End Function).ToList
-                                                   SpigotGitVersionList.Reverse()
-                                               End Sub)
-        SpigotGitGetVersionThread.Name = "Spigot for Git GetVersion Thread"
-        SpigotGitGetVersionThread.IsBackground = True
-        SpigotGitGetVersionThread.Start()
-    End Sub
-    Private Sub GetForgeServerVersionList()
-        ForgeGetVersionThread = New Thread(Sub()
-                                               ForgeVersionDict.Clear()
-                                               Dim manifestListURL As String = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml"
-                                               Try
-                                                   Dim client As New Net.WebClient()
-                                                   client.Encoding = System.Text.Encoding.UTF8
-                                                   BeginInvoke(New Action(Sub() ForgeLoadingLabel.Text = "Forge：" & "下載列表中..."))
-                                                   Dim docHtml = client.DownloadString(manifestListURL)
-                                                   BeginInvoke(New Action(Sub() ForgeLoadingLabel.Text = "Forge：" & "載入列表中..."))
-                                                   Dim xmlDocument = New XmlDocument()
-                                                   xmlDocument.Load(New IO.StringReader(docHtml))
-                                                   Dim tempDict As New Dictionary(Of Version, List(Of Version))
-                                                   Dim versionNodes = xmlDocument.SelectNodes("//metadata/versioning/versions/*")
-                                                   For Each versionNode As XmlNode In versionNodes
-                                                       Dim version As String = versionNode.InnerText
-                                                       Try
-                                                           Dim mcVersion As Version = New Version(version.Split(New Char() {"-"})(0))
-                                                           Dim forgeVersion As Version = New Version(version.Split(New Char() {"-"})(1))
-                                                           Dim versionList As List(Of Version)
-                                                           If tempDict.ContainsKey(mcVersion) Then
-                                                               versionList = tempDict(mcVersion)
-                                                           Else
-                                                               versionList = New List(Of Version)()
-                                                           End If
-                                                           versionList.Add(forgeVersion)
-                                                           If tempDict.ContainsKey(mcVersion) Then
-                                                               tempDict(mcVersion) = versionList
-                                                           Else
-                                                               tempDict.Add(mcVersion, versionList)
-                                                           End If
-                                                       Catch ex As Exception
-                                                       End Try
-                                                   Next
-                                                   For Each versionListPair In tempDict
-                                                       ForgeVersionDict.Add(versionListPair.Key, versionListPair.Value.Last)
-                                                   Next
-                                                   tempDict.Clear()
-                                                   tempDict = Nothing
-                                                   docHtml = Nothing
-                                                   client.Dispose()
-                                                   BeginInvoke(New Action(Sub() ForgeLoadingLabel.Text = "Forge：" & "載入完成"))
-                                               Catch ex As Exception
-
-                                                   BeginInvoke(New Action(Sub() ForgeLoadingLabel.Text = "Forge：" & "(無)"))
-                                               End Try
-                                           End Sub)
-        ForgeGetVersionThread.Name = "Forge GetVersion Thread"
-        ForgeGetVersionThread.IsBackground = True
-        ForgeGetVersionThread.Start()
-    End Sub
-    Private Sub GetNukkitServerVersionList()
-        NukkitGetVersionThread = New Thread(Sub()
-                                                NukkitVersion = ""
-                                                Dim manifestListURL As String = "https://ci.nukkitx.com/job/NukkitX/job/Nukkit/job/master/api/json"
-                                                Try
-                                                    Dim client As New Net.WebClient()
-                                                    client.Encoding = System.Text.Encoding.UTF8
-                                                    BeginInvoke(New Action(Sub() NukkitLoadingLabel.Text = "Nukkit：" & "下載列表中..."))
-                                                    Dim docHtml = client.DownloadString(manifestListURL)
-                                                    BeginInvoke(New Action(Sub() NukkitLoadingLabel.Text = "Nukkit：" & "載入列表中..."))
-                                                    Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
-                                                    Dim lastSuccessfulBuild = jsonObject.GetValue("lastSuccessfulBuild").ToObject(Of JObject)
-                                                    NukkitVersion = lastSuccessfulBuild.Item("number")
-                                                    NukkitVersionUrl = lastSuccessfulBuild.Item("url")
-                                                    docHtml = Nothing
-                                                    client.Dispose()
-                                                    BeginInvoke(New Action(Sub() NukkitLoadingLabel.Text = "Nukkit：" & "載入完成"))
-                                                Catch ex As Exception
-                                                    BeginInvoke(New Action(Sub() NukkitLoadingLabel.Text = "Nukkit：" & "(無)"))
-                                                End Try
-                                            End Sub)
-        NukkitGetVersionThread.Name = "Nukkit GetVersion Thread"
-        NukkitGetVersionThread.IsBackground = True
-        NukkitGetVersionThread.Start()
-    End Sub
-    Private Sub GetSpongeVanillaServerVersionList()
-        SpongeVanillaGetVersionThread = New Thread(Sub()
-                                                       Dim manifestListURL As String = "https://repo.spongepowered.org/maven/org/spongepowered/spongevanilla/maven-metadata.xml"
-                                                       Try
-                                                           Dim client As New Net.WebClient()
-                                                           client.Encoding = System.Text.Encoding.UTF8
-                                                           BeginInvoke(New Action(Sub() SpongeVanillaLoadingLabel.Text = "SpongeVanilla：" & "下載列表中..."))
-                                                           Dim docHtml = client.DownloadString(manifestListURL)
-                                                           BeginInvoke(New Action(Sub() SpongeVanillaLoadingLabel.Text = "SpongeVanilla：" & "載入列表中..."))
-                                                           Dim xmlDocument = New XmlDocument()
-                                                           xmlDocument.Load(New IO.StringReader(docHtml))
-                                                           Dim versionNodes = xmlDocument.SelectNodes("//metadata/versioning/versions/*")
-                                                           Dim versionList As New Dictionary(Of String, List(Of SpongeVersion))
-                                                           For Each versionNode As XmlNode In versionNodes
-                                                               Dim version As String = versionNode.InnerText
-                                                               Dim versionRegex1 As New Regex("[0-9.]{1,}-[0-9.]{1,}-(DEV|BETA)-[0-9]{1,4}") 'Dev/Beta Detect
-                                                               Dim versionRegex2 As New Regex("[0-9.]{1,}-[0-9.]{1,}-RC[0-9]{1,4}") 'RC Detect
-                                                               Dim versionRegex3 As New Regex("[0-9.]{1,}-[0-9.]{1,}") 'Release Detect
-                                                               Dim versionRegexIgnore As New Regex("[0-9.]{1,}-[0-9.]{1,}(DEV|BETA)-[0-9]{1,4}") 'Old Version(Official Doesn't Supported)
-                                                               If (versionRegex1.IsMatch(version) _
-                                                                   OrElse versionRegex2.IsMatch(version) _
-                                                                   OrElse versionRegex3.IsMatch(version)) _
-                                                                   And versionRegexIgnore.IsMatch(version) = False Then
-                                                                   If versionRegex1.IsMatch(version) Then
-                                                                       Dim match = versionRegex1.Match(version).Value
-                                                                       Dim versionData = match.Split("-")
-                                                                       Dim ChildVersionList As List(Of SpongeVersion)
-                                                                       If versionList.ContainsKey(versionData(0)) Then
-                                                                           ChildVersionList = versionList(versionData(0))
-                                                                       Else
-                                                                           ChildVersionList = New List(Of SpongeVersion)
-                                                                       End If
-                                                                       Select Case versionData(2)
-                                                                           Case "DEV"
-                                                                               ChildVersionList.Add(New SpongeVersion(match, versionData(0), versionData(1), SpongeVersionType.Dev, versionData(3)))
-                                                                           Case "BETA"
-                                                                               ChildVersionList.Add(New SpongeVersion(match, versionData(0), versionData(1), SpongeVersionType.Beta, versionData(3)))
-                                                                       End Select
-                                                                       versionList(versionData(0)) = ChildVersionList
-                                                                   ElseIf versionRegex2.IsMatch(version) Then
-                                                                       Dim match = versionRegex2.Match(version).Value
-                                                                       Dim versionData = match.Split("-")
-                                                                       Dim ChildVersionList As List(Of SpongeVersion)
-                                                                       If versionList.ContainsKey(versionData(0)) Then
-                                                                           ChildVersionList = versionList(versionData(0))
-                                                                       Else
-                                                                           ChildVersionList = New List(Of SpongeVersion)
-                                                                       End If
-                                                                       ChildVersionList.Add(New SpongeVersion(match, versionData(0), versionData(1), SpongeVersionType.RC, versionData(2).Substring(2)))
-                                                                       versionList(versionData(0)) = ChildVersionList
-                                                                   ElseIf versionRegex3.IsMatch(version) Then
-                                                                       Dim match = versionRegex3.Match(version).Value
-                                                                       Dim versionData = match.Split("-")
-                                                                       Dim ChildVersionList As List(Of SpongeVersion)
-                                                                       If versionList.ContainsKey(versionData(0)) Then
-                                                                           ChildVersionList = versionList(versionData(0))
-                                                                       Else
-                                                                           ChildVersionList = New List(Of SpongeVersion)
-                                                                       End If
-                                                                       ChildVersionList.Add(New SpongeVersion(match, versionData(0), versionData(1), SpongeVersionType.Release))
-                                                                       versionList(versionData(0)) = ChildVersionList
-                                                                   End If
-                                                               End If
-                                                           Next
-                                                           For Each keyValuePair In versionList
-                                                               If SpongeVanillaVersionList.ContainsKey(keyValuePair.Key) = False Then SpongeVanillaVersionList.Add(keyValuePair.Key, keyValuePair.Value.Max)
-                                                           Next
-                                                           docHtml = Nothing
-                                                           client.Dispose()
-                                                           BeginInvoke(New Action(Sub() SpongeVanillaLoadingLabel.Text = "SpongeVanilla：" & "載入完成"))
-                                                       Catch ex As Exception
-                                                           BeginInvoke(New Action(Sub() SpongeVanillaLoadingLabel.Text = "SpongeVanilla：" & "(無)"))
-                                                       End Try
-                                                   End Sub)
-        SpongeVanillaGetVersionThread.Name = "SpongeVanilla GetVersion Thread"
-        SpongeVanillaGetVersionThread.IsBackground = True
-        SpongeVanillaGetVersionThread.Start()
-    End Sub
-    Private Sub GetVanillaBedrockServerVersionList()
-        VanillaBedrockGetVersionThread = New Thread(Sub()
-                                                        VanillaBedrockVersion = Nothing
-                                                        Dim listURL As String = "https://minecraft.net/zh-hant/download/server/bedrock/"
-                                                        Try
-                                                            BeginInvoke(New Action(Sub() VanillaBedrockLoadingLabel.Text = "原版(基岩)：" & "下載列表中..."))
-                                                            Dim versionNode = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[3]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/a[1]")
-                                                            BeginInvoke(New Action(Sub() VanillaBedrockLoadingLabel.Text = "原版(基岩)：" & "載入列表中..."))
-                                                            Dim downloadLink As String = versionNode.GetAttributeValue("href", "")
-                                                            'bedrock-server-1.9.0.15.zip
-                                                            Dim regex As New Regex("[0-9]{1}.[0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2}")
-                                                            If regex.IsMatch(downloadLink) Then
-                                                                Dim versionString As String = regex.Match(downloadLink).Value
-                                                                VanillaBedrockVersion = New Version(versionString)
-                                                                BeginInvoke(New Action(Sub() VanillaBedrockLoadingLabel.Text = "原版(基岩)：" & "載入完成"))
-                                                            Else
-                                                                BeginInvoke(New Action(Sub() VanillaBedrockLoadingLabel.Text = "原版(基岩)：" & "(無)"))
-                                                            End If
-                                                        Catch ex As Exception
-                                                            BeginInvoke(New Action(Sub() VanillaBedrockLoadingLabel.Text = "原版(基岩)：" & "(無)"))
-                                                        End Try
-                                                    End Sub)
-        VanillaBedrockGetVersionThread.Name = "Bedrock Vanilla GetVersion Thread"
-        VanillaBedrockGetVersionThread.IsBackground = True
-        VanillaBedrockGetVersionThread.Start()
-    End Sub
-
-    Private Sub GetPaperServerVersionList()
-        PaperGetVersionThread = New Thread(Sub()
-                                               PaperVersionDict.Clear()
-                                               Dim manifestListURL As String = "https://papermc.io/api/v1/paper"
-                                               Try
-                                                   Dim client As New Net.WebClient()
-                                                   client.Encoding = System.Text.Encoding.UTF8
-                                                   BeginInvoke(New Action(Sub() PaperLoadingLabel.Text = "Paper：" & "下載列表中..."))
-                                                   Dim docHtml = client.DownloadString(manifestListURL)
-                                                   BeginInvoke(New Action(Sub() PaperLoadingLabel.Text = "Paper：" & "載入列表中..."))
-                                                   Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(docHtml)
-                                                   Dim versions As JArray = jsonObject.GetValue("versions")
-                                                   For Each version In versions
-                                                       Dim mcVersion As Version = Nothing
-                                                       If System.Version.TryParse(version, mcVersion) Then
-                                                           PaperVersionDict.Add(mcVersion, "https://papermc.io/api/v1/paper/" & version.ToString)
-                                                       End If
-                                                   Next
-                                                   docHtml = Nothing
-                                                   client.Dispose()
-                                                   BeginInvoke(New Action(Sub() PaperLoadingLabel.Text = "Paper：" & "載入完成"))
-                                               Catch ex As Exception
-                                                   BeginInvoke(New Action(Sub() PaperLoadingLabel.Text = "Paper：" & "(無)"))
-                                               End Try
-                                           End Sub)
-        PaperGetVersionThread.Name = "Paper GetVersion Thread"
-        PaperGetVersionThread.IsBackground = True
-        PaperGetVersionThread.Start()
-    End Sub
-    Private Sub GetAkarinServerVersionList()
-        AkarinGetVersionThread = New Thread(Sub()
-                                                AkarinVersionList.Clear()
-                                                Dim manifestListURL As String = "https://api.github.com/repos/Akarin-project/Akarin/branches"
-                                                Try
-                                                    Dim client As New Net.WebClient()
-                                                    client.Encoding = System.Text.Encoding.UTF8
-                                                    client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
-                                                    BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "下載列表中..."))
-                                                    Dim docHtml = client.DownloadString(manifestListURL)
-                                                    BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入列表中..."))
-                                                    Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
-                                                    For Each jsonObject As JObject In jsonArray
-                                                        Dim versionString As String = jsonObject.GetValue("name").ToString()
-                                                        If versionString.StartsWith("ver/") AndAlso Version.TryParse(versionString.Substring(4), New Version()) Then
-                                                            AkarinVersionList.Add(Version.Parse(versionString.Substring(4)))
-                                                        ElseIf versionString = "master" Then
-                                                            AkarinVersionList.Add(New Version(100, 100))
-                                                        End If
-                                                    Next
-                                                    AkarinVersionList.Sort()
-                                                    AkarinVersionList.Reverse()
-                                                    docHtml = Nothing
-                                                    client.Dispose()
-                                                    BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "載入完成"))
-                                                Catch ex As Exception
-                                                    BeginInvoke(New Action(Sub() AkarinLoadingLabel.Text = "Akarin：" & "(無)"))
-                                                End Try
-                                            End Sub)
-        AkarinGetVersionThread.Name = "Akarin GetVersion Thread"
-        AkarinGetVersionThread.IsBackground = True
-        AkarinGetVersionThread.Start()
-    End Sub
-    Private Sub GetKettleServerVersionList()
-        KettleGetVersionThread = New Thread(Sub()
-                                                KettleVersionDict.Clear()
-                                                Dim manifestListURL As String = "https://api.github.com/repos/KettleFoundation/Kettle/releases"
-                                                Try
-                                                    Dim client As New Net.WebClient()
-                                                    client.Encoding = System.Text.Encoding.UTF8
-                                                    client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
-                                                    BeginInvoke(New Action(Sub() KettleLoadingLabel.Text = "Kettle：" & "下載列表中..."))
-                                                    Dim docHtml = client.DownloadString(manifestListURL)
-                                                    BeginInvoke(New Action(Sub() KettleLoadingLabel.Text = "Kettle：" & "載入列表中..."))
-                                                    Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
-                                                    For Each jsonObject As JObject In jsonArray
-                                                        Try
-                                                            Dim name As String = ""
-                                                            jsonObject.TryGetValue("name", name)
-                                                            If name = "" Then Continue For
-                                                            name = name.Replace("Kettle ", "")
-                                                            Dim assets As JArray = Nothing
-                                                            jsonObject.TryGetValue("assets", assets)
-                                                            If assets IsNot Nothing AndAlso assets.Count > 1 Then
-                                                                For Each subJsonObject As JObject In assets
-                                                                    Dim regex As New Regex("kettle-git-HEAD-[0-9a-f]{7}-universal.jar", RegexOptions.IgnoreCase)
-                                                                    If regex.IsMatch(subJsonObject.GetValue("name")) AndAlso
-                                                                    regex.Match(subJsonObject.GetValue("name")).Value = subJsonObject.GetValue("name") Then
-                                                                        Dim url As String = subJsonObject.GetValue("browser_download_url")
-                                                                        If assets.Count = 2 Then
-                                                                            KettleVersionDict.Add(name, (url, subJsonObject.GetValue("name"), Nothing))
-                                                                        Else
-                                                                            For i As Integer = 2 To assets.Count - 1
-                                                                                If CType(assets(i), JObject).GetValue("name") = "libraries.zip" Then
-                                                                                    KettleVersionDict.Add(name, (url, subJsonObject.GetValue("name"), CType(assets(i), JObject).GetValue("browser_download_url")))
-                                                                                    Exit For
-                                                                                End If
-                                                                            Next
-                                                                            If KettleVersionDict.ContainsKey(name) = False Then KettleVersionDict.Add(name, (url, subJsonObject.GetValue("name"), Nothing))
-                                                                        End If
-                                                                    End If
-                                                                Next
-                                                            End If
-                                                        Catch ex As Exception
-
-                                                        End Try
-                                                    Next
-                                                    docHtml = Nothing
-                                                    client.Dispose()
-                                                    BeginInvoke(New Action(Sub() KettleLoadingLabel.Text = "Kettle：" & "載入完成"))
-                                                Catch ex As Exception
-                                                    BeginInvoke(New Action(Sub() KettleLoadingLabel.Text = "Kettle：" & "(無)"))
-                                                End Try
-                                            End Sub)
-        KettleGetVersionThread.Name = "Kettle GetVersion Thread"
-        KettleGetVersionThread.IsBackground = True
-        KettleGetVersionThread.Start()
-    End Sub
-    Private Sub GetPocketMineServerVersionList()
-        PocketMineGetVersionThread = New Thread(Sub()
-                                                    PocketMineVersionDict.Clear()
-                                                    Dim manifestListURL As String = "https://api.github.com/repos/pmmp/PocketMine-MP/releases"
-                                                    Try
-                                                        Dim client As New Net.WebClient()
-                                                        client.Encoding = System.Text.Encoding.UTF8
-                                                        client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
-                                                        BeginInvoke(New Action(Sub() PocketMineLoadingLabel.Text = "PocketMine-MP：" & "下載列表中..."))
-                                                        Dim docHtml = client.DownloadString(manifestListURL)
-                                                        BeginInvoke(New Action(Sub() PocketMineLoadingLabel.Text = "PocketMine-MP：" & "載入列表中..."))
-                                                        Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
-                                                        For Each jsonObject As JObject In jsonArray
-                                                            Try
-                                                                Dim tag_name As String = jsonObject.GetValue("tag_name")
-                                                                For Each subJsonObject As JObject In CType(jsonObject.GetValue("assets"), JArray)
-                                                                    If subJsonObject.GetValue("name") <> "PocketMine-MP.phar" Then
-                                                                        Continue For
-                                                                    End If
-                                                                    Dim url As String = subJsonObject.GetValue("browser_download_url")
-                                                                    PocketMineVersionDict.Add(tag_name, url)
-                                                                    Exit For
-                                                                Next
-                                                            Catch ex As Exception
-
-                                                            End Try
-                                                        Next
-                                                        docHtml = Nothing
-                                                        client.Dispose()
-                                                        BeginInvoke(New Action(Sub() PocketMineLoadingLabel.Text = "PocketMine-MP：" & "載入完成"))
-                                                    Catch ex As Exception
-                                                        BeginInvoke(New Action(Sub() PocketMineLoadingLabel.Text = "PocketMine-MP：" & "(無)"))
-                                                    End Try
-                                                End Sub)
-        PocketMineGetVersionThread.Name = "PocketMine GetVersion Thread"
-        PocketMineGetVersionThread.IsBackground = True
-        PocketMineGetVersionThread.Start()
-    End Sub
     Private Sub VersionListReloadButton_Click(sender As Object, e As EventArgs) Handles VersionListReloadButton.Click
         UpdateVersionLists()
     End Sub
     Private Sub UpdateVersionLists()
         If My.Computer.Network.IsAvailable Then
-            If IsNothing(VanillaGetVersionThread) = False AndAlso VanillaGetVersionThread.IsAlive = True Then
-                Try
-                    VanillaGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                VanillaGetVersionThread = Nothing
-            End If
-            If IsNothing(ForgeGetVersionThread) = False AndAlso ForgeGetVersionThread.IsAlive = True Then
-                Try
-                    ForgeGetVersionThread.Abort()
-                Catch ex As Exception
-                End Try
-                ForgeGetVersionThread = Nothing
-            End If
-            If IsNothing(SpigotGetVersionThread) = False AndAlso SpigotGetVersionThread.IsAlive = True Then
-                Try
-                    SpigotGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                SpigotGetVersionThread = Nothing
-            End If
-            If IsNothing(SpigotGitGetVersionThread) = False AndAlso SpigotGitGetVersionThread.IsAlive = True Then
-                Try
-                    SpigotGitGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                SpigotGitGetVersionThread = Nothing
-            End If
-            If IsNothing(CraftBukkitGetVersionThread) = False AndAlso CraftBukkitGetVersionThread.IsAlive = True Then
-                Try
-                    CraftBukkitGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                CraftBukkitGetVersionThread = Nothing
-            End If
-
-            If IsNothing(SpongeVanillaGetVersionThread) = False AndAlso SpongeVanillaGetVersionThread.IsAlive = True Then
-                Try
-                    SpongeVanillaGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                SpongeVanillaGetVersionThread = Nothing
-            End If
-            If IsNothing(PaperGetVersionThread) = False AndAlso PaperGetVersionThread.IsAlive = True Then
-                Try
-                    PaperGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                PaperGetVersionThread = Nothing
-            End If
-            If IsNothing(AkarinGetVersionThread) = False AndAlso AkarinGetVersionThread.IsAlive = True Then
-                Try
-                    AkarinGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                AkarinGetVersionThread = Nothing
-            End If
-            If IsNothing(KettleGetVersionThread) = False AndAlso KettleGetVersionThread.IsAlive = True Then
-                Try
-                    KettleGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                KettleGetVersionThread = Nothing
-            End If
-            If IsNothing(NukkitGetVersionThread) = False AndAlso NukkitGetVersionThread.IsAlive = True Then
-                Try
-                    NukkitGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                NukkitGetVersionThread = Nothing
-            End If
-            If IsNothing(VanillaBedrockGetVersionThread) = False AndAlso VanillaBedrockGetVersionThread.IsAlive = True Then
-                Try
-                    VanillaBedrockGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                VanillaBedrockGetVersionThread = Nothing
-            End If
-            If IsNothing(PocketMineGetVersionThread) = False AndAlso PocketMineGetVersionThread.IsAlive = True Then
-                Try
-                    PocketMineGetVersionThread.Abort()
-                Catch ex As Exception
-
-                End Try
-                PocketMineGetVersionThread = Nothing
-            End If
-            GetVanillaServerVersionList()
-            GetForgeServerVersionList()
-            GetSpigotServerVersionList()
-            GetSpigotGitServerVersionList()
-            GetCraftBukkitServerVersionList()
-            GetSpongeVanillaServerVersionList()
-            GetPaperServerVersionList()
-            GetAkarinServerVersionList()
-            GetKettleServerVersionList()
-            GetNukkitServerVersionList()
-            GetVanillaBedrockServerVersionList()
-            GetPocketMineServerVersionList()
+            For Each info In ServerMaker.SoftwareDictionary.Values
+                If VersionListLoader.HasVersionListFunction(info.ClassType) Then
+                    Dim thread As New Thread(Sub()
+                                                 Try
+                                                     VersionListLoader.LoadVersionList(info.ClassType)
+                                                     BeginInvokeIfRequired(LoaderListView, Sub() LoaderListView.Items.Add(info.ReadableName & "：" & "(載入完成)"))
+                                                 Catch ex As GetAvailableVersionsException
+                                                     BeginInvokeIfRequired(LoaderListView, Sub() LoaderListView.Items.Add(info.ReadableName & "：" & "(載入錯誤)"))
+                                                 Catch ex As Exception
+                                                     BeginInvokeIfRequired(LoaderListView, Sub() LoaderListView.Items.Add(info.ReadableName & "：" & "(錯誤)"))
+                                                 Finally
+                                                     LoaderThreads.Remove(info.InternalName)
+                                                 End Try
+                                                 GC.Collect()
+                                             End Sub)
+                    If LoaderThreads.ContainsKey(info.InternalName) Then
+                        Dim oldThread As Thread = LoaderThreads(info.InternalName)
+                        If oldThread.ThreadState = ThreadState.Running Then oldThread.Abort()
+                        oldThread = Nothing
+                        LoaderThreads(info.InternalName) = thread
+                    Else
+                        LoaderThreads.Add(info.InternalName, thread)
+                    End If
+                    thread.IsBackground = True
+                    thread.Start()
+                Else
+                    BeginInvokeIfRequired(LoaderListView, Sub() LoaderListView.Items.Add(info.ReadableName & "：" & "(無)"))
+                End If
+            Next
         Else
-            VanillaLoadingLabel.Text = "原版：" & "(無)"
-            ForgeLoadingLabel.Text = "Forge：" & "(無)"
-            SpigotLoadingLabel.Text = "Spigot：" & "(無)"
-            SpigotGitLoadingLabel.Text = "Spigot (Git 手動組建)：" & "(無)"
-            CraftBukkitLoadingLabel.Text = "CraftBukkit：" & "(無)"
-            SpongeVanillaLoadingLabel.Text = "SpongeVanilla：" & "(無)"
-            PaperLoadingLabel.Text = "Paper：" & "(無)"
-            AkarinLoadingLabel.Text = "Akarin：" & "(無)"
-            NukkitLoadingLabel.Text = "Nukkit：" & "(無)"
-            VanillaBedrockLoadingLabel.Text = "原版(基岩)：" & "(無)"
-            KettleLoadingLabel.Text = "Kettle：(無)"
+            For Each info In ServerMaker.SoftwareDictionary.Values
+                BeginInvokeIfRequired(LoaderListView, Sub() LoaderListView.Items.Add(info.ReadableName & "：" & "(無)"))
+            Next
         End If
-        GC.Collect()
     End Sub
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
         If CanEnabledUPnP Then
@@ -1145,13 +598,10 @@ Public Class Manager
         thread.Start()
     End Sub
 
-    Friend Sub AddServer(serverDirectory As String)
+    Friend Overloads Sub AddServer(serverDirectory As String)
         SyncLock Me
             If ServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then
                 Dim status As New ServerStatus(serverDirectory)
-                If status.Server.ServerVersionType = Server.EServerVersionType.Spigot_Git Then
-                    status = New SpigotGitStatus(status.Server)
-                End If
                 status.Dock = DockStyle.Fill
                 AddHandler status.ServerLoaded, Sub()
                                                     If status.InvokeRequired Then
@@ -1222,7 +672,89 @@ Public Class Manager
             End If
         End SyncLock
     End Sub
+    Friend Overloads Sub AddServer(server As ServerBase)
+        SyncLock Me
+            If ServerPathList.Contains(server.ServerPath) = False And IO.Directory.Exists(server.ServerPath) Then
+                Dim status As New ServerStatus(server)
+                status.Dock = DockStyle.Fill
+                AddHandler status.ServerLoaded, Sub()
+                                                    If status.InvokeRequired Then
+                                                        status.BeginInvoke(Sub() status.Update())
+                                                    Else
+                                                        status.Update()
+                                                    End If
+                                                    If ServerListPanel.InvokeRequired Then
+                                                        ServerListPanel.BeginInvoke(Sub()
+                                                                                        Dim index = ServerListPanel.RowStyles.Count
+                                                                                        ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                                                        ServerListPanel.Controls.Add(status, 0, index)
+                                                                                        ServerListPanel.Update()
+                                                                                    End Sub)
+                                                    Else
+                                                        Dim index = ServerListPanel.RowStyles.Count
+                                                        ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                        ServerListPanel.Controls.Add(status, 0, index)
+                                                    End If
+                                                End Sub
+                status.CheckRequirement()
+                status.LoadStatus()
+                ServerPathList.Add(server.ServerPath)
+                AddHandler status.DeleteServer, Sub(NoUI)
+                                                    If NoUI Then
+                                                        Try
+                                                            If IsNothing(status) = False Then
+                                                                status.CloseServer()
+                                                            End If
+                                                        Catch ex As Exception
+                                                        Finally
+                                                            BeginInvokeIfRequired(Me, Sub()
+                                                                                          Try
+                                                                                              ServerListPanel.Controls.Remove(status)
+                                                                                          Catch ex As Exception
+                                                                                          End Try
+                                                                                          If ServerPathList.Contains(status.Server.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
+                                                                                      End Sub)
+                                                        End Try
+                                                    Else
+                                                        Try
+                                                            Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
+                                                                Case MsgBoxResult.Yes
+                                                                    If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
+                                                                        My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                                                                    End If
+                                                                Case MsgBoxResult.Cancel
+                                                                    Exit Sub
+                                                            End Select
+                                                        Catch ex As Exception
+                                                        End Try
+                                                        Try
+                                                            ServerListPanel.Controls.Remove(status)
+                                                        Catch ex As Exception
+                                                        End Try
+                                                        If ServerPathList.Contains(status.Server.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
+                                                        If IsNothing(status) = False Then
+                                                            Try
+                                                                status.CloseServer()
+                                                            Catch ex As Exception
 
+                                                            End Try
+                                                        End If
+                                                    End If
+                                                End Sub
+            Else
+                For Each status In ServerStatusList
+                    If status.Server.ServerPath = server.ServerPath Then
+                        ServerEntityList.Remove(status.Server)
+                        status.Server = server
+                        status.LoadStatus()
+                        Exit For
+                    End If
+                Next
+            End If
+        End SyncLock
+    End Sub
     Friend Sub AddModpackServer(serverDirectory As String)
         SyncLock Me
             If ModpackServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then

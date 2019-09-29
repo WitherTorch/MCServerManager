@@ -26,6 +26,13 @@ Public Class VanillaServer
         MyBase.ReloadServer()
         GetOptions()
     End Sub
+    Public Overrides Function BeforeRunServer() As Boolean
+        If GlobalModule.Manager.HasJava = False Then
+            MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
+            Return False
+        End If
+        Return True
+    End Function
     Friend Shared Sub GetVersionList()
         VanillaVersionDict.Clear()
         Dim manifestListURL As String = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
@@ -49,20 +56,10 @@ Public Class VanillaServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Private _ServerOptions As JavaServerOptions
-    ''' <summary>
-    ''' 伺服器主設定檔(server.properties)
-    ''' </summary>
-    ''' <returns></returns>
-    Property ServerOptions As JavaServerOptions
-        Get
-            Return _ServerOptions
-        End Get
-        Protected Set(value As JavaServerOptions)
-            _ServerOptions = value
-        End Set
-    End Property
-
+    Private ServerOptions As JavaServerOptions
+    Public Overrides Function GetServerProperties() As IServerProperties
+        Return ServerOptions
+    End Function
     Protected Friend Overridable Sub GetOptions()
         If String.IsNullOrWhiteSpace(ServerPath) Then
             Dim serverOptions As New JavaServerOptions()
@@ -266,11 +263,11 @@ Public Class VanillaServer
         End Select
     End Sub
 
-    Public Overrides Function GetAvaillableVersions() As String()
+    Public Overrides Function GetAvailableVersions() As String()
         Return VanillaVersionDict.Keys.ToArray
     End Function
 
-    Public Overrides Function GetAvaillableVersions(ParamArray args() As (String, String)) As String()
+    Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
         Dim haveSnapshot As Boolean = True
         For Each arg In args
             Try
