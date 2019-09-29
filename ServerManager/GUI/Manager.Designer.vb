@@ -23,19 +23,19 @@ Partial Class Manager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
-        Dim ListViewItem4 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
-        Dim ListViewItem5 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
-        Dim ListViewItem6 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
-        Dim ListViewItem7 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
-        Dim ListViewItem8 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
-        Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
-        Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
-        Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
+        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("原版(Vanilla)")
+        Dim ListViewItem15 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Forge")
+        Dim ListViewItem16 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CraftBukkit")
+        Dim ListViewItem17 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Spigot")
+        Dim ListViewItem18 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("SpongeVanilla(Sponge in Vanilla)")
+        Dim ListViewItem19 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Paper")
+        Dim ListViewItem20 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Akarin")
+        Dim ListViewItem21 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("MCPC / Cauldron (無官網)")
+        Dim ListViewItem22 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
+        Dim ListViewItem23 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
+        Dim ListViewItem24 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
+        Dim ListViewItem25 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
+        Dim ListViewItem26 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New MetroFramework.Controls.MetroTabControl()
         Me.MainPage = New MetroFramework.Controls.MetroTabPage()
@@ -816,10 +816,10 @@ Partial Class Manager
         Me.ConnectionTabPage.HorizontalScrollbarBarColor = True
         Me.ConnectionTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.ConnectionTabPage.HorizontalScrollbarSize = 10
-        Me.ConnectionTabPage.Location = New System.Drawing.Point(4, 36)
+        Me.ConnectionTabPage.Location = New System.Drawing.Point(4, 38)
         Me.ConnectionTabPage.Name = "ConnectionTabPage"
         Me.ConnectionTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ConnectionTabPage.Size = New System.Drawing.Size(736, 425)
+        Me.ConnectionTabPage.Size = New System.Drawing.Size(736, 423)
         Me.ConnectionTabPage.TabIndex = 4
         Me.ConnectionTabPage.Text = "連接"
         Me.ConnectionTabPage.UseVisualStyleBackColor = True
@@ -1036,7 +1036,7 @@ Partial Class Manager
         Me.HostCheckList.FormattingEnabled = True
         Me.HostCheckList.Location = New System.Drawing.Point(50, 6)
         Me.HostCheckList.Name = "HostCheckList"
-        Me.HostCheckList.Size = New System.Drawing.Size(400, 40)
+        Me.HostCheckList.Size = New System.Drawing.Size(400, 22)
         Me.HostCheckList.TabIndex = 19
         '
         'Button5
@@ -1736,10 +1736,10 @@ Partial Class Manager
         Me.AboutPage.HorizontalScrollbarBarColor = True
         Me.AboutPage.HorizontalScrollbarHighlightOnWheel = False
         Me.AboutPage.HorizontalScrollbarSize = 10
-        Me.AboutPage.Location = New System.Drawing.Point(4, 38)
+        Me.AboutPage.Location = New System.Drawing.Point(4, 36)
         Me.AboutPage.Name = "AboutPage"
         Me.AboutPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AboutPage.Size = New System.Drawing.Size(736, 423)
+        Me.AboutPage.Size = New System.Drawing.Size(736, 425)
         Me.AboutPage.TabIndex = 5
         Me.AboutPage.Text = "關於"
         Me.AboutPage.UseVisualStyleBackColor = True
@@ -1759,7 +1759,7 @@ Partial Class Manager
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 417)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 419)
         Me.TableLayoutPanel4.TabIndex = 1
         '
         'GroupBox5
@@ -1769,7 +1769,7 @@ Partial Class Manager
         Me.GroupBox5.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox5.Location = New System.Drawing.Point(368, 3)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(359, 411)
+        Me.GroupBox5.Size = New System.Drawing.Size(359, 413)
         Me.GroupBox5.TabIndex = 5
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "各伺服器軟體官網(按兩下即可開啟)"
@@ -1781,48 +1781,48 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ServerSoftwareLinkList.Font = New System.Drawing.Font("微軟正黑體", 10.5!)
         Me.ServerSoftwareLinkList.HideSelection = False
-        ListViewItem1.Checked = True
-        ListViewItem1.StateImageIndex = 2
-        ListViewItem1.Tag = "https://www.minecraft.net/zh-hant/"
-        ListViewItem2.Checked = True
-        ListViewItem2.StateImageIndex = 3
-        ListViewItem2.Tag = "https://files.minecraftforge.net/"
-        ListViewItem3.StateImageIndex = 0
-        ListViewItem3.Tag = "https://bukkit.org/"
-        ListViewItem4.Checked = True
-        ListViewItem4.StateImageIndex = 1
-        ListViewItem4.Tag = "https://www.spigotmc.org/"
-        ListViewItem5.Checked = True
-        ListViewItem5.StateImageIndex = 4
-        ListViewItem5.Tag = "https://www.spongepowered.org/"
-        ListViewItem6.Checked = True
-        ListViewItem6.StateImageIndex = 5
-        ListViewItem6.Tag = "https://papermc.io/"
-        ListViewItem7.Checked = True
-        ListViewItem7.StateImageIndex = 6
-        ListViewItem7.Tag = "https://akarin.io/"
-        ListViewItem8.Checked = True
-        ListViewItem8.StateImageIndex = 9
-        ListViewItem9.Checked = True
-        ListViewItem9.StateImageIndex = 8
-        ListViewItem9.Tag = "https://cyberdynecc.github.io/Thermos/"
-        ListViewItem10.Checked = True
-        ListViewItem10.StateImageIndex = 10
-        ListViewItem10.Tag = "https://github.com/djoveryde/Contigo"
-        ListViewItem11.Checked = True
-        ListViewItem11.StateImageIndex = 11
-        ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem12.Checked = True
-        ListViewItem12.StateImageIndex = 7
-        ListViewItem12.Tag = "https://nukkitx.com/"
-        ListViewItem13.Checked = True
-        ListViewItem13.StateImageIndex = 12
-        ListViewItem13.Tag = "https://pmmp.io/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13})
+        ListViewItem14.Checked = True
+        ListViewItem14.StateImageIndex = 2
+        ListViewItem14.Tag = "https://www.minecraft.net/zh-hant/"
+        ListViewItem15.Checked = True
+        ListViewItem15.StateImageIndex = 3
+        ListViewItem15.Tag = "https://files.minecraftforge.net/"
+        ListViewItem16.StateImageIndex = 0
+        ListViewItem16.Tag = "https://bukkit.org/"
+        ListViewItem17.Checked = True
+        ListViewItem17.StateImageIndex = 1
+        ListViewItem17.Tag = "https://www.spigotmc.org/"
+        ListViewItem18.Checked = True
+        ListViewItem18.StateImageIndex = 4
+        ListViewItem18.Tag = "https://www.spongepowered.org/"
+        ListViewItem19.Checked = True
+        ListViewItem19.StateImageIndex = 5
+        ListViewItem19.Tag = "https://papermc.io/"
+        ListViewItem20.Checked = True
+        ListViewItem20.StateImageIndex = 6
+        ListViewItem20.Tag = "https://akarin.io/"
+        ListViewItem21.Checked = True
+        ListViewItem21.StateImageIndex = 9
+        ListViewItem22.Checked = True
+        ListViewItem22.StateImageIndex = 8
+        ListViewItem22.Tag = "https://cyberdynecc.github.io/Thermos/"
+        ListViewItem23.Checked = True
+        ListViewItem23.StateImageIndex = 10
+        ListViewItem23.Tag = "https://github.com/djoveryde/Contigo"
+        ListViewItem24.Checked = True
+        ListViewItem24.StateImageIndex = 11
+        ListViewItem24.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem25.Checked = True
+        ListViewItem25.StateImageIndex = 7
+        ListViewItem25.Tag = "https://nukkitx.com/"
+        ListViewItem26.Checked = True
+        ListViewItem26.StateImageIndex = 12
+        ListViewItem26.Tag = "https://pmmp.io/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem14, ListViewItem15, ListViewItem16, ListViewItem17, ListViewItem18, ListViewItem19, ListViewItem20, ListViewItem21, ListViewItem22, ListViewItem23, ListViewItem24, ListViewItem25, ListViewItem26})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
-        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 389)
+        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 391)
         Me.ServerSoftwareLinkList.StateImageList = Me.ServerSoftwareImageList
         Me.ServerSoftwareLinkList.TabIndex = 0
         Me.ServerSoftwareLinkList.UseCompatibleStateImageBehavior = False
@@ -1858,7 +1858,7 @@ Partial Class Manager
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(3, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(359, 411)
+        Me.Panel3.Size = New System.Drawing.Size(359, 413)
         Me.Panel3.TabIndex = 1
         '
         'LinkLabel2
@@ -1892,7 +1892,7 @@ Partial Class Manager
         Me.GroupBox4.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(3, 159)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(352, 244)
+        Me.GroupBox4.Size = New System.Drawing.Size(352, 246)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "使用的函式庫"
@@ -1906,7 +1906,7 @@ Partial Class Manager
         Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)", "DropDownControls (用於顯示群組項目)", "NBT_Library (用於解析NBT檔案)", "MetroFramework (提供圖形介面)"})
         Me.LibraryListBox.Location = New System.Drawing.Point(3, 19)
         Me.LibraryListBox.Name = "LibraryListBox"
-        Me.LibraryListBox.Size = New System.Drawing.Size(346, 222)
+        Me.LibraryListBox.Size = New System.Drawing.Size(346, 224)
         Me.LibraryListBox.TabIndex = 0
         '
         'Label10
@@ -1965,7 +1965,7 @@ Partial Class Manager
         'CheckingTimer
         '
         Me.CheckingTimer.Enabled = True
-        Me.CheckingTimer.Interval = 200
+        Me.CheckingTimer.Interval = 1500
         '
         'PerformanceCounter1
         '
