@@ -10,16 +10,16 @@ Public Class ModPackServerConsole
     Dim cmd As CMDForm
     Dim outputs As String = ""
     Dim isMessageUpdate As Boolean = False
-    Public ReadOnly Property Server As ModPackServer
+    Public ReadOnly Property ServerBase As ModPackServer
     Dim startInfo As ProcessStartInfo
-    Public Sub New(Server As ModPackServer)
+    Public Sub New(ServerBase As ModPackServer)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
-        _Server = Server
-        Text = "模組包伺服器控制台 - " & Server.ServerPathName
+        _Server = ServerBase
+        Text = "模組包伺服器控制台 - " & ServerBase.ServerPathName
     End Sub
 
 
@@ -61,18 +61,18 @@ Public Class ModPackServerConsole
         End If
     End Sub
     Friend Overloads Sub Run()
-        Select Case Server.PackType
+        Select Case ServerBase.PackType
             Case ModPackServer.ModPackType.FeedTheBeast
                 If IsUnixLikeSystem Then
-                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("/"), Server.ServerPath, Server.ServerPath & "/") & Server.ServerRunJAR), Server.ServerPath, True, True)
+                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, ServerBase.InternalJavaArguments & JavaArguments, IIf(ServerBase.ServerPath.EndsWith("/"), ServerBase.ServerPath, ServerBase.ServerPath & "/") & ServerBase.ServerRunJAR), ServerBase.ServerPath, True, True)
                 Else
-                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("\"), Server.ServerPath, Server.ServerPath & "\") & Server.ServerRunJAR), Server.ServerPath, True, True)
+                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, ServerBase.InternalJavaArguments & JavaArguments, IIf(ServerBase.ServerPath.EndsWith("\"), ServerBase.ServerPath, ServerBase.ServerPath & "\") & ServerBase.ServerRunJAR), ServerBase.ServerPath, True, True)
                 End If
             Case ModPackServer.ModPackType.CurseForge
                 If IsUnixLikeSystem Then
-                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("/"), Server.ServerPath, Server.ServerPath & "/") & Server.ServerRunJAR), Server.ServerPath, True, True)
+                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, ServerBase.InternalJavaArguments & JavaArguments, IIf(ServerBase.ServerPath.EndsWith("/"), ServerBase.ServerPath, ServerBase.ServerPath & "/") & ServerBase.ServerRunJAR), ServerBase.ServerPath, True, True)
                 Else
-                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, Server.InternalJavaArguments & JavaArguments, IIf(Server.ServerPath.EndsWith("\"), Server.ServerPath, Server.ServerPath & "\") & Server.ServerRunJAR), Server.ServerPath, True, True)
+                    Run(GetJavaPath(), String.Format("-server -Xmx{0}M -Xms{1}M {2} -jar ""{3}"" nogui", ModpackServerMemoryMax, ModpackServerMemoryMin, ServerBase.InternalJavaArguments & JavaArguments, IIf(ServerBase.ServerPath.EndsWith("\"), ServerBase.ServerPath, ServerBase.ServerPath & "\") & ServerBase.ServerRunJAR), ServerBase.ServerPath, True, True)
                 End If
         End Select
     End Sub
@@ -186,7 +186,7 @@ Public Class ModPackServerConsole
                                                              End Sub
         End If
         ServerStatusLabel.Text = "伺服器狀態：啟動"
-        Server.IsRunning = True
+        ServerBase.IsRunning = True
         backgroundProcess.EnableRaisingEvents = True
         AddHandler backgroundProcess.Exited, Sub(sender, e)
                                                  If IsDisposed = False Then
@@ -199,7 +199,7 @@ Public Class ModPackServerConsole
                                                                                    ForceCloseButton.Enabled = False
                                                                                End Sub)
                                                  End If
-                                                 Server.IsRunning = False
+                                                 ServerBase.IsRunning = False
                                                  backgroundProcess = Nothing
                                                  If IsDisposed = False Then
                                                      If CloseCheckBox.Checked Then
@@ -207,9 +207,9 @@ Public Class ModPackServerConsole
                                                      End If
                                                  End If
                                                  Console.WriteLine("Process Exited")
-                                                 Server.ProcessID = 0
+                                                 ServerBase.ProcessID = 0
                                              End Sub
-        If backgroundProcess IsNot Nothing Then Server.ProcessID = backgroundProcess.Id
+        If backgroundProcess IsNot Nothing Then ServerBase.ProcessID = backgroundProcess.Id
     End Sub
     Private Overloads Function PrepareStartInfo(program As String, args As String, serverDir As String, Optional nogui As Boolean = True, Optional UTF8Encoding As Boolean = False) As ProcessStartInfo
         If IsNothing(startInfo) Then
@@ -391,7 +391,7 @@ Public Class ModPackServerConsole
                                                      Try
                                                          MemoryLabel.Text = "占用記憶體：" & FitMemoryUnit(Process.GetProcessById(backgroundProcess.Id).WorkingSet64)
                                                          IDLabel.Text = "處理序ID：" & backgroundProcess.Id
-                                                         Dim maxPlayerCount As Integer = IIf(Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")), Server.ServerOptions("max-players"), 0)
+                                                         Dim maxPlayerCount As Integer = IIf(ServerBase.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(ServerBase.ServerOptions("max-players")), ServerBase.ServerOptions("max-players"), 0)
                                                          Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
                                                          If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
@@ -400,7 +400,7 @@ Public Class ModPackServerConsole
                                                      Try
                                                          MemoryLabel.Text = "占用記憶體：(無)"
                                                          IDLabel.Text = "處理序ID：(無)"
-                                                         Dim maxPlayerCount As Integer = IIf(Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")), Server.ServerOptions("max-players"), 0)
+                                                         Dim maxPlayerCount As Integer = IIf(ServerBase.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(ServerBase.ServerOptions("max-players")), ServerBase.ServerOptions("max-players"), 0)
                                                          Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
                                                          If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
@@ -438,10 +438,10 @@ Public Class ModPackServerConsole
                                                        backgroundProcess.WaitForExit()
                                                    End If
                                                End If
-                                               Server.IsRunning = False
-                                               Server.SaveServer()
+                                               ServerBase.IsRunning = False
+                                               ServerBase.SaveServer()
                                            End Sub) With {
-            .Name = "Server Manager Close Server Thread",
+            .Name = "ServerBase Manager Close ServerBase Thread",
             .IsBackground = True
                                                                      }
         thread.Start()
@@ -450,8 +450,8 @@ Public Class ModPackServerConsole
     Sub DisconnectUPnP()
         If GlobalModule.Manager.CanUPnP Then
             Try
-                If GlobalModule.Manager.ip.Contains(Server.ServerOptions("server-ip")) OrElse Server.ServerOptions("server-ip") = "" Then
-                    GlobalModule.Manager.upnpProvider.DestroyPort(Server.ServerOptions("server-port"))
+                If GlobalModule.Manager.ip.Contains(ServerBase.ServerOptions("server-ip")) OrElse ServerBase.ServerOptions("server-ip") = "" Then
+                    GlobalModule.Manager.upnpProvider.DestroyPort(ServerBase.ServerOptions("server-port"))
                 End If
             Catch ex As Exception
             End Try
@@ -460,8 +460,8 @@ Public Class ModPackServerConsole
     Sub ConnectUPnP()
         If GlobalModule.Manager.CanUPnP Then
             Try
-                If GlobalModule.Manager.ip.Contains(Server.ServerOptions("server-ip")) OrElse Server.ServerOptions("server-ip") = "" Then
-                    GlobalModule.Manager.upnpProvider.PortForward(Server.ServerOptions("server-port"), Server.ServerOptions("motd"))
+                If GlobalModule.Manager.ip.Contains(ServerBase.ServerOptions("server-ip")) OrElse ServerBase.ServerOptions("server-ip") = "" Then
+                    GlobalModule.Manager.upnpProvider.PortForward(ServerBase.ServerOptions("server-port"), ServerBase.ServerOptions("motd"))
                 End If
             Catch ex As Exception
             End Try

@@ -7,7 +7,7 @@ Public Class MapChangeForm
     Dim netherList As New Dictionary(Of String, String)
     Dim theEndList As New Dictionary(Of String, String)
     Dim isLoaded As Boolean = False
-    Dim server As Server
+    Dim server As ServerBase
     Friend view As MapView
     Sub New(mapView As MapView)
 
@@ -20,21 +20,21 @@ Public Class MapChangeForm
     End Sub
     Overloads Function SafeGetOption(optionName As String, defaultResult As Long) As Long
         Try
-            Return server.ServerOptions(optionName)
+            Return server.GetServerProperties.GetValue(optionName)
         Catch ex As Exception
             Return defaultResult
         End Try
     End Function
     Overloads Function SafeGetOption(optionName As String, defaultResult As String) As String
         Try
-            Return server.ServerOptions(optionName)
+            Return server.GetServerProperties.GetValue(optionName)
         Catch ex As Exception
             Return defaultResult
         End Try
     End Function
     Overloads Function SafeGetOption(optionName As String, defaultResult As Integer) As Integer
         Try
-            Return server.ServerOptions(optionName)
+            Return server.GetServerProperties.GetValue(optionName)
         Catch ex As Exception
             Return defaultResult
         End Try
@@ -49,15 +49,15 @@ Public Class MapChangeForm
                      Else
                          BeginInvokeIfRequired(Me, Sub() ListBox1.Items.Insert(0, String.Format("{0} ({1} *)", view.MapNameLabel.Text, view.MapNameLabel.Text)))
                          Select Case server.ServerType
-                             Case Server.EServerType.Java
+                             Case ServerBase.EServerType.Java
                                  newMap = (view.MapNameLabel.Text, SafeGetOption("level-seed", New Random().Next(Integer.MaxValue)), CInt([Enum].Parse(GetType(Java_Level_Type), SafeGetOption("level-type", "DEFAULT").ToUpper)), SafeGetOption("generator-settings", ""))
                                  hasNewMap = True
-                             Case Server.EServerType.Bedrock
+                             Case ServerBase.EServerType.Bedrock
                                  Select Case server.ServerVersionType
-                                     Case Server.EServerVersionType.Nukkit
+                                     Case ServerBase.EServerVersionType.Nukkit
                                          newMap = (view.MapNameLabel.Text, SafeGetOption("level-seed", New Random().Next(Integer.MaxValue)), CInt([Enum].Parse(GetType(Bedrock_Level_Type), SafeGetOption("level-type", "INFINITE").ToUpper)), SafeGetOption("generator-settings", ""))
                                          hasNewMap = True
-                                     Case Server.EServerVersionType.VanillaBedrock
+                                     Case ServerBase.EServerVersionType.VanillaBedrock
                                          Dim _Level_Type As Bedrock_Level_Type
                                          Select Case SafeGetOption("level-type", "DEFAULT").ToUpper
                                              Case "FLAT"
@@ -83,7 +83,7 @@ Public Class MapChangeForm
         End If
         Dim mapPathBase As String
         If server IsNot Nothing Then
-            If server.ServerType = Server.EServerType.Bedrock Then
+            If server.ServerType = ServerBase.EServerType.Bedrock Then
                 mapPathBase = server.ServerPath.TrimEnd(pathSeperator) & pathSeperator & "worlds" & pathSeperator
             Else
                 mapPathBase = server.ServerPath.TrimEnd(pathSeperator)
@@ -167,7 +167,7 @@ Public Class MapChangeForm
         If open.ShowDialog = DialogResult.OK Then
             If server IsNot Nothing Then
                 Dim mapPathBase As String = ""
-                If server.ServerType = Server.EServerType.Bedrock Then
+                If server.ServerType = ServerBase.EServerType.Bedrock Then
                     mapPathBase = server.ServerPath.TrimEnd(pathSeperator) & pathSeperator & "worlds" & pathSeperator
                 Else
                     mapPathBase = server.ServerPath.TrimEnd(pathSeperator)

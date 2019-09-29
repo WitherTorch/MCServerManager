@@ -2,7 +2,7 @@
 
 Public Class ModPackServerStatus
     Public Event DeleteServer(NoUI As Boolean)
-    Public ReadOnly Property Server As ModPackServer
+    Public ReadOnly Property ServerBase As ModPackServer
     Public Event ServerLoaded()
     Protected console As ModPackServerConsole
 
@@ -31,22 +31,22 @@ Public Class ModPackServerStatus
                      End If
                  End Sub)
         AddHandler _Server.ServerInfoUpdated, AddressOf UpdateComponent
-        AddHandler _Server.ServerIconUpdated, Sub() ServerIcon.Image = Server.ServerIcon
+        AddHandler _Server.ServerIconUpdated, Sub() ServerIcon.Image = ServerBase.ServerIcon
         System.Threading.Tasks.Task.Run(Sub()
                                             If Not (IsNothing(_Server) = False AndAlso _Server.PackType <> ModPackServer.ModPackType.Error) Then
                                                 RaiseEvent DeleteServer(True)
                                             Else
                                                 If InvokeRequired Then
                                                     BeginInvoke(Sub()
-                                                                    ServerName.Text = Server.ServerPathName
-                                                                    ServerIcon.Image = Server.ServerIcon
+                                                                    ServerName.Text = ServerBase.ServerPathName
+                                                                    ServerIcon.Image = ServerBase.ServerIcon
                                                                     RunButton.Enabled = False
                                                                     SetVersionLabel()
                                                                     ServerRunStatus.Text = "正在加載伺服器..."
                                                                 End Sub)
                                                 Else
-                                                    ServerName.Text = Server.ServerPathName
-                                                    ServerIcon.Image = Server.ServerIcon
+                                                    ServerName.Text = ServerBase.ServerPathName
+                                                    ServerIcon.Image = ServerBase.ServerIcon
                                                     RunButton.Enabled = False
                                                     SetVersionLabel()
                                                     ServerRunStatus.Text = "正在加載伺服器..."
@@ -67,10 +67,10 @@ Public Class ModPackServerStatus
         BeginInvokeIfRequired(Me, New Action(Sub()
 
 
-                                                 ServerIcon.Image = Server.ServerIcon
+                                                 ServerIcon.Image = ServerBase.ServerIcon
 
-                                                 ServerName.Text = Server.ServerPathName
-                                                 If Server.IsRunning Then
+                                                 ServerName.Text = ServerBase.ServerPathName
+                                                 If ServerBase.IsRunning Then
                                                      ServerRunStatus.Text = "啟動狀態：已啟動"
                                                      RunButton.Image = My.Resources.Stop32
                                                      ToolTip1.SetToolTip(RunButton, "停止伺服器")
@@ -88,10 +88,10 @@ Public Class ModPackServerStatus
                                              End Sub))
     End Sub
     Friend Overloads Sub SetVersionLabel()
-        PackInfo.Text = "模組包：" & Server.PackName
+        PackInfo.Text = "模組包：" & ServerBase.PackName
     End Sub
     Friend Overloads Sub SetVersionLabel(addtionText As String)
-        PackInfo.Text = "模組包：" & Server.PackName
+        PackInfo.Text = "模組包：" & ServerBase.PackName
         If addtionText <> "" Then
             PackInfo.Text &= (" " & addtionText)
         End If
@@ -105,7 +105,7 @@ Public Class ModPackServerStatus
             End If
         End If
         Try
-            Server.SaveServer()
+            ServerBase.SaveServer()
         Catch ex As Exception
         End Try
     End Sub
@@ -113,18 +113,18 @@ Public Class ModPackServerStatus
     Protected isOverrides As Boolean = False
     Protected Overridable Sub RunButton_Click(sender As Object, e As EventArgs) Handles RunButton.Click
         If isOverrides = False Then
-            If IO.Directory.Exists(Server.ServerPath) = False Then
+            If IO.Directory.Exists(ServerBase.ServerPath) = False Then
                 MsgBox("模組包伺服器的資料夾消失了...",, Application.ProductName)
             Else
                 If GlobalModule.Manager.HasJava = False Then
                     MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
                     Exit Sub
                 End If
-                Select Case Server.IsRunning
+                Select Case ServerBase.IsRunning
                     Case True
-                        If Server.ProcessID <> 0 Then
+                        If ServerBase.ProcessID <> 0 Then
                             Try
-                                Dim process As Process = Process.GetProcessById(Server.ProcessID)
+                                Dim process As Process = Process.GetProcessById(ServerBase.ProcessID)
                                 Dim thread As New Threading.Thread(Sub()
                                                                        If process IsNot Nothing Then
                                                                            If process.HasExited = False Then
@@ -135,15 +135,15 @@ Public Class ModPackServerStatus
                                                                                Catch ex As Exception
                                                                                End Try
                                                                                process.WaitForExit()
-                                                                               Server.ProcessID = 0
+                                                                               ServerBase.ProcessID = 0
                                                                            End If
-                                                                           Server.IsRunning = False
+                                                                           ServerBase.IsRunning = False
                                                                        End If
                                                                    End Sub)
                                 thread.IsBackground = True
                                 thread.Start()
                             Catch ex As Exception
-                                Server.IsRunning = False
+                                ServerBase.IsRunning = False
                             End Try
                         End If
                     Case False
@@ -151,11 +151,11 @@ Public Class ModPackServerStatus
                             console.Run()
                         Else
                             If IsNothing(console) Then
-                                console = New ModPackServerConsole(Server)
+                                console = New ModPackServerConsole(ServerBase)
                                 AddHandler console.FormClosed, Sub() UpdateComponent()
                             Else
                                 If console.IsDisposed Then
-                                    console = New ModPackServerConsole(Server)
+                                    console = New ModPackServerConsole(ServerBase)
                                     AddHandler console.FormClosed, Sub() UpdateComponent()
                                 End If
                             End If
@@ -174,10 +174,10 @@ Public Class ModPackServerStatus
     End Sub
 
     Private Sub ShowDirButton_Click(sender As Object, e As EventArgs) Handles ShowDirButton.Click
-        If IO.Directory.Exists(Server.ServerPath) = False Then
+        If IO.Directory.Exists(ServerBase.ServerPath) = False Then
             MsgBox("模組包伺服器的資料夾消失了...",, Application.ProductName)
         Else
-            Process.Start(Server.ServerPath)
+            Process.Start(ServerBase.ServerPath)
         End If
     End Sub
     Protected Overridable Sub ServerStatus_Load(sender As Object, e As EventArgs) Handles Me.Load

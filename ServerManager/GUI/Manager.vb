@@ -413,7 +413,7 @@ Public Class Manager
                                      End If
                                  End Sub)
         thread.IsBackground = False
-        thread.Name = "Minecraft Server Manager Update Thread"
+        thread.Name = "Minecraft ServerBase Manager Update Thread"
         thread.Start()
     End Sub
     Friend Overloads Sub GetJava(Optional notInStartup As Boolean = False)
@@ -638,16 +638,16 @@ Public Class Manager
                                                                                               ServerListPanel.Controls.Remove(status)
                                                                                           Catch ex As Exception
                                                                                           End Try
-                                                                                          If ServerPathList.Contains(status.Server.ServerPath) Then _
-                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
+                                                                                          If ServerPathList.Contains(status.ServerBase.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.ServerBase.ServerPath)
                                                                                       End Sub)
                                                         End Try
                                                     Else
                                                         Try
                                                             Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
                                                                 Case MsgBoxResult.Yes
-                                                                    If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
-                                                                        My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                                                                    If My.Computer.FileSystem.DirectoryExists(status.ServerBase.ServerPath) Then
+                                                                        My.Computer.FileSystem.DeleteDirectory(status.ServerBase.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
                                                                     End If
                                                                 Case MsgBoxResult.Cancel
                                                                     Exit Sub
@@ -658,8 +658,8 @@ Public Class Manager
                                                             ServerListPanel.Controls.Remove(status)
                                                         Catch ex As Exception
                                                         End Try
-                                                        If ServerPathList.Contains(status.Server.ServerPath) Then _
-                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
+                                                        If ServerPathList.Contains(status.ServerBase.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.ServerBase.ServerPath)
                                                         If IsNothing(status) = False Then
                                                             Try
                                                                 status.CloseServer()
@@ -712,16 +712,16 @@ Public Class Manager
                                                                                               ServerListPanel.Controls.Remove(status)
                                                                                           Catch ex As Exception
                                                                                           End Try
-                                                                                          If ServerPathList.Contains(status.Server.ServerPath) Then _
-                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
+                                                                                          If ServerPathList.Contains(status.ServerBase.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.ServerBase.ServerPath)
                                                                                       End Sub)
                                                         End Try
                                                     Else
                                                         Try
                                                             Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
                                                                 Case MsgBoxResult.Yes
-                                                                    If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
-                                                                        My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                                                                    If My.Computer.FileSystem.DirectoryExists(status.ServerBase.ServerPath) Then
+                                                                        My.Computer.FileSystem.DeleteDirectory(status.ServerBase.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
                                                                     End If
                                                                 Case MsgBoxResult.Cancel
                                                                     Exit Sub
@@ -732,8 +732,8 @@ Public Class Manager
                                                             ServerListPanel.Controls.Remove(status)
                                                         Catch ex As Exception
                                                         End Try
-                                                        If ServerPathList.Contains(status.Server.ServerPath) Then _
-                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
+                                                        If ServerPathList.Contains(status.ServerBase.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.ServerBase.ServerPath)
                                                         If IsNothing(status) = False Then
                                                             Try
                                                                 status.CloseServer()
@@ -745,9 +745,9 @@ Public Class Manager
                                                 End Sub
             Else
                 For Each status In ServerStatusList
-                    If status.Server.ServerPath = server.ServerPath Then
-                        ServerEntityList.Remove(status.Server)
-                        status.Server = server
+                    If status.ServerBase.ServerPath = server.ServerPath Then
+                        ServerEntityList.Remove(status.ServerBase)
+                        status.ServerBase = server
                         status.LoadStatus()
                         Exit For
                     End If
@@ -785,7 +785,7 @@ Public Class Manager
                                                     If NoUI Then
                                                         Try
                                                             If IsNothing(status) = False Then
-                                                                ModpackServerPathList.Remove(status.Server.ServerPath)
+                                                                ModpackServerPathList.Remove(status.ServerBase.ServerPath)
                                                                 status.CloseServer()
                                                             End If
                                                         Catch ex As Exception
@@ -794,8 +794,8 @@ Public Class Manager
                                                         Try
                                                             Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
                                                                 Case MsgBoxResult.Yes
-                                                                    If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
-                                                                        My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                                                                    If My.Computer.FileSystem.DirectoryExists(status.ServerBase.ServerPath) Then
+                                                                        My.Computer.FileSystem.DeleteDirectory(status.ServerBase.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
                                                                     End If
                                                                 Case MsgBoxResult.Cancel
                                                                     Exit Sub
@@ -808,7 +808,7 @@ Public Class Manager
                                                         End Try
                                                         If IsNothing(status) = False Then
                                                             Try
-                                                                ModpackServerPathList.Remove(status.Server.ServerPath)
+                                                                ModpackServerPathList.Remove(status.ServerBase.ServerPath)
                                                             Catch ex As Exception
                                                             End Try
                                                             Try
@@ -1190,7 +1190,7 @@ Public Class Manager
 
 
     Private Sub Manager_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        'Debug Server Problem Only!
+        'Debug ServerBase Problem Only!
         'TestForm = (New ServerCheckingForm(0))
         'TestForm.Show()
         If IsUnixLikeSystem Then

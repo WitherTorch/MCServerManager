@@ -95,8 +95,8 @@ Public Class SpigotOptions
     Public Property Outdated_client As String = "Outdated client! Please use {0}"
     <DisplayName("伺服端過舊的訊息")> <DefaultValue("Outdated server! I'm still on {0}")> <Category("伺服器訊息")> <Description("‎‎玩家因為伺服器版本過舊而無法進入時所顯示的訊息。‎")>
     Public Property Outdated_server As String = "Outdated server! I'm still on {0}"
-    <DisplayName("伺服端重啟的訊息")> <DefaultValue("Server is restarting")> <Category("伺服器訊息")> <Description("‎‎玩家因為伺服器重啟而被踢出時所顯示的訊息。‎")>
-    Public Property Restart As String = "Server is restarting"
+    <DisplayName("伺服端重啟的訊息")> <DefaultValue("ServerBase is restarting")> <Category("伺服器訊息")> <Description("‎‎玩家因為伺服器重啟而被踢出時所顯示的訊息。‎")>
+    Public Property Restart As String = "ServerBase is restarting"
 #End Region
 #Region "統計與進度"
     <DisplayName("停用保存統計資訊及成就(1.11 以下)")> <DefaultValue(False)> <Category("統計與進度")> <Description("‎‎伺服器是否不保存玩家的統計及成就(1.12以前)。‎")>

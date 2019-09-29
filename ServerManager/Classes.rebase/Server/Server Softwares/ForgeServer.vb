@@ -90,6 +90,12 @@ Public Class ForgeServer
     Public Function GetMods() As ServerAddons() Implements IForge.GetMods
         Return modLists.ToArray()
     End Function
+    Public Overridable Sub AddMod(_mod As ServerAddons) Implements IForge.AddMod
+        If modLists.Contains(_mod) = False Then modLists.Add(_mod)
+    End Sub
+    Public Overridable Sub RemoveMod(_mod As ServerAddons) Implements IForge.RemoveMod
+        If modLists.Contains(_mod) Then modLists.Remove(_mod)
+    End Sub
     Public Overrides Function CanUpdate() As Boolean
         If ForgeVersionDict.ContainsKey(New Version(ServerVersion)) Then
             Return New Version(Server2ndVersion) < ForgeVersionDict(New Version(ServerVersion))
@@ -186,10 +192,10 @@ Public Class ForgeServer
         Return "Forge"
     End Function
     Public Overrides Function GetServerFileName() As String
-        ' 1.1~1.2 > Server
+        ' 1.1~1.2 > ServerBase
         ' 1.3 ~ > Universal
         ' 1.13+ -> Nothing
-        ' 1.8.9 and 1.7.10 -> Server Version Twice
+        ' 1.8.9 and 1.7.10 -> ServerBase Version Twice
         If New Version(ServerVersion) >= New Version(1, 3) Then
             If New Version(ServerVersion) >= New Version(1, 13) Then
                 Return "forge-" & ServerVersion & "-" & Server2ndVersion & ".jar"

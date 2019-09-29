@@ -7,6 +7,8 @@ Public Class CauldronServer
     Implements IForge
     Protected modLists As New List(Of ServerAddons)
     Protected cauldronOptions As CauldronOptions
+    Sub New()
+    End Sub
     Public Sub LoadMods() Implements IForge.LoadMods
         modLists.Clear()
         Dim modPath = IO.Path.Combine(ServerPath, "mods")
@@ -89,6 +91,12 @@ Public Class CauldronServer
     Public Function GetMods() As ServerAddons() Implements IForge.GetMods
         Return modLists.ToArray()
     End Function
+    Public Overridable Sub AddMod(_mod As ServerAddons) Implements IForge.AddMod
+        If modLists.Contains(_mod) = False Then modLists.Add(_mod)
+    End Sub
+    Public Overridable Sub RemoveMod(_mod As ServerAddons) Implements IForge.RemoveMod
+        If modLists.Contains(_mod) Then modLists.Remove(_mod)
+    End Sub
     Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()
         Select Case ServerVersion
             Case "1.5.2"

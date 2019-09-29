@@ -1,8 +1,8 @@
 ﻿Public Class MapView
-    Friend _server As Server
+    Friend _server As ServerBase
     Friend createMap As CreateMap
 
-    Sub New(server As Server)
+    Sub New(server As ServerBase)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
@@ -19,45 +19,40 @@
             If mapChange.ListBox1.SelectedIndex = 0 Then
                 If mapChange.hasNewMap Then
                     MapNameLabel.Text = mapChange.newMap.Item1
-                    _server.ServerOptions("level-name") = mapChange.newMap.Item1
-                    _server.ServerOptions("level-seed") = mapChange.newMap.Item2
-                    _server.ServerOptions("generator-settings") = mapChange.newMap.Item4
-                    Select Case _server.ServerType
-                        Case Server.EServerType.Java
-                            _server.ServerOptions("level-type") = CType(mapChange.newMap.Item3, Java_Level_Type).ToString
-                        Case Server.EServerType.Bedrock
-                            Select Case _server.ServerVersionType
-                                Case Server.EServerVersionType.Nukkit
-                                    _server.ServerOptions("level-type") = CType(mapChange.newMap.Item3, Bedrock_Level_Type).ToString
-                                Case Server.EServerVersionType.VanillaBedrock
-                                    Select Case CType(mapChange.newMap.Item3, Bedrock_Level_Type)
-                                        Case Bedrock_Level_Type.FLAT
-                                            _server.ServerOptions("level-type") = "FLAT"
-                                        Case Bedrock_Level_Type.OLD
-                                            _server.ServerOptions("level-type") = "LEGACY"
-                                        Case Bedrock_Level_Type.INFINITE
-                                            _server.ServerOptions("level-type") = "DEFAULT"
-                                    End Select
-                            End Select
-                    End Select
+                    _server.GetServerProperties.SetValue("level-name", mapChange.newMap.Item1)
+                    _server.GetServerProperties.SetValue("level-seed", mapChange.newMap.Item2)
+                    _server.GetServerProperties.SetValue("generator-settings", mapChange.newMap.Item4)
+                    If TypeOf _server Is NukkitServer Then
+                        _server.GetServerProperties.SetValue("level-type", CType(mapChange.newMap.Item3, Bedrock_Level_Type).ToString)
+                    ElseIf TypeOf _server Is VanillaServer Then
+                        _server.GetServerProperties.SetValue("level-type", CType(mapChange.newMap.Item3, Java_Level_Type).ToString)
+                    ElseIf TypeOf _server Is BDSServer Then
+                        Select Case CType(mapChange.newMap.Item3, Bedrock_Level_Type)
+                            Case Bedrock_Level_Type.FLAT
+                                _server.GetServerProperties.SetValue("level-type", "FLAT")
+                            Case Bedrock_Level_Type.OLD
+                                _server.GetServerProperties.SetValue("level-type", "LEGACY")
+                            Case Bedrock_Level_Type.INFINITE
+                                _server.GetServerProperties.SetValue("level-type", "DEFAULT")
+                        End Select
+                    End If
                 Else
-                    _server.ServerOptions("level-name") = mapChange.mapList(0)
+                    _server.GetServerProperties.SetValue("level-name", mapChange.mapList(0))
                 End If
             Else
                 If mapChange.hasNewMap Then
-                    _server.ServerOptions("level-name") = mapChange.mapList(mapChange.ListBox1.SelectedIndex - 1)
+                    _server.GetServerProperties.SetValue("level-name", mapChange.mapList(mapChange.ListBox1.SelectedIndex - 1))
                 Else
-                    _server.ServerOptions("level-name") = mapChange.mapList(mapChange.ListBox1.SelectedIndex)
+                    _server.GetServerProperties.SetValue("level-name", mapChange.mapList(mapChange.ListBox1.SelectedIndex))
                 End If
             End If
             If mapChange.newMap.Item1.Trim <> "" Then
                 Try
-                    Select Case _server.ServerType
-                        Case Server.EServerType.Java
-                            ChangeIcon(IO.Path.Combine(_server.ServerPath, mapChange.newMap.Item1))
-                        Case Server.EServerType.Bedrock
-                            ChangeIcon(IO.Path.Combine(_server.ServerPath, "\world\", mapChange.newMap.Item1))
-                    End Select
+                    If TypeOf _server Is VanillaServer AndAlso TypeOf _server IsNot NukkitServer Then
+                        ChangeIcon(IO.Path.Combine(_server.ServerPath, mapChange.newMap.Item1))
+                    Else
+                        ChangeIcon(IO.Path.Combine(_server.ServerPath, "\world\", mapChange.newMap.Item1))
+                    End If
                 Catch ex As Exception
                 End Try
             End If
@@ -67,8 +62,8 @@
         Dim info As New IO.DirectoryInfo(path)
         If _server.ServerPath <> info.Parent.FullName Then
             Dim newPath As String
-            If _server.ServerVersionType = Server.EServerVersionType.Nukkit OrElse
-                _server.ServerVersionType = Server.EServerVersionType.VanillaBedrock Then
+            If TypeOf _server Is NukkitServer OrElse
+               TypeOf _server Is BDSServer Then
                 newPath = IO.Path.Combine(_server.ServerPath, "\worlds\" & info.Name)
             Else
                 newPath = IO.Path.Combine(_server.ServerPath, info.Name)
@@ -115,24 +110,21 @@
         ElseIf FindForm.GetType = GetType(ServerCreateDialog) AndAlso CType(FindForm(), ServerCreateDialog).serverOptions IsNot Nothing Then
             CType(FindForm(), ServerCreateDialog).serverOptions.SetValue("level-name", GetUnicodedText(newName))
         Else
-            _server.AddOrSetOption("level-name", GetUnicodedText(newName))
+            _server.GetServerProperties.SetValue("level-name", GetUnicodedText(newName))
         End If
-            Try
+        Try
             ChangeIcon(IO.Path.Combine(_server.ServerPath, newName))
         Catch ex As Exception
         End Try
         MapNameLabel.Text = newName
         If overwrite = True Then
-            If (_server.ServerVersionType = Server.EServerVersionType.Spigot) OrElse
-                    (_server.ServerVersionType = Server.EServerVersionType.CraftBukkit) OrElse
-                    (_server.ServerVersionType = Server.EServerVersionType.Paper) OrElse
-                (_server.ServerVersionType = Server.EServerVersionType.Akarin) Then
+            If TypeOf _server Is IBukkit Then
                 With My.Computer.FileSystem
-                    If .DirectoryExists(IO.Path.Combine(_server.ServerVersionType, newName & "_nether")) Then
-                        .DeleteDirectory(IO.Path.Combine(_server.ServerVersionType, newName & "_nether"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+                    If .DirectoryExists(IO.Path.Combine(_server.ServerPath, newName & "_nether")) Then
+                        .DeleteDirectory(IO.Path.Combine(_server.ServerPath, newName & "_nether"), FileIO.DeleteDirectoryOption.DeleteAllContents)
                     End If
-                    If .DirectoryExists(IO.Path.Combine(_server.ServerVersionType, newName & "_the_end")) Then
-                        .DeleteDirectory(IO.Path.Combine(_server.ServerVersionType, newName & "_the_end"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+                    If .DirectoryExists(IO.Path.Combine(_server.ServerPath, newName & "_the_end")) Then
+                        .DeleteDirectory(IO.Path.Combine(_server.ServerPath, newName & "_the_end"), FileIO.DeleteDirectoryOption.DeleteAllContents)
                     End If
                 End With
             End If
@@ -156,14 +148,14 @@
             ElseIf FindForm.GetType = GetType(ServerCreateDialog) AndAlso CType(FindForm(), ServerCreateDialog).serverOptions IsNot Nothing Then
                 CType(FindForm(), ServerCreateDialog).serverOptions.SetValue("level-seed", createMap.LevelSeedBox.Text)
             Else
-                CType(FindForm(), ServerCreateDialog).server.AddOrSetOption("level-seed", createMap.LevelSeedBox.Text)
+                CType(FindForm(), ServerCreateDialog).server.GetServerProperties.SetValue("level-seed", createMap.LevelSeedBox.Text)
             End If
             If FindForm.GetType = GetType(ServerSetter) Then
                 CType(FindForm(), ServerSetter).serverOptions.SetValue("level-type", _type.ToString.ToUpper)
             ElseIf FindForm.GetType = GetType(ServerCreateDialog) AndAlso CType(FindForm(), ServerCreateDialog).serverOptions IsNot Nothing Then
                 CType(FindForm(), ServerCreateDialog).serverOptions.SetValue("level-type", _type.ToString.ToUpper)
             Else
-                _server.AddOrSetOption("level-type", _type.ToString.ToUpper)
+                _server.GetServerProperties.SetValue("level-type", _type.ToString.ToUpper)
             End If
             If _type = Java_Level_Type.BUFFET OrElse (_type = Java_Level_Type.CUSTOMIZED AndAlso New Version(_server.ServerVersion) < New Version(1, 13)) OrElse (_type = Java_Level_Type.FLAT AndAlso New Version(_server.ServerVersion) >= New Version(1, 13)) Then
                 If FindForm.GetType = GetType(ServerSetter) Then
@@ -171,7 +163,7 @@
                 ElseIf FindForm.GetType = GetType(ServerCreateDialog) AndAlso CType(FindForm(), ServerCreateDialog).serverOptions IsNot Nothing Then
                     CType(FindForm(), ServerCreateDialog).serverOptions.SetValue("generator-settings", createMap.GeneratorSettingBox.Text)
                 Else
-                    _server.AddOrSetOption("generator-settings", createMap.GeneratorSettingBox.Text)
+                    _server.GetServerProperties.SetValue("generator-settings", createMap.GeneratorSettingBox.Text)
                 End If
             Else
                 If FindForm.GetType = GetType(ServerSetter) Then
@@ -179,7 +171,7 @@
                 ElseIf FindForm.GetType = GetType(ServerCreateDialog) AndAlso CType(FindForm(), ServerCreateDialog).serverOptions IsNot Nothing Then
                     CType(FindForm(), ServerCreateDialog).serverOptions.SetValue("generator-settings", "")
                 Else
-                    _server.AddOrSetOption("generator-settings", "")
+                    _server.GetServerProperties.SetValue("generator-settings", "")
                 End If
             End If
         Else
@@ -187,9 +179,6 @@
     End Sub
 
     Private Sub MapView_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If _server.ServerType <> Server.EServerType.Java OrElse _server.ServerType <> Server.EServerType.Bedrock Then
-
-        End If
         Dim mapName As String
         Try
             mapName = GetDeUnicodedText(TryGetKey(_server, "level-name", "world"))

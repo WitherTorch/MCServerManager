@@ -11,7 +11,7 @@ Module GlobalModule
     Friend Manager As Manager
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
-#Region "Server/Solution List"
+#Region "ServerBase/Solution List"
     Friend JavaServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"))
     Friend SolutionDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"))
     Friend ModpackServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"))
@@ -192,54 +192,6 @@ Module GlobalModule
             Return IIf(String.IsNullOrWhiteSpace(JavaPath) = False, IO.Path.Combine(JavaPath, "java.exe"), "java")
         End If
     End Function
-    Function GetSimpleVersionName(type As Server.EServerVersionType, Optional version As String = "") As String
-        Select Case type
-            Case Server.EServerVersionType.Vanilla
-                Return "原版(Java)"
-            Case Server.EServerVersionType.Forge
-                Return "Forge"
-            Case Server.EServerVersionType.Spigot
-                Return "Spigot"
-            Case Server.EServerVersionType.Spigot_Git
-                Return "Spigot (Git)"
-            Case Server.EServerVersionType.CraftBukkit
-                Return "CraftBukkit"
-            Case Server.EServerVersionType.SpongeVanilla
-                Return "SpongeVanilla"
-            Case Server.EServerVersionType.Paper
-                Return "Paper"
-            Case Server.EServerVersionType.Akarin
-                Return "Akarin"
-            Case Server.EServerVersionType.VanillaBedrock
-                Return "原版(基岩)"
-            Case Server.EServerVersionType.Nukkit
-                Return "NukkitX"
-            Case Server.EServerVersionType.Cauldron
-                If version <> "" Then
-                    If version = "1.5.2" OrElse version = "1.6.4" Then
-                        Return "MCPC"
-                    ElseIf version = "1.7.2" OrElse version = "1.7.10" Then
-                        Return "Cauldron"
-                    Else
-                        Return "Cauldron"
-                    End If
-                Else
-                    Return "Cauldron"
-                End If
-            Case Server.EServerVersionType.Thermos
-                Return "Thermos"
-            Case Server.EServerVersionType.Contigo
-                Return "Contigo"
-            Case Server.EServerVersionType.Kettle
-                Return "Kettle"
-            Case Server.EServerVersionType.PocketMine
-                Return "PocketMine-MP"
-            Case Server.EServerVersionType.Custom
-                Return "自定義伺服器"
-            Case Else
-                Return type.ToString
-        End Select
-    End Function
     Function ToZeroAndOne(bools As Boolean()) As String
         If bools IsNot Nothing AndAlso bools.Count > 0 Then
             Dim result As String = ""
@@ -375,9 +327,9 @@ Module GlobalModule
         Return input.PadLeft(4, "0")
 
     End Function
-    Public Function TryGetKey(Server As Server, arg As String, Optional defaultString As String = "") As String
+    Public Function TryGetKey(Server As ServerBase, arg As String, Optional defaultString As String = "") As String
         Try
-            Return Server.ServerOptions(arg)
+            Return Server.GetServerProperties.GetValue(arg)
         Catch ex As Exception
             Return defaultString
         End Try

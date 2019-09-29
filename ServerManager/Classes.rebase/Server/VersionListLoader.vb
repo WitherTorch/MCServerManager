@@ -10,6 +10,14 @@
             SoftwareVersionListFunction(type)()
         End If
     End Sub
+    Friend Shared Function GetVersions(index As Integer) As String()
+        Dim instance As ServerBase = Activator.CreateInstance(SoftwareVersionListFunction.Keys(index))
+        If ShowVanillaSnapshot Then
+            Return instance.GetAvailableVersions({("snapshot", True.ToString)})
+        Else
+            Return instance.GetAvailableVersions()
+        End If
+    End Function
     ''' <summary>
     ''' 註冊伺服器軟體的版本載入程式
     ''' </summary>

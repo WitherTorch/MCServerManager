@@ -10,10 +10,10 @@ Public Class ServerCheckingForm
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         Me.index = index
     End Sub
-    Friend Function check() As Server
+    Friend Function check() As ServerBase
         TextBox1.Clear()
-        Dim controlProperties As PropertyInfo() = GetType(Server).GetProperties(BindingFlags.[Public] Or BindingFlags.Instance)
-        Dim instance As Server = GlobalModule.Manager.ServerEntityList(index)
+        Dim controlProperties As PropertyInfo() = GetType(ServerBase).GetProperties(BindingFlags.[Public] Or BindingFlags.Instance)
+        Dim instance As ServerBase = GlobalModule.Manager.ServerEntityList(index)
         If instance Is Nothing Then TextBox1.AppendText("Nothing!") : Return Nothing
         For Each propInfo As PropertyInfo In controlProperties
             If propInfo.CanRead Then

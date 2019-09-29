@@ -1,5 +1,5 @@
 ﻿' Forge
-' 1.1~1.2 > Download Server
+' 1.1~1.2 > Download ServerBase
 ' 1.3~1.5.1 > Download Universal
 ' 1.5.2 ~ > Download Installer(*.jar)
 Imports Newtonsoft.Json

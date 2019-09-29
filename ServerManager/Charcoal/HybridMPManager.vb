@@ -1,6 +1,6 @@
 ﻿Public Class HybridMPManager
     Implements IAddonManagerGUI
-    Dim server As Server
+    Dim server As ServerBase
     Sub New(index As Integer)
 
         ' 設計工具需要此呼叫。
@@ -19,13 +19,13 @@
             Select Case PagesControl.SelectedIndex
                 Case 0
                     If PluginList.SelectedItems.Count > 0 Then
-                        server.ServerPlugins.RemoveAt(PluginList.SelectedIndices(0))
+                        DirectCast(server, IBukkit).RemovePlugin(DirectCast(server, IBukkit).GetPlugins(PluginList.SelectedIndices(0)))
                         My.Computer.FileSystem.DeleteFile(PluginList.SelectedItems(0).SubItems(2).Text)
                         PluginList.Items.Remove(PluginList.SelectedItems(0))
                     End If
                 Case 1
                     If ModList.SelectedItems.Count > 0 Then
-                        server.ServerMods.RemoveAt(ModList.SelectedIndices(0))
+                        DirectCast(server, IForge).RemoveMod(DirectCast(server, IForge).GetMods(ModList.SelectedIndices(0)))
                         My.Computer.FileSystem.DeleteFile(ModList.SelectedItems(0).SubItems(2).Text)
                         ModList.Items.Remove(ModList.SelectedItems(0))
                     End If
@@ -35,13 +35,13 @@
     End Sub
     Sub LoadPlugins()
         PluginList.Items.Clear()
-        For Each plugin In server.ServerPlugins
+        For Each plugin In DirectCast(server, IBukkit).GetPlugins
             PluginList.Items.Add(New ListViewItem(New String() {plugin.Name, plugin.Version, plugin.VersionDate.ToString, plugin.Path}))
         Next
     End Sub
     Sub LoadMods()
         ModList.Items.Clear()
-        For Each forgeMod In server.ServerMods
+        For Each forgeMod In DirectCast(server, IForge).GetMods
             ModList.Items.Add(New ListViewItem(New String() {forgeMod.Name, forgeMod.Version, forgeMod.VersionDate.ToString, forgeMod.Path}))
         Next
     End Sub
@@ -52,7 +52,7 @@
     End Sub
 
     Private Sub BukkitPluginManager_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.Text = Me.Text.Replace("Cauldron", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
+        Me.Text = Me.Text.Replace("Cauldron", ServerMaker.SoftwareDictionary(server.GetInternalName).ReadableName)
         If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(server.ServerPath, "plugins")) = False Then
             My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(server.ServerPath, "plugins"))
         End If

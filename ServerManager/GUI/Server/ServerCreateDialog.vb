@@ -5,21 +5,21 @@ Imports Newtonsoft.Json.Linq
 
 Public Class ServerCreateDialog
     Dim mapChooser As CreateMap
-    Friend server As Server = Server.CreateServer
+    Friend server As ServerBase
     Friend serverOptions As IServerProperties
     Dim ipType As ServerIPType = ServerIPType.Default
     Private Sub Version_SelectedIndexChanged(sender As Object, e As EventArgs) Handles VersionBox.SelectedIndexChanged, VersionTypeBox.SelectedIndexChanged
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
         If sender Is VersionBox Then
             Select Case server.ServerVersionType
-                Case Server.EServerVersionType.Forge
+                Case ServerBase.EServerVersionType.Forge
                     server.SetVersion(VersionBox.Text, ForgeVersionDict(New Version(VersionBox.Text)).ToString)
-                Case Server.EServerVersionType.SpongeVanilla
+                Case ServerBase.EServerVersionType.SpongeVanilla
                     Dim v = SpongeVanillaVersionList(VersionBox.Text)
                     server.SetVersion(VersionBox.Text, v.SpongeVersion.Major & "." & v.SpongeVersion.Minor & "." & v.SpongeVersion.Build, v.Build, v.SpongeVersionType)
-                Case Server.EServerVersionType.Paper
+                Case ServerBase.EServerVersionType.Paper
                     server.SetVersion(VersionBox.Text)
-                Case Server.EServerVersionType.Akarin
+                Case ServerBase.EServerVersionType.Akarin
                     If VersionBox.Text = "最新建置版本" Then
                         server.SetVersion("master")
                     Else
@@ -30,11 +30,11 @@ Public Class ServerCreateDialog
                             server.SetVersion(String.Format("{0}.{1}.{2}", splitedStrings(0), splitedStrings(1), splitedStrings(2)))
                         End If
                     End If
-                Case Server.EServerVersionType.Nukkit
+                Case ServerBase.EServerVersionType.Nukkit
                     server.SetVersion("1.0", NukkitVersion)
-                Case Server.EServerVersionType.VanillaBedrock
+                Case ServerBase.EServerVersionType.VanillaBedrock
                     server.SetVersion(VanillaBedrockVersion.ToString)
-                Case Server.EServerVersionType.Vanilla
+                Case ServerBase.EServerVersionType.Vanilla
                     Dim preReleaseRegex1 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
                     Dim preReleaseRegex2 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
                     Dim snapshotRegex As New Regex("[0-9]{2}w[0-9]{2}[a-z]{1}")
@@ -69,155 +69,7 @@ Public Class ServerCreateDialog
         If sender Is VersionTypeBox Then
             VersionBox.Items.Clear()
             VersionBox.Enabled = True
-            Select Case VersionTypeBox.SelectedIndex
-                Case 0
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Vanilla)
-                    For Each item In VanillaVersionDict.Keys
-                        Dim preReleaseRegex1 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
-                        Dim preReleaseRegex2 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
-                        Dim snapshotRegex As New Regex("[0-9]{2}w[0-9]{2}[a-z]{1}")
-                        If preReleaseRegex1.IsMatch(item) OrElse
-                                preReleaseRegex2.IsMatch(item) OrElse
-                            snapshotRegex.IsMatch(item) Then
-                            If ShowVanillaSnapshot Then VersionBox.Items.Add(item)
-                        Else
-                            VersionBox.Items.Add(item)
-                        End If
-                    Next
-                Case 1
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Forge)
-                    Dim keys = ForgeVersionDict.Keys.ToList
-                    keys.Sort()
-                    keys.Reverse()
-                    For Each version In keys
-                        VersionBox.Items.Add(version.ToString)
-                    Next
-                Case 2
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot)
-                    VersionBox.Items.AddRange(SpigotVersionDict.Keys.ToArray)
-                Case 3
-                    If IsUnixLikeSystem Then
-                        server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot_Git)
-                        VersionBox.Items.AddRange(SpigotGitVersionList.ToArray)
-                    Else
-                        If String.IsNullOrEmpty(GitBashPath) = False AndAlso IO.File.Exists(GitBashPath) Then
-                            server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Spigot_Git)
-                            VersionBox.Items.AddRange(SpigotGitVersionList.ToArray)
-                        Else
-                            MsgBox("尚未指定Git Bash的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
-                            VersionTypeBox.SelectedIndex = _typeSelectedIndex
-                            Exit Sub
-                        End If
-                    End If
-                Case 4
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.CraftBukkit)
-                    VersionBox.Items.AddRange(CraftBukkitVersionDict.Keys.ToArray)
-                Case 5
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Paper)
-                    Dim keys = PaperVersionDict.Keys.ToList
-                    keys.Sort()
-                    keys.Reverse()
-                    For Each version In keys
-                        VersionBox.Items.Add(version.ToString)
-                    Next
-                Case 6
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Akarin)
-                    For Each item In AkarinVersionList
-                        Dim buildVer As String = item.Build.ToString
-                        If buildVer = "-1" Then
-                            buildVer = "x"
-                        End If
-                        If item.Major = 100 And item.Minor = 100 Then
-                            VersionBox.Items.Add("最新建置版本")
-                        Else
-                            VersionBox.Items.Add(String.Format("{0}.{1}.{2}", item.Major, item.Minor, buildVer))
-                        End If
-                    Next
-                Case 7
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.SpongeVanilla)
-                    Dim l = SpongeVanillaVersionList.Keys.ToList
-                    l.Reverse()
-                    VersionBox.Items.AddRange(l.ToArray)
-                Case 8
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Cauldron)
-                    VersionBox.Items.AddRange({"1.7.10", "1.7.2", "1.6.4", "1.5.2"})
-                Case 9
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Thermos)
-                    VersionBox.Items.Add("1.7.10")
-                    VersionBox.SelectedIndex = 0
-                    VersionBox.Enabled = False
-                Case 10
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Contigo)
-                    VersionBox.Items.Add("1.7.10")
-                    VersionBox.SelectedIndex = 0
-                    VersionBox.Enabled = False
-                Case 11
-                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Kettle)
-                    VersionBox.Items.AddRange(KettleVersionDict.Keys.ToArray)
-                Case 12
-                    If Environment.OSVersion.Version.Major < 10 Then
-                        If IsUnixLikeSystem Then
-                            server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
-                            VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
-                        Else
-                            If String.IsNullOrEmpty(PHPPath) = False AndAlso IO.File.Exists(PHPPath) Then
-                                server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
-                                VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
-                            Else
-                                MsgBox("尚未指定PHP的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
-                                VersionTypeBox.SelectedIndex = _typeSelectedIndex
-                                Exit Sub
-                            End If
-                        End If
-                    Else
-                        server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.VanillaBedrock)
-                        VersionBox.Items.Add(String.Format("最新版 ({0})", VanillaBedrockVersion.ToString))
-                        VersionBox.SelectedIndex = 0
-                        VersionBox.Enabled = False
-                    End If
-                Case 13
-                    If Environment.OSVersion.Version.Major < 10 Then
-                        server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
-                        VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
-                        VersionBox.SelectedIndex = 0
-                        VersionBox.Enabled = False
-                    Else
-                        If IsUnixLikeSystem Then
-                            server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
-                            VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
-                        Else
-                            If String.IsNullOrEmpty(PHPPath) = False AndAlso IO.File.Exists(PHPPath) Then
-                                server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
-                                VersionBox.Items.AddRange(PocketMineVersionDict.Keys.ToArray)
-                            Else
-                                MsgBox("尚未指定PHP的位址!", MsgBoxStyle.OkOnly, Application.ProductName)
-                                VersionTypeBox.SelectedIndex = _typeSelectedIndex
-                                Exit Sub
-                            End If
-                        End If
-                    End If
-                Case 14
-                    If Environment.OSVersion.Version.Major < 10 Then
-                        server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
-                        VersionBox.Items.Add("(無)")
-                        VersionBox.SelectedIndex = 0
-                        VersionBox.Enabled = False
-                    Else
-                        server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
-                        VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
-                        VersionBox.SelectedIndex = 0
-                        VersionBox.Enabled = False
-                    End If
-                Case 15
-                    server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
-                    VersionBox.Items.Add("(無)")
-                    VersionBox.SelectedIndex = 0
-                    VersionBox.Enabled = False
-                Case Else
-                    server.SetVersionType(Server.EServerType.Error, Server.EServerVersionType.Error)
-                    VersionTypeBox.SelectedIndex = _typeSelectedIndex
-                    Exit Sub
-            End Select
+            VersionBox.Items.AddRange(VersionListLoader.GetVersions(VersionTypeBox.SelectedIndex))
             _typeSelectedIndex = VersionTypeBox.SelectedIndex
         End If
 
@@ -320,38 +172,38 @@ Public Class ServerCreateDialog
                 If VersionTypeBox.SelectedIndex <> -1 And VersionBox.SelectedIndex <> -1 Then
                     Dim mapView As MapView = MapPanel.Controls(0)
                     If mapView.MapNameLabel.Text <> "" Then
-                        server.SetPath(ServerDirBox.Text)
+                        server.ServerPath = ServerDirBox.Text
                         If serverOptions Is Nothing Then
                             Select Case server.ServerType
-                                Case Server.EServerType.Java
+                                Case ServerBase.EServerType.Java
                                     serverOptions = New JavaServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
-                                Case Server.EServerType.Bedrock
+                                Case ServerBase.EServerType.Bedrock
                                     Select Case server.ServerVersionType
-                                        Case Server.EServerVersionType.Nukkit
+                                        Case ServerBase.EServerVersionType.Nukkit
                                             serverOptions = New NukkitServerOptions
                                             serverOptions.InputOption(server.ServerOptions)
-                                        Case Server.EServerVersionType.PocketMine
+                                        Case ServerBase.EServerVersionType.PocketMine
                                             serverOptions = New PocketMineServerOptions
                                             serverOptions.InputOption(server.ServerOptions)
-                                        Case Server.EServerVersionType.VanillaBedrock
+                                        Case ServerBase.EServerVersionType.VanillaBedrock
                                             serverOptions = New BDSServerOptions
                                             serverOptions.InputOption(server.ServerOptions)
                                     End Select
-                                Case Server.EServerType.Custom
+                                Case ServerBase.EServerType.Custom
                                     serverOptions = New JavaServerOptions
                                     serverOptions.InputOption(server.ServerOptions)
                             End Select
                         End If
                         If serverOptions IsNot Nothing Then
-                            server.ServerOptions = serverOptions.OutputOption
+                            server.ServerOptions = serverOptions
                         End If
                         Select Case ipType
                             Case ServerIPType.Float
                                 Select Case server.ServerType
-                                    Case Server.EServerType.Java
+                                    Case ServerBase.EServerType.Java
                                         server.ServerOptions("server-ip") = ""
-                                    Case Server.EServerType.Bedrock
+                                    Case ServerBase.EServerType.Bedrock
                                         server.ServerOptions("server-ip") = "0.0.0.0"
                                 End Select
                             Case ServerIPType.Default
@@ -359,25 +211,9 @@ Public Class ServerCreateDialog
                             Case ServerIPType.Custom
                                 server.ServerOptions("server-ip") = IPAddressComboBox.Text
                         End Select
-                        If server.ServerVersionType = Server.EServerVersionType.Forge AndAlso CustomForgeVersion Then
-                            Dim chooser As New ForgeBranchChooser(server, ServerDirBox.Text)
-                            chooser.Show()
-                            Close()
-                        ElseIf server.ServerVersionType = Server.EServerVersionType.Custom Then
-                            Dim dialog As New OpenFileDialog()
-                            dialog.Title = "選擇伺服器軟體"
-                            dialog.Filter = "Java 程式(*.jar)|*.jar"
-                            If dialog.ShowDialog = DialogResult.OK AndAlso IO.File.Exists(dialog.FileName) Then
-                                server.CustomServerRunFile = dialog.FileName
-                                server.SaveServer()
-                                BeginInvokeIfRequired(GlobalModule.Manager, Sub() GlobalModule.Manager.AddServer(server.ServerPath))
-                                Close()
-                            End If
-                        Else
-                            Dim helper As New ServerCreateHelper(server, ServerDirBox.Text)
-                            helper.Show()
-                            Close()
-                        End If
+                        Dim helper As New ServerCreateHelper(server, ServerDirBox.Text)
+                        helper.Show()
+                        Close()
                     End If
                 End If
             End If
@@ -404,26 +240,26 @@ Public Class ServerCreateDialog
                 AdvancedPropertyGrid.SelectedObject = Nothing
             Case 1
                 Select Case server.ServerType
-                    Case Server.EServerType.Java
+                    Case ServerBase.EServerType.Java
                         serverOptions = New JavaServerOptions
                         serverOptions.InputOption(server.ServerOptions)
                         AdvancedPropertyGrid.SelectedObject = serverOptions
-                    Case Server.EServerType.Bedrock
+                    Case ServerBase.EServerType.Bedrock
                         Select Case server.ServerVersionType
-                            Case Server.EServerVersionType.Nukkit
+                            Case ServerBase.EServerVersionType.Nukkit
                                 serverOptions = New NukkitServerOptions
                                 serverOptions.InputOption(server.ServerOptions)
                                 AdvancedPropertyGrid.SelectedObject = serverOptions
-                            Case Server.EServerVersionType.PocketMine
+                            Case ServerBase.EServerVersionType.PocketMine
                                 serverOptions = New PocketMineServerOptions
                                 serverOptions.InputOption(server.ServerOptions)
                                 AdvancedPropertyGrid.SelectedObject = serverOptions
-                            Case Server.EServerVersionType.VanillaBedrock
+                            Case ServerBase.EServerVersionType.VanillaBedrock
                                 serverOptions = New BDSServerOptions
                                 serverOptions.InputOption(server.ServerOptions)
                                 AdvancedPropertyGrid.SelectedObject = serverOptions
                         End Select
-                    Case Server.EServerType.Custom
+                    Case ServerBase.EServerType.Custom
                         serverOptions = New JavaServerOptions
                         serverOptions.InputOption(server.ServerOptions)
                         AdvancedPropertyGrid.SelectedObject = serverOptions

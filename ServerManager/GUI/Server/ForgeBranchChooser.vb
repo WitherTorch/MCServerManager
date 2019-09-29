@@ -2,9 +2,9 @@
 
 Public Class ForgeBranchChooser
     Const manifestListURL As String = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml"
-    Dim server As Server
+    Dim server As ServerBase
     Dim serverPath As String
-    Public Sub New(server As Server, dir As String)
+    Public Sub New(server As ServerBase, dir As String)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()

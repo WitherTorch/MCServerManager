@@ -3,7 +3,7 @@
 Public Class ServerStatus
     Public Event DeleteServer(NoUI As Boolean)
     Dim _Server As ServerBase
-    Public Property Server As ServerBase
+    Public Property ServerBase As ServerBase
         Get
             Return _Server
         End Get
@@ -38,7 +38,7 @@ Public Class ServerStatus
     End Sub
     Friend Sub LoadStatus()
         AddHandler _Server.ServerInfoUpdated, AddressOf UpdateComponent
-        AddHandler _Server.ServerIconUpdated, Sub() ServerIcon.Image = Server.ServerIcon
+        AddHandler _Server.ServerIconUpdated, Sub() ServerIcon.Image = ServerBase.ServerIcon
         AddHandler _Server.ServerDownloadStart, Sub() SetVersionLabel(True)
         AddHandler _Server.ServerDownloading, Sub(progress) SetVersionLabel(True, progress)
         AddHandler _Server.ServerDownloadEnd, Sub() SetVersionLabel()
@@ -46,30 +46,30 @@ Public Class ServerStatus
         System.Threading.Tasks.Task.Run(Sub()
                                             If InvokeRequired Then
                                                 BeginInvoke(Sub()
-                                                                ServerName.Text = Server.ServerPathName
-                                                                ServerIcon.Image = Server.ServerIcon
+                                                                ServerName.Text = ServerBase.ServerPathName
+                                                                ServerIcon.Image = ServerBase.ServerIcon
                                                                 SettingButton.Enabled = False
                                                                 RunButton.Enabled = False
                                                                 SetVersionLabel()
                                                                 ServerRunStatus.Text = "正在加載伺服器..."
-                                                                If TypeOf Server.GetServerProperties Is JavaServerOptions Then
+                                                                If TypeOf ServerBase.GetServerProperties Is JavaServerOptions Then
                                                                     VersionTypeLabel.Text = "Java 版"
-                                                                ElseIf Server.GetServerProperties IsNot Nothing Then
+                                                                ElseIf ServerBase.GetServerProperties IsNot Nothing Then
                                                                     VersionTypeLabel.Text = "基岩版"
                                                                 Else
                                                                     VersionTypeLabel.Text = ""
                                                                 End If
                                                             End Sub)
                                             Else
-                                                ServerName.Text = Server.ServerPathName
-                                                    ServerIcon.Image = Server.ServerIcon
+                                                ServerName.Text = ServerBase.ServerPathName
+                                                    ServerIcon.Image = ServerBase.ServerIcon
                                                     SettingButton.Enabled = False
                                                     RunButton.Enabled = False
                                                     SetVersionLabel()
                                                     ServerRunStatus.Text = "正在加載伺服器..."
-                                                If TypeOf Server.GetServerProperties Is JavaServerOptions Then
+                                                If TypeOf ServerBase.GetServerProperties Is JavaServerOptions Then
                                                     VersionTypeLabel.Text = "Java 版"
-                                                ElseIf Server.GetServerProperties IsNot Nothing Then
+                                                ElseIf ServerBase.GetServerProperties IsNot Nothing Then
                                                     VersionTypeLabel.Text = "基岩版"
                                                 Else
                                                     VersionTypeLabel.Text = ""
@@ -89,10 +89,10 @@ Public Class ServerStatus
     Protected Overridable Sub UpdateComponent()
         BeginInvokeIfRequired(Me, New Action(Sub()
 
-                                                 ServerIcon.Image = Server.ServerIcon
+                                                 ServerIcon.Image = ServerBase.ServerIcon
 
-                                                 ServerName.Text = Server.ServerPathName
-                                                 If Server.IsRunning Then
+                                                 ServerName.Text = ServerBase.ServerPathName
+                                                 If ServerBase.IsRunning Then
                                                      ServerRunStatus.Text = "啟動狀態：已啟動"
                                                      SettingButton.Enabled = False
                                                      RunButton.Image = My.Resources.Stop32
@@ -110,14 +110,14 @@ Public Class ServerStatus
                                                  End If
                                                  CheckRequirement()
                                                  SetVersionLabel()
-                                                 If TypeOf Server.GetServerProperties Is JavaServerOptions Then
+                                                 If TypeOf ServerBase.GetServerProperties Is JavaServerOptions Then
                                                      VersionTypeLabel.Text = "Java 版"
-                                                 ElseIf Server.GetServerProperties IsNot Nothing Then
+                                                 ElseIf ServerBase.GetServerProperties IsNot Nothing Then
                                                      VersionTypeLabel.Text = "基岩版"
                                                  End If
                                                  If GlobalModule.Manager.CanUPnP Then
                                                      Try
-                                                         If GlobalModule.Manager.ip.Contains(Server.GetServerProperties.GetValue("server-ip")) OrElse Server.GetServerProperties.GetValue("server-ip") = "" Then
+                                                         If GlobalModule.Manager.ip.Contains(ServerBase.GetServerProperties.GetValue("server-ip")) OrElse ServerBase.GetServerProperties.GetValue("server-ip") = "" Then
                                                              UPnPStatusLabel.Text = "支援 UPnP"
                                                          Else
                                                              UPnPStatusLabel.Text = ""
@@ -130,26 +130,26 @@ Public Class ServerStatus
                                              End Sub))
     End Sub
     Friend Overloads Sub SetVersionLabel(Optional updating As Boolean = False, Optional updatingPercent As Integer = 0)
-        ServerVersion.Text = Server.GetSoftwareVersionString
+        ServerVersion.Text = ServerBase.GetSoftwareVersionString
         If updating Then
             ServerVersion.Text &= " [更新進度：" & updatingPercent & " %]"
         End If
     End Sub
     Friend Overloads Sub SetVersionLabel(addtionText As String)
-        ServerVersion.Text = Server.GetSoftwareVersionString
+        ServerVersion.Text = ServerBase.GetSoftwareVersionString
         If addtionText <> "" Then
             ServerVersion.Text &= " " & addtionText
         End If
     End Sub
     Private Sub SettingButton_Click(sender As Object, e As EventArgs) Handles SettingButton.Click
-        If IO.Directory.Exists(Server.ServerPath) = False Then
+        If IO.Directory.Exists(ServerBase.ServerPath) = False Then
             MsgBox("伺服器資料夾消失了...",, Application.ProductName)
         Else
             If IsNothing(setter) Then
-                setter = New ServerSetter(Server)
+                setter = New ServerSetter(ServerBase)
             Else
                 If setter.IsDisposed Then
-                    setter = New ServerSetter(Server)
+                    setter = New ServerSetter(ServerBase)
                 End If
             End If
             setter.Show()
@@ -158,26 +158,26 @@ Public Class ServerStatus
     Protected isOverrides As Boolean
     Protected Overridable Sub RunButton_Click(sender As Object, e As EventArgs) Handles RunButton.Click
         If isOverrides = False Then
-            If IO.Directory.Exists(Server.ServerPath) = False Then
+            If IO.Directory.Exists(ServerBase.ServerPath) = False Then
                 MsgBox("伺服器資料夾消失了...",, Application.ProductName)
             Else
-                Dim filename As String = Server.GetServerFileName
+                Dim filename As String = ServerBase.GetServerFileName
                 If String.IsNullOrEmpty(filename) = False AndAlso
                     String.IsNullOrWhiteSpace(filename) = False AndAlso
                     IO.File.Exists(filename) = False Then
                     Select Case MsgBox("找不到伺服器軟體，是否重新下載？", MsgBoxStyle.YesNo, Application.ProductName)
                         Case MsgBoxResult.Yes
-                            Server.DownloadAndInstallServer(Server.ServerVersion)
+                            ServerBase.DownloadAndInstallServer(ServerBase.ServerVersion)
                         Case MsgBoxResult.No
                             Exit Sub
                     End Select
                 End If
-                If Server.BeforeRunServer = False Then Exit Sub
-                Select Case Server.IsRunning
+                If ServerBase.BeforeRunServer = False Then Exit Sub
+                Select Case ServerBase.IsRunning
                     Case True
-                        If Server.ProcessID <> 0 Then
+                        If ServerBase.ProcessID <> 0 Then
                             Try
-                                Dim process As Process = Process.GetProcessById(Server.ProcessID)
+                                Dim process As Process = Process.GetProcessById(ServerBase.ProcessID)
                                 Dim thread As New Threading.Thread(Sub()
                                                                        If process IsNot Nothing Then
                                                                            If process.HasExited = False Then
@@ -192,15 +192,15 @@ Public Class ServerStatus
                                                                                Catch ex As Exception
                                                                                End Try
                                                                                process.WaitForExit()
-                                                                               Server.ProcessID = 0
+                                                                               ServerBase.ProcessID = 0
                                                                            End If
-                                                                           Server.IsRunning = False
+                                                                           ServerBase.IsRunning = False
                                                                        End If
                                                                    End Sub)
                                 thread.IsBackground = True
                                 thread.Start()
                             Catch ex As Exception
-                                Server.IsRunning = False
+                                ServerBase.IsRunning = False
                             End Try
                         End If
                     Case False
@@ -211,11 +211,11 @@ Public Class ServerStatus
                                 MsgBox("請先關閉伺服器設定視窗!",, Application.ProductName)
                             Else
                                 If IsNothing(console) Then
-                                    console = New ServerConsole(Server)
+                                    console = New ServerConsole(ServerBase)
                                     AddHandler console.FormClosed, Sub() Call UpdateComponent()
                                 Else
                                     If console.IsDisposed Then
-                                        console = New ServerConsole(Server)
+                                        console = New ServerConsole(ServerBase)
                                         AddHandler console.FormClosed, Sub() Call UpdateComponent()
                                     End If
                                 End If
@@ -234,7 +234,7 @@ Public Class ServerStatus
         RaiseEvent DeleteServer(False)
     End Sub
     Sub CloseServer()
-        GlobalModule.Manager.ServerEntityList.Remove(Server)
+        GlobalModule.Manager.ServerEntityList.Remove(ServerBase)
         If IsNothing(console) Then
         Else
             If console.IsDisposed Then
@@ -250,23 +250,23 @@ Public Class ServerStatus
             End If
         End If
         Try
-            Server.SaveServer()
+            ServerBase.SaveServer()
         Catch ex As Exception
         End Try
     End Sub
 
     Private Sub ShowDirButton_Click(sender As Object, e As EventArgs) Handles ShowDirButton.Click
-        If IO.Directory.Exists(Server.ServerPath) = False Then
+        If IO.Directory.Exists(ServerBase.ServerPath) = False Then
             MsgBox("伺服器資料夾消失了...",, Application.ProductName)
         Else
-            Process.Start(Server.ServerPath)
+            Process.Start(ServerBase.ServerPath)
         End If
     End Sub
 
     Friend Overridable Sub CheckRequirement()
         If isOverrides = False Then
             BeginInvokeIfRequired(Me, Sub()
-                                          RunButton.Enabled = Server.BeforeRunServer
+                                          RunButton.Enabled = ServerBase.BeforeRunServer
                                       End Sub)
         End If
     End Sub

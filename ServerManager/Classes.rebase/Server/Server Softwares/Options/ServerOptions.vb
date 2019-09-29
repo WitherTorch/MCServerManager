@@ -314,7 +314,7 @@ Public Class JavaServerOptions
             End If
         End Set
     End Property
-    <DisplayName("MOTD")> <DefaultValue("A Minecraft Server")> <Category("技術性")> <Description("本屬性值是玩家客戶端的多人遊戲伺服器列表中顯示的伺服器信息，顯示於名稱下方。" &
+    <DisplayName("MOTD")> <DefaultValue("A Minecraft ServerBase")> <Category("技術性")> <Description("本屬性值是玩家客戶端的多人遊戲伺服器列表中顯示的伺服器信息，顯示於名稱下方。" &
                                                               vbNewLine & vbTab & "MOTD 支持樣式代碼。" &
                                                               vbNewLine & vbTab & "MOTD 支持特殊符號， 比如「 ♥」。 然而，這些符號需要被轉換為Unicode轉義字符。" &
                                                               vbNewLine & vbTab & "如果 MOTD 超過59個字符，伺服器列表很可能會返回「通訊錯誤」。")>
@@ -1069,10 +1069,10 @@ Public Class NukkitServerOptions
             End If
         End Set
     End Property
-    <DisplayName("MOTD")> <DefaultValue("A Minecraft PE Server")> <Category("技術性")> <Description("本屬性值是玩家客戶端的多人遊戲伺服器列表中顯示的伺服器主信息，顯示於名稱下方。" &
+    <DisplayName("MOTD")> <DefaultValue("A Minecraft PE ServerBase")> <Category("技術性")> <Description("本屬性值是玩家客戶端的多人遊戲伺服器列表中顯示的伺服器主信息，顯示於名稱下方。" &
                                                               vbNewLine & vbTab & "MOTD 支持樣式代碼。" &
                                                               vbNewLine & vbTab & "MOTD 支持特殊符號， 比如「♥」。 然而，這些符號需要被轉換為Unicode轉義字符。")>
-    Public Property Motd As String = "A Minecraft PE Server"
+    Public Property Motd As String = "A Minecraft PE ServerBase"
     <DisplayName("允許PVP")> <DefaultValue(True)> <Category("玩家")> <Description("是否允許PvP。玩家自己的箭也只有在允許PvP時才可能傷害到自己。 " &
                                                              vbNewLine & "註： 來源於玩家的間接傷害，例如熔岩，火，TNT等，還是會造成傷害。" &
                                                              vbNewLine & "True - 玩家可以互相殘殺。" &
@@ -1358,8 +1358,8 @@ Public Class BDSServerOptions
     <DisplayName("玩家閒置時間")> <DefaultValue(30UI)> <Category("玩家")> <Description("如果不為0，伺服器將在玩家的空閒時間達到設置的時間（單位為分鐘）時將玩家踢出伺服器 " &
                                                              vbNewLine & "例如：把Player_Idle_Timeout設置為3，玩家空閒時間達到3分鐘就會被踢出伺服器。")>
     Public Property Player_Idle_Timeout As UInteger = 30UI
-    <DisplayName("伺服器名稱")> <DefaultValue("Dedicated Server")> <Category("伺服器")> <Description("設定顯示在伺服器列表上的名稱。")>
-    Public Property Server_Name As String = "Dedicated Server"
+    <DisplayName("伺服器名稱")> <DefaultValue("Dedicated ServerBase")> <Category("伺服器")> <Description("設定顯示在伺服器列表上的名稱。")>
+    Public Property Server_Name As String = "Dedicated ServerBase"
     <DisplayName("難度")> <DefaultValue(Difficulty.Easy)> <Category("玩家")> <Description("定義伺服器的遊戲難度（例如生物對玩家造成的傷害，飢餓與中毒對玩家的影響方式等）。  " &
                                                               vbNewLine & "Peaceful - 和平" &
                                                               vbNewLine & "Easy - 簡單" &
@@ -1738,10 +1738,10 @@ Public Class PocketMineServerOptions
             End If
         End Set
     End Property
-    <DisplayName("MOTD")> <DefaultValue("A Minecraft PE Server")> <Category("技術性")> <Description("本屬性值是玩家客戶端的多人遊戲伺服器列表中顯示的伺服器主信息，顯示於名稱下方。" &
+    <DisplayName("MOTD")> <DefaultValue("A Minecraft PE ServerBase")> <Category("技術性")> <Description("本屬性值是玩家客戶端的多人遊戲伺服器列表中顯示的伺服器主信息，顯示於名稱下方。" &
                                                               vbNewLine & vbTab & "MOTD 支持樣式代碼。" &
                                                               vbNewLine & vbTab & "MOTD 支持特殊符號， 比如「♥」。 然而，這些符號需要被轉換為Unicode轉義字符。")>
-    Public Property Motd As String = "A Minecraft PE Server"
+    Public Property Motd As String = "A Minecraft PE ServerBase"
     <DisplayName("允許PVP")> <DefaultValue(True)> <Category("玩家")> <Description("是否允許PvP。玩家自己的箭也只有在允許PvP時才可能傷害到自己。 " &
                                                              vbNewLine & "註： 來源於玩家的間接傷害，例如熔岩，火，TNT等，還是會造成傷害。" &
                                                              vbNewLine & "True - 玩家可以互相殘殺。" &

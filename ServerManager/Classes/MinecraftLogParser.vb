@@ -103,7 +103,7 @@ Public Class MinecraftLogParser
                 End Select
                 Dim threadMessage As String = New Regex("\[[A-Za-z0-9 #$_-]*\]\:").Match(checkMessage).Value
                 threadMessage = threadMessage.Substring(1, threadMessage.Length - 3)
-                If threadMessage.Trim = "" Then threadMessage = "Server Thread"
+                If threadMessage.Trim = "" Then threadMessage = "ServerBase Thread"
                 msg.Thread = threadMessage
                 msg.Message = originalMessage.Substring(checkMessage.Length, originalMessage.Length - checkMessage.Length).TrimStart
                 Dim playerConnectionRegex As New Regex("[A-Za-z0-9_-]{1,}[/\d\d?\d?.\d\d?\d?.\d\d?\d?.\d\d?\d?:\d\d?\d?\d?\d?] logged in with entity id \d{1,32} at (-?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32}, -?\d{1,20}.\d{1,32})")
@@ -290,7 +290,7 @@ Public Class MinecraftLogParser
                 Else
                     msg.MessageType = MCMessageType.None
                 End If
-            ElseIf vanillaCheckRegex.IsMatch(originalMessage) Then    'Vanilla Match           [00:00:00] [Server thread/INFO]
+            ElseIf vanillaCheckRegex.IsMatch(originalMessage) Then    'Vanilla Match           [00:00:00] [ServerBase thread/INFO]
                 Dim checkMessage As String = vanillaCheckRegex.Match(originalMessage).Value
                 Dim messageType As String = New Regex("[A-Z]{4,5}").Match(checkMessage).Value
                 Select Case messageType

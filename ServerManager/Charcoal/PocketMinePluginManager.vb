@@ -1,6 +1,6 @@
 ﻿Public Class PocketMinePluginManager
     Implements IAddonManagerGUI
-    Dim server As Server
+    Dim server As ServerBase
     Sub New(index As Integer)
 
         ' 設計工具需要此呼叫。
@@ -12,7 +12,7 @@
 
     Private Sub 移除插件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 移除插件ToolStripMenuItem.Click
         Try
-            server.ServerPlugins.RemoveAt(PluginList.SelectedIndices(0))
+            DirectCast(server, IBukkit).RemovePlugin(DirectCast(server, IBukkit).GetPlugins(PluginList.SelectedIndices(0)))
             My.Computer.FileSystem.DeleteFile(PluginList.SelectedItems(0).SubItems(2).Text)
             PluginList.Items.Remove(PluginList.SelectedItems(0))
         Catch ex As Exception
@@ -20,7 +20,7 @@
     End Sub
     Sub LoadPlugins()
         PluginList.Items.Clear()
-        For Each plugin In server.ServerPlugins
+        For Each plugin In DirectCast(server, IBukkit).GetPlugins
             PluginList.Items.Add(New ListViewItem(New String() {plugin.Name, plugin.Version, plugin.VersionDate.ToString, plugin.Path}))
         Next
     End Sub

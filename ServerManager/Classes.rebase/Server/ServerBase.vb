@@ -52,7 +52,7 @@ Public MustInherit Class ServerBase
         Get
             Return _ServerPath
         End Get
-        Protected Set(value As String)
+        Set(value As String)
             _ServerPath = value
         End Set
     End Property
@@ -216,7 +216,7 @@ Public MustInherit Class ServerBase
     Public MustOverride Function UpdateServer() As ServerDownloadTask
     Public Sub New()
     End Sub
-    Public Sub New(serverPath As String)
+    Public Sub GetServer(serverPath As String)
         _ServerPath = serverPath
         _ServerPathName = IO.Path.GetDirectoryName(serverPath)
         GetServer()

@@ -6,10 +6,10 @@ Imports ServerManager.MinecraftLogParser.MinecraftConsoleMessage
 Public Class BungeeCordConsole
 
     Dim backgroundProcess As Process
-    Dim ownedConsole As New Dictionary(Of Server, ServerConsole)
-    Dim ownedWriterForServers As New Dictionary(Of Server, IO.StreamWriter)
-    Dim ownedTaskForServers As New Dictionary(Of Server, List(Of ServerTask))
-    Dim ownedTasksAndTimersForServers As New Dictionary(Of Server, Dictionary(Of ServerTask, System.Windows.Forms.Timer))
+    Dim ownedConsole As New Dictionary(Of ServerBase, ServerConsole)
+    Dim ownedWriterForServers As New Dictionary(Of ServerBase, IO.StreamWriter)
+    Dim ownedTaskForServers As New Dictionary(Of ServerBase, List(Of ServerTask))
+    Dim ownedTasksAndTimersForServers As New Dictionary(Of ServerBase, Dictionary(Of ServerTask, System.Windows.Forms.Timer))
     Dim ownedProcesses As New List(Of Process)
     Dim InputList As New List(Of String)()
     Dim CurrentListLocation As Integer = -1
@@ -54,9 +54,9 @@ Public Class BungeeCordConsole
         Next
     End Sub
     Private Sub RunOwnedServer(bServer As BungeeCordHost.BungeeServer, Optional justChangeProcess As Boolean = False, Optional page As TabPage = Nothing, Optional changeProcess As Process = Nothing)
-        Dim server As Server
+        Dim server As ServerBase
         If justChangeProcess Then
-            server = CType(page.Tag, ValueTuple(Of Server, Process)).Item1
+            server = CType(page.Tag, ValueTuple(Of ServerBase, Process)).Item1
         Else
             server = bServer.Server
         End If
@@ -82,29 +82,6 @@ Public Class BungeeCordConsole
             dataListView.MultiSelect = False
             dataListView.UseCompatibleStateImageBehavior = False
             dataListView.View = View.Details
-            Select Case server.ServerVersionType
-                Case Server.EServerVersionType.Spigot
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-                Case Server.EServerVersionType.CraftBukkit
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-                Case Server.EServerVersionType.Nukkit
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-                Case Server.EServerVersionType.VanillaBedrock
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-                Case Server.EServerVersionType.Paper
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-                Case Server.EServerVersionType.Akarin
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-                Case Server.EServerVersionType.Spigot_Git
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-                Case Server.EServerVersionType.Cauldron
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-                Case Server.EServerVersionType.Thermos
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-                Case Server.EServerVersionType.Contigo
-                    dataListView.Columns.Remove(dataListView.Columns(1))
-            End Select
-
             pauseLoad.Anchor = AnchorStyles.Top Or AnchorStyles.Right
             pauseLoad.AutoSize = True
             pauseLoad.Text = "暫停載入"
@@ -142,7 +119,7 @@ Public Class BungeeCordConsole
             ownedTasksAndTimersForServers.Add(server, taskTimerDictionary)
             AddHandler CType(page.Controls(0).Controls(2).Controls(0), CheckBox).CheckedChanged, Sub(obj, args)
                                                                                                      Try
-                                                                                                         Dim process As Process = CType(page.Tag, ValueTuple(Of Server, Process)).Item2
+                                                                                                         Dim process As Process = CType(page.Tag, ValueTuple(Of ServerBase, Process)).Item2
                                                                                                          If process IsNot Nothing AndAlso process.HasExited = False Then
                                                                                                              If Not (ownedConsole.ContainsKey(server) = False OrElse ownedConsole(server).IsDisposed) Then
                                                                                                                  ownedConsole(server).StopLoadingCheckBox.Checked = CType(obj, CheckBox).Checked
@@ -172,15 +149,7 @@ Public Class BungeeCordConsole
                                                                Select Case ConsoleMode
                                                                    Case True
                                                                        If commandBox.Text.StartsWith("/") Then
-                                                                           If server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Paper OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                                                                           If TypeOf server Is IBukkit Then
                                                                            End If
                                                                            'backgroundProcess.StandardInput.WriteLine(commandBox.Text.Substring(1))
                                                                            ownedWriterForServers(server).WriteLine(commandBox.Text.Substring(1))
@@ -196,15 +165,7 @@ Public Class BungeeCordConsole
                                                                        End If
                                                                        commandBox.Clear()
                                                                    Case False
-                                                                       If server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Paper OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
-                                                               server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                                                                       If TypeOf server Is IBukkit Then
                                                                        End If
                                                                        'backgroundProcess.StandardInput.WriteLine(commandBox.Text)
                                                                        ownedWriterForServers(server).WriteLine(commandBox.Text)
@@ -354,20 +315,7 @@ Public Class BungeeCordConsole
                                                                                  End If
                                                                                  Dim item As New ListViewItem("錯誤")
                                                                                  item.ForeColor = Color.Red
-                                                                                 Select Case server.ServerVersionType
-                                                                                     Case Server.EServerVersionType.Spigot
-                                                                                     Case Server.EServerVersionType.CraftBukkit
-                                                                                     Case Server.EServerVersionType.Nukkit
-                                                                                     Case Server.EServerVersionType.VanillaBedrock
-                                                                                     Case Server.EServerVersionType.Paper
-                                                                                     Case Server.EServerVersionType.Akarin
-                                                                                     Case Server.EServerVersionType.Spigot_Git
-                                                                                     Case Server.EServerVersionType.Cauldron
-                                                                                     Case Server.EServerVersionType.Thermos
-                                                                                     Case Server.EServerVersionType.Contigo
-                                                                                     Case Else
-                                                                                         item.SubItems.Add("")
-                                                                                 End Select
+                                                                                 item.SubItems.Add("")
                                                                                  Dim nowTime = Now
                                                                                  item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
                                                                                  item.SubItems.Add(e.Data)
@@ -400,20 +348,7 @@ Public Class BungeeCordConsole
                                                                                       ownedConsole(server).InputMessageToListView(msg)
                                                                                   End If
                                                                                   Dim item As New ListViewItem(msg.ServerMessageTypeString)
-                                                                                  Select Case server.ServerVersionType
-                                                                                      Case Server.EServerVersionType.CraftBukkit
-                                                                                      Case Server.EServerVersionType.Spigot
-                                                                                      Case Server.EServerVersionType.Spigot_Git
-                                                                                      Case Server.EServerVersionType.Paper
-                                                                                      Case Server.EServerVersionType.Akarin
-                                                                                      Case Server.EServerVersionType.Cauldron
-                                                                                      Case Server.EServerVersionType.Thermos
-                                                                                      Case Server.EServerVersionType.Contigo
-                                                                                      Case Server.EServerVersionType.Nukkit
-                                                                                      Case Server.EServerVersionType.VanillaBedrock
-                                                                                      Case Else
-                                                                                          item.SubItems.Add(msg.Thread)
-                                                                                  End Select
+                                                                                  item.SubItems.Add(msg.Thread)
                                                                                   item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
                                                                                   item.SubItems.Add(msg.Message)
                                                                                   Select Case msg.ServerMessageType
@@ -473,11 +408,11 @@ Public Class BungeeCordConsole
                                                                                       Case Else
                                                                                   End Select
                                                                                   Try
-                                                                                      BeginInvokeIfRequired(DataListView, Sub()
-                                                                                                                              SyncLock DataListView
-                                                                                                                                  DataListView.Items.Add(item)
+                                                                                      BeginInvokeIfRequired(dataListView, Sub()
+                                                                                                                              SyncLock dataListView
+                                                                                                                                  dataListView.Items.Add(item)
                                                                                                                                   Try
-                                                                                                                                      If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                                      If dataListView.GetItemRect(dataListView.Items.Count - 2).Y < dataListView.Height Then item.EnsureVisible()
                                                                                                                                   Catch ex As Exception
 
                                                                                                                                   End Try
@@ -515,7 +450,7 @@ Public Class BungeeCordConsole
     Sub RunOwnedServerTask(page As TabPage, task As ServerTask, AddtionalParameters As Dictionary(Of String, String))
         Dim TaskRandomGenerator As New Random
         Static TaskRandomGenNumber As Integer = -1
-        Dim server As Server = CType(page.Tag, ValueTuple(Of Server, Process)).Item1
+        Dim server As ServerBase = CType(page.Tag, ValueTuple(Of ServerBase, Process)).Item1
         Select Case task.Command.Action
             Case ServerTask.TaskCommand.CommandAction.StopServer
                 Dim thread As New Threading.Thread(Sub()
@@ -532,7 +467,7 @@ Public Class BungeeCordConsole
                                                        End If
                                                        server.IsRunning = False
                                                    End Sub) With {
-    .Name = "Server Manager Close Server Thread",
+    .Name = "ServerBase Manager Close ServerBase Thread",
     .IsBackground = True
                                                              }
                 thread.Start()
@@ -554,7 +489,7 @@ Public Class BungeeCordConsole
                                                        End If
                                                        BeginInvokeIfRequired(Me, Sub() RestartButton_Click(Me, New EventArgs))
                                                    End Sub) With {
-            .Name = "Server Manager Restart Server Thread",
+            .Name = "ServerBase Manager Restart ServerBase Thread",
             .IsBackground = True
                                                                      }
                 thread.Start()
@@ -657,7 +592,7 @@ Public Class BungeeCordConsole
                 _thread.Start()
         End Select
     End Sub
-    Sub BackupServer(page As TabPage, server As Server, path As String)
+    Sub BackupServer(page As TabPage, server As ServerBase, path As String)
         Dim msg As New MinecraftLogParser.MinecraftConsoleMessage
         msg.ServerMessageType = MCServerMessageType.Notify
         msg.Message = "伺服器備份中..."
@@ -668,20 +603,7 @@ Public Class BungeeCordConsole
             ownedConsole(server).InputMessageToListView(msg)
         End If
         Dim item As New ListViewItem(msg.ServerMessageTypeString)
-        Select Case server.ServerVersionType
-            Case Server.EServerVersionType.Spigot
-            Case Server.EServerVersionType.CraftBukkit
-            Case Server.EServerVersionType.Nukkit
-            Case Server.EServerVersionType.VanillaBedrock
-            Case Server.EServerVersionType.Paper
-            Case Server.EServerVersionType.Akarin
-            Case Server.EServerVersionType.Spigot_Git
-            Case Server.EServerVersionType.Cauldron
-            Case Server.EServerVersionType.Thermos
-            Case Server.EServerVersionType.Contigo
-            Case Else
-                item.SubItems.Add(msg.Thread)
-        End Select
+        item.SubItems.Add(msg.Thread)
         item.ForeColor = Color.Blue
         item.SubItems.Add(msg.Message)
         item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
@@ -704,20 +626,7 @@ Public Class BungeeCordConsole
             ownedConsole(server).InputMessageToListView(msg)
         End If
         Dim item2 As New ListViewItem(msg.ServerMessageTypeString)
-        Select Case server.ServerVersionType
-            Case Server.EServerVersionType.Spigot
-            Case Server.EServerVersionType.CraftBukkit
-            Case Server.EServerVersionType.Nukkit
-            Case Server.EServerVersionType.VanillaBedrock
-            Case Server.EServerVersionType.Paper
-            Case Server.EServerVersionType.Akarin
-            Case Server.EServerVersionType.Spigot_Git
-            Case Server.EServerVersionType.Cauldron
-            Case Server.EServerVersionType.Thermos
-            Case Server.EServerVersionType.Contigo
-            Case Else
-                item2.SubItems.Add(msg.Thread)
-        End Select
+        item2.SubItems.Add(msg.Thread)
         item2.ForeColor = Color.Blue
         item2.SubItems.Add(msg.Message)
         item2.SubItems.Add(String.Format("{0}:{1}:{2}", msg2.Time.Hour.ToString.PadLeft(2, "0"), msg2.Time.Minute.ToString.PadLeft(2, "0"), msg2.Time.Second.ToString.PadLeft(2, "0")))
@@ -953,7 +862,7 @@ Public Class BungeeCordConsole
                                                                              End If
                                                                          End If
                                                                      End Sub)) With {
-            .Name = "Server Manager Close BungeeCord Thread",
+            .Name = "ServerBase Manager Close BungeeCord Thread",
             .IsBackground = False
                                                                      }
         thread.Start()
@@ -971,7 +880,7 @@ Public Class BungeeCordConsole
                                                                                    End If
                                                                                    finishedProcessCount += 1
                                                                                End Sub)) With {
-            .Name = "Server Manager Close Server Thread",
+            .Name = "ServerBase Manager Close ServerBase Thread",
             .IsBackground = False
                                                                      }
             serverThread.Start()
@@ -984,7 +893,7 @@ Public Class BungeeCordConsole
                                                 Host.IsRunning = False
                                                 RunningBungeeCord = False
                                             End Sub) With {
-            .Name = "Server Manager Close BungeeCord Thread",
+            .Name = "ServerBase Manager Close BungeeCord Thread",
             .IsBackground = False
                                                                      }
         Cthread.Start()
@@ -1009,11 +918,11 @@ Public Class BungeeCordConsole
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim server As Server = CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of Server, Process)).Item1
+        Dim server As ServerBase = CType(MainTabControl.SelectedTab.Tag, ValueTuple(Of ServerBase, Process)).Item1
         Dim currentPage As TabPage = MainTabControl.SelectedTab
         If ownedConsole.ContainsKey(server) = False OrElse
                 ownedConsole(server).IsDisposed Then
-            Dim console As New ServerConsole(server, currentPage.Text, CloneListViewItemCollectionAndChangeToServerConsoleFormat(CType(currentPage.Controls(0).Controls(0), ListView).Items), CType(currentPage.Tag, ValueTuple(Of Server, Process)).Item2, ownedTaskForServers(server), ownedTasksAndTimersForServers(server), CType(currentPage.Controls(0).Controls(2).Controls(0), CheckBox).Checked)
+            Dim console As New ServerConsole(server, currentPage.Text, CloneListViewItemCollectionAndChangeToServerConsoleFormat(CType(currentPage.Controls(0).Controls(0), ListView).Items), CType(currentPage.Tag, ValueTuple(Of ServerBase, Process)).Item2, ownedTaskForServers(server), ownedTasksAndTimersForServers(server), CType(currentPage.Controls(0).Controls(2).Controls(0), CheckBox).Checked)
             If ownedConsole.ContainsKey(server) Then
                 ownedConsole(server) = console
             Else

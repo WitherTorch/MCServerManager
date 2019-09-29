@@ -7,7 +7,7 @@ Public Class NoIPProvider
     Sub New(username As String, password As String)
         Me._username = username
         Me._password = password
-        client = New DDNS.Client(New DDNS.UserAgent("Minecraft Server Manager"))
+        client = New DDNS.Client(New DDNS.UserAgent("Minecraft ServerBase Manager"))
         Try
             client.Register(username, password)
         Catch ex As Exception

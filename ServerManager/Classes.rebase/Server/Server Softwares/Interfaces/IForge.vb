@@ -15,4 +15,13 @@ Public Interface IForge
     ''' </summary>
     ''' <returns></returns>
     Function GetMods() As ServerAddons()
+    ''' <summary>
+    ''' 從插件列表移除插件
+    ''' </summary>
+    Sub RemoveMod(_mod As ServerAddons)
+    ''' <summary>
+    ''' 向插件列表加入插件
+    ''' </summary>
+    Sub AddMod(_mod As ServerAddons)
+
 End Interface

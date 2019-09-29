@@ -20,7 +20,7 @@
                                                    _process.Kill()
                                                End If
                                            End Sub)
-        thread.Name = "Server Watchdog Thread"
+        thread.Name = "ServerBase Watchdog Thread"
         thread.IsBackground = False
         thread.Start()
     End Sub

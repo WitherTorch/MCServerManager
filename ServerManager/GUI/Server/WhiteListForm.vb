@@ -1,7 +1,7 @@
 ﻿Public Class WhiteListForm
     Dim sPath As String
-    Dim server As Server
-    Sub New(server As Server)
+    Dim server As ServerBase
+    Sub New(server As ServerBase)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
@@ -37,7 +37,7 @@
 
     Private Sub WhiteListForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Dim array As New Newtonsoft.Json.Linq.JArray()
-        If server.ServerVersionType = Server.EServerVersionType.VanillaBedrock Then
+        If server.ServerVersionType = ServerBase.EServerVersionType.VanillaBedrock Then
             For Each itm In PlayerBox.Items
                 Dim uuid = MinecraftUUIDProvider.GetUUID(itm.ToString)
                 If uuid = Guid.Empty Then

@@ -15,7 +15,6 @@ Public Class BungeeCordServerStatus
         _mode = mode
     End Sub
     Private Sub ServerStatus_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If Server.Server.IsInitallised = False Then Server.Server.Initallise()
         UpdateComponent()
     End Sub
     Friend Sub SetSettingMode(mode As BungeeSettingMode)
@@ -55,37 +54,13 @@ Public Class BungeeCordServerStatus
                                End Sub))
     End Sub
     Friend Overloads Sub SetVersionLabel(Optional updating As Boolean = False, Optional updatingPercent As Integer = 0)
-        If Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Forge Then
-            ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion & " (Forge 版本：" & Server.Server.Server2ndVersion & ")"
-        ElseIf Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Vanilla Then
-            If Server.Server.Server2ndVersion <> "" Then
-                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.Server2ndVersion
-            Else
-                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion
-            End If
-        ElseIf Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Nukkit Then
-            ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.Server.ServerVersionType, Server.Server.ServerVersion) & " " & Server.Server.ServerVersion & " (" & Server.Server.Server2ndVersion & ")"
-        Else
-            ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.Server.ServerVersionType, Server.Server.ServerVersion) & " " & Server.Server.ServerVersion
-        End If
+        ServerVersion.Text = "伺服器版本：" & ServerMaker.SoftwareDictionary(Server.Server.GetInternalName).ReadableName
         If updating Then
             ServerVersion.Text &= " [更新進度：" & updatingPercent & " %]"
         End If
     End Sub
     Friend Overloads Sub SetVersionLabel(addtionText As String)
-        If Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Forge Then
-            ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion & " (Forge 版本：" & Server.Server.Server2ndVersion & ")"
-        ElseIf Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Vanilla Then
-            If Server.Server.Server2ndVersion <> "" Then
-                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.Server2ndVersion
-            Else
-                ServerVersion.Text = "伺服器版本：" & "原版" & " " & Server.Server.ServerVersion
-            End If
-        ElseIf Server.Server.ServerVersionType = ServerManager.Server.EServerVersionType.Nukkit Then
-            ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.Server.ServerVersionType, Server.Server.ServerVersion) & " " & Server.Server.ServerVersion & " (#" & Server.Server.Server2ndVersion & ")"
-        Else
-            ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.Server.ServerVersionType, Server.Server.ServerVersion) & " " & Server.Server.ServerVersion
-        End If
+        ServerVersion.Text = "伺服器版本：" & ServerMaker.SoftwareDictionary(Server.Server.GetInternalName).ReadableName
         If addtionText <> "" Then
             ServerVersion.Text &= (" " & addtionText)
         End If

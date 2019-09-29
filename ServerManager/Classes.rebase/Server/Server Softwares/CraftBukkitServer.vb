@@ -96,6 +96,12 @@ Public Class CraftBukkitServer
     Public Overridable Function GetPlugins() As ServerAddons() Implements IBukkit.GetPlugins
         Return pluginList.ToArray()
     End Function
+    Public Overridable Sub AddPlugin(plugin As ServerAddons) Implements IBukkit.AddPlugin
+        If pluginList.Contains(plugin) = False Then pluginList.Add(plugin)
+    End Sub
+    Public Overridable Sub RemovePlugin(plugin As ServerAddons) Implements IBukkit.RemovePlugin
+        If pluginList.Contains(plugin) Then pluginList.Remove(plugin)
+    End Sub
     Friend Shared Shadows Sub GetVersionList()
         CraftBukkitVersionDict.Clear()
         Dim listURL As String = "https://getbukkit.org/download/craftbukkit"

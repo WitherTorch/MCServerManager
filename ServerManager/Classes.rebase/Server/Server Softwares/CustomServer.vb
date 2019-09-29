@@ -69,14 +69,16 @@ Public Class CustomServer
     Public Overrides Function GetAdditionalServerInfo() As String()
         Return {}
     End Function
-    Public Overrides Sub BeforeRunServer()
+    Public Overrides Function BeforeRunServer() As Boolean
         Select Case New IO.FileInfo(ServerRunFile).Extension
             Case ".jar"
                 If GlobalModule.Manager.HasJava = False Then
                     MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
+                    Return False
                 End If
         End Select
-    End Sub
+        Return True
+    End Function
     Public Overrides Function RunServer() As Process
         If ProcessID = 0 Then
             Select Case New IO.FileInfo(ServerRunFile).Extension

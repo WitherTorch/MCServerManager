@@ -69,11 +69,11 @@ End Class
 Public Class BungeeCordListener
     <DisplayName("遠端監聽埠")> <DefaultValue(25577)> <Description("設置監聽伺服器的埠號")>
     Public Property Query_port As Integer = 25577
-    <DisplayName("MOTD")> <DefaultValue("Another Bungee Server")> <Description("本屬性值是玩家客戶端的多人遊戲伺服器列表中顯示的伺服器信息，顯示於名稱下方。" &
+    <DisplayName("MOTD")> <DefaultValue("Another Bungee ServerBase")> <Description("本屬性值是玩家客戶端的多人遊戲伺服器列表中顯示的伺服器信息，顯示於名稱下方。" &
                                                               vbNewLine & vbTab & "MOTD 支持樣式代碼。" &
                                                               vbNewLine & vbTab & "MOTD 支持特殊符號， 比如「 ♥」。 然而，這些符號需要被轉換為Unicode轉義字符。" &
                                                               vbNewLine & vbTab & "如果 MOTD 超過59個字符，伺服器列表很可能會返回「通訊錯誤」。")>
-    Public Property Motd As String = "Another Bungee Server"
+    Public Property Motd As String = "Another Bungee ServerBase"
     <DisplayName("[TAB]列表顯示風格")> <DefaultValue(Tab_list.GLOBAL_PING)> <Description("[Tab]列表有3個選項可供選擇。" &
                                                       vbNewLine & "GLOBAL_PING：顯示連接到BungeeCord 的所有玩家，並更新連接時間。" &
                                                       vbNewLine & "GLOBAL：如上所述，但沒有更新連接時間。" &

@@ -33,24 +33,24 @@
 
     Private Sub BungeeCordServerChooseForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         For Each server In GlobalModule.Manager.ServerEntityList
-            If server.ServerType = Server.EServerType.Java Then
+            If TypeOf server Is VanillaServer AndAlso TypeOf server IsNot NukkitServer Then
                 Threading.Tasks.Task.Run(Sub()
-                                                          Dim isContained As Boolean = False
-                                                          For Each hostedServer In _parent.host.Servers
-                                                              If hostedServer.Server.ServerPath = server.ServerPath Then
-                                                                  isContained = True
-                                                                  Exit For
-                                                              End If
-                                                          Next
-                                                          BeginInvoke(Sub()
-                                                                          If isContained = False Then
-                                                                              Dim index = ServerListPanel.RowStyles.Count
-                                                                              Dim status As New BungeeCordServerStatus(New BungeeCordHost.BungeeServer(server), BungeeSettingMode.Add)
-                                                                              ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
-                                                                              ServerListPanel.Controls.Add(status, 0, index)
-                                                                          End If
-                                                                      End Sub)
-                                                      End Sub)
+                                             Dim isContained As Boolean = False
+                                             For Each hostedServer In _parent.host.Servers
+                                                 If hostedServer.Server.ServerPath = server.ServerPath Then
+                                                     isContained = True
+                                                     Exit For
+                                                 End If
+                                             Next
+                                             BeginInvoke(Sub()
+                                                             If isContained = False Then
+                                                                 Dim index = ServerListPanel.RowStyles.Count
+                                                                 Dim status As New BungeeCordServerStatus(New BungeeCordHost.BungeeServer(server), BungeeSettingMode.Add)
+                                                                 ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                                 ServerListPanel.Controls.Add(status, 0, index)
+                                                             End If
+                                                         End Sub)
+                                         End Sub)
             End If
         Next
     End Sub

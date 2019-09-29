@@ -34,8 +34,8 @@ Public Class BukkitOptions
                                                          vbNewLine & "True(是) - 同「預設」。" &
                                                          vbNewLine & "False(否) - 在註冊時不發出警告。")>
     Public Property Deprecated_verbose As TripleStatus = TripleStatus.Default
-    <DisplayName("伺服器關閉訊息")> <DefaultValue("Server closed")> <Category("通用設定")> <Description("伺服器在關閉時向玩家顯示的訊息。")>
-    Public Property Shutdown_message As String = "Server closed"
+    <DisplayName("伺服器關閉訊息")> <DefaultValue("ServerBase closed")> <Category("通用設定")> <Description("伺服器在關閉時向玩家顯示的訊息。")>
+    Public Property Shutdown_message As String = "ServerBase closed"
 #End Region
 #Region "生成限制"
     <DisplayName("最大怪物生成數")> <DefaultValue(70)> <Category("生成限制")> <Description("敵對生物(例如:殭屍、苦力怕)在一個世界中能夠生成的數量。")>

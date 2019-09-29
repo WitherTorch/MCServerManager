@@ -20,47 +20,32 @@ Public Class ServerConsole
     Dim cmd As CMDForm
     Dim outputs As String = ""
     Dim isInBungee As Boolean
-    Public ReadOnly Property Server As Server
+    Public ReadOnly Property Server As ServerBase
     Dim startInfo As ProcessStartInfo
-    Dim usesType As Server.EServerVersionType
     Dim previousMsg As (String, Date)
     Dim isMessageUpdate As Boolean = False
     Public Event ServerRestarted(ByRef newProcess As Process)
     Public Event ServerStopLoadingStateChanged(PauseLoad As Boolean)
-    Friend Sub ReloadUsesType(type As Server.EServerVersionType)
-        usesType = type
-    End Sub
-    Public Sub New(Server As Server, Optional usesServerVersionType As Server.EServerVersionType = Server.EServerVersionType.Error)
+    Public Sub New(ByRef ServerBase As ServerBase)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
-        _Server = Server
-        If usesServerVersionType <> Server.EServerVersionType.Error Then
-            Text = "伺服器控制台 - " & Server.ServerPathName & " [" & GetSimpleVersionName(usesServerVersionType) & " 模式" & "]"
-            usesType = usesServerVersionType
-        Else
-            If Server.ServerVersionType = Server.EServerVersionType.Spigot_Git Then
-                usesType = Server.EServerVersionType.Spigot
-            End If
-            Text = "伺服器控制台 - " & Server.ServerPathName
-        End If
+        _Server = ServerBase
+        Text = "伺服器控制台 - " & ServerBase.ServerPathName
         isInBungee = False
     End Sub
 
-    Public Sub New(ByRef Server As Server, ServerDisplayName As String, items As ListViewItem(), ByRef process As Process, ByRef TaskList As List(Of ServerTask), ByRef TaskDictionary As Dictionary(Of ServerTask, System.Windows.Forms.Timer), PauseLoad As Boolean)
+    Public Sub New(ByRef ServerBase As ServerBase, ServerDisplayName As String, items As ListViewItem(), ByRef process As Process, ByRef TaskList As List(Of ServerTask), ByRef TaskDictionary As Dictionary(Of ServerTask, System.Windows.Forms.Timer), PauseLoad As Boolean)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
-        _Server = Server
+        _Server = ServerBase
         isInBungee = True
         Text = "BungeeCord 子伺服器控制台 - " & ServerDisplayName.Substring(0, ServerDisplayName.Length - 5)
-        If Server.ServerVersionType = Server.EServerVersionType.Spigot_Git Then
-            usesType = Server.EServerVersionType.Spigot
-        End If
         DataListView.Items.AddRange(items)
         StopLoadingCheckBox.Checked = PauseLoad
         backgroundProcess = process
@@ -114,34 +99,14 @@ Public Class ServerConsole
         If isInBungee = False Then
             ConnectUPnP()
         End If
-        Select Case Server.ServerVersionType
-            Case Server.EServerVersionType.Spigot
-                DataListView.Columns.Remove(ColumnHeader2)
-            Case Server.EServerVersionType.CraftBukkit
-                DataListView.Columns.Remove(ColumnHeader2)
-            Case Server.EServerVersionType.Nukkit
-                DataListView.Columns.Remove(ColumnHeader2)
-            Case Server.EServerVersionType.VanillaBedrock
-                DataListView.Columns.Remove(ColumnHeader2)
-            Case Server.EServerVersionType.Paper
-                DataListView.Columns.Remove(ColumnHeader2)
-            Case Server.EServerVersionType.Akarin
-                DataListView.Columns.Remove(ColumnHeader2)
-            Case Server.EServerVersionType.Spigot_Git
-                DataListView.Columns.Remove(ColumnHeader2)
-            Case Server.EServerVersionType.Cauldron
-                DataListView.Columns.Remove(ColumnHeader2)
-            Case Server.EServerVersionType.Thermos
-                DataListView.Columns.Remove(ColumnHeader2)
-            Case Server.EServerVersionType.Contigo
-                DataListView.Columns.Remove(ColumnHeader2)
-        End Select
-        For Each plugin In Server.ServerPlugins
-            If plugin.Name = "Minecraft_Server_Manager_Host" Then
-                hasHost = True
-                Exit For
-            End If
-        Next
+        If TypeOf Server Is IBukkit Then
+            For Each plugin In DirectCast(Server, IBukkit).GetPlugins
+                If plugin.Name = "Minecraft_Server_Manager_Host" Then
+                    hasHost = True
+                    Exit For
+                End If
+            Next
+        End If
 
         If isInBungee Then
             TaskTimer.Enabled = True
@@ -182,20 +147,7 @@ Public Class ServerConsole
                          Try
                              Dim item As New ListViewItem("錯誤")
                              item.ForeColor = Color.Red
-                             Select Case Server.ServerVersionType
-                                 Case Server.EServerVersionType.Spigot
-                                 Case Server.EServerVersionType.CraftBukkit
-                                 Case Server.EServerVersionType.Nukkit
-                                 Case Server.EServerVersionType.VanillaBedrock
-                                 Case Server.EServerVersionType.Paper
-                                 Case Server.EServerVersionType.Akarin
-                                 Case Server.EServerVersionType.Spigot_Git
-                                 Case Server.EServerVersionType.Cauldron
-                                 Case Server.EServerVersionType.Thermos
-                                 Case Server.EServerVersionType.Contigo
-                                 Case Else
-                                     item.SubItems.Add("")
-                             End Select
+                             item.SubItems.Add("")
                              item.SubItems.Add(message.Message)
                              Dim nowTime = Now
                              item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
@@ -291,20 +243,7 @@ Public Class ServerConsole
 
                          End Try
                          Dim item As New ListViewItem(message.ServerMessageTypeString)
-                         Select Case Server.ServerVersionType
-                             Case Server.EServerVersionType.Spigot
-                             Case Server.EServerVersionType.CraftBukkit
-                             Case Server.EServerVersionType.Nukkit
-                             Case Server.EServerVersionType.VanillaBedrock
-                             Case Server.EServerVersionType.Paper
-                             Case Server.EServerVersionType.Akarin
-                             Case Server.EServerVersionType.Spigot_Git
-                             Case Server.EServerVersionType.Cauldron
-                             Case Server.EServerVersionType.Thermos
-                             Case Server.EServerVersionType.Contigo
-                             Case Else
-                                 item.SubItems.Add(message.Thread)
-                         End Select
+                         item.SubItems.Add(message.Thread)
                          item.SubItems.Add(message.Message)
                          item.SubItems.Add(String.Format("{0}:{1}:{2}", message.Time.Hour.ToString.PadLeft(2, "0"), message.Time.Minute.ToString.PadLeft(2, "0"), message.Time.Second.ToString.PadLeft(2, "0")))
                          Select Case message.ServerMessageType
@@ -325,14 +264,14 @@ Public Class ServerConsole
                          End Select
                          Select Case message.MessageType
                              Case MCMessageType.PlayerConnected
-                                 If Server.ServerVersionType = Server.EServerVersionType.Vanilla Then If ConnectionPlayerList.Contains(message.AddtionalMessage("player")) Then ConnectionPlayerList.Add(message.AddtionalMessage("player"))
+                                 If TypeOf Server Is VanillaServer Then If ConnectionPlayerList.Contains(message.AddtionalMessage("player")) Then ConnectionPlayerList.Add(message.AddtionalMessage("player"))
                              Case MCMessageType.PlayerLostConnected
-                                 If Server.ServerVersionType = Server.EServerVersionType.Vanilla Then If ConnectionPlayerList.Contains(message.AddtionalMessage("player")) Then ConnectionPlayerList.Remove(message.AddtionalMessage("player"))
+                                 If TypeOf Server Is VanillaServer Then If ConnectionPlayerList.Contains(message.AddtionalMessage("player")) Then ConnectionPlayerList.Remove(message.AddtionalMessage("player"))
                              Case MCMessageType.PlayerLogin
                                  If NotifyChooseListBox.CheckedIndices.Contains(0) Then _
                                                                                                                     NotifyInfoMessage(message.AddtionalMessage("player") & " 進入伺服器", Text)
                                  BeginInvokeIfRequired(Me, Sub()
-                                                               If (Server.ServerVersionType = Server.EServerVersionType.Vanilla AndAlso ConnectionPlayerList.Contains(message.AddtionalMessage("player"))) OrElse Not Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
+                                                               If (TypeOf Server Is VanillaServer AndAlso ConnectionPlayerList.Contains(message.AddtionalMessage("player"))) OrElse Not TypeOf Server Is VanillaServer Then
                                                                    If PlayerListBox.Items.Contains(message.AddtionalMessage("player")) = False Then PlayerListBox.Items.Add(message.AddtionalMessage("player"))
                                                                End If
                                                            End Sub)
@@ -340,7 +279,7 @@ Public Class ServerConsole
                                  If NotifyChooseListBox.CheckedIndices.Contains(1) Then _
                                                                                                                     NotifyInfoMessage(message.AddtionalMessage("player") & " 離開伺服器", Text)
                                  BeginInvokeIfRequired(Me, Sub()
-                                                               If (Server.ServerVersionType = Server.EServerVersionType.Vanilla AndAlso ConnectionPlayerList.Contains(message.AddtionalMessage("player"))) OrElse Not Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
+                                                               If (TypeOf Server Is VanillaServer AndAlso ConnectionPlayerList.Contains(message.AddtionalMessage("player"))) OrElse Not TypeOf Server Is VanillaServer Then
                                                                    If PlayerListBox.Items.Contains(message.AddtionalMessage("player")) Then PlayerListBox.Items.Remove(message.AddtionalMessage("player"))
                                                                End If
                                                            End Sub)
@@ -378,374 +317,253 @@ Public Class ServerConsole
     End Sub
 
     Friend Overloads Sub Run()
-        If Server.ServerVersionType = Server.EServerVersionType.Error Then
-            Using opn As New OpenFileDialog
-                opn.InitialDirectory = Server.ServerPath
-                opn.Title = "開啟程式"
-                opn.Filter = "Java JAR 程式 (*.jar)|*.jar"
-                If opn.ShowDialog = DialogResult.OK Then
-                    Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & opn.FileName & """", Server.ServerPath)
-                Else
-                    Exit Sub
-                End If
-            End Using
-        Else
-            Select Case Server.ServerType
-                Case Server.EServerType.Java
-                    Select Case Server.ServerVersionType
-                        Case Server.EServerVersionType.Vanilla
-                            If Server.Server2ndVersion <> "" Then
-                                Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "minecraft_server." & Server.Server2ndVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
-                            Else
-                                Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "minecraft_server." & Server.ServerVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
-                            End If
-                        Case Server.EServerVersionType.Forge
-                            ' 1.1~1.2 > Server
-                            ' 1.3 ~ > Universal
-                            ' 1.13+ -> Nothing
-                            ' 1.8.9 and 1.7.10 -> Server Version Twice
-                            If New Version(Server.ServerVersion) >= New Version(1, 3) Then
-                                If New Version(Server.ServerVersion) >= New Version(1, 13) Then
-                                    Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & ".jar") & """" & " nogui", Server.ServerPath, True, True)
-                                Else
-                                    If Server.ServerVersion = "1.8.9" OrElse Server.ServerVersion = "1.7.10" Then
-                                        Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-" & Server.ServerVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath, True, True)
-                                    Else
-                                        Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-universal" & ".jar") & """" & " nogui", Server.ServerPath, True, True)
-                                    End If
-                                End If
-                            Else
-                                Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "forge-" & Server.ServerVersion & "-" & Server.Server2ndVersion & "-server" & ".jar") & """" & " nogui", Server.ServerPath)
-                            End If
-                        Case Server.EServerVersionType.Spigot
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spigot-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                        Case Server.EServerVersionType.Spigot_Git
-                            Select Case usesType
-                                Case Server.EServerVersionType.Spigot
-                                    Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spigot-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                                Case Server.EServerVersionType.CraftBukkit
-                                    Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "craftbukkit-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                                Case Else
-                                    Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spigot-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                            End Select
-                        Case Server.EServerVersionType.CraftBukkit
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "craftbukkit-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                        Case Server.EServerVersionType.SpongeVanilla
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "spongeVanilla-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                        Case Server.EServerVersionType.Paper
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "paper-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                        Case Server.EServerVersionType.Akarin
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "akarin-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                        Case Server.EServerVersionType.Cauldron
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "server.jar") & """", Server.ServerPath)
-                        Case Server.EServerVersionType.Thermos
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Thermos-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                        Case Server.EServerVersionType.Contigo
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Contigo-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
-                        Case Server.EServerVersionType.Kettle
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "kettle-git-HEAD-" & Server.Server2ndVersion & "-universal.jar") & """", Server.ServerPath)
-                    End Select
-                Case Server.EServerType.Bedrock
-                    Select Case Server.ServerVersionType
-                        Case Server.EServerVersionType.Nukkit
-                            '-Djline.terminal=jline.UnsupportedTerminal <- JLine Support
-                            Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M " & JavaArguments & " -jar " & """" & IO.Path.Combine(Server.ServerPath, "nukkit-" & Server.Server2ndVersion & ".jar") & """", Server.ServerPath)
-                        Case Server.EServerVersionType.VanillaBedrock
-                            Run("""" & IO.Path.Combine(Server.ServerPath, "bedrock_server.exe") & """", "", Server.ServerPath, True, False)
-                        Case Server.EServerVersionType.PocketMine
-                            Run(PHPPath, """" & IO.Path.Combine(Server.ServerPath, "PocketMine-MP.phar") & """", Server.ServerPath, True, True)
-                    End Select
-                Case Server.EServerType.Custom
-                    Select Case Server.ServerVersionType
-                        Case Server.EServerVersionType.Custom
-                            Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M " & JavaArguments & " -jar " & """" & Server.CustomServerRunFile & """", Server.ServerPath)
-                    End Select
-            End Select
-        End If
-    End Sub
-    Private Overloads Sub Run(program As String, serverDir As String)
-        Run(program, "", serverDir, True, False)
-    End Sub
-    Private Overloads Sub Run(program As String, args As String, serverDir As String, Optional nogui As Boolean = True, Optional UTF8 As Boolean = True)
         TaskTimer.Enabled = True
         TaskTimer.Start()
-        backgroundProcess = Process.Start(PrepareStartInfo(program, args, serverDir, nogui, UTF8))
+        backgroundProcess = Server.RunServer()
         RestartButton.Enabled = False
         ForceCloseButton.Enabled = True
-        If UTF8 Then
-            alternateInputStreamWriter = New IO.StreamWriter(backgroundProcess.StandardInput.BaseStream, New System.Text.UTF8Encoding(False)) With {.AutoFlush = True}
+        alternateInputStreamWriter = New IO.StreamWriter(backgroundProcess.StandardInput.BaseStream, New System.Text.UTF8Encoding(False)) With {.AutoFlush = True}
+        If StopLoadingCheckBox.Checked = False Then
+            backgroundProcess.BeginErrorReadLine()
+            backgroundProcess.BeginOutputReadLine()
         Else
-            alternateInputStreamWriter = backgroundProcess.StandardInput
+            backgroundProcess.CancelErrorRead()
+            backgroundProcess.CancelOutputRead()
         End If
-        If nogui Then
-            If StopLoadingCheckBox.Checked = False Then
-                backgroundProcess.BeginErrorReadLine()
-                backgroundProcess.BeginOutputReadLine()
-            Else
-                backgroundProcess.CancelErrorRead()
-                backgroundProcess.CancelOutputRead()
-            End If
-            If isInBungee = False Then
-                AddHandler backgroundProcess.ErrorDataReceived, Sub(sender, e)
-                                                                    Try
-                                                                        If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
-                                                                            If IsNothing(e.Data) = False Then
-                                                                                outputs &= vbNewLine & e.Data
-                                                                                If String.IsNullOrWhiteSpace(previousMsg.Item1) = False Then
-                                                                                    Try
-                                                                                        If previousMsg.Item1 = e.Data AndAlso (Now - previousMsg.Item2).TotalSeconds <= 1 Then
-                                                                                            previousMsg.Item1 = e.Data
-                                                                                            previousMsg.Item2 = Now
-                                                                                            Exit Sub
-                                                                                        End If
-                                                                                    Catch ex As Exception
+        If isInBungee = False Then
+            AddHandler backgroundProcess.ErrorDataReceived, Sub(sender, e)
+                                                                Try
+                                                                    If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
+                                                                        If IsNothing(e.Data) = False Then
+                                                                            outputs &= vbNewLine & e.Data
+                                                                            If String.IsNullOrWhiteSpace(previousMsg.Item1) = False Then
+                                                                                Try
+                                                                                    If previousMsg.Item1 = e.Data AndAlso (Now - previousMsg.Item2).TotalSeconds <= 1 Then
+                                                                                        previousMsg.Item1 = e.Data
+                                                                                        previousMsg.Item2 = Now
+                                                                                        Exit Sub
+                                                                                    End If
+                                                                                Catch ex As Exception
 
-                                                                                    End Try
-                                                                                Else
-                                                                                    previousMsg.Item1 = e.Data
-                                                                                    previousMsg.Item2 = Now
-                                                                                End If
-                                                                                Task.Run(Sub()
-                                                                                             Try
-                                                                                                 Dim item As New ListViewItem("錯誤")
-                                                                                                 item.ForeColor = Color.Red
-                                                                                                 Select Case Server.ServerVersionType
-                                                                                                     Case Server.EServerVersionType.Spigot
-                                                                                                     Case Server.EServerVersionType.CraftBukkit
-                                                                                                     Case Server.EServerVersionType.Nukkit
-                                                                                                     Case Server.EServerVersionType.VanillaBedrock
-                                                                                                     Case Server.EServerVersionType.Paper
-                                                                                                     Case Server.EServerVersionType.Akarin
-                                                                                                     Case Server.EServerVersionType.Spigot_Git
-                                                                                                     Case Server.EServerVersionType.Cauldron
-                                                                                                     Case Server.EServerVersionType.Thermos
-                                                                                                     Case Server.EServerVersionType.Contigo
-                                                                                                     Case Else
-                                                                                                         item.SubItems.Add("")
-                                                                                                 End Select
-                                                                                                 item.SubItems.Add(e.Data)
-                                                                                                 Dim nowTime = Now
-                                                                                                 item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
-                                                                                                 If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
-                                                                                                                    NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & e.Data, Text)
-                                                                                                 BeginInvokeIfRequired(Me, Sub()
-                                                                                                                               SyncLock Me
-                                                                                                                                   DataListView.Items.Add(item)
-                                                                                                                                   Try
-                                                                                                                                       If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
-                                                                                                                                   Catch ex As Exception
-
-                                                                                                                                   End Try
-                                                                                                                               End SyncLock
-                                                                                                                           End Sub)
-                                                                                             Catch ex As Exception
-                                                                                             End Try
-                                                                                         End Sub)
+                                                                                End Try
+                                                                            Else
+                                                                                previousMsg.Item1 = e.Data
+                                                                                previousMsg.Item2 = Now
                                                                             End If
-                                                                        End If
-                                                                    Catch ex As Exception
-                                                                    End Try
-                                                                End Sub
-                AddHandler backgroundProcess.OutputDataReceived, Sub(sender, e)
-                                                                     Try
-                                                                         If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
-                                                                             If IsNothing(e.Data) = False Then
-                                                                                 outputs &= vbNewLine & e.Data
-                                                                                 If String.IsNullOrWhiteSpace(previousMsg.Item1) = False Then
-                                                                                     Try
-                                                                                         If previousMsg.Item1 = e.Data AndAlso (Now - previousMsg.Item2).TotalSeconds <= 1 Then
-                                                                                             previousMsg.Item1 = e.Data
-                                                                                             previousMsg.Item2 = Now
-                                                                                             Exit Sub
-                                                                                         End If
-                                                                                     Catch ex As Exception
+                                                                            Task.Run(Sub()
+                                                                                         Try
+                                                                                             Dim item As New ListViewItem("錯誤")
+                                                                                             item.ForeColor = Color.Red
+                                                                                             item.SubItems.Add("")
+                                                                                             item.SubItems.Add(e.Data)
+                                                                                             Dim nowTime = Now
+                                                                                             item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
+                                                                                             If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
+                                                                                                                    NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & e.Data, Text)
+                                                                                             BeginInvokeIfRequired(Me, Sub()
+                                                                                                                           SyncLock Me
+                                                                                                                               DataListView.Items.Add(item)
+                                                                                                                               Try
+                                                                                                                                   If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                               Catch ex As Exception
 
-                                                                                     End Try
-                                                                                 Else
-                                                                                     previousMsg.Item1 = e.Data
-                                                                                     previousMsg.Item2 = Now
-                                                                                 End If
-                                                                                 Task.Run(Sub()
+                                                                                                                               End Try
+                                                                                                                           End SyncLock
+                                                                                                                       End Sub)
+                                                                                         Catch ex As Exception
+                                                                                         End Try
+                                                                                     End Sub)
+                                                                        End If
+                                                                    End If
+                                                                Catch ex As Exception
+                                                                End Try
+                                                            End Sub
+            AddHandler backgroundProcess.OutputDataReceived, Sub(sender, e)
+                                                                 Try
+                                                                     If IsNothing(backgroundProcess) = False And backgroundProcess.HasExited = False Then
+                                                                         If IsNothing(e.Data) = False Then
+                                                                             outputs &= vbNewLine & e.Data
+                                                                             If String.IsNullOrWhiteSpace(previousMsg.Item1) = False Then
+                                                                                 Try
+                                                                                     If previousMsg.Item1 = e.Data AndAlso (Now - previousMsg.Item2).TotalSeconds <= 1 Then
+                                                                                         previousMsg.Item1 = e.Data
+                                                                                         previousMsg.Item2 = Now
+                                                                                         Exit Sub
+                                                                                     End If
+                                                                                 Catch ex As Exception
+
+                                                                                 End Try
+                                                                             Else
+                                                                                 previousMsg.Item1 = e.Data
+                                                                                 previousMsg.Item2 = Now
+                                                                             End If
+                                                                             Task.Run(Sub()
+                                                                                          Try
+                                                                                              Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
                                                                                               Try
-                                                                                                  Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
-                                                                                                  Try
-                                                                                                      Select Case PlayerListGetState
-                                                                                                          Case 0
+                                                                                                  Select Case PlayerListGetState
+                                                                                                      Case 0
                                                                                                                  'Nothing
-                                                                                                          Case 1 '偵測/list 回傳頭
-                                                                                                              Dim ListHeaderRegex As New Text.RegularExpressions.Regex("There are [0-9]{1,}\/[0-9]{1,} player[s]? online:") '/list Header
-                                                                                                              Dim ListHeaderRegex114 As New Text.RegularExpressions.Regex("There are [0-9]{1,} of a max [0-9]{1,} player[s]? online:") '/list Header
-                                                                                                              If ListHeaderRegex.IsMatch(msg.Message) AndAlso ListHeaderRegex.Match(msg.Message).Value = msg.Message.Trim Then
-                                                                                                                  Dim PlayerCountRegex As New Text.RegularExpressions.Regex("[0-9]{1,}\/[0-9]{1,}")
-                                                                                                                  Dim PlayerID As String = PlayerCountRegex.Match(msg.Message).Value.Split(New Char() {","}, 2)(0)
-                                                                                                                  PlayerListGetState = 2
-                                                                                                                  temp_PlayerList = New List(Of String)
-                                                                                                                  If PlayerListGetCount <= 0 Then
-                                                                                                                      PlayerListGetCount = PlayerID
-                                                                                                                      PlayerListGetState = 0 'Restore to Default
-                                                                                                                  End If
-                                                                                                              ElseIf ListHeaderRegex114.IsMatch(msg.Message) AndAlso msg.Message.Trim.StartsWith(ListHeaderRegex114.Match(msg.Message).Value) Then
-                                                                                                                  Dim preSplitString As String = msg.Message.Substring(ListHeaderRegex114.Match(msg.Message).Length - 1)
-                                                                                                                  If String.IsNullOrWhiteSpace(preSplitString) = False Then
-                                                                                                                      preSplitString = preSplitString.Trim
-                                                                                                                      BeginInvokeIfRequired(Me, Sub() PlayerListBox.Items.Clear())
-                                                                                                                      For Each id As String In preSplitString.Split(New String() {" ,"}, StringSplitOptions.RemoveEmptyEntries)
-                                                                                                                          BeginInvokeIfRequired(Me, Sub()
-                                                                                                                                                        PlayerListBox.Items.Add(id)
-                                                                                                                                                        PlayerListGetState = 0 'Restore to Default
-                                                                                                                                                    End Sub)
-                                                                                                                      Next
-                                                                                                                  End If
+                                                                                                      Case 1 '偵測/list 回傳頭
+                                                                                                          Dim ListHeaderRegex As New Text.RegularExpressions.Regex("There are [0-9]{1,}\/[0-9]{1,} player[s]? online:") '/list Header
+                                                                                                          Dim ListHeaderRegex114 As New Text.RegularExpressions.Regex("There are [0-9]{1,} of a max [0-9]{1,} player[s]? online:") '/list Header
+                                                                                                          If ListHeaderRegex.IsMatch(msg.Message) AndAlso ListHeaderRegex.Match(msg.Message).Value = msg.Message.Trim Then
+                                                                                                              Dim PlayerCountRegex As New Text.RegularExpressions.Regex("[0-9]{1,}\/[0-9]{1,}")
+                                                                                                              Dim PlayerID As String = PlayerCountRegex.Match(msg.Message).Value.Split(New Char() {","}, 2)(0)
+                                                                                                              PlayerListGetState = 2
+                                                                                                              temp_PlayerList = New List(Of String)
+                                                                                                              If PlayerListGetCount <= 0 Then
+                                                                                                                  PlayerListGetCount = PlayerID
+                                                                                                                  PlayerListGetState = 0 'Restore to Default
                                                                                                               End If
-                                                                                                          Case 2 '偵測玩家ID(每行只有一個)
-                                                                                                              Dim PlayerIDRegex As New Text.RegularExpressions.Regex("[A-Za-z0-9_-]{1,}")
-                                                                                                              If PlayerIDRegex.IsMatch(msg.Message) AndAlso PlayerIDRegex.Match(msg.Message).Value = msg.Message.Trim Then
-                                                                                                                  If temp_PlayerList Is Nothing Then temp_PlayerList = New List(Of String)
-                                                                                                                  temp_PlayerList.Add(msg.Message.Trim)
-                                                                                                                  PlayerListGetCount -= 1
-                                                                                                                  If PlayerListGetCount <= 0 Then
-                                                                                                                      If temp_PlayerList IsNot Nothing AndAlso temp_PlayerList.Count > 0 Then
-                                                                                                                          Dim playerList As New List(Of String)
-                                                                                                                          playerList.AddRange(temp_PlayerList)
-                                                                                                                          temp_PlayerList = Nothing
-                                                                                                                          BeginInvokeIfRequired(Me, Sub()
-                                                                                                                                                        PlayerListBox.Items.Clear()
-                                                                                                                                                        PlayerListBox.Items.AddRange(playerList.ToArray)
-                                                                                                                                                    End Sub)
-                                                                                                                      End If
-                                                                                                                      PlayerListGetState = 0 'Restore to Default
-                                                                                                                  End If
+                                                                                                          ElseIf ListHeaderRegex114.IsMatch(msg.Message) AndAlso msg.Message.Trim.StartsWith(ListHeaderRegex114.Match(msg.Message).Value) Then
+                                                                                                              Dim preSplitString As String = msg.Message.Substring(ListHeaderRegex114.Match(msg.Message).Length - 1)
+                                                                                                              If String.IsNullOrWhiteSpace(preSplitString) = False Then
+                                                                                                                  preSplitString = preSplitString.Trim
+                                                                                                                  BeginInvokeIfRequired(Me, Sub() PlayerListBox.Items.Clear())
+                                                                                                                  For Each id As String In preSplitString.Split(New String() {" ,"}, StringSplitOptions.RemoveEmptyEntries)
+                                                                                                                      BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                                    PlayerListBox.Items.Add(id)
+                                                                                                                                                    PlayerListGetState = 0 'Restore to Default
+                                                                                                                                                End Sub)
+                                                                                                                  Next
                                                                                                               End If
-                                                                                                          Case 3 '有使用Minecraft_Server_Manager_Host 的伺服器專用
-                                                                                                              Dim playerIDListRegex As New Text.RegularExpressions.Regex("([A-Za-z0-9_-]*){1}(\|[A-Za-z0-9_-]*)*")
-                                                                                                              If playerIDListRegex.IsMatch(msg.Message) AndAlso playerIDListRegex.Match(msg.Message).Value = msg.Message.Trim Then
-                                                                                                                  If msg.Message = "" Then
+                                                                                                          End If
+                                                                                                      Case 2 '偵測玩家ID(每行只有一個)
+                                                                                                          Dim PlayerIDRegex As New Text.RegularExpressions.Regex("[A-Za-z0-9_-]{1,}")
+                                                                                                          If PlayerIDRegex.IsMatch(msg.Message) AndAlso PlayerIDRegex.Match(msg.Message).Value = msg.Message.Trim Then
+                                                                                                              If temp_PlayerList Is Nothing Then temp_PlayerList = New List(Of String)
+                                                                                                              temp_PlayerList.Add(msg.Message.Trim)
+                                                                                                              PlayerListGetCount -= 1
+                                                                                                              If PlayerListGetCount <= 0 Then
+                                                                                                                  If temp_PlayerList IsNot Nothing AndAlso temp_PlayerList.Count > 0 Then
+                                                                                                                      Dim playerList As New List(Of String)
+                                                                                                                      playerList.AddRange(temp_PlayerList)
+                                                                                                                      temp_PlayerList = Nothing
+                                                                                                                      BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                                    PlayerListBox.Items.Clear()
+                                                                                                                                                    PlayerListBox.Items.AddRange(playerList.ToArray)
+                                                                                                                                                End Sub)
+                                                                                                                  End If
+                                                                                                                  PlayerListGetState = 0 'Restore to Default
+                                                                                                              End If
+                                                                                                          End If
+                                                                                                      Case 3 '有使用Minecraft_Server_Manager_Host 的伺服器專用
+                                                                                                          Dim playerIDListRegex As New Text.RegularExpressions.Regex("([A-Za-z0-9_-]*){1}(\|[A-Za-z0-9_-]*)*")
+                                                                                                          If playerIDListRegex.IsMatch(msg.Message) AndAlso playerIDListRegex.Match(msg.Message).Value = msg.Message.Trim Then
+                                                                                                              If msg.Message = "" Then
+                                                                                                                  PlayerListGetState = 0
+                                                                                                                  BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                                ConnectionPlayerList.Clear()
+                                                                                                                                                PlayerListBox.Items.Clear()
+                                                                                                                                            End Sub)
+                                                                                                              Else
+                                                                                                                  Dim players As String() = msg.Message.Split(New Char() {"|"}, StringSplitOptions.RemoveEmptyEntries)
+                                                                                                                  If IsNothing(players) = False Then
                                                                                                                       PlayerListGetState = 0
                                                                                                                       BeginInvokeIfRequired(Me, Sub()
                                                                                                                                                     ConnectionPlayerList.Clear()
                                                                                                                                                     PlayerListBox.Items.Clear()
+                                                                                                                                                    ConnectionPlayerList.AddRange(players)
+                                                                                                                                                    PlayerListBox.Items.AddRange(players)
                                                                                                                                                 End Sub)
-                                                                                                                  Else
-                                                                                                                      Dim players As String() = msg.Message.Split(New Char() {"|"}, StringSplitOptions.RemoveEmptyEntries)
-                                                                                                                      If IsNothing(players) = False Then
-                                                                                                                          PlayerListGetState = 0
-                                                                                                                          BeginInvokeIfRequired(Me, Sub()
-                                                                                                                                                        ConnectionPlayerList.Clear()
-                                                                                                                                                        PlayerListBox.Items.Clear()
-                                                                                                                                                        ConnectionPlayerList.AddRange(players)
-                                                                                                                                                        PlayerListBox.Items.AddRange(players)
-                                                                                                                                                    End Sub)
-                                                                                                                      End If
                                                                                                                   End If
                                                                                                               End If
-                                                                                                      End Select
-                                                                                                  Catch ex As Exception
-
-                                                                                                  End Try
-                                                                                                  Dim item As New ListViewItem(msg.ServerMessageTypeString)
-                                                                                                  Select Case Server.ServerVersionType
-                                                                                                      Case Server.EServerVersionType.Spigot
-                                                                                                      Case Server.EServerVersionType.CraftBukkit
-                                                                                                      Case Server.EServerVersionType.Nukkit
-                                                                                                      Case Server.EServerVersionType.VanillaBedrock
-                                                                                                      Case Server.EServerVersionType.Paper
-                                                                                                      Case Server.EServerVersionType.Akarin
-                                                                                                      Case Server.EServerVersionType.Spigot_Git
-                                                                                                      Case Server.EServerVersionType.Cauldron
-                                                                                                      Case Server.EServerVersionType.Thermos
-                                                                                                      Case Server.EServerVersionType.Contigo
-                                                                                                      Case Else
-                                                                                                          item.SubItems.Add(msg.Thread)
+                                                                                                          End If
                                                                                                   End Select
-                                                                                                  item.SubItems.Add(msg.Message)
-                                                                                                  item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
-                                                                                                  Select Case msg.ServerMessageType
-                                                                                                      Case MCServerMessageType.Warning
-                                                                                                          item.ForeColor = Color.Orange
-                                                                                                          If NotifyChooseListBox.CheckedIndices.Contains(2) Then _
-                                                                                                                    NotifyInfoMessage("伺服器發出警告訊息:" & vbNewLine & msg.Message, Text)
-                                                                                                      Case MCServerMessageType.Error
-                                                                                                          item.ForeColor = Color.Red
-                                                                                                          If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
-                                                                                                                    NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & msg.Message, Text)
-                                                                                                      Case MCServerMessageType.Debug
-                                                                                                          item.ForeColor = Color.YellowGreen
-                                                                                                      Case MCServerMessageType.Trace
-                                                                                                          item.ForeColor = Color.Green
-                                                                                                      Case MCServerMessageType.Notify
-                                                                                                          item.ForeColor = Color.Blue
-                                                                                                  End Select
-                                                                                                  Select Case msg.MessageType
-                                                                                                      Case MCMessageType.PlayerConnected
-                                                                                                          If Server.ServerVersionType = Server.EServerVersionType.Vanilla Then If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Add(msg.AddtionalMessage("player"))
-                                                                                                      Case MCMessageType.PlayerLostConnected
-                                                                                                          If Server.ServerVersionType = Server.EServerVersionType.Vanilla Then If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Remove(msg.AddtionalMessage("player"))
-                                                                                                      Case MCMessageType.PlayerLogin
-                                                                                                          If NotifyChooseListBox.CheckedIndices.Contains(0) Then _
-                                                                                                                    NotifyInfoMessage(msg.AddtionalMessage("player") & " 進入伺服器", Text)
-                                                                                                          BeginInvokeIfRequired(Me, Sub()
-                                                                                                                                        If (Server.ServerVersionType = Server.EServerVersionType.Vanilla AndAlso ConnectionPlayerList.Contains(msg.AddtionalMessage("player"))) OrElse Not Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
-                                                                                                                                            If PlayerListBox.Items.Contains(msg.AddtionalMessage("player")) = False Then PlayerListBox.Items.Add(msg.AddtionalMessage("player"))
-                                                                                                                                        End If
-                                                                                                                                    End Sub)
-                                                                                                          For Each task In TaskList
-                                                                                                              If task.Mode = ServerTask.TaskMode.Trigger AndAlso
-                                                                                                                       task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogin Then
-                                                                                                                  If task.Enabled = True Then
-                                                                                                                      RunTask(task, msg.AddtionalMessage)
-                                                                                                                  End If
-                                                                                                              End If
-                                                                                                          Next
-                                                                                                      Case MCMessageType.PlayerLogout
-                                                                                                          If NotifyChooseListBox.CheckedIndices.Contains(1) Then _
-                                                                                                                    NotifyInfoMessage(msg.AddtionalMessage("player") & " 離開伺服器", Text)
-                                                                                                          BeginInvokeIfRequired(Me, Sub()
-                                                                                                                                        If (Server.ServerVersionType = Server.EServerVersionType.Vanilla AndAlso ConnectionPlayerList.Contains(msg.AddtionalMessage("player"))) OrElse Not Server.ServerVersionType = Server.EServerVersionType.Vanilla Then
-                                                                                                                                            If PlayerListBox.Items.Contains(msg.AddtionalMessage("player")) Then PlayerListBox.Items.Remove(msg.AddtionalMessage("player"))
-                                                                                                                                        End If
-                                                                                                                                    End Sub)
-                                                                                                          For Each task In TaskList
-                                                                                                              If task.Mode = ServerTask.TaskMode.Trigger AndAlso
-                                                                                                                       task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogout Then
-                                                                                                                  If task.Enabled = True Then
-                                                                                                                      RunTask(task, msg.AddtionalMessage)
-                                                                                                                  End If
-                                                                                                              End If
-                                                                                                          Next
-                                                                                                      Case MCMessageType.PlayerInputCommand
-                                                                                                          For Each task In TaskList
-                                                                                                              If task.Mode = ServerTask.TaskMode.Trigger AndAlso
-                                                                                                                       task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerInputCommand Then
-                                                                                                                  If task.Enabled = True Then
-                                                                                                                      Dim testRegex As New Text.RegularExpressions.Regex(task.CheckRegex)
-                                                                                                                      If String.IsNullOrWhiteSpace(task.CheckRegex) OrElse
-                                                                                                                  (testRegex.IsMatch(msg.AddtionalMessage("command")) AndAlso testRegex.Match(msg.AddtionalMessage("command")).Value = msg.AddtionalMessage("command")) Then
-                                                                                                                          RunTask(task, msg.AddtionalMessage)
-                                                                                                                      End If
-                                                                                                                  End If
-                                                                                                              End If
-                                                                                                          Next
-                                                                                                      Case Else
-                                                                                                  End Select
-                                                                                                  BeginInvokeIfRequired(Me, Sub()
-                                                                                                                                SyncLock Me
-                                                                                                                                    DataListView.Items.Add(item)
-                                                                                                                                    Try
-                                                                                                                                        If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
-                                                                                                                                    Catch ex As Exception
-
-                                                                                                                                    End Try
-                                                                                                                                End SyncLock
-                                                                                                                            End Sub)
                                                                                               Catch ex As Exception
+
                                                                                               End Try
-                                                                                          End Sub)
-                                                                             End If
+                                                                                              Dim item As New ListViewItem(msg.ServerMessageTypeString)
+                                                                                              item.SubItems.Add(msg.Thread)
+                                                                                              item.SubItems.Add(msg.Message)
+                                                                                              item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
+                                                                                              Select Case msg.ServerMessageType
+                                                                                                  Case MCServerMessageType.Warning
+                                                                                                      item.ForeColor = Color.Orange
+                                                                                                      If NotifyChooseListBox.CheckedIndices.Contains(2) Then _
+                                                                                                                    NotifyInfoMessage("伺服器發出警告訊息:" & vbNewLine & msg.Message, Text)
+                                                                                                  Case MCServerMessageType.Error
+                                                                                                      item.ForeColor = Color.Red
+                                                                                                      If NotifyChooseListBox.CheckedIndices.Contains(3) Then _
+                                                                                                                    NotifyInfoMessage("伺服器發出錯誤訊息:" & vbNewLine & msg.Message, Text)
+                                                                                                  Case MCServerMessageType.Debug
+                                                                                                      item.ForeColor = Color.YellowGreen
+                                                                                                  Case MCServerMessageType.Trace
+                                                                                                      item.ForeColor = Color.Green
+                                                                                                  Case MCServerMessageType.Notify
+                                                                                                      item.ForeColor = Color.Blue
+                                                                                              End Select
+                                                                                              Select Case msg.MessageType
+                                                                                                  Case MCMessageType.PlayerConnected
+                                                                                                      If TypeOf Server Is VanillaServer Then If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Add(msg.AddtionalMessage("player"))
+                                                                                                  Case MCMessageType.PlayerLostConnected
+                                                                                                      If TypeOf Server Is VanillaServer Then If ConnectionPlayerList.Contains(msg.AddtionalMessage("player")) Then ConnectionPlayerList.Remove(msg.AddtionalMessage("player"))
+                                                                                                  Case MCMessageType.PlayerLogin
+                                                                                                      If NotifyChooseListBox.CheckedIndices.Contains(0) Then _
+                                                                                                                    NotifyInfoMessage(msg.AddtionalMessage("player") & " 進入伺服器", Text)
+                                                                                                      BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                    If (TypeOf Server Is VanillaServer AndAlso ConnectionPlayerList.Contains(msg.AddtionalMessage("player"))) OrElse Not TypeOf Server Is VanillaServer Then
+                                                                                                                                        If PlayerListBox.Items.Contains(msg.AddtionalMessage("player")) = False Then PlayerListBox.Items.Add(msg.AddtionalMessage("player"))
+                                                                                                                                    End If
+                                                                                                                                End Sub)
+                                                                                                      For Each task In TaskList
+                                                                                                          If task.Mode = ServerTask.TaskMode.Trigger AndAlso
+                                                                                                                       task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogin Then
+                                                                                                              If task.Enabled = True Then
+                                                                                                                  RunTask(task, msg.AddtionalMessage)
+                                                                                                              End If
+                                                                                                          End If
+                                                                                                      Next
+                                                                                                  Case MCMessageType.PlayerLogout
+                                                                                                      If NotifyChooseListBox.CheckedIndices.Contains(1) Then _
+                                                                                                                    NotifyInfoMessage(msg.AddtionalMessage("player") & " 離開伺服器", Text)
+                                                                                                      BeginInvokeIfRequired(Me, Sub()
+                                                                                                                                    If (TypeOf Server Is VanillaServer AndAlso ConnectionPlayerList.Contains(msg.AddtionalMessage("player"))) OrElse Not TypeOf Server Is VanillaServer Then
+                                                                                                                                        If PlayerListBox.Items.Contains(msg.AddtionalMessage("player")) Then PlayerListBox.Items.Remove(msg.AddtionalMessage("player"))
+                                                                                                                                    End If
+                                                                                                                                End Sub)
+                                                                                                      For Each task In TaskList
+                                                                                                          If task.Mode = ServerTask.TaskMode.Trigger AndAlso
+                                                                                                                       task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerLogout Then
+                                                                                                              If task.Enabled = True Then
+                                                                                                                  RunTask(task, msg.AddtionalMessage)
+                                                                                                              End If
+                                                                                                          End If
+                                                                                                      Next
+                                                                                                  Case MCMessageType.PlayerInputCommand
+                                                                                                      For Each task In TaskList
+                                                                                                          If task.Mode = ServerTask.TaskMode.Trigger AndAlso
+                                                                                                                       task.TriggerEvent = ServerTask.TaskTriggerEvent.PlayerInputCommand Then
+                                                                                                              If task.Enabled = True Then
+                                                                                                                  Dim testRegex As New Text.RegularExpressions.Regex(task.CheckRegex)
+                                                                                                                  If String.IsNullOrWhiteSpace(task.CheckRegex) OrElse
+                                                                                                                  (testRegex.IsMatch(msg.AddtionalMessage("command")) AndAlso testRegex.Match(msg.AddtionalMessage("command")).Value = msg.AddtionalMessage("command")) Then
+                                                                                                                      RunTask(task, msg.AddtionalMessage)
+                                                                                                                  End If
+                                                                                                              End If
+                                                                                                          End If
+                                                                                                      Next
+                                                                                                  Case Else
+                                                                                              End Select
+                                                                                              BeginInvokeIfRequired(Me, Sub()
+                                                                                                                            SyncLock Me
+                                                                                                                                DataListView.Items.Add(item)
+                                                                                                                                Try
+                                                                                                                                    If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                                Catch ex As Exception
+
+                                                                                                                                End Try
+                                                                                                                            End SyncLock
+                                                                                                                        End Sub)
+                                                                                          Catch ex As Exception
+                                                                                          End Try
+                                                                                      End Sub)
                                                                          End If
-                                                                     Catch ex As Exception
-                                                                     End Try
-                                                                 End Sub
-            End If
+                                                                     End If
+                                                                 Catch ex As Exception
+                                                                 End Try
+                                                             End Sub
         End If
         ServerStatusLabel.Text = "伺服器狀態：啟動"
         Server.IsRunning = True
@@ -802,38 +620,7 @@ Public Class ServerConsole
             Catch ex As Exception
             End Try
         End If
-        If backgroundProcess IsNot Nothing Then Server.ProcessID = backgroundProcess.Id
     End Sub
-    Private Overloads Function PrepareStartInfo(program As String, args As String, serverDir As String, Optional nogui As Boolean = True, Optional UTF8Encoding As Boolean = False) As ProcessStartInfo
-        If IsNothing(startInfo) Then
-            Dim processInfo As ProcessStartInfo
-            If args = "" Then
-                processInfo = New ProcessStartInfo(program)
-            Else
-                If UTF8Encoding AndAlso Server.ServerVersionType <> Server.EServerVersionType.PocketMine Then args = "-Dfile.encoding=UTF-8 " & args
-                ' processInfo = New ProcessStartInfo("cmd.exe", "/c chcp 65001 && " & """" & program & """ " & args)
-                processInfo = New ProcessStartInfo(program, args)
-            End If
-            processInfo.UseShellExecute = False
-            processInfo.CreateNoWindow = nogui
-            If UTF8Encoding And nogui Then
-                processInfo.StandardErrorEncoding = System.Text.Encoding.UTF8
-                processInfo.StandardOutputEncoding = System.Text.Encoding.UTF8
-            End If
-            If nogui = False Then
-                MainTabControl.TabPages.Remove(DataTabPage)
-            End If
-            processInfo.RedirectStandardOutput = nogui
-            processInfo.RedirectStandardError = nogui
-            processInfo.RedirectStandardInput = nogui
-            processInfo.WorkingDirectory = serverDir
-            startInfo = processInfo
-            Return processInfo
-        Else
-            Return startInfo
-        End If
-    End Function
-
     Private Sub CommandTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles CommandTextBox.KeyDown
 
         Static upNumber As Integer = 0
@@ -846,15 +633,7 @@ Public Class ServerConsole
                         Select Case ConsoleMode
                             Case True
                                 If CommandTextBox.Text.StartsWith("/") Then
-                                    If Server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Paper OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                                    If TypeOf Server Is IBukkit Then
                                         If CommandTextBox.Text.Substring(1) = "minecraft:list" Then PlayerListGetState = 1
                                         If CommandTextBox.Text.Substring(1) = "callfunction getPlayerList" Then PlayerListGetState = 3
                                     Else
@@ -874,15 +653,7 @@ Public Class ServerConsole
                                 End If
                                 CommandTextBox.Clear()
                             Case False
-                                If Server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Paper OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                                If TypeOf Server Is IBukkit Then
                                     If CommandTextBox.Text = "minecraft:list" Then PlayerListGetState = 1
                                     If CommandTextBox.Text = "callfunction getPlayerList" Then PlayerListGetState = 3
                                 Else
@@ -1006,20 +777,7 @@ Public Class ServerConsole
         If IsNothing(backgroundProcess) OrElse backgroundProcess.HasExited Then
             Dim spItem1 As New ListViewItem("通知")
             spItem1.ForeColor = Color.Blue
-            Select Case Server.ServerVersionType
-                Case Server.EServerVersionType.Spigot
-                Case Server.EServerVersionType.CraftBukkit
-                Case Server.EServerVersionType.Nukkit
-                Case Server.EServerVersionType.VanillaBedrock
-                Case Server.EServerVersionType.Paper
-                Case Server.EServerVersionType.Akarin
-                Case Server.EServerVersionType.Spigot_Git
-                Case Server.EServerVersionType.Cauldron
-                Case Server.EServerVersionType.Thermos
-                Case Server.EServerVersionType.Contigo
-                Case Else
-                    spItem1.SubItems.Add(Application.ProductName)
-            End Select
+            spItem1.SubItems.Add(Application.ProductName)
             spItem1.SubItems.Add("")
             spItem1.SubItems.Add(String.Format("{0}:{1}:{2}", Now.Hour.ToString.PadLeft(2, "0"), Now.Minute.ToString.PadLeft(2, "0"), Now.Second.ToString.PadLeft(2, "0")))
             Try
@@ -1033,20 +791,7 @@ Public Class ServerConsole
             msg.Thread = Application.ProductName
             msg.MessageType = MCMessageType.None
             Dim item As New ListViewItem(msg.ServerMessageTypeString)
-            Select Case Server.ServerVersionType
-                Case Server.EServerVersionType.Spigot
-                Case Server.EServerVersionType.CraftBukkit
-                Case Server.EServerVersionType.Nukkit
-                Case Server.EServerVersionType.VanillaBedrock
-                Case Server.EServerVersionType.Paper
-                Case Server.EServerVersionType.Akarin
-                Case Server.EServerVersionType.Spigot_Git
-                Case Server.EServerVersionType.Cauldron
-                Case Server.EServerVersionType.Thermos
-                Case Server.EServerVersionType.Contigo
-                Case Else
-                    item.SubItems.Add(msg.Thread)
-            End Select
+            item.SubItems.Add(msg.Thread)
             item.ForeColor = Color.Blue
             item.SubItems.Add(msg.Message)
             item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
@@ -1056,20 +801,7 @@ Public Class ServerConsole
             End Try
             Dim spItem2 As New ListViewItem("通知")
             spItem2.ForeColor = Color.Blue
-            Select Case Server.ServerVersionType
-                Case Server.EServerVersionType.Spigot
-                Case Server.EServerVersionType.CraftBukkit
-                Case Server.EServerVersionType.Nukkit
-                Case Server.EServerVersionType.VanillaBedrock
-                Case Server.EServerVersionType.Paper
-                Case Server.EServerVersionType.Akarin
-                Case Server.EServerVersionType.Spigot_Git
-                Case Server.EServerVersionType.Cauldron
-                Case Server.EServerVersionType.Thermos
-                Case Server.EServerVersionType.Contigo
-                Case Else
-                    spItem2.SubItems.Add(Application.ProductName)
-            End Select
+            spItem2.SubItems.Add(Application.ProductName)
             spItem2.SubItems.Add("")
             spItem2.SubItems.Add(String.Format("{0}:{1}:{2}", Now.Hour.ToString.PadLeft(2, "0"), Now.Minute.ToString.PadLeft(2, "0"), Now.Second.ToString.PadLeft(2, "0")))
             Try
@@ -1093,9 +825,11 @@ Public Class ServerConsole
                                                          IDLabel.Text = "處理序ID：" & backgroundProcess.Id
                                                          If ServerStatusLabel.Text <> "伺服器狀態：啟動" Then ServerStatusLabel.Text = "伺服器狀態：啟動"
                                                          Dim maxPlayerCount As Integer = 0
-                                                         If Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")) Then
-                                                             maxPlayerCount = Server.ServerOptions("max-players")
-                                                         End If
+                                                         Try
+                                                             maxPlayerCount = Server.GetServerProperties.GetValue("max-players")
+                                                         Catch ex As Exception
+
+                                                         End Try
                                                          Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
                                                          If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
@@ -1106,9 +840,11 @@ Public Class ServerConsole
                                                          IDLabel.Text = "處理序ID：(無)"
                                                          If ServerStatusLabel.Text <> "伺服器狀態：關閉" Then ServerStatusLabel.Text = "伺服器狀態：關閉"
                                                          Dim maxPlayerCount As Integer = 0
-                                                             If Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")) Then
-                                                             maxPlayerCount = Server.ServerOptions("max-players")
-                                                         End If
+                                                         Try
+                                                             maxPlayerCount = Server.GetServerProperties.GetValue("max-players")
+                                                         Catch ex As Exception
+
+                                                         End Try
                                                          Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)
                                                          If PlayerGroupBox.Text <> playerListTitle Then PlayerGroupBox.Text = playerListTitle
                                                      Catch ex As Exception
@@ -1161,7 +897,7 @@ Public Class ServerConsole
                                                                              Server.IsRunning = False
                                                                              Server.SaveServer()
                                                                          End Sub)) With {
-            .Name = "Server Manager Close Server Thread",
+            .Name = "ServerBase Manager Close ServerBase Thread",
             .IsBackground = False
                                                                      }
             thread.Start()
@@ -1170,8 +906,8 @@ Public Class ServerConsole
     Sub DisconnectUPnP()
         If GlobalModule.Manager.CanUPnP Then
             Try
-                If GlobalModule.Manager.ip.Contains(Server.ServerOptions("server-ip")) OrElse Server.ServerOptions("server-ip") = "" Then
-                    GlobalModule.Manager.upnpProvider.DestroyPort(Server.ServerOptions("server-port"))
+                If GlobalModule.Manager.ip.Contains(Server.GetServerProperties.GetValue("server-ip")) OrElse Server.GetServerProperties.GetValue("server-ip") = "" Then
+                    GlobalModule.Manager.upnpProvider.DestroyPort(Server.GetServerProperties.GetValue("server-port"))
                 End If
             Catch ex As Exception
             End Try
@@ -1180,8 +916,8 @@ Public Class ServerConsole
     Sub ConnectUPnP()
         If GlobalModule.Manager.CanUPnP Then
             Try
-                If GlobalModule.Manager.ip.Contains(Server.ServerOptions("server-ip")) OrElse Server.ServerOptions("server-ip") = "" Then
-                    GlobalModule.Manager.upnpProvider.PortForward(Server.ServerOptions("server-port"), Server.ServerOptions("motd"))
+                If GlobalModule.Manager.ip.Contains(Server.GetServerProperties.GetValue("server-ip")) OrElse Server.GetServerProperties.GetValue("server-ip") = "" Then
+                    GlobalModule.Manager.upnpProvider.PortForward(Server.GetServerProperties.GetValue("server-port"), Server.GetServerProperties.GetValue("motd"))
                 End If
             Catch ex As Exception
             End Try
@@ -1277,7 +1013,7 @@ Public Class ServerConsole
                                                        End If
                                                        Server.IsRunning = False
                                                    End Sub) With {
-    .Name = "Server Manager Close Server Thread",
+    .Name = "ServerBase Manager Close ServerBase Thread",
     .IsBackground = True
                                                              }
                 thread.Start()
@@ -1299,7 +1035,7 @@ Public Class ServerConsole
                                                        End If
                                                        BeginInvokeIfRequired(Me, Sub() RestartButton_Click(Me, New EventArgs))
                                                    End Sub) With {
-            .Name = "Server Manager Restart Server Thread",
+            .Name = "ServerBase Manager Restart ServerBase Thread",
             .IsBackground = True
                                                                      }
                 thread.Start()
@@ -1564,15 +1300,7 @@ Public Class ServerConsole
         If backgroundProcess IsNot Nothing Then
             If backgroundProcess.HasExited = False Then
                 Try
-                    If Server.ServerVersionType = Server.EServerVersionType.CraftBukkit OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Spigot OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Spigot_Git OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Paper OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Akarin OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
-                            Server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                    If TypeOf Server Is IBukkit Then
                         If hasHost Then
                             backgroundProcess.StandardInput.WriteLine("callfunction getPlayerList")
                             PlayerListGetState = 3
@@ -1694,20 +1422,7 @@ Public Class ServerConsole
         msg.Thread = Application.ProductName
         msg.MessageType = MCMessageType.None
         Dim item As New ListViewItem(msg.ServerMessageTypeString)
-        Select Case Server.ServerVersionType
-            Case Server.EServerVersionType.Spigot
-            Case Server.EServerVersionType.CraftBukkit
-            Case Server.EServerVersionType.Nukkit
-            Case Server.EServerVersionType.VanillaBedrock
-            Case Server.EServerVersionType.Paper
-            Case Server.EServerVersionType.Akarin
-            Case Server.EServerVersionType.Spigot_Git
-            Case Server.EServerVersionType.Cauldron
-            Case Server.EServerVersionType.Thermos
-            Case Server.EServerVersionType.Contigo
-            Case Else
-                item.SubItems.Add(msg.Thread)
-        End Select
+        item.SubItems.Add(msg.Thread)
         item.ForeColor = Color.Blue
         item.SubItems.Add(msg.Message)
         item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
@@ -1727,20 +1442,7 @@ Public Class ServerConsole
         msg2.Thread = Application.ProductName
         msg2.MessageType = MCMessageType.None
         Dim item2 As New ListViewItem(msg.ServerMessageTypeString)
-        Select Case Server.ServerVersionType
-            Case Server.EServerVersionType.Spigot
-            Case Server.EServerVersionType.CraftBukkit
-            Case Server.EServerVersionType.Nukkit
-            Case Server.EServerVersionType.VanillaBedrock
-            Case Server.EServerVersionType.Paper
-            Case Server.EServerVersionType.Akarin
-            Case Server.EServerVersionType.Spigot_Git
-            Case Server.EServerVersionType.Cauldron
-            Case Server.EServerVersionType.Thermos
-            Case Server.EServerVersionType.Contigo
-            Case Else
-                item2.SubItems.Add(msg.Thread)
-        End Select
+        item2.SubItems.Add(msg.Thread)
         item2.ForeColor = Color.Blue
         item2.SubItems.Add(msg.Message)
         item2.SubItems.Add(String.Format("{0}:{1}:{2}", msg2.Time.Hour.ToString.PadLeft(2, "0"), msg2.Time.Minute.ToString.PadLeft(2, "0"), msg2.Time.Second.ToString.PadLeft(2, "0")))

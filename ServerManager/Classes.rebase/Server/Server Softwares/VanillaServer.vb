@@ -12,7 +12,7 @@ Public Class VanillaServer
     Protected seperator As String = IIf(IsUnixLikeSystem, "/", "\")
     Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
     Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
-    Private Property Server2ndVersion As String
+    Friend Property Server2ndVersion As String
     Protected Shared VanillaVersionDict As New Dictionary(Of String, String)
     Private Shared SnapshotList As List(Of String)
     Public Sub New()

@@ -22,7 +22,9 @@
     ''' <param name="path">伺服器的路徑</param>
     ''' <returns></returns>
     Shared Function GetServer(path As String) As ServerBase
-        Return Activator.CreateInstance(SoftwareDictionary(ServerBase.GetServerTypeString(path)).ClassType)
+        Dim instance As ServerBase = Activator.CreateInstance(SoftwareDictionary(ServerBase.GetServerTypeString(path)).ClassType)
+        instance.GetServer(path)
+        Return instance
     End Function
     ''' <summary>
     ''' 註冊一個伺服器軟體

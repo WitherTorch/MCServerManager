@@ -1,6 +1,6 @@
 ﻿Public Class ModManager
     Implements IAddonManagerGUI
-    Dim server As Server
+    Dim server As ServerBase
 
     Sub New(index As Integer)
 
@@ -17,7 +17,7 @@
 
     Private Sub 移除插件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 移除模組ToolStripMenuItem.Click
         Try
-            server.ServerMods.RemoveAt(ModList.SelectedIndices(0))
+            DirectCast(server, IForge).RemoveMod(DirectCast(server, IForge).GetMods(ModList.SelectedIndices(0)))
             My.Computer.FileSystem.DeleteFile(ModList.SelectedItems(0).SubItems(2).Text)
             ModList.Items.Remove(ModList.SelectedItems(0))
         Catch ex As Exception
@@ -25,7 +25,7 @@
     End Sub
     Sub LoadMods()
         ModList.Items.Clear()
-        For Each forgeMod In server.ServerMods
+        For Each forgeMod In DirectCast(server, IForge).GetMods
             ModList.Items.Add(New ListViewItem(New String() {forgeMod.Name, forgeMod.Version, forgeMod.VersionDate.ToString, forgeMod.Path}))
         Next
     End Sub
