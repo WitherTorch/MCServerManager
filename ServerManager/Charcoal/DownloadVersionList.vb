@@ -1,7 +1,7 @@
 ﻿Imports ServerManager
 
 Public Class DownloadVersionList
-    Friend server As Server
+    Friend server As ServerBase
     Friend modpackServer As ModPackServer
     Friend modpackName As String
     Dim index As Integer
@@ -67,19 +67,19 @@ Public Class DownloadVersionList
             Dim realURI As Uri = request.GetResponse().ResponseUri
             If website = BrowsingWebsite.Bukkit OrElse website = BrowsingWebsite.CurseForge_Plugin Then
                 My.Computer.Network.DownloadFile(realURI, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", "", True, 100, True)
-                For Each plugin In server.ServerPlugins
+                For Each plugin In CType(server, IBukkit).GetPlugins
                     If plugin.Name = pluginName Then
                         IO.File.Delete(plugin.Path)
-                        server.ServerPlugins.Remove(plugin)
+                        .Remove(plugin)
                     End If
                 Next
-                Dim _plugin As New Server.ServerPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
+                Dim _plugin As New ServerAddons(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
                 Using unpatcher As New BukkitPluginUnpatcher(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"))
                     Dim info = unpatcher.GetPluginInfo()
                     If info.IsNull = False Then
                         _plugin.Name = info.Name
                         _plugin.Version = info.Version
-                        server.ServerPlugins.Add(_plugin)
+                        server.ServerAddons.Add(_plugin)
                     End If
                 End Using
             ElseIf website = BrowsingWebsite.CurseForge_Mod Then
@@ -102,10 +102,10 @@ Public Class DownloadVersionList
                 server.ServerMods.Add(New Server.ServerMod(pluginName, IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"), "", DateTime.Parse(VersionList.SelectedItems(0).SubItems(3).Text).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "mods", pluginName & ".jar"))))
             ElseIf website = BrowsingWebsite.Nukkit_PluginDownloadList Then
                 My.Computer.Network.DownloadFile(realURI, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", "", True, 100, True)
-                For Each plugin In server.ServerPlugins
+                For Each plugin In server.ServerAddons
                     If plugin.Name = pluginName Then
                         IO.File.Delete(plugin.Path)
-                        server.ServerPlugins.Remove(plugin)
+                        server.ServerAddons.Remove(plugin)
                     End If
                 Next
                 Dim t = VersionList.SelectedItems(0).SubItems(3).Text
@@ -113,22 +113,22 @@ Public Class DownloadVersionList
                     t = t.Remove(t.IndexOf("at"))
                     t = t.Trim
                 End If
-                Dim _plugin As New Server.ServerPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
+                Dim _plugin As New Server.ServerAddons(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
                 Using unpatcher As New BukkitPluginUnpatcher(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"))
                     Dim info = unpatcher.GetPluginInfo()
                     If info.IsNull = False Then
                         _plugin.Name = info.Name
                         _plugin.Version = info.Version
-                        server.ServerPlugins.Add(_plugin)
+                        server.ServerAddons.Add(_plugin)
                     End If
                 End Using
                 'GlobalModule.Manager.ServerEntityList(index) = server
             ElseIf website = BrowsingWebsite.Spigot_PluginDownloadList Then
                 My.Computer.Network.DownloadFile(realURI, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", "", True, 100, True)
-                For Each plugin In server.ServerPlugins
+                For Each plugin In server.ServerAddons
                     If plugin.Name = pluginName Then
                         IO.File.Delete(plugin.Path)
-                        server.ServerPlugins.Remove(plugin)
+                        server.ServerAddons.Remove(plugin)
                     End If
                 Next
                 Dim t = VersionList.SelectedItems(0).SubItems(3).Text
@@ -136,13 +136,13 @@ Public Class DownloadVersionList
                     t = t.Remove(t.IndexOf("at"))
                     t = t.Trim
                 End If
-                Dim _plugin As New Server.ServerPlugin(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
+                Dim _plugin As New Server.ServerAddons(pluginName, IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"), "", Date.Parse(t).ToString, IO.File.GetLastWriteTime(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar")))
                 Using unpatcher As New BukkitPluginUnpatcher(IO.Path.Combine(server.ServerPath, "plugins", pluginName & ".jar"))
                     Dim info = unpatcher.GetPluginInfo()
                     If info.IsNull = False Then
                         _plugin.Name = info.Name
                         _plugin.Version = info.Version
-                        server.ServerPlugins.Add(_plugin)
+                        server.ServerAddons.Add(_plugin)
                     End If
                 End Using
             ElseIf website = BrowsingWebsite.FeedTheBeast_Modpack Then

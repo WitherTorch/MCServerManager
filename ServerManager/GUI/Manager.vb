@@ -10,6 +10,7 @@ Imports NoIP
 
 Public Class Manager
     Friend ServerEntityList As New List(Of ServerBase)
+    Private ServerStatusList As New List(Of ServerStatus)
     Friend ServerPathList As New List(Of String)
     Friend BungeePathList As New List(Of String)
     Friend ModpackServerPathList As New List(Of String)
@@ -597,7 +598,7 @@ Public Class Manager
         thread.Start()
     End Sub
 
-    Friend Sub AddServer(serverDirectory As String)
+    Friend Overloads Sub AddServer(serverDirectory As String)
         SyncLock Me
             If ServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then
                 Dim status As New ServerStatus(serverDirectory)
@@ -671,7 +672,89 @@ Public Class Manager
             End If
         End SyncLock
     End Sub
+    Friend Overloads Sub AddServer(server As ServerBase)
+        SyncLock Me
+            If ServerPathList.Contains(server.ServerPath) = False And IO.Directory.Exists(server.ServerPath) Then
+                Dim status As New ServerStatus(server)
+                status.Dock = DockStyle.Fill
+                AddHandler status.ServerLoaded, Sub()
+                                                    If status.InvokeRequired Then
+                                                        status.BeginInvoke(Sub() status.Update())
+                                                    Else
+                                                        status.Update()
+                                                    End If
+                                                    If ServerListPanel.InvokeRequired Then
+                                                        ServerListPanel.BeginInvoke(Sub()
+                                                                                        Dim index = ServerListPanel.RowStyles.Count
+                                                                                        ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                                                        ServerListPanel.Controls.Add(status, 0, index)
+                                                                                        ServerListPanel.Update()
+                                                                                    End Sub)
+                                                    Else
+                                                        Dim index = ServerListPanel.RowStyles.Count
+                                                        ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
+                                                        ServerListPanel.Controls.Add(status, 0, index)
+                                                    End If
+                                                End Sub
+                status.CheckRequirement()
+                status.LoadStatus()
+                ServerPathList.Add(server.ServerPath)
+                AddHandler status.DeleteServer, Sub(NoUI)
+                                                    If NoUI Then
+                                                        Try
+                                                            If IsNothing(status) = False Then
+                                                                status.CloseServer()
+                                                            End If
+                                                        Catch ex As Exception
+                                                        Finally
+                                                            BeginInvokeIfRequired(Me, Sub()
+                                                                                          Try
+                                                                                              ServerListPanel.Controls.Remove(status)
+                                                                                          Catch ex As Exception
+                                                                                          End Try
+                                                                                          If ServerPathList.Contains(status.Server.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
+                                                                                      End Sub)
+                                                        End Try
+                                                    Else
+                                                        Try
+                                                            Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
+                                                                Case MsgBoxResult.Yes
+                                                                    If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
+                                                                        My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                                                                    End If
+                                                                Case MsgBoxResult.Cancel
+                                                                    Exit Sub
+                                                            End Select
+                                                        Catch ex As Exception
+                                                        End Try
+                                                        Try
+                                                            ServerListPanel.Controls.Remove(status)
+                                                        Catch ex As Exception
+                                                        End Try
+                                                        If ServerPathList.Contains(status.Server.ServerPath) Then _
+                                                                                                 ServerPathList.Remove(status.Server.ServerPath)
+                                                        If IsNothing(status) = False Then
+                                                            Try
+                                                                status.CloseServer()
+                                                            Catch ex As Exception
 
+                                                            End Try
+                                                        End If
+                                                    End If
+                                                End Sub
+            Else
+                For Each status In ServerStatusList
+                    If status.Server.ServerPath = server.ServerPath Then
+                        ServerEntityList.Remove(status.Server)
+                        status.Server = server
+                        status.LoadStatus()
+                        Exit For
+                    End If
+                Next
+            End If
+        End SyncLock
+    End Sub
     Friend Sub AddModpackServer(serverDirectory As String)
         SyncLock Me
             If ModpackServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then

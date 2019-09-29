@@ -2,11 +2,22 @@
 
 Public Class ServerStatus
     Public Event DeleteServer(NoUI As Boolean)
-    Public ReadOnly Property Server As ServerBase
+    Dim _Server As ServerBase
+    Public Property Server As ServerBase
+        Get
+            Return _Server
+        End Get
+        Friend Set(value As ServerBase)
+            Dim serverGCLayer As Integer = GC.GetGeneration(_Server)
+            _Server = Nothing
+            GC.Collect(serverGCLayer)
+            _Server = value
+        End Set
+    End Property
     Protected console As ServerConsole
     Protected setter As ServerSetter
     Public Event ServerLoaded()
-    Protected Sub New(ByRef server As ServerBase)
+    Sub New(ByRef server As ServerBase)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
