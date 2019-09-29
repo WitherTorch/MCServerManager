@@ -26,6 +26,13 @@ Public Class VanillaServer
         MyBase.ReloadServer()
         GetOptions()
     End Sub
+    Public Overrides Function BeforeRunServer() As Boolean
+        If GlobalModule.Manager.HasJava = False Then
+            MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
+            Return False
+        End If
+        Return True
+    End Function
     Friend Shared Sub GetVersionList()
         VanillaVersionDict.Clear()
         Dim manifestListURL As String = "https://launchermeta.mojang.com/mc/game/version_manifest.json"

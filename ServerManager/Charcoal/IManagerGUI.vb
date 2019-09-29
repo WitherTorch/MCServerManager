@@ -1,2 +1,2 @@
-﻿Public Interface IManagerGUI
+﻿Public Interface IAddonManagerGUI
 End Interface

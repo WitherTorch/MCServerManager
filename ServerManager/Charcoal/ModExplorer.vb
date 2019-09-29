@@ -1,6 +1,6 @@
 ﻿Imports System.Threading
 
-Public Class ForgeModExplorer
+Public Class ModExplorer
     Dim engine As CharcoalEngine
     Dim spongeThread As Thread
     Friend _server As Server

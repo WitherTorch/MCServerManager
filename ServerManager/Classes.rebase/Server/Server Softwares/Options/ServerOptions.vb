@@ -185,6 +185,7 @@ Public Interface IServerProperties
     Sub InputOption(serverOption As IDictionary(Of String, String))
     Sub SetValue(optionName As String, value As String)
     Function OutputOption() As IDictionary(Of String, String)
+    Function GetValue(optionName As String) As String
 End Interface
 ''' <summary>
 ''' server.properties 的對應.NET 類別(Java 版)
@@ -717,6 +718,110 @@ Public Class JavaServerOptions
                 End If
         End Select
     End Sub
+    Public Function GetValue(optionName As String) As String Implements IServerProperties.GetValue
+        Select Case optionName
+            Case "allow-flight"
+                Return Allow_Flight.ToString.ToLower
+            Case "allow-nether"
+                Return Allow_Nether.ToString.ToLower
+            Case "announce-player-achievements"
+                Return Announce_Player_Achievements.ToString.ToLower
+            Case "broadcast-console-to-ops"
+                Return Broadcast_Console_To_Ops.ToString.ToLower
+            Case "debug"
+                Return Debug.ToString.ToLower
+            Case "difficulty"
+                Return Difficulty
+            Case "enable-query"
+                Return Enable_Query.ToString.ToLower
+            Case "enable-rcon"
+                Return Enable_Rcon.ToString.ToLower
+            Case "force-gamemode"
+                Return Force_Gamemode.ToString.ToLower
+            Case "gamemode"
+                Return Gamemode
+            Case "generate-structures"
+                Return Generate_Structures
+            Case "generator-settings"
+                Return Generator_Settings
+            Case "hardcore"
+                Return Hardcore.ToString.ToLower
+            Case "level-name"
+                Return Level_Name
+            Case "level-seed"
+                Return Level_Seed
+            Case "level-type"
+                Return Level_Type.ToString
+            Case "max-build-height"
+                Return Max_Build_Height
+            Case "max-players"
+                Return Max_Players
+            Case "max-tick-time"
+                Return Max_Tick_Time
+            Case "max-world-size"
+                Return Max_World_Size
+            Case "motd"
+                Return GetUnicodedText(Motd)
+            Case "network-compression-threshold"
+                Return Network_Compression_Threshold
+            Case "online-mode"
+                Return Online_Mode.ToString.ToLower
+            Case "op-permission-level"
+                Return Op_Permission_Level
+            Case "player-idle-timeout"
+                Return Player_Idle_Timeout
+            Case "prevent-proxy-connections"
+                Return Prevent_Proxy_Connections.ToString.ToLower
+            Case "pvp"
+                Return PvP.ToString.ToLower
+            Case "query.port"
+                Return Query_Port
+            Case "rcon.password"
+                Return Rcon_Password
+            Case "rcon.port"
+                Return Rcon_Port
+            Case "resource-pack"
+                Return Resource_Pack
+            Case "resource-pack-sha1"
+                Return Resource_Pack_Sha1
+            Case "server-ip"
+                Return Server_Ip
+            Case "server-port"
+                Return Server_Port
+            Case "snooper-enabled"
+                Return Snooper_Enabled.ToString.ToLower
+            Case "spawn-animals"
+                Return Spawn_Animals.ToString.ToLower
+            Case "spawn-monsters"
+                Return Spawn_Monsters.ToString.ToLower
+            Case "spawn-npcs"
+                Return Spawn_NPCs.ToString.ToLower
+            Case "spawn-protection"
+                Return Spawn_Protection
+            Case "view-distance"
+                Return View_Distance
+            Case "white-list"
+                Return White_List.ToString.ToLower
+            Case "enable-command-block"
+                Return Enable_Command_Block.ToString.ToLower
+            Case "enforce-whitelist"
+                Return Enforce_Whitelist.ToString.ToLower
+            Case "function-permission-level"
+                Return Function_Permission_Level
+            Case Else
+                If dictionary Is Nothing Then
+                    dictionary = New Dictionary(Of String, String)()
+                    Return ""
+                Else
+                    If dictionary.ContainsKey(optionName) Then
+                        Return dictionary(optionName)
+                    Else
+                        Return ""
+                    End If
+                End If
+        End Select
+    End Function
+
     Public Function OutputOption() As IDictionary(Of String, String) Implements IServerProperties.OutputOption
         Dim options As New Dictionary(Of String, String)
         options.Add("allow-flight", Allow_Flight.ToString.ToLower)
@@ -1133,6 +1238,65 @@ Public Class NukkitServerOptions
                 Xbox_Auth = ToStandardBoolean(value)
         End Select
     End Sub
+    Public Function GetValue(optionName As String) As String Implements IServerProperties.GetValue
+        Select Case optionName
+            Case "allow-flight"
+                Return ToStandardOnOff(Allow_Flight)
+            Case "announce-player-achievements"
+                Return ToStandardOnOff(Announce_Player_Achievements)
+            Case "difficulty"
+                Return Difficulty
+            Case "enable-query"
+                Return ToStandardOnOff(Enable_Query)
+            Case "enable-rcon"
+                Return ToStandardOnOff(Enable_Rcon)
+            Case "force-gamemode"
+                Return ToStandardOnOff(Force_Gamemode)
+            Case "gamemode"
+                Return Gamemode
+            Case "generator-settings"
+                Return Generator_Settings
+            Case "hardcore"
+                Return ToStandardOnOff(Hardcore)
+            Case "level-name"
+                Return Level_Name
+            Case "level-seed"
+                Return Level_Seed
+            Case "level-type"
+                Return Level_Type.ToString
+            Case "max-players"
+                Return Max_Players
+            Case "motd"
+                Return Motd
+            Case "pvp"
+                Return ToStandardOnOff(PvP)
+            Case "rcon.port"
+                Return Rcon_Port
+            Case "rcon.password"
+                Return Rcon_Password
+            Case "server-ip"
+                Return Server_Ip
+            Case "server-port"
+                Return Server_Port
+            Case "spawn-animals"
+                Return ToStandardOnOff(Spawn_Animals)
+            Case "spawn-monsters"
+                Return ToStandardOnOff(Spawn_Monsters)
+            Case "spawn-protection"
+                Return Spawn_Protection
+            Case "sub-motd"
+                Return Sub_Motd
+            Case "view-distance"
+                Return View_Distance
+            Case "white-list"
+                Return ToStandardOnOff(White_List)
+            Case "xbox-auth"
+                Return ToStandardOnOff(Xbox_Auth)
+            Case Else
+                Return ""
+        End Select
+    End Function
+
     Public Function OutputOption() As IDictionary(Of String, String) Implements IServerProperties.OutputOption
         Dim options As New Dictionary(Of String, String)
         options.Add("allow-flight", ToStandardOnOff(Allow_Flight))
@@ -1398,6 +1562,55 @@ Public Class BDSServerOptions
                 White_List = Boolean.Parse(value)
         End Select
     End Sub
+    Public Function GetValue(optionName As String) As String Implements IServerProperties.GetValue
+        Select Case optionName
+            Case "server-name"
+                Return Server_Name
+            Case "difficulty"
+                Return Difficulty
+            Case "gamemode"
+                Return Gamemode
+            Case "level-name"
+                Return Level_Name
+            Case "level-seed"
+                Return Level_Seed
+            Case "level-type"
+                Select Case Level_Type
+                    Case Bedrock_Level_Type.FLAT
+                        Return "FLAT"
+                    Case Bedrock_Level_Type.OLD
+                        Return "LEGACY"
+                    Case Bedrock_Level_Type.INFINITE
+                        Return "DEFAULT"
+                End Select
+            Case "max-players"
+                Return Max_Players
+            Case "server-port"
+                Return Server_Port
+            Case "server-portv6"
+                Return Server_PortV6
+            Case "online-mode"
+                Return Online_Mode.ToString.ToLower
+            Case "allow-cheats"
+                Return Allow_Cheats.ToString.ToLower
+            Case "player-idle-timeout"
+                Return Player_Idle_Timeout
+            Case "max-threads"
+                Return Max_Threads
+            Case "view-distance"
+                Return View_Distance
+            Case "tick-distance"
+                Return Tick_Distance
+            Case "default-player-permission-level"
+                Return Default_Player_Permission_Level.ToString.ToLower
+            Case "texturepack-required"
+                Return Texturepack_Required.ToString.ToLower
+            Case "white-list"
+                Return White_List.ToString.ToLower
+            Case Else
+                Return ""
+        End Select
+    End Function
     Public Function OutputOption() As IDictionary(Of String, String) Implements IServerProperties.OutputOption
         Dim options As New Dictionary(Of String, String)
         options.Add("server-name", Server_Name)
@@ -1684,6 +1897,61 @@ Public Class PocketMineServerOptions
                 Xbox_Auth = ToStandardBoolean(value)
         End Select
     End Sub
+    Public Function GetValue(optionName As String) As String Implements IServerProperties.GetValue
+        Select Case optionName
+            Case "difficulty"
+                Return Difficulty
+            Case "enable-query"
+                Return ToStandardOnOff(Enable_Query)
+            Case "enable-rcon"
+                Return ToStandardOnOff(Enable_Rcon)
+            Case "force-gamemode"
+                Return ToStandardOnOff(Force_Gamemode)
+            Case "gamemode"
+                Return Gamemode
+            Case "generator-settings"
+                Return Generator_Settings
+            Case "hardcore"
+                Return ToStandardOnOff(Hardcore)
+            Case "language"
+                Return GetLanguageCodeByLanguage(Language)
+            Case "level-name"
+                Return Level_Name
+            Case "level-seed"
+                Return Level_Seed
+            Case "level-type"
+                Select Case Level_Type
+                    Case Bedrock_Level_Type.FLAT
+                        Return "FLAT"
+                    Case Bedrock_Level_Type.OLD
+                        Return "LEGACY"
+                    Case Bedrock_Level_Type.INFINITE
+                        Return "DEFAULT"
+                End Select
+            Case "max-players"
+                Return Max_Players
+            Case "motd"
+                Return Motd
+            Case "pvp"
+                Return ToStandardOnOff(PvP)
+            Case "rcon.port"
+                Return Rcon_Port
+            Case "rcon.password"
+                Return Rcon_Password
+            Case "server-ip"
+                Return Server_Ip
+            Case "server-port"
+                Return Server_Port
+            Case "spawn-protection"
+                Return Spawn_Protection
+            Case "view-distance"
+                Return View_Distance
+            Case "white-list"
+                Return ToStandardOnOff(White_List)
+            Case "xbox-auth"
+                Return ToStandardOnOff(Xbox_Auth)
+        End Select
+    End Function
     Public Function OutputOption() As IDictionary(Of String, String) Implements IServerProperties.OutputOption
         Dim options As New Dictionary(Of String, String)
         options.Add("difficulty", Difficulty)

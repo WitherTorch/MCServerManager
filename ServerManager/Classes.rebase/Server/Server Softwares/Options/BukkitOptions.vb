@@ -10,6 +10,9 @@ Imports YamlDotNet.Serialization
 Public Class BukkitOptions
     Inherits AbstractSoftwareOptions
     Dim path As String = ""
+    Public Overrides Function GetOptionsTitle() As String
+        Return "Bukkit 設定"
+    End Function
 #Region "通用設定"
     <DisplayName("允許終界")> <DefaultValue(True)> <Category("通用設定")> <Description("是否啟用終界。")>
     Public Property Allow_end As Boolean = True

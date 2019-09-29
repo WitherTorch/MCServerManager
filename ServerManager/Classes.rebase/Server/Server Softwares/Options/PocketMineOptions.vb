@@ -8,6 +8,9 @@ Imports YamlDotNet.Serialization
 Public Class PocketMineOptions
     Inherits AbstractSoftwareOptions
     Dim path As String
+    Public Overrides Function GetOptionsTitle() As String
+        Return "PocketMine 設定"
+    End Function
 #Region "Setting"
     <DisplayName("是否強制使用語言")> <DefaultValue(False)> <Category("一般")> <Description("伺服器是否強制使用特定語言介面")>
     Public Property Force_Language As Boolean = False

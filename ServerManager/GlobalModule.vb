@@ -306,7 +306,7 @@ Module GlobalModule
     End Function
     Friend Function GetDeUnicodedText(text As String) As String
         ' "\u0000"
-        Dim regex As New Regex("(\\u[0-9a-f]{4}|[a-zA-z0-9])")
+        Dim regex As New Regex("(\\u[0-9a-fA-F]{4}|[a-zA-z0-9])")
         Dim result As String = ""
         For Each match As Match In regex.Matches(text)
             Try

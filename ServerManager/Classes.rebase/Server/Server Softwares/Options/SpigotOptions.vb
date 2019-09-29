@@ -12,6 +12,9 @@ Public Class SpigotOptions
     Inherits AbstractSoftwareOptions
     Friend UseOldVersionSetting As Boolean
     Dim path As String = ""
+    Public Overrides Function GetOptionsTitle() As String
+        Return "Spigot 設定"
+    End Function
 #Region "通用設定"
     Dim Config_version As Integer = 13
     Dim Debug As Boolean = False

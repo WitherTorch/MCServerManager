@@ -1,4 +1,4 @@
-﻿Public Class BukkitPluginExplorer
+﻿Public Class PluginExplorer
     Dim engine As CharcoalEngine
     Friend index As Integer
     Friend isStart As Boolean = True

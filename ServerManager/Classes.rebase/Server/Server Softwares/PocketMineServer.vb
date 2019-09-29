@@ -178,6 +178,13 @@ Public Class PocketMineServer
     Public Overrides Function GetServerFileName() As String
         Return "PocketMine-MP.phar"
     End Function
+    Public Overrides Function BeforeRunServer() As Boolean
+        If String.IsNullOrWhiteSpace(PHPPath) Then
+            MsgBox("未指定PHP 路徑",, Application.ProductName)
+            Return False
+        End If
+        Return True
+    End Function
     ''' <summary>
     ''' 啟動伺服器
     ''' </summary>

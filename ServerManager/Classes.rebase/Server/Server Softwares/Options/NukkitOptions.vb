@@ -6,6 +6,9 @@ Imports YamlDotNet.Serialization
 Public Class NukkitOptions
     Inherits AbstractSoftwareOptions
     Dim path As String
+    Public Overrides Function GetOptionsTitle() As String
+        Return "Nukkit 設定"
+    End Function
     Enum NukkitLanguageEnum
         English
         Chinese_Simplified

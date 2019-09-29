@@ -601,9 +601,6 @@ Public Class Manager
         SyncLock Me
             If ServerPathList.Contains(serverDirectory) = False And IO.Directory.Exists(serverDirectory) Then
                 Dim status As New ServerStatus(serverDirectory)
-                If status.Server.ServerVersionType = Server.EServerVersionType.Spigot_Git Then
-                    status = New SpigotGitStatus(status.Server)
-                End If
                 status.Dock = DockStyle.Fill
                 AddHandler status.ServerLoaded, Sub()
                                                     If status.InvokeRequired Then

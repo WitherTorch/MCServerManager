@@ -7,4 +7,5 @@
 
     End Sub
     Public MustOverride Sub SaveOption()
+    Public MustOverride Function GetOptionsTitle() As String
 End Class

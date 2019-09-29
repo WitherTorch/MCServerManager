@@ -138,6 +138,11 @@ Public MustInherit Class ServerBase
     Public MustOverride Function GetAvailableVersions(ParamArray args As (String, String)()) As String()
     Public MustOverride Function GetAdditionalServerInfo() As String()
     ''' <summary>
+    ''' 在啟動伺服器要做的事(通常是檢查項目)
+    ''' </summary>
+    Public Overridable Function BeforeRunServer() As Boolean
+    End Function
+    ''' <summary>
     ''' 啟動伺服器
     ''' </summary>
     Public MustOverride Function RunServer() As Process
@@ -218,6 +223,9 @@ Public MustInherit Class ServerBase
     End Sub
     Overridable Sub ReloadServer()
         GetServer()
+    End Sub
+    Overridable Sub ReloadServerIcon()
+        ServerIcon = Image.FromFile(IO.Path.Combine(ServerPath, "server-icon.png"))
     End Sub
     Protected MustOverride Sub OnReadServerInfo(key As String, value As String)
     Private Sub GetServer()

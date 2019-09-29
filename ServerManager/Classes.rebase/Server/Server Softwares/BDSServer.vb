@@ -79,6 +79,13 @@ Public Class BDSServer
     Public Overrides Function GetServerFileName() As String
         Return "bedrock-" & ServerVersion & ".jar"
     End Function
+    Public Overrides Function BeforeRunServer() As Boolean
+        If Environment.OSVersion.Version.Major < 10 Then
+            MsgBox("此伺服器類型只能在Windows 10系統上運行!",, Application.ProductName)
+            Return False
+        End If
+        Return True
+    End Function
     ''' <summary>
     ''' 啟動伺服器
     ''' </summary>
