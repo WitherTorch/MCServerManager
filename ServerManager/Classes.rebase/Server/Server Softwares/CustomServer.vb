@@ -72,7 +72,7 @@ Public Class CustomServer
     Public Overrides Function BeforeRunServer() As Boolean
         Select Case New IO.FileInfo(ServerRunFile).Extension
             Case ".jar"
-                If GlobalModule.Manager.HasJava = False Then
+                If JavaPath = "" Then
                     MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
                     Return False
                 End If

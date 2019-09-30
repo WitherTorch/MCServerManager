@@ -75,13 +75,13 @@ Public Class BungeeCordHost
                                         For Each jsonObject As JObject In jsonArray
                                             Try
                                                 Dim path As String = jsonObject.GetValue("path").ToString
-                                                If GlobalModule.Manager.ServerPathList.Contains(path) Then
-                                                    Dim server As New BungeeServer()
-                                                    server.Server = GlobalModule.Manager.ServerEntityList(GlobalModule.Manager.ServerPathList.IndexOf(path))
-                                                    server.ServerAlias = jsonObject.GetValue("alias").ToString
-                                                    server.Restricted = GetBoolean(jsonObject.GetValue("restricted").ToString)
-                                                    bungeeServerList.Add(server)
-                                                End If
+                                                'If GlobalModule.Manager.ServerPathList.Contains(path) Then
+                                                'Dim server As New BungeeServer()
+                                                ' server.Server = GlobalModule.Manager.ServerEntityList(GlobalModule.Manager.ServerPathList.IndexOf(path))
+                                                ' server.ServerAlias = jsonObject.GetValue("alias").ToString
+                                                ' server.Restricted = GetBoolean(jsonObject.GetValue("restricted").ToString)
+                                                ' bungeeServerList.Add(server)
+                                                ' End If
                                             Catch ex As Exception
                                             End Try
                                         Next

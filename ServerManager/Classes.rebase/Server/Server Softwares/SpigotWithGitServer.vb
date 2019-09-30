@@ -71,13 +71,13 @@ Public Class SpigotWithGitServer
                                                ServerVersion = targetVersion
                                                Server2ndVersion = jsonObject.GetValue("name")
                                                Call OnServerDownloading(50)
-                                               Dim watcher As New SpigotGitBuildWindow()
-                                               If IsUnixLikeSystem Then
-                                                   Shell("git config --global --unset core.autocrlf", AppWinStyle.MinimizedNoFocus, True, 5000)
-                                                   watcher.Run(GetJavaPath(), "-jar BuildTools.jar --rev " & targetVersion & """", IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
-                                               Else
-                                                   watcher.Run(GitBashPath, "--login -i -c """ & GetJavaPath() & " -jar BuildTools.jar --rev " & targetVersion & """", IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
-                                               End If
+                                               'Dim watcher As New SpigotGitBuildWindow()
+                                               'If IsUnixLikeSystem Then
+                                               'Shell("git config --global --unset core.autocrlf", AppWinStyle.MinimizedNoFocus, True, 5000)
+                                               'watcher.Run(GetJavaPath(), "-jar BuildTools.jar --rev " & targetVersion & """", IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
+                                               ' Else
+                                               ' watcher.Run(GitBashPath, "--login -i -c """ & GetJavaPath() & " -jar BuildTools.jar --rev " & targetVersion & """", IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
+                                               ' End If
                                                Call OnServerDownloadEnd(False)
                                            End Sub
         AddHandler task.DownloadStarted, Sub()

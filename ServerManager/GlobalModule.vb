@@ -5,10 +5,8 @@ Imports System
 Imports ServerManager
 
 Module GlobalModule
-    Friend TestForm As ServerCheckingForm
     Public Const SERVER_MANAGER_VER As String = "1.7 Edge Alpha 1"
     Public Const SERVER_MANAGER_ARCH As String = "Windows_Edge"
-    Friend Manager As Manager
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
 #Region "ServerBase/Solution List"
@@ -312,9 +310,6 @@ Module GlobalModule
             Return byteCount.ToString & " KiB"
         End If
     End Function
-    Sub NotifyInfoMessage(Message As String, Title As String)
-        BeginInvokeIfRequired(Manager, Sub() If IsNothing(Manager.NotifyIcon1) = False Then Manager.NotifyIcon1.ShowBalloonTip(5000, Title, Message, ToolTipIcon.Info))
-    End Sub
     Friend Function TryGetFromDictionary(Of TKey, TValue)(dictionary As IDictionary(Of TKey, TValue), key As TKey, Optional defaultReturnValue As TValue = Nothing) As TValue
         If dictionary.ContainsKey(key) Then
             Return dictionary(key)

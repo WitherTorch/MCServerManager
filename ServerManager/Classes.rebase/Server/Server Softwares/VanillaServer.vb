@@ -19,7 +19,7 @@ Public Class VanillaServer
         MyBase.New()
     End Sub
     Public Sub New(path As String)
-        MyBase.New(path)
+        MyBase.New()
         GetOptions()
     End Sub
     Public Overrides Sub ReloadServer()
@@ -27,7 +27,7 @@ Public Class VanillaServer
         GetOptions()
     End Sub
     Public Overrides Function BeforeRunServer() As Boolean
-        If GlobalModule.Manager.HasJava = False Then
+        If JavaPath = "" Then
             MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
             Return False
         End If

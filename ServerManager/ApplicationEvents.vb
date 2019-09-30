@@ -47,9 +47,5 @@ Namespace My
             End If
             InternalSoftwareStartup.Startup()
         End Sub
-
-        Private Sub MyApplication_NetworkAvailabilityChanged(sender As Object, e As NetworkAvailableEventArgs) Handles Me.NetworkAvailabilityChanged
-            If GlobalModule.Manager IsNot Nothing AndAlso GlobalModule.Manager.IsDisposed = False Then GlobalModule.Manager.CheckNetwork()
-        End Sub
     End Class
 End Namespace

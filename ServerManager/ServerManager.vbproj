@@ -142,6 +142,9 @@
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CircularProgressBar, Version=2.7.0.7, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\CircularProgressBar.2.7.0.7\lib\net40\CircularProgressBar.dll</HintPath>
+    </Reference>
     <Reference Include="Devsense.PHP.Phar, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b4bee2bf1f98593, processorArchitecture=MSIL">
       <HintPath>..\packages\Devsense.PHP.Phar.1.0.15\lib\net45\Devsense.PHP.Phar.dll</HintPath>
     </Reference>
@@ -184,7 +187,7 @@
       <HintPath>..\References\NoIP.DDNS.Merged.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -207,6 +210,9 @@
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WinFormAnimation, Version=1.6.0.4, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinFormAnimation.1.6.0.4\lib\net40\WinFormAnimation.dll</HintPath>
+    </Reference>
     <Reference Include="YamlDotNet, Version=6.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <HintPath>..\packages\YamlDotNet.6.1.2\lib\net45\YamlDotNet.dll</HintPath>
     </Reference>
@@ -225,69 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Charcoal\PocketMinePluginManager.Designer.vb">
-      <DependentUpon>PocketMinePluginManager.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\PocketMinePluginManager.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\ModpackExplorer.Designer.vb">
-      <DependentUpon>ModpackExplorer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\ModpackExplorer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\HybridMPExplorer.Designer.vb">
-      <DependentUpon>HybridMPExplorer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\HybridMPExplorer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\HybridMPManager.Designer.vb">
-      <DependentUpon>HybridMPManager.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\HybridMPManager.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\IManagerGUI.vb" />
-    <Compile Include="Charcoal\PluginExplorer.Designer.vb">
-      <DependentUpon>PluginExplorer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\PluginExplorer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\PluginManager.Designer.vb">
-      <DependentUpon>PluginManager.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\PluginManager.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\CharcoalEngine.vb" />
-    <Compile Include="Charcoal\DownloadVersionList.Designer.vb">
-      <DependentUpon>DownloadVersionList.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\DownloadVersionList.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Charcoal\ModExplorer.Designer.vb">
-      <DependentUpon>ModExplorer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\ModExplorer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\ModManager.Designer.vb">
-      <DependentUpon>ModManager.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\ModManager.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Charcoal\PluginListItem.Designer.vb">
-      <DependentUpon>PluginListItem.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Charcoal\PluginListItem.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Charcoal\SpongeForgeProvider.vb" />
     <Compile Include="Classes.rebase\Player.vb" />
     <Compile Include="Classes.rebase\RunningServerInfo.vb" />
     <Compile Include="Classes.rebase\Server\ForgeInstaller.vb" />
@@ -343,201 +286,20 @@
     <Compile Include="Classes\Server\ServerTask.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\Options\SpigotOptions.vb" />
     <Compile Include="Classes\Watchdog.vb" />
-    <Compile Include="GUI\Intergrate Solution Server\SolutionCreateDialog.Designer.vb">
-      <DependentUpon>SolutionCreateDialog.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\SolutionCreateDialog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\SolutionCreateHelper.Designer.vb">
-      <DependentUpon>SolutionCreateHelper.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\SolutionCreateHelper.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerChooseForm.Designer.vb">
-      <DependentUpon>BungeeCordServerChooseForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerChooseForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordSetting.Designer.vb">
-      <DependentUpon>BungeeCordSetting.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordSetting.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerStatus.Designer.vb">
-      <DependentUpon>BungeeCordServerStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerStatus.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordStatus.Designer.vb">
-      <DependentUpon>BungeeCordStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordStatus.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordConsole.Designer.vb">
-      <DependentUpon>BungeeCordConsole.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordConsole.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\CMDForm.Designer.vb">
-      <DependentUpon>CMDForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\CMDForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\ModPack Server\ModPackServerConsole.Designer.vb">
-      <DependentUpon>ModPackServerConsole.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\ModPack Server\ModPackServerConsole.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\ModPack Server\ModPackServerCreateDialog.Designer.vb">
-      <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\ModPack Server\ModPackServerCreateDialog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\ModPack Server\ModPackServerCreateHelper.Designer.vb">
-      <DependentUpon>ModPackServerCreateHelper.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\ModPack Server\ModPackServerCreateHelper.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\ModPack Server\ModPackServerStatus.Designer.vb">
-      <DependentUpon>ModPackServerStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\ModPack Server\ModPackServerStatus.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\ForgeBranchChooser.Designer.vb">
-      <DependentUpon>ForgeBranchChooser.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\ForgeBranchChooser.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\MapChangeForm.Designer.vb">
-      <DependentUpon>MapChangeForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\MapChangeForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\SpigotGitBuildWindow.Designer.vb">
-      <DependentUpon>SpigotGitBuildWindow.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\SpigotGitBuildWindow.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\JavaChooseForm.Designer.vb">
-      <DependentUpon>JavaChooseForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\JavaChooseForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\CreateMap.Designer.vb">
-      <DependentUpon>CreateMap.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\CreateMap.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\ServerCreateHelper.Designer.vb">
-      <DependentUpon>ServerCreateHelper.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\ServerCreateHelper.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\GeneratorMapping.Designer.vb">
-      <DependentUpon>GeneratorMapping.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\GeneratorMapping.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\GeneratorSettingInfo.Designer.vb">
-      <DependentUpon>GeneratorSettingInfo.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\GeneratorSettingInfo.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\MapView.Designer.vb">
-      <DependentUpon>MapView.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\MapView.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\ServerConsole.Designer.vb">
-      <DependentUpon>ServerConsole.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\ServerConsole.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\ServerCreateDialog.Designer.vb">
-      <DependentUpon>ServerCreateDialog.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\ServerCreateDialog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\ServerSetter.Designer.vb">
-      <DependentUpon>ServerSetter.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\ServerSetter.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\ServerStatus.Designer.vb">
-      <DependentUpon>ServerStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\ServerStatus.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="CryptoProvider.vb" />
+    <Compile Include="Redesigned GUI\NewManager.Designer.vb">
+      <DependentUpon>NewManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Redesigned GUI\NewManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <Compile Include="Classes\ForgeUpdater.vb" />
-    <Compile Include="GUI\Manager.Designer.vb">
-      <DependentUpon>Manager.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Manager.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\ServerTaskCreateDialog.Designer.vb">
-      <DependentUpon>ServerTaskCreateDialog.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\ServerTaskCreateDialog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\TaskParameterDialog.Designer.vb">
-      <DependentUpon>TaskParameterDialog.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\TaskParameterDialog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Server\WhiteListForm.Designer.vb">
-      <DependentUpon>WhiteListForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Server\WhiteListForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Test\ServerCheckingForm.Designer.vb">
-      <DependentUpon>ServerCheckingForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Test\ServerCheckingForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="JSONSafeModule.vb" />
     <Compile Include="Classes\BukkitPluginUnpatcher.vb" />
     <Compile Include="Connections\NoIPProvider.vb" />
     <Compile Include="Connections\UPnPMapper.vb" />
-    <Compile Include="GUI\ForgeInstallWindow.Designer.vb">
-      <DependentUpon>ForgeInstallWindow.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\ForgeInstallWindow.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="GlobalModule.vb" />
     <Compile Include="ManagerUpdater.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -564,134 +326,14 @@
     <None Include="ServerManager_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Charcoal\PocketMinePluginManager.resx">
-      <DependentUpon>PocketMinePluginManager.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\ModpackExplorer.resx">
-      <DependentUpon>ModpackExplorer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\HybridMPExplorer.resx">
-      <DependentUpon>HybridMPExplorer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\HybridMPManager.resx">
-      <DependentUpon>HybridMPManager.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\PluginExplorer.resx">
-      <DependentUpon>PluginExplorer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\PluginManager.resx">
-      <DependentUpon>PluginManager.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\DownloadVersionList.resx">
-      <DependentUpon>DownloadVersionList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\ModExplorer.resx">
-      <DependentUpon>ModExplorer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\ModManager.resx">
-      <DependentUpon>ModManager.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Charcoal\PluginListItem.resx">
-      <DependentUpon>PluginListItem.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Intergrate Solution Server\SolutionCreateDialog.resx">
-      <DependentUpon>SolutionCreateDialog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Intergrate Solution Server\SolutionCreateHelper.resx">
-      <DependentUpon>SolutionCreateHelper.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerChooseForm.resx">
-      <DependentUpon>BungeeCordServerChooseForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordSetting.resx">
-      <DependentUpon>BungeeCordSetting.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordServerStatus.resx">
-      <DependentUpon>BungeeCordServerStatus.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordStatus.resx">
-      <DependentUpon>BungeeCordStatus.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Intergrate Solution Server\BungeeCord\BungeeCordConsole.resx">
-      <DependentUpon>BungeeCordConsole.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\CMDForm.resx">
-      <DependentUpon>CMDForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ModPack Server\ModPackServerConsole.resx">
-      <DependentUpon>ModPackServerConsole.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ModPack Server\ModPackServerCreateDialog.resx">
-      <DependentUpon>ModPackServerCreateDialog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ModPack Server\ModPackServerCreateHelper.resx">
-      <DependentUpon>ModPackServerCreateHelper.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ModPack Server\ModPackServerStatus.resx">
-      <DependentUpon>ModPackServerStatus.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\ForgeBranchChooser.resx">
-      <DependentUpon>ForgeBranchChooser.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\MapChangeForm.resx">
-      <DependentUpon>MapChangeForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\SpigotGitBuildWindow.resx">
-      <DependentUpon>SpigotGitBuildWindow.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\JavaChooseForm.resx">
-      <DependentUpon>JavaChooseForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\CreateMap.resx">
-      <DependentUpon>CreateMap.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\GeneratorMapping.resx">
-      <DependentUpon>GeneratorMapping.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\GeneratorSettingInfo.resx">
-      <DependentUpon>GeneratorSettingInfo.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\MapView.resx">
-      <DependentUpon>MapView.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\ServerConsole.resx">
-      <DependentUpon>ServerConsole.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\ServerCreateDialog.resx">
-      <DependentUpon>ServerCreateDialog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\ServerCreateHelper.resx">
-      <DependentUpon>ServerCreateHelper.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\ServerSetter.resx">
-      <DependentUpon>ServerSetter.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\ServerStatus.resx">
-      <DependentUpon>ServerStatus.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Manager.resx">
-      <DependentUpon>Manager.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\ServerTaskCreateDialog.resx">
-      <DependentUpon>ServerTaskCreateDialog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\TaskParameterDialog.resx">
-      <DependentUpon>TaskParameterDialog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Server\WhiteListForm.resx">
-      <DependentUpon>WhiteListForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\ForgeInstallWindow.resx">
-      <DependentUpon>ForgeInstallWindow.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Test\ServerCheckingForm.resx">
-      <DependentUpon>ServerCheckingForm.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Redesigned GUI\NewManager.resx">
+      <DependentUpon>NewManager.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -754,7 +396,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Classes.rebase\Server\Modpack Server Softwares\" />
-    <Folder Include="GUI\Intergrate Solution Server\SubServer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

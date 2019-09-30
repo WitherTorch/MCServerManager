@@ -12,7 +12,7 @@ Public Class BDSServer
         MyBase.New()
     End Sub
     Public Sub New(path As String)
-        MyBase.New(path)
+        MyBase.New()
         GetOptions()
     End Sub
     Public Overrides Sub ReloadServer()
