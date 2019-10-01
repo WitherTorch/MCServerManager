@@ -409,7 +409,7 @@ mkdir Merged\
 echo on
 IF EXIST C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe (
         echo Starting ILMerge...
-        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll DropDownControls.dll NBT.dll Devsense.PHP.Phar.dll MetroFramework.dll MetroFramework.Design.dll MetroFramework.Fonts.dll CircularProgressBar.dll
+        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll DropDownControls.dll NBT.dll Devsense.PHP.Phar.dll MetroFramework.dll MetroFramework.Design.dll MetroFramework.Fonts.dll CircularProgressBar.dll WinFormAnimation.dll
     ) ELSE (
 echo missing ILMerge , please install MCSMPack.
 )
