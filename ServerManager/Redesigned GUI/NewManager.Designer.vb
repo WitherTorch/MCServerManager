@@ -42,6 +42,7 @@ Partial Class NewManager
         Me.ControlPanel = New MetroFramework.Controls.MetroPanel()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroPanel2.SuspendLayout()
@@ -367,6 +368,7 @@ Partial Class NewManager
         Me.RadioButton2.Size = New System.Drawing.Size(40, 40)
         Me.RadioButton2.TabIndex = 3
         Me.RadioButton2.TabStop = True
+        Me.ToolTip1.SetToolTip(Me.RadioButton2, "伺服器列表")
         Me.RadioButton2.UseVisualStyleBackColor = False
         '
         'RadioButton1
@@ -385,7 +387,17 @@ Partial Class NewManager
         Me.RadioButton1.Size = New System.Drawing.Size(40, 40)
         Me.RadioButton1.TabIndex = 2
         Me.RadioButton1.TabStop = True
+        Me.ToolTip1.SetToolTip(Me.RadioButton1, "主頁")
         Me.RadioButton1.UseVisualStyleBackColor = False
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.AutoPopDelay = 60000
+        Me.ToolTip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ToolTip1.ForeColor = System.Drawing.Color.White
+        Me.ToolTip1.InitialDelay = 100
+        Me.ToolTip1.OwnerDraw = True
+        Me.ToolTip1.ReshowDelay = 100
         '
         'NewManager
         '
@@ -435,4 +447,5 @@ Partial Class NewManager
     Friend WithEvents ControlPanel As MetroFramework.Controls.MetroPanel
     Private WithEvents RadioButton1 As RadioButton
     Private WithEvents RadioButton2 As RadioButton
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

@@ -83,6 +83,10 @@
         CPUPerformanceCounter.NextValue()
     End Sub
 
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
+    Private Sub ToolTip1_Draw(sender As Object, e As DrawToolTipEventArgs) Handles ToolTip1.Draw
+        e.DrawBorder()
+        e.DrawBackground()
+        e.Graphics.DrawRectangle(New Pen(Color.FromArgb(100, 100, 100)), e.Bounds)
+        e.DrawText()
     End Sub
 End Class
