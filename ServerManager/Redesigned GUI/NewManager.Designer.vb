@@ -24,88 +24,40 @@ Partial Class NewManager
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.StyleManager = New MetroFramework.Components.MetroStyleManager(Me.components)
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.MetroTile2 = New MetroFramework.Controls.MetroTile()
-        Me.MetroTile1 = New MetroFramework.Controls.MetroTile()
         Me.CPUPerformanceCounter = New System.Diagnostics.PerformanceCounter()
         Me.Timer = New System.Windows.Forms.Timer(Me.components)
-        Me.BorderPanel = New MetroFramework.Controls.MetroPanel()
         Me.MetroPanel2 = New MetroFramework.Controls.MetroPanel()
+        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
+        Me.CPUCircularBar = New CircularProgressBar.CircularProgressBar()
+        Me.MetroPanel5 = New MetroFramework.Controls.MetroPanel()
+        Me.RAMCircularBar = New CircularProgressBar.CircularProgressBar()
+        Me.MetroPanel4 = New MetroFramework.Controls.MetroPanel()
+        Me.VRAMCircularBar = New CircularProgressBar.CircularProgressBar()
+        Me.MetroPanel3 = New MetroFramework.Controls.MetroPanel()
+        Me.NetworkCircularBar = New CircularProgressBar.CircularProgressBar()
         Me.LoadingProgressPanel = New MetroFramework.Controls.MetroPanel()
         Me.LoadingProgressView = New MetroFramework.Controls.MetroListView()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.CPUCircularBar = New CircularProgressBar.CircularProgressBar()
-        Me.NetworkCircularBar = New CircularProgressBar.CircularProgressBar()
-        Me.VRAMCircularBar = New CircularProgressBar.CircularProgressBar()
-        Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
-        Me.MetroPanel3 = New MetroFramework.Controls.MetroPanel()
-        Me.MetroPanel4 = New MetroFramework.Controls.MetroPanel()
-        Me.MetroPanel5 = New MetroFramework.Controls.MetroPanel()
-        Me.RAMCircularBar = New CircularProgressBar.CircularProgressBar()
+        Me.ControlPanel = New MetroFramework.Controls.MetroPanel()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroPanel2.SuspendLayout()
-        Me.LoadingProgressPanel.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.MetroPanel1.SuspendLayout()
-        Me.MetroPanel3.SuspendLayout()
-        Me.MetroPanel4.SuspendLayout()
         Me.MetroPanel5.SuspendLayout()
+        Me.MetroPanel4.SuspendLayout()
+        Me.MetroPanel3.SuspendLayout()
+        Me.LoadingProgressPanel.SuspendLayout()
+        Me.ControlPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'StyleManager
         '
         Me.StyleManager.Owner = Me
         Me.StyleManager.Style = MetroFramework.MetroColorStyle.Green
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.TableLayoutPanel1.ColumnCount = 1
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroTile2, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.MetroTile1, 0, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(20, 30)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(150, 400)
-        Me.TableLayoutPanel1.TabIndex = 4
-        '
-        'MetroTile2
-        '
-        Me.MetroTile2.ActiveControl = Nothing
-        Me.MetroTile2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.MetroTile2.Location = New System.Drawing.Point(3, 78)
-        Me.MetroTile2.Name = "MetroTile2"
-        Me.MetroTile2.Size = New System.Drawing.Size(144, 69)
-        Me.MetroTile2.TabIndex = 5
-        Me.MetroTile2.Text = "伺服器"
-        Me.MetroTile2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.MetroTile2.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall
-        Me.MetroTile2.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Regular
-        Me.MetroTile2.UseSelectable = True
-        Me.MetroTile2.UseStyleColors = True
-        '
-        'MetroTile1
-        '
-        Me.MetroTile1.ActiveControl = Nothing
-        Me.MetroTile1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.MetroTile1.Location = New System.Drawing.Point(3, 3)
-        Me.MetroTile1.Name = "MetroTile1"
-        Me.MetroTile1.Size = New System.Drawing.Size(144, 69)
-        Me.MetroTile1.TabIndex = 4
-        Me.MetroTile1.Text = "概觀"
-        Me.MetroTile1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.MetroTile1.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall
-        Me.MetroTile1.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Regular
-        Me.MetroTile1.UseSelectable = True
-        Me.MetroTile1.UseStyleColors = True
         '
         'CPUPerformanceCounter
         '
@@ -118,91 +70,51 @@ Partial Class NewManager
         Me.Timer.Enabled = True
         Me.Timer.Interval = 450
         '
-        'BorderPanel
-        '
-        Me.BorderPanel.BackgroundImage = Global.ServerManager.My.Resources.Resources.Border
-        Me.BorderPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.BorderPanel.Dock = System.Windows.Forms.DockStyle.Left
-        Me.BorderPanel.HorizontalScrollbarBarColor = True
-        Me.BorderPanel.HorizontalScrollbarHighlightOnWheel = False
-        Me.BorderPanel.HorizontalScrollbarSize = 10
-        Me.BorderPanel.Location = New System.Drawing.Point(170, 30)
-        Me.BorderPanel.Name = "BorderPanel"
-        Me.BorderPanel.Size = New System.Drawing.Size(8, 400)
-        Me.BorderPanel.TabIndex = 4
-        Me.BorderPanel.VerticalScrollbarBarColor = True
-        Me.BorderPanel.VerticalScrollbarHighlightOnWheel = False
-        Me.BorderPanel.VerticalScrollbarSize = 10
-        '
         'MetroPanel2
         '
+        Me.MetroPanel2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MetroPanel2.Controls.Add(Me.FlowLayoutPanel1)
         Me.MetroPanel2.Controls.Add(Me.LoadingProgressPanel)
-        Me.MetroPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MetroPanel2.HorizontalScrollbarBarColor = True
         Me.MetroPanel2.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel2.HorizontalScrollbarSize = 10
-        Me.MetroPanel2.Location = New System.Drawing.Point(178, 30)
+        Me.MetroPanel2.Location = New System.Drawing.Point(46, 33)
         Me.MetroPanel2.Name = "MetroPanel2"
-        Me.MetroPanel2.Size = New System.Drawing.Size(602, 400)
+        Me.MetroPanel2.Size = New System.Drawing.Size(731, 396)
         Me.MetroPanel2.TabIndex = 12
         Me.MetroPanel2.VerticalScrollbarBarColor = True
         Me.MetroPanel2.VerticalScrollbarHighlightOnWheel = False
         Me.MetroPanel2.VerticalScrollbarSize = 10
         '
-        'LoadingProgressPanel
-        '
-        Me.LoadingProgressPanel.Controls.Add(Me.LoadingProgressView)
-        Me.LoadingProgressPanel.Controls.Add(Me.MetroLabel1)
-        Me.LoadingProgressPanel.Dock = System.Windows.Forms.DockStyle.Right
-        Me.LoadingProgressPanel.HorizontalScrollbarBarColor = True
-        Me.LoadingProgressPanel.HorizontalScrollbarHighlightOnWheel = False
-        Me.LoadingProgressPanel.HorizontalScrollbarSize = 10
-        Me.LoadingProgressPanel.Location = New System.Drawing.Point(275, 0)
-        Me.LoadingProgressPanel.Name = "LoadingProgressPanel"
-        Me.LoadingProgressPanel.Padding = New System.Windows.Forms.Padding(6, 0, 3, 3)
-        Me.LoadingProgressPanel.Size = New System.Drawing.Size(327, 400)
-        Me.LoadingProgressPanel.TabIndex = 13
-        Me.LoadingProgressPanel.VerticalScrollbarBarColor = True
-        Me.LoadingProgressPanel.VerticalScrollbarHighlightOnWheel = False
-        Me.LoadingProgressPanel.VerticalScrollbarSize = 10
-        '
-        'LoadingProgressView
-        '
-        Me.LoadingProgressView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.LoadingProgressView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LoadingProgressView.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.LoadingProgressView.FullRowSelect = True
-        Me.LoadingProgressView.Location = New System.Drawing.Point(6, 19)
-        Me.LoadingProgressView.Name = "LoadingProgressView"
-        Me.LoadingProgressView.OwnerDraw = True
-        Me.LoadingProgressView.Size = New System.Drawing.Size(318, 378)
-        Me.LoadingProgressView.TabIndex = 3
-        Me.LoadingProgressView.UseCompatibleStateImageBehavior = False
-        Me.LoadingProgressView.UseSelectable = True
-        '
-        'MetroLabel1
-        '
-        Me.MetroLabel1.AutoSize = True
-        Me.MetroLabel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.MetroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.MetroLabel1.Location = New System.Drawing.Point(6, 0)
-        Me.MetroLabel1.Name = "MetroLabel1"
-        Me.MetroLabel1.Size = New System.Drawing.Size(121, 19)
-        Me.MetroLabel1.TabIndex = 2
-        Me.MetroLabel1.Text = "版本列表擷取進度"
-        '
         'FlowLayoutPanel1
         '
+        Me.FlowLayoutPanel1.AutoSize = True
         Me.FlowLayoutPanel1.Controls.Add(Me.MetroPanel1)
         Me.FlowLayoutPanel1.Controls.Add(Me.MetroPanel5)
         Me.FlowLayoutPanel1.Controls.Add(Me.MetroPanel4)
         Me.FlowLayoutPanel1.Controls.Add(Me.MetroPanel3)
-        Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(275, 400)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(404, 396)
         Me.FlowLayoutPanel1.TabIndex = 12
+        '
+        'MetroPanel1
+        '
+        Me.MetroPanel1.Controls.Add(Me.CPUCircularBar)
+        Me.MetroPanel1.HorizontalScrollbarBarColor = True
+        Me.MetroPanel1.HorizontalScrollbarHighlightOnWheel = False
+        Me.MetroPanel1.HorizontalScrollbarSize = 10
+        Me.MetroPanel1.Location = New System.Drawing.Point(3, 3)
+        Me.MetroPanel1.Name = "MetroPanel1"
+        Me.MetroPanel1.Size = New System.Drawing.Size(130, 125)
+        Me.MetroPanel1.TabIndex = 9
+        Me.MetroPanel1.VerticalScrollbarBarColor = True
+        Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
+        Me.MetroPanel1.VerticalScrollbarSize = 10
         '
         'CPUCircularBar
         '
@@ -237,121 +149,13 @@ Partial Class NewManager
         Me.CPUCircularBar.TextMargin = New System.Windows.Forms.Padding(5, 0, 0, 0)
         Me.CPUCircularBar.Value = 25
         '
-        'NetworkCircularBar
-        '
-        Me.NetworkCircularBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner
-        Me.NetworkCircularBar.AnimationSpeed = 500
-        Me.NetworkCircularBar.BackColor = System.Drawing.Color.Transparent
-        Me.NetworkCircularBar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.NetworkCircularBar.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold)
-        Me.NetworkCircularBar.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.NetworkCircularBar.InnerColor = System.Drawing.Color.White
-        Me.NetworkCircularBar.InnerMargin = 2
-        Me.NetworkCircularBar.InnerWidth = -1
-        Me.NetworkCircularBar.Location = New System.Drawing.Point(0, 0)
-        Me.NetworkCircularBar.MarqueeAnimationSpeed = 2000
-        Me.NetworkCircularBar.Name = "NetworkCircularBar"
-        Me.NetworkCircularBar.OuterColor = System.Drawing.Color.LightGray
-        Me.NetworkCircularBar.OuterMargin = -25
-        Me.NetworkCircularBar.OuterWidth = 26
-        Me.NetworkCircularBar.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(239, Byte), Integer))
-        Me.NetworkCircularBar.ProgressWidth = 10
-        Me.NetworkCircularBar.SecondaryFont = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.NetworkCircularBar.Size = New System.Drawing.Size(125, 125)
-        Me.NetworkCircularBar.StartAngle = 270
-        Me.NetworkCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.NetworkCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-22, 10, 0, 0)
-        Me.NetworkCircularBar.SubscriptText = "網路"
-        Me.NetworkCircularBar.SuperscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
-        Me.NetworkCircularBar.SuperscriptMargin = New System.Windows.Forms.Padding(0, 35, 0, 0)
-        Me.NetworkCircularBar.SuperscriptText = "%"
-        Me.NetworkCircularBar.TabIndex = 6
-        Me.NetworkCircularBar.Text = "25"
-        Me.NetworkCircularBar.TextMargin = New System.Windows.Forms.Padding(5, 0, 0, 0)
-        Me.NetworkCircularBar.Value = 25
-        '
-        'VRAMCircularBar
-        '
-        Me.VRAMCircularBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner
-        Me.VRAMCircularBar.AnimationSpeed = 500
-        Me.VRAMCircularBar.BackColor = System.Drawing.Color.Transparent
-        Me.VRAMCircularBar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.VRAMCircularBar.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold)
-        Me.VRAMCircularBar.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.VRAMCircularBar.InnerColor = System.Drawing.Color.WhiteSmoke
-        Me.VRAMCircularBar.InnerMargin = 2
-        Me.VRAMCircularBar.InnerWidth = -1
-        Me.VRAMCircularBar.Location = New System.Drawing.Point(0, 0)
-        Me.VRAMCircularBar.MarqueeAnimationSpeed = 2000
-        Me.VRAMCircularBar.Name = "VRAMCircularBar"
-        Me.VRAMCircularBar.OuterColor = System.Drawing.Color.LightGray
-        Me.VRAMCircularBar.OuterMargin = -25
-        Me.VRAMCircularBar.OuterWidth = 26
-        Me.VRAMCircularBar.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(196, Byte), Integer), CType(CType(13, Byte), Integer))
-        Me.VRAMCircularBar.ProgressWidth = 10
-        Me.VRAMCircularBar.SecondaryFont = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.VRAMCircularBar.Size = New System.Drawing.Size(125, 125)
-        Me.VRAMCircularBar.StartAngle = 270
-        Me.VRAMCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.VRAMCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-20, 10, 0, 0)
-        Me.VRAMCircularBar.SubscriptText = "虛擬記憶體"
-        Me.VRAMCircularBar.SuperscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
-        Me.VRAMCircularBar.SuperscriptMargin = New System.Windows.Forms.Padding(0, 35, 0, 0)
-        Me.VRAMCircularBar.SuperscriptText = "%"
-        Me.VRAMCircularBar.TabIndex = 8
-        Me.VRAMCircularBar.Text = "25"
-        Me.VRAMCircularBar.TextMargin = New System.Windows.Forms.Padding(15, 0, 0, 0)
-        Me.VRAMCircularBar.Value = 25
-        '
-        'MetroPanel1
-        '
-        Me.MetroPanel1.Controls.Add(Me.CPUCircularBar)
-        Me.MetroPanel1.HorizontalScrollbarBarColor = True
-        Me.MetroPanel1.HorizontalScrollbarHighlightOnWheel = False
-        Me.MetroPanel1.HorizontalScrollbarSize = 10
-        Me.MetroPanel1.Location = New System.Drawing.Point(3, 3)
-        Me.MetroPanel1.Name = "MetroPanel1"
-        Me.MetroPanel1.Size = New System.Drawing.Size(130, 125)
-        Me.MetroPanel1.TabIndex = 9
-        Me.MetroPanel1.VerticalScrollbarBarColor = True
-        Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
-        Me.MetroPanel1.VerticalScrollbarSize = 10
-        '
-        'MetroPanel3
-        '
-        Me.MetroPanel3.Controls.Add(Me.NetworkCircularBar)
-        Me.MetroPanel3.HorizontalScrollbarBarColor = True
-        Me.MetroPanel3.HorizontalScrollbarHighlightOnWheel = False
-        Me.MetroPanel3.HorizontalScrollbarSize = 10
-        Me.MetroPanel3.Location = New System.Drawing.Point(139, 134)
-        Me.MetroPanel3.Name = "MetroPanel3"
-        Me.MetroPanel3.Size = New System.Drawing.Size(130, 125)
-        Me.MetroPanel3.TabIndex = 10
-        Me.MetroPanel3.VerticalScrollbarBarColor = True
-        Me.MetroPanel3.VerticalScrollbarHighlightOnWheel = False
-        Me.MetroPanel3.VerticalScrollbarSize = 10
-        '
-        'MetroPanel4
-        '
-        Me.MetroPanel4.Controls.Add(Me.VRAMCircularBar)
-        Me.MetroPanel4.HorizontalScrollbarBarColor = True
-        Me.MetroPanel4.HorizontalScrollbarHighlightOnWheel = False
-        Me.MetroPanel4.HorizontalScrollbarSize = 10
-        Me.MetroPanel4.Location = New System.Drawing.Point(3, 134)
-        Me.MetroPanel4.Name = "MetroPanel4"
-        Me.MetroPanel4.Size = New System.Drawing.Size(130, 125)
-        Me.MetroPanel4.TabIndex = 11
-        Me.MetroPanel4.VerticalScrollbarBarColor = True
-        Me.MetroPanel4.VerticalScrollbarHighlightOnWheel = False
-        Me.MetroPanel4.VerticalScrollbarSize = 10
-        '
         'MetroPanel5
         '
         Me.MetroPanel5.Controls.Add(Me.RAMCircularBar)
         Me.MetroPanel5.HorizontalScrollbarBarColor = True
         Me.MetroPanel5.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel5.HorizontalScrollbarSize = 10
-        Me.MetroPanel5.Location = New System.Drawing.Point(139, 3)
+        Me.MetroPanel5.Location = New System.Drawing.Point(3, 134)
         Me.MetroPanel5.Name = "MetroPanel5"
         Me.MetroPanel5.Size = New System.Drawing.Size(130, 125)
         Me.MetroPanel5.TabIndex = 12
@@ -392,42 +196,229 @@ Partial Class NewManager
         Me.RAMCircularBar.TextMargin = New System.Windows.Forms.Padding(15, 0, 0, 0)
         Me.RAMCircularBar.Value = 25
         '
+        'MetroPanel4
+        '
+        Me.MetroPanel4.Controls.Add(Me.VRAMCircularBar)
+        Me.MetroPanel4.HorizontalScrollbarBarColor = True
+        Me.MetroPanel4.HorizontalScrollbarHighlightOnWheel = False
+        Me.MetroPanel4.HorizontalScrollbarSize = 10
+        Me.MetroPanel4.Location = New System.Drawing.Point(3, 265)
+        Me.MetroPanel4.Name = "MetroPanel4"
+        Me.MetroPanel4.Size = New System.Drawing.Size(130, 125)
+        Me.MetroPanel4.TabIndex = 11
+        Me.MetroPanel4.VerticalScrollbarBarColor = True
+        Me.MetroPanel4.VerticalScrollbarHighlightOnWheel = False
+        Me.MetroPanel4.VerticalScrollbarSize = 10
+        '
+        'VRAMCircularBar
+        '
+        Me.VRAMCircularBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner
+        Me.VRAMCircularBar.AnimationSpeed = 500
+        Me.VRAMCircularBar.BackColor = System.Drawing.Color.Transparent
+        Me.VRAMCircularBar.Dock = System.Windows.Forms.DockStyle.Left
+        Me.VRAMCircularBar.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold)
+        Me.VRAMCircularBar.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.VRAMCircularBar.InnerColor = System.Drawing.Color.WhiteSmoke
+        Me.VRAMCircularBar.InnerMargin = 2
+        Me.VRAMCircularBar.InnerWidth = -1
+        Me.VRAMCircularBar.Location = New System.Drawing.Point(0, 0)
+        Me.VRAMCircularBar.MarqueeAnimationSpeed = 2000
+        Me.VRAMCircularBar.Name = "VRAMCircularBar"
+        Me.VRAMCircularBar.OuterColor = System.Drawing.Color.LightGray
+        Me.VRAMCircularBar.OuterMargin = -25
+        Me.VRAMCircularBar.OuterWidth = 26
+        Me.VRAMCircularBar.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(196, Byte), Integer), CType(CType(13, Byte), Integer))
+        Me.VRAMCircularBar.ProgressWidth = 10
+        Me.VRAMCircularBar.SecondaryFont = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.VRAMCircularBar.Size = New System.Drawing.Size(125, 125)
+        Me.VRAMCircularBar.StartAngle = 270
+        Me.VRAMCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
+        Me.VRAMCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-20, 10, 0, 0)
+        Me.VRAMCircularBar.SubscriptText = "虛擬記憶體"
+        Me.VRAMCircularBar.SuperscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
+        Me.VRAMCircularBar.SuperscriptMargin = New System.Windows.Forms.Padding(0, 35, 0, 0)
+        Me.VRAMCircularBar.SuperscriptText = "%"
+        Me.VRAMCircularBar.TabIndex = 8
+        Me.VRAMCircularBar.Text = "25"
+        Me.VRAMCircularBar.TextMargin = New System.Windows.Forms.Padding(15, 0, 0, 0)
+        Me.VRAMCircularBar.Value = 25
+        '
+        'MetroPanel3
+        '
+        Me.MetroPanel3.Controls.Add(Me.NetworkCircularBar)
+        Me.MetroPanel3.HorizontalScrollbarBarColor = True
+        Me.MetroPanel3.HorizontalScrollbarHighlightOnWheel = False
+        Me.MetroPanel3.HorizontalScrollbarSize = 10
+        Me.MetroPanel3.Location = New System.Drawing.Point(139, 3)
+        Me.MetroPanel3.Name = "MetroPanel3"
+        Me.MetroPanel3.Size = New System.Drawing.Size(130, 125)
+        Me.MetroPanel3.TabIndex = 10
+        Me.MetroPanel3.VerticalScrollbarBarColor = True
+        Me.MetroPanel3.VerticalScrollbarHighlightOnWheel = False
+        Me.MetroPanel3.VerticalScrollbarSize = 10
+        '
+        'NetworkCircularBar
+        '
+        Me.NetworkCircularBar.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner
+        Me.NetworkCircularBar.AnimationSpeed = 500
+        Me.NetworkCircularBar.BackColor = System.Drawing.Color.Transparent
+        Me.NetworkCircularBar.Dock = System.Windows.Forms.DockStyle.Left
+        Me.NetworkCircularBar.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold)
+        Me.NetworkCircularBar.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.NetworkCircularBar.InnerColor = System.Drawing.Color.White
+        Me.NetworkCircularBar.InnerMargin = 2
+        Me.NetworkCircularBar.InnerWidth = -1
+        Me.NetworkCircularBar.Location = New System.Drawing.Point(0, 0)
+        Me.NetworkCircularBar.MarqueeAnimationSpeed = 2000
+        Me.NetworkCircularBar.Name = "NetworkCircularBar"
+        Me.NetworkCircularBar.OuterColor = System.Drawing.Color.LightGray
+        Me.NetworkCircularBar.OuterMargin = -25
+        Me.NetworkCircularBar.OuterWidth = 26
+        Me.NetworkCircularBar.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(239, Byte), Integer))
+        Me.NetworkCircularBar.ProgressWidth = 10
+        Me.NetworkCircularBar.SecondaryFont = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.NetworkCircularBar.Size = New System.Drawing.Size(125, 125)
+        Me.NetworkCircularBar.StartAngle = 270
+        Me.NetworkCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
+        Me.NetworkCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-22, 10, 0, 0)
+        Me.NetworkCircularBar.SubscriptText = "網路"
+        Me.NetworkCircularBar.SuperscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
+        Me.NetworkCircularBar.SuperscriptMargin = New System.Windows.Forms.Padding(0, 35, 0, 0)
+        Me.NetworkCircularBar.SuperscriptText = "%"
+        Me.NetworkCircularBar.TabIndex = 6
+        Me.NetworkCircularBar.Text = "25"
+        Me.NetworkCircularBar.TextMargin = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.NetworkCircularBar.Value = 25
+        '
+        'LoadingProgressPanel
+        '
+        Me.LoadingProgressPanel.Controls.Add(Me.LoadingProgressView)
+        Me.LoadingProgressPanel.Controls.Add(Me.MetroLabel1)
+        Me.LoadingProgressPanel.Dock = System.Windows.Forms.DockStyle.Right
+        Me.LoadingProgressPanel.HorizontalScrollbarBarColor = True
+        Me.LoadingProgressPanel.HorizontalScrollbarHighlightOnWheel = False
+        Me.LoadingProgressPanel.HorizontalScrollbarSize = 10
+        Me.LoadingProgressPanel.Location = New System.Drawing.Point(404, 0)
+        Me.LoadingProgressPanel.Name = "LoadingProgressPanel"
+        Me.LoadingProgressPanel.Padding = New System.Windows.Forms.Padding(6, 0, 3, 3)
+        Me.LoadingProgressPanel.Size = New System.Drawing.Size(327, 396)
+        Me.LoadingProgressPanel.TabIndex = 13
+        Me.LoadingProgressPanel.VerticalScrollbarBarColor = True
+        Me.LoadingProgressPanel.VerticalScrollbarHighlightOnWheel = False
+        Me.LoadingProgressPanel.VerticalScrollbarSize = 10
+        '
+        'LoadingProgressView
+        '
+        Me.LoadingProgressView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.LoadingProgressView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LoadingProgressView.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.LoadingProgressView.FullRowSelect = True
+        Me.LoadingProgressView.Location = New System.Drawing.Point(6, 19)
+        Me.LoadingProgressView.Name = "LoadingProgressView"
+        Me.LoadingProgressView.OwnerDraw = True
+        Me.LoadingProgressView.Size = New System.Drawing.Size(318, 374)
+        Me.LoadingProgressView.TabIndex = 3
+        Me.LoadingProgressView.UseCompatibleStateImageBehavior = False
+        Me.LoadingProgressView.UseSelectable = True
+        '
+        'MetroLabel1
+        '
+        Me.MetroLabel1.AutoSize = True
+        Me.MetroLabel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.MetroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel1.Location = New System.Drawing.Point(6, 0)
+        Me.MetroLabel1.Name = "MetroLabel1"
+        Me.MetroLabel1.Size = New System.Drawing.Size(121, 19)
+        Me.MetroLabel1.TabIndex = 2
+        Me.MetroLabel1.Text = "版本列表擷取進度"
+        '
+        'ControlPanel
+        '
+        Me.ControlPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ControlPanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ControlPanel.Controls.Add(Me.RadioButton2)
+        Me.ControlPanel.Controls.Add(Me.RadioButton1)
+        Me.ControlPanel.HorizontalScrollbarBarColor = True
+        Me.ControlPanel.HorizontalScrollbarHighlightOnWheel = False
+        Me.ControlPanel.HorizontalScrollbarSize = 10
+        Me.ControlPanel.Location = New System.Drawing.Point(0, 4)
+        Me.ControlPanel.Name = "ControlPanel"
+        Me.ControlPanel.Size = New System.Drawing.Size(40, 446)
+        Me.ControlPanel.TabIndex = 13
+        Me.ControlPanel.UseCustomBackColor = True
+        Me.ControlPanel.VerticalScrollbarBarColor = True
+        Me.ControlPanel.VerticalScrollbarHighlightOnWheel = False
+        Me.ControlPanel.VerticalScrollbarSize = 10
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton2.BackgroundImage = Global.ServerManager.My.Resources.Resources.server
+        Me.RadioButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.RadioButton2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.RadioButton2.FlatAppearance.BorderSize = 0
+        Me.RadioButton2.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(177, Byte), Integer), CType(CType(89, Byte), Integer))
+        Me.RadioButton2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
+        Me.RadioButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
+        Me.RadioButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.RadioButton2.Location = New System.Drawing.Point(0, 40)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(40, 40)
+        Me.RadioButton2.TabIndex = 3
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.UseVisualStyleBackColor = False
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton1.BackgroundImage = Global.ServerManager.My.Resources.Resources.home
+        Me.RadioButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.RadioButton1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.RadioButton1.FlatAppearance.BorderSize = 0
+        Me.RadioButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(177, Byte), Integer), CType(CType(89, Byte), Integer))
+        Me.RadioButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
+        Me.RadioButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
+        Me.RadioButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.RadioButton1.Location = New System.Drawing.Point(0, 0)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(40, 40)
+        Me.RadioButton1.TabIndex = 2
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.UseVisualStyleBackColor = False
+        '
         'NewManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.ControlPanel)
         Me.Controls.Add(Me.MetroPanel2)
-        Me.Controls.Add(Me.BorderPanel)
-        Me.Controls.Add(Me.TableLayoutPanel1)
         Me.DisplayHeader = False
         Me.Name = "NewManager"
-        Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.Padding = New System.Windows.Forms.Padding(0, 30, 20, 0)
         Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "Minecraft 伺服器管理員"
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MetroPanel2.ResumeLayout(False)
-        Me.LoadingProgressPanel.ResumeLayout(False)
-        Me.LoadingProgressPanel.PerformLayout()
+        Me.MetroPanel2.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.MetroPanel1.ResumeLayout(False)
-        Me.MetroPanel3.ResumeLayout(False)
-        Me.MetroPanel4.ResumeLayout(False)
         Me.MetroPanel5.ResumeLayout(False)
+        Me.MetroPanel4.ResumeLayout(False)
+        Me.MetroPanel3.ResumeLayout(False)
+        Me.LoadingProgressPanel.ResumeLayout(False)
+        Me.LoadingProgressPanel.PerformLayout()
+        Me.ControlPanel.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents StyleManager As MetroFramework.Components.MetroStyleManager
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents MetroTile2 As MetroFramework.Controls.MetroTile
-    Friend WithEvents MetroTile1 As MetroFramework.Controls.MetroTile
     Friend WithEvents CPUPerformanceCounter As PerformanceCounter
     Friend WithEvents Timer As Timer
-    Friend WithEvents BorderPanel As MetroFramework.Controls.MetroPanel
     Friend WithEvents MetroPanel2 As MetroFramework.Controls.MetroPanel
     Friend WithEvents LoadingProgressPanel As MetroFramework.Controls.MetroPanel
     Friend WithEvents LoadingProgressView As MetroFramework.Controls.MetroListView
@@ -441,4 +432,7 @@ Partial Class NewManager
     Friend WithEvents MetroPanel5 As MetroFramework.Controls.MetroPanel
     Friend WithEvents RAMCircularBar As CircularProgressBar.CircularProgressBar
     Friend WithEvents MetroPanel3 As MetroFramework.Controls.MetroPanel
+    Friend WithEvents ControlPanel As MetroFramework.Controls.MetroPanel
+    Private WithEvents RadioButton1 As RadioButton
+    Private WithEvents RadioButton2 As RadioButton
 End Class

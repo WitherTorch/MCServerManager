@@ -153,6 +153,16 @@ Namespace My.Resources
         '''<summary>
         '''  查詢類型 System.Drawing.Bitmap 的當地語系化資源。
         '''</summary>
+        Friend ReadOnly Property home() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("home", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        '''</summary>
         Friend ReadOnly Property Icon() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon", resourceCulture)
@@ -253,6 +263,16 @@ Namespace My.Resources
         '''<summary>
         '''  查詢類型 System.Drawing.Bitmap 的當地語系化資源。
         '''</summary>
+        Friend ReadOnly Property server() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("server", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        '''</summary>
         Friend ReadOnly Property ServerDefaultIcon() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("ServerDefaultIcon", resourceCulture)
@@ -297,6 +317,16 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("SpongeIcon1", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        '''</summary>
+        Friend ReadOnly Property Stone() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Stone", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

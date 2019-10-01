@@ -52,7 +52,6 @@
         For Each name As String In names
             totalValue += getNetworkUtilization(name)
         Next
-        Console.WriteLine(totalValue)
         Dim networkValue As Integer = totalValue / names.Count
         NetworkCircularBar.Value = networkValue
         NetworkCircularBar.Text = networkValue
@@ -82,5 +81,8 @@
     End Function
     Private Sub NewManager_Load(sender As Object, e As EventArgs) Handles Me.Load
         CPUPerformanceCounter.NextValue()
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
     End Sub
 End Class
