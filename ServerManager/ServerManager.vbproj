@@ -355,6 +355,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Border.png" />
     <None Include="Resources\Stop32.png" />
     <None Include="Resources\showDir.png" />
     <None Include="Resources\Setting32.png" />
