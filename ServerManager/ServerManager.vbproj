@@ -355,6 +355,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\anvil.png" />
     <None Include="Resources\server.png" />
     <None Include="Resources\home.png" />
     <None Include="Resources\Stone.jpg" />

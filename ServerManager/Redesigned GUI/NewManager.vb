@@ -1,6 +1,15 @@
 ﻿Public Class NewManager
     Dim winQuery As Management.ObjectQuery = New Management.ObjectQuery("SELECT * FROM CIM_OperatingSystem")
     Dim searcher As New Management.ManagementObjectSearcher(winQuery)
+    Dim tabs As MetroFramework.Controls.MetroPanel()
+    Public Sub New()
+
+        ' 設計工具需要此呼叫。
+        InitializeComponent()
+
+        ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
+        tabs = {OverviewPanel, ServerPanel, ModpackServerPanel}
+    End Sub
     Private Sub Timer_Tick(sender As Object, e As EventArgs) Handles Timer.Tick
         Dim CPUvalue As Integer = CPUPerformanceCounter.NextValue
         CPUCircularBar.Value = CPUvalue
@@ -90,7 +99,10 @@
         e.DrawText()
     End Sub
     Dim MoveAnimationDictionary As New Dictionary(Of Control, (Label, MetroFramework.Animation.MoveAnimation, Boolean))
-    Private Sub MenuButtons_MouseEnter(sender As Object, e As EventArgs) Handles RadioButton1.MouseEnter, RadioButton2.MouseEnter
+
+
+
+    Private Sub MenuButtons_MouseEnter(sender As Object, e As EventArgs) Handles RadioButton1.MouseEnter, RadioButton2.MouseEnter, RadioButton3.MouseEnter
         If MoveAnimationDictionary.ContainsKey(sender) = False Then
             Dim label As New Label
             label.BackColor = Color.FromArgb(0, 197, 99)
@@ -117,7 +129,7 @@
         End If
     End Sub
 
-    Private Sub MenuButtons_MouseLeave(sender As Object, e As EventArgs) Handles RadioButton1.MouseLeave, RadioButton2.MouseLeave
+    Private Sub MenuButtons_MouseLeave(sender As Object, e As EventArgs) Handles RadioButton1.MouseLeave, RadioButton2.MouseLeave, RadioButton3.MouseLeave
         If MoveAnimationDictionary.ContainsKey(sender) Then
             Dim item As (Label, MetroFramework.Animation.MoveAnimation, Boolean) = MoveAnimationDictionary(sender)
             If item.Item3 Then
@@ -180,5 +192,32 @@
                                                           End Sub
             End If
         End If
+    End Sub
+    Private Sub ChangePanel(index As Integer)
+        Threading.Tasks.Task.Run(Sub()
+                                     Do Until tabs IsNot Nothing
+                                     Loop
+                                     For i As Integer = 0 To tabs.Count - 1
+                                         Dim _index = i
+                                         If _index = index Then
+                                             BeginInvokeIfRequired(tabs(_index), Sub()
+                                                                                     tabs(_index).Visible = True
+                                                                                 End Sub)
+                                         Else
+                                             BeginInvokeIfRequired(tabs(_index), Sub()
+                                                                                     tabs(_index).Visible = False
+                                                                                 End Sub)
+                                         End If
+                                     Next
+                                 End Sub)
+    End Sub
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
+        If RadioButton1.Checked Then ChangePanel(0)
+    End Sub
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
+        If RadioButton2.Checked Then ChangePanel(1)
+    End Sub
+    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
+        If RadioButton3.Checked Then ChangePanel(2)
     End Sub
 End Class

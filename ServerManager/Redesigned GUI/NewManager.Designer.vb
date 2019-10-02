@@ -27,7 +27,7 @@ Partial Class NewManager
         Me.StyleManager = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.CPUPerformanceCounter = New System.Diagnostics.PerformanceCounter()
         Me.Timer = New System.Windows.Forms.Timer(Me.components)
-        Me.MetroPanel2 = New MetroFramework.Controls.MetroPanel()
+        Me.OverviewPanel = New MetroFramework.Controls.MetroPanel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.MetroPanel1 = New MetroFramework.Controls.MetroPanel()
         Me.CPUCircularBar = New CircularProgressBar.CircularProgressBar()
@@ -40,14 +40,17 @@ Partial Class NewManager
         Me.LoadingProgressPanel = New MetroFramework.Controls.MetroPanel()
         Me.LoadingProgressView = New MetroFramework.Controls.MetroListView()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
+        Me.ServerPanel = New MetroFramework.Controls.MetroPanel()
+        Me.ModpackServerPanel = New MetroFramework.Controls.MetroPanel()
         Me.ControlPanel = New MetroFramework.Controls.MetroPanel()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MetroPanel2.SuspendLayout()
+        Me.OverviewPanel.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.MetroPanel1.SuspendLayout()
         Me.MetroPanel5.SuspendLayout()
@@ -75,23 +78,24 @@ Partial Class NewManager
         Me.Timer.Enabled = True
         Me.Timer.Interval = 450
         '
-        'MetroPanel2
+        'OverviewPanel
         '
-        Me.MetroPanel2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.OverviewPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.MetroPanel2.Controls.Add(Me.FlowLayoutPanel1)
-        Me.MetroPanel2.Controls.Add(Me.LoadingProgressPanel)
-        Me.MetroPanel2.HorizontalScrollbarBarColor = True
-        Me.MetroPanel2.HorizontalScrollbarHighlightOnWheel = False
-        Me.MetroPanel2.HorizontalScrollbarSize = 10
-        Me.MetroPanel2.Location = New System.Drawing.Point(42, 25)
-        Me.MetroPanel2.Name = "MetroPanel2"
-        Me.MetroPanel2.Size = New System.Drawing.Size(731, 422)
-        Me.MetroPanel2.TabIndex = 12
-        Me.MetroPanel2.VerticalScrollbarBarColor = True
-        Me.MetroPanel2.VerticalScrollbarHighlightOnWheel = False
-        Me.MetroPanel2.VerticalScrollbarSize = 10
+        Me.OverviewPanel.Controls.Add(Me.FlowLayoutPanel1)
+        Me.OverviewPanel.Controls.Add(Me.LoadingProgressPanel)
+        Me.OverviewPanel.HorizontalScrollbarBarColor = True
+        Me.OverviewPanel.HorizontalScrollbarHighlightOnWheel = False
+        Me.OverviewPanel.HorizontalScrollbarSize = 10
+        Me.OverviewPanel.Location = New System.Drawing.Point(42, 23)
+        Me.OverviewPanel.Name = "OverviewPanel"
+        Me.OverviewPanel.Size = New System.Drawing.Size(731, 424)
+        Me.OverviewPanel.TabIndex = 12
+        Me.OverviewPanel.VerticalScrollbarBarColor = True
+        Me.OverviewPanel.VerticalScrollbarHighlightOnWheel = False
+        Me.OverviewPanel.VerticalScrollbarSize = 10
+        Me.OverviewPanel.Visible = False
         '
         'FlowLayoutPanel1
         '
@@ -104,7 +108,7 @@ Partial Class NewManager
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(404, 422)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(404, 424)
         Me.FlowLayoutPanel1.TabIndex = 12
         '
         'MetroPanel1
@@ -306,7 +310,7 @@ Partial Class NewManager
         Me.LoadingProgressPanel.Location = New System.Drawing.Point(404, 0)
         Me.LoadingProgressPanel.Name = "LoadingProgressPanel"
         Me.LoadingProgressPanel.Padding = New System.Windows.Forms.Padding(6, 0, 3, 3)
-        Me.LoadingProgressPanel.Size = New System.Drawing.Size(327, 422)
+        Me.LoadingProgressPanel.Size = New System.Drawing.Size(327, 424)
         Me.LoadingProgressPanel.TabIndex = 13
         Me.LoadingProgressPanel.VerticalScrollbarBarColor = True
         Me.LoadingProgressPanel.VerticalScrollbarHighlightOnWheel = False
@@ -321,7 +325,7 @@ Partial Class NewManager
         Me.LoadingProgressView.Location = New System.Drawing.Point(6, 19)
         Me.LoadingProgressView.Name = "LoadingProgressView"
         Me.LoadingProgressView.OwnerDraw = True
-        Me.LoadingProgressView.Size = New System.Drawing.Size(318, 400)
+        Me.LoadingProgressView.Size = New System.Drawing.Size(318, 402)
         Me.LoadingProgressView.TabIndex = 3
         Me.LoadingProgressView.UseCompatibleStateImageBehavior = False
         Me.LoadingProgressView.UseSelectable = True
@@ -337,11 +341,46 @@ Partial Class NewManager
         Me.MetroLabel1.TabIndex = 2
         Me.MetroLabel1.Text = "版本列表擷取進度"
         '
+        'ServerPanel
+        '
+        Me.ServerPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ServerPanel.HorizontalScrollbarBarColor = True
+        Me.ServerPanel.HorizontalScrollbarHighlightOnWheel = False
+        Me.ServerPanel.HorizontalScrollbarSize = 10
+        Me.ServerPanel.Location = New System.Drawing.Point(42, 23)
+        Me.ServerPanel.Name = "ServerPanel"
+        Me.ServerPanel.Size = New System.Drawing.Size(731, 424)
+        Me.ServerPanel.TabIndex = 12
+        Me.ServerPanel.VerticalScrollbarBarColor = True
+        Me.ServerPanel.VerticalScrollbarHighlightOnWheel = False
+        Me.ServerPanel.VerticalScrollbarSize = 10
+        Me.ServerPanel.Visible = False
+        '
+        'ModpackServerPanel
+        '
+        Me.ModpackServerPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ModpackServerPanel.HorizontalScrollbarBarColor = True
+        Me.ModpackServerPanel.HorizontalScrollbarHighlightOnWheel = False
+        Me.ModpackServerPanel.HorizontalScrollbarSize = 10
+        Me.ModpackServerPanel.Location = New System.Drawing.Point(42, 23)
+        Me.ModpackServerPanel.Name = "ModpackServerPanel"
+        Me.ModpackServerPanel.Size = New System.Drawing.Size(731, 424)
+        Me.ModpackServerPanel.TabIndex = 12
+        Me.ModpackServerPanel.VerticalScrollbarBarColor = True
+        Me.ModpackServerPanel.VerticalScrollbarHighlightOnWheel = False
+        Me.ModpackServerPanel.VerticalScrollbarSize = 10
+        Me.ModpackServerPanel.Visible = False
+        '
         'ControlPanel
         '
         Me.ControlPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ControlPanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ControlPanel.Controls.Add(Me.RadioButton3)
         Me.ControlPanel.Controls.Add(Me.RadioButton2)
         Me.ControlPanel.Controls.Add(Me.RadioButton1)
         Me.ControlPanel.Controls.Add(Me.Panel1)
@@ -356,6 +395,24 @@ Partial Class NewManager
         Me.ControlPanel.VerticalScrollbarBarColor = True
         Me.ControlPanel.VerticalScrollbarHighlightOnWheel = False
         Me.ControlPanel.VerticalScrollbarSize = 10
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton3.BackgroundImage = CType(resources.GetObject("RadioButton3.BackgroundImage"), System.Drawing.Image)
+        Me.RadioButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.RadioButton3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.RadioButton3.FlatAppearance.BorderSize = 0
+        Me.RadioButton3.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(177, Byte), Integer), CType(CType(89, Byte), Integer))
+        Me.RadioButton3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
+        Me.RadioButton3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
+        Me.RadioButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.RadioButton3.Location = New System.Drawing.Point(0, 120)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(40, 40)
+        Me.RadioButton3.TabIndex = 6
+        Me.RadioButton3.Tag = "模組包伺服器列表"
+        Me.RadioButton3.UseVisualStyleBackColor = False
         '
         'RadioButton2
         '
@@ -372,7 +429,6 @@ Partial Class NewManager
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(40, 40)
         Me.RadioButton2.TabIndex = 3
-        Me.RadioButton2.TabStop = True
         Me.RadioButton2.Tag = "伺服器列表"
         Me.RadioButton2.UseVisualStyleBackColor = False
         '
@@ -381,6 +437,7 @@ Partial Class NewManager
         Me.RadioButton1.Appearance = System.Windows.Forms.Appearance.Button
         Me.RadioButton1.BackgroundImage = Global.ServerManager.My.Resources.Resources.home
         Me.RadioButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.RadioButton1.Checked = True
         Me.RadioButton1.Dock = System.Windows.Forms.DockStyle.Top
         Me.RadioButton1.FlatAppearance.BorderSize = 0
         Me.RadioButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(177, Byte), Integer), CType(CType(89, Byte), Integer))
@@ -424,7 +481,9 @@ Partial Class NewManager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ControlPanel)
-        Me.Controls.Add(Me.MetroPanel2)
+        Me.Controls.Add(Me.OverviewPanel)
+        Me.Controls.Add(Me.ServerPanel)
+        Me.Controls.Add(Me.ModpackServerPanel)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "NewManager"
         Me.Padding = New System.Windows.Forms.Padding(0, 60, 20, 0)
@@ -433,8 +492,8 @@ Partial Class NewManager
         Me.Text = "　Minecraft 伺服器管理員"
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.MetroPanel2.ResumeLayout(False)
-        Me.MetroPanel2.PerformLayout()
+        Me.OverviewPanel.ResumeLayout(False)
+        Me.OverviewPanel.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.MetroPanel1.ResumeLayout(False)
         Me.MetroPanel5.ResumeLayout(False)
@@ -452,7 +511,9 @@ Partial Class NewManager
     Friend WithEvents StyleManager As MetroFramework.Components.MetroStyleManager
     Friend WithEvents CPUPerformanceCounter As PerformanceCounter
     Friend WithEvents Timer As Timer
-    Friend WithEvents MetroPanel2 As MetroFramework.Controls.MetroPanel
+    Friend WithEvents OverviewPanel As MetroFramework.Controls.MetroPanel
+    Friend WithEvents ServerPanel As MetroFramework.Controls.MetroPanel
+    Friend WithEvents ModpackServerPanel As MetroFramework.Controls.MetroPanel
     Friend WithEvents LoadingProgressPanel As MetroFramework.Controls.MetroPanel
     Friend WithEvents LoadingProgressView As MetroFramework.Controls.MetroListView
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
@@ -470,4 +531,5 @@ Partial Class NewManager
     Private WithEvents RadioButton2 As RadioButton
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PictureBox1 As PictureBox
+    Private WithEvents RadioButton3 As RadioButton
 End Class
