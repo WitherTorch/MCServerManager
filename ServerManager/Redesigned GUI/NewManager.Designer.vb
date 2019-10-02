@@ -23,6 +23,7 @@ Partial Class NewManager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NewManager))
         Me.StyleManager = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.CPUPerformanceCounter = New System.Diagnostics.PerformanceCounter()
         Me.Timer = New System.Windows.Forms.Timer(Me.components)
@@ -349,7 +350,7 @@ Partial Class NewManager
         Me.ControlPanel.HorizontalScrollbarSize = 10
         Me.ControlPanel.Location = New System.Drawing.Point(0, 3)
         Me.ControlPanel.Name = "ControlPanel"
-        Me.ControlPanel.Size = New System.Drawing.Size(40, 446)
+        Me.ControlPanel.Size = New System.Drawing.Size(40, 448)
         Me.ControlPanel.TabIndex = 13
         Me.ControlPanel.UseCustomBackColor = True
         Me.ControlPanel.VerticalScrollbarBarColor = True
@@ -423,6 +424,7 @@ Partial Class NewManager
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ControlPanel)
         Me.Controls.Add(Me.MetroPanel2)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "NewManager"
         Me.Padding = New System.Windows.Forms.Padding(0, 60, 20, 0)
         Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
