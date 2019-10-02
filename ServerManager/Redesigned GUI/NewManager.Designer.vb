@@ -115,7 +115,7 @@ Partial Class NewManager
         Me.MetroPanel1.HorizontalScrollbarSize = 10
         Me.MetroPanel1.Location = New System.Drawing.Point(3, 3)
         Me.MetroPanel1.Name = "MetroPanel1"
-        Me.MetroPanel1.Size = New System.Drawing.Size(130, 125)
+        Me.MetroPanel1.Size = New System.Drawing.Size(155, 150)
         Me.MetroPanel1.TabIndex = 9
         Me.MetroPanel1.VerticalScrollbarBarColor = True
         Me.MetroPanel1.VerticalScrollbarHighlightOnWheel = False
@@ -141,7 +141,7 @@ Partial Class NewManager
         Me.CPUCircularBar.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(185, Byte), Integer), CType(CType(29, Byte), Integer), CType(CType(71, Byte), Integer))
         Me.CPUCircularBar.ProgressWidth = 10
         Me.CPUCircularBar.SecondaryFont = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.CPUCircularBar.Size = New System.Drawing.Size(125, 125)
+        Me.CPUCircularBar.Size = New System.Drawing.Size(150, 150)
         Me.CPUCircularBar.StartAngle = 270
         Me.CPUCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.CPUCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-22, 10, 0, 0)
@@ -160,9 +160,9 @@ Partial Class NewManager
         Me.MetroPanel5.HorizontalScrollbarBarColor = True
         Me.MetroPanel5.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel5.HorizontalScrollbarSize = 10
-        Me.MetroPanel5.Location = New System.Drawing.Point(3, 134)
+        Me.MetroPanel5.Location = New System.Drawing.Point(3, 159)
         Me.MetroPanel5.Name = "MetroPanel5"
-        Me.MetroPanel5.Size = New System.Drawing.Size(130, 125)
+        Me.MetroPanel5.Size = New System.Drawing.Size(155, 150)
         Me.MetroPanel5.TabIndex = 12
         Me.MetroPanel5.VerticalScrollbarBarColor = True
         Me.MetroPanel5.VerticalScrollbarHighlightOnWheel = False
@@ -188,7 +188,7 @@ Partial Class NewManager
         Me.RAMCircularBar.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.RAMCircularBar.ProgressWidth = 10
         Me.RAMCircularBar.SecondaryFont = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.RAMCircularBar.Size = New System.Drawing.Size(125, 125)
+        Me.RAMCircularBar.Size = New System.Drawing.Size(150, 150)
         Me.RAMCircularBar.StartAngle = 270
         Me.RAMCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.RAMCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-20, 10, 0, 0)
@@ -207,9 +207,9 @@ Partial Class NewManager
         Me.MetroPanel4.HorizontalScrollbarBarColor = True
         Me.MetroPanel4.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel4.HorizontalScrollbarSize = 10
-        Me.MetroPanel4.Location = New System.Drawing.Point(3, 265)
+        Me.MetroPanel4.Location = New System.Drawing.Point(164, 3)
         Me.MetroPanel4.Name = "MetroPanel4"
-        Me.MetroPanel4.Size = New System.Drawing.Size(130, 125)
+        Me.MetroPanel4.Size = New System.Drawing.Size(155, 150)
         Me.MetroPanel4.TabIndex = 11
         Me.MetroPanel4.VerticalScrollbarBarColor = True
         Me.MetroPanel4.VerticalScrollbarHighlightOnWheel = False
@@ -235,7 +235,7 @@ Partial Class NewManager
         Me.VRAMCircularBar.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(196, Byte), Integer), CType(CType(13, Byte), Integer))
         Me.VRAMCircularBar.ProgressWidth = 10
         Me.VRAMCircularBar.SecondaryFont = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.VRAMCircularBar.Size = New System.Drawing.Size(125, 125)
+        Me.VRAMCircularBar.Size = New System.Drawing.Size(150, 150)
         Me.VRAMCircularBar.StartAngle = 270
         Me.VRAMCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.VRAMCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-20, 10, 0, 0)
@@ -254,9 +254,9 @@ Partial Class NewManager
         Me.MetroPanel3.HorizontalScrollbarBarColor = True
         Me.MetroPanel3.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel3.HorizontalScrollbarSize = 10
-        Me.MetroPanel3.Location = New System.Drawing.Point(139, 3)
+        Me.MetroPanel3.Location = New System.Drawing.Point(164, 159)
         Me.MetroPanel3.Name = "MetroPanel3"
-        Me.MetroPanel3.Size = New System.Drawing.Size(130, 125)
+        Me.MetroPanel3.Size = New System.Drawing.Size(155, 150)
         Me.MetroPanel3.TabIndex = 10
         Me.MetroPanel3.VerticalScrollbarBarColor = True
         Me.MetroPanel3.VerticalScrollbarHighlightOnWheel = False
@@ -282,7 +282,7 @@ Partial Class NewManager
         Me.NetworkCircularBar.ProgressColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(239, Byte), Integer))
         Me.NetworkCircularBar.ProgressWidth = 10
         Me.NetworkCircularBar.SecondaryFont = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.NetworkCircularBar.Size = New System.Drawing.Size(125, 125)
+        Me.NetworkCircularBar.Size = New System.Drawing.Size(150, 150)
         Me.NetworkCircularBar.StartAngle = 270
         Me.NetworkCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.NetworkCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-22, 10, 0, 0)
@@ -416,6 +416,7 @@ Partial Class NewManager
         Me.PictureBox1.Size = New System.Drawing.Size(36, 36)
         Me.PictureBox1.TabIndex = 5
         Me.PictureBox1.TabStop = False
+        Me.PictureBox1.Tag = "Minecraft 伺服器管理員"
         '
         'NewManager
         '

@@ -136,4 +136,49 @@
             End If
         End If
     End Sub
+    Private Sub PictureBox1_MouseEnter(sender As Object, e As EventArgs) Handles PictureBox1.MouseEnter
+        If MoveAnimationDictionary.ContainsKey(sender) = False Then
+            Dim label As New Label
+            label.BackColor = Color.FromArgb(0, 197, 99)
+            label.Font = New System.Drawing.Font("微軟正黑體", 11.0!, FontStyle.Bold)
+            label.Text = sender.Tag
+            label.Size = New Size(3 + TextRenderer.MeasureText(label.Text, label.Font).Width, sender.Parent.Height)
+            label.Location = New Point(-20 - label.Size.Width, sender.Parent.Top + ControlPanel.Top)
+            label.ForeColor = System.Drawing.Color.White
+            label.TextAlign = ContentAlignment.MiddleLeft
+            Controls.Add(label)
+            label.BringToFront()
+            ControlPanel.BringToFront()
+            Dim ani As New MetroFramework.Animation.MoveAnimation()
+            MoveAnimationDictionary.Add(sender, (label, ani, True))
+            ani.Start(label, New Point(sender.Parent.Left + sender.Parent.Width, sender.Parent.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 20)
+        Else
+            Dim item As (Label, MetroFramework.Animation.MoveAnimation, Boolean) = MoveAnimationDictionary(sender)
+            If item.Item3 = False Then
+                item.Item2.Cancel()
+                item.Item3 = True
+                item.Item2.Start(item.Item1, New Point(sender.Parent.Left + sender.Parent.Width, sender.Parent.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 20)
+                MoveAnimationDictionary(sender) = item
+            End If
+        End If
+    End Sub
+    Private Sub PictureBox1_MouseLeave(sender As Object, e As EventArgs) Handles PictureBox1.MouseLeave
+        If MoveAnimationDictionary.ContainsKey(sender) Then
+            Dim item As (Label, MetroFramework.Animation.MoveAnimation, Boolean) = MoveAnimationDictionary(sender)
+            If item.Item3 Then
+                item.Item2.Cancel()
+                item.Item3 = False
+                item.Item2.Start(item.Item1, New Point(-20 - item.Item1.Size.Width, sender.Parent.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 20)
+                MoveAnimationDictionary(sender) = item
+                AddHandler item.Item2.AnimationCompleted, Sub()
+                                                              If MoveAnimationDictionary.ContainsKey(sender) Then
+                                                                  Dim _item As (Label, MetroFramework.Animation.MoveAnimation, Boolean) = MoveAnimationDictionary(sender)
+                                                                  If _item.Item3 = False Then
+                                                                      MoveAnimationDictionary.Remove(sender)
+                                                                  End If
+                                                              End If
+                                                          End Sub
+            End If
+        End If
+    End Sub
 End Class
