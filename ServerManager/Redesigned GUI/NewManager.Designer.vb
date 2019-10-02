@@ -42,7 +42,8 @@ Partial Class NewManager
         Me.ControlPanel = New MetroFramework.Controls.MetroPanel()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MetroPanel2.SuspendLayout()
@@ -53,6 +54,8 @@ Partial Class NewManager
         Me.MetroPanel3.SuspendLayout()
         Me.LoadingProgressPanel.SuspendLayout()
         Me.ControlPanel.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StyleManager
@@ -81,9 +84,9 @@ Partial Class NewManager
         Me.MetroPanel2.HorizontalScrollbarBarColor = True
         Me.MetroPanel2.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroPanel2.HorizontalScrollbarSize = 10
-        Me.MetroPanel2.Location = New System.Drawing.Point(46, 33)
+        Me.MetroPanel2.Location = New System.Drawing.Point(42, 25)
         Me.MetroPanel2.Name = "MetroPanel2"
-        Me.MetroPanel2.Size = New System.Drawing.Size(731, 396)
+        Me.MetroPanel2.Size = New System.Drawing.Size(731, 422)
         Me.MetroPanel2.TabIndex = 12
         Me.MetroPanel2.VerticalScrollbarBarColor = True
         Me.MetroPanel2.VerticalScrollbarHighlightOnWheel = False
@@ -100,7 +103,7 @@ Partial Class NewManager
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(404, 396)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(404, 422)
         Me.FlowLayoutPanel1.TabIndex = 12
         '
         'MetroPanel1
@@ -302,7 +305,7 @@ Partial Class NewManager
         Me.LoadingProgressPanel.Location = New System.Drawing.Point(404, 0)
         Me.LoadingProgressPanel.Name = "LoadingProgressPanel"
         Me.LoadingProgressPanel.Padding = New System.Windows.Forms.Padding(6, 0, 3, 3)
-        Me.LoadingProgressPanel.Size = New System.Drawing.Size(327, 396)
+        Me.LoadingProgressPanel.Size = New System.Drawing.Size(327, 422)
         Me.LoadingProgressPanel.TabIndex = 13
         Me.LoadingProgressPanel.VerticalScrollbarBarColor = True
         Me.LoadingProgressPanel.VerticalScrollbarHighlightOnWheel = False
@@ -317,7 +320,7 @@ Partial Class NewManager
         Me.LoadingProgressView.Location = New System.Drawing.Point(6, 19)
         Me.LoadingProgressView.Name = "LoadingProgressView"
         Me.LoadingProgressView.OwnerDraw = True
-        Me.LoadingProgressView.Size = New System.Drawing.Size(318, 374)
+        Me.LoadingProgressView.Size = New System.Drawing.Size(318, 400)
         Me.LoadingProgressView.TabIndex = 3
         Me.LoadingProgressView.UseCompatibleStateImageBehavior = False
         Me.LoadingProgressView.UseSelectable = True
@@ -340,10 +343,11 @@ Partial Class NewManager
         Me.ControlPanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ControlPanel.Controls.Add(Me.RadioButton2)
         Me.ControlPanel.Controls.Add(Me.RadioButton1)
+        Me.ControlPanel.Controls.Add(Me.Panel1)
         Me.ControlPanel.HorizontalScrollbarBarColor = True
         Me.ControlPanel.HorizontalScrollbarHighlightOnWheel = False
         Me.ControlPanel.HorizontalScrollbarSize = 10
-        Me.ControlPanel.Location = New System.Drawing.Point(0, 4)
+        Me.ControlPanel.Location = New System.Drawing.Point(0, 3)
         Me.ControlPanel.Name = "ControlPanel"
         Me.ControlPanel.Size = New System.Drawing.Size(40, 446)
         Me.ControlPanel.TabIndex = 13
@@ -363,12 +367,12 @@ Partial Class NewManager
         Me.RadioButton2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
         Me.RadioButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
         Me.RadioButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RadioButton2.Location = New System.Drawing.Point(0, 40)
+        Me.RadioButton2.Location = New System.Drawing.Point(0, 80)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(40, 40)
         Me.RadioButton2.TabIndex = 3
         Me.RadioButton2.TabStop = True
-        Me.ToolTip1.SetToolTip(Me.RadioButton2, "伺服器列表")
+        Me.RadioButton2.Tag = "伺服器列表"
         Me.RadioButton2.UseVisualStyleBackColor = False
         '
         'RadioButton1
@@ -382,22 +386,35 @@ Partial Class NewManager
         Me.RadioButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
         Me.RadioButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(197, Byte), Integer), CType(CType(99, Byte), Integer))
         Me.RadioButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.RadioButton1.Location = New System.Drawing.Point(0, 0)
+        Me.RadioButton1.Location = New System.Drawing.Point(0, 40)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.Size = New System.Drawing.Size(40, 40)
         Me.RadioButton1.TabIndex = 2
         Me.RadioButton1.TabStop = True
-        Me.ToolTip1.SetToolTip(Me.RadioButton1, "主頁")
+        Me.RadioButton1.Tag = "主頁"
         Me.RadioButton1.UseVisualStyleBackColor = False
         '
-        'ToolTip1
+        'Panel1
         '
-        Me.ToolTip1.AutoPopDelay = 60000
-        Me.ToolTip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ToolTip1.ForeColor = System.Drawing.Color.White
-        Me.ToolTip1.InitialDelay = 100
-        Me.ToolTip1.OwnerDraw = True
-        Me.ToolTip1.ReshowDelay = 100
+        Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(177, Byte), Integer), CType(CType(89, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.PictureBox1)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Padding = New System.Windows.Forms.Padding(2)
+        Me.Panel1.Size = New System.Drawing.Size(40, 40)
+        Me.Panel1.TabIndex = 5
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = Global.ServerManager.My.Resources.Resources.IconTemplate
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox1.Location = New System.Drawing.Point(2, 2)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(36, 36)
+        Me.PictureBox1.TabIndex = 5
+        Me.PictureBox1.TabStop = False
         '
         'NewManager
         '
@@ -406,12 +423,11 @@ Partial Class NewManager
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ControlPanel)
         Me.Controls.Add(Me.MetroPanel2)
-        Me.DisplayHeader = False
         Me.Name = "NewManager"
-        Me.Padding = New System.Windows.Forms.Padding(0, 30, 20, 0)
+        Me.Padding = New System.Windows.Forms.Padding(0, 60, 20, 0)
         Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
-        Me.Text = "Minecraft 伺服器管理員"
+        Me.Text = "　Minecraft 伺服器管理員"
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MetroPanel2.ResumeLayout(False)
@@ -424,6 +440,8 @@ Partial Class NewManager
         Me.LoadingProgressPanel.ResumeLayout(False)
         Me.LoadingProgressPanel.PerformLayout()
         Me.ControlPanel.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -447,5 +465,6 @@ Partial Class NewManager
     Friend WithEvents ControlPanel As MetroFramework.Controls.MetroPanel
     Private WithEvents RadioButton1 As RadioButton
     Private WithEvents RadioButton2 As RadioButton
-    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
