@@ -41,6 +41,9 @@ Partial Class NewManager
         Me.LoadingProgressView = New MetroFramework.Controls.MetroListView()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.ServerPanel = New MetroFramework.Controls.MetroPanel()
+        Me.AddServerButton = New MetroFramework.Controls.MetroButton()
+        Me.ServerListLayout = New System.Windows.Forms.FlowLayoutPanel()
+        Me.SearchBox = New MetroFramework.Controls.MetroTextBox()
         Me.ModpackServerPanel = New MetroFramework.Controls.MetroPanel()
         Me.ControlPanel = New MetroFramework.Controls.MetroPanel()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
@@ -57,6 +60,7 @@ Partial Class NewManager
         Me.MetroPanel4.SuspendLayout()
         Me.MetroPanel3.SuspendLayout()
         Me.LoadingProgressPanel.SuspendLayout()
+        Me.ServerPanel.SuspendLayout()
         Me.ControlPanel.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -346,6 +350,9 @@ Partial Class NewManager
         Me.ServerPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ServerPanel.Controls.Add(Me.AddServerButton)
+        Me.ServerPanel.Controls.Add(Me.ServerListLayout)
+        Me.ServerPanel.Controls.Add(Me.SearchBox)
         Me.ServerPanel.HorizontalScrollbarBarColor = True
         Me.ServerPanel.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerPanel.HorizontalScrollbarSize = 10
@@ -357,6 +364,60 @@ Partial Class NewManager
         Me.ServerPanel.VerticalScrollbarHighlightOnWheel = False
         Me.ServerPanel.VerticalScrollbarSize = 10
         Me.ServerPanel.Visible = False
+        '
+        'AddServerButton
+        '
+        Me.AddServerButton.BackgroundImage = CType(resources.GetObject("AddServerButton.BackgroundImage"), System.Drawing.Image)
+        Me.AddServerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.AddServerButton.Location = New System.Drawing.Point(702, 6)
+        Me.AddServerButton.Name = "AddServerButton"
+        Me.AddServerButton.Size = New System.Drawing.Size(23, 23)
+        Me.AddServerButton.TabIndex = 4
+        Me.AddServerButton.UseSelectable = True
+        '
+        'ServerListLayout
+        '
+        Me.ServerListLayout.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ServerListLayout.Location = New System.Drawing.Point(6, 40)
+        Me.ServerListLayout.Name = "ServerListLayout"
+        Me.ServerListLayout.Size = New System.Drawing.Size(719, 378)
+        Me.ServerListLayout.TabIndex = 3
+        '
+        'SearchBox
+        '
+        Me.SearchBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        '
+        '
+        '
+        Me.SearchBox.CustomButton.Image = Nothing
+        Me.SearchBox.CustomButton.Location = New System.Drawing.Point(668, 1)
+        Me.SearchBox.CustomButton.Name = ""
+        Me.SearchBox.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.SearchBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.SearchBox.CustomButton.TabIndex = 1
+        Me.SearchBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.SearchBox.CustomButton.UseSelectable = True
+        Me.SearchBox.CustomButton.Visible = False
+        Me.SearchBox.Lines = New String(-1) {}
+        Me.SearchBox.Location = New System.Drawing.Point(6, 6)
+        Me.SearchBox.MaxLength = 32767
+        Me.SearchBox.Name = "SearchBox"
+        Me.SearchBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.SearchBox.PromptText = "輸入伺服器的資料夾名稱"
+        Me.SearchBox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.SearchBox.SelectedText = ""
+        Me.SearchBox.SelectionLength = 0
+        Me.SearchBox.SelectionStart = 0
+        Me.SearchBox.ShortcutsEnabled = True
+        Me.SearchBox.Size = New System.Drawing.Size(690, 23)
+        Me.SearchBox.TabIndex = 2
+        Me.SearchBox.UseSelectable = True
+        Me.SearchBox.WaterMark = "輸入伺服器的資料夾名稱"
+        Me.SearchBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.SearchBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'ModpackServerPanel
         '
@@ -481,9 +542,9 @@ Partial Class NewManager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ControlPanel)
-        Me.Controls.Add(Me.OverviewPanel)
         Me.Controls.Add(Me.ServerPanel)
         Me.Controls.Add(Me.ModpackServerPanel)
+        Me.Controls.Add(Me.OverviewPanel)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "NewManager"
         Me.Padding = New System.Windows.Forms.Padding(0, 60, 20, 0)
@@ -501,6 +562,7 @@ Partial Class NewManager
         Me.MetroPanel3.ResumeLayout(False)
         Me.LoadingProgressPanel.ResumeLayout(False)
         Me.LoadingProgressPanel.PerformLayout()
+        Me.ServerPanel.ResumeLayout(False)
         Me.ControlPanel.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -532,4 +594,7 @@ Partial Class NewManager
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Private WithEvents RadioButton3 As RadioButton
+    Friend WithEvents ServerListLayout As FlowLayoutPanel
+    Friend WithEvents SearchBox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents AddServerButton As MetroFramework.Controls.MetroButton
 End Class
