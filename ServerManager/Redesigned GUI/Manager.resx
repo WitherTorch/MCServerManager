@@ -144,6 +144,19 @@
         9vbKInFGERN6X39/v82wrbbaKqZS6TdPodAcwBdyawAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="JoinServerButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAEHSURBVEhL7VKxDoJQEHsxDAyGGAdD4mJYTBzYnDTA4uDs4O6XuLr7v9qaiuAhhAg6aJPmeNfe
+        9SG6jyDLsksf1Po84NgxbYCOb+NHA6D7aZrGqEO1XoK7uFPH+gD0Q+lVDGUrAX0bgNudUMdFStuAD7PA
+        HmZ2d2+R2mXeoJay5qjyPFPW/DZn1DnqllXPa/BQMguaOdBT8N9mUbnLvIH5Buh5MK+k+2q7JElG7Enz
+        1M6BXquPHFHH0inqAOS/iTfmTCRbCei3CgioI2ABTsAZqZlAthK4i7qO9QGEdEPJBtBaB4T4Wfa4+RI1
+        5jN7kg24izt1bA5oi39AI74X0DFNQOfU+j7h3BXnJl/X3b0ShAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>432, 17</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAAAAAAAEAIAA5gwAAZgAAAICAAAABACAAKAgBAJ+DAABgYAAAAQAgAKiUAADHiwEAQEAAAAEA

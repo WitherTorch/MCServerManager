@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class NewManager
+Partial Class Manager
     Inherits MetroFramework.Forms.MetroForm
 
     'Form 覆寫 Dispose 以清除元件清單。
@@ -23,7 +23,7 @@ Partial Class NewManager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NewManager))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.StyleManager = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.CPUPerformanceCounter = New System.Diagnostics.PerformanceCounter()
         Me.Timer = New System.Windows.Forms.Timer(Me.components)
@@ -41,6 +41,7 @@ Partial Class NewManager
         Me.LoadingProgressView = New MetroFramework.Controls.MetroListView()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.ServerPanel = New MetroFramework.Controls.MetroPanel()
+        Me.JoinServerButton = New System.Windows.Forms.Button()
         Me.AddServerButton = New System.Windows.Forms.Button()
         Me.ServerListLayout = New System.Windows.Forms.FlowLayoutPanel()
         Me.SearchBox = New MetroFramework.Controls.MetroTextBox()
@@ -51,6 +52,7 @@ Partial Class NewManager
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.OverviewPanel.SuspendLayout()
@@ -350,6 +352,7 @@ Partial Class NewManager
         Me.ServerPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ServerPanel.Controls.Add(Me.JoinServerButton)
         Me.ServerPanel.Controls.Add(Me.AddServerButton)
         Me.ServerPanel.Controls.Add(Me.ServerListLayout)
         Me.ServerPanel.Controls.Add(Me.SearchBox)
@@ -365,18 +368,34 @@ Partial Class NewManager
         Me.ServerPanel.VerticalScrollbarSize = 10
         Me.ServerPanel.Visible = False
         '
+        'JoinServerButton
+        '
+        Me.JoinServerButton.BackgroundImage = CType(resources.GetObject("JoinServerButton.BackgroundImage"), System.Drawing.Image)
+        Me.JoinServerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.JoinServerButton.FlatAppearance.BorderSize = 0
+        Me.JoinServerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.JoinServerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.JoinServerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.JoinServerButton.Location = New System.Drawing.Point(702, 6)
+        Me.JoinServerButton.Name = "JoinServerButton"
+        Me.JoinServerButton.Size = New System.Drawing.Size(23, 23)
+        Me.JoinServerButton.TabIndex = 5
+        Me.ToolTip1.SetToolTip(Me.JoinServerButton, "加入伺服器")
+        Me.JoinServerButton.UseVisualStyleBackColor = True
+        '
         'AddServerButton
         '
-        Me.AddServerButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.addcon
+        Me.AddServerButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.add
         Me.AddServerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.AddServerButton.FlatAppearance.BorderSize = 0
-        Me.AddServerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(145, Byte), Integer), CType(CType(145, Byte), Integer), CType(CType(145, Byte), Integer))
-        Me.AddServerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.AddServerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.AddServerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.AddServerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.AddServerButton.Location = New System.Drawing.Point(702, 6)
+        Me.AddServerButton.Location = New System.Drawing.Point(673, 6)
         Me.AddServerButton.Name = "AddServerButton"
         Me.AddServerButton.Size = New System.Drawing.Size(23, 23)
         Me.AddServerButton.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.AddServerButton, "新增伺服器")
         Me.AddServerButton.UseVisualStyleBackColor = True
         '
         'ServerListLayout
@@ -397,7 +416,7 @@ Partial Class NewManager
         '
         '
         Me.SearchBox.CustomButton.Image = Nothing
-        Me.SearchBox.CustomButton.Location = New System.Drawing.Point(668, 1)
+        Me.SearchBox.CustomButton.Location = New System.Drawing.Point(639, 1)
         Me.SearchBox.CustomButton.Name = ""
         Me.SearchBox.CustomButton.Size = New System.Drawing.Size(21, 21)
         Me.SearchBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -416,7 +435,7 @@ Partial Class NewManager
         Me.SearchBox.SelectionLength = 0
         Me.SearchBox.SelectionStart = 0
         Me.SearchBox.ShortcutsEnabled = True
-        Me.SearchBox.Size = New System.Drawing.Size(690, 23)
+        Me.SearchBox.Size = New System.Drawing.Size(661, 23)
         Me.SearchBox.TabIndex = 2
         Me.SearchBox.UseSelectable = True
         Me.SearchBox.WaterMark = "輸入伺服器的資料夾名稱"
@@ -540,7 +559,7 @@ Partial Class NewManager
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Tag = "Minecraft 伺服器管理員"
         '
-        'NewManager
+        'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -550,7 +569,7 @@ Partial Class NewManager
         Me.Controls.Add(Me.ModpackServerPanel)
         Me.Controls.Add(Me.OverviewPanel)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "NewManager"
+        Me.Name = "Manager"
         Me.Padding = New System.Windows.Forms.Padding(0, 60, 20, 0)
         Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
@@ -601,4 +620,6 @@ Partial Class NewManager
     Friend WithEvents ServerListLayout As FlowLayoutPanel
     Friend WithEvents SearchBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents AddServerButton As Button
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents JoinServerButton As Button
 End Class

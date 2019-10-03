@@ -279,10 +279,21 @@
     <Compile Include="Classes.rebase\Server\Server Softwares\Options\SpigotOptions.vb" />
     <Compile Include="Classes\Watchdog.vb" />
     <Compile Include="CryptoProvider.vb" />
-    <Compile Include="Redesigned GUI\NewManager.Designer.vb">
-      <DependentUpon>NewManager.vb</DependentUpon>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Redesigned GUI\NewManager.vb">
+    <Compile Include="Redesigned GUI\Controls\ServerStatus.Designer.vb">
+      <DependentUpon>ServerStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Redesigned GUI\Controls\ServerStatus.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Redesigned GUI\Manager.Designer.vb">
+      <DependentUpon>Manager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Redesigned GUI\Manager.vb">
       <SubType>Form</SubType>
     </Compile>
     <None Include="app.config">
@@ -298,11 +309,6 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -320,12 +326,12 @@
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Redesigned GUI\NewManager.resx">
-      <DependentUpon>NewManager.vb</DependentUpon>
+    <EmbeddedResource Include="Redesigned GUI\Manager.resx">
+      <DependentUpon>Manager.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +353,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\chest.png" />
+    <None Include="Resources\add.png" />
     <None Include="Resources\Worldwater.png" />
     <None Include="Resources\Madness.png" />
     <None Include="Resources\Luck.png" />
@@ -355,11 +363,6 @@
     <None Include="Resources\Delight.png" />
     <None Include="Resources\Chaos.png" />
     <None Include="Resources\bukkit_2.png" />
-    <None Include="Resources\addcon.png" />
-    <None Include="Resources\add-icon2.png" />
-    <None Include="Resources\add.png" />
-    <None Include="Resources\add-icon.png" />
-    <None Include="Resources\add-icon1.png" />
     <None Include="Resources\anvil.png" />
     <None Include="Resources\server.png" />
     <None Include="Resources\home.png" />
