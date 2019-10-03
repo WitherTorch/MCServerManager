@@ -347,6 +347,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Worldwater.png" />
+    <None Include="Resources\Madness.png" />
+    <None Include="Resources\Luck.png" />
+    <None Include="Resources\Isles.png" />
+    <None Include="Resources\Drought.png" />
+    <None Include="Resources\Delight.png" />
+    <None Include="Resources\Chaos.png" />
+    <None Include="Resources\bukkit_2.png" />
+    <None Include="Resources\addcon.png" />
     <None Include="Resources\add-icon2.png" />
     <None Include="Resources\add.png" />
     <None Include="Resources\add-icon.png" />
