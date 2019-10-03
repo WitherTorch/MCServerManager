@@ -41,7 +41,6 @@ Partial Class NewManager
         Me.LoadingProgressView = New MetroFramework.Controls.MetroListView()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.ServerPanel = New MetroFramework.Controls.MetroPanel()
-        Me.AddServerButton = New MetroFramework.Controls.MetroButton()
         Me.ServerListLayout = New System.Windows.Forms.FlowLayoutPanel()
         Me.SearchBox = New MetroFramework.Controls.MetroTextBox()
         Me.ModpackServerPanel = New MetroFramework.Controls.MetroPanel()
@@ -51,20 +50,21 @@ Partial Class NewManager
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.AddServerButton = New System.Windows.Forms.Button()
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.OverviewPanel.SuspendLayout()
-        Me.FlowLayoutPanel1.SuspendLayout()
-        Me.MetroPanel1.SuspendLayout()
-        Me.MetroPanel5.SuspendLayout()
-        Me.MetroPanel4.SuspendLayout()
-        Me.MetroPanel3.SuspendLayout()
-        Me.LoadingProgressPanel.SuspendLayout()
-        Me.ServerPanel.SuspendLayout()
-        Me.ControlPanel.SuspendLayout()
-        Me.Panel1.SuspendLayout()
+        Me.OverviewPanel.SuspendLayout
+        Me.FlowLayoutPanel1.SuspendLayout
+        Me.MetroPanel1.SuspendLayout
+        Me.MetroPanel5.SuspendLayout
+        Me.MetroPanel4.SuspendLayout
+        Me.MetroPanel3.SuspendLayout
+        Me.LoadingProgressPanel.SuspendLayout
+        Me.ServerPanel.SuspendLayout
+        Me.ControlPanel.SuspendLayout
+        Me.Panel1.SuspendLayout
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
+        Me.SuspendLayout
         '
         'StyleManager
         '
@@ -92,9 +92,9 @@ Partial Class NewManager
         Me.OverviewPanel.HorizontalScrollbarBarColor = True
         Me.OverviewPanel.HorizontalScrollbarHighlightOnWheel = False
         Me.OverviewPanel.HorizontalScrollbarSize = 10
-        Me.OverviewPanel.Location = New System.Drawing.Point(42, 23)
+        Me.OverviewPanel.Location = New System.Drawing.Point(42, 25)
         Me.OverviewPanel.Name = "OverviewPanel"
-        Me.OverviewPanel.Size = New System.Drawing.Size(731, 424)
+        Me.OverviewPanel.Size = New System.Drawing.Size(731, 422)
         Me.OverviewPanel.TabIndex = 12
         Me.OverviewPanel.VerticalScrollbarBarColor = True
         Me.OverviewPanel.VerticalScrollbarHighlightOnWheel = False
@@ -356,24 +356,14 @@ Partial Class NewManager
         Me.ServerPanel.HorizontalScrollbarBarColor = True
         Me.ServerPanel.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerPanel.HorizontalScrollbarSize = 10
-        Me.ServerPanel.Location = New System.Drawing.Point(42, 23)
+        Me.ServerPanel.Location = New System.Drawing.Point(42, 25)
         Me.ServerPanel.Name = "ServerPanel"
-        Me.ServerPanel.Size = New System.Drawing.Size(731, 424)
+        Me.ServerPanel.Size = New System.Drawing.Size(731, 422)
         Me.ServerPanel.TabIndex = 12
         Me.ServerPanel.VerticalScrollbarBarColor = True
         Me.ServerPanel.VerticalScrollbarHighlightOnWheel = False
         Me.ServerPanel.VerticalScrollbarSize = 10
         Me.ServerPanel.Visible = False
-        '
-        'AddServerButton
-        '
-        Me.AddServerButton.BackgroundImage = CType(resources.GetObject("AddServerButton.BackgroundImage"), System.Drawing.Image)
-        Me.AddServerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.AddServerButton.Location = New System.Drawing.Point(702, 6)
-        Me.AddServerButton.Name = "AddServerButton"
-        Me.AddServerButton.Size = New System.Drawing.Size(23, 23)
-        Me.AddServerButton.TabIndex = 4
-        Me.AddServerButton.UseSelectable = True
         '
         'ServerListLayout
         '
@@ -427,9 +417,9 @@ Partial Class NewManager
         Me.ModpackServerPanel.HorizontalScrollbarBarColor = True
         Me.ModpackServerPanel.HorizontalScrollbarHighlightOnWheel = False
         Me.ModpackServerPanel.HorizontalScrollbarSize = 10
-        Me.ModpackServerPanel.Location = New System.Drawing.Point(42, 23)
+        Me.ModpackServerPanel.Location = New System.Drawing.Point(42, 25)
         Me.ModpackServerPanel.Name = "ModpackServerPanel"
-        Me.ModpackServerPanel.Size = New System.Drawing.Size(731, 424)
+        Me.ModpackServerPanel.Size = New System.Drawing.Size(731, 422)
         Me.ModpackServerPanel.TabIndex = 12
         Me.ModpackServerPanel.VerticalScrollbarBarColor = True
         Me.ModpackServerPanel.VerticalScrollbarHighlightOnWheel = False
@@ -536,6 +526,20 @@ Partial Class NewManager
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Tag = "Minecraft 伺服器管理員"
         '
+        'AddServerButton
+        '
+        Me.AddServerButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.addcon
+        Me.AddServerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.AddServerButton.FlatAppearance.BorderSize = 0
+        Me.AddServerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(145, Byte), Integer), CType(CType(145, Byte), Integer), CType(CType(145, Byte), Integer))
+        Me.AddServerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.AddServerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.AddServerButton.Location = New System.Drawing.Point(702, 6)
+        Me.AddServerButton.Name = "AddServerButton"
+        Me.AddServerButton.Size = New System.Drawing.Size(23, 23)
+        Me.AddServerButton.TabIndex = 4
+        Me.AddServerButton.UseVisualStyleBackColor = True
+        '
         'NewManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -554,14 +558,14 @@ Partial Class NewManager
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OverviewPanel.ResumeLayout(False)
-        Me.OverviewPanel.PerformLayout()
+        Me.OverviewPanel.PerformLayout
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.MetroPanel1.ResumeLayout(False)
         Me.MetroPanel5.ResumeLayout(False)
         Me.MetroPanel4.ResumeLayout(False)
         Me.MetroPanel3.ResumeLayout(False)
         Me.LoadingProgressPanel.ResumeLayout(False)
-        Me.LoadingProgressPanel.PerformLayout()
+        Me.LoadingProgressPanel.PerformLayout
         Me.ServerPanel.ResumeLayout(False)
         Me.ControlPanel.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
@@ -596,5 +600,5 @@ Partial Class NewManager
     Private WithEvents RadioButton3 As RadioButton
     Friend WithEvents ServerListLayout As FlowLayoutPanel
     Friend WithEvents SearchBox As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents AddServerButton As MetroFramework.Controls.MetroButton
+    Friend WithEvents AddServerButton As Button
 End Class

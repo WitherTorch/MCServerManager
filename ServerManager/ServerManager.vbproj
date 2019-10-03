@@ -155,14 +155,6 @@
     <Reference Include="HtmlAgilityPack, Version=1.11.12.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.12\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlRenderer, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlRenderer.Core.1.5.1-beta1\lib\net45\HtmlRenderer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="HtmlRenderer.WinForms, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlRenderer.WinForms.1.5.1-beta1\lib\net45\HtmlRenderer.WinForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
     </Reference>
@@ -414,7 +406,7 @@ mkdir Merged\
 echo on
 IF EXIST C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe (
         echo Starting ILMerge...
-        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll HtmlRenderer.dll HtmlRenderer.WinForms.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll DropDownControls.dll NBT.dll Devsense.PHP.Phar.dll MetroFramework.dll MetroFramework.Design.dll MetroFramework.Fonts.dll CircularProgressBar.dll WinFormAnimation.dll
+        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll DropDownControls.dll NBT.dll Devsense.PHP.Phar.dll MetroFramework.dll MetroFramework.Design.dll MetroFramework.Fonts.dll CircularProgressBar.dll WinFormAnimation.dll
     ) ELSE (
 echo missing ILMerge , please install MCSMPack.
 )
