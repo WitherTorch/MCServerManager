@@ -353,6 +353,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\server.png" />
     <None Include="Resources\chest.png" />
     <None Include="Resources\add.png" />
     <None Include="Resources\Worldwater.png" />
@@ -364,7 +365,6 @@
     <None Include="Resources\Chaos.png" />
     <None Include="Resources\bukkit_2.png" />
     <None Include="Resources\anvil.png" />
-    <None Include="Resources\server.png" />
     <None Include="Resources\home.png" />
     <None Include="Resources\Stone.jpg" />
     <None Include="Resources\Border.png" />

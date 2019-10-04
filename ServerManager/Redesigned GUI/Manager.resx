@@ -144,14 +144,33 @@
         9vbKInFGERN6X39/v82wrbbaKqZS6TdPodAcwBdyawAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="RadioButton2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAwJJREFUWEe1ly+IFVEUxl/YYNiwYcENBsMGEcMGg2HDghs2KGwwbDAoiAoaDAaD
+        YdFgMChrUDCIGA0Gg4qiQVDEoGBQWGSDgoJBBUHFP+PvmzlnvHNnZufPe/vBj7lzz7l3zrvzzZ15g65K
+        kmQXPIZYL2G7pY1eTD4NN3Ul0xocg1fpWaa/8AA227DhxWQTcAF+gfQZTsEmS1HObngPrj9wA/KcztJg
+        OAm6oKQCLsGkpZRE7CB8BddPOGfh9mLQEqxqBtMtmLZwo8g9Az800PQFjli4XiTNwXONMD2FWQt3EuPG
+        4Dr8Btc72Gsp/0WnDPZEGSb9+iULDyXmkYceggzqknGzJ4bGFnCDKek+jM7FiPnGQf4JV+OtB7dm54V7
+        JuOdgP4uRozXbTgOH8D1zI5rnuQF6LmeAa2AS/fsAIylyR3EmP0QGvkRzEJ+PU8sdiDaMuOLtDeT7tmi
+        hdcVefMQjlU7H0u7toCPMJV2mjjfB+Gv0BY8Z+GC6Nfq6Ve6tKKF1aM9CYdBKhWg3es7nIWJNIho6z4e
+        hfA+al+YsXi8RX+Cgn9oy4TLIG+510oFfLOjVDKh2uCTSHpy3thRUvGKx8XHJrxnx7IHoNGEtP3d4L9E
+        j5Yesfj2bawJOb+YRpJkxbpScd7bhHkBLvpqTchRyy0t23mjCSXO2xcg0V9nwitZM1mBdU0Yiv5uBbiI
+        xybUUxMeSyasEvF+BbjIiz9QVEDJhHUib7gCXORXmrBJ5I+sgIIJ24r82gJkstZvP3L7FqCnRcoL0PeA
+        S0W0evuR06kA8uQdbfMyq7Rqobyq8BnW5rFg4UoRb1UA8Xg7lnmvQtm0dO6B1+DStpy+dGLR31gAsUUI
+        N7I7sMPC1SIh3nhU8TWI9/raAujbCfGKzlu4nRgQ3zPfaMYtXiqAtgytPySu1p6qFYOnQCvgG48m1Qrp
+        219SISr2PHix2i1Pw1DflAUxWfyq1p4v3YXwG+EytNoVe4nJFyD8Q+q6DdssbWPFhWTUQ6DbIYNVfic2
+        azD4B6qVAftOFHtdAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="JoinServerButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAEHSURBVEhL7VKxDoJQEHsxDAyGGAdD4mJYTBzYnDTA4uDs4O6XuLr7v9qaiuAhhAg6aJPmeNfe
-        9SG6jyDLsksf1Po84NgxbYCOb+NHA6D7aZrGqEO1XoK7uFPH+gD0Q+lVDGUrAX0bgNudUMdFStuAD7PA
-        HmZ2d2+R2mXeoJay5qjyPFPW/DZn1DnqllXPa/BQMguaOdBT8N9mUbnLvIH5Buh5MK+k+2q7JElG7Enz
-        1M6BXquPHFHH0inqAOS/iTfmTCRbCei3CgioI2ABTsAZqZlAthK4i7qO9QGEdEPJBtBaB4T4Wfa4+RI1
-        5jN7kg24izt1bA5oi39AI74X0DFNQOfU+j7h3BXnJl/X3b0ShAAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAQdJREFUSEvt
+        UrEOglAQezEMDIYYB0PiYlhMHNicNMDi4Ozg7pe4uvu/2pqK4CGECDpok+Z41971IbqPIMuySx/U+jzg
+        2DFtgI5v40cDoPtpmsaoQ7Vegru4U8f6APRD6VUMZSsBfRuA251Qx0VK24APs8AeZnZ3b5HaZd6glrLm
+        qPI8U9b8NmfUOeqWVc9r8FAyC5o50FPw32ZRucu8gfkG6Hkwr6T7arskSUbsSfPUzoFeq48cUcfSKeoA
+        5L+JN+ZMJFsJ6LcKCKgjYAFOwBmpmUC2EriLuo71AYR0Q8kG0FoHhPhZ9rj5EjXmM3uSDbiLO3VsDmiL
+        f0AjvhfQMU1A59T6PuHcFecmX9fdvRKEAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

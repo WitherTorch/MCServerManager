@@ -55,18 +55,18 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.OverviewPanel.SuspendLayout()
-        Me.FlowLayoutPanel1.SuspendLayout()
-        Me.MetroPanel1.SuspendLayout()
-        Me.MetroPanel5.SuspendLayout()
-        Me.MetroPanel4.SuspendLayout()
-        Me.MetroPanel3.SuspendLayout()
-        Me.LoadingProgressPanel.SuspendLayout()
-        Me.ServerPanel.SuspendLayout()
-        Me.ControlPanel.SuspendLayout()
-        Me.Panel1.SuspendLayout()
+        Me.OverviewPanel.SuspendLayout
+        Me.FlowLayoutPanel1.SuspendLayout
+        Me.MetroPanel1.SuspendLayout
+        Me.MetroPanel5.SuspendLayout
+        Me.MetroPanel4.SuspendLayout
+        Me.MetroPanel3.SuspendLayout
+        Me.LoadingProgressPanel.SuspendLayout
+        Me.ServerPanel.SuspendLayout
+        Me.ControlPanel.SuspendLayout
+        Me.Panel1.SuspendLayout
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
+        Me.SuspendLayout
         '
         'StyleManager
         '
@@ -501,8 +501,8 @@ Partial Class Manager
         'RadioButton2
         '
         Me.RadioButton2.Appearance = System.Windows.Forms.Appearance.Button
-        Me.RadioButton2.BackgroundImage = Global.ServerManager.My.Resources.Resources.server
-        Me.RadioButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.RadioButton2.BackgroundImage = CType(resources.GetObject("RadioButton2.BackgroundImage"), System.Drawing.Image)
+        Me.RadioButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.RadioButton2.Dock = System.Windows.Forms.DockStyle.Top
         Me.RadioButton2.FlatAppearance.BorderSize = 0
         Me.RadioButton2.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(177, Byte), Integer), CType(CType(89, Byte), Integer))
@@ -577,14 +577,14 @@ Partial Class Manager
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OverviewPanel.ResumeLayout(False)
-        Me.OverviewPanel.PerformLayout()
+        Me.OverviewPanel.PerformLayout
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.MetroPanel1.ResumeLayout(False)
         Me.MetroPanel5.ResumeLayout(False)
         Me.MetroPanel4.ResumeLayout(False)
         Me.MetroPanel3.ResumeLayout(False)
         Me.LoadingProgressPanel.ResumeLayout(False)
-        Me.LoadingProgressPanel.PerformLayout()
+        Me.LoadingProgressPanel.PerformLayout
         Me.ServerPanel.ResumeLayout(False)
         Me.ControlPanel.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
