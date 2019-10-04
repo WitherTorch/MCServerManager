@@ -103,6 +103,13 @@
         status.ServerVersionLabel.Text = "Spigot 1.12.2"
         status.PictureBox1.Image = My.Resources.ServerDefaultIcon
         ServerListLayout.Controls.Add(status)
+        For Each software In ServerMaker.SoftwareDictionary
+            Try
+                VersionListLoader.LoadVersionList(software.Value.ClassType)
+            Catch ex As Exception
+
+            End Try
+        Next
     End Sub
 
     Private Sub ToolTip1_Draw(sender As Object, e As DrawToolTipEventArgs) Handles ToolTip1.Draw
@@ -232,5 +239,10 @@
     End Sub
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
         If RadioButton3.Checked Then ChangePanel(2)
+    End Sub
+
+    Private Sub AddServerButton_Click(sender As Object, e As EventArgs) Handles AddServerButton.Click
+        Dim dialog As New CreateServerDialog()
+        dialog.Show()
     End Sub
 End Class

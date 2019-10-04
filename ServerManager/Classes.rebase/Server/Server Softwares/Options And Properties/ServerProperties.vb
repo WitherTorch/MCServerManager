@@ -1219,7 +1219,7 @@ Public Class NukkitServerOptions
             Case "rcon.port"
                 Rcon_Port = value
             Case "server-ip"
-                Server_Ip = value
+                Server_Ip = IIf(value = "", "0.0.0.0", value)
             Case "server-port"
                 Server_Port = value
             Case "spawn-animals"
@@ -1884,7 +1884,7 @@ Public Class PocketMineServerOptions
             Case "rcon.password"
                 Rcon_Password = value
             Case "server-ip"
-                Server_Ip = value
+                Server_Ip = IIf(value = "", "0.0.0.0", value)
             Case "server-port"
                 Server_Port = value
             Case "spawn-protection"

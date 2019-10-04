@@ -14,7 +14,7 @@ Public Class VanillaServer
     Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
     Friend Property Server2ndVersion As String
     Protected Shared VanillaVersionDict As New Dictionary(Of String, String)
-    Private Shared SnapshotList As List(Of String)
+    Private Shared SnapshotList As New List(Of String)
     Public Sub New()
         MyBase.New()
     End Sub

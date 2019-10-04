@@ -267,16 +267,16 @@
     <Compile Include="Classes.rebase\Server\ServerMaker.vb" />
     <Compile Include="Classes.rebase\Server\Taskable.vb" />
     <Compile Include="Classes.rebase\Server\Server Softwares\VanillaServer.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\Options\AkarinOptions.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\Options\BukkitOptions.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\Options\CauldronOptions.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\Options\AbstractSoftwareOptions.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\Options\NukkitOptions.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\Options\PaperOptions.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\Options\PocketMineOptions.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\Options\ServerOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\AkarinOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\BukkitOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\CauldronOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\AbstractSoftwareOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\NukkitOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\PaperOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\PocketMineOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\ServerProperties.vb" />
     <Compile Include="Classes\Server\ServerTask.vb" />
-    <Compile Include="Classes.rebase\Server\Server Softwares\Options\SpigotOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\SpigotOptions.vb" />
     <Compile Include="Classes\Watchdog.vb" />
     <Compile Include="CryptoProvider.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
@@ -290,12 +290,19 @@
     <Compile Include="Redesigned GUI\Controls\ServerStatus.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Redesigned GUI\CreateServerDialog.Designer.vb">
+      <DependentUpon>CreateServerDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Redesigned GUI\CreateServerDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Redesigned GUI\Manager.Designer.vb">
       <DependentUpon>Manager.vb</DependentUpon>
     </Compile>
     <Compile Include="Redesigned GUI\Manager.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Redesigned GUI\WinAPI.vb" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -332,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Redesigned GUI\Controls\ServerStatus.resx">
       <DependentUpon>ServerStatus.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Redesigned GUI\CreateServerDialog.resx">
+      <DependentUpon>CreateServerDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Redesigned GUI\Manager.resx">
       <DependentUpon>Manager.vb</DependentUpon>

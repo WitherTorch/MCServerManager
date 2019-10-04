@@ -41,9 +41,9 @@ Partial Class Manager
         Me.LoadingProgressView = New MetroFramework.Controls.MetroListView()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.ServerPanel = New MetroFramework.Controls.MetroPanel()
+        Me.ServerListLayout = New System.Windows.Forms.FlowLayoutPanel()
         Me.JoinServerButton = New System.Windows.Forms.Button()
         Me.AddServerButton = New System.Windows.Forms.Button()
-        Me.ServerListLayout = New System.Windows.Forms.FlowLayoutPanel()
         Me.SearchBox = New MetroFramework.Controls.MetroTextBox()
         Me.ModpackServerPanel = New MetroFramework.Controls.MetroPanel()
         Me.ControlPanel = New MetroFramework.Controls.MetroPanel()
@@ -55,18 +55,18 @@ Partial Class Manager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.OverviewPanel.SuspendLayout
-        Me.FlowLayoutPanel1.SuspendLayout
-        Me.MetroPanel1.SuspendLayout
-        Me.MetroPanel5.SuspendLayout
-        Me.MetroPanel4.SuspendLayout
-        Me.MetroPanel3.SuspendLayout
-        Me.LoadingProgressPanel.SuspendLayout
-        Me.ServerPanel.SuspendLayout
-        Me.ControlPanel.SuspendLayout
-        Me.Panel1.SuspendLayout
+        Me.OverviewPanel.SuspendLayout()
+        Me.FlowLayoutPanel1.SuspendLayout()
+        Me.MetroPanel1.SuspendLayout()
+        Me.MetroPanel5.SuspendLayout()
+        Me.MetroPanel4.SuspendLayout()
+        Me.MetroPanel3.SuspendLayout()
+        Me.LoadingProgressPanel.SuspendLayout()
+        Me.ServerPanel.SuspendLayout()
+        Me.ControlPanel.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout
+        Me.SuspendLayout()
         '
         'StyleManager
         '
@@ -368,6 +368,19 @@ Partial Class Manager
         Me.ServerPanel.VerticalScrollbarSize = 10
         Me.ServerPanel.Visible = False
         '
+        'ServerListLayout
+        '
+        Me.ServerListLayout.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ServerListLayout.AutoScroll = True
+        Me.ServerListLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.ServerListLayout.Location = New System.Drawing.Point(6, 40)
+        Me.ServerListLayout.Name = "ServerListLayout"
+        Me.ServerListLayout.Size = New System.Drawing.Size(719, 378)
+        Me.ServerListLayout.TabIndex = 3
+        Me.ServerListLayout.WrapContents = False
+        '
         'JoinServerButton
         '
         Me.JoinServerButton.BackgroundImage = CType(resources.GetObject("JoinServerButton.BackgroundImage"), System.Drawing.Image)
@@ -397,19 +410,6 @@ Partial Class Manager
         Me.AddServerButton.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.AddServerButton, "新增伺服器")
         Me.AddServerButton.UseVisualStyleBackColor = True
-        '
-        'ServerListLayout
-        '
-        Me.ServerListLayout.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ServerListLayout.AutoScroll = True
-        Me.ServerListLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.ServerListLayout.Location = New System.Drawing.Point(6, 40)
-        Me.ServerListLayout.Name = "ServerListLayout"
-        Me.ServerListLayout.Size = New System.Drawing.Size(719, 378)
-        Me.ServerListLayout.TabIndex = 3
-        Me.ServerListLayout.WrapContents = False
         '
         'SearchBox
         '
@@ -582,18 +582,18 @@ Partial Class Manager
         Me.Padding = New System.Windows.Forms.Padding(0, 60, 20, 0)
         Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
-        Me.Text = "　Minecraft 伺服器管理員"
+        Me.Text = "Minecraft 伺服器管理員"
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OverviewPanel.ResumeLayout(False)
-        Me.OverviewPanel.PerformLayout
+        Me.OverviewPanel.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.MetroPanel1.ResumeLayout(False)
         Me.MetroPanel5.ResumeLayout(False)
         Me.MetroPanel4.ResumeLayout(False)
         Me.MetroPanel3.ResumeLayout(False)
         Me.LoadingProgressPanel.ResumeLayout(False)
-        Me.LoadingProgressPanel.PerformLayout
+        Me.LoadingProgressPanel.PerformLayout()
         Me.ServerPanel.ResumeLayout(False)
         Me.ControlPanel.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
