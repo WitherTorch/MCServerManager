@@ -352,9 +352,9 @@ Partial Class Manager
         Me.ServerPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ServerPanel.Controls.Add(Me.ServerListLayout)
         Me.ServerPanel.Controls.Add(Me.JoinServerButton)
         Me.ServerPanel.Controls.Add(Me.AddServerButton)
-        Me.ServerPanel.Controls.Add(Me.ServerListLayout)
         Me.ServerPanel.Controls.Add(Me.SearchBox)
         Me.ServerPanel.HorizontalScrollbarBarColor = True
         Me.ServerPanel.HorizontalScrollbarHighlightOnWheel = False
@@ -403,10 +403,13 @@ Partial Class Manager
         Me.ServerListLayout.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ServerListLayout.AutoScroll = True
+        Me.ServerListLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.ServerListLayout.Location = New System.Drawing.Point(6, 40)
         Me.ServerListLayout.Name = "ServerListLayout"
         Me.ServerListLayout.Size = New System.Drawing.Size(719, 378)
         Me.ServerListLayout.TabIndex = 3
+        Me.ServerListLayout.WrapContents = False
         '
         'SearchBox
         '
@@ -559,6 +562,12 @@ Partial Class Manager
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Tag = "Minecraft 伺服器管理員"
         '
+        'ToolTip1
+        '
+        Me.ToolTip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
+        Me.ToolTip1.ForeColor = System.Drawing.Color.White
+        Me.ToolTip1.OwnerDraw = True
+        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -620,6 +629,6 @@ Partial Class Manager
     Friend WithEvents ServerListLayout As FlowLayoutPanel
     Friend WithEvents SearchBox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents AddServerButton As Button
-    Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents JoinServerButton As Button
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

@@ -330,6 +330,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Redesigned GUI\Controls\ServerStatus.resx">
+      <DependentUpon>ServerStatus.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Redesigned GUI\Manager.resx">
       <DependentUpon>Manager.vb</DependentUpon>
     </EmbeddedResource>
