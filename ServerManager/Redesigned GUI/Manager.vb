@@ -98,9 +98,14 @@
     End Function
     Private Sub NewManager_Load(sender As Object, e As EventArgs) Handles Me.Load
         CPUPerformanceCounter.NextValue()
+        Dim status = New ServerStatus() With {.Width = ServerListLayout.Width - ServerListLayout.Padding.Left - ServerListLayout.Padding.Right - 6}
+        status.PathNameLabel.Text = "Server feature hasn't added yet"
+        status.ServerVersionLabel.Text = "Spigot 1.12.2"
+        status.PictureBox1.Image = My.Resources.ServerDefaultIcon
+        ServerListLayout.Controls.Add(status)
     End Sub
 
-    Private Sub ToolTip1_Draw(sender As Object, e As DrawToolTipEventArgs)
+    Private Sub ToolTip1_Draw(sender As Object, e As DrawToolTipEventArgs) Handles ToolTip1.Draw
         e.DrawBorder()
         e.DrawBackground()
         e.Graphics.DrawRectangle(New Pen(Color.FromArgb(100, 100, 100)), e.Bounds)
