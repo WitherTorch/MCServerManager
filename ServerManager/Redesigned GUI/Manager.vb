@@ -106,7 +106,21 @@
         CPUPerformanceCounter.NextValue()
         For Each software In ServerMaker.SoftwareDictionary
             Try
-                VersionListLoader.LoadVersionList(software.Value.ClassType)
+                Dim item As New ListViewItem(software.Value.ReadableName)
+                LoadingProgressView.Items.Add(item)
+                If VersionListLoader.HasVersionListFunction(software.Value.ClassType) Then
+                    item.SubItems.Add("載入中...")
+                    Threading.Tasks.Task.Run(Sub()
+                                                 Try
+                                                     VersionListLoader.LoadVersionList(software.Value.ClassType)
+                                                     BeginInvokeIfRequired(LoadingProgressView, Sub() item.SubItems(1).Text = "載入完成")
+                                                 Catch ex As Exception
+                                                     BeginInvokeIfRequired(LoadingProgressView, Sub() item.SubItems(1).Text = "載入錯誤")
+                                                 End Try
+                                             End Sub)
+                Else
+                    item.SubItems.Add("無需載入")
+                End If
             Catch ex As Exception
 
             End Try
@@ -245,5 +259,29 @@
     Private Sub AddServerButton_Click(sender As Object, e As EventArgs) Handles AddServerButton.Click
         Dim dialog As New CreateServerDialog(Me)
         dialog.Show()
+    End Sub
+
+    Private Sub JoinServerButton_Click(sender As Object, e As EventArgs) Handles JoinServerButton.Click
+        Dim fileDialog As New OpenFileDialog()
+        fileDialog.Filter = "伺服器資訊清單 (server.info)|server.info"
+        fileDialog.Title = "加入伺服器"
+        If fileDialog.ShowDialog() = DialogResult.OK Then
+            AddServer(New ServerStatus(ServerMaker.GetServer(New IO.FileInfo(fileDialog.FileName).DirectoryName)))
+        End If
+    End Sub
+
+    Private Sub Manager_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        GetInternalIPAddresses()
+    End Sub
+    Sub GetInternalIPAddresses()
+        If GlobalModule.IPList IsNot Nothing Then Erase GlobalModule.IPList
+        Dim ipList As New List(Of String)()
+        For Each address In Net.Dns.GetHostByName(Net.Dns.GetHostName).AddressList
+            If address.AddressFamily = Net.Sockets.AddressFamily.InterNetwork OrElse
+               (address.AddressFamily = Net.Sockets.AddressFamily.InterNetworkV6 AndAlso address.IsIPv6LinkLocal) Then
+                ipList.Add(address.ToString)
+            End If
+        Next
+        GlobalModule.IPList = ipList.ToArray()
     End Sub
 End Class

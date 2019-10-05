@@ -291,7 +291,7 @@ Public MustInherit Class ServerBase
                         Do Until reader.EndOfStream
                             Dim infoText As String = reader.ReadLine
                             If infoText.StartsWith("server-version-type") Then
-                                Return infoText.Substring(19)
+                                Return infoText.Substring(20)
                             End If
                         Loop
                     End Using

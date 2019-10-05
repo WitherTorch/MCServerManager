@@ -22,7 +22,14 @@
     ''' <param name="path">伺服器的路徑</param>
     ''' <returns></returns>
     Shared Function GetServer(path As String) As ServerBase
-        Dim instance As ServerBase = Activator.CreateInstance(SoftwareDictionary(ServerBase.GetServerTypeString(path)).ClassType)
+        Dim instance As ServerBase = Nothing
+        Dim softwareName As String = ServerBase.GetServerTypeString(path)
+        For Each software In SoftwareDictionary
+            If software.Key.ToLower = softwareName.ToLower Then
+                instance = Activator.CreateInstance(software.Value.ClassType)
+                Exit For
+            End If
+        Next
         instance.GetServer(path)
         Return instance
     End Function

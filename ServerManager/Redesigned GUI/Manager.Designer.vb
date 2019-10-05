@@ -23,6 +23,8 @@ Partial Class Manager
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim ColumnHeader1 As System.Windows.Forms.ColumnHeader
+        Dim ColumnHeader2 As System.Windows.Forms.ColumnHeader
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.StyleManager = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.CPUPerformanceCounter = New System.Diagnostics.PerformanceCounter()
@@ -38,7 +40,7 @@ Partial Class Manager
         Me.MetroPanel3 = New MetroFramework.Controls.MetroPanel()
         Me.NetworkCircularBar = New CircularProgressBar.CircularProgressBar()
         Me.LoadingProgressPanel = New MetroFramework.Controls.MetroPanel()
-        Me.LoadingProgressView = New MetroFramework.Controls.MetroListView()
+        Me.LoadingProgressView = New System.Windows.Forms.ListView()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.ServerPanel = New MetroFramework.Controls.MetroPanel()
         Me.ServerListLayout = New System.Windows.Forms.FlowLayoutPanel()
@@ -53,6 +55,8 @@ Partial Class Manager
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         CType(Me.StyleManager, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.OverviewPanel.SuspendLayout()
@@ -67,6 +71,16 @@ Partial Class Manager
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'ColumnHeader1
+        '
+        ColumnHeader1.Text = "軟體名稱"
+        ColumnHeader1.Width = 106
+        '
+        'ColumnHeader2
+        '
+        ColumnHeader2.Text = "載入進度"
+        ColumnHeader2.Width = 101
         '
         'StyleManager
         '
@@ -325,16 +339,16 @@ Partial Class Manager
         'LoadingProgressView
         '
         Me.LoadingProgressView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.LoadingProgressView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {ColumnHeader1, ColumnHeader2})
         Me.LoadingProgressView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LoadingProgressView.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.LoadingProgressView.Font = New System.Drawing.Font("微軟正黑體", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.LoadingProgressView.FullRowSelect = True
         Me.LoadingProgressView.Location = New System.Drawing.Point(6, 19)
         Me.LoadingProgressView.Name = "LoadingProgressView"
-        Me.LoadingProgressView.OwnerDraw = True
         Me.LoadingProgressView.Size = New System.Drawing.Size(318, 400)
         Me.LoadingProgressView.TabIndex = 3
         Me.LoadingProgressView.UseCompatibleStateImageBehavior = False
-        Me.LoadingProgressView.UseSelectable = True
+        Me.LoadingProgressView.View = System.Windows.Forms.View.Details
         '
         'MetroLabel1
         '
@@ -609,7 +623,7 @@ Partial Class Manager
     Friend WithEvents ServerPanel As MetroFramework.Controls.MetroPanel
     Friend WithEvents ModpackServerPanel As MetroFramework.Controls.MetroPanel
     Friend WithEvents LoadingProgressPanel As MetroFramework.Controls.MetroPanel
-    Friend WithEvents LoadingProgressView As MetroFramework.Controls.MetroListView
+    Friend WithEvents LoadingProgressView As System.Windows.Forms.ListView
     Friend WithEvents MetroLabel1 As MetroFramework.Controls.MetroLabel
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents CPUCircularBar As CircularProgressBar.CircularProgressBar

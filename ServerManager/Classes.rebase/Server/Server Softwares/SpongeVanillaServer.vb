@@ -8,7 +8,8 @@ Public Class SpongeVanillaServer
     Private Shadows Property SpongeVersionType As String
     Private Property Server3rdVersion As String
     Private Shared SpongeVanillaVersionList As New Dictionary(Of String, SpongeVersion)
-    Friend Shared Sub GetVersionList()
+    Friend Shared Shadows Sub GetVersionList()
+        SpongeVanillaVersionList.Clear()
         Dim manifestListURL As String = "https://repo.spongepowered.org/maven/org/spongepowered/spongevanilla/maven-metadata.xml"
         Try
             Dim client As New Net.WebClient()

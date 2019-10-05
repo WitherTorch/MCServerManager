@@ -115,7 +115,7 @@ Public Class NukkitServer
         GetOptions()
     End Sub
     Friend Shared Sub GetVersionList()
-        NukkitVersion = ""
+        NukkitVersion = 0
         Dim manifestListURL As String = "https://ci.nukkitx.com/job/NukkitX/job/Nukkit/job/master/api/json"
         Try
             Dim client As New Net.WebClient()
@@ -128,7 +128,7 @@ Public Class NukkitServer
             docHtml = Nothing
             client.Dispose()
         Catch ex As Exception
-            Throw New GetAvailableVersionsException
+            Throw ex
         End Try
     End Sub
     Private ServerOptions As New NukkitServerOptions

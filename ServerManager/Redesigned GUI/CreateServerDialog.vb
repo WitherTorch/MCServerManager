@@ -16,6 +16,7 @@
         For Each software In softwares.Values
             MetroComboBox1.Items.Add(software.ReadableName)
         Next
+        MetroComboBox4.Items.AddRange(IPList)
         ChangeView(ViewIndex)
     End Sub
     Sub ChangeView(index As Integer)
@@ -145,5 +146,12 @@
                 MetroTextBox2.Visible = False
                 MetroComboBox4.Visible = False
         End Select
+    End Sub
+
+    Private Sub MetroButton3_Click(sender As Object, e As EventArgs) Handles MetroButton3.Click
+        Dim form As New Form With {.Text = "伺服器進階設定修改器", .Size = New Drawing.Size(300, 400), .BackColor = Color.White}
+        Dim grid As New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.GetServerProperties, .BackColor = Color.White}
+        form.Controls.Add(grid)
+        form.ShowDialog()
     End Sub
 End Class

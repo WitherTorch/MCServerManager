@@ -7,7 +7,7 @@ Public Class AkarinServer
     Protected akarinOptions As AkarinOptions
     Private Shadows Property Server2ndVersion As String
     Private Property Server3rdVersion As String
-    Private Shared AkarinVersionDict As New List(Of Version)
+    Private Shared AkarinVersionList As New List(Of Version)
     Public Sub New()
         MyBase.New()
     End Sub
@@ -20,7 +20,7 @@ Public Class AkarinServer
         Try
             Dim client As New Net.WebClient()
             client.Encoding = System.Text.Encoding.UTF8
-            client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-ServerBase-Manager")
+            client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
             Dim docHtml = client.DownloadString(manifestListURL)
             Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
             For Each jsonObject As JObject In jsonArray

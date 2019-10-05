@@ -16,7 +16,7 @@ Public Class KettleServer
         Try
             Dim client As New Net.WebClient()
             client.Encoding = System.Text.Encoding.UTF8
-            client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-ServerBase-Manager")
+            client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
             Dim docHtml = client.DownloadString(manifestListURL)
             Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
             For Each jsonObject As JObject In jsonArray
