@@ -140,7 +140,7 @@ Public Class PocketMineServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Private ServerOptions As PocketMineServerOptions
+    Private ServerOptions As New PocketMineServerOptions
     Public Overrides Function GetServerProperties() As IServerProperties
         Return ServerOptions
     End Function

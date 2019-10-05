@@ -96,13 +96,14 @@
         Dim utilization As Double = (8 * (sendSum + receiveSum)) / (bandwidth * 10) * 100
         Return utilization
     End Function
+    Friend Sub AddServer(status As ServerStatus)
+        With status
+            .Width = ServerListLayout.Width - ServerListLayout.Padding.Left - ServerListLayout.Padding.Right - 6
+        End With
+        ServerListLayout.Controls.Add(status)
+    End Sub
     Private Sub NewManager_Load(sender As Object, e As EventArgs) Handles Me.Load
         CPUPerformanceCounter.NextValue()
-        Dim status = New ServerStatus() With {.Width = ServerListLayout.Width - ServerListLayout.Padding.Left - ServerListLayout.Padding.Right - 6}
-        status.PathNameLabel.Text = "Server feature hasn't added yet"
-        status.ServerVersionLabel.Text = "Spigot 1.12.2"
-        status.PictureBox1.Image = My.Resources.ServerDefaultIcon
-        ServerListLayout.Controls.Add(status)
         For Each software In ServerMaker.SoftwareDictionary
             Try
                 VersionListLoader.LoadVersionList(software.Value.ClassType)
@@ -242,7 +243,7 @@
     End Sub
 
     Private Sub AddServerButton_Click(sender As Object, e As EventArgs) Handles AddServerButton.Click
-        Dim dialog As New CreateServerDialog()
+        Dim dialog As New CreateServerDialog(Me)
         dialog.Show()
     End Sub
 End Class

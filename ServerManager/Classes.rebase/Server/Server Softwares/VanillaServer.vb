@@ -56,7 +56,7 @@ Public Class VanillaServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Private ServerOptions As JavaServerOptions
+    Private ServerOptions As New JavaServerOptions
     Public Overrides Function GetServerProperties() As IServerProperties
         Return ServerOptions
     End Function

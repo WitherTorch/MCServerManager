@@ -131,7 +131,7 @@ Public Class NukkitServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Private ServerOptions As NukkitServerOptions
+    Private ServerOptions As New NukkitServerOptions
     Public Overrides Function GetServerProperties() As IServerProperties
         Return ServerOptions
     End Function

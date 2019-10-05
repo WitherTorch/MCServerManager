@@ -34,6 +34,7 @@ Partial Class CreateServerDialog
         Me.Label1 = New System.Windows.Forms.Label()
         Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.MetroComboBox4 = New MetroFramework.Controls.MetroComboBox()
         Me.MetroTextBox2 = New MetroFramework.Controls.MetroTextBox()
         Me.MetroComboBox3 = New MetroFramework.Controls.MetroComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -46,7 +47,11 @@ Partial Class CreateServerDialog
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.MetroComboBox4 = New MetroFramework.Controls.MetroComboBox()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.MetroProgressBar1 = New MetroFramework.Controls.MetroProgressBar()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -54,6 +59,8 @@ Partial Class CreateServerDialog
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel4.SuspendLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MetroStyleManager1
@@ -213,6 +220,19 @@ Partial Class CreateServerDialog
         Me.Panel2.Size = New System.Drawing.Size(455, 185)
         Me.Panel2.TabIndex = 8
         Me.Panel2.Visible = False
+        '
+        'MetroComboBox4
+        '
+        Me.MetroComboBox4.FontSize = MetroFramework.MetroComboBoxSize.Small
+        Me.MetroComboBox4.FormattingEnabled = True
+        Me.MetroComboBox4.ItemHeight = 19
+        Me.MetroComboBox4.Location = New System.Drawing.Point(93, 117)
+        Me.MetroComboBox4.Name = "MetroComboBox4"
+        Me.MetroComboBox4.PromptText = "請選擇一個內部IP位址"
+        Me.MetroComboBox4.Size = New System.Drawing.Size(359, 25)
+        Me.MetroComboBox4.TabIndex = 10
+        Me.MetroComboBox4.UseSelectable = True
+        Me.MetroComboBox4.Visible = False
         '
         'MetroTextBox2
         '
@@ -374,18 +394,63 @@ Partial Class CreateServerDialog
         '
         Me.FolderBrowserDialog1.Description = "選擇資料夾"
         '
-        'MetroComboBox4
+        'Panel4
         '
-        Me.MetroComboBox4.FontSize = MetroFramework.MetroComboBoxSize.Small
-        Me.MetroComboBox4.FormattingEnabled = True
-        Me.MetroComboBox4.ItemHeight = 19
-        Me.MetroComboBox4.Location = New System.Drawing.Point(93, 117)
-        Me.MetroComboBox4.Name = "MetroComboBox4"
-        Me.MetroComboBox4.PromptText = "請選擇一個內部IP位址"
-        Me.MetroComboBox4.Size = New System.Drawing.Size(359, 25)
-        Me.MetroComboBox4.TabIndex = 10
-        Me.MetroComboBox4.UseSelectable = True
-        Me.MetroComboBox4.Visible = False
+        Me.Panel4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel4.Controls.Add(Me.MetroProgressBar1)
+        Me.Panel4.Controls.Add(Me.PictureBox4)
+        Me.Panel4.Controls.Add(Me.Label7)
+        Me.Panel4.Controls.Add(Me.Label8)
+        Me.Panel4.Location = New System.Drawing.Point(6, 33)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(455, 185)
+        Me.Panel4.TabIndex = 11
+        Me.Panel4.Visible = False
+        '
+        'MetroProgressBar1
+        '
+        Me.MetroProgressBar1.FontWeight = MetroFramework.MetroProgressBarWeight.Regular
+        Me.MetroProgressBar1.HideProgressText = False
+        Me.MetroProgressBar1.Location = New System.Drawing.Point(81, 47)
+        Me.MetroProgressBar1.Margin = New System.Windows.Forms.Padding(3, 3, 6, 3)
+        Me.MetroProgressBar1.Name = "MetroProgressBar1"
+        Me.MetroProgressBar1.Size = New System.Drawing.Size(368, 23)
+        Me.MetroProgressBar1.TabIndex = 3
+        Me.MetroProgressBar1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(177, Byte), Integer), CType(CType(89, Byte), Integer))
+        Me.PictureBox4.Location = New System.Drawing.Point(0, 40)
+        Me.PictureBox4.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(380, 1)
+        Me.PictureBox4.TabIndex = 2
+        Me.PictureBox4.TabStop = False
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label7.Font = New System.Drawing.Font("微軟正黑體", 12.0!)
+        Me.Label7.Location = New System.Drawing.Point(0, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(297, 40)
+        Me.Label7.TabIndex = 0
+        Me.Label7.Text = "步驟四：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "　　下載伺服器（此處無須使用者操作）"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("微軟正黑體", 10.5!)
+        Me.Label8.Location = New System.Drawing.Point(7, 49)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(3, 10, 3, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(78, 18)
+        Me.Label8.TabIndex = 9
+        Me.Label8.Text = "下載進度："
         '
         'CreateServerDialog
         '
@@ -393,9 +458,10 @@ Partial Class CreateServerDialog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(467, 270)
         Me.Controls.Add(Me.MetroButton2)
+        Me.Controls.Add(Me.Panel4)
+        Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Panel3)
         Me.DisplayHeader = False
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -417,6 +483,9 @@ Partial Class CreateServerDialog
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -445,4 +514,9 @@ Partial Class CreateServerDialog
     Friend WithEvents Label6 As Label
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents MetroComboBox4 As MetroFramework.Controls.MetroComboBox
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents MetroProgressBar1 As MetroFramework.Controls.MetroProgressBar
+    Friend WithEvents PictureBox4 As PictureBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As Label
 End Class

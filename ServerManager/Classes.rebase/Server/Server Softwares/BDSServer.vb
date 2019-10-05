@@ -37,7 +37,7 @@ Public Class BDSServer
             Throw New GetAvailableVersionsException
         End Try
     End Sub
-    Private ServerOptions As BDSServerOptions
+    Private ServerOptions As New BDSServerOptions
     Public Overrides Function GetServerProperties() As IServerProperties
         Return ServerOptions
     End Function

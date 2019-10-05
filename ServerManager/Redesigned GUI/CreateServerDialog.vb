@@ -3,6 +3,15 @@
     Dim softwares As Dictionary(Of String, ServerMaker.SoftwareInfo) = ServerMaker.SoftwareDictionary
     Dim server As ServerBase
     Dim targetVersion As String
+    Dim Manager As Manager
+    Sub New(manager As Manager)
+
+        ' 設計工具需要此呼叫。
+        InitializeComponent()
+
+        ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
+        Me.Manager = manager
+    End Sub
     Private Sub CreateServerDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         For Each software In softwares.Values
             MetroComboBox1.Items.Add(software.ReadableName)
@@ -15,6 +24,7 @@
                 Panel1.Visible = True
                 Panel2.Visible = False
                 Panel3.Visible = False
+                Panel4.Visible = False
                 Panel1.Focus()
             Case 1 'Step 2
                 server = ServerMaker.MakeServer(softwares.Keys(MetroComboBox1.SelectedIndex))
@@ -23,6 +33,7 @@
                 Panel1.Visible = False
                 Panel2.Visible = True
                 Panel3.Visible = False
+                Panel4.Visible = False
                 Panel2.Focus()
             Case 2 'Step 3
                 targetVersion = MetroComboBox2.SelectedItem.ToString()
@@ -37,12 +48,35 @@
                 Panel1.Visible = False
                 Panel2.Visible = False
                 Panel3.Visible = True
+                Panel4.Visible = False
                 Panel3.Focus()
+            Case 3 'Step 4
+                MetroButton2.Visible = False
+                AddHandler server.ServerDownloadStart, Sub()
+                                                           MetroProgressBar1.Value = 0
+                                                       End Sub
+                AddHandler server.ServerDownloading, Sub(percent As Integer)
+                                                         MetroProgressBar1.Value = percent
+                                                     End Sub
+                AddHandler server.ServerDownloadEnd, Sub(isCanceled As Boolean)
+                                                         If isCanceled Then
+                                                             server.GetServer(server.ServerPath)
+                                                             Dim status As New ServerStatus(server)
+                                                             BeginInvokeIfRequired(Manager, Sub() Manager.AddServer(status))
+                                                             Close()
+                                                         End If
+                                                     End Sub
+                Panel1.Visible = False
+                Panel2.Visible = False
+                Panel3.Visible = False
+                Panel4.Visible = True
+                Panel4.Focus()
+                server.DownloadAndInstallServer(targetVersion)
         End Select
     End Sub
 
     Private Sub MetroButton2_Click(sender As Object, e As EventArgs) Handles MetroButton2.Click
-        If ViewIndex >= 3 Then 'Create finished
+        If ViewIndex >= 4 Then 'Create finished
 
         Else 'Creating
             Dim checkingOK As Boolean = False 'Check settings are OK
@@ -81,6 +115,8 @@
                             End Select
                         End If
                     End If
+                Case 2
+                    checkingOK = True
             End Select
             If checkingOK Then
                 ViewIndex += 1
