@@ -11,7 +11,7 @@ Namespace My
     ' NetworkAvailabilityChanged:在建立或中斷網路連線時引發。
     Partial Friend Class MyApplication
         Private Sub MyApplication_Shutdown(sender As Object, e As EventArgs) Handles Me.Shutdown
-            'WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), JavaServerDirs)
+            WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), Newtonsoft.Json.JsonConvert.SerializeObject(ServerList.ToArray()))
             'WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"), BedrockServerDirs)
             My.Settings.Save()
         End Sub
@@ -46,6 +46,12 @@ Namespace My
                 IsUnixLikeSystem = False
             End If
             InternalSoftwareStartup.Startup()
+            Dim servers = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt")))
+            If servers IsNot Nothing Then
+                For Each item In servers
+                    ServerList.Add(item.ToString)
+                Next
+            End If
         End Sub
     End Class
 End Namespace

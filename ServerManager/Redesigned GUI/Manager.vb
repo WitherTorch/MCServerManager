@@ -96,11 +96,22 @@
         Dim utilization As Double = (8 * (sendSum + receiveSum)) / (bandwidth * 10) * 100
         Return utilization
     End Function
-    Friend Sub AddServer(status As ServerStatus)
+    Friend Overloads Sub AddServer(status As ServerStatus)
+        If ServerList.Contains(status._server.ServerPath) = False Then
+            With status
+                .Width = ServerListLayout.Width - ServerListLayout.Padding.Left - ServerListLayout.Padding.Right - 6
+            End With
+            ServerListLayout.Controls.Add(status)
+            ServerList.Add(status._server.ServerPath)
+        End If
+    End Sub
+    Friend Overloads Sub AddServer(path As String)
+        Dim status As New ServerStatus(path)
         With status
             .Width = ServerListLayout.Width - ServerListLayout.Padding.Left - ServerListLayout.Padding.Right - 6
         End With
         ServerListLayout.Controls.Add(status)
+        If ServerList.Contains(path) = False Then ServerList.Add(path)
     End Sub
     Private Sub NewManager_Load(sender As Object, e As EventArgs) Handles Me.Load
         CPUPerformanceCounter.NextValue()
@@ -266,12 +277,15 @@
         fileDialog.Filter = "伺服器資訊清單 (server.info)|server.info"
         fileDialog.Title = "加入伺服器"
         If fileDialog.ShowDialog() = DialogResult.OK Then
-            AddServer(New ServerStatus(ServerMaker.GetServer(New IO.FileInfo(fileDialog.FileName).DirectoryName)))
+            AddServer(New IO.FileInfo(fileDialog.FileName).DirectoryName)
         End If
     End Sub
 
     Private Sub Manager_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         GetInternalIPAddresses()
+        For Each item In ServerList
+            AddServer(item)
+        Next
     End Sub
     Sub GetInternalIPAddresses()
         If GlobalModule.IPList IsNot Nothing Then Erase GlobalModule.IPList

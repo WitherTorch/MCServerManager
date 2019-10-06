@@ -9,8 +9,8 @@ Module GlobalModule
     Public Const SERVER_MANAGER_ARCH As String = "Windows_Edge"
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
-#Region "ServerBase/Solution List"
-    Friend JavaServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"))
+#Region "Server/Solution List"
+    Friend ServerList As New List(Of String)
     Friend SolutionDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"))
     Friend ModpackServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"))
 #End Region

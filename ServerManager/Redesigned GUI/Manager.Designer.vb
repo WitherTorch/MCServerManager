@@ -343,6 +343,7 @@ Partial Class Manager
         Me.LoadingProgressView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LoadingProgressView.Font = New System.Drawing.Font("微軟正黑體", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.LoadingProgressView.FullRowSelect = True
+        Me.LoadingProgressView.HideSelection = False
         Me.LoadingProgressView.Location = New System.Drawing.Point(6, 19)
         Me.LoadingProgressView.Name = "LoadingProgressView"
         Me.LoadingProgressView.Size = New System.Drawing.Size(318, 400)

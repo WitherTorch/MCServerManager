@@ -61,6 +61,7 @@
                                                      End Sub
                 AddHandler server.ServerDownloadEnd, Sub(isCanceled As Boolean)
                                                          If isCanceled Then
+                                                             server.SaveServer()
                                                              server.GetServer(server.ServerPath)
                                                              Dim status As New ServerStatus(server)
                                                              BeginInvokeIfRequired(Manager, Sub() Manager.AddServer(status))
@@ -120,6 +121,9 @@
                     checkingOK = True
             End Select
             If checkingOK Then
+                If ViewIndex = 0 AndAlso ServerList.Contains(MetroTextBox1.Text) Then
+                    MsgBox("該資料夾已經建立過伺服器!",, Application.ProductName)
+                End If
                 ViewIndex += 1
                 ChangeView(ViewIndex)
             Else

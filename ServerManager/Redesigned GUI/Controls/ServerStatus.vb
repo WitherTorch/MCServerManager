@@ -1,5 +1,5 @@
 ﻿Public Class ServerStatus
-    Dim _server As ServerBase
+    Friend _server As ServerBase
     Sub New()
 
         ' 設計工具需要此呼叫。
