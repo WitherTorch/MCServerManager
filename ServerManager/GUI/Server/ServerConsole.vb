@@ -4,6 +4,9 @@ Imports System.Threading.Tasks
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports ServerManager.MinecraftLogParser.MinecraftConsoleMessage
+Imports SharpDX.Direct3D11
+Imports SharpDX.DXGI
+Imports Device = SharpDX.Direct3D11.Device
 
 Public Class ServerConsole
     Dim TaskList As New List(Of ServerTask)
@@ -27,6 +30,24 @@ Public Class ServerConsole
     Dim isMessageUpdate As Boolean = False
     Public Event ServerRestarted(ByRef newProcess As Process)
     Public Event ServerStopLoadingStateChanged(PauseLoad As Boolean)
+    'DirectX support
+    Dim d As Device
+    Dim sc As SwapChain
+    Dim target As Texture2D
+    Dim targetView As RenderTargetView
+    Protected Overrides Sub OnClosing(ByVal e As CancelEventArgs)
+        d.Dispose()
+        sc.Dispose()
+        target.Dispose()
+        targetView.Dispose()
+        MyBase.OnClosing(e)
+    End Sub
+
+    Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+        d.ImmediateContext.ClearRenderTargetView(targetView, New SharpDX.Mathematics.Interop.RawColor4(BackColor.R, BackColor.G, BackColor.B, BackColor.A))
+        sc.Present(0, PresentFlags.None)
+        MyBase.OnPaint(e)
+    End Sub
     Friend Sub ReloadUsesType(type As Server.EServerVersionType)
         usesType = type
     End Sub
@@ -46,6 +67,20 @@ Public Class ServerConsole
             End If
             Text = "伺服器控制台 - " & Server.ServerPathName
         End If
+        Dim scd As SwapChainDescription = New SwapChainDescription() With {
+                .BufferCount = 1,
+                .Flags = SwapChainFlags.None,
+                .IsWindowed = True,
+                .ModeDescription = New ModeDescription(Me.ClientSize.Width, Me.ClientSize.Height, New Rational(60, 1), Format.R8G8B8A8_UNorm),
+                .OutputHandle = Me.Handle,
+                .SampleDescription = New SampleDescription(1, 0),
+                .SwapEffect = SwapEffect.Discard,
+                .Usage = Usage.RenderTargetOutput
+            }
+        Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.Debug, scd, d, sc)
+        target = Texture2D.FromSwapChain(Of Texture2D)(sc, 0)
+        targetView = New RenderTargetView(d, target)
+        d.ImmediateContext.OutputMerger.SetRenderTargets(targetView)
         isInBungee = False
     End Sub
 
@@ -61,6 +96,20 @@ Public Class ServerConsole
         If Server.ServerVersionType = Server.EServerVersionType.Spigot_Git Then
             usesType = Server.EServerVersionType.Spigot
         End If
+        Dim scd As SwapChainDescription = New SwapChainDescription() With {
+                .BufferCount = 1,
+                .Flags = SwapChainFlags.None,
+                .IsWindowed = True,
+                .ModeDescription = New ModeDescription(Me.ClientSize.Width, Me.ClientSize.Height, New Rational(60, 1), Format.R8G8B8A8_UNorm),
+                .OutputHandle = Me.Handle,
+                .SampleDescription = New SampleDescription(1, 0),
+                .SwapEffect = SwapEffect.Discard,
+                .Usage = Usage.RenderTargetOutput
+            }
+        Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.Debug, scd, d, sc)
+        target = Texture2D.FromSwapChain(Of Texture2D)(sc, 0)
+        targetView = New RenderTargetView(d, target)
+        d.ImmediateContext.OutputMerger.SetRenderTargets(targetView)
         DataListView.Items.AddRange(items)
         StopLoadingCheckBox.Checked = PauseLoad
         backgroundProcess = process
@@ -1106,7 +1155,7 @@ Public Class ServerConsole
                                                          IDLabel.Text = "處理序ID：(無)"
                                                          If ServerStatusLabel.Text <> "伺服器狀態：關閉" Then ServerStatusLabel.Text = "伺服器狀態：關閉"
                                                          Dim maxPlayerCount As Integer = 0
-                                                             If Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")) Then
+                                                         If Server.ServerOptions.ContainsKey("max-players") AndAlso IsNumeric(Server.ServerOptions("max-players")) Then
                                                              maxPlayerCount = Server.ServerOptions("max-players")
                                                          End If
                                                          Dim playerListTitle As String = String.Format("玩家 ({0}/{1})", PlayerListBox.Items.Count, maxPlayerCount)

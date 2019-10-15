@@ -2,6 +2,9 @@
 Imports System.Threading
 Imports System.Threading.Tasks
 Imports ServerManager.MinecraftLogParser.MinecraftConsoleMessage
+Imports SharpDX.Direct3D11
+Imports SharpDX.DXGI
+Imports Device = SharpDX.Direct3D11.Device
 
 Public Class BungeeCordConsole
 
@@ -15,6 +18,24 @@ Public Class BungeeCordConsole
     Dim CurrentListLocation As Integer = -1
     Public ReadOnly Property Host As BungeeCordHost
     Dim startInfo As ProcessStartInfo
+    'DirectX support
+    Dim d As Device
+    Dim sc As SwapChain
+    Dim target As Texture2D
+    Dim targetView As RenderTargetView
+    Protected Overrides Sub OnClosing(ByVal e As CancelEventArgs)
+        d.Dispose()
+        sc.Dispose()
+        target.Dispose()
+        targetView.Dispose()
+        MyBase.OnClosing(e)
+    End Sub
+
+    Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+        d.ImmediateContext.ClearRenderTargetView(targetView, New SharpDX.Mathematics.Interop.RawColor4(BackColor.R, BackColor.G, BackColor.B, BackColor.A))
+        sc.Present(0, PresentFlags.None)
+        MyBase.OnPaint(e)
+    End Sub
     Public Sub New(host As BungeeCordHost)
 
         ' 設計工具需要此呼叫。
@@ -22,6 +43,20 @@ Public Class BungeeCordConsole
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         _Host = host
+        Dim scd As SwapChainDescription = New SwapChainDescription() With {
+                .BufferCount = 1,
+                .Flags = SwapChainFlags.None,
+                .IsWindowed = True,
+                .ModeDescription = New ModeDescription(Me.ClientSize.Width, Me.ClientSize.Height, New Rational(60, 1), Format.R8G8B8A8_UNorm),
+                .OutputHandle = Me.Handle,
+                .SampleDescription = New SampleDescription(1, 0),
+                .SwapEffect = SwapEffect.Discard,
+                .Usage = Usage.RenderTargetOutput
+            }
+        Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.Debug, scd, d, sc)
+        target = Texture2D.FromSwapChain(Of Texture2D)(sc, 0)
+        targetView = New RenderTargetView(d, target)
+        d.ImmediateContext.OutputMerger.SetRenderTargets(targetView)
     End Sub
 
 
@@ -473,11 +508,11 @@ Public Class BungeeCordConsole
                                                                                       Case Else
                                                                                   End Select
                                                                                   Try
-                                                                                      BeginInvokeIfRequired(DataListView, Sub()
-                                                                                                                              SyncLock DataListView
-                                                                                                                                  DataListView.Items.Add(item)
+                                                                                      BeginInvokeIfRequired(dataListView, Sub()
+                                                                                                                              SyncLock dataListView
+                                                                                                                                  dataListView.Items.Add(item)
                                                                                                                                   Try
-                                                                                                                                      If DataListView.GetItemRect(DataListView.Items.Count - 2).Y < DataListView.Height Then item.EnsureVisible()
+                                                                                                                                      If dataListView.GetItemRect(dataListView.Items.Count - 2).Y < dataListView.Height Then item.EnsureVisible()
                                                                                                                                   Catch ex As Exception
 
                                                                                                                                   End Try

@@ -1,5 +1,4 @@
 ﻿Imports System.Threading.Tasks
-Imports TheArtOfDev
 
 Public Class CharcoalEngine
     Dim client As New Net.WebClient
@@ -238,7 +237,7 @@ Public Class CharcoalEngine
                                                                               parser.LoadHtml(e.Result)
                                                                               Dim node = parser.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/section[1]/div[1]/div[1]")
                                                                               Dim headNode = parser.DocumentNode.SelectSingleNode("/html[1]/head[1]")
-                                                                              Dim p As New HtmlRenderer.WinForms.HtmlPanel
+                                                                              Dim p As New MetroFramework.Drawing.Html.HtmlPanel
                                                                               p.Dock = DockStyle.Fill
                                                                               p.AutoScroll = True
                                                                               p.Text = "<html>" & headNode.OuterHtml & "<body>" & node.OuterHtml & "</body></html>"
@@ -577,7 +576,7 @@ Public Class CharcoalEngine
                                                                               parser.LoadHtml(e.Result)
                                                                               Dim node = parser.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[1]/div[1]/div[1]/section[1]/div[1]")
                                                                               Dim headNode = parser.DocumentNode.SelectSingleNode("/html[1]/head[1]")
-                                                                              Dim p As New HtmlRenderer.WinForms.HtmlPanel
+                                                                              Dim p As New MetroFramework.Drawing.Html.HtmlPanel
                                                                               p.Dock = DockStyle.Fill
                                                                               p.AutoScroll = True
                                                                               p.Text = "<html>" & headNode.OuterHtml & "<body>" & node.OuterHtml & "</body></html>"
@@ -920,7 +919,7 @@ Public Class CharcoalEngine
                                                                               parser.LoadHtml(e.Result)
                                                                               Dim node = parser.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[1]/div[1]/div[1]/section[1]/div[1]")
                                                                               Dim headNode = parser.DocumentNode.SelectSingleNode("/html[1]/head[1]")
-                                                                              Dim p As New HtmlRenderer.WinForms.HtmlPanel
+                                                                              Dim p As New MetroFramework.Drawing.Html.HtmlPanel
                                                                               p.Dock = DockStyle.Fill
                                                                               p.AutoScroll = True
                                                                               p.Text = "<html>" & headNode.OuterHtml & "<body>" & node.OuterHtml & "</body></html>"
@@ -1533,7 +1532,7 @@ Public Class CharcoalEngine
                                                                               parser.LoadHtml(e.Result)
                                                                               Dim node = parser.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/section[1]/div[1]/div[1]/div[2]")
                                                                               Dim headNode = parser.DocumentNode.SelectSingleNode("/html[1]/head[1]")
-                                                                              Dim p As New HtmlRenderer.WinForms.HtmlPanel
+                                                                              Dim p As New MetroFramework.Drawing.Html.HtmlPanel
                                                                               p.Dock = DockStyle.Fill
                                                                               p.AutoScroll = True
                                                                               p.Text = "<html>" & headNode.OuterHtml & "<body>" & node.OuterHtml & "</body></html>"
@@ -1857,7 +1856,7 @@ Public Class CharcoalEngine
                                                                               parser.LoadHtml(e.Result)
                                                                               Dim node = parser.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/main[1]/div[1]/div[2]/section[1]/div[1]/div[1]/div[1]/section[1]/div[1]")
                                                                               Dim headNode = parser.DocumentNode.SelectSingleNode("/html[1]/head[1]")
-                                                                              Dim p As New HtmlRenderer.WinForms.HtmlPanel
+                                                                              Dim p As New MetroFramework.Drawing.Html.HtmlPanel
                                                                               p.Dock = DockStyle.Fill
                                                                               p.AutoScroll = True
                                                                               p.Text = "<html>" & headNode.OuterHtml & "<body>" & node.OuterHtml & "</body></html>"
