@@ -316,7 +316,7 @@ Public Class ServerCreateDialog
         If ServerDirBox.Text.Trim <> "" Then
             If (ipType <> ServerIPType.Custom) OrElse
             (ipType = ServerIPType.Custom AndAlso
-            (IPAddressComboBox.Text.Trim <> "" AndAlso IsNumeric(IPAddressComboBox.Text.Replace(".", "")))) Then
+            (IPAddressComboBox.Text.Trim <> "")) Then
                 If VersionTypeBox.SelectedIndex <> -1 And VersionBox.SelectedIndex <> -1 Then
                     Dim mapView As MapView = MapPanel.Controls(0)
                     If mapView.MapNameLabel.Text <> "" Then
