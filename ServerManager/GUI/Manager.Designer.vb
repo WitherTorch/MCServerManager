@@ -366,12 +366,12 @@ Partial Class Manager
         '
         Me.ExternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.重新載入外部IPRToolStripMenuItem})
         Me.ExternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
         '
         '重新載入外部IPRToolStripMenuItem
         '
         Me.重新載入外部IPRToolStripMenuItem.Name = "重新載入外部IPRToolStripMenuItem"
-        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.重新載入外部IPRToolStripMenuItem.Text = "重新載入外部IP(&R)"
         '
         'IPALabel
@@ -401,12 +401,12 @@ Partial Class Manager
         '
         Me.InternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
         Me.InternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.InternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        Me.InternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(172, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(174, 22)
         Me.ToolStripMenuItem1.Text = "重新載入內部IP(&R)"
         '
         'GroupBox7
@@ -960,7 +960,7 @@ Partial Class Manager
         Me.NoIPAccountBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
         Me.NoIPAccountBox.CustomButton.UseSelectable = True
         Me.NoIPAccountBox.CustomButton.Visible = False
-        Me.NoIPAccountBox.Lines = New String() {"dd"}
+        Me.NoIPAccountBox.Lines = New String(-1) {}
         Me.NoIPAccountBox.Location = New System.Drawing.Point(50, 6)
         Me.NoIPAccountBox.MaxLength = 32767
         Me.NoIPAccountBox.Name = "NoIPAccountBox"
@@ -972,7 +972,6 @@ Partial Class Manager
         Me.NoIPAccountBox.ShortcutsEnabled = True
         Me.NoIPAccountBox.Size = New System.Drawing.Size(193, 22)
         Me.NoIPAccountBox.TabIndex = 1
-        Me.NoIPAccountBox.Text = "dd"
         Me.NoIPAccountBox.UseSelectable = True
         Me.NoIPAccountBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.NoIPAccountBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
@@ -1988,6 +1987,7 @@ Partial Class Manager
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Manager"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "Minecraft 伺服器管理員"
         Me.MainTabControl.ResumeLayout(False)

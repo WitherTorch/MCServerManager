@@ -383,10 +383,10 @@ Partial Class ServerSetter
         Me.AdvancedTabPage.HorizontalScrollbarBarColor = True
         Me.AdvancedTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.AdvancedTabPage.HorizontalScrollbarSize = 10
-        Me.AdvancedTabPage.Location = New System.Drawing.Point(4, 38)
+        Me.AdvancedTabPage.Location = New System.Drawing.Point(4, 36)
         Me.AdvancedTabPage.Name = "AdvancedTabPage"
         Me.AdvancedTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AdvancedTabPage.Size = New System.Drawing.Size(536, 473)
+        Me.AdvancedTabPage.Size = New System.Drawing.Size(536, 475)
         Me.AdvancedTabPage.TabIndex = 1
         Me.AdvancedTabPage.Text = "進階"
         Me.AdvancedTabPage.UseVisualStyleBackColor = True
@@ -401,7 +401,7 @@ Partial Class ServerSetter
         Me.AdvancedPropertyGrid.Location = New System.Drawing.Point(3, 3)
         Me.AdvancedPropertyGrid.Margin = New System.Windows.Forms.Padding(0)
         Me.AdvancedPropertyGrid.Name = "AdvancedPropertyGrid"
-        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(530, 467)
+        Me.AdvancedPropertyGrid.Size = New System.Drawing.Size(530, 469)
         Me.AdvancedPropertyGrid.TabIndex = 0
         '
         'MetroStyleManager1
@@ -420,6 +420,7 @@ Partial Class ServerSetter
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ServerSetter"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "伺服器設定"

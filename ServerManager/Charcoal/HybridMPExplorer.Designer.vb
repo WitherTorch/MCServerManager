@@ -102,7 +102,7 @@ Partial Class HybridMPExplorer
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripButton2, Me.ToolStripSeparator1, Me.ToolStripButton3, Me.ToolStripProgressBar1})
         Me.ToolStrip1.Location = New System.Drawing.Point(3, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(432, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(435, 25)
         Me.ToolStrip1.TabIndex = 0
         '
         'ToolStripButton1
@@ -110,7 +110,7 @@ Partial Class HybridMPExplorer
         Me.ToolStripButton1.Image = Global.ServerManager.My.Resources.Resources.bukkit
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(60, 22)
+        Me.ToolStripButton1.Size = New System.Drawing.Size(61, 22)
         Me.ToolStripButton1.Text = "Bukkit"
         '
         'ToolStripButton2
@@ -118,7 +118,7 @@ Partial Class HybridMPExplorer
         Me.ToolStripButton2.Image = Global.ServerManager.My.Resources.Resources.CFLogo
         Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(126, 22)
+        Me.ToolStripButton2.Size = New System.Drawing.Size(127, 22)
         Me.ToolStripButton2.Text = "CurseForge - 插件"
         '
         'ToolStripSeparator1
@@ -131,7 +131,7 @@ Partial Class HybridMPExplorer
         Me.ToolStripButton3.Image = Global.ServerManager.My.Resources.Resources.CFLogo
         Me.ToolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton3.Name = "ToolStripButton3"
-        Me.ToolStripButton3.Size = New System.Drawing.Size(126, 22)
+        Me.ToolStripButton3.Size = New System.Drawing.Size(127, 22)
         Me.ToolStripButton3.Text = "CurseForge - 模組"
         '
         'ToolStripProgressBar1
@@ -147,6 +147,7 @@ Partial Class HybridMPExplorer
         Me.Controls.Add(Me.ToolStripContainer1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "HybridMPExplorer"
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Text = "Cauldron 插件/模組瀏覽器"
         Me.ToolStripContainer1.ContentPanel.ResumeLayout(False)

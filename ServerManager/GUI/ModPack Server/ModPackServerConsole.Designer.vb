@@ -74,7 +74,7 @@ Partial Class ModPackServerConsole
         'Panel1
         '
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, 340)
+        Me.Panel1.Location = New System.Drawing.Point(0, 342)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(752, 3)
         Me.Panel1.TabIndex = 15
@@ -250,10 +250,10 @@ Partial Class ModPackServerConsole
         Me.SettingTabPage.HorizontalScrollbarBarColor = True
         Me.SettingTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.SettingTabPage.HorizontalScrollbarSize = 10
-        Me.SettingTabPage.Location = New System.Drawing.Point(4, 38)
+        Me.SettingTabPage.Location = New System.Drawing.Point(4, 36)
         Me.SettingTabPage.Name = "SettingTabPage"
         Me.SettingTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.SettingTabPage.Size = New System.Drawing.Size(752, 368)
+        Me.SettingTabPage.Size = New System.Drawing.Size(752, 370)
         Me.SettingTabPage.TabIndex = 2
         Me.SettingTabPage.Text = "伺服器操作"
         Me.SettingTabPage.UseVisualStyleBackColor = True
@@ -314,10 +314,10 @@ Partial Class ModPackServerConsole
         Me.DataTabPage.HorizontalScrollbarBarColor = True
         Me.DataTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.DataTabPage.HorizontalScrollbarSize = 10
-        Me.DataTabPage.Location = New System.Drawing.Point(4, 38)
+        Me.DataTabPage.Location = New System.Drawing.Point(4, 36)
         Me.DataTabPage.Name = "DataTabPage"
         Me.DataTabPage.Padding = New System.Windows.Forms.Padding(0, 0, 0, 3)
-        Me.DataTabPage.Size = New System.Drawing.Size(752, 368)
+        Me.DataTabPage.Size = New System.Drawing.Size(752, 370)
         Me.DataTabPage.TabIndex = 1
         Me.DataTabPage.Text = "資料列表"
         Me.DataTabPage.UseVisualStyleBackColor = True
@@ -336,7 +336,7 @@ Partial Class ModPackServerConsole
         Me.DataListView.Margin = New System.Windows.Forms.Padding(0, 0, 0, 3)
         Me.DataListView.MultiSelect = False
         Me.DataListView.Name = "DataListView"
-        Me.DataListView.Size = New System.Drawing.Size(752, 340)
+        Me.DataListView.Size = New System.Drawing.Size(752, 342)
         Me.DataListView.TabIndex = 14
         Me.DataListView.UseCompatibleStateImageBehavior = False
         Me.DataListView.View = System.Windows.Forms.View.Details
@@ -380,7 +380,7 @@ Partial Class ModPackServerConsole
         Me.CommandTextBox.CustomButton.Visible = False
         Me.CommandTextBox.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.CommandTextBox.Lines = New String(-1) {}
-        Me.CommandTextBox.Location = New System.Drawing.Point(0, 343)
+        Me.CommandTextBox.Location = New System.Drawing.Point(0, 345)
         Me.CommandTextBox.Margin = New System.Windows.Forms.Padding(0, 3, 0, 0)
         Me.CommandTextBox.MaxLength = 32767
         Me.CommandTextBox.Name = "CommandTextBox"
@@ -444,6 +444,7 @@ Partial Class ModPackServerConsole
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ModPackServerConsole"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "模組包伺服器控制台"
         Me.MainTabControl.ResumeLayout(False)

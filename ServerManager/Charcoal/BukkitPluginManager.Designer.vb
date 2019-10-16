@@ -54,19 +54,19 @@ Partial Class BukkitPluginManager
         '瀏覽插件ToolStripMenuItem
         '
         Me.瀏覽插件ToolStripMenuItem.Name = "瀏覽插件ToolStripMenuItem"
-        Me.瀏覽插件ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.瀏覽插件ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.瀏覽插件ToolStripMenuItem.Text = "瀏覽插件"
         '
         '移除插件ToolStripMenuItem
         '
         Me.移除插件ToolStripMenuItem.Name = "移除插件ToolStripMenuItem"
-        Me.移除插件ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.移除插件ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.移除插件ToolStripMenuItem.Text = "移除插件"
         '
         '重新整理ToolStripMenuItem
         '
         Me.重新整理ToolStripMenuItem.Name = "重新整理ToolStripMenuItem"
-        Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.重新整理ToolStripMenuItem.Text = "重新整理"
         '
         'PluginList
@@ -118,6 +118,7 @@ Partial Class BukkitPluginManager
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "BukkitPluginManager"
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Text = "Bukkit 插件管理員"
         Me.MenuStrip1.ResumeLayout(False)

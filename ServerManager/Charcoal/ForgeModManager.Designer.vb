@@ -53,19 +53,19 @@ Partial Class ForgeModManager
         '瀏覽模組ToolStripMenuItem
         '
         Me.瀏覽模組ToolStripMenuItem.Name = "瀏覽模組ToolStripMenuItem"
-        Me.瀏覽模組ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.瀏覽模組ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.瀏覽模組ToolStripMenuItem.Text = "瀏覽模組"
         '
         '移除模組ToolStripMenuItem
         '
         Me.移除模組ToolStripMenuItem.Name = "移除模組ToolStripMenuItem"
-        Me.移除模組ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.移除模組ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.移除模組ToolStripMenuItem.Text = "移除模組"
         '
         '重新整理ToolStripMenuItem
         '
         Me.重新整理ToolStripMenuItem.Name = "重新整理ToolStripMenuItem"
-        Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.重新整理ToolStripMenuItem.Text = "重新整理"
         '
         'ModList
@@ -116,6 +116,7 @@ Partial Class ForgeModManager
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "ForgeModManager"
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Text = "Forge 模組管理員"
         Me.MenuStrip1.ResumeLayout(False)

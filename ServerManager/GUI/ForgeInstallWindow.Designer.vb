@@ -50,6 +50,7 @@ Partial Class ForgeInstallWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ForgeInstallWindow"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Style = MetroFramework.MetroColorStyle.Black
         Me.Text = "Forge 安裝程序"

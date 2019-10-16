@@ -127,6 +127,7 @@ Partial Class NukkitPluginExplorer
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ToolStripContainer1)
         Me.Name = "NukkitPluginExplorer"
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Text = "Nukkit 插件瀏覽器"
         Me.ToolStripContainer1.ContentPanel.ResumeLayout(False)

@@ -65,19 +65,19 @@ Partial Class HybridMPManager
         '瀏覽插件ToolStripMenuItem
         '
         Me.瀏覽插件ToolStripMenuItem.Name = "瀏覽插件ToolStripMenuItem"
-        Me.瀏覽插件ToolStripMenuItem.Size = New System.Drawing.Size(96, 20)
+        Me.瀏覽插件ToolStripMenuItem.Size = New System.Drawing.Size(97, 20)
         Me.瀏覽插件ToolStripMenuItem.Text = "瀏覽插件/模組"
         '
         '移除插件ToolStripMenuItem
         '
         Me.移除插件ToolStripMenuItem.Name = "移除插件ToolStripMenuItem"
-        Me.移除插件ToolStripMenuItem.Size = New System.Drawing.Size(96, 20)
+        Me.移除插件ToolStripMenuItem.Size = New System.Drawing.Size(97, 20)
         Me.移除插件ToolStripMenuItem.Text = "移除插件/模組"
         '
         '重新整理ToolStripMenuItem
         '
         Me.重新整理ToolStripMenuItem.Name = "重新整理ToolStripMenuItem"
-        Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.重新整理ToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.重新整理ToolStripMenuItem.Text = "重新整理"
         '
         'PagesControl
@@ -157,7 +157,7 @@ Partial Class HybridMPManager
         Me.TabPage1.Location = New System.Drawing.Point(4, 38)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(792, 384)
+        Me.TabPage1.Size = New System.Drawing.Size(752, 304)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "插件"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -176,7 +176,7 @@ Partial Class HybridMPManager
         Me.PluginList.Location = New System.Drawing.Point(3, 3)
         Me.PluginList.MultiSelect = False
         Me.PluginList.Name = "PluginList"
-        Me.PluginList.Size = New System.Drawing.Size(786, 378)
+        Me.PluginList.Size = New System.Drawing.Size(746, 298)
         Me.PluginList.TabIndex = 2
         Me.PluginList.UseCompatibleStateImageBehavior = False
         Me.PluginList.View = System.Windows.Forms.View.Details
@@ -214,6 +214,7 @@ Partial Class HybridMPManager
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "HybridMPManager"
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Text = "Cauldron 插件/模組管理員"
         Me.MenuStrip1.ResumeLayout(False)
