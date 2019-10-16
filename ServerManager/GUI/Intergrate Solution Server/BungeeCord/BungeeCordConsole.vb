@@ -53,7 +53,12 @@ Public Class BungeeCordConsole
                 .SwapEffect = SwapEffect.Discard,
                 .Usage = Usage.RenderTargetOutput
             }
-        Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.Debug, scd, d, sc)
+        Try
+            Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        Catch ex As SharpDX.SharpDXException
+            scd.ModeDescription.RefreshRate.Numerator = 30 '30 fps
+            Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        End Try
         target = Texture2D.FromSwapChain(Of Texture2D)(sc, 0)
         targetView = New RenderTargetView(d, target)
         d.ImmediateContext.OutputMerger.SetRenderTargets(targetView)
