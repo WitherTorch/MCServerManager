@@ -185,7 +185,7 @@ Public Class PocketMineServer
     End Function
     Public Overrides Function BeforeRunServer() As Boolean
         If String.IsNullOrWhiteSpace(PHPPath) Then
-            MsgBox("未指定PHP 路徑",, Application.ProductName)
+            MsgBox("未指定PHP 路徑",, APP_NAME)
             Return False
         End If
         Return True

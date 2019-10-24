@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1D6E5DA3-066B-4ADF-AAFF-C97DC09B32C1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ServerManager</RootNamespace>
+    <AssemblyName>ServerManager.Core</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ServerManager.Core.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ServerManager.Core.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Devsense.PHP.Phar, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b4bee2bf1f98593, processorArchitecture=MSIL">
+      <HintPath>..\packages\Devsense.PHP.Phar.1.0.15\lib\net45\Devsense.PHP.Phar.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.16.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.16\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3-beta2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="YamlDotNet, Version=8.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.8.0.0\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes.rebase\BukkitPluginUnpatcher.vb" />
+    <Compile Include="Classes.rebase\ForgeModUnpatcher.vb" />
+    <Compile Include="Classes.rebase\MinecraftLogParser.vb" />
+    <Compile Include="Classes.rebase\Player.vb" />
+    <Compile Include="Classes.rebase\PocketMinePluginUnpatcher.vb" />
+    <Compile Include="Classes.rebase\RunningServerInfo.vb" />
+    <Compile Include="Classes.rebase\Server\ForgeInstaller.vb" />
+    <Compile Include="Classes.rebase\Server\GetAvailableVersionsException.vb" />
+    <Compile Include="Classes.rebase\Server\GetServerException.vb" />
+    <Compile Include="Classes.rebase\Server\IllegalServerVersionException.vb" />
+    <Compile Include="Classes.rebase\Server\InternalSoftwareStartup.vb" />
+    <Compile Include="Classes.rebase\Server\Memoryable.vb" />
+    <Compile Include="Classes.rebase\Server\ModpackServerBase.vb" />
+    <Compile Include="Classes.rebase\Server\ProcessMessageHub.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\AkarinServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\BDSServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\CauldronServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\ContigoServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\CraftBukkitServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\CustomServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\ForgeServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Interfaces\IBukkit.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Interfaces\IForge.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\KettleServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\NukkitServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\AbstractSoftwareOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\AkarinOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\BukkitOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\CauldronOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\NukkitOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\PaperOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\PocketMineOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\ServerProperties.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\Options And Properties\SpigotOptions.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\PaperServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\PocketMineServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\SpigotServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\SpigotWithGitServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\SpongeVanillaServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\ThermosServer.vb" />
+    <Compile Include="Classes.rebase\Server\Server Softwares\VanillaServer.vb" />
+    <Compile Include="Classes.rebase\Server\ServerAddons.vb" />
+    <Compile Include="Classes.rebase\Server\ServerBase.vb" />
+    <Compile Include="Classes.rebase\Server\ServerDownloadTask.vb" />
+    <Compile Include="Classes.rebase\Server\ServerMaker.vb" />
+    <Compile Include="Classes.rebase\Server\Taskable.vb" />
+    <Compile Include="Classes.rebase\Server\VersionListLoader.vb" />
+    <Compile Include="Classes.rebase\Watchdog.vb" />
+    <Compile Include="GlobalModule.vb" />
+    <Compile Include="JSONSafeModule.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Server\ServerTask.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>

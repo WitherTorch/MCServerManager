@@ -106,12 +106,16 @@
         End If
     End Sub
     Friend Overloads Sub AddServer(path As String)
-        Dim status As New ServerStatus(path)
-        With status
-            .Width = ServerListLayout.Width - ServerListLayout.Padding.Left - ServerListLayout.Padding.Right - 6
-        End With
-        ServerListLayout.Controls.Add(status)
-        If ServerList.Contains(path) = False Then ServerList.Add(path)
+        Try
+            Dim status As New ServerStatus(path)
+            With status
+                .Width = ServerListLayout.Width - ServerListLayout.Padding.Left - ServerListLayout.Padding.Right - 6
+            End With
+            ServerListLayout.Controls.Add(status)
+            If ServerList.Contains(path) = False Then ServerList.Add(path)
+        Catch ex As NullReferenceException
+            ServerList.Remove(path)
+        End Try
     End Sub
     Private Sub NewManager_Load(sender As Object, e As EventArgs) Handles Me.Load
         CPUPerformanceCounter.NextValue()
@@ -283,7 +287,8 @@
 
     Private Sub Manager_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         GetInternalIPAddresses()
-        For Each item In ServerList
+        Dim arr = ServerList.ToArray
+        For Each item In arr
             AddServer(item)
         Next
     End Sub
@@ -297,5 +302,19 @@
             End If
         Next
         GlobalModule.IPList = ipList.ToArray()
+    End Sub
+
+    Private Sub Manager_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
+        If e.Y < 25 OrElse e.X = Width - Margin.Right Then
+            WinAPI.MoveForm(Handle)
+        End If
+    End Sub
+
+    Private Sub ServerListLayout_Resize(sender As Object, e As EventArgs) Handles ServerListLayout.Resize
+        For Each control In ServerListLayout.Controls
+            With control
+                .Width = ServerListLayout.Width - ServerListLayout.Padding.Left - ServerListLayout.Padding.Right - 6
+            End With
+        Next
     End Sub
 End Class

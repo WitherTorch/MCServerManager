@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.ComponentModel.Design
 Imports System.Drawing.Design
+Imports System.Windows.Forms
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports YamlDotNet.Serialization

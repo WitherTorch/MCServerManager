@@ -28,7 +28,7 @@ Public Class VanillaServer
     End Sub
     Public Overrides Function BeforeRunServer() As Boolean
         If JavaPath = "" Then
-            MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
+            MsgBox("未安裝Java 或 正在偵測",, APP_NAME)
             Return False
         End If
         Return True

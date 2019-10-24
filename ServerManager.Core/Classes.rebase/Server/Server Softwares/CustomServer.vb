@@ -1,4 +1,5 @@
-﻿Imports ServerManager
+﻿Imports System.Windows.Forms
+Imports ServerManager
 
 Public Class CustomServer
     Inherits ServerBase
@@ -73,7 +74,7 @@ Public Class CustomServer
         Select Case New IO.FileInfo(ServerRunFile).Extension
             Case ".jar"
                 If JavaPath = "" Then
-                    MsgBox("未安裝Java 或 正在偵測",, Application.ProductName)
+                    MsgBox("未安裝Java 或 正在偵測",, APP_NAME)
                     Return False
                 End If
         End Select

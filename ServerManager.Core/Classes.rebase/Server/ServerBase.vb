@@ -275,7 +275,7 @@ Public MustInherit Class ServerBase
             If My.Computer.FileSystem.FileExists(IO.Path.Combine(ServerPath, "server-icon.png")) Then
                 ServerIcon = Image.FromFile(IO.Path.Combine(ServerPath, "server-icon.png"))
             Else
-                ServerIcon = My.Resources.ServerDefaultIcon
+                ServerIcon = Nothing
             End If
             ServerPathName = (New IO.DirectoryInfo(ServerPath)).Name
         Else

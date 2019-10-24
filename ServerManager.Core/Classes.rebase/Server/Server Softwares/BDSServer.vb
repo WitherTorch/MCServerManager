@@ -81,7 +81,7 @@ Public Class BDSServer
     End Function
     Public Overrides Function BeforeRunServer() As Boolean
         If Environment.OSVersion.Version.Major < 10 Then
-            MsgBox("此伺服器類型只能在Windows 10系統上運行!",, Application.ProductName)
+            MsgBox("此伺服器類型只能在Windows 10系統上運行!",, APP_NAME)
             Return False
         End If
         Return True

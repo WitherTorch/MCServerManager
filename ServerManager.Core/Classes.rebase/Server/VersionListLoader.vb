@@ -1,22 +1,22 @@
 ﻿Public Class VersionListLoader
     Private Shared SoftwareVersionListFunction As New Dictionary(Of Type, Action)
-    Friend Shared Sub LoadVersionList(Of T As ServerBase)()
+    Public Shared Sub LoadVersionList(Of T As ServerBase)()
         If SoftwareVersionListFunction.ContainsKey(GetType(T)) Then
             SoftwareVersionListFunction(GetType(T))()
         End If
     End Sub
-    Friend Shared Sub LoadVersionList(type As Type)
+    Public Shared Sub LoadVersionList(type As Type)
         If SoftwareVersionListFunction.ContainsKey(type) Then
             SoftwareVersionListFunction(type)()
         End If
     End Sub
-    Friend Shared Function GetVersions(index As Integer) As String()
+    Public Shared Function GetVersions(index As Integer) As String()
         Dim instance As ServerBase = Activator.CreateInstance(SoftwareVersionListFunction.Keys(index))
-        If ShowVanillaSnapshot Then
-            Return instance.GetAvailableVersions({("snapshot", True.ToString)})
-        Else
-            Return instance.GetAvailableVersions()
-        End If
+        '     If ShowVanillaSnapshot Then
+        '    Return instance.GetAvailableVersions({("snapshot", True.ToString)})
+        '      Else
+        Return instance.GetAvailableVersions()
+        '    End If
     End Function
     ''' <summary>
     ''' 註冊伺服器軟體的版本載入程式

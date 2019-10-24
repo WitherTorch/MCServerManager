@@ -262,7 +262,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 256 Then
                 _Max_Build_Height = value
             Else
-                MsgBox("最大建築高度只能在1~256之間", , Application.ProductName)
+                MsgBox("最大建築高度只能在1~256之間", , APP_NAME)
             End If
         End Set
     End Property
@@ -279,7 +279,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 2147483647 Then
                 _Max_Players = value
             Else
-                MsgBox("最大玩家人數只能在1~2147483647之間", , Application.ProductName)
+                MsgBox("最大玩家人數只能在1~2147483647之間", , APP_NAME)
             End If
         End Set
     End Property
@@ -310,7 +310,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 29999984 Then
                 _Max_World_Size = value
             Else
-                MsgBox("最大世界大小只能在1~29999984之間",, Application.ProductName)
+                MsgBox("最大世界大小只能在1~29999984之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -372,7 +372,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 65534 Then
                 _Query_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+                MsgBox("埠號只能在1~65534之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -388,7 +388,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 65534 Then
                 _Rcon_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+                MsgBox("埠號只能在1~65534之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -410,7 +410,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+                MsgBox("埠號只能在1~65534之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -451,7 +451,7 @@ Public Class JavaServerOptions
             If value >= 3 And value <= 15 Then
                 _View_Distance = value
             Else
-                MsgBox("渲染距離必須在3~15之間",, Application.ProductName)
+                MsgBox("渲染距離必須在3~15之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -889,7 +889,7 @@ Public Class JavaServerOptions
     End Function
 
     Public Function GetComponentName() As String Implements ICustomTypeDescriptor.GetComponentName
-        Return Application.ProductName
+        Return APP_NAME
     End Function
 
     Public Function GetConverter() As TypeConverter Implements ICustomTypeDescriptor.GetConverter
@@ -1065,7 +1065,7 @@ Public Class NukkitServerOptions
             If value >= 1 And value <= 2147483647 Then
                 _Max_Players = value
             Else
-                MsgBox("最大玩家人數只能在1~2147483647之間",, Application.ProductName)
+                MsgBox("最大玩家人數只能在1~2147483647之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1088,7 +1088,7 @@ Public Class NukkitServerOptions
             If value >= 1 And value <= 65534 Then
                 _Rcon_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+                MsgBox("埠號只能在1~65534之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1107,7 +1107,7 @@ Public Class NukkitServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+                MsgBox("埠號只能在1~65534之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1141,7 +1141,7 @@ Public Class NukkitServerOptions
             If value >= 3 And value <= 15 Then
                 _View_Distance = value
             Else
-                MsgBox("渲染距離必須在3~15之間",, Application.ProductName)
+                MsgBox("渲染距離必須在3~15之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1400,7 +1400,7 @@ Public Class BDSServerOptions
             If value >= 1 And value <= 2147483647 Then
                 _Max_Players = value
             Else
-                MsgBox("最大玩家人數只能在1~2147483647之間",, Application.ProductName)
+                MsgBox("最大玩家人數只能在1~2147483647之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1414,7 +1414,7 @@ Public Class BDSServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+                MsgBox("埠號只能在1~65534之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1428,7 +1428,7 @@ Public Class BDSServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_PortV6 = value
             Else
-                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+                MsgBox("埠號只能在1~65534之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1444,7 +1444,7 @@ Public Class BDSServerOptions
             If value >= 3 And value <= 15 Then
                 _View_Distance = value
             Else
-                MsgBox("渲染距離必須在3~15之間",, Application.ProductName)
+                MsgBox("渲染距離必須在3~15之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1458,7 +1458,7 @@ Public Class BDSServerOptions
             If value >= 4 And value <= 12 Then
                 _Tick_Distance = value
             Else
-                MsgBox("區塊數必須在4~12之間",, Application.ProductName)
+                MsgBox("區塊數必須在4~12之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1734,7 +1734,7 @@ Public Class PocketMineServerOptions
             If value >= 1 And value <= 2147483647 Then
                 _Max_Players = value
             Else
-                MsgBox("最大玩家人數只能在1~2147483647之間",, Application.ProductName)
+                MsgBox("最大玩家人數只能在1~2147483647之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1757,7 +1757,7 @@ Public Class PocketMineServerOptions
             If value >= 1 And value <= 65534 Then
                 _Rcon_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+                MsgBox("埠號只能在1~65534之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1776,7 +1776,7 @@ Public Class PocketMineServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, Application.ProductName)
+                MsgBox("埠號只能在1~65534之間",, APP_NAME)
             End If
         End Set
     End Property
@@ -1798,7 +1798,7 @@ Public Class PocketMineServerOptions
             If value >= 3 And value <= 15 Then
                 _View_Distance = value
             Else
-                MsgBox("渲染距離必須在3~15之間",, Application.ProductName)
+                MsgBox("渲染距離必須在3~15之間",, APP_NAME)
             End If
         End Set
     End Property

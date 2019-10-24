@@ -1,5 +1,5 @@
 ﻿Public Class ServerMaker
-    Friend Shared SoftwareDictionary As New Dictionary(Of String, SoftwareInfo)
+    Public Shared SoftwareDictionary As New Dictionary(Of String, SoftwareInfo)
     Structure SoftwareInfo
         Public ClassType As Type
         Public InternalName As String
@@ -24,14 +24,18 @@
     Shared Function GetServer(path As String) As ServerBase
         Dim instance As ServerBase = Nothing
         Dim softwareName As String = ServerBase.GetServerTypeString(path)
-        For Each software In SoftwareDictionary
-            If software.Key.ToLower = softwareName.ToLower Then
-                instance = Activator.CreateInstance(software.Value.ClassType)
-                Exit For
-            End If
-        Next
-        instance.GetServer(path)
-        Return instance
+        If IsNothing(softwareName) = False Then
+            For Each software In SoftwareDictionary
+                If software.Key.ToLower = softwareName.ToLower Then
+                    instance = Activator.CreateInstance(software.Value.ClassType)
+                    Exit For
+                End If
+            Next
+            instance.GetServer(path)
+            Return instance
+        Else
+            Throw New NullReferenceException("伺服器物件不存在!")
+        End If
     End Function
     ''' <summary>
     ''' 註冊一個伺服器軟體
