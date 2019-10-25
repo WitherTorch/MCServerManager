@@ -206,6 +206,7 @@ Partial Class Manager
         '
         'AddServerButton
         '
+        Me.AddServerButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AddServerButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.add
         Me.AddServerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.AddServerButton.FlatAppearance.BorderSize = 0
@@ -221,6 +222,7 @@ Partial Class Manager
         '
         'JoinServerButton
         '
+        Me.JoinServerButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.JoinServerButton.BackgroundImage = CType(resources.GetObject("JoinServerButton.BackgroundImage"), System.Drawing.Image)
         Me.JoinServerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.JoinServerButton.FlatAppearance.BorderSize = 0

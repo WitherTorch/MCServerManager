@@ -1,7 +1,16 @@
-﻿Public Class Manager
+﻿Imports SharpDX.Direct3D11
+Imports SharpDX.DXGI
+Imports Device = SharpDX.Direct3D11.Device
+Public Class Manager
     Dim winQuery As Management.ObjectQuery = New Management.ObjectQuery("SELECT * FROM CIM_OperatingSystem")
     Dim searcher As New Management.ManagementObjectSearcher(winQuery)
     Dim tabs As MetroFramework.Controls.MetroPanel()
+#Region "DirectX Variants"
+    Dim d As Device
+    Dim sc As SwapChain
+    Dim target As Texture2D
+    Dim targetView As RenderTargetView
+#End Region
     Public Sub New()
 
         ' 設計工具需要此呼叫。
@@ -9,6 +18,20 @@
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         tabs = {OverviewPanel, ServerPanel, ModpackServerPanel}
+        Dim scd As New SwapChainDescription() With {
+        .BufferCount = 1,
+        .Flags = SwapChainFlags.None,
+        .IsWindowed = True,
+        .ModeDescription = New ModeDescription(ClientSize.Width, ClientSize.Height, New Rational(60, 1), Format.R8G8B8A8_UNorm),
+        .OutputHandle = Handle,
+        .SampleDescription = New SampleDescription(1, 0),
+        .SwapEffect = SwapEffect.Discard,
+        .Usage = Usage.RenderTargetOutput
+        }
+        Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        target = Texture2D.FromSwapChain(Of Texture2D)(sc, 0)
+        targetView = New RenderTargetView(d, target)
+        d.ImmediateContext.OutputMerger.SetRenderTargets(targetView)
     End Sub
     Private Sub Timer_Tick(sender As Object, e As EventArgs) Handles Timer.Tick
         Try
@@ -316,5 +339,17 @@
                 .Width = ServerListLayout.Width - ServerListLayout.Padding.Left - ServerListLayout.Padding.Right - 6
             End With
         Next
+    End Sub
+
+    Private Sub Manager_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+        d.ImmediateContext.ClearRenderTargetView(targetView, New SharpDX.Mathematics.Interop.RawColor4(255, 255, 255, 0))
+        sc.Present(0, PresentFlags.None)
+    End Sub
+
+    Private Sub Manager_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        d.Dispose()
+        sc.Dispose()
+        target.Dispose()
+        targetView.Dispose()
     End Sub
 End Class
