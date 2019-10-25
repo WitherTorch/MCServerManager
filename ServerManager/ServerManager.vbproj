@@ -287,6 +287,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Redesigned GUI\WinAPI.vb" />
+    <Compile Include="SharpDX Classes\SharpDXConverter.vb" />
+    <Compile Include="SharpDX Classes\SharpDXFactorys.vb" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -427,7 +429,7 @@ mkdir Merged\
 echo on
 IF EXIST C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe (
         echo Starting ILMerge...
-        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /allowDup /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll DropDownControls.dll NBT.dll Devsense.PHP.Phar.dll MetroFramework.dll MetroFramework.Design.dll MetroFramework.Fonts.dll CircularProgressBar.dll WinFormAnimation.dll ServerManager.Core.dll
+        C:\PROGRA~2\Microsoft\ILMerge\ILMerge.exe /log:  /t:winexe /allowDup /ndebug  /targetplatform:"v4,c:\windows\Microsoft.NET\Framework\v4.0.30319" /out:Merged\$(TargetFileName) $(TargetFileName) HtmlAgilityPack.dll Newtonsoft.Json.dll NATUPnP.dll YamlDotNet.dll NoIP.DDNS.Merged.dll System.ValueTuple.dll DropDownControls.dll NBT.dll Devsense.PHP.Phar.dll MetroFramework.dll MetroFramework.Design.dll MetroFramework.Fonts.dll CircularProgressBar.dll WinFormAnimation.dll ServerManager.Core.dll SharpDX.dll SharpDX.Desktop.dll SharpDX.Direct2D1.dll SharpDX.Direct3D11.dll SharpDX.DXGI.dll
     ) ELSE (
 echo missing ILMerge , please install MCSMPack.
 )

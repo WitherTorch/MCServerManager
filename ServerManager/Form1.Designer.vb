@@ -27,7 +27,9 @@ Partial Class Form1
         '
         'DxListView1
         '
+        Me.DxListView1.Columns = Nothing
         Me.DxListView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DxListView1.Font = New System.Drawing.Font("微軟正黑體", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.DxListView1.Location = New System.Drawing.Point(0, 0)
         Me.DxListView1.Name = "DxListView1"
         Me.DxListView1.Size = New System.Drawing.Size(800, 450)

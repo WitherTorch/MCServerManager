@@ -13,7 +13,6 @@ Public Class DXListView
     Private Shared ReadOnly Format As Format = Format.B8G8R8A8_UNorm
     Public Shared ReadOnly D2PixelFormat As PixelFormat = New PixelFormat(Format, SharpDX.Direct2D1.AlphaMode.Premultiplied)
     Private Shared BitmapProps1 As BitmapProperties1 = New BitmapProperties1(D2PixelFormat, 96, 96, BitmapOptions.Target)
-    Dim DirectWriteFactory As New DirectWrite.Factory()
     Dim deviceContext As DeviceContext
     Dim otherDeviceContext As DeviceContext
     Dim sc As SwapChain
@@ -56,8 +55,18 @@ Public Class DXListView
 
     Private Sub ContextControl_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles ContextControl.Paint
         deviceContext.BeginDraw()
-        deviceContext.Clear(New SharpDX.Mathematics.Interop.RawColor4(255, 255, 255, 255))
-        deviceContext.DrawText("HI", New DirectWrite.TextFormat(DirectWriteFactory, "Arial", 15), New RawRectangleF(0, 0, 60, 60), New SolidColorBrush(deviceContext, New RawColor4(0, 0, 0, 255)))
+        deviceContext.Clear(SharpDXConverter.ConvertColor(Color.White))
+        deviceContext.DrawLine(New RawVector2(100, 0), New RawVector2(100.5, Me.Height), SharpDXConverter.ConvertSolidBrush(New SolidBrush(Color.Black), deviceContext), 0.5!)
+        deviceContext.DrawLine(New RawVector2(150, 0), New RawVector2(150.5, Me.Height), SharpDXConverter.ConvertSolidBrush(New SolidBrush(Color.Black), deviceContext), 0.5!)
+        deviceContext.DrawLine(New RawVector2(400, 0), New RawVector2(400.5, Me.Height), SharpDXConverter.ConvertSolidBrush(New SolidBrush(Color.Black), deviceContext), 0.5!)
+        For i As Integer = 1 To Me.Height \ 24
+            If i * 24 <= Me.Height Then
+                deviceContext.DrawText("Hi " & i, SharpDXConverter.ConvertFont(Font), New RawRectangleF(1.5, (i - 1) * 24 + 1.5, 60, (i - 1) * 24 + 61.5), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)))
+                deviceContext.DrawLine(New RawVector2(0, i * 24 + 0.5), New RawVector2(Me.Width, i * 24 + 0.5), SharpDXConverter.ConvertSolidBrush(New SolidBrush(Color.Black), deviceContext), 0.5!)
+            Else
+                Exit For
+            End If
+        Next
         deviceContext.EndDraw()
         sc.Present(0, PresentFlags.None)
     End Sub
