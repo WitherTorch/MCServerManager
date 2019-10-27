@@ -27,10 +27,11 @@ Partial Class Form1
         '
         'DxListView1
         '
-        Me.DxListView1.Columns = Nothing
+        Me.DxListView1.BackColor = System.Drawing.Color.White
         Me.DxListView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DxListView1.Font = New System.Drawing.Font("微軟正黑體", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.DxListView1.Font = New System.Drawing.Font("Segoe UI", 15.0!)
         Me.DxListView1.Location = New System.Drawing.Point(0, 0)
+        Me.DxListView1.Margin = New System.Windows.Forms.Padding(6)
         Me.DxListView1.Name = "DxListView1"
         Me.DxListView1.Size = New System.Drawing.Size(800, 450)
         Me.DxListView1.TabIndex = 0
@@ -49,4 +50,10 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents DxListView1 As DXListView
+    Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ColumnHeader2 As ColumnHeader
+    Friend WithEvents ColumnHeader3 As ColumnHeader
+    Friend WithEvents ColumnHeader4 As ColumnHeader
+    Friend WithEvents ColumnHeader5 As ColumnHeader
+    Friend WithEvents ColumnHeader6 As ColumnHeader
 End Class

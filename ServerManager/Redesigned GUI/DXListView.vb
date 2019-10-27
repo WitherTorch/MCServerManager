@@ -18,9 +18,8 @@ Public Class DXListView
     Dim sc As SwapChain
     Dim backBuffer As Surface
     Dim targetBitmap As Bitmap1
-    Dim dcBrush As Brush
-    Public Property Columns As ListView.ColumnHeaderCollection
-
+    Public Property ColumnHeaders As New List(Of DXListViewColumnHeader)
+    Public Property Items As New List(Of DXListViewItem)
     Public Sub New()
 
         ' 設計工具需要此呼叫。
@@ -49,26 +48,47 @@ Public Class DXListView
         Me.backBuffer = Surface.FromSwapChain(sc, 0)
         Me.targetBitmap = New Bitmap1(Me.deviceContext, backBuffer)
         Me.deviceContext.Target = targetBitmap
-        dcBrush = New SolidColorBrush(Me.deviceContext, New SharpDX.Mathematics.Interop.RawColor4(255, 255, 255, 0))
         AddHandler ContextControl.SizeChanged, AddressOf ContextControl_SizeChanged
     End Sub
 
     Private Sub ContextControl_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles ContextControl.Paint
         deviceContext.BeginDraw()
-        deviceContext.Clear(SharpDXConverter.ConvertColor(Color.White))
-        deviceContext.DrawLine(New RawVector2(100, 0), New RawVector2(100.5, Me.Height), SharpDXConverter.ConvertSolidBrush(New SolidBrush(Color.Black), deviceContext), 0.5!)
-        deviceContext.DrawLine(New RawVector2(150, 0), New RawVector2(150.5, Me.Height), SharpDXConverter.ConvertSolidBrush(New SolidBrush(Color.Black), deviceContext), 0.5!)
-        deviceContext.DrawLine(New RawVector2(400, 0), New RawVector2(400.5, Me.Height), SharpDXConverter.ConvertSolidBrush(New SolidBrush(Color.Black), deviceContext), 0.5!)
-        For i As Integer = 1 To Me.Height \ 24
-            If i * 24 <= Me.Height Then
-                deviceContext.DrawText("Hi " & i, SharpDXConverter.ConvertFont(Font), New RawRectangleF(1.5, (i - 1) * 24 + 1.5, 60, (i - 1) * 24 + 61.5), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)))
-                deviceContext.DrawLine(New RawVector2(0, i * 24 + 0.5), New RawVector2(Me.Width, i * 24 + 0.5), SharpDXConverter.ConvertSolidBrush(New SolidBrush(Color.Black), deviceContext), 0.5!)
-            Else
-                Exit For
-            End If
+        deviceContext.Clear(SharpDXConverter.ConvertColor(BackColor))
+        Dim CurrentDrawYCoord As Single = 0
+        Dim head_X As Single = 0
+        Dim startX_List As New List(Of Single)
+        startX_List.Add(0)
+        For Each header In ColumnHeaders
+            DrawText(header.Text, New RectangleF(head_X, 1, header.Width, 20), header.ForeColor, DirectWrite.TextAlignment.Center)
+            head_X += header.Width + 0.1
+            startX_List.Add(head_X)
+            deviceContext.DrawLine(New RawVector2(head_X, 0), New RawVector2(head_X, Height), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
+        Next
+        CurrentDrawYCoord = 18
+        deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 3.2), New RawVector2(Width, CurrentDrawYCoord + 0.1), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.3)
+        CurrentDrawYCoord += 0.3
+        startX_List.RemoveAt(startX_List.Count - 1)
+        For Each item In Items
+            For i As Integer = 0 To item.subItems.Count - 1
+                Dim subitem = item.subItems(i)
+                DrawText(subitem.Text, subitem.Font, New RectangleF(startX_List(i) + 2, CurrentDrawYCoord + 2, ColumnHeaders(i).Width, 18), subitem.ForeColor)
+            Next
+            CurrentDrawYCoord += 20
+            deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 0.2), New RawVector2(Width, CurrentDrawYCoord + 0.1), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
+            CurrentDrawYCoord += 0.5
         Next
         deviceContext.EndDraw()
         sc.Present(0, PresentFlags.None)
+    End Sub
+    Overloads Sub DrawText(text As String, rect As RectangleF, color As Color, Optional alignment As DirectWrite.TextAlignment = DirectWrite.TextAlignment.Leading)
+        Dim format = SharpDXConverter.ConvertFont(Font)
+        format.TextAlignment = alignment
+        deviceContext.DrawText(text, format, SharpDXConverter.ConvertRectangleF(rect), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(color)))
+    End Sub
+    Overloads Sub DrawText(text As String, font As Font, rect As RectangleF, color As Color, Optional alignment As DirectWrite.TextAlignment = DirectWrite.TextAlignment.Leading)
+        Dim format = SharpDXConverter.ConvertFont(font)
+        format.TextAlignment = alignment
+        deviceContext.DrawText(text, format, SharpDXConverter.ConvertRectangleF(rect), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(color)))
     End Sub
     Sub DrawGrids()
 
@@ -82,4 +102,64 @@ Public Class DXListView
         targetBitmap = New Bitmap1(deviceContext, backBuffer)
         deviceContext.Target = targetBitmap
     End Sub
+    Public Structure DXListViewColumnHeader
+        Dim Text As String
+        Dim ForeColor As Color
+        Dim Font As Font
+        Dim Width As Single
+        Sub New(text As String, width As Single)
+            Me.Text = text
+            Me.Width = width
+            Me.ForeColor = Color.Black
+            Me.Font = New Font(New FontFamily("微軟正黑體"), 18, FontStyle.Regular)
+        End Sub
+        Sub New(text As String, foreColor As Color, font As Font, width As Single)
+            Me.Text = text
+            Me.Width = width
+            Me.ForeColor = foreColor
+            Me.Font = font
+        End Sub
+    End Structure
+    Public Structure DXListViewItem
+        Dim subItems As List(Of DXListViewSubItem)
+        Sub New(ParamArray subItems As DXListViewSubItem())
+            Me.subItems = subItems.ToList
+        End Sub
+    End Structure
+
+    Public Structure DXListViewSubItem
+        Dim Text As String
+        Dim ForeColor As Color
+        Dim Font As Font
+        Dim Image As Image
+        Dim DisplayMode As DXTextImageDisplayMode
+        Sub New(text As String)
+            Me.Text = text
+            Me.ForeColor = Color.Black
+            Me.Font = New Font(New FontFamily("微軟正黑體"), 14, FontStyle.Regular)
+            Me.DisplayMode = DXTextImageDisplayMode.Text
+        End Sub
+        Sub New(image As Image)
+            Me.Image = image
+            Me.ForeColor = Color.Black
+            Me.Font = New Font(New FontFamily("微軟正黑體"), 14, FontStyle.Regular)
+            Me.DisplayMode = DXTextImageDisplayMode.Image
+        End Sub
+        Sub New(text As String, foreColor As Color, font As Font)
+            Me.Text = text
+            Me.ForeColor = foreColor
+            Me.Font = font
+            Me.DisplayMode = DXTextImageDisplayMode.Text
+        End Sub
+        Sub New(image As Image, foreColor As Color, font As Font)
+            Me.Image = image
+            Me.ForeColor = foreColor
+            Me.Font = font
+            Me.DisplayMode = DXTextImageDisplayMode.Image
+        End Sub
+    End Structure
 End Class
+Public Enum DXTextImageDisplayMode
+    Text
+    Image
+End Enum

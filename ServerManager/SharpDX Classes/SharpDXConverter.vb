@@ -27,4 +27,7 @@ Public Class SharpDXConverter
     Public Shared Function ConvertRectangle(rectangle As Rectangle) As Mathematics.Interop.RawRectangle
         Return New Mathematics.Interop.RawRectangle(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom)
     End Function
+    Public Shared Function ConvertRectangleF(rectangle As RectangleF) As Mathematics.Interop.RawRectangleF
+        Return New Mathematics.Interop.RawRectangleF(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom)
+    End Function
 End Class

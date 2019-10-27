@@ -30,16 +30,17 @@ Partial Class DXListView
         Me.ContextControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContextControl.Location = New System.Drawing.Point(0, 0)
         Me.ContextControl.Name = "ContextControl"
-        Me.ContextControl.Size = New System.Drawing.Size(400, 300)
+        Me.ContextControl.Size = New System.Drawing.Size(398, 298)
         Me.ContextControl.TabIndex = 0
         '
         'DXListView
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Controls.Add(Me.ContextControl)
         Me.Name = "DXListView"
-        Me.Size = New System.Drawing.Size(400, 300)
+        Me.Size = New System.Drawing.Size(398, 298)
         Me.ResumeLayout(False)
 
     End Sub
