@@ -57,6 +57,7 @@ Public Class DXListView
         Dim CurrentDrawYCoord As Single = 0
         Dim head_X As Single = 0
         Dim startX_List As New List(Of Single)
+        deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(0, 0, Width, 20)), New LinearGradientBrush(deviceContext, New LinearGradientBrushProperties() With {.StartPoint = New RawVector2(0, 0), .EndPoint = New RawVector2(0, 20)}, New GradientStopCollection(deviceContext, {New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.White), .Position = 0.0F}, New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.FromArgb(0, 0, 0)), .Position = 1.0F}})))
         startX_List.Add(0)
         For Each header In ColumnHeaders
             DrawText(header.Text, New RectangleF(head_X, 1, header.Width, 20), header.ForeColor, DirectWrite.TextAlignment.Center)
@@ -66,16 +67,16 @@ Public Class DXListView
         Next
         CurrentDrawYCoord = 18
         deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 3.2), New RawVector2(Width, CurrentDrawYCoord + 0.1), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.3)
-        CurrentDrawYCoord += 0.3
+        CurrentDrawYCoord += 1.4
         startX_List.RemoveAt(startX_List.Count - 1)
         For Each item In Items
             For i As Integer = 0 To item.subItems.Count - 1
                 Dim subitem = item.subItems(i)
-                DrawText(subitem.Text, subitem.Font, New RectangleF(startX_List(i) + 2, CurrentDrawYCoord + 2, ColumnHeaders(i).Width, 18), subitem.ForeColor)
+                DrawText(subitem.Text, subitem.Font, New RectangleF(startX_List(i) + 2, CurrentDrawYCoord + 1, ColumnHeaders(i).Width, 18), subitem.ForeColor)
             Next
             CurrentDrawYCoord += 20
             deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 0.2), New RawVector2(Width, CurrentDrawYCoord + 0.1), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
-            CurrentDrawYCoord += 0.5
+            '  CurrentDrawYCoord += 0.5
         Next
         deviceContext.EndDraw()
         sc.Present(0, PresentFlags.None)
