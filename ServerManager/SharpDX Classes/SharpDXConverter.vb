@@ -16,8 +16,9 @@ Public Class SharpDXConverter
         Return New Direct2D1.SolidColorBrush(renderTarget, ConvertColor(brush.Color))
     End Function
     Public Shared Function ConvertColor(color As Color) As Mathematics.Interop.RawColor4
-        Return New Mathematics.Interop.RawColor4(color.R, color.G, color.B, color.A)
+        Return New Mathematics.Interop.RawColor4(color.R / 255, color.G / 255, color.B / 255, color.A / 255)
     End Function
+
     Public Shared Function ConvertPoint(point As Point) As Mathematics.Interop.RawVector2
         Return New Mathematics.Interop.RawVector2(point.X, point.Y)
     End Function

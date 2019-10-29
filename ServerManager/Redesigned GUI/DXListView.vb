@@ -57,7 +57,7 @@ Public Class DXListView
         Dim CurrentDrawYCoord As Single = 0
         Dim head_X As Single = 0
         Dim startX_List As New List(Of Single)
-        deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(0, 0, Width, 20)), New LinearGradientBrush(deviceContext, New LinearGradientBrushProperties() With {.StartPoint = New RawVector2(0, 0), .EndPoint = New RawVector2(0, 20)}, New GradientStopCollection(deviceContext, {New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.White), .Position = 0.0F}, New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.FromArgb(0, 0, 0)), .Position = 1.0F}})))
+        deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(0, 0, Width, 20)), New LinearGradientBrush(deviceContext, New LinearGradientBrushProperties() With {.StartPoint = New RawVector2(0, 0), .EndPoint = New RawVector2(0, 20)}, New GradientStopCollection(deviceContext, {New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.FromArgb(0, 210, 105)), .Position = 0.0F}, New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.FromArgb(161, 255, 221)), .Position = 1.0F}})))
         startX_List.Add(0)
         For Each header In ColumnHeaders
             DrawText(header.Text, New RectangleF(head_X, 1, header.Width, 20), header.ForeColor, DirectWrite.TextAlignment.Center)
@@ -66,18 +66,28 @@ Public Class DXListView
             deviceContext.DrawLine(New RawVector2(head_X, 0), New RawVector2(head_X, Height), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
         Next
         CurrentDrawYCoord = 18
-        deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 3.2), New RawVector2(Width, CurrentDrawYCoord + 0.1), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.3)
+        deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 1.4), New RawVector2(Width, CurrentDrawYCoord + 1.4), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.3)
         CurrentDrawYCoord += 1.4
         startX_List.RemoveAt(startX_List.Count - 1)
+        Dim outRanged As Boolean = True
         For Each item In Items
-            For i As Integer = 0 To item.subItems.Count - 1
-                Dim subitem = item.subItems(i)
-                DrawText(subitem.Text, subitem.Font, New RectangleF(startX_List(i) + 2, CurrentDrawYCoord + 1, ColumnHeaders(i).Width, 18), subitem.ForeColor)
-            Next
-            CurrentDrawYCoord += 20
-            deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 0.2), New RawVector2(Width, CurrentDrawYCoord + 0.1), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
-            '  CurrentDrawYCoord += 0.5
+            If CurrentDrawYCoord >= Me.Width Then
+                outRanged = True
+                Exit For
+            Else
+                For i As Integer = 0 To item.subItems.Count - 1
+                    Dim subitem = item.subItems(i)
+                    DrawText(subitem.Text, subitem.Font, New RectangleF(startX_List(i) + 2, CurrentDrawYCoord + 1, ColumnHeaders(i).Width - 2, 18), subitem.ForeColor, IIf(i < 2, DirectWrite.TextAlignment.Center, DirectWrite.TextAlignment.Leading))
+                Next
+                CurrentDrawYCoord += 20
+                deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 0.2), New RawVector2(Width, CurrentDrawYCoord + 0.1), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
+            End If
         Next
+        If outRanged = True Then
+            deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 20, 0, 20, ClientSize.Height)), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.FromArgb(246, 246, 246))))
+            deviceContext.DrawLine(New RawVector2(Width - 20, 0), New RawVector2(ClientSize.Width - 20, ClientSize.Height), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDarkDark)), 0.3)
+            deviceContext.DrawLine(New RawVector2(Width - 0.3, 0), New RawVector2(ClientSize.Width - 0.3, ClientSize.Height), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDarkDark)), 0.3)
+        End If
         deviceContext.EndDraw()
         sc.Present(0, PresentFlags.None)
     End Sub
@@ -91,9 +101,6 @@ Public Class DXListView
         format.TextAlignment = alignment
         deviceContext.DrawText(text, format, SharpDXConverter.ConvertRectangleF(rect), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(color)))
     End Sub
-    Sub DrawGrids()
-
-    End Sub
     Private Sub ContextControl_SizeChanged(ByVal sender As Object, ByVal e As EventArgs)
         deviceContext.Target = Nothing
         backBuffer.Dispose()
@@ -102,6 +109,7 @@ Public Class DXListView
         backBuffer = Surface.FromSwapChain(sc, 0)
         targetBitmap = New Bitmap1(deviceContext, backBuffer)
         deviceContext.Target = targetBitmap
+        ContextControl_Paint(Me, Nothing)
     End Sub
     Public Structure DXListViewColumnHeader
         Dim Text As String
