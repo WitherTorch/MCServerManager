@@ -19,6 +19,8 @@ Public Class DXListView
     Dim backBuffer As Surface
     Dim targetBitmap As Bitmap1
     Dim ItemLength As Integer = 0
+    Dim DrawnYCoord As Integer = 0
+    Public ReadOnly Property IsRollingToEnd As Boolean
     Public Property ColumnHeaders As New List(Of DXListViewColumnHeader)
     Public Property Items As New List(Of DXListViewItem)
     Dim BaseYCoord As Single = 0
@@ -55,7 +57,7 @@ Public Class DXListView
     Private Sub ContextControl_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles ContextControl.Paint
         deviceContext.BeginDraw()
         deviceContext.Clear(SharpDXConverter.ConvertColor(BackColor))
-        Dim CurrentDrawYCoord As Single = BaseYCoord
+        Dim CurrentDrawYCoord As Single = 0
         Dim head_X As Single = 0
         Dim startX_List As New List(Of Single)
         deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(0, 0, Width, 20)), New LinearGradientBrush(deviceContext, New LinearGradientBrushProperties() With {.StartPoint = New RawVector2(0, 0), .EndPoint = New RawVector2(0, 20)}, New GradientStopCollection(deviceContext, {New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.FromArgb(0, 210, 105)), .Position = 0.0F}, New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.FromArgb(161, 255, 221)), .Position = 1.0F}})))
@@ -70,18 +72,26 @@ Public Class DXListView
         deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 1.4), New RawVector2(Width, CurrentDrawYCoord + 1.4), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.3)
         CurrentDrawYCoord += 1.4
         startX_List.RemoveAt(startX_List.Count - 1)
+        Dim outRanged As Boolean = False
         Dim showItemLength As Integer = 0
-        Dim outRanged As Boolean = True
+        Dim CurrentItemsYCoord As Integer = 0
+        If BaseYCoord > 0 Then
+            outRanged = True
+        End If
         For Each item In Items
-            If CurrentDrawYCoord >= Me.Width Then
+            If CurrentDrawYCoord >= Me.Height Then
                 outRanged = True
                 Exit For
+            ElseIf CurrentItemsYCoord < BaseYCoord Then
+                ' Do Nothing
+                CurrentItemsYCoord += 20
             Else
                 For i As Integer = 0 To item.subItems.Count - 1
                     Dim subitem = item.subItems(i)
                     DrawText(subitem.Text, subitem.Font, New RectangleF(startX_List(i) + 2, CurrentDrawYCoord + 1, ColumnHeaders(i).Width - 2, 18), subitem.ForeColor, IIf(i < 2, DirectWrite.TextAlignment.Center, DirectWrite.TextAlignment.Leading))
                 Next
                 CurrentDrawYCoord += 20
+                CurrentItemsYCoord += 20
                 deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 0.2), New RawVector2(Width, CurrentDrawYCoord + 0.1), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
                 showItemLength += 1
             End If
@@ -105,15 +115,19 @@ Public Class DXListView
             sink_down.EndFigure(FigureEnd.Closed)
             sink_down.Close()
             deviceContext.FillGeometry(pathGeo_down, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDark)))
-            '   deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 18.5, 15, 17, Height - 30)), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)))
             Dim methods = GetType(DeviceContext).GetMethods()
             Dim FillRoundedRectangle = methods.Single(Function(method As Reflection.MethodInfo)
                                                           Return method.Name = "FillRoundedRectangle" _
-                                                       AndAlso method.GetParameters()(0).ParameterType.IsByRef
+                                                           AndAlso method.GetParameters()(0).ParameterType.IsByRef
                                                       End Function)
-            FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 16.5, 17, 12, CDbl(Height - 34) * IIf(showItemLength = ItemLength, 1, showItemLength / ItemLength)))}, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDark))})
+            If hoverPaint Then
+                FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 16.5, CDbl(ClientSize.Height - 34) * Math.Min(BaseYCoord / 20 / ItemLength, 1) + 17, 12, CDbl(ClientSize.Height - 34) * Math.Min(showItemLength / ItemLength, 1)))}, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDarkDark))})
+            Else
+                FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 16.5, CDbl(ClientSize.Height - 34) * Math.Min(BaseYCoord / 20 / ItemLength, 1) + 17, 12, CDbl(ClientSize.Height - 34) * Math.Min(showItemLength / ItemLength, 1)))}, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDark))})
+            End If
         End If
         deviceContext.EndDraw()
+        DrawnYCoord = CurrentDrawYCoord
         sc.Present(0, PresentFlags.None)
     End Sub
     Overloads Sub DrawText(text As String, rect As RectangleF, color As Color, Optional alignment As DirectWrite.TextAlignment = DirectWrite.TextAlignment.Leading)
@@ -201,6 +215,40 @@ Public Class DXListView
     Private Sub DXListView_Load(sender As Object, e As EventArgs) Handles Me.Load
         ItemLength = Items.Count
         InvokePaint(ContextControl, Nothing)
+    End Sub
+    Dim mouseDraw As Boolean = False
+    Dim hoverPaint As Boolean = False
+    Private Sub ContextControl_MouseDown(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseDown
+        Dim m_Pos = ContextControl.PointToClient(MousePosition)
+        If e.Button = MouseButtons.Left AndAlso m_Pos.X > Width - 17 AndAlso m_Pos.Y > 17 AndAlso m_Pos.X < Width - 4 AndAlso m_Pos.Y < Height - 7 Then
+            mouseDraw = True
+        End If
+    End Sub
+    Private Sub ContextControl_MouseUp(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseUp
+        If e.Button = MouseButtons.Left Then
+            If mouseDraw Then mouseDraw = False
+        End If
+    End Sub
+    Private Sub ContextControl_MouseMove(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseMove, MyBase.MouseMove
+        Dim m_Pos = ContextControl.PointToClient(MousePosition)
+        If m_Pos.X > Width - 17 AndAlso m_Pos.Y > 17 AndAlso m_Pos.X < Width - 4 AndAlso m_Pos.Y < Height - 7 Then
+            If hoverPaint <> True Then
+                hoverPaint = True
+                InvokePaint(sender, Nothing)
+            End If
+        Else
+            If hoverPaint <> False Then
+                hoverPaint = False
+                InvokePaint(sender, Nothing)
+            End If
+        End If
+    End Sub
+    Private Sub ContextControl_MouseWheel(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseWheel
+        If Height <= ItemLength * 20 + 18 AndAlso Math.Abs(Height - DrawnYCoord) < 18 Then
+            BaseYCoord -= e.Delta / 5
+            BaseYCoord = Math.Max(BaseYCoord, 0)
+        End If
+        InvokePaint(sender, Nothing)
     End Sub
 End Class
 Public Enum DXTextImageDisplayMode
