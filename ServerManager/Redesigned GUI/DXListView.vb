@@ -8,7 +8,7 @@ Imports SharpDX.Direct3D11
 Imports DeviceContext = SharpDX.Direct2D1.DeviceContext
 Imports SharpDX
 Imports SharpDX.Mathematics.Interop
-
+<Serializable>
 Public Class DXListView
     Private Shared ReadOnly Format As Format = Format.B8G8R8A8_UNorm
     Public Shared ReadOnly D2PixelFormat As PixelFormat = New PixelFormat(Format, SharpDX.Direct2D1.AlphaMode.Premultiplied)
