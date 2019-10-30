@@ -22,12 +22,16 @@ Partial Class Form1
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.DxListView1 = New ServerManager.DXListView()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'DxListView1
         '
         Me.DxListView1.BackColor = System.Drawing.Color.White
+        Me.DxListView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.DxListView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DxListView1.Font = New System.Drawing.Font("Segoe UI", 15.0!)
         Me.DxListView1.Location = New System.Drawing.Point(0, 0)
@@ -35,6 +39,11 @@ Partial Class Form1
         Me.DxListView1.Name = "DxListView1"
         Me.DxListView1.Size = New System.Drawing.Size(800, 450)
         Me.DxListView1.TabIndex = 0
+        '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 350
         '
         'Form1
         '
@@ -56,4 +65,5 @@ Partial Class Form1
     Friend WithEvents ColumnHeader4 As ColumnHeader
     Friend WithEvents ColumnHeader5 As ColumnHeader
     Friend WithEvents ColumnHeader6 As ColumnHeader
+    Friend WithEvents Timer1 As Timer
 End Class

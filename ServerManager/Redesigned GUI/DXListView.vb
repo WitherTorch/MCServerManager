@@ -18,8 +18,10 @@ Public Class DXListView
     Dim sc As SwapChain
     Dim backBuffer As Surface
     Dim targetBitmap As Bitmap1
+    Dim ItemLength As Integer = 0
     Public Property ColumnHeaders As New List(Of DXListViewColumnHeader)
     Public Property Items As New List(Of DXListViewItem)
+    Dim BaseYCoord As Single = 0
     Public Sub New()
 
         ' 設計工具需要此呼叫。
@@ -50,11 +52,10 @@ Public Class DXListView
         Me.deviceContext.Target = targetBitmap
         AddHandler ContextControl.SizeChanged, AddressOf ContextControl_SizeChanged
     End Sub
-
     Private Sub ContextControl_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles ContextControl.Paint
         deviceContext.BeginDraw()
         deviceContext.Clear(SharpDXConverter.ConvertColor(BackColor))
-        Dim CurrentDrawYCoord As Single = 0
+        Dim CurrentDrawYCoord As Single = BaseYCoord
         Dim head_X As Single = 0
         Dim startX_List As New List(Of Single)
         deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(0, 0, Width, 20)), New LinearGradientBrush(deviceContext, New LinearGradientBrushProperties() With {.StartPoint = New RawVector2(0, 0), .EndPoint = New RawVector2(0, 20)}, New GradientStopCollection(deviceContext, {New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.FromArgb(0, 210, 105)), .Position = 0.0F}, New GradientStop() With {.Color = SharpDXConverter.ConvertColor(Color.FromArgb(161, 255, 221)), .Position = 1.0F}})))
@@ -69,6 +70,7 @@ Public Class DXListView
         deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 1.4), New RawVector2(Width, CurrentDrawYCoord + 1.4), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.3)
         CurrentDrawYCoord += 1.4
         startX_List.RemoveAt(startX_List.Count - 1)
+        Dim showItemLength As Integer = 0
         Dim outRanged As Boolean = True
         For Each item In Items
             If CurrentDrawYCoord >= Me.Width Then
@@ -81,12 +83,35 @@ Public Class DXListView
                 Next
                 CurrentDrawYCoord += 20
                 deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 0.2), New RawVector2(Width, CurrentDrawYCoord + 0.1), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
+                showItemLength += 1
             End If
         Next
         If outRanged = True Then
-            deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 20, 0, 20, ClientSize.Height)), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.FromArgb(246, 246, 246))))
-            deviceContext.DrawLine(New RawVector2(Width - 20, 0), New RawVector2(ClientSize.Width - 20, ClientSize.Height), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDarkDark)), 0.3)
-            deviceContext.DrawLine(New RawVector2(Width - 0.3, 0), New RawVector2(ClientSize.Width - 0.3, ClientSize.Height), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDarkDark)), 0.3)
+            deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 20, 0, 20, Height)), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.FromArgb(246, 246, 246))))
+            deviceContext.DrawLine(New RawVector2(Width - 20, 0), New RawVector2(Width - 20, Height), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDarkDark)), 0.3)
+            Dim pathGeo_up As New PathGeometry(deviceContext.Factory)
+            Dim sink_up As GeometrySink = pathGeo_up.Open()
+            sink_up.BeginFigure(New RawVector2(Width - 7, 10), FigureBegin.Filled)
+            sink_up.AddLine(New RawVector2(Width - 15, 10))
+            sink_up.AddLine(New RawVector2(Width - 11, 4))
+            sink_up.EndFigure(FigureEnd.Closed)
+            sink_up.Close()
+            deviceContext.FillGeometry(pathGeo_up, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDark)))
+            Dim pathGeo_down As New PathGeometry(deviceContext.Factory)
+            Dim sink_down As GeometrySink = pathGeo_down.Open()
+            sink_down.BeginFigure(New RawVector2(Width - 7, Height - 11.5), FigureBegin.Filled)
+            sink_down.AddLine(New RawVector2(Width - 15, Height - 11.5))
+            sink_down.AddLine(New RawVector2(Width - 11, Height - 5.5))
+            sink_down.EndFigure(FigureEnd.Closed)
+            sink_down.Close()
+            deviceContext.FillGeometry(pathGeo_down, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDark)))
+            '   deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 18.5, 15, 17, Height - 30)), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)))
+            Dim methods = GetType(DeviceContext).GetMethods()
+            Dim FillRoundedRectangle = methods.Single(Function(method As Reflection.MethodInfo)
+                                                          Return method.Name = "FillRoundedRectangle" _
+                                                       AndAlso method.GetParameters()(0).ParameterType.IsByRef
+                                                      End Function)
+            FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 16.5, 17, 12, CDbl(Height - 34) * IIf(showItemLength = ItemLength, 1, showItemLength / ItemLength)))}, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDark))})
         End If
         deviceContext.EndDraw()
         sc.Present(0, PresentFlags.None)
@@ -111,6 +136,7 @@ Public Class DXListView
         deviceContext.Target = targetBitmap
         ContextControl_Paint(Me, Nothing)
     End Sub
+    <Serializable>
     Public Structure DXListViewColumnHeader
         Dim Text As String
         Dim ForeColor As Color
@@ -129,6 +155,7 @@ Public Class DXListView
             Me.Font = font
         End Sub
     End Structure
+    <Serializable>
     Public Structure DXListViewItem
         Dim subItems As List(Of DXListViewSubItem)
         Sub New(ParamArray subItems As DXListViewSubItem())
@@ -136,6 +163,7 @@ Public Class DXListView
         End Sub
     End Structure
 
+    <Serializable>
     Public Structure DXListViewSubItem
         Dim Text As String
         Dim ForeColor As Color
@@ -167,6 +195,13 @@ Public Class DXListView
             Me.DisplayMode = DXTextImageDisplayMode.Image
         End Sub
     End Structure
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        ItemLength = Items.Count
+    End Sub
+    Private Sub DXListView_Load(sender As Object, e As EventArgs) Handles Me.Load
+        ItemLength = Items.Count
+        InvokePaint(ContextControl, Nothing)
+    End Sub
 End Class
 Public Enum DXTextImageDisplayMode
     Text

@@ -22,7 +22,9 @@ Partial Class DXListView
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.ContextControl = New SharpDX.Windows.RenderControl()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'ContextControl
@@ -32,6 +34,10 @@ Partial Class DXListView
         Me.ContextControl.Name = "ContextControl"
         Me.ContextControl.Size = New System.Drawing.Size(398, 298)
         Me.ContextControl.TabIndex = 0
+        '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
         '
         'DXListView
         '
@@ -46,4 +52,5 @@ Partial Class DXListView
     End Sub
 
     Friend WithEvents ContextControl As SharpDX.Windows.RenderControl
+    Friend WithEvents Timer1 As Timer
 End Class
