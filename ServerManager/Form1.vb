@@ -16,7 +16,6 @@
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Static i As Integer = 0
         DxListView1.Items.Add(New DXListView.DXListViewItem(New DXListView.DXListViewSubItem("訊息"), New DXListView.DXListViewSubItem("00:" & i.ToString.PadLeft(2, "0")), New DXListView.DXListViewSubItem("OK, hello " & i)))
-        InvokePaint(DxListView1.ContextControl, Nothing)
         i += 1
     End Sub
 End Class

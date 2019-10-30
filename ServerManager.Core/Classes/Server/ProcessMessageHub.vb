@@ -18,11 +18,19 @@ Public Class ProcessMessageHub
     ''' </summary>
     ''' <param name="processLog"></param>
     Sub AddMessage(processLog As String)
+        If processLog = Nothing Then Exit Sub
         originalMessages &= processLog & vbNewLine
         Dim thread As New Thread(Sub()
                                      Dim _msg = MinecraftLogParser.ToConsoleMessage(processLog, Now)
                                      Dim msg As New MinecraftProcessMessage() With {.AddtionalMessage = _msg.AddtionalMessage, .BungeeCordMessageType = _msg.BungeeCordMessageType, .Message = _msg.Message, .MessageType = _msg.ServerMessageType, .MessageTypeForEvents = _msg.MessageType, .Thread = _msg.Thread, .Time = _msg.Time}
-                                     Do Until threadHub.First Is thread
+                                     Do While True
+                                         Try
+                                             If threadHub.First() Is thread Then
+                                                 Exit Do
+                                             End If
+                                         Catch ex As InvalidOperationException
+                                             Thread.Sleep(0)
+                                         End Try
                                      Loop
                                      formatedMessages.Add(msg)
                                      bufferedMessages.Add(msg)
@@ -33,11 +41,19 @@ Public Class ProcessMessageHub
         thread.Start()
     End Sub
     Sub AddErrorMessage(processLog As String)
+        If processLog = Nothing Then Exit Sub
         originalMessages &= processLog & vbNewLine
         Dim thread As New Thread(Sub()
                                      Dim _msg = MinecraftLogParser.ToConsoleMessage(processLog, Now)
-                                     Dim msg As New MinecraftProcessMessage() With {.AddtionalMessage = _msg.AddtionalMessage, .BungeeCordMessageType = _msg.BungeeCordMessageType, .Message = _msg.Message, .MessageType = _msg.ServerMessageType, .MessageTypeForEvents = _msg.MessageType, .Thread = _msg.Thread, .Time = _msg.Time}
-                                     Do Until threadHub.First Is thread
+                                     Dim msg As New MinecraftProcessMessage() With {.AddtionalMessage = _msg.AddtionalMessage, .BungeeCordMessageType = _msg.BungeeCordMessageType, .Message = _msg.Message, .MessageType = MinecraftProcessMessage.ProcessMessageType.Error, .MessageTypeForEvents = _msg.MessageType, .Thread = _msg.Thread, .Time = _msg.Time}
+                                     Do While True
+                                         Try
+                                             If threadHub.First() Is thread Then
+                                                 Exit Do
+                                             End If
+                                         Catch ex As InvalidOperationException
+                                             Thread.Sleep(0)
+                                         End Try
                                      Loop
                                      formatedMessages.Add(msg)
                                      bufferedMessages.Add(msg)
@@ -57,8 +73,16 @@ Public Class ProcessMessageHub
             If disposing Then
                 ' TODO: 處置 Managed 狀態 (Managed 物件)。
                 _timer.Dispose()
+                For Each thread In threadHub
+                    If thread IsNot Nothing AndAlso thread.IsAlive Then thread.Abort()
+                    thread = Nothing
+                Next
+                threadHub.Clear()
+                GC.Collect()
             End If
-
+            originalMessages = Nothing
+            formatedMessages.Clear()
+            bufferedMessages.Clear()
             ' TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的 Finalize()。
             ' TODO: 將大型欄位設為 null。
         End If

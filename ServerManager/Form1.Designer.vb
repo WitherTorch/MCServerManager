@@ -32,10 +32,8 @@ Partial Class Form1
         '
         Me.DxListView1.BackColor = System.Drawing.Color.White
         Me.DxListView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DxListView1.ColumnHeaders = CType(resources.GetObject("DxListView1.ColumnHeaders"), System.Collections.Generic.List(Of ServerManager.DXListView.DXListViewColumnHeader))
         Me.DxListView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DxListView1.Font = New System.Drawing.Font("Segoe UI", 15.0!)
-        Me.DxListView1.Items = CType(resources.GetObject("DxListView1.Items"), System.Collections.Generic.List(Of ServerManager.DXListView.DXListViewItem))
         Me.DxListView1.Location = New System.Drawing.Point(0, 0)
         Me.DxListView1.Margin = New System.Windows.Forms.Padding(6)
         Me.DxListView1.Name = "DxListView1"
@@ -45,6 +43,7 @@ Partial Class Form1
         'Timer1
         '
         Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 10
         '
         'Form1
         '

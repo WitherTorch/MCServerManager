@@ -24,7 +24,7 @@ Module GlobalModule
     Friend BungeeCordMemoryMin As Decimal = 16
     Friend BungeeCordMemoryMax As Decimal = 16
     Friend JavaArguments As String = ""
-    Friend JavaPath As String = ""
+    Friend JavaPath As String = "java"
     Friend ShowVanillaSnapshot As Boolean = False
     Friend CustomForgeVersion As Boolean = False
     Friend ConsoleMode As Boolean = False
@@ -178,7 +178,7 @@ Module GlobalModule
         If IsUnixLikeSystem Then
             Return "java"
         Else
-            Return IIf(String.IsNullOrWhiteSpace(JavaPath) = False, IO.Path.Combine(JavaPath, "java.exe"), "java")
+            Return IIf(String.IsNullOrWhiteSpace(JavaPath) OrElse JavaPath = "java" = False, IO.Path.Combine(JavaPath, "java.exe"), "java")
         End If
     End Function
     Function ToZeroAndOne(bools As Boolean()) As String

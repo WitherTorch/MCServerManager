@@ -11,6 +11,8 @@ Namespace My
     ' NetworkAvailabilityChanged:在建立或中斷網路連線時引發。
     Partial Friend Class MyApplication
         Private Sub MyApplication_Shutdown(sender As Object, e As EventArgs) Handles Me.Shutdown
+            Direct2DFactory.Dispose()
+            DirectWriteFactory.Dispose()
             WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), Newtonsoft.Json.JsonConvert.SerializeObject(ServerList.ToArray()))
             'WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"), BedrockServerDirs)
             My.Settings.Save()

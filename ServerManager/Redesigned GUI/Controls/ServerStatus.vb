@@ -40,4 +40,9 @@
             PictureBox1.Image = My.Resources.ServerDefaultIcon
         End If
     End Sub
+
+    Private Sub StartServerButton_Click(sender As Object, e As EventArgs) Handles StartServerButton.Click
+        Dim console As New ServerConsole(_server)
+        console.Show()
+    End Sub
 End Class

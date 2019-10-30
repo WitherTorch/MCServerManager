@@ -34,75 +34,77 @@ Public Class Manager
         d.ImmediateContext.OutputMerger.SetRenderTargets(targetView)
     End Sub
     Private Sub Timer_Tick(sender As Object, e As EventArgs) Handles Timer.Tick
-        Try
-            Dim CPUvalue As Integer = CPUPerformanceCounter.NextValue
-            CPUCircularBar.Value = CPUvalue
-            CPUCircularBar.Text = CPUvalue
-            Select Case CPUvalue
-                Case 100
-                    CPUCircularBar.SubscriptMargin = New Padding(-32, 10, 0, 0)
-                Case 10 To 99
-                    CPUCircularBar.SubscriptMargin = New Padding(-22, 10, 0, 0)
-                Case 0 To 9
-                    CPUCircularBar.SubscriptMargin = New Padding(-12, 10, 0, 0)
-            End Select
-        Catch ex As Exception
+        If OverviewPanel.Visible Then
+            Try
+                Dim CPUvalue As Integer = CPUPerformanceCounter.NextValue
+                CPUCircularBar.Value = CPUvalue
+                CPUCircularBar.Text = CPUvalue
+                Select Case CPUvalue
+                    Case 100
+                        CPUCircularBar.SubscriptMargin = New Padding(-32, 10, 0, 0)
+                    Case 10 To 99
+                        CPUCircularBar.SubscriptMargin = New Padding(-22, 10, 0, 0)
+                    Case 0 To 9
+                        CPUCircularBar.SubscriptMargin = New Padding(-12, 10, 0, 0)
+                End Select
+            Catch ex As Exception
 
-        End Try
-        For Each item In searcher.Get()
-            Try
-                Dim RAMvalue As Integer = 100 - item("FreePhysicalMemory") / item("TotalVisibleMemorySize") * 100
-                RAMCircularBar.Value = RAMvalue
-                RAMCircularBar.Text = RAMvalue
-                Select Case RAMvalue
-                    Case 100
-                        RAMCircularBar.SubscriptMargin = New Padding(-30, 10, 0, 0)
-                    Case 10 To 99
-                        RAMCircularBar.SubscriptMargin = New Padding(-20, 10, 0, 0)
-                    Case 0 To 9
-                        RAMCircularBar.SubscriptMargin = New Padding(-10, 10, 0, 0)
-                End Select
-            Catch ex As Exception
-                Continue For
             End Try
-            Try
-                Dim VirtualRAMvalue As Integer = 100 - item("FreeVirtualMemory") / item("TotalVirtualMemorySize") * 100
-                VRAMCircularBar.Value = VirtualRAMvalue
-                VRAMCircularBar.Text = VirtualRAMvalue
-                Select Case VirtualRAMvalue
-                    Case 100
-                        VRAMCircularBar.SubscriptMargin = New Padding(-30, 10, 0, 0)
-                    Case 10 To 99
-                        VRAMCircularBar.SubscriptMargin = New Padding(-20, 10, 0, 0)
-                    Case 0 To 9
-                        VRAMCircularBar.SubscriptMargin = New Padding(-10, 10, 0, 0)
-                End Select
-            Catch ex As Exception
-                Continue For
-            End Try
-            Exit For
-        Next
-        Try
-            Dim category As New PerformanceCounterCategory("Network Interface")
-            Dim names As String() = category.GetInstanceNames()
-            Dim totalValue As Double = 0
-            For Each name As String In names
-                totalValue += getNetworkUtilization(name)
+            For Each item In searcher.Get()
+                Try
+                    Dim RAMvalue As Integer = 100 - item("FreePhysicalMemory") / item("TotalVisibleMemorySize") * 100
+                    RAMCircularBar.Value = RAMvalue
+                    RAMCircularBar.Text = RAMvalue
+                    Select Case RAMvalue
+                        Case 100
+                            RAMCircularBar.SubscriptMargin = New Padding(-30, 10, 0, 0)
+                        Case 10 To 99
+                            RAMCircularBar.SubscriptMargin = New Padding(-20, 10, 0, 0)
+                        Case 0 To 9
+                            RAMCircularBar.SubscriptMargin = New Padding(-10, 10, 0, 0)
+                    End Select
+                Catch ex As Exception
+                    Continue For
+                End Try
+                Try
+                    Dim VirtualRAMvalue As Integer = 100 - item("FreeVirtualMemory") / item("TotalVirtualMemorySize") * 100
+                    VRAMCircularBar.Value = VirtualRAMvalue
+                    VRAMCircularBar.Text = VirtualRAMvalue
+                    Select Case VirtualRAMvalue
+                        Case 100
+                            VRAMCircularBar.SubscriptMargin = New Padding(-30, 10, 0, 0)
+                        Case 10 To 99
+                            VRAMCircularBar.SubscriptMargin = New Padding(-20, 10, 0, 0)
+                        Case 0 To 9
+                            VRAMCircularBar.SubscriptMargin = New Padding(-10, 10, 0, 0)
+                    End Select
+                Catch ex As Exception
+                    Continue For
+                End Try
+                Exit For
             Next
-            Dim networkValue As Integer = totalValue / names.Count
-            NetworkCircularBar.Value = networkValue
-            NetworkCircularBar.Text = networkValue
-            Select Case networkValue
-                Case 100
-                    NetworkCircularBar.SubscriptMargin = New Padding(-32, 10, 0, 0)
-                Case 10 To 99
-                    NetworkCircularBar.SubscriptMargin = New Padding(-22, 10, 0, 0)
-                Case 0 To 9
-                    NetworkCircularBar.SubscriptMargin = New Padding(-12, 10, 0, 0)
-            End Select
-        Catch ex As Exception
+            Try
+                Dim category As New PerformanceCounterCategory("Network Interface")
+                Dim names As String() = category.GetInstanceNames()
+                Dim totalValue As Double = 0
+                For Each name As String In names
+                    totalValue += getNetworkUtilization(name)
+                Next
+                Dim networkValue As Integer = totalValue / names.Count
+                NetworkCircularBar.Value = networkValue
+                NetworkCircularBar.Text = networkValue
+                Select Case networkValue
+                    Case 100
+                        NetworkCircularBar.SubscriptMargin = New Padding(-32, 10, 0, 0)
+                    Case 10 To 99
+                        NetworkCircularBar.SubscriptMargin = New Padding(-22, 10, 0, 0)
+                    Case 0 To 9
+                        NetworkCircularBar.SubscriptMargin = New Padding(-12, 10, 0, 0)
+                End Select
+            Catch ex As Exception
 
-        End Try
+            End Try
+        End If
     End Sub
     Public Function getNetworkUtilization(networkCard As String) As Double
         Dim bandwidthCounter As New PerformanceCounter("Network Interface", "Current Bandwidth", networkCard)

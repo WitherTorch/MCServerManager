@@ -25,10 +25,12 @@ Partial Class ServerConsole
         Me.components = New System.ComponentModel.Container()
         Me.MainTabControl = New MetroFramework.Controls.MetroTabControl()
         Me.MetroTabPage1 = New MetroFramework.Controls.MetroTabPage()
-        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
         Me.MetroTabPage2 = New MetroFramework.Controls.MetroTabPage()
         Me.MetroTabPage3 = New MetroFramework.Controls.MetroTabPage()
+        Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
+        Me.DxListView1 = New ServerManager.DXListView()
         Me.MainTabControl.SuspendLayout()
+        Me.MetroTabPage3.SuspendLayout()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -61,11 +63,6 @@ Partial Class ServerConsole
         Me.MetroTabPage1.VerticalScrollbarHighlightOnWheel = False
         Me.MetroTabPage1.VerticalScrollbarSize = 10
         '
-        'MetroStyleManager1
-        '
-        Me.MetroStyleManager1.Owner = Me
-        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
-        '
         'MetroTabPage2
         '
         Me.MetroTabPage2.HorizontalScrollbarBarColor = True
@@ -82,9 +79,10 @@ Partial Class ServerConsole
         '
         'MetroTabPage3
         '
+        Me.MetroTabPage3.Controls.Add(Me.DxListView1)
         Me.MetroTabPage3.HorizontalScrollbarBarColor = True
         Me.MetroTabPage3.HorizontalScrollbarHighlightOnWheel = False
-        Me.MetroTabPage3.HorizontalScrollbarSize = 10
+        Me.MetroTabPage3.HorizontalScrollbarSize = 0
         Me.MetroTabPage3.Location = New System.Drawing.Point(4, 38)
         Me.MetroTabPage3.Name = "MetroTabPage3"
         Me.MetroTabPage3.Size = New System.Drawing.Size(788, 358)
@@ -92,7 +90,23 @@ Partial Class ServerConsole
         Me.MetroTabPage3.Text = "訊息列表"
         Me.MetroTabPage3.VerticalScrollbarBarColor = True
         Me.MetroTabPage3.VerticalScrollbarHighlightOnWheel = False
-        Me.MetroTabPage3.VerticalScrollbarSize = 10
+        Me.MetroTabPage3.VerticalScrollbarSize = 0
+        '
+        'MetroStyleManager1
+        '
+        Me.MetroStyleManager1.Owner = Me
+        Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
+        '
+        'DxListView1
+        '
+        Me.DxListView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.DxListView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DxListView1.Font = New System.Drawing.Font("微軟正黑體", 12.0!)
+        Me.DxListView1.Location = New System.Drawing.Point(0, 0)
+        Me.DxListView1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.DxListView1.Name = "DxListView1"
+        Me.DxListView1.Size = New System.Drawing.Size(788, 358)
+        Me.DxListView1.TabIndex = 2
         '
         'ServerConsole
         '
@@ -106,6 +120,7 @@ Partial Class ServerConsole
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "伺服器主控台"
         Me.MainTabControl.ResumeLayout(False)
+        Me.MetroTabPage3.ResumeLayout(False)
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -116,4 +131,5 @@ Partial Class ServerConsole
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
     Friend WithEvents MetroTabPage2 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents MetroTabPage3 As MetroFramework.Controls.MetroTabPage
+    Friend WithEvents DxListView1 As DXListView
 End Class
