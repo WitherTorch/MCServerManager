@@ -20,6 +20,8 @@ Public Class DXListView
     Dim targetBitmap As Bitmap1
     Dim ItemLength As Integer = 0
     Dim DrawnYCoord As Integer = 0
+    Dim ScrollRectangle As RectangleF
+    Dim ScrollBackgroundRectangle As RectangleF
     Public ReadOnly Property IsRollingToEnd As Boolean
     Public Property ColumnHeaders As New List(Of DXListViewColumnHeader)
     Public Property Items As New List(Of DXListViewItem)
@@ -120,10 +122,12 @@ Public Class DXListView
                                                           Return method.Name = "FillRoundedRectangle" _
                                                            AndAlso method.GetParameters()(0).ParameterType.IsByRef
                                                       End Function)
+            ScrollBackgroundRectangle = New RectangleF(Width - 16.5, 17, 12, ClientSize.Height - 34)
+            ScrollRectangle = New RectangleF(Width - 16.5, CDbl(ClientSize.Height - 34) * Math.Min(BaseYCoord / 20 / ItemLength, 1) + 17, 12, CDbl(ClientSize.Height - 34) * Math.Min(showItemLength / ItemLength, 1))
             If hoverPaint Then
-                FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 16.5, CDbl(ClientSize.Height - 34) * Math.Min(BaseYCoord / 20 / ItemLength, 1) + 17, 12, CDbl(ClientSize.Height - 34) * Math.Min(showItemLength / ItemLength, 1)))}, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDarkDark))})
+                FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(ScrollRectangle)}, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDarkDark))})
             Else
-                FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 16.5, CDbl(ClientSize.Height - 34) * Math.Min(BaseYCoord / 20 / ItemLength, 1) + 17, 12, CDbl(ClientSize.Height - 34) * Math.Min(showItemLength / ItemLength, 1)))}, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDark))})
+                FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(ScrollRectangle)}, New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDark))})
             End If
         End If
         deviceContext.EndDraw()
@@ -219,8 +223,7 @@ Public Class DXListView
     Dim mouseDraw As Boolean = False
     Dim hoverPaint As Boolean = False
     Private Sub ContextControl_MouseDown(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseDown
-        Dim m_Pos = ContextControl.PointToClient(MousePosition)
-        If e.Button = MouseButtons.Left AndAlso m_Pos.X > Width - 17 AndAlso m_Pos.Y > 17 AndAlso m_Pos.X < Width - 4 AndAlso m_Pos.Y < Height - 7 Then
+        If e.Button = MouseButtons.Left AndAlso ScrollRectangle.Contains(ContextControl.PointToClient(MousePosition)) Then
             mouseDraw = True
         End If
     End Sub
@@ -230,16 +233,28 @@ Public Class DXListView
         End If
     End Sub
     Private Sub ContextControl_MouseMove(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseMove, MyBase.MouseMove
-        Dim m_Pos = ContextControl.PointToClient(MousePosition)
-        If m_Pos.X > Width - 17 AndAlso m_Pos.Y > 17 AndAlso m_Pos.X < Width - 4 AndAlso m_Pos.Y < Height - 7 Then
-            If hoverPaint <> True Then
-                hoverPaint = True
-                InvokePaint(sender, Nothing)
+        If mouseDraw Then
+            If ScrollBackgroundRectangle.Contains(ScrollBackgroundRectangle.X, e.Y) Then
+                BaseYCoord = (ItemLength * 20 - DrawnYCoord) * (e.Y / ScrollBackgroundRectangle.Height)
+            Else
+                If ScrollBackgroundRectangle.Y > e.Y Then
+                    BaseYCoord = 0
+                Else
+                    BaseYCoord = (ItemLength * 20 - DrawnYCoord)
+                End If
             End If
+            InvokePaint(sender, Nothing)
         Else
-            If hoverPaint <> False Then
-                hoverPaint = False
-                InvokePaint(sender, Nothing)
+            If ScrollRectangle.Contains(ContextControl.PointToClient(MousePosition)) Then
+                If hoverPaint <> True Then
+                    hoverPaint = True
+                    InvokePaint(sender, Nothing)
+                End If
+            Else
+                If hoverPaint <> False Then
+                    hoverPaint = False
+                    InvokePaint(sender, Nothing)
+                End If
             End If
         End If
     End Sub
