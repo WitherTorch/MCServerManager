@@ -12,10 +12,16 @@
         DxListView1.Items.Add(New DXListView.DXListViewItem(New DXListView.DXListViewSubItem("訊息"), New DXListView.DXListViewSubItem("00:20"), New DXListView.DXListViewSubItem("Reading server properties ...")))
         DxListView1.Items.Add(New DXListView.DXListViewItem(New DXListView.DXListViewSubItem("訊息"), New DXListView.DXListViewSubItem("00:21"), New DXListView.DXListViewSubItem("Generating 'world'")))
         DxListView1.Items.Add(New DXListView.DXListViewItem(New DXListView.DXListViewSubItem("訊息"), New DXListView.DXListViewSubItem("00:35"), New DXListView.DXListViewSubItem("OK, hello")))
+        NumericUpDown1.Value = 100
     End Sub
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Static i As Integer = 0
         DxListView1.Items.Add(New DXListView.DXListViewItem(New DXListView.DXListViewSubItem("訊息"), New DXListView.DXListViewSubItem("00:" & i.ToString.PadLeft(2, "0")), New DXListView.DXListViewSubItem("OK, hello " & i)))
         i += 1
     End Sub
+
+    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
+        Timer1.Interval = NumericUpDown1.Value
+    End Sub
+
 End Class

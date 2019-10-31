@@ -16,27 +16,37 @@
     Private Sub ServerConsole_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         If _server.BeforeRunServer() Then
             Dim process As Process = _server.RunServer()
-            AddHandler process.OutputDataReceived, Sub(obj, args) hub.AddMessage(args.Data)
-            AddHandler process.ErrorDataReceived, Sub(obj, args) hub.AddMessage(args.Data)
-            process.BeginOutputReadLine()
-            process.BeginErrorReadLine()
-            AddHandler hub.MessageProcessed, Sub(msg)
-                                                 For Each item In msg
-                                                     If item Is Nothing Then Continue For
-                                                     Dim typeString As String = ""
-                                                     Select Case item.MessageType
-                                                         Case MinecraftProcessMessage.ProcessMessageType.Info
-                                                             typeString = "訊息"
-                                                         Case MinecraftProcessMessage.ProcessMessageType.Warning
-                                                             typeString = "警告"
-                                                         Case MinecraftProcessMessage.ProcessMessageType.Error
-                                                             typeString = "錯誤"
-                                                         Case Else
-                                                             typeString = "訊息"
-                                                     End Select
-                                                     DxListView1.Items.Add(New DXListView.DXListViewItem(New DXListView.DXListViewSubItem(typeString), New DXListView.DXListViewSubItem(item.Time.Minute.ToString.PadLeft(2, "0") & ":" & item.Time.Second.ToString.PadLeft(2, "0")), New DXListView.DXListViewSubItem(item.Message)))
-                                                 Next
-                                             End Sub
+            process.EnableRaisingEvents = True
+            If process.HasExited Then
+                _server.IsRunning = False
+                _server.ProcessID = 0
+            Else
+                AddHandler process.OutputDataReceived, Sub(obj, args) hub.AddMessage(args.Data)
+                AddHandler process.ErrorDataReceived, Sub(obj, args) hub.AddMessage(args.Data)
+                AddHandler process.Exited, Sub()
+                                               _server.IsRunning = False
+                                               _server.ProcessID = 0
+                                           End Sub
+                process.BeginOutputReadLine()
+                process.BeginErrorReadLine()
+                AddHandler hub.MessageProcessed, Sub(msg)
+                                                     For Each item In msg
+                                                         If item Is Nothing Then Continue For
+                                                         Dim typeString As String = ""
+                                                         Select Case item.MessageType
+                                                             Case MinecraftProcessMessage.ProcessMessageType.Info
+                                                                 typeString = "訊息"
+                                                             Case MinecraftProcessMessage.ProcessMessageType.Warning
+                                                                 typeString = "警告"
+                                                             Case MinecraftProcessMessage.ProcessMessageType.Error
+                                                                 typeString = "錯誤"
+                                                             Case Else
+                                                                 typeString = "訊息"
+                                                         End Select
+                                                         DxListView1.Items.Add(New DXListView.DXListViewItem(New DXListView.DXListViewSubItem(typeString), New DXListView.DXListViewSubItem(item.Time.Minute.ToString.PadLeft(2, "0") & ":" & item.Time.Second.ToString.PadLeft(2, "0")), New DXListView.DXListViewSubItem(item.Message)))
+                                                     Next
+                                                 End Sub
+            End If
         End If
     End Sub
     Private Sub ServerConsole_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
@@ -47,7 +57,11 @@
 
     Private Sub ServerConsole_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Dim t As New Threading.Thread(Sub()
-                                          _server.ShutdownServer()
+                                          Try
+                                              _server.ShutdownServer()
+                                          Catch ex As Exception
+
+                                          End Try
                                       End Sub)
         t.IsBackground = False
         t.Start()

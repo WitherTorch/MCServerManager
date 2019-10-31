@@ -325,5 +325,11 @@ Module GlobalModule
             action.Invoke()
         End If
     End Sub
-
+    Sub InvokeIfRequired(control As Control, action As Action)
+        If control.InvokeRequired Then
+            control.Invoke(action)
+        Else
+            action.Invoke()
+        End If
+    End Sub
 End Module

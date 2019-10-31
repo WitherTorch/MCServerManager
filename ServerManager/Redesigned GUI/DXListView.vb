@@ -88,7 +88,7 @@ Public Class DXListView
             DrawText(header.Text, font, New RectangleF(head_X, 1, header.Width, 20), fColor, DirectWrite.TextAlignment.Center)
             head_X += header.Width
             startX_List.Add(head_X)
-            'deviceContext.DrawLine(New RawVector2(head_X, 0), New RawVector2(head_X, Height), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
+            deviceContext.DrawLine(New RawVector2(head_X, 0), New RawVector2(head_X, 21), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
         Next
         CurrentDrawYCoord = 18
         deviceContext.DrawLine(New RawVector2(0, CurrentDrawYCoord + 1.4), New RawVector2(Width, CurrentDrawYCoord + 1.4), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.3)
@@ -101,6 +101,9 @@ Public Class DXListView
             outRanged = True
         End If
         If temped_Items IsNot Nothing Then
+            If _IsRollingToEnd Then
+                BaseYCoord = ItemLength * 20 - Height + 21
+            End If
             For Each item In temped_Items
                 If CurrentDrawYCoord >= Me.Height Then
                     outRanged = True
@@ -174,9 +177,16 @@ Public Class DXListView
             Utilities.Dispose(pathGeo_up)
             Utilities.Dispose(sink_down)
             Utilities.Dispose(sink_up)
+            If Not (CurrentDrawYCoord >= Me.Height) Then
+                _IsRollingToEnd = True
+            Else
+                _IsRollingToEnd = False
+            End If
+        Else
+            _IsRollingToEnd = True
         End If
-        deviceContext.EndDraw()
         DrawnYCoord = CurrentDrawYCoord
+        deviceContext.EndDraw()
         sc.Present(0, PresentFlags.None)
         GC.Collect()
     End Sub
@@ -196,7 +206,7 @@ Public Class DXListView
         Dim brush As New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(color))
         deviceContext.DrawText(text, format, SharpDXConverter.ConvertRectangleF(rect), brush)
         Utilities.Dispose(format)
-        Utilities.Dispose(Brush)
+        Utilities.Dispose(brush)
     End Sub
     Private Sub ContextControl_SizeChanged(ByVal sender As Object, ByVal e As EventArgs)
         deviceContext.Target = Nothing
@@ -318,9 +328,12 @@ Public Class DXListView
                 BaseYCoord -= e.Delta / 5
                 BaseYCoord = Math.Max(BaseYCoord, 0)
             End If
+            If BaseYCoord >= 0 Then _IsRollingToEnd = False
         ElseIf e.Delta < 0 Then
             If Height <= ItemLength * 20 + 21 AndAlso Math.Abs(Height - DrawnYCoord) < 18 Then
                 BaseYCoord -= e.Delta / 5
+            Else
+                _IsRollingToEnd = True
             End If
         End If
         If e.Delta <> 0 Then InvokePaint(sender, Nothing)

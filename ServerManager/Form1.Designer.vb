@@ -23,10 +23,23 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Me.DxListView1 = New ServerManager.DXListView()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.DxListView1 = New ServerManager.DXListView()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.Location = New System.Drawing.Point(393, 0)
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {10000000, 0, 0, 0})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 22)
+        Me.NumericUpDown1.TabIndex = 1
         '
         'DxListView1
         '
@@ -40,20 +53,17 @@ Partial Class Form1
         Me.DxListView1.Size = New System.Drawing.Size(800, 450)
         Me.DxListView1.TabIndex = 0
         '
-        'Timer1
-        '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 10
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.NumericUpDown1)
         Me.Controls.Add(Me.DxListView1)
         Me.Name = "Form1"
         Me.Text = "Form1"
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -66,4 +76,5 @@ Partial Class Form1
     Friend WithEvents ColumnHeader5 As ColumnHeader
     Friend WithEvents ColumnHeader6 As ColumnHeader
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents NumericUpDown1 As NumericUpDown
 End Class
