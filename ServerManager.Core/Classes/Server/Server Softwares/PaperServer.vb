@@ -86,6 +86,7 @@ Public Class PaperServer
                                           End Sub
         AddHandler task.DownloadCompleted, Sub()
                                                ServerVersion = targetVersion
+                                               GenerateServerEULA()
                                                Call OnServerDownloadEnd(False)
                                            End Sub
         AddHandler task.DownloadStarted, Sub()

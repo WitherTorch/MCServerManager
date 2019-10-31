@@ -78,6 +78,7 @@ Public Class SpigotWithGitServer
                                                ' Else
                                                ' watcher.Run(GitBashPath, "--login -i -c """ & GetJavaPath() & " -jar BuildTools.jar --rev " & targetVersion & """", IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
                                                ' End If
+                                               GenerateServerEULA()
                                                Call OnServerDownloadEnd(False)
                                            End Sub
         AddHandler task.DownloadStarted, Sub()

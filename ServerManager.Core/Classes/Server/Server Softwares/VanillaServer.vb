@@ -96,7 +96,7 @@ Public Class VanillaServer
         Return False
     End Function
     Public Overrides Function GetServerFileName() As String
-        If String.IsNullOrWhiteSpace(Server2ndVersion) Then
+        If String.IsNullOrWhiteSpace(Server2ndVersion) = False Then
             Return "minecraft_server." & Server2ndVersion & ".jar"
         Else
             Return "minecraft_server." & ServerVersion & ".jar"
@@ -108,7 +108,7 @@ Public Class VanillaServer
     Public Overrides Function RunServer() As Process
         If ProcessID = 0 Then
             Dim processInfo As New ProcessStartInfo(GetJavaPath(),
-                                                String.Format("-Dfile.encoding=UTF-8 -Djline.terminal=jline.UnsupportedTerminal -Xms{0}M -Xmx{1}M {2} ""{3}"" nogui",
+                                                String.Format("-Dfile.encoding=UTF-8 -Djline.terminal=jline.UnsupportedTerminal -Xms{0}M -Xmx{1}M {2} -jar ""{3}"" nogui",
                                                               IIf(ServerMemoryMin > 0, ServerMemoryMin, GlobalModule.ServerMemoryMin),
                                                               IIf(ServerMemoryMax > 0, ServerMemoryMin, GlobalModule.ServerMemoryMax),
                                                                JavaArguments, ServerPath.TrimEnd(seperator) & seperator & GetServerFileName()))
@@ -176,25 +176,17 @@ Public Class VanillaServer
     End Function
     Protected vanilla_isSnap As Boolean = False
     Protected vanilla_isPre As Boolean = False
+    Private Shared ReadOnly preReleaseRegex1 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
+    Private Shared ReadOnly preReleaseRegex2 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
+    Private Shared ReadOnly snapshotRegex As New Regex("[0-9]{2}w[0-9]{2}[a-z]{1}")
     Private Function GetVanillaServerURL(targetVersion As String) As String
-        Dim preReleaseRegex1 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
-        Dim preReleaseRegex2 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
-        Dim snapshotRegex As New Regex("[0-9]{2}w[0-9]{2}[a-z]{1}")
         If Version.TryParse(targetVersion, Nothing) Then
         ElseIf preReleaseRegex1.IsMatch(targetVersion) Then
             vanilla_isPre = True
-            If preReleaseRegex1.Match(targetVersion).Value.Contains("1.RV") Then
-                targetVersion = preReleaseRegex1.Match(targetVersion).Value
-            Else
-                targetVersion = preReleaseRegex1.Match(targetVersion).Value
-            End If
+            targetVersion = preReleaseRegex1.Match(targetVersion).Value
         ElseIf preReleaseRegex2.IsMatch(targetVersion) Then
             vanilla_isPre = True
-            If preReleaseRegex2.Match(targetVersion).Value.Contains("1.RV") Then
-                targetVersion = preReleaseRegex2.Match(targetVersion).Value
-            Else
-                targetVersion = preReleaseRegex2.Match(targetVersion).Value
-            End If
+            targetVersion = preReleaseRegex2.Match(targetVersion).Value
         ElseIf snapshotRegex.IsMatch(targetVersion) Then
             vanilla_isSnap = True
             targetVersion = snapshotRegex.Match(targetVersion).Value
@@ -237,6 +229,7 @@ Public Class VanillaServer
                                               Call OnServerDownloadEnd(True)
                                           End Sub
         AddHandler task.DownloadCompleted, Sub()
+                                               GenerateServerEULA()
                                                Call OnServerDownloadEnd(False)
                                            End Sub
         AddHandler task.DownloadStarted, Sub()

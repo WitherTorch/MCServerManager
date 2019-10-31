@@ -180,7 +180,7 @@ Public Class NukkitServer
     Public Overrides Function RunServer() As Process
         If ProcessID = 0 Then
             Dim processInfo As New ProcessStartInfo(GetJavaPath(),
-                                                String.Format("-Xms{0}M -Xmx{1}M {2} ""{3}""",
+                                                String.Format("-Xms{0}M -Xmx{1}M {2} -jar ""{3}""",
                                                               IIf(ServerMemoryMin > 0, ServerMemoryMin, GlobalModule.ServerMemoryMin),
                                                               IIf(ServerMemoryMax > 0, ServerMemoryMin, GlobalModule.ServerMemoryMax),
                                                                JavaArguments, ServerPath.TrimEnd(seperator) & seperator & GetServerFileName()))
@@ -260,6 +260,7 @@ Public Class NukkitServer
                                               Call OnServerDownloadEnd(True)
                                           End Sub
         AddHandler task.DownloadCompleted, Sub()
+                                               GenerateServerEULA()
                                                Call OnServerDownloadEnd(False)
                                            End Sub
         AddHandler task.DownloadStarted, Sub()

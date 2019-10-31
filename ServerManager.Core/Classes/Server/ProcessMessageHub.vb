@@ -13,6 +13,7 @@ Public Class ProcessMessageHub
                                     bufferedMessages.Clear()
                                 End If
                             End Sub, Nothing, 50, 50)
+    Dim parser As New MinecraftLogParser
     ''' <summary>
     ''' 加入一封訊息至非同步訊息處理序列
     ''' </summary>
@@ -21,7 +22,7 @@ Public Class ProcessMessageHub
         If processLog = Nothing Then Exit Sub
         originalMessages &= processLog & vbNewLine
         Dim thread As New Thread(Sub()
-                                     Dim _msg = MinecraftLogParser.ToConsoleMessage(processLog, Now)
+                                     Dim _msg = parser.ToConsoleMessage(processLog, Now)
                                      Dim msg As New MinecraftProcessMessage() With {.AddtionalMessage = _msg.AddtionalMessage, .BungeeCordMessageType = _msg.BungeeCordMessageType, .Message = _msg.Message, .MessageType = _msg.ServerMessageType, .MessageTypeForEvents = _msg.MessageType, .Thread = _msg.Thread, .Time = _msg.Time}
                                      Do While True
                                          Try
@@ -44,7 +45,7 @@ Public Class ProcessMessageHub
         If processLog = Nothing Then Exit Sub
         originalMessages &= processLog & vbNewLine
         Dim thread As New Thread(Sub()
-                                     Dim _msg = MinecraftLogParser.ToConsoleMessage(processLog, Now)
+                                     Dim _msg = parser.ToConsoleMessage(processLog, Now)
                                      Dim msg As New MinecraftProcessMessage() With {.AddtionalMessage = _msg.AddtionalMessage, .BungeeCordMessageType = _msg.BungeeCordMessageType, .Message = _msg.Message, .MessageType = MinecraftProcessMessage.ProcessMessageType.Error, .MessageTypeForEvents = _msg.MessageType, .Thread = _msg.Thread, .Time = _msg.Time}
                                      Do While True
                                          Try

@@ -163,6 +163,7 @@ Public Class ForgeServer
                                                If installer.InstallForge(craftVersion, forgeVersion) = DialogResult.OK Then
                                                    ServerVersion = craftVersion
                                                    Server2ndVersion = forgeVersion
+                                                   GenerateServerEULA()
                                                    Call OnServerDownloadEnd(False)
                                                Else
                                                    Call OnServerDownloadEnd(True)

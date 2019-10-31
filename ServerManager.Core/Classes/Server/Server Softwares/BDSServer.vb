@@ -157,6 +157,7 @@ Public Class BDSServer
                                               Call OnServerDownloadEnd(True)
                                           End Sub
         AddHandler task.DownloadCompleted, Sub()
+                                               GenerateServerEULA()
                                                Call OnServerDownloadEnd(False)
                                                UnZipPackage(DownloadPath)
                                            End Sub

@@ -97,6 +97,7 @@ Public Class KettleServer
                                                                                                                                                            If IO.File.Exists(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator) & "libraries.zip") Then
                                                                                                                                                                UnZipPackage(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator) & "libraries.zip")
                                                                                                                                                            End If
+                                                                                                                                                           GenerateServerEULA()
                                                                                                                                                            OnServerDownloadEnd(False)
                                                                                                                                                        End Sub
                                                                                                            subClient.DownloadFileAsync(New Uri(KettleVersionDict.Values.ToArray(i).Item3), IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator) & "libraries.zip")

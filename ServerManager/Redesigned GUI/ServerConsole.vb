@@ -1,6 +1,7 @@
 ﻿Public Class ServerConsole
     Dim _server As ServerBase
     Dim hub As New ProcessMessageHub()
+    Dim process As Process
     Public Sub New(server As ServerBase)
 
         ' 設計工具需要此呼叫。
@@ -15,7 +16,7 @@
 
     Private Sub ServerConsole_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         If _server.BeforeRunServer() Then
-            Dim process As Process = _server.RunServer()
+            process = _server.RunServer()
             process.EnableRaisingEvents = True
             If process.HasExited Then
                 _server.IsRunning = False
@@ -67,5 +68,16 @@
         t.Start()
         hub.Dispose()
         GC.Collect()
+    End Sub
+
+    Private Sub TextBox1_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBox1.KeyDown
+        If e.KeyCode = Keys.Enter AndAlso String.IsNullOrWhiteSpace(TextBox1.Text) = False Then
+            Try
+                process.StandardInput.WriteLine(TextBox1.Text)
+                TextBox1.Clear()
+            Catch ex As Exception
+
+            End Try
+        End If
     End Sub
 End Class

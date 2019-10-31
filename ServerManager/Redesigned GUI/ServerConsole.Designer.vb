@@ -28,6 +28,7 @@ Partial Class ServerConsole
         Me.MetroTabPage2 = New MetroFramework.Controls.MetroTabPage()
         Me.MetroTabPage3 = New MetroFramework.Controls.MetroTabPage()
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.DxListView1 = New ServerManager.DXListView()
         Me.MainTabControl.SuspendLayout()
         Me.MetroTabPage3.SuspendLayout()
@@ -80,6 +81,7 @@ Partial Class ServerConsole
         'MetroTabPage3
         '
         Me.MetroTabPage3.Controls.Add(Me.DxListView1)
+        Me.MetroTabPage3.Controls.Add(Me.TextBox1)
         Me.MetroTabPage3.HorizontalScrollbarBarColor = True
         Me.MetroTabPage3.HorizontalScrollbarHighlightOnWheel = False
         Me.MetroTabPage3.HorizontalScrollbarSize = 0
@@ -97,15 +99,23 @@ Partial Class ServerConsole
         Me.MetroStyleManager1.Owner = Me
         Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
         '
+        'TextBox1
+        '
+        Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TextBox1.Location = New System.Drawing.Point(0, 336)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(788, 22)
+        Me.TextBox1.TabIndex = 4
+        '
         'DxListView1
         '
         Me.DxListView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.DxListView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DxListView1.Font = New System.Drawing.Font("微軟正黑體", 12.0!)
         Me.DxListView1.Location = New System.Drawing.Point(0, 0)
-        Me.DxListView1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.DxListView1.Margin = New System.Windows.Forms.Padding(6)
         Me.DxListView1.Name = "DxListView1"
-        Me.DxListView1.Size = New System.Drawing.Size(788, 358)
+        Me.DxListView1.Size = New System.Drawing.Size(788, 336)
         Me.DxListView1.TabIndex = 2
         '
         'ServerConsole
@@ -117,10 +127,12 @@ Partial Class ServerConsole
         Me.DisplayHeader = False
         Me.Name = "ServerConsole"
         Me.Padding = New System.Windows.Forms.Padding(2, 30, 2, 20)
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "伺服器主控台"
         Me.MainTabControl.ResumeLayout(False)
         Me.MetroTabPage3.ResumeLayout(False)
+        Me.MetroTabPage3.PerformLayout()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -132,4 +144,5 @@ Partial Class ServerConsole
     Friend WithEvents MetroTabPage2 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents MetroTabPage3 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents DxListView1 As DXListView
+    Friend WithEvents TextBox1 As TextBox
 End Class

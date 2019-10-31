@@ -95,6 +95,7 @@ Partial Class Manager
         '
         'Timer
         '
+        Me.Timer.Enabled = True
         Me.Timer.Interval = 450
         '
         'ControlPanel
@@ -329,14 +330,15 @@ Partial Class Manager
         Me.CPUCircularBar.Size = New System.Drawing.Size(150, 150)
         Me.CPUCircularBar.StartAngle = 270
         Me.CPUCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.CPUCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-55, 10, 0, 0)
+        Me.CPUCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-22, 10, 0, 0)
         Me.CPUCircularBar.SubscriptText = "CPU"
         Me.CPUCircularBar.SuperscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
         Me.CPUCircularBar.SuperscriptMargin = New System.Windows.Forms.Padding(0, 35, 0, 0)
         Me.CPUCircularBar.SuperscriptText = "%"
         Me.CPUCircularBar.TabIndex = 5
-        Me.CPUCircularBar.Text = "偵測中"
+        Me.CPUCircularBar.Text = "25"
         Me.CPUCircularBar.TextMargin = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.CPUCircularBar.Value = 25
         '
         'MetroPanel5
         '
@@ -375,14 +377,15 @@ Partial Class Manager
         Me.RAMCircularBar.Size = New System.Drawing.Size(150, 150)
         Me.RAMCircularBar.StartAngle = 270
         Me.RAMCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.RAMCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-50, 10, 0, 0)
+        Me.RAMCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-20, 10, 0, 0)
         Me.RAMCircularBar.SubscriptText = "實體記憶體"
         Me.RAMCircularBar.SuperscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
         Me.RAMCircularBar.SuperscriptMargin = New System.Windows.Forms.Padding(0, 35, 0, 0)
         Me.RAMCircularBar.SuperscriptText = "%"
         Me.RAMCircularBar.TabIndex = 11
-        Me.RAMCircularBar.Text = "偵測中"
+        Me.RAMCircularBar.Text = "25"
         Me.RAMCircularBar.TextMargin = New System.Windows.Forms.Padding(15, 0, 0, 0)
+        Me.RAMCircularBar.Value = 25
         '
         'MetroPanel4
         '
@@ -421,14 +424,15 @@ Partial Class Manager
         Me.VRAMCircularBar.Size = New System.Drawing.Size(150, 150)
         Me.VRAMCircularBar.StartAngle = 270
         Me.VRAMCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.VRAMCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-50, 10, 0, 0)
+        Me.VRAMCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-20, 10, 0, 0)
         Me.VRAMCircularBar.SubscriptText = "虛擬記憶體"
         Me.VRAMCircularBar.SuperscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
         Me.VRAMCircularBar.SuperscriptMargin = New System.Windows.Forms.Padding(0, 35, 0, 0)
         Me.VRAMCircularBar.SuperscriptText = "%"
         Me.VRAMCircularBar.TabIndex = 8
-        Me.VRAMCircularBar.Text = "偵測中"
+        Me.VRAMCircularBar.Text = "25"
         Me.VRAMCircularBar.TextMargin = New System.Windows.Forms.Padding(15, 0, 0, 0)
+        Me.VRAMCircularBar.Value = 25
         '
         'MetroPanel3
         '
@@ -467,14 +471,15 @@ Partial Class Manager
         Me.NetworkCircularBar.Size = New System.Drawing.Size(150, 150)
         Me.NetworkCircularBar.StartAngle = 270
         Me.NetworkCircularBar.SubscriptColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.NetworkCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-55, 10, 0, 0)
+        Me.NetworkCircularBar.SubscriptMargin = New System.Windows.Forms.Padding(-22, 10, 0, 0)
         Me.NetworkCircularBar.SubscriptText = "網路"
         Me.NetworkCircularBar.SuperscriptColor = System.Drawing.Color.FromArgb(CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer), CType(CType(166, Byte), Integer))
         Me.NetworkCircularBar.SuperscriptMargin = New System.Windows.Forms.Padding(0, 35, 0, 0)
         Me.NetworkCircularBar.SuperscriptText = "%"
         Me.NetworkCircularBar.TabIndex = 6
-        Me.NetworkCircularBar.Text = "偵測中"
+        Me.NetworkCircularBar.Text = "25"
         Me.NetworkCircularBar.TextMargin = New System.Windows.Forms.Padding(5, 0, 0, 0)
+        Me.NetworkCircularBar.Value = 25
         '
         'OverviewPanel
         '
@@ -586,9 +591,9 @@ Partial Class Manager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ControlPanel)
-        Me.Controls.Add(Me.OverviewPanel)
         Me.Controls.Add(Me.ServerPanel)
         Me.Controls.Add(Me.ModpackServerPanel)
+        Me.Controls.Add(Me.OverviewPanel)
         Me.DisplayHeader = False
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Manager"

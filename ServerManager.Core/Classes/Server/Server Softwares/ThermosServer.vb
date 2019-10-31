@@ -34,6 +34,7 @@
         AddHandler task.DownloadCompleted, Sub()
                                                UnZipPackage(IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "thermos-" & ServerVersion & ".zip"))
                                                ServerVersion = targetVersion
+                                               GenerateServerEULA()
                                                Call OnServerDownloadEnd(False)
                                            End Sub
         AddHandler task.DownloadStarted, Sub()

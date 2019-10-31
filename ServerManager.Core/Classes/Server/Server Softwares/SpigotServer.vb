@@ -56,7 +56,7 @@ Public Class SpigotServer
         Dim seperator As String = IIf(IsUnixLikeSystem, "/", "\")
         Dim targetURL As String = SpigotVersionDict(targetVersion)
         Dim url = (New HtmlAgilityPack.HtmlWeb).Load(targetURL).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[4]/div[1]/div[1]/div[1]/div[1]/h2[1]/a[1]").GetAttributeValue("href", "")
-        Dim DownloadPath As String = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "spigot-" & ServerVersion & ".jar")
+        Dim DownloadPath As String = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "spigot-" & targetVersion & ".jar")
         Dim task As New ServerDownloadTask
         AddHandler task.DownloadProgressChanged, Sub(percent As Integer)
                                                      Call OnServerDownloading(percent)
@@ -66,6 +66,7 @@ Public Class SpigotServer
                                           End Sub
         AddHandler task.DownloadCompleted, Sub()
                                                ServerVersion = targetVersion
+                                               GenerateServerEULA()
                                                Call OnServerDownloadEnd(False)
                                            End Sub
         AddHandler task.DownloadStarted, Sub()

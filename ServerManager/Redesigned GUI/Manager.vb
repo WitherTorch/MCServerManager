@@ -35,106 +35,75 @@ Public Class Manager
     End Sub
     Private Sub Timer_Tick(sender As Object, e As EventArgs) Handles Timer.Tick
         If OverviewPanel.Visible Then
-            SyncLock Me
-                Static CPUThread As Threading.Thread
-                Static RAMThread As Threading.Thread
-                Static NetworkThread As Threading.Thread
-                If CPUThread Is Nothing OrElse CPUThread.IsAlive = False Then
-                    CPUThread = New Threading.Thread(Sub()
-                                                         Try
-                                                             Dim CPUvalue As Integer = CPUPerformanceCounter.NextValue
-                                                             InvokeIfRequired(CPUCircularBar, Sub()
-                                                                                                  CPUCircularBar.Value = CPUvalue
-                                                                                                  CPUCircularBar.Text = CPUvalue
-                                                                                                  Select Case CPUvalue
-                                                                                                      Case 100
-                                                                                                          CPUCircularBar.SubscriptMargin = New Padding(-32, 10, 0, 0)
-                                                                                                      Case 10 To 99
-                                                                                                          CPUCircularBar.SubscriptMargin = New Padding(-22, 10, 0, 0)
-                                                                                                      Case 0 To 9
-                                                                                                          CPUCircularBar.SubscriptMargin = New Padding(-12, 10, 0, 0)
-                                                                                                  End Select
-                                                                                              End Sub)
-                                                         Catch ex As Exception
+            Try
+                Dim CPUvalue As Integer = CPUPerformanceCounter.NextValue
+                CPUCircularBar.Value = CPUvalue
+                CPUCircularBar.Text = CPUvalue
+                Select Case CPUvalue
+                    Case 100
+                        CPUCircularBar.SubscriptMargin = New Padding(-32, 10, 0, 0)
+                    Case 10 To 99
+                        CPUCircularBar.SubscriptMargin = New Padding(-22, 10, 0, 0)
+                    Case 0 To 9
+                        CPUCircularBar.SubscriptMargin = New Padding(-12, 10, 0, 0)
+                End Select
+            Catch ex As Exception
 
-                                                         End Try
-                                                     End Sub)
-                    CPUThread.IsBackground = True
-                    CPUThread.Start()
-                End If
-                If RAMThread Is Nothing OrElse RAMThread.IsAlive = False Then
-                    RAMThread = New Threading.Thread(Sub()
-                                                         For Each item In searcher.Get()
-                                                             Try
-                                                                 Dim RAMvalue As Integer = 100 - item("FreePhysicalMemory") / item("TotalVisibleMemorySize") * 100
-                                                                 InvokeIfRequired(RAMCircularBar, Sub()
-                                                                                                      RAMCircularBar.Value = RAMvalue
-                                                                                                      RAMCircularBar.Text = RAMvalue
-                                                                                                      Select Case RAMvalue
-                                                                                                          Case 100
-                                                                                                              RAMCircularBar.SubscriptMargin = New Padding(-30, 10, 0, 0)
-                                                                                                          Case 10 To 99
-                                                                                                              RAMCircularBar.SubscriptMargin = New Padding(-20, 10, 0, 0)
-                                                                                                          Case 0 To 9
-                                                                                                              RAMCircularBar.SubscriptMargin = New Padding(-10, 10, 0, 0)
-                                                                                                      End Select
-                                                                                                  End Sub)
-                                                             Catch ex As Exception
-                                                                 Continue For
-                                                             End Try
-                                                             Try
-                                                                 Dim VirtualRAMvalue As Integer = 100 - item("FreeVirtualMemory") / item("TotalVirtualMemorySize") * 100
-                                                                 InvokeIfRequired(VRAMCircularBar, Sub()
-                                                                                                       VRAMCircularBar.Value = VirtualRAMvalue
-                                                                                                       VRAMCircularBar.Text = VirtualRAMvalue
-                                                                                                       Select Case VirtualRAMvalue
-                                                                                                           Case 100
-                                                                                                               VRAMCircularBar.SubscriptMargin = New Padding(-30, 10, 0, 0)
-                                                                                                           Case 10 To 99
-                                                                                                               VRAMCircularBar.SubscriptMargin = New Padding(-20, 10, 0, 0)
-                                                                                                           Case 0 To 9
-                                                                                                               VRAMCircularBar.SubscriptMargin = New Padding(-10, 10, 0, 0)
-                                                                                                       End Select
-                                                                                                   End Sub)
-                                                             Catch ex As Exception
-                                                                 Continue For
-                                                             End Try
-                                                             Exit For
-                                                         Next
-                                                     End Sub)
-                    RAMThread.IsBackground = True
-                    RAMThread.Start()
-                End If
-                If NetworkThread Is Nothing OrElse NetworkThread.IsAlive = False Then
-                    NetworkThread = New Threading.Thread(Sub()
-                                                             Try
-                                                                 Dim category As New PerformanceCounterCategory("Network Interface")
-                                                                 Dim names As String() = category.GetInstanceNames()
-                                                                 Dim totalValue As Double = 0
-                                                                 For Each name As String In names
-                                                                     totalValue += getNetworkUtilization(name)
-                                                                 Next
-                                                                 Dim networkValue As Integer = totalValue / names.Count
-                                                                 InvokeIfRequired(NetworkCircularBar, Sub()
-                                                                                                          NetworkCircularBar.Value = networkValue
-                                                                                                          NetworkCircularBar.Text = networkValue
-                                                                                                          Select Case networkValue
-                                                                                                              Case 100
-                                                                                                                  NetworkCircularBar.SubscriptMargin = New Padding(-32, 10, 0, 0)
-                                                                                                              Case 10 To 99
-                                                                                                                  NetworkCircularBar.SubscriptMargin = New Padding(-22, 10, 0, 0)
-                                                                                                              Case 0 To 9
-                                                                                                                  NetworkCircularBar.SubscriptMargin = New Padding(-12, 10, 0, 0)
-                                                                                                          End Select
-                                                                                                      End Sub)
-                                                             Catch ex As Exception
+            End Try
+            For Each item In searcher.Get()
+                Try
+                    Dim RAMvalue As Integer = 100 - item("FreePhysicalMemory") / item("TotalVisibleMemorySize") * 100
+                    RAMCircularBar.Value = RAMvalue
+                    RAMCircularBar.Text = RAMvalue
+                    Select Case RAMvalue
+                        Case 100
+                            RAMCircularBar.SubscriptMargin = New Padding(-30, 10, 0, 0)
+                        Case 10 To 99
+                            RAMCircularBar.SubscriptMargin = New Padding(-20, 10, 0, 0)
+                        Case 0 To 9
+                            RAMCircularBar.SubscriptMargin = New Padding(-10, 10, 0, 0)
+                    End Select
+                Catch ex As Exception
+                    Continue For
+                End Try
+                Try
+                    Dim VirtualRAMvalue As Integer = 100 - item("FreeVirtualMemory") / item("TotalVirtualMemorySize") * 100
+                    VRAMCircularBar.Value = VirtualRAMvalue
+                    VRAMCircularBar.Text = VirtualRAMvalue
+                    Select Case VirtualRAMvalue
+                        Case 100
+                            VRAMCircularBar.SubscriptMargin = New Padding(-30, 10, 0, 0)
+                        Case 10 To 99
+                            VRAMCircularBar.SubscriptMargin = New Padding(-20, 10, 0, 0)
+                        Case 0 To 9
+                            VRAMCircularBar.SubscriptMargin = New Padding(-10, 10, 0, 0)
+                    End Select
+                Catch ex As Exception
+                    Continue For
+                End Try
+                Exit For
+            Next
+            Try
+                Dim category As New PerformanceCounterCategory("Network Interface")
+                Dim names As String() = category.GetInstanceNames()
+                Dim totalValue As Double = 0
+                For Each name As String In names
+                    totalValue += getNetworkUtilization(name)
+                Next
+                Dim networkValue As Integer = totalValue / names.Count
+                NetworkCircularBar.Value = networkValue
+                NetworkCircularBar.Text = networkValue
+                Select Case networkValue
+                    Case 100
+                        NetworkCircularBar.SubscriptMargin = New Padding(-32, 10, 0, 0)
+                    Case 10 To 99
+                        NetworkCircularBar.SubscriptMargin = New Padding(-22, 10, 0, 0)
+                    Case 0 To 9
+                        NetworkCircularBar.SubscriptMargin = New Padding(-12, 10, 0, 0)
+                End Select
+            Catch ex As Exception
 
-                                                             End Try
-                                                         End Sub)
-                End If
-                NetworkThread.IsBackground = True
-                If NetworkThread.IsAlive = False Then NetworkThread.Start()
-            End SyncLock
+            End Try
         End If
     End Sub
     Public Function getNetworkUtilization(networkCard As String) As Double
@@ -342,8 +311,6 @@ Public Class Manager
     End Sub
 
     Private Sub Manager_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        Timer.Enabled = True
-        Timer.Start()
         GetInternalIPAddresses()
         Dim arr = ServerList.ToArray
         For Each item In arr
@@ -377,7 +344,7 @@ Public Class Manager
     End Sub
 
     Private Sub Manager_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
-        d.ImmediateContext.ClearRenderTargetView(targetView, SharpDXConverter.ConvertColor(Color.White))
+        d.ImmediateContext.ClearRenderTargetView(targetView, New SharpDX.Mathematics.Interop.RawColor4(255, 255, 255, 0))
         sc.Present(0, PresentFlags.None)
     End Sub
 
