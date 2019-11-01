@@ -62,6 +62,7 @@ Public Class DXListView
     End Sub
     Dim linBrush As LinearGradientBrush
     Private Sub ContextControl_Paint(ByVal sender As Object, ByVal e As PaintEventArgs) Handles ContextControl.Paint
+        If ContextControl.Visible = False Then Exit Sub
         deviceContext.BeginDraw()
         deviceContext.Clear(SharpDXConverter.ConvertColor(BackColor))
         Dim CurrentDrawYCoord As Single = 0

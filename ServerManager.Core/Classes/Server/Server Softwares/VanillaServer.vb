@@ -13,6 +13,7 @@ Public Class VanillaServer
     Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
     Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
     Friend Property Server2ndVersion As String
+    Dim runningProcess As Process
     Protected Shared VanillaVersionDict As New Dictionary(Of String, String)
     Private Shared SnapshotList As New List(Of String)
     Public Sub New()
@@ -120,13 +121,11 @@ Public Class VanillaServer
             processInfo.RedirectStandardError = True
             processInfo.RedirectStandardInput = True
             processInfo.WorkingDirectory = ServerPath
-            Dim returnProcess As Process = Process.Start(processInfo) '回傳一個處理序
-            ProcessID = returnProcess.Id
+            runningProcess = Process.Start(processInfo) '回傳一個處理序
+            ProcessID = runningProcess.Id
             IsRunning = True
-            Return returnProcess
-        Else
-            Return Process.GetProcessById(ProcessID)
         End If
+        Return runningProcess
     End Function
     Public Overrides Sub SaveServer()
         My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
@@ -156,6 +155,7 @@ Public Class VanillaServer
                 End If
             End If
             ProcessID = 0
+            runningProcess = Nothing
             IsRunning = False
         End If
     End Sub

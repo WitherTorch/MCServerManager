@@ -14,20 +14,29 @@ Public Class ProcessMessageHub
                                 End If
                             End Sub, Nothing, 50, 50)
     Dim parser As New MinecraftLogParser
+    Dim loadedMessageCount As ULong = 0
+    Dim processingMessageCount As UInteger = 0
     ''' <summary>
     ''' 加入一封訊息至非同步訊息處理序列
     ''' </summary>
     ''' <param name="processLog"></param>
     Sub AddMessage(processLog As String)
+        Dim id = loadedMessageCount
         If processLog = Nothing Then Exit Sub
         originalMessages &= processLog & vbNewLine
         Dim thread As New Thread(Sub()
+                                     processingMessageCount += 1
+                                     Do While loadedMessageCount - id > Math.Max(Math.Min(processingMessageCount, 18) / 3, 3)
+                                         Thread.Sleep(50)
+                                     Loop
                                      Dim _msg = parser.ToConsoleMessage(processLog, Now)
                                      Dim msg As New MinecraftProcessMessage() With {.AddtionalMessage = _msg.AddtionalMessage, .BungeeCordMessageType = _msg.BungeeCordMessageType, .Message = _msg.Message, .MessageType = _msg.ServerMessageType, .MessageTypeForEvents = _msg.MessageType, .Thread = _msg.Thread, .Time = _msg.Time}
                                      Do While True
                                          Try
                                              If threadHub.First() Is thread Then
                                                  Exit Do
+                                             Else
+                                                 Thread.Sleep(0)
                                              End If
                                          Catch ex As InvalidOperationException
                                              Thread.Sleep(0)
@@ -35,22 +44,31 @@ Public Class ProcessMessageHub
                                      Loop
                                      formatedMessages.Add(msg)
                                      bufferedMessages.Add(msg)
+                                     processingMessageCount -= 1
                                      threadHub.Dequeue()
                                  End Sub)
+        loadedMessageCount += 1
         threadHub.Enqueue(thread)
         thread.IsBackground = True
         thread.Start()
     End Sub
     Sub AddErrorMessage(processLog As String)
+        Dim id = loadedMessageCount
         If processLog = Nothing Then Exit Sub
         originalMessages &= processLog & vbNewLine
         Dim thread As New Thread(Sub()
+                                     processingMessageCount += 1
+                                     Do While loadedMessageCount - id > Math.Max(Math.Min(processingMessageCount, 18) / 3, 3)
+                                         Thread.Sleep(50)
+                                     Loop
                                      Dim _msg = parser.ToConsoleMessage(processLog, Now)
                                      Dim msg As New MinecraftProcessMessage() With {.AddtionalMessage = _msg.AddtionalMessage, .BungeeCordMessageType = _msg.BungeeCordMessageType, .Message = _msg.Message, .MessageType = MinecraftProcessMessage.ProcessMessageType.Error, .MessageTypeForEvents = _msg.MessageType, .Thread = _msg.Thread, .Time = _msg.Time}
                                      Do While True
                                          Try
                                              If threadHub.First() Is thread Then
                                                  Exit Do
+                                             Else
+                                                 Thread.Sleep(50)
                                              End If
                                          Catch ex As InvalidOperationException
                                              Thread.Sleep(0)
@@ -58,8 +76,10 @@ Public Class ProcessMessageHub
                                      Loop
                                      formatedMessages.Add(msg)
                                      bufferedMessages.Add(msg)
+                                     processingMessageCount -= 1
                                      threadHub.Dequeue()
                                  End Sub)
+        loadedMessageCount += 1
         threadHub.Enqueue(thread)
         thread.IsBackground = True
         thread.Start()
@@ -84,10 +104,12 @@ Public Class ProcessMessageHub
             originalMessages = Nothing
             formatedMessages.Clear()
             bufferedMessages.Clear()
+            parser = Nothing
             ' TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的 Finalize()。
             ' TODO: 將大型欄位設為 null。
         End If
         disposedValue = True
+        GC.Collect()
     End Sub
 
     ' TODO: 只有當上方的 Dispose(disposing As Boolean) 具有要釋放 Unmanaged 資源的程式碼時，才覆寫 Finalize()。
