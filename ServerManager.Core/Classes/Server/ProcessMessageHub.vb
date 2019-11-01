@@ -104,7 +104,6 @@ Public Class ProcessMessageHub
             originalMessages = Nothing
             formatedMessages.Clear()
             bufferedMessages.Clear()
-            parser = Nothing
             ' TODO: 釋放 Unmanaged 資源 (Unmanaged 物件) 並覆寫下方的 Finalize()。
             ' TODO: 將大型欄位設為 null。
         End If

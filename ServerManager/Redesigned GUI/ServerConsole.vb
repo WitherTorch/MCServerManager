@@ -36,7 +36,22 @@ Public Class ServerConsole
                 AddHandler hub.MessageProcessed, Sub(msg)
                                                      For Each item In msg
                                                          If item Is Nothing Then Continue For
-                                                         DxListView1.Items.Add(New DXListView.DXListViewItem(New DXListView.DXListViewSubItem(item.ServerMessageTypeString), New DXListView.DXListViewSubItem(item.Time.Hour.ToString.PadLeft(2, "0") & ":" & item.Time.Minute.ToString.PadLeft(2, "0") & ":" & item.Time.Second.ToString.PadLeft(2, "0")), New DXListView.DXListViewSubItem(item.Message)))
+                                                         Dim fColor As Color
+                                                         Select Case item.MessageType
+                                                             Case MinecraftProcessMessage.ProcessMessageType.Info
+                                                                 fColor = Color.Black
+                                                             Case MinecraftProcessMessage.ProcessMessageType.Warning
+                                                                 fColor = Color.Orange
+                                                             Case MinecraftProcessMessage.ProcessMessageType.Error
+                                                                 fColor = Color.Red
+                                                             Case MinecraftProcessMessage.ProcessMessageType.Debug
+                                                                 fColor = Color.YellowGreen
+                                                             Case MinecraftProcessMessage.ProcessMessageType.Trace
+                                                                 fColor = Color.Green
+                                                             Case MinecraftProcessMessage.ProcessMessageType.Notify
+                                                                 fColor = Color.Blue
+                                                         End Select
+                                                         DxListView1.Items.Add(New DXListView.DXListViewItem(New DXListView.DXListViewSubItem(item.ServerMessageTypeString) With {.ForeColor = fColor}, New DXListView.DXListViewSubItem(item.Time.Hour.ToString.PadLeft(2, "0") & ":" & item.Time.Minute.ToString.PadLeft(2, "0") & ":" & item.Time.Second.ToString.PadLeft(2, "0")) With {.ForeColor = fColor}, New DXListView.DXListViewSubItem(item.Message) With {.ForeColor = fColor}))
                                                      Next
                                                  End Sub
                 Timer1.Start()
