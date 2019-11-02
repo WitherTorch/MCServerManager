@@ -86,7 +86,7 @@ Public Class NukkitOptions
     Public Property Timings_Bypass_Max As Boolean = False
     <DisplayName("計時時紀錄伺服器名稱")> <DefaultValue(False)> <Category("計時")> <Description("是否不會在計時報告中記錄伺服器名稱")>
     Public Property Timings_Privacy As Boolean = False
-    <DisplayName("計時報告忽略項目")> <DefaultValue(New String() {})> <Category("計時")> <Description("設置要忽略的部分。這些部分將不會傳送到Aikar的時間解析器")> <Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
+    <DisplayName("計時報告忽略項目")> <DefaultValue(New String() {})> <Category("計時")> <Description("設置要忽略的部分。這些部分將不會傳送到Aikar的時間解析器")> '<Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
     Public Property Timings_Ignore As String() = {}
     <DisplayName("每刻區塊傳送數量")> <DefaultValue(4)> <Category("區塊")> <Description("每遊戲刻發送給玩家區塊的數量")>
     Public Property Chunk_Sending_Per_Tick As Integer = 4
@@ -167,7 +167,7 @@ Public Class NukkitOptions
                     Case "auto"
                         .Async_Workers = 0
                     Case Else
-                        If IsNumeric(workerCount) Then
+                        If Integer.TryParse(workerCount, Nothing) Then
                             .Async_Workers = workerCount
                         Else
                             .Async_Workers = 0

@@ -24,7 +24,7 @@
     Shared Function GetServer(path As String) As ServerBase
         Dim instance As ServerBase = Nothing
         Dim softwareName As String = ServerBase.GetServerTypeString(path)
-        If IsNothing(softwareName) = False Then
+        If softwareName IsNot Nothing Then
             For Each software In SoftwareDictionary
                 If software.Key.ToLower = softwareName.ToLower Then
                     instance = Activator.CreateInstance(software.Value.ClassType)

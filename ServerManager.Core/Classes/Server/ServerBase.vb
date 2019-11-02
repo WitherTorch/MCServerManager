@@ -1,4 +1,5 @@
-﻿Imports Newtonsoft.Json
+﻿Imports System.Drawing
+Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public MustInherit Class ServerBase
@@ -150,7 +151,6 @@ Public MustInherit Class ServerBase
     ''' 生成伺服器資訊文件(server.info)
     ''' </summary>
     Public Sub GenerateServerInfo()
-        My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.info"), "", False)
         Using writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.info"), IO.FileMode.Truncate, IO.FileAccess.Write), System.Text.Encoding.UTF8)
             writer.AutoFlush = True
             writer.WriteLine("server-version=" & ServerVersion)
@@ -166,7 +166,7 @@ Public MustInherit Class ServerBase
 
             End Try
             Dim jsonArray As New JArray
-            If IsNothing(ServerTasks) = False Then
+            If ServerTasks IsNot Nothing Then
                 For Each task As ServerTask In ServerTasks
                     Dim jsonObject As New JObject
                     jsonObject.Add("mode", task.Mode)
@@ -232,7 +232,7 @@ Public MustInherit Class ServerBase
         If ServerPath <> "" Then
             Try
                 Dim taskList As New List(Of ServerTask)
-                If My.Computer.FileSystem.FileExists(IO.Path.Combine(ServerPath, "server.info")) Then
+                If IO.File.Exists(IO.Path.Combine(ServerPath, "server.info")) Then
                     Using reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(ServerPath, "server.info"), IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
                         Do Until reader.EndOfStream
                             Dim infoText As String = reader.ReadLine
@@ -272,7 +272,7 @@ Public MustInherit Class ServerBase
             Catch ex As IO.FileNotFoundException
                 Throw ex
             End Try
-            If My.Computer.FileSystem.FileExists(IO.Path.Combine(ServerPath, "server-icon.png")) Then
+            If IO.File.Exists(IO.Path.Combine(ServerPath, "server-icon.png")) Then
                 ServerIcon = Image.FromFile(IO.Path.Combine(ServerPath, "server-icon.png"))
             Else
                 ServerIcon = Nothing
@@ -286,7 +286,7 @@ Public MustInherit Class ServerBase
         If path <> "" Then
             Try
                 Dim taskList As New List(Of ServerTask)
-                If My.Computer.FileSystem.FileExists(IO.Path.Combine(path, "server.info")) Then
+                If IO.File.Exists(IO.Path.Combine(path, "server.info")) Then
                     Using reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(path, "server.info"), IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
                         Do Until reader.EndOfStream
                             Dim infoText As String = reader.ReadLine
@@ -304,10 +304,9 @@ Public MustInherit Class ServerBase
         End If
     End Function
     Protected Sub GenerateServerEULA()
-        My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "eula.txt"), "", False)
-        Using writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "eula.txt"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), System.Text.Encoding.UTF8)
+        Using writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "eula.txt"), IO.FileMode.Truncate, IO.FileAccess.Write), System.Text.Encoding.UTF8)
             writer.WriteLine("#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).")
-            writer.WriteLine("#" & Now.ToString("ddd MMM dd HH:mm:ss K yyyy"), System.Globalization.CultureInfo.CurrentUICulture)
+            writer.WriteLine("#" & Date.Now.ToString("ddd MMM dd HH:mm:ss K yyyy"), System.Globalization.CultureInfo.CurrentUICulture)
             writer.WriteLine("eula=true")
             writer.Flush()
             writer.Close()

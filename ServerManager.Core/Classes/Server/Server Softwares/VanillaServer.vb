@@ -29,7 +29,7 @@ Public Class VanillaServer
     End Sub
     Public Overrides Function BeforeRunServer() As Boolean
         If JavaPath = "" Then
-            MsgBox("未安裝Java 或 正在偵測",, APP_NAME)
+            GUIHost.GUIHandler.MsgBox("未安裝Java 或 正在偵測", APP_NAME)
             Return False
         End If
         Return True
@@ -67,7 +67,7 @@ Public Class VanillaServer
             Me.ServerOptions = serverOptions.OutputOption
         Else
             Try
-                If My.Computer.FileSystem.FileExists(IO.Path.Combine(ServerPath, "server.properties")) Then
+                If IO.File.Exists(IO.Path.Combine(ServerPath, "server.properties")) Then
                     Using reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
                         Dim optionDict As New Dictionary(Of Integer, Boolean)
                         Do Until reader.EndOfStream
@@ -128,10 +128,9 @@ Public Class VanillaServer
         Return runningProcess
     End Function
     Public Overrides Sub SaveServer()
-        My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
-        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
+        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.Truncate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
         writer.WriteLine("# Minecraft server properties")
-        writer.WriteLine("#" & Now.ToString("ddd MMM dd HH:mm:ss K yyyy", System.Globalization.CultureInfo.CurrentUICulture))
+        writer.WriteLine("#" & Date.Now.ToString("ddd MMM dd HH:mm:ss K yyyy", System.Globalization.CultureInfo.CurrentUICulture))
         For Each [option] In ServerOptions.OutputOption
             writer.WriteLine(String.Format("{0}={1}", [option].Key, [option].Value))
         Next
@@ -250,9 +249,9 @@ Public Class VanillaServer
             Case "vanilla-build-version"
                 _Server2ndVersion = value
             Case "server-memory-max"
-                ServerMemoryMax = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMax = IIf(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMin = IIf(Integer.TryParse(value, Nothing), value, 0)
         End Select
     End Sub
 

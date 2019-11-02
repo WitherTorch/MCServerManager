@@ -26,10 +26,10 @@ Public Class ProcessMessageHub
         originalMessages &= processLog & vbNewLine
         Dim thread As New Thread(Sub()
                                      processingMessageCount += 1
-                                     Do While loadedMessageCount - id > Math.Max(Math.Min(processingMessageCount, 18) / 3, 3)
+                                     Do While loadedMessageCount - id > Math.Max(Math.Min(processingMessageCount, 16) / 3, 3)
                                          Thread.Sleep(50)
                                      Loop
-                                     Dim _msg = parser.ToConsoleMessage(processLog, Now)
+                                     Dim _msg = parser.ToConsoleMessage(processLog, Date.Now)
                                      Dim msg As New MinecraftProcessMessage() With {.AddtionalMessage = _msg.AddtionalMessage, .BungeeCordMessageType = _msg.BungeeCordMessageType, .Message = _msg.Message, .MessageType = _msg.ServerMessageType, .MessageTypeForEvents = _msg.MessageType, .Thread = _msg.Thread, .Time = _msg.Time}
                                      Do While True
                                          Try
@@ -61,7 +61,7 @@ Public Class ProcessMessageHub
                                      Do While loadedMessageCount - id > Math.Max(Math.Min(processingMessageCount, 18) / 3, 3)
                                          Thread.Sleep(50)
                                      Loop
-                                     Dim _msg = parser.ToConsoleMessage(processLog, Now)
+                                     Dim _msg = parser.ToConsoleMessage(processLog, Date.Now)
                                      Dim msg As New MinecraftProcessMessage() With {.AddtionalMessage = _msg.AddtionalMessage, .BungeeCordMessageType = _msg.BungeeCordMessageType, .Message = _msg.Message, .MessageType = MinecraftProcessMessage.ProcessMessageType.Error, .MessageTypeForEvents = _msg.MessageType, .Thread = _msg.Thread, .Time = _msg.Time}
                                      Do While True
                                          Try

@@ -13,7 +13,7 @@
     <AssemblyName>ServerManager</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -245,6 +245,7 @@
     <Compile Include="Classes\ModPack Server\ModPackServer.vb" />
     <Compile Include="Classes\Watchdog.vb" />
     <Compile Include="CryptoProvider.vb" />
+    <Compile Include="EditorBridge.vb" />
     <Compile Include="Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>
@@ -255,6 +256,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Redesigned GUI\CMDWindow.Designer.vb">
+      <DependentUpon>CMDWindow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Redesigned GUI\CMDWindow.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Redesigned GUI\Controls\ServerStatus.Designer.vb">
       <DependentUpon>ServerStatus.vb</DependentUpon>
@@ -280,6 +287,7 @@
     <Compile Include="Redesigned GUI\Manager.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Redesigned GUI\MyOpenFileDIalog.vb" />
     <Compile Include="Redesigned GUI\ServerConsole.Designer.vb">
       <DependentUpon>ServerConsole.vb</DependentUpon>
     </Compile>
@@ -324,6 +332,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Redesigned GUI\CMDWindow.resx">
+      <DependentUpon>CMDWindow.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Redesigned GUI\Controls\ServerStatus.resx">
       <DependentUpon>ServerStatus.vb</DependentUpon>
@@ -414,10 +425,9 @@
     <None Include="Resources\bukkit.ico" />
     <None Include="Resources\bukkit.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ServerManager.Core\ServerManager.Core.vbproj">
-      <Project>{1d6e5da3-066b-4adf-aaff-c97dc09b32c1}</Project>
+      <Project>{267f3fd0-175c-4cad-b014-06e84ad905d1}</Project>
       <Name>ServerManager.Core</Name>
     </ProjectReference>
   </ItemGroup>

@@ -74,7 +74,7 @@ Public Class CustomServer
         Select Case New IO.FileInfo(ServerRunFile).Extension
             Case ".jar"
                 If JavaPath = "" Then
-                    MsgBox("未安裝Java 或 正在偵測",, APP_NAME)
+                    GUIHost.GUIHandler.MsgBox("未安裝Java 或 正在偵測", APP_NAME)
                     Return False
                 End If
         End Select
@@ -124,7 +124,7 @@ Public Class CustomServer
     End Function
 
     Public Overrides Function DownloadAndInstallServer(targetServerVersion As String) As ServerDownloadTask
-        Dim dialog As New OpenFileDialog
+        Dim dialog As IOpenFileDialog = GUIHost.GenerateObjectByInterface(Of IOpenFileDialog)
         Select Case targetServerVersion
             Case "目標:批次檔"
                 dialog.Filter = "批次檔 (*.bat,*.sh)|*.bat ,*.sh"

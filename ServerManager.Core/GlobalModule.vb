@@ -11,11 +11,6 @@ Module GlobalModule
     Public Const SERVER_MANAGER_ARCH As String = "Windows_Edge"
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
-#Region "Server/Solution List"
-    Friend ServerList As New List(Of String)
-    Friend SolutionDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"))
-    Friend ModpackServerDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"))
-#End Region
 #Region "General Settings"
     Friend ServerMemoryMin As Decimal = 1024
     Friend ServerMemoryMax As Decimal = 1024
@@ -157,28 +152,18 @@ Module GlobalModule
             End If
         End Function
     End Class
-    Friend Function GetATempDirectory() As String
-        Dim localTempDir As String = Environment.GetEnvironmentVariable("TEMP", EnvironmentVariableTarget.Process)
-        Dim successed As Boolean = False
-        Dim randomiser As New Random()
-        Dim result As String = ""
-        Do
-            Dim buffer(2) As Byte
-            randomiser.NextBytes(buffer)
-            Dim folderPath As String = IO.Path.Combine(localTempDir, ("mcsrvmgr" & Hex(buffer(0)) & Hex(buffer(1)) & ".tmp"))
-            If My.Computer.FileSystem.DirectoryExists(folderPath) Then
-                successed = True
-                My.Computer.FileSystem.CreateDirectory(folderPath)
-                result = folderPath
-            End If
-        Loop Until successed
-        Return result
-    End Function
     Function GetJavaPath() As String
         If IsUnixLikeSystem Then
             Return "java"
         Else
             Return IIf(String.IsNullOrWhiteSpace(JavaPath) OrElse JavaPath = "java" = False, IO.Path.Combine(JavaPath, "java.exe"), "java")
+        End If
+    End Function
+    Function IIf(expression As Boolean, truePart As Object, falsePart As Object) As Object
+        If expression Then
+            Return truePart
+        Else
+            Return falsePart
         End If
     End Function
     Function ToZeroAndOne(bools As Boolean()) As String
@@ -197,24 +182,6 @@ Module GlobalModule
             Return ""
         End If
     End Function
-    Friend Function ReadAllText(path As String) As String
-        If My.Computer.FileSystem.FileExists(path) Then
-            Return My.Computer.FileSystem.ReadAllText(path)
-        Else
-            Return ""
-        End If
-    End Function
-    Friend Sub WriteAllText(path As String, text As String)
-        If My.Computer.FileSystem.FileExists(path) Then
-            My.Computer.FileSystem.WriteAllText(path, text, False)
-        Else
-            Dim writer As New IO.StreamWriter(IO.File.Create(path))
-            writer.Write(text)
-            writer.Flush()
-            writer.Close()
-        End If
-    End Sub
-
     Friend Function GetNukkitDownloadURL(NukkitVersionUrl As String) As String
         Dim manifestListURL As String = String.Format("{0}/api/json", NukkitVersionUrl)
         Dim client As New Net.WebClient()
@@ -231,7 +198,7 @@ Module GlobalModule
             If regex.IsMatch(c) Then
                 result &= c
             Else
-                result &= (header & ToFourLength(Hex(AscW(c)).ToLower))
+                result &= (header & ToFourLength(Convert.ToString(AscW(c), 16).ToLower))
             End If
         Next
 
@@ -312,12 +279,4 @@ Module GlobalModule
             Return defaultString
         End Try
     End Function
-    Sub BeginInvokeIfRequired(control As Control, action As Action)
-        If control.InvokeRequired Then
-            control.BeginInvoke(action)
-        Else
-            action.Invoke()
-        End If
-    End Sub
-
 End Module

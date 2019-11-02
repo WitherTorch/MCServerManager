@@ -14,7 +14,7 @@ Public Class ForgeServer
         Dim modPath = IO.Path.Combine(ServerPath, "mods")
         Dim paths As New List(Of String)
         If IO.Directory.Exists(modPath) Then
-            If My.Computer.FileSystem.FileExists(IO.Path.Combine(modPath, "modList.json")) Then
+            If IO.File.Exists(IO.Path.Combine(modPath, "modList.json")) Then
                 Dim reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(modPath, "modList.json"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read, 4096, True))
                 Dim jsonArray As Newtonsoft.Json.Linq.JArray = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(reader.ReadToEnd())
                 If jsonArray IsNot Nothing Then
@@ -69,7 +69,7 @@ Public Class ForgeServer
         If IO.Directory.Exists(modPath) = False Then
             IO.Directory.CreateDirectory(modPath)
         End If
-        If My.Computer.FileSystem.FileExists(IO.Path.Combine(modPath, "modList.json")) = False Then
+        If IO.File.Exists(IO.Path.Combine(modPath, "modList.json")) = False Then
             IO.File.Create(IO.Path.Combine(modPath, "modList.json"))
         End If
         Try
@@ -218,9 +218,9 @@ Public Class ForgeServer
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key
             Case "server-memory-max"
-                ServerMemoryMax = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMax = IIf(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMin = IIf(Integer.TryParse(value, Nothing), value, 0)
             Case "forge-build-version"
                 Server2ndVersion = value
         End Select

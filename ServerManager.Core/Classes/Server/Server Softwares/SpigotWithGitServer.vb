@@ -45,9 +45,9 @@ Public Class SpigotWithGitServer
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key
             Case "server-memory-max"
-                ServerMemoryMax = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMax = IIf(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMin = IIf(Integer.TryParse(value, Nothing), value, 0)
             Case "spigot-build-version"
                 Server2ndVersion = value
         End Select
@@ -71,13 +71,14 @@ Public Class SpigotWithGitServer
                                                ServerVersion = targetVersion
                                                Server2ndVersion = jsonObject.GetValue("name")
                                                Call OnServerDownloading(50)
-                                               'Dim watcher As New SpigotGitBuildWindow()
-                                               'If IsUnixLikeSystem Then
-                                               'Shell("git config --global --unset core.autocrlf", AppWinStyle.MinimizedNoFocus, True, 5000)
-                                               'watcher.Run(GetJavaPath(), "-jar BuildTools.jar --rev " & targetVersion & """", IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
-                                               ' Else
-                                               ' watcher.Run(GitBashPath, "--login -i -c """ & GetJavaPath() & " -jar BuildTools.jar --rev " & targetVersion & """", IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
-                                               ' End If
+                                               Dim watcher As ICMDWindow = GUIHost.GenerateObjectByInterface(Of ICMDWindow)
+                                               watcher.Text = "Spigot 建置程序"
+                                               If IsUnixLikeSystem Then
+                                                   GUIHost.GUIHandler.Shell("git config --global --unset core.autocrlf", IGUIHandler.AppWinStyle.MinimizedNoFocus, 5000)
+                                                   watcher.Run(GetJavaPath(), "-jar BuildTools.jar --rev " & targetVersion & """", IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
+                                               Else
+                                                   watcher.Run(GitBashPath, "--login -i -c """ & GetJavaPath() & " -jar BuildTools.jar --rev " & targetVersion & """", IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator))
+                                               End If
                                                GenerateServerEULA()
                                                Call OnServerDownloadEnd(False)
                                            End Sub

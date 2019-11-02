@@ -14,9 +14,7 @@ Imports System.Threading
 Public Class DXListView
     Private Shared ReadOnly Format As Format = Format.B8G8R8A8_UNorm
     Public Shared ReadOnly D2PixelFormat As PixelFormat = New PixelFormat(Format, SharpDX.Direct2D1.AlphaMode.Premultiplied)
-    'Private Shared BitmapProps1 As BitmapProperties1 = New BitmapProperties1(D2PixelFormat, 96, 96, BitmapOptions.Target)
     Dim deviceContext As DeviceContext
-    'Dim otherDeviceContext As DeviceContext
     Dim sc As SwapChain
     Dim backBuffer As Surface
     Dim targetBitmap As Bitmap1
@@ -43,7 +41,6 @@ Public Class DXListView
         Dim dxgiDevice As DXGIDevice = d3DDevice.QueryInterface(Of SharpDX.Direct3D11.Device1)().QueryInterface(Of DXGIDevice)()
         Dim d2DDevice As D2DDevice = New D2DDevice(dxgiDevice)
         Me.deviceContext = New DeviceContext(d2DDevice, DeviceContextOptions.None)
-        'Me.otherDeviceContext = New DeviceContext(d2DDevice, DeviceContextOptions.None)
         Dim swapChainDesc As SwapChainDescription = New SwapChainDescription() With {
                 .BufferCount = 1,
                 .Usage = Usage.RenderTargetOutput,
@@ -86,7 +83,7 @@ Public Class DXListView
             Else
                 fColor = header.ForeColor
             End If
-            DrawText(header.Text, font, New RectangleF(head_X, 1, header.Width, 20), fColor, DirectWrite.TextAlignment.Center)
+            DrawText(deviceContext, header.Text, font, New RectangleF(head_X, 1, header.Width, 20), fColor, DirectWrite.TextAlignment.Center)
             head_X += header.Width
             startX_List.Add(head_X)
             deviceContext.DrawLine(New RawVector2(head_X, 0), New RawVector2(head_X, 21), New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.Black)), 0.175)
@@ -128,7 +125,7 @@ Public Class DXListView
                         Else
                             fColor = subitem.ForeColor
                         End If
-                        DrawText(subitem.Text, font, New RectangleF(startX_List(i), CurrentDrawYCoord + 1, ColumnHeaders(i).Width - 2, 18), fColor, IIf(i < 2, DirectWrite.TextAlignment.Center, DirectWrite.TextAlignment.Leading))
+                        DrawText(deviceContext, subitem.Text, font, New RectangleF(startX_List(i), CurrentDrawYCoord + 1, ColumnHeaders(i).Width - 2, 18), fColor, IIf(i < 2, DirectWrite.TextAlignment.Center, DirectWrite.TextAlignment.Leading))
                     Next
                     CurrentDrawYCoord += 20
                     CurrentItemsYCoord += 20
@@ -191,21 +188,21 @@ Public Class DXListView
         sc.Present(0, PresentFlags.None)
         GC.Collect()
     End Sub
-    Overloads Sub DrawText(text As String, rect As RectangleF, color As Color, Optional alignment As DirectWrite.TextAlignment = DirectWrite.TextAlignment.Leading)
+    Overloads Sub DrawText(dc As DeviceContext, text As String, rect As RectangleF, color As Color, Optional alignment As DirectWrite.TextAlignment = DirectWrite.TextAlignment.Leading)
         Dim format = SharpDXConverter.ConvertFont(Font)
         format.TextAlignment = alignment
         format.WordWrapping = DirectWrite.WordWrapping.NoWrap
-        Dim brush As New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(color))
-        deviceContext.DrawText(text, format, SharpDXConverter.ConvertRectangleF(rect), brush)
+        Dim brush As New SolidColorBrush(dc, SharpDXConverter.ConvertColor(color))
+        dc.DrawText(text, format, SharpDXConverter.ConvertRectangleF(rect), brush)
         Utilities.Dispose(format)
         Utilities.Dispose(brush)
     End Sub
-    Overloads Sub DrawText(text As String, font As Font, rect As RectangleF, color As Color, Optional alignment As DirectWrite.TextAlignment = DirectWrite.TextAlignment.Leading)
+    Overloads Sub DrawText(dc As DeviceContext, text As String, font As Font, rect As RectangleF, color As Color, Optional alignment As DirectWrite.TextAlignment = DirectWrite.TextAlignment.Leading)
         Dim format = SharpDXConverter.ConvertFont(font)
         format.TextAlignment = alignment
         format.WordWrapping = DirectWrite.WordWrapping.NoWrap
-        Dim brush As New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(color))
-        deviceContext.DrawText(text, format, SharpDXConverter.ConvertRectangleF(rect), brush)
+        Dim brush As New SolidColorBrush(dc, SharpDXConverter.ConvertColor(color))
+        dc.DrawText(text, format, SharpDXConverter.ConvertRectangleF(rect), brush)
         Utilities.Dispose(format)
         Utilities.Dispose(brush)
     End Sub

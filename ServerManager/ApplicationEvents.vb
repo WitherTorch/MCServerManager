@@ -47,6 +47,10 @@ Namespace My
             Else
                 IsUnixLikeSystem = False
             End If
+            EditorBridge.Hook()
+            GUIHost.SetGUIHandler(New GUIHandler)
+            GUIHost.SetGUIClass(Of ICMDWindow)(GetType(CMDWindow))
+            GUIHost.SetGUIClass(Of IOpenFileDialog)(GetType(MyOpenFileDIalog))
             InternalSoftwareStartup.Startup()
             Dim servers = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt")))
             If servers IsNot Nothing Then
@@ -55,5 +59,19 @@ Namespace My
                 Next
             End If
         End Sub
+    End Class
+    Class GUIHandler
+        Implements IGUIHandler
+        Public Sub MsgBox(text As String) Implements IGUIHandler.MsgBox
+            Microsoft.VisualBasic.MsgBox(text)
+        End Sub
+
+        Public Sub MsgBox(text As String, caption As String) Implements IGUIHandler.MsgBox
+            Microsoft.VisualBasic.MsgBox(text,, caption)
+        End Sub
+
+        Public Function Shell(prompt As String, style As IGUIHandler.AppWinStyle, Optional timeout As Integer = 5000) As Integer Implements IGUIHandler.Shell
+            Return Microsoft.VisualBasic.Shell(prompt, style, True, timeout)
+        End Function
     End Class
 End Namespace

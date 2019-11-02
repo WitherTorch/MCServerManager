@@ -11,8 +11,8 @@
     End Sub
     Sub Run()
         Dim thread As New Threading.Thread(Sub()
-                                               Dim nowTime = Now
-                                               Do Until Now >= nowTime + New TimeSpan(0, 0, 0, _delay \ 1000, _delay Mod 1000)
+                                               Dim nowTime = Date.Now
+                                               Do Until Date.Now >= nowTime + New TimeSpan(0, 0, 0, _delay \ 1000, _delay Mod 1000)
                                                    If _process.HasExited = True Then Exit Sub
                                                Loop
                                                'Checking Process has exited

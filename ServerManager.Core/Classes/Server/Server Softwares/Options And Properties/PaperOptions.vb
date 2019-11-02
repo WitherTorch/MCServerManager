@@ -63,7 +63,7 @@ Public Class PaperOptions
     Public Property Timing_Verbose As Boolean = True
     <DisplayName("隱藏測時報告中的伺服器名稱")> <DefaultValue(False)> <Category("測時")> <Description("是否應該在測時報告中隱藏伺服器名稱。")>
     Public Property Timing_Server_Name_Policy As Boolean = False
-    <DisplayName("測時報告的隱藏項目")> <DefaultValue({"database", "settings.bungeecord-addresses"})> <Category("測時")> <Description("在測時報告中應該隱藏的項目。")> <Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
+    <DisplayName("測時報告的隱藏項目")> <DefaultValue({"database", "settings.bungeecord-addresses"})> <Category("測時")> <Description("在測時報告中應該隱藏的項目。")> '<Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
     Public Property Timing_Hidden_Config_Entries As String() = {"database", "settings.bungeecord-addresses"}
     <DisplayName("測時紀錄間隔")> <DefaultValue(300)> <Category("測時")> <Description("測時報告中各個點之間的間隔（以秒計算）")>
     Public Property Timing_History_Interval As Integer = 300
@@ -79,7 +79,7 @@ Public Class PaperOptions
     <DisplayName("玩家乘坐載具非法飛行時的訊息")> <DefaultValue("Flying is not enabled on this server")> <Category("訊息")> <Description("玩家因乘坐載具非法飛行而被踢出時所顯示的訊息。")>
     Public Property Messages_Kick_Flying_Vehicle As String = "Flying is not enabled on this server"
 #End Region
-    <DisplayName("世界設定")> <Editor(GetType(PaperWorldSettingsCollectionEditor), GetType(UITypeEditor))> <Category("世界設定")> <Description("各世界的單一設定，沒有的話將採用""default""設定。")>
+    <DisplayName("世界設定")> <Category("世界設定")> <Description("各世界的單一設定，沒有的話將採用""default""設定。")>'<Editor(GetType(PaperWorldSettingsCollectionEditor), GetType(UITypeEditor))> 
     Public Property World_settings As List(Of PaperWorldSettings) = New List(Of PaperWorldSettings)
     Friend Sub CreateOptionsWithDefaultSetting(path As String)
         Me.path = path
@@ -624,7 +624,7 @@ Public Class PaperOptions
             "clay",
             "emerald_ore",
             "ender_chest"
-        })> <Category("防作弊")> <Description("要隱藏的方塊（要輸入方塊ID）。")> <Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
+        })> <Category("防作弊")> <Description("要隱藏的方塊（要輸入方塊ID）。")>'<Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
         Public Property Anti_Xray_Hidden_Blocks As String() = {
             "gold_ore",
             "iron_ore",
@@ -643,7 +643,7 @@ Public Class PaperOptions
         <DisplayName("Anti-Xray 用於隱藏的方塊")> <DefaultValue({
          "stone",
          "planks"
-        })> <Category("防作弊")> <Description("在""Advanced""防護模式下要拿來偽裝的方塊（要輸入方塊ID）。")> <Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
+        })> <Category("防作弊")> <Description("在""Advanced""防護模式下要拿來偽裝的方塊（要輸入方塊ID）。")>' <Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
         Public Property Anti_Xray_Replacement_Blocks As String() = {
          "stone",
          "planks"
@@ -793,42 +793,7 @@ Public Class PaperOptions
     End Class
 
 #End Region
-    Public Class PaperWorldSettingsCollectionEditor
-        Inherits CollectionEditor
-        Dim itemCount As Integer = 1
-        Public Sub New()
-            MyBase.New(type:=GetType(List(Of PaperWorldSettings)))
-        End Sub
-        Protected Overrides Function CreateCollectionForm() As CollectionForm
-            Dim form = MyBase.CreateCollectionForm()
-            form.Text = "Paper 世界設定編輯器"
-            AddHandler form.Shown, Sub()
-                                       ShowDescription(form)
-                                   End Sub
-            Return form
-        End Function
-        Protected Overrides Function CreateInstance(ByVal itemType As Type) As Object
-            Dim settings = New PaperWorldSettings
-            settings.Name = "world-" & itemCount
-            itemCount += 1
-            Return settings
-        End Function
-        Shared Sub ShowDescription(control As Control)
-            Dim grid As PropertyGrid = TryCast(control, PropertyGrid)
-            If grid IsNot Nothing Then grid.HelpVisible = True
-            For Each child As Control In control.Controls
-                ShowDescription(child)
-            Next
-        End Sub
-        Protected Overrides Function CanRemoveInstance(value As Object) As Boolean
-            Dim settings As PaperWorldSettings = value
-            Return settings.Name.ToLower <> "default"
-        End Function
-        Protected Overrides Function GetDisplayText(value As Object) As String
-            Dim settings As PaperWorldSettings = value
-            Return settings.Name
-        End Function
-    End Class
+
     Shared Function DuplicateUUIDResolverModeToString(mode As PaperDuplicateUUIDResolverMode) As String
         Select Case mode
             Case PaperDuplicateUUIDResolverMode.Regenerate_Safely

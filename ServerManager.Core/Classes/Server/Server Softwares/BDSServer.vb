@@ -47,7 +47,7 @@ Public Class BDSServer
             Me.ServerOptions = serverOptions.OutputOption
         Else
             Try
-                If My.Computer.FileSystem.FileExists(IO.Path.Combine(ServerPath, "server.properties")) Then
+                If IO.File.Exists(IO.Path.Combine(ServerPath, "server.properties")) Then
                     Using reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
                         Dim optionDict As New Dictionary(Of Integer, Boolean)
                         Do Until reader.EndOfStream
@@ -81,7 +81,7 @@ Public Class BDSServer
     End Function
     Public Overrides Function BeforeRunServer() As Boolean
         If Environment.OSVersion.Version.Major < 10 Then
-            MsgBox("此伺服器類型只能在Windows 10系統上運行!",, APP_NAME)
+            GUIHost.GUIHandler.MsgBox("此伺服器類型只能在Windows 10系統上運行!", APP_NAME)
             Return False
         End If
         Return True
@@ -107,10 +107,9 @@ Public Class BDSServer
         End If
     End Function
     Public Overrides Sub SaveServer()
-        My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
-        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
+        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.Truncate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
         writer.WriteLine("# Minecraft server properties")
-        writer.WriteLine("#" & Now.ToString("ddd MMM dd HH:mm:ss K yyyy", System.Globalization.CultureInfo.CurrentUICulture))
+        writer.WriteLine("#" & Date.Now.ToString("ddd MMM dd HH:mm:ss K yyyy", System.Globalization.CultureInfo.CurrentUICulture))
         For Each [option] In ServerOptions.OutputOption
             writer.WriteLine(String.Format("{0}={1}", [option].Key, [option].Value))
         Next

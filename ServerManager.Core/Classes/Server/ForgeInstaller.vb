@@ -43,9 +43,10 @@ Public Class ForgeInstaller
     End Function
     Function InstallForge(craftVersion As String, forgeVersion As String) As DialogResult
         If New Version(craftVersion) > New Version(1, 5, 1) Then
-            ' Dim watcher As New ForgeInstallWindow()
-            ' watcher.Run(GetJavaPath(), " -Xms" & ServerMemoryMin & "M -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(serverDir, String.Format("minecraft-forge.{0}.installer.jar", craftVersion)) & """" & " nogui --installServer", serverDir)
-            ' Return watcher.ShowDialog()
+            Dim watcher As ICMDWindow = GUIHost.GenerateObjectByInterface(Of ICMDWindow)
+            watcher.Text = "Forge 建置程序"
+            watcher.Run(GetJavaPath(), " -Xms" & ServerMemoryMin & "M -Xmx" & ServerMemoryMax & "M -jar " & """" & IO.Path.Combine(serverDir, String.Format("minecraft-forge.{0}.installer.jar", craftVersion)) & """" & " nogui --installServer", serverDir)
+            Return watcher.ShowDialog()
         Else
             Return DialogResult.OK
         End If

@@ -129,9 +129,9 @@ Public Class KettleServer
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key
             Case "server-memory-max"
-                ServerMemoryMax = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMax = IIf(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMin = IIf(Integer.TryParse(value, Nothing), value, 0)
             Case "kettle-branch-id"
                 Server2ndVersion = value
         End Select

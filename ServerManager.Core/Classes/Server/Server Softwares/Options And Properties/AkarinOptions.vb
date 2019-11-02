@@ -45,7 +45,7 @@ Public Class AkarinOptions
                                                             vbNewLine & "時=h" &
                                                             vbNewLine & "日=d")>
     Public Property Keep_Alive_Response_Timeout As String = "30s"
-    <DisplayName("額外IP位址")> <DefaultValue(New String() {})> <Category("核心設定")> <Description("額外的綁定IP。")> <Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
+    <DisplayName("額外IP位址")> <DefaultValue(New String() {})> <Category("核心設定")> <Description("額外的綁定IP。")> '<Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
     Public Property Extra_Local_Address As String() = {}
 
 #End Region

@@ -1,4 +1,5 @@
-﻿Imports ServerManager
+﻿Imports System.Drawing
+Imports ServerManager
 
 Public MustInherit Class ModpackServerBase
     Implements Taskable, Memoryable

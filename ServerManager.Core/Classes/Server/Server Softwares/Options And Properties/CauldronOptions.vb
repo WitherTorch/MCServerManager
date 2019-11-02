@@ -74,9 +74,9 @@ Public Class CauldronOptions
     <DisplayName("使用執行緒競爭監視")> <DefaultValue(False)> <Category("偵錯")> <Description("是否使用Java 的執行緒競爭監視以執行執行緒傾印。")>
     Public Property Thread_Contention_Monitoring As Boolean = False
 #End Region
-    <DisplayName("世界設定")> <Editor(GetType(CauldronWorldSettingsCollectionEditor), GetType(UITypeEditor))> <Category("世界設定")> <Description("各世界的單一設定，沒有的話將採用""default""設定。")>
+    <DisplayName("世界設定")> <Category("世界設定")> <Description("各世界的單一設定，沒有的話將採用""default""設定。")> '<Editor(GetType(CauldronWorldSettingsCollectionEditor), GetType(UITypeEditor))>
     Public Property World_settings As List(Of CauldronWorldSettings) = New List(Of CauldronWorldSettings)
-    <DisplayName("插件設定")> <Editor(GetType(CauldronPluginSettingsCollectionEditor), GetType(UITypeEditor))> <Category("插件設定")> <Description("各插件的單一設定，沒有的話將採用""default""設定。")>
+    <DisplayName("插件設定")> <Category("插件設定")> <Description("各插件的單一設定，沒有的話將採用""default""設定。")>'<Editor(GetType(CauldronPluginSettingsCollectionEditor), GetType(UITypeEditor))> 
     Public Property Plugin_settings As List(Of CauldronPluginSettings) = New List(Of CauldronPluginSettings)
     Friend Sub CreateOptionsWithDefaultSetting(path As String)
         Me.path = path
@@ -271,77 +271,5 @@ Public Class CauldronOptions
         Public Property Remap_Plugin_File As Boolean = False
     End Class
 #End Region
-    Public Class CauldronWorldSettingsCollectionEditor
-        Inherits CollectionEditor
-        Dim itemCount As Integer = 1
-        Public Sub New()
-            MyBase.New(type:=GetType(List(Of CauldronWorldSettings)))
-        End Sub
-        Protected Overrides Function CreateCollectionForm() As CollectionForm
-            Dim form = MyBase.CreateCollectionForm()
-            form.Text = "Cauldron 世界設定編輯器"
-            AddHandler form.Shown, Sub()
-                                       ShowDescription(form)
-                                   End Sub
-            Return form
-        End Function
-        Protected Overrides Function CreateInstance(ByVal itemType As Type) As Object
-            Dim settings = New CauldronWorldSettings
-            settings.Name = "world-" & itemCount
-            itemCount += 1
-            Return settings
-        End Function
-        Shared Sub ShowDescription(control As Control)
-            Dim grid As PropertyGrid = TryCast(control, PropertyGrid)
-            If grid IsNot Nothing Then grid.HelpVisible = True
-            For Each child As Control In control.Controls
-                ShowDescription(child)
-            Next
-        End Sub
-        Protected Overrides Function CanRemoveInstance(value As Object) As Boolean
-            Dim settings As CauldronWorldSettings = value
-            Return settings.Name.ToLower <> "default"
-        End Function
-        Protected Overrides Function GetDisplayText(value As Object) As String
-            Dim settings As CauldronWorldSettings = value
-            Return settings.Name
-        End Function
-    End Class
-    Public Class CauldronPluginSettingsCollectionEditor
-        Inherits CollectionEditor
-        Dim itemCount As Integer = 1
-        Public Sub New()
-            MyBase.New(type:=GetType(List(Of CauldronPluginSettings)))
-        End Sub
-        Protected Overrides Function CreateCollectionForm() As CollectionForm
-            Dim form = MyBase.CreateCollectionForm()
-            form.Text = "Cauldron 插件設定編輯器"
-            AddHandler form.Shown, Sub()
-                                       ShowDescription(form)
-                                   End Sub
-            Return form
-        End Function
-        Protected Overrides Function CreateInstance(ByVal itemType As Type) As Object
-            Dim settings = New CauldronPluginSettings
-            settings.Name = "world-" & itemCount
-            itemCount += 1
-            Return settings
-        End Function
-        Shared Sub ShowDescription(control As Control)
-            Dim grid As PropertyGrid = TryCast(control, PropertyGrid)
-            If grid IsNot Nothing Then grid.HelpVisible = True
-            For Each child As Control In control.Controls
-                ShowDescription(child)
-            Next
-        End Sub
-        Protected Overrides Function CanRemoveInstance(value As Object) As Boolean
-            Dim settings As CauldronPluginSettings = value
-            Return settings.Name.ToLower <> "default"
-        End Function
-        Protected Overrides Function GetDisplayText(value As Object) As String
-            Dim settings As CauldronPluginSettings = value
-            Return settings.Name
-        End Function
-    End Class
 
 End Class

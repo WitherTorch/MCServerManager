@@ -75,7 +75,7 @@ Public Class SpigotOptions
                                                               vbNewLine & "False - 停用自動完成" &
                                                               vbNewLine & "注意：此項目只在1.11.2以下版本有用。")>
     Public Property Tab_complete_old As Boolean = True
-    <DisplayName("還原原版指令實現列表")> <DefaultValue(New String() {"setblock", "summon", "testforblock"})> <Category("指令相關")> <Description("禁用Bukkit對下列指令的實現(使用原版的指令實現)")> <Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
+    <DisplayName("還原原版指令實現列表")> <DefaultValue(New String() {"setblock", "summon", "testforblock"})> <Category("指令相關")> <Description("禁用Bukkit對下列指令的實現(使用原版的指令實現)")> '<Editor("System.Windows.Forms.Design.StringArrayEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", GetType(UITypeEditor))>
     Public Property Replace_commands As String() = New String() {"setblock", "summon", "testforblock"}
     <DisplayName("紀錄指令")> <DefaultValue(True)> <Category("指令相關")> <Description("是否紀錄玩家使用的指令。")>
     Public Property Log As Boolean = True
@@ -107,7 +107,7 @@ Public Class SpigotOptions
     Public Property Disable_saving_advancements As Boolean = False
     Friend Property Disabled_advancements As List(Of String) = New List(Of String)
 #End Region
-    <DisplayName("世界設定")> <Editor(GetType(SpigotWorldSettingsCollectionEditor), GetType(UITypeEditor))> <Category("世界設定")> <Description("各世界的單一設定，沒有的話將採用""default""設定。")>
+    <DisplayName("世界設定")> <Category("世界設定")> <Description("各世界的單一設定，沒有的話將採用""default""設定。")>' <Editor(GetType(SpigotWorldSettingsCollectionEditor), GetType(UITypeEditor))> 
     Public Property World_settings As List(Of SpigotWorldSettings) = New List(Of SpigotWorldSettings)
     Friend Sub CreateOptionsWithDefaultSetting(path As String)
         Me.path = path
@@ -590,39 +590,3 @@ Public Class SpigotWorldSettings
     End Sub
 End Class
 #End Region
-Public Class SpigotWorldSettingsCollectionEditor
-    Inherits CollectionEditor
-    Dim itemCount As Integer = 1
-    Public Sub New()
-        MyBase.New(type:=GetType(List(Of SpigotWorldSettings)))
-    End Sub
-    Protected Overrides Function CreateCollectionForm() As CollectionForm
-        Dim form = MyBase.CreateCollectionForm()
-        form.Text = "Spigot 世界設定編輯器"
-        AddHandler form.Shown, Sub()
-                                   ShowDescription(form)
-                               End Sub
-        Return form
-    End Function
-    Protected Overrides Function CreateInstance(ByVal itemType As Type) As Object
-        Dim settings = New SpigotWorldSettings
-        settings.Name = "world-" & itemCount
-        itemCount += 1
-        Return settings
-    End Function
-    Shared Sub ShowDescription(control As Control)
-        Dim grid As PropertyGrid = TryCast(control, PropertyGrid)
-        If grid IsNot Nothing Then grid.HelpVisible = True
-        For Each child As Control In control.Controls
-            ShowDescription(child)
-        Next
-    End Sub
-    Protected Overrides Function CanRemoveInstance(value As Object) As Boolean
-        Dim settings As SpigotWorldSettings = value
-        Return settings.Name.ToLower <> "default"
-    End Function
-    Protected Overrides Function GetDisplayText(value As Object) As String
-        Dim settings As SpigotWorldSettings = value
-        Return settings.Name
-    End Function
-End Class

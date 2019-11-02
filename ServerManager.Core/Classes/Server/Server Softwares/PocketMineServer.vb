@@ -22,7 +22,7 @@ Public Class PocketMineServer
         Dim pluginPath = IO.Path.Combine(ServerPath, "plugins")
         Dim paths As New List(Of String)
         If IO.Directory.Exists(pluginPath) Then
-            If My.Computer.FileSystem.FileExists(IO.Path.Combine(pluginPath, "pluginList.json")) Then
+            If IO.File.Exists(IO.Path.Combine(pluginPath, "pluginList.json")) Then
                 Dim reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(pluginPath, "pluginList.json"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read, 4096, True))
                 Dim jsonArray As Newtonsoft.Json.Linq.JArray = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(reader.ReadToEnd())
                 If jsonArray IsNot Nothing Then
@@ -77,7 +77,7 @@ Public Class PocketMineServer
         If IO.Directory.Exists(pluginPath) = False Then
             IO.Directory.CreateDirectory(pluginPath)
         End If
-        If My.Computer.FileSystem.FileExists(IO.Path.Combine(pluginPath, "pluginList.json")) = False Then
+        If IO.File.Exists(IO.Path.Combine(pluginPath, "pluginList.json")) = False Then
             IO.File.Create(IO.Path.Combine(pluginPath, "pluginList.json"))
         End If
         Try
@@ -150,7 +150,7 @@ Public Class PocketMineServer
             Me.ServerOptions = serverOptions.OutputOption
         Else
             Try
-                If My.Computer.FileSystem.FileExists(IO.Path.Combine(ServerPath, "server.properties")) Then
+                If IO.File.Exists(IO.Path.Combine(ServerPath, "server.properties")) Then
                     Using reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.Open, IO.FileAccess.Read), System.Text.Encoding.UTF8)
                         Dim optionDict As New Dictionary(Of Integer, Boolean)
                         Do Until reader.EndOfStream
@@ -185,7 +185,7 @@ Public Class PocketMineServer
     End Function
     Public Overrides Function BeforeRunServer() As Boolean
         If String.IsNullOrWhiteSpace(PHPPath) Then
-            MsgBox("未指定PHP 路徑",, APP_NAME)
+           GUIHost.GUIHandler.MsgBox("未指定PHP 路徑", APP_NAME)
             Return False
         End If
         Return True
@@ -215,10 +215,9 @@ Public Class PocketMineServer
         End If
     End Function
     Public Overrides Sub SaveServer()
-        My.Computer.FileSystem.WriteAllText(IO.Path.Combine(ServerPath, "server.properties"), "", False)
-        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.OpenOrCreate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
+        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.Truncate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
         writer.WriteLine("# Minecraft server properties")
-        writer.WriteLine("#" & Now.ToString("ddd MMM dd HH:mm:ss K yyyy", System.Globalization.CultureInfo.CurrentUICulture))
+        writer.WriteLine("#" & Date.Now.ToString("ddd MMM dd HH:mm:ss K yyyy", System.Globalization.CultureInfo.CurrentUICulture))
         For Each [option] In ServerOptions.OutputOption
             writer.WriteLine(String.Format("{0}={1}", [option].Key, [option].Value))
         Next

@@ -18,7 +18,7 @@ Public Class CraftBukkitServer
         Dim pluginPath = IO.Path.Combine(ServerPath, "plugins")
         Dim paths As New List(Of String)
         If IO.Directory.Exists(pluginPath) Then
-            If My.Computer.FileSystem.FileExists(IO.Path.Combine(pluginPath, "pluginList.json")) Then
+            If IO.File.Exists(IO.Path.Combine(pluginPath, "pluginList.json")) Then
                 Dim reader As New IO.StreamReader(New IO.FileStream(IO.Path.Combine(pluginPath, "pluginList.json"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read, 4096, True))
                 Dim jsonArray As Newtonsoft.Json.Linq.JArray = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(reader.ReadToEnd())
                 If jsonArray IsNot Nothing Then
@@ -73,7 +73,7 @@ Public Class CraftBukkitServer
         If IO.Directory.Exists(pluginPath) = False Then
             IO.Directory.CreateDirectory(pluginPath)
         End If
-        If My.Computer.FileSystem.FileExists(IO.Path.Combine(pluginPath, "pluginList.json")) = False Then
+        If IO.File.Exists(IO.Path.Combine(pluginPath, "pluginList.json")) = False Then
             IO.File.Create(IO.Path.Combine(pluginPath, "pluginList.json"))
         End If
         Try
@@ -142,9 +142,9 @@ Public Class CraftBukkitServer
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key
             Case "server-memory-max"
-                ServerMemoryMax = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMax = IIf(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(IsNumeric(value), value, 0)
+                ServerMemoryMin = IIf(Integer.TryParse(value, Nothing), value, 0)
         End Select
     End Sub
     Public Overrides Function RunServer() As Process

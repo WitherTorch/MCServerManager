@@ -262,7 +262,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 256 Then
                 _Max_Build_Height = value
             Else
-                MsgBox("最大建築高度只能在1~256之間", , APP_NAME)
+                GUIHost.GUIHandler.MsgBox("最大建築高度只能在1~256之間", APP_NAME)
             End If
         End Set
     End Property
@@ -279,7 +279,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 2147483647 Then
                 _Max_Players = value
             Else
-                MsgBox("最大玩家人數只能在1~2147483647之間", , APP_NAME)
+                GUIHost.GUIHandler.MsgBox("最大玩家人數只能在1~2147483647之間", APP_NAME)
             End If
         End Set
     End Property
@@ -310,7 +310,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 29999984 Then
                 _Max_World_Size = value
             Else
-                MsgBox("最大世界大小只能在1~29999984之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("最大世界大小只能在1~29999984之間", APP_NAME)
             End If
         End Set
     End Property
@@ -372,7 +372,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 65534 Then
                 _Query_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("埠號只能在1~65534之間", APP_NAME)
             End If
         End Set
     End Property
@@ -388,7 +388,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 65534 Then
                 _Rcon_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("埠號只能在1~65534之間", APP_NAME)
             End If
         End Set
     End Property
@@ -410,7 +410,7 @@ Public Class JavaServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("埠號只能在1~65534之間", APP_NAME)
             End If
         End Set
     End Property
@@ -451,7 +451,7 @@ Public Class JavaServerOptions
             If value >= 3 And value <= 15 Then
                 _View_Distance = value
             Else
-                MsgBox("渲染距離必須在3~15之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("渲染距離必須在3~15之間", APP_NAME)
             End If
         End Set
     End Property
@@ -477,7 +477,7 @@ Public Class JavaServerOptions
                                                              vbNewLine & "Console - 能使用所有指令。")>
     Public Property Function_Permission_Level As Function_Permission_Level = Function_Permission_Level.Default
     Public Overloads Function TryGetMember(propertyName As String, ByRef result As Object) As Boolean
-        If dictionary IsNot Nothing AndAlso propertyName.StartsWith("otherVar") AndAlso IsNumeric(propertyName.Substring(8)) AndAlso dictionary.Count > propertyName.Substring(8) Then
+        If dictionary IsNot Nothing AndAlso propertyName.StartsWith("otherVar") AndAlso Integer.TryParse(propertyName.Substring(8), Nothing) AndAlso dictionary.Count > propertyName.Substring(8) Then
             result = dictionary.Values(CInt(propertyName.Substring(8)))
             Return True
         Else
@@ -486,7 +486,7 @@ Public Class JavaServerOptions
         End If
     End Function
     Public Overloads Overrides Function TryGetMember(binder As GetMemberBinder, ByRef result As Object) As Boolean
-        If dictionary IsNot Nothing AndAlso binder.Name.StartsWith("otherVar") AndAlso IsNumeric(binder.Name.Substring(8)) AndAlso dictionary.Count > binder.Name.Substring(8) Then
+        If dictionary IsNot Nothing AndAlso binder.Name.StartsWith("otherVar") AndAlso Integer.TryParse(binder.Name.Substring(8), Nothing) AndAlso dictionary.Count > binder.Name.Substring(8) Then
             result = dictionary.Values(CInt(binder.Name.Substring(8)))
             Return True
         Else
@@ -495,7 +495,7 @@ Public Class JavaServerOptions
         End If
     End Function
     Public Overloads Function TrySetMember(propertyName As String, value As Object) As Boolean
-        If dictionary IsNot Nothing AndAlso propertyName.StartsWith("otherVar") AndAlso IsNumeric(propertyName.Substring(8)) AndAlso dictionary.Count > propertyName.Substring(8) Then
+        If dictionary IsNot Nothing AndAlso propertyName.StartsWith("otherVar") AndAlso Integer.TryParse(propertyName.Substring(8), Nothing) AndAlso dictionary.Count > propertyName.Substring(8) Then
             dictionary.Item(dictionary.Keys(CInt(propertyName.Substring(8)))) = value
             Return True
         Else
@@ -503,7 +503,7 @@ Public Class JavaServerOptions
         End If
     End Function
     Public Overloads Overrides Function TrySetMember(binder As SetMemberBinder, value As Object) As Boolean
-        If dictionary IsNot Nothing AndAlso binder.Name.StartsWith("otherVar") AndAlso IsNumeric(binder.Name.Substring(8)) AndAlso dictionary.Count > binder.Name.Substring(8) Then
+        If dictionary IsNot Nothing AndAlso binder.Name.StartsWith("otherVar") AndAlso Integer.TryParse(binder.Name.Substring(8), Nothing) AndAlso dictionary.Count > binder.Name.Substring(8) Then
             dictionary.Item(dictionary.Keys(CInt(binder.Name.Substring(8)))) = value
             Return True
         Else
@@ -1065,7 +1065,7 @@ Public Class NukkitServerOptions
             If value >= 1 And value <= 2147483647 Then
                 _Max_Players = value
             Else
-                MsgBox("最大玩家人數只能在1~2147483647之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("最大玩家人數只能在1~2147483647之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1088,7 +1088,7 @@ Public Class NukkitServerOptions
             If value >= 1 And value <= 65534 Then
                 _Rcon_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("埠號只能在1~65534之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1107,7 +1107,7 @@ Public Class NukkitServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("埠號只能在1~65534之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1141,7 +1141,7 @@ Public Class NukkitServerOptions
             If value >= 3 And value <= 15 Then
                 _View_Distance = value
             Else
-                MsgBox("渲染距離必須在3~15之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("渲染距離必須在3~15之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1156,33 +1156,32 @@ Public Class NukkitServerOptions
                                                              vbNewLine & "False - 禁用。伺服器不需要玩家有Xbox 帳戶。")>
     Public Property Xbox_Auth As Boolean = True
     Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerProperties.InputOption
-        On Error Resume Next
-        Allow_Flight = ToStandardBoolean(serverOption("allow-flight"))
-        Announce_Player_Achievements = ToStandardBoolean(serverOption("announce-player-achievements"))
-        Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty"))
-        Enable_Query = ToStandardBoolean(serverOption("enable-query"))
-        Enable_Rcon = ToStandardBoolean(serverOption("enable-rcon"))
-        Force_Gamemode = ToStandardBoolean(serverOption("force-gamemode"))
-        Gamemode = [Enum].Parse(GetType(Gamemode), serverOption("gamemode"))
-        _Generator_Settings = serverOption("generator-settings")
-        Hardcore = ToStandardBoolean(serverOption("hardcore"))
-        _Level_Name = serverOption("level-name")
-        _Level_Seed = serverOption("level-seed")
-        _Level_Type = [Enum].Parse(GetType(Bedrock_Level_Type), serverOption("level-type").ToUpper)
-        Max_Players = serverOption("max-players")
-        Motd = serverOption("motd")
-        PvP = ToStandardBoolean(serverOption("pvp"))
-        Rcon_Port = serverOption("rcon.port")
-        Rcon_Password = serverOption("rcon.password")
-        Server_Ip = serverOption("server-ip")
-        Server_Port = serverOption("server-port")
-        Spawn_Animals = ToStandardBoolean(serverOption("spawn-animals"))
-        Spawn_Monsters = ToStandardBoolean(serverOption("spawn-monsters"))
-        Spawn_Protection = Integer.Parse(serverOption("spawn-protection"))
-        Sub_Motd = serverOption("sub-motd")
-        View_Distance = Integer.Parse(serverOption("view-distance"))
-        White_List = ToStandardBoolean(serverOption("white-list"))
-        Xbox_Auth = ToStandardBoolean(serverOption("xbox-auth"))
+        Try : Allow_Flight = ToStandardBoolean(serverOption("allow-flight")) : Catch ex As Exception : End Try
+        Try : Announce_Player_Achievements = ToStandardBoolean(serverOption("announce-player-achievements")) : Catch ex As Exception : End Try
+        Try : Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty")) : Catch ex As Exception : End Try
+        Try : Enable_Query = ToStandardBoolean(serverOption("enable-query")) : Catch ex As Exception : End Try
+        Try : Enable_Rcon = ToStandardBoolean(serverOption("enable-rcon")) : Catch ex As Exception : End Try
+        Try : Force_Gamemode = ToStandardBoolean(serverOption("force-gamemode")) : Catch ex As Exception : End Try
+        Try : Gamemode = [Enum].Parse(GetType(Gamemode), serverOption("gamemode")) : Catch ex As Exception : End Try
+        Try : _Generator_Settings = serverOption("generator-settings") : Catch ex As Exception : End Try
+        Try : Hardcore = ToStandardBoolean(serverOption("hardcore")) : Catch ex As Exception : End Try
+        Try : _Level_Name = serverOption("level-name") : Catch ex As Exception : End Try
+        Try : _Level_Seed = serverOption("level-seed") : Catch ex As Exception : End Try
+        Try : _Level_Type = [Enum].Parse(GetType(Bedrock_Level_Type), serverOption("level-type").ToUpper) : Catch ex As Exception : End Try
+        Try : Max_Players = serverOption("max-players") : Catch ex As Exception : End Try
+        Try : Motd = serverOption("motd") : Catch ex As Exception : End Try
+        Try : PvP = ToStandardBoolean(serverOption("pvp")) : Catch ex As Exception : End Try
+        Try : Rcon_Port = serverOption("rcon.port") : Catch ex As Exception : End Try
+        Try : Rcon_Password = serverOption("rcon.password") : Catch ex As Exception : End Try
+        Try : Server_Ip = serverOption("server-ip") : Catch ex As Exception : End Try
+        Try : Server_Port = serverOption("server-port") : Catch ex As Exception : End Try
+        Try : Spawn_Animals = ToStandardBoolean(serverOption("spawn-animals")) : Catch ex As Exception : End Try
+        Try : Spawn_Monsters = ToStandardBoolean(serverOption("spawn-monsters")) : Catch ex As Exception : End Try
+        Try : Spawn_Protection = Integer.Parse(serverOption("spawn-protection")) : Catch ex As Exception : End Try
+        Try : Sub_Motd = serverOption("sub-motd") : Catch ex As Exception : End Try
+        Try : View_Distance = Integer.Parse(serverOption("view-distance")) : Catch ex As Exception : End Try
+        Try : White_List = ToStandardBoolean(serverOption("white-list")) : Catch ex As Exception : End Try
+        Try : Xbox_Auth = ToStandardBoolean(serverOption("xbox-auth")) : Catch ex As Exception : End Try
     End Sub
     Public Sub SetValue(optionName As String, value As String) Implements IServerProperties.SetValue
         Select Case optionName
@@ -1400,7 +1399,7 @@ Public Class BDSServerOptions
             If value >= 1 And value <= 2147483647 Then
                 _Max_Players = value
             Else
-                MsgBox("最大玩家人數只能在1~2147483647之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("最大玩家人數只能在1~2147483647之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1414,7 +1413,7 @@ Public Class BDSServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("埠號只能在1~65534之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1428,7 +1427,7 @@ Public Class BDSServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_PortV6 = value
             Else
-                MsgBox("埠號只能在1~65534之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("埠號只能在1~65534之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1444,7 +1443,7 @@ Public Class BDSServerOptions
             If value >= 3 And value <= 15 Then
                 _View_Distance = value
             Else
-                MsgBox("渲染距離必須在3~15之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("渲染距離必須在3~15之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1458,7 +1457,7 @@ Public Class BDSServerOptions
             If value >= 4 And value <= 12 Then
                 _Tick_Distance = value
             Else
-                MsgBox("區塊數必須在4~12之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("區塊數必須在4~12之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1476,39 +1475,44 @@ Public Class BDSServerOptions
                                                              vbNewLine & "False - 不使用白名單。")>
     Public Property White_List As Boolean = False
     Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerProperties.InputOption
-        On Error Resume Next
-        Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty"))
-        Gamemode = [Enum].Parse(GetType(Gamemode), serverOption("gamemode"))
-        _Level_Name = serverOption("level-name")
-        _Level_Seed = serverOption("level-seed")
-        Server_Name = serverOption("server-name")
-        Server_PortV6 = serverOption("server-portv6")
-        Online_Mode = serverOption("online-mode")
-        Allow_Cheats = Boolean.Parse(serverOption("allow-cheats"))
-        Player_Idle_Timeout = serverOption("player-idle-timeout")
-        Max_Threads = serverOption("max-threads")
-        Tick_Distance = serverOption("tick-distance")
-        Select Case serverOption("default-player-permission-level").ToLower
-            Case "visitor"
-                Default_Player_Permission_Level = Bedrock_Player_Permission_Level.Visitor
-            Case "member"
-                Default_Player_Permission_Level = Bedrock_Player_Permission_Level.Member
-            Case "operator"
-                Default_Player_Permission_Level = Bedrock_Player_Permission_Level.Operator
-        End Select
-        Texturepack_Required = Boolean.Parse(serverOption("texturepack-required"))
-        Select Case serverOption("level-type").ToUpper
-            Case "FLAT"
-                _Level_Type = Bedrock_Level_Type.FLAT
-            Case "LEGACY"
-                _Level_Type = Bedrock_Level_Type.OLD
-            Case "DEFAULT"
-                _Level_Type = Bedrock_Level_Type.INFINITE
-        End Select
-        Max_Players = serverOption("max-players")
-        Server_Port = serverOption("server-port")
-        View_Distance = Integer.Parse(serverOption("view-distance"))
-        White_List = Boolean.Parse(serverOption("white-list"))
+        Try : Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty")) : Catch ex As Exception : End Try
+        Try : Gamemode = [Enum].Parse(GetType(Gamemode), serverOption("gamemode")) : Catch ex As Exception : End Try
+        Try : _Level_Name = serverOption("level-name") : Catch ex As Exception : End Try
+        Try : _Level_Seed = serverOption("level-seed") : Catch ex As Exception : End Try
+        Try : Server_Name = serverOption("server-name") : Catch ex As Exception : End Try
+        Try : Server_PortV6 = serverOption("server-portv6") : Catch ex As Exception : End Try
+        Try : Online_Mode = serverOption("online-mode") : Catch ex As Exception : End Try
+        Try : Allow_Cheats = Boolean.Parse(serverOption("allow-cheats")) : Catch ex As Exception : End Try
+        Try : Player_Idle_Timeout = serverOption("player-idle-timeout") : Catch ex As Exception : End Try
+        Try : Max_Threads = serverOption("max-threads") : Catch ex As Exception : End Try
+        Try : Tick_Distance = serverOption("tick-distance") : Catch ex As Exception : End Try
+        Try
+            Select Case serverOption("default-player-permission-level").ToLower
+                Case "visitor"
+                    Default_Player_Permission_Level = Bedrock_Player_Permission_Level.Visitor
+                Case "member"
+                    Default_Player_Permission_Level = Bedrock_Player_Permission_Level.Member
+                Case "operator"
+                    Default_Player_Permission_Level = Bedrock_Player_Permission_Level.Operator
+            End Select
+        Catch ex As Exception
+        End Try
+        Try : Texturepack_Required = Boolean.Parse(serverOption("texturepack-required")) : Catch ex As Exception : End Try
+        Try
+            Select Case serverOption("level-type").ToUpper
+                Case "FLAT"
+                    _Level_Type = Bedrock_Level_Type.FLAT
+                Case "LEGACY"
+                    _Level_Type = Bedrock_Level_Type.OLD
+                Case "DEFAULT"
+                    _Level_Type = Bedrock_Level_Type.INFINITE
+            End Select
+        Catch ex As Exception
+        End Try
+        Try : Max_Players = serverOption("max-players") : Catch ex As Exception : End Try
+        Try : Server_Port = serverOption("server-port") : Catch ex As Exception : End Try
+        Try : View_Distance = Integer.Parse(serverOption("view-distance")) : Catch ex As Exception : End Try
+        Try : White_List = Boolean.Parse(serverOption("white-list")) : Catch ex As Exception : End Try
     End Sub
     Public Sub SetValue(optionName As String, value As String) Implements IServerProperties.SetValue
         Select Case optionName
@@ -1734,7 +1738,7 @@ Public Class PocketMineServerOptions
             If value >= 1 And value <= 2147483647 Then
                 _Max_Players = value
             Else
-                MsgBox("最大玩家人數只能在1~2147483647之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("最大玩家人數只能在1~2147483647之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1757,7 +1761,7 @@ Public Class PocketMineServerOptions
             If value >= 1 And value <= 65534 Then
                 _Rcon_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("埠號只能在1~65534之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1776,7 +1780,7 @@ Public Class PocketMineServerOptions
             If value >= 1 And value <= 65534 Then
                 _Server_Port = value
             Else
-                MsgBox("埠號只能在1~65534之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("埠號只能在1~65534之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1798,7 +1802,7 @@ Public Class PocketMineServerOptions
             If value >= 3 And value <= 15 Then
                 _View_Distance = value
             Else
-                MsgBox("渲染距離必須在3~15之間",, APP_NAME)
+                GUIHost.GUIHandler.MsgBox("渲染距離必須在3~15之間", APP_NAME)
             End If
         End Set
     End Property
@@ -1813,36 +1817,38 @@ Public Class PocketMineServerOptions
                                                              vbNewLine & "False - 禁用。伺服器不需要玩家有Xbox 帳戶。")>
     Public Property Xbox_Auth As Boolean = True
     Public Sub InputOption(serverOption As IDictionary(Of String, String)) Implements IServerProperties.InputOption
-        On Error Resume Next
-        Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty"))
-        Enable_Query = ToStandardBoolean(serverOption("enable-query"))
-        Enable_Rcon = ToStandardBoolean(serverOption("enable-rcon"))
-        Force_Gamemode = ToStandardBoolean(serverOption("force-gamemode"))
-        Gamemode = [Enum].Parse(GetType(Gamemode), serverOption("gamemode"))
-        _Generator_Settings = serverOption("generator-settings")
-        Hardcore = ToStandardBoolean(serverOption("hardcore"))
-        Language = GetLanguageByLanguageCode(serverOption("language"))
-        _Level_Name = serverOption("level-name")
-        _Level_Seed = serverOption("level-seed")
-        Select Case serverOption("level-type").ToUpper
-            Case "FLAT"
-                _Level_Type = Bedrock_Level_Type.FLAT
-            Case "LEGACY"
-                _Level_Type = Bedrock_Level_Type.OLD
-            Case "DEFAULT"
-                _Level_Type = Bedrock_Level_Type.INFINITE
-        End Select
-        Max_Players = serverOption("max-players")
-        Motd = serverOption("motd")
-        PvP = ToStandardBoolean(serverOption("pvp"))
-        Rcon_Port = serverOption("rcon.port")
-        Rcon_Password = serverOption("rcon.password")
-        Server_Ip = serverOption("server-ip")
-        Server_Port = serverOption("server-port")
-        Spawn_Protection = Integer.Parse(serverOption("spawn-protection"))
-        View_Distance = Integer.Parse(serverOption("view-distance"))
-        White_List = ToStandardBoolean(serverOption("white-list"))
-        Xbox_Auth = ToStandardBoolean(serverOption("xbox-auth"))
+        Try : Difficulty = [Enum].Parse(GetType(Difficulty), serverOption("difficulty")) : Catch ex As Exception : End Try
+        Try : Enable_Query = ToStandardBoolean(serverOption("enable-query")) : Catch ex As Exception : End Try
+        Try : Enable_Rcon = ToStandardBoolean(serverOption("enable-rcon")) : Catch ex As Exception : End Try
+        Try : Force_Gamemode = ToStandardBoolean(serverOption("force-gamemode")) : Catch ex As Exception : End Try
+        Try : Gamemode = [Enum].Parse(GetType(Gamemode), serverOption("gamemode")) : Catch ex As Exception : End Try
+        Try : _Generator_Settings = serverOption("generator-settings") : Catch ex As Exception : End Try
+        Try : Hardcore = ToStandardBoolean(serverOption("hardcore")) : Catch ex As Exception : End Try
+        Try : Language = GetLanguageByLanguageCode(serverOption("language")) : Catch ex As Exception : End Try
+        Try : _Level_Name = serverOption("level-name") : Catch ex As Exception : End Try
+        Try : _Level_Seed = serverOption("level-seed") : Catch ex As Exception : End Try
+        Try
+            Select Case serverOption("level-type").ToUpper
+                Case "FLAT"
+                    _Level_Type = Bedrock_Level_Type.FLAT
+                Case "LEGACY"
+                    _Level_Type = Bedrock_Level_Type.OLD
+                Case "DEFAULT"
+                    _Level_Type = Bedrock_Level_Type.INFINITE
+            End Select
+        Catch ex As Exception
+        End Try
+        Try : Max_Players = serverOption("max-players") : Catch ex As Exception : End Try
+        Try : Motd = serverOption("motd") : Catch ex As Exception : End Try
+        Try : PvP = ToStandardBoolean(serverOption("pvp")) : Catch ex As Exception : End Try
+        Try : Rcon_Port = serverOption("rcon.port") : Catch ex As Exception : End Try
+        Try : Rcon_Password = serverOption("rcon.password") : Catch ex As Exception : End Try
+            Try : Server_Ip = serverOption("server-ip") : Catch ex As Exception : End Try
+        Try : Server_Port = serverOption("server-port") : Catch ex As Exception : End Try
+            Try : Spawn_Protection = Integer.Parse(serverOption("spawn-protection")) : Catch ex As Exception : End Try
+            Try : View_Distance = Integer.Parse(serverOption("view-distance")) : Catch ex As Exception : End Try
+            Try : White_List = ToStandardBoolean(serverOption("white-list")) : Catch ex As Exception : End Try
+            Try : Xbox_Auth = ToStandardBoolean(serverOption("xbox-auth")) : Catch ex As Exception : End Try
     End Sub
     Public Sub SetValue(optionName As String, value As String) Implements IServerProperties.SetValue
         Select Case optionName
