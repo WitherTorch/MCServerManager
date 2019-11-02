@@ -1,5 +1,4 @@
-﻿Imports System.Windows.Forms
-
+﻿
 Public Class ForgeInstaller
     Dim serverDir As String
     Sub New(serverDirectory As String)

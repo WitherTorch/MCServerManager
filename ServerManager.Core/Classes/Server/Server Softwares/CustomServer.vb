@@ -1,6 +1,4 @@
-﻿Imports System.Windows.Forms
-Imports ServerManager
-
+﻿
 Public Class CustomServer
     Inherits ServerBase
     Protected seperator As String = IIf(IsUnixLikeSystem, "/", "\")

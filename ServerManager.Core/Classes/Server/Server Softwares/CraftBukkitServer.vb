@@ -142,9 +142,9 @@ Public Class CraftBukkitServer
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key
             Case "server-memory-max"
-                ServerMemoryMax = IIf(Integer.TryParse(value, Nothing), value, 0)
+                ServerMemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(Integer.TryParse(value, Nothing), value, 0)
+                ServerMemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
         End Select
     End Sub
     Public Overrides Function RunServer() As Process

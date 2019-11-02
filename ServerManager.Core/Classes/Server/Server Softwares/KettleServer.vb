@@ -94,13 +94,13 @@ Public Class KettleServer
                                                                                                            AddHandler subClient.DownloadFileCompleted, Sub()
                                                                                                                                                            subClient.Dispose()
                                                                                                                                                            OnServerDownloading(70)
-                                                                                                                                                           If IO.File.Exists(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator) & "libraries.zip") Then
-                                                                                                                                                               UnZipPackage(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator) & "libraries.zip")
+                                                                                                                                                           If IO.File.Exists(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator).ToString & "libraries.zip") Then
+                                                                                                                                                               UnZipPackage(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator).ToString & "libraries.zip")
                                                                                                                                                            End If
                                                                                                                                                            GenerateServerEULA()
                                                                                                                                                            OnServerDownloadEnd(False)
                                                                                                                                                        End Sub
-                                                                                                           subClient.DownloadFileAsync(New Uri(KettleVersionDict.Values.ToArray(i).Item3), IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator) & "libraries.zip")
+                                                                                                           subClient.DownloadFileAsync(New Uri(KettleVersionDict.Values.ToArray(i).Item3), IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator).ToString & "libraries.zip")
                                                                                                            Exit For
                                                                                                        End If
                                                                                                    Next
@@ -129,9 +129,9 @@ Public Class KettleServer
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key
             Case "server-memory-max"
-                ServerMemoryMax = IIf(Integer.TryParse(value, Nothing), value, 0)
+                ServerMemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(Integer.TryParse(value, Nothing), value, 0)
+                ServerMemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "kettle-branch-id"
                 Server2ndVersion = value
         End Select

@@ -249,9 +249,9 @@ Public Class VanillaServer
             Case "vanilla-build-version"
                 _Server2ndVersion = value
             Case "server-memory-max"
-                ServerMemoryMax = IIf(Integer.TryParse(value, Nothing), value, 0)
+                ServerMemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(Integer.TryParse(value, Nothing), value, 0)
+                ServerMemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
         End Select
     End Sub
 

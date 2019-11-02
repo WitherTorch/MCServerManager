@@ -159,7 +159,7 @@ Module GlobalModule
             Return IIf(String.IsNullOrWhiteSpace(JavaPath) OrElse JavaPath = "java" = False, IO.Path.Combine(JavaPath, "java.exe"), "java")
         End If
     End Function
-    Function IIf(expression As Boolean, truePart As Object, falsePart As Object) As Object
+    Function IIf(Of T)(expression As Boolean, truePart As T, falsePart As T) As T
         If expression Then
             Return truePart
         Else
@@ -267,7 +267,7 @@ Module GlobalModule
             Return defaultReturnValue
         End If
     End Function
-    Private Function ToFourLength(input As String)
+    Private Function ToFourLength(input As String) As String
 
         Return input.PadLeft(4, "0")
 

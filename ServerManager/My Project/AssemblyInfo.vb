@@ -10,7 +10,7 @@ Imports System.Runtime.InteropServices
 ' 檢閱組件屬性的值
 
 <Assembly: AssemblyTitle("Minecraft 伺服器管理員")>
-<Assembly: AssemblyDescription("管理Minecraft 伺服器")>
+<Assembly: AssemblyDescription("管理 Minecraft 伺服器")>
 <Assembly: AssemblyCompany("Error 404,冰霜,asd7766zxc")>
 <Assembly: AssemblyProduct("Minecraft 伺服器管理員")>
 <Assembly: AssemblyCopyright("Copyright © Minecraft 伺服器管理員 2019")>

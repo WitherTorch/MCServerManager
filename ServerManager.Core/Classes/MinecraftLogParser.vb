@@ -50,7 +50,7 @@ Public Class MinecraftLogParser
     Shared javaOtherMessageRegex1 As New Regex("[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2}\,[0-9]{1,3} main [A-Z]{4,5} [A-Za-z \.\:\\\/]*")
     'Java Other Message Regex 2
     Shared javaOtherMessageRegex2 As New Regex("[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2}\,[0-9]{1,3} [A-Z]{4,5} [A-Za-z \.\:\\\/]*")
-    Dim LastCheckedIndex = -1
+    Dim LastCheckedIndex As Integer = -1
     Public Function ToConsoleMessage(originalMessage As String, recieveTime As Date) As MinecraftConsoleMessage
         'Console.WriteLine(originalMessage)
         Dim msg As New MinecraftConsoleMessage
