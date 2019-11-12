@@ -120,6 +120,7 @@ Public Class SkriptLoader
             Case Else
                 If node.Value.StartsWith("on command ") Then
                     requirement.Add("command")
+                    requirement.Add("arguments")
                 End If
         End Select
         ' generator.Emit(OpCodes.Ldarg_1)
@@ -128,13 +129,16 @@ Public Class SkriptLoader
         'generator.Emit(OpCodes.Ldstr, node.Value.Substring(11).TrimStart)
         ' generator.Emit(OpCodes.Ldc_I4_1)
         For Each child In node.Childs
-
+            GenerateCodeFromNode(generator, child)
         Next
         generator.MarkLabel(returnLabel)
         generator.Emit(OpCodes.Ret)
     End Function
-    Private Sub GenerateCodeFromNode(node As ScriptNode)
-
+    Private Sub GenerateCodeFromNode(ByRef generator As ILGenerator, node As ScriptNode)
+        Dim nodeValueLower As String = node.Value.ToLower()
+        If nodeValueLower.StartsWith("if") And nodeValueLower.EndsWith(":") Then
+            nodeValueLower = nodeValueLower.Substring(2, nodeValueLower.Length - 3)
+        End If
     End Sub
 #Region "MSIL Code Block Generator"
     Private Sub GenerateStringCompare(ByRef generator As ILGenerator, stringA As String, stringB As String, ByRef returnLabel As Label)
