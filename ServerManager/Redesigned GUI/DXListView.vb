@@ -19,11 +19,7 @@ Public Class DXListView
     Dim backBuffer As Surface
     Dim targetBitmap As Bitmap1
     Dim ItemLength As Integer = 0
-    Dim DrawnYCoord As Integer = 0
-    Dim ScrollRectangle As RectangleF
-    Dim ScrollBackgroundRectangle As RectangleF
     Dim temped_Items As DXListViewItem()
-    Public ReadOnly Property IsRollingToEnd As Boolean
     Public ReadOnly Property ColumnHeaders As New List(Of DXListViewColumnHeader)
     Public ReadOnly Property Items As New List(Of DXListViewItem)
     Dim BaseYCoord As Single = 0
@@ -98,10 +94,8 @@ Public Class DXListView
         If BaseYCoord > 0 Then
             outRanged = True
         End If
+        Dim nodrawItemLength As Integer = 0
         If temped_Items IsNot Nothing Then
-            If _IsRollingToEnd Then
-                BaseYCoord = ItemLength * 20 - Height + 21
-            End If
             For Each item In temped_Items
                 If CurrentDrawYCoord >= Me.Height Then
                     outRanged = True
@@ -109,6 +103,7 @@ Public Class DXListView
                 ElseIf CurrentItemsYCoord < BaseYCoord Then
                     ' Do Nothing
                     CurrentItemsYCoord += 20
+                    nodrawItemLength += 1
                     Continue For
                 Else
                     For i As Integer = 0 To item.subItems.Count - 1
@@ -135,56 +130,19 @@ Public Class DXListView
             Next
         End If
         If outRanged = True Then
-            Dim arrowBrush As New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDark))
-            Dim lineBrush As New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(SystemColors.ControlDarkDark))
-            Dim backBrush As New SolidColorBrush(deviceContext, SharpDXConverter.ConvertColor(Color.FromArgb(246, 246, 246)))
-            deviceContext.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(Width - 20, 0, 20, Height)), backBrush)
-            deviceContext.DrawLine(New RawVector2(Width - 20, 0), New RawVector2(Width - 20, Height), lineBrush, 0.3)
-            Dim pathGeo_up As New PathGeometry(deviceContext.Factory)
-            Dim sink_up As GeometrySink = pathGeo_up.Open()
-            sink_up.BeginFigure(New RawVector2(Width - 7, 10), FigureBegin.Filled)
-            sink_up.AddLine(New RawVector2(Width - 15, 10))
-            sink_up.AddLine(New RawVector2(Width - 11, 4))
-            sink_up.EndFigure(FigureEnd.Closed)
-            sink_up.Close()
-            deviceContext.FillGeometry(pathGeo_up, arrowBrush)
-            Dim pathGeo_down As New PathGeometry(deviceContext.Factory)
-            Dim sink_down As GeometrySink = pathGeo_down.Open()
-            sink_down.BeginFigure(New RawVector2(Width - 7, Height - 11.5), FigureBegin.Filled)
-            sink_down.AddLine(New RawVector2(Width - 15, Height - 11.5))
-            sink_down.AddLine(New RawVector2(Width - 11, Height - 5.5))
-            sink_down.EndFigure(FigureEnd.Closed)
-            sink_down.Close()
-            deviceContext.FillGeometry(pathGeo_down, arrowBrush)
-            Dim methods = GetType(DeviceContext).GetMethods()
-            Dim FillRoundedRectangle = methods.Single(Function(method As Reflection.MethodInfo)
-                                                          Return method.Name = "FillRoundedRectangle" _
-                                                           AndAlso method.GetParameters()(0).ParameterType.IsByRef
-                                                      End Function)
-            ScrollBackgroundRectangle = New RectangleF(Width - 16.5, 17, 12, ClientSize.Height - 34)
-            ScrollRectangle = New RectangleF(Width - 16.5, CDbl(ClientSize.Height - 34) * Math.Min(BaseYCoord / 20 / ItemLength, 1) + 17, 12, CDbl(ClientSize.Height - 34) * Math.Min(showItemLength / ItemLength, 1))
-            If hoverPaint Then
-                FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(ScrollRectangle)}, lineBrush})
-            Else
-                FillRoundedRectangle.Invoke(deviceContext, New Object() {New RoundedRectangle() With {.RadiusX = 4, .RadiusY = 4, .Rect = SharpDXConverter.ConvertRectangleF(ScrollRectangle)}, arrowBrush})
-            End If
-            Utilities.Dispose(lineBrush)
-            Utilities.Dispose(arrowBrush)
-            Utilities.Dispose(backBrush)
-            Utilities.Dispose(pathGeo_down)
-            Utilities.Dispose(pathGeo_up)
-            Utilities.Dispose(sink_down)
-            Utilities.Dispose(sink_up)
-            If Not (CurrentDrawYCoord >= Me.Height) Then
-                _IsRollingToEnd = True
-            Else
-                _IsRollingToEnd = False
-            End If
+            VScrollBar1.Enabled = True
+            VScrollBar1.Maximum = ItemLength - showItemLength
+            VScrollBar1.Value = nodrawItemLength
         Else
-            _IsRollingToEnd = True
+            VScrollBar1.Enabled = False
+            VScrollBar1.Value = 0
+            VScrollBar1.Maximum = 0
         End If
-        DrawnYCoord = CurrentDrawYCoord
-        deviceContext.EndDraw()
+        Try
+            deviceContext.EndDraw()
+        Catch ex As Exception
+
+        End Try
         sc.Present(0, PresentFlags.None)
         GC.Collect()
     End Sub
@@ -284,57 +242,13 @@ Public Class DXListView
     End Sub
     Dim mouseDraw As Boolean = False
     Dim hoverPaint As Boolean = False
-    Private Sub ContextControl_MouseDown(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseDown
-        If e.Button = MouseButtons.Left AndAlso ScrollRectangle.Contains(ContextControl.PointToClient(MousePosition)) Then
-            mouseDraw = True
-        End If
-    End Sub
-    Private Sub ContextControl_MouseUp(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseUp
-        If e.Button = MouseButtons.Left Then
-            If mouseDraw Then mouseDraw = False
-        End If
-    End Sub
-    Private Sub ContextControl_MouseMove(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseMove, MyBase.MouseMove
-        If mouseDraw Then
-            If ScrollBackgroundRectangle.Contains(ScrollBackgroundRectangle.X, e.Y) Then
-                BaseYCoord = (ItemLength * 20 - DrawnYCoord) * (e.Y / ScrollBackgroundRectangle.Height)
-            Else
-                If ScrollBackgroundRectangle.Y > e.Y Then
-                    BaseYCoord = 0
-                Else
-                    BaseYCoord = (ItemLength * 20 - DrawnYCoord)
-                End If
-            End If
-            InvokePaint(sender, Nothing)
-        Else
-            If ScrollRectangle.Contains(ContextControl.PointToClient(MousePosition)) Then
-                If hoverPaint <> True Then
-                    hoverPaint = True
-                    InvokePaint(sender, Nothing)
-                End If
-            Else
-                If hoverPaint <> False Then
-                    hoverPaint = False
-                    InvokePaint(sender, Nothing)
-                End If
-            End If
-        End If
-    End Sub
     Private Sub ContextControl_MouseWheel(sender As Object, e As MouseEventArgs) Handles ContextControl.MouseWheel
-        If e.Delta > 0 Then
-            If BaseYCoord > 0 Then
-                BaseYCoord -= e.Delta / 5
-                BaseYCoord = Math.Max(BaseYCoord, 0)
-            End If
-            If BaseYCoord >= 0 Then _IsRollingToEnd = False
-        ElseIf e.Delta < 0 Then
-            If Height <= ItemLength * 20 + 21 AndAlso Math.Abs(Height - DrawnYCoord) < 18 Then
-                BaseYCoord -= e.Delta / 5
-            Else
-                _IsRollingToEnd = True
-            End If
+        Dim wheelTick = e.Delta / SystemInformation.MouseWheelScrollDelta
+        If wheelTick > 0 Then
+            VScrollBar1.Value = Math.Max(VScrollBar1.Value - wheelTick, 0)
+        ElseIf wheelTick < 0 Then
+            VScrollBar1.Value = Math.Min(VScrollBar1.Value - wheelTick, VScrollBar1.Maximum)
         End If
-        If e.Delta <> 0 Then InvokePaint(sender, Nothing)
     End Sub
     Private Sub DXListView_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
         ColumnHeaders.Clear()
@@ -354,6 +268,10 @@ Public Class DXListView
 
         End Try
         GC.Collect()
+    End Sub
+    Private Sub VScrollBar1_ValueChanged(sender As Object, e As EventArgs) Handles VScrollBar1.ValueChanged
+        BaseYCoord = VScrollBar1.Value * 20
+        InvokePaint(ContextControl, Nothing)
     End Sub
 End Class
 Public Enum DXTextImageDisplayMode
