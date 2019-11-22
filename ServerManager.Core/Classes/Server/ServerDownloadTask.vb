@@ -18,9 +18,9 @@ Public Class ServerDownloadTask
     End Sub
     Private Sub Client_DownloadFileCompleted(sender As Object, e As AsyncCompletedEventArgs)
         If e.Cancelled = False Then
-            RaiseEvent DownloadCanceled()
-        Else
             RaiseEvent DownloadCompleted()
+        Else
+            RaiseEvent DownloadCanceled()
         End If
         RemoveHandler CType(sender, WebClient).DownloadProgressChanged, AddressOf Client_DownloadProgressChanged
         RemoveHandler CType(sender, WebClient).DownloadFileCompleted, AddressOf Client_DownloadFileCompleted

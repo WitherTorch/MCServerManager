@@ -107,11 +107,6 @@ Public Class KettleServer
                                                                                                End Sub
                                                Dim jsonClient As New Net.WebClient()
                                                Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(jsonClient.DownloadString(VanillaVersionDict("1.12.2")))
-                                               If vanilla_isPre OrElse vanilla_isSnap Then
-                                                   Dim assets As String = jsonObject.GetValue("assets").ToString
-                                                   assets = New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(assets).Value
-                                                   ServerVersion = assets
-                                               End If
                                                vanillaClient.DownloadFileAsync(New Uri(jsonObject.GetValue("downloads").Item("server").Item("url").ToString), IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "minecraft_server.1.12.2.jar"))
                                            End Sub
         Dim branchID As String = New Regex("[0-9a-f]{7}", RegexOptions.IgnoreCase).Match(KettleVersionDict(targetVersion).Item2).Value

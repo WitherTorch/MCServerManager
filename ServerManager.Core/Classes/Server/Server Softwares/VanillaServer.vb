@@ -174,32 +174,17 @@ Public Class VanillaServer
                                                   "vanilla-build-version=" & Server2ndVersion}
     End Function
     Protected vanilla_isSnap As Boolean = False
-    Protected vanilla_isPre As Boolean = False
     Private Shared ReadOnly preReleaseRegex1 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]*-[Pp]{1}re[0-9]{1,2}")
     Private Shared ReadOnly preReleaseRegex2 As New Regex("[0-9A-Za-z]{1,2}.[0-9A-Za-z]{1,2}[.]*[0-9]* [Pp]{1}re-[Rr]{1}elease [0-9]{1,2}")
     Private Shared ReadOnly snapshotRegex As New Regex("[0-9]{2}w[0-9]{2}[a-z]{1}")
     Private Function GetVanillaServerURL(targetVersion As String) As String
-        If Version.TryParse(targetVersion, Nothing) Then
-        ElseIf preReleaseRegex1.IsMatch(targetVersion) Then
-            vanilla_isPre = True
-            targetVersion = preReleaseRegex1.Match(targetVersion).Value
-        ElseIf preReleaseRegex2.IsMatch(targetVersion) Then
-            vanilla_isPre = True
-            targetVersion = preReleaseRegex2.Match(targetVersion).Value
-        ElseIf snapshotRegex.IsMatch(targetVersion) Then
-            vanilla_isSnap = True
-            targetVersion = snapshotRegex.Match(targetVersion).Value
-        Else
-            If targetVersion <> "" Then
-                Throw New IllegalServerVersionException
-            End If
-        End If
+        If SnapshotList.Contains(targetVersion) Then vanilla_isSnap = True
         Dim manifestListURL As String = ""
         manifestListURL = VanillaVersionDict(targetVersion)
         If manifestListURL <> "" Then
             Dim client As New Net.WebClient()
             Dim jsonObject As JObject = JsonConvert.DeserializeObject(Of JObject)(client.DownloadString(manifestListURL))
-            If vanilla_isPre OrElse vanilla_isSnap Then
+            If vanilla_isSnap Then
                 Dim assets As String = jsonObject.GetValue("assets").ToString
                 assets = New Regex("[0-9]{1,2}.[0-9]{1,2}[.]*[0-9]*").Match(assets).Value
                 Server2ndVersion = targetVersion
@@ -215,7 +200,7 @@ Public Class VanillaServer
     Public Overrides Function DownloadAndInstallServer(targetServerVersion As String) As ServerDownloadTask
         Dim URL = GetVanillaServerURL(targetServerVersion)
         Dim DownloadPath As String = ""
-        If vanilla_isPre OrElse vanilla_isSnap Then
+        If vanilla_isSnap Then
             DownloadPath = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "minecraft_server." & Server2ndVersion & ".jar")
         Else
             DownloadPath = IO.Path.Combine(IIf(ServerPath.EndsWith(seperator), ServerPath, ServerPath & seperator), "minecraft_server." & ServerVersion & ".jar")
