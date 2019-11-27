@@ -304,7 +304,13 @@ Public MustInherit Class ServerBase
         End If
     End Function
     Protected Sub GenerateServerEULA()
-        Using writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "eula.txt"), IO.FileMode.Truncate, IO.FileAccess.Write), System.Text.Encoding.UTF8)
+        Dim fs As IO.FileStream
+        If IO.File.Exists(IO.Path.Combine(ServerPath, "eula.txt")) Then
+            fs = New IO.FileStream(IO.Path.Combine(ServerPath, "eula.txt"), IO.FileMode.Truncate, IO.FileAccess.Write)
+        Else
+            fs = New IO.FileStream(IO.Path.Combine(ServerPath, "eula.txt"), IO.FileMode.CreateNew, IO.FileAccess.Write)
+        End If
+        Using writer As New IO.StreamWriter(fs, System.Text.Encoding.UTF8)
             writer.WriteLine("#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).")
             writer.WriteLine("#" & Date.Now.ToString("ddd MMM dd HH:mm:ss K yyyy"), System.Globalization.CultureInfo.CurrentUICulture)
             writer.WriteLine("eula=true")
