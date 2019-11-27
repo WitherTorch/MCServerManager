@@ -228,7 +228,7 @@ Public MustInherit Class ServerBase
         ServerIcon = Image.FromFile(IO.Path.Combine(ServerPath, "server-icon.png"))
     End Sub
     Protected MustOverride Sub OnReadServerInfo(key As String, value As String)
-    Private Sub GetServer()
+    Protected Overridable Sub GetServer()
         If ServerPath <> "" Then
             Try
                 Dim taskList As New List(Of ServerTask)

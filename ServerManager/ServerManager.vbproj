@@ -294,6 +294,12 @@
     <Compile Include="Redesigned GUI\ServerConsole.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Redesigned GUI\ServerSettingForm.Designer.vb">
+      <DependentUpon>ServerSettingForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Redesigned GUI\ServerSettingForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Redesigned GUI\WinAPI.vb" />
     <Compile Include="SharpDX Classes\SharpDXConverter.vb" />
     <Compile Include="SharpDX Classes\SharpDXFactorys.vb" />
@@ -350,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Redesigned GUI\ServerConsole.resx">
       <DependentUpon>ServerConsole.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Redesigned GUI\ServerSettingForm.resx">
+      <DependentUpon>ServerSettingForm.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

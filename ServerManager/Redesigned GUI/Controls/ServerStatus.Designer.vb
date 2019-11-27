@@ -28,6 +28,7 @@ Partial Class ServerStatus
         Me.ServerVersionLabel = New MetroFramework.Controls.MetroLabel()
         Me.StartServerButton = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.SettingServerButton = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -88,11 +89,29 @@ Partial Class ServerStatus
         Me.ToolTip1.ForeColor = System.Drawing.Color.White
         Me.ToolTip1.OwnerDraw = True
         '
+        'SettingServerButton
+        '
+        Me.SettingServerButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SettingServerButton.BackColor = System.Drawing.Color.Transparent
+        Me.SettingServerButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.Setting32
+        Me.SettingServerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.SettingServerButton.FlatAppearance.BorderSize = 0
+        Me.SettingServerButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.SettingServerButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.SettingServerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SettingServerButton.Location = New System.Drawing.Point(391, 70)
+        Me.SettingServerButton.Name = "SettingServerButton"
+        Me.SettingServerButton.Size = New System.Drawing.Size(23, 23)
+        Me.SettingServerButton.TabIndex = 7
+        Me.ToolTip1.SetToolTip(Me.SettingServerButton, "設定伺服器")
+        Me.SettingServerButton.UseVisualStyleBackColor = False
+        '
         'ServerStatus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.SettingServerButton)
         Me.Controls.Add(Me.StartServerButton)
         Me.Controls.Add(Me.ServerVersionLabel)
         Me.Controls.Add(Me.PathNameLabel)
@@ -110,4 +129,5 @@ Partial Class ServerStatus
     Friend WithEvents ServerVersionLabel As MetroFramework.Controls.MetroLabel
     Friend WithEvents StartServerButton As Button
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents SettingServerButton As Button
 End Class

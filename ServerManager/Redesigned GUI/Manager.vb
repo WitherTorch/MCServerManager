@@ -28,7 +28,12 @@ Public Class Manager
         .SwapEffect = SwapEffect.Discard,
         .Usage = Usage.RenderTargetOutput
         }
-        Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        Try
+            Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        Catch ex As Exception
+            scd.ModeDescription.RefreshRate = New Rational(30, 1)
+            Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        End Try
         target = Texture2D.FromSwapChain(Of Texture2D)(sc, 0)
         targetView = New RenderTargetView(d, target)
         d.ImmediateContext.OutputMerger.SetRenderTargets(targetView)
@@ -344,7 +349,7 @@ Public Class Manager
     End Sub
 
     Private Sub Manager_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
-        d.ImmediateContext.ClearRenderTargetView(targetView, New SharpDX.Mathematics.Interop.RawColor4(255, 255, 255, 0))
+        d.ImmediateContext.ClearRenderTargetView(targetView, SharpDXConverter.ConvertColor(Color.White))
         sc.Present(0, PresentFlags.None)
     End Sub
 

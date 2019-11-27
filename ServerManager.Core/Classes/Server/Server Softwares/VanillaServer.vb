@@ -61,6 +61,10 @@ Public Class VanillaServer
     Public Overrides Function GetServerProperties() As IServerProperties
         Return ServerOptions
     End Function
+    Protected Overrides Sub GetServer()
+        MyBase.GetServer()
+        GetOptions()
+    End Sub
     Protected Friend Overridable Sub GetOptions()
         If String.IsNullOrWhiteSpace(ServerPath) Then
             Dim serverOptions As New JavaServerOptions()

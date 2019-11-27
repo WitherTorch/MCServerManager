@@ -1,10 +1,19 @@
 ﻿Imports System.Threading.Tasks
+Imports SharpDX.Direct3D11
+Imports SharpDX.DXGI
+Imports Device = SharpDX.Direct3D11.Device
 
 Public Class ServerConsole
     Dim _server As ServerBase
     Dim hub As New ProcessMessageHub()
     Dim process As Process
-    Public Sub New(server As ServerBase)
+#Region "DirectX Variants"
+    Dim d As Device
+    Dim sc As SwapChain
+    Dim target As Texture2D
+    Dim targetView As RenderTargetView
+#End Region
+    Public Sub New(ByRef server As ServerBase)
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
@@ -14,10 +23,29 @@ Public Class ServerConsole
         DxListView1.ColumnHeaders.Add(New DXListView.DXListViewColumnHeader("時間", Color.Black, New Font(DxListView1.Font.FontFamily, 14), 75))
         DxListView1.ColumnHeaders.Add(New DXListView.DXListViewColumnHeader("訊息", Color.Black, New Font(DxListView1.Font.FontFamily, 14), 400))
         _server = server
+        Dim scd As New SwapChainDescription() With {
+        .BufferCount = 1,
+        .Flags = SwapChainFlags.None,
+        .IsWindowed = True,
+        .ModeDescription = New ModeDescription(ClientSize.Width, ClientSize.Height, New Rational(60, 1), Format.R8G8B8A8_UNorm),
+        .OutputHandle = Handle,
+        .SampleDescription = New SampleDescription(1, 0),
+        .SwapEffect = SwapEffect.Discard,
+        .Usage = Usage.RenderTargetOutput
+        }
+        Try
+            Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        Catch ex As Exception
+            scd.ModeDescription.RefreshRate = New Rational(30, 1)
+            Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        End Try
+        target = Texture2D.FromSwapChain(Of Texture2D)(sc, 0)
+        targetView = New RenderTargetView(d, target)
+        d.ImmediateContext.OutputMerger.SetRenderTargets(targetView)
     End Sub
 
     Private Sub ServerConsole_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        If _server.BeforeRunServer() Then
+        If _server.BeforeRunServer() AndAlso ConsoleBindings(_server) Is Me Then
             process = _server.RunServer()
             process.EnableRaisingEvents = True
             If process.HasExited Then
@@ -76,7 +104,12 @@ Public Class ServerConsole
         t.IsBackground = False
         t.Start()
         hub.Dispose()
+        If ConsoleBindings.ContainsKey(_server) Then ConsoleBindings.Remove(_server)
         GC.Collect()
+        d.Dispose()
+        sc.Dispose()
+        target.Dispose()
+        targetView.Dispose()
     End Sub
 
     Private Sub TextBox1_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBox1.KeyDown
@@ -142,4 +175,17 @@ Public Class ServerConsole
         oldCpuTime = cpuTIme
         Return cpuUsageTotal * 100
     End Function
+
+    Private Sub ServerConsole_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If ConsoleBindings.ContainsKey(_server) Then
+            Close()
+        Else
+            ConsoleBindings.Add(_server, Me)
+        End If
+    End Sub
+
+    Private Sub ServerConsole_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+        d.ImmediateContext.ClearRenderTargetView(targetView, SharpDXConverter.ConvertColor(Color.White))
+        sc.Present(0, PresentFlags.None)
+    End Sub
 End Class

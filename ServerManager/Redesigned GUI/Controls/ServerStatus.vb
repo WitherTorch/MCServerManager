@@ -42,7 +42,22 @@
     End Sub
 
     Private Sub StartServerButton_Click(sender As Object, e As EventArgs) Handles StartServerButton.Click
-        Dim console As New ServerConsole(_server)
-        console.Show()
+        If ConsoleBindings.ContainsKey(_server) = False Then
+            Dim console As New ServerConsole(_server)
+            console.Show()
+        End If
+    End Sub
+
+    Private Sub SettingServerButton_Click(sender As Object, e As EventArgs) Handles SettingServerButton.Click
+        If SettingFormBindings.ContainsKey(_server) = False Then
+            Dim setting As New ServerSettingForm(_server)
+            setting.Show()
+        End If
+    End Sub
+
+    Private Sub ServerStatus_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+        If e.Y < 25 OrElse e.X = Width - Margin.Right Then
+            WinAPI.MoveForm(Handle)
+        End If
     End Sub
 End Class
