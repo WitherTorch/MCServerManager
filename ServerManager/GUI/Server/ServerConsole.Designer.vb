@@ -118,10 +118,10 @@ Partial Class ServerConsole
         Me.MainTabPage.HorizontalScrollbarBarColor = True
         Me.MainTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.MainTabPage.HorizontalScrollbarSize = 10
-        Me.MainTabPage.Location = New System.Drawing.Point(4, 38)
+        Me.MainTabPage.Location = New System.Drawing.Point(4, 36)
         Me.MainTabPage.Name = "MainTabPage"
         Me.MainTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.MainTabPage.Size = New System.Drawing.Size(752, 414)
+        Me.MainTabPage.Size = New System.Drawing.Size(752, 416)
         Me.MainTabPage.TabIndex = 0
         Me.MainTabPage.Text = "伺服器資訊"
         Me.MainTabPage.UseVisualStyleBackColor = True
@@ -565,6 +565,7 @@ Partial Class ServerConsole
         Me.KeyPreview = True
         Me.Name = "ServerConsole"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "伺服器控制台"
         Me.MainTabControl.ResumeLayout(False)

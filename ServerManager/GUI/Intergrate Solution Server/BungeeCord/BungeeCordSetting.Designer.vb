@@ -107,10 +107,10 @@ Partial Class BungeeCordSetting
         Me.ListenerManageTab.HorizontalScrollbarBarColor = True
         Me.ListenerManageTab.HorizontalScrollbarHighlightOnWheel = False
         Me.ListenerManageTab.HorizontalScrollbarSize = 10
-        Me.ListenerManageTab.Location = New System.Drawing.Point(4, 38)
+        Me.ListenerManageTab.Location = New System.Drawing.Point(4, 36)
         Me.ListenerManageTab.Name = "ListenerManageTab"
         Me.ListenerManageTab.Padding = New System.Windows.Forms.Padding(3)
-        Me.ListenerManageTab.Size = New System.Drawing.Size(536, 369)
+        Me.ListenerManageTab.Size = New System.Drawing.Size(536, 371)
         Me.ListenerManageTab.TabIndex = 1
         Me.ListenerManageTab.Text = "監聽器"
         Me.ListenerManageTab.UseVisualStyleBackColor = True
@@ -155,10 +155,10 @@ Partial Class BungeeCordSetting
         Me.OtherSettingPage.HorizontalScrollbarBarColor = True
         Me.OtherSettingPage.HorizontalScrollbarHighlightOnWheel = False
         Me.OtherSettingPage.HorizontalScrollbarSize = 10
-        Me.OtherSettingPage.Location = New System.Drawing.Point(4, 38)
+        Me.OtherSettingPage.Location = New System.Drawing.Point(4, 36)
         Me.OtherSettingPage.Name = "OtherSettingPage"
         Me.OtherSettingPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.OtherSettingPage.Size = New System.Drawing.Size(536, 369)
+        Me.OtherSettingPage.Size = New System.Drawing.Size(536, 371)
         Me.OtherSettingPage.TabIndex = 2
         Me.OtherSettingPage.Text = "其他設定"
         Me.OtherSettingPage.UseVisualStyleBackColor = True
@@ -171,7 +171,7 @@ Partial Class BungeeCordSetting
         Me.BungeeSettingGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.BungeeSettingGrid.Location = New System.Drawing.Point(3, 3)
         Me.BungeeSettingGrid.Name = "BungeeSettingGrid"
-        Me.BungeeSettingGrid.Size = New System.Drawing.Size(530, 363)
+        Me.BungeeSettingGrid.Size = New System.Drawing.Size(530, 365)
         Me.BungeeSettingGrid.TabIndex = 0
         '
         'MetroStyleManager1
@@ -192,6 +192,7 @@ Partial Class BungeeCordSetting
         Me.Name = "BungeeCordSetting"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.Resizable = False
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "BungeeCord 設定"

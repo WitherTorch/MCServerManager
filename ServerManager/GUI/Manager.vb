@@ -7,6 +7,10 @@ Imports System.Xml
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports NoIP
+Imports Device = SharpDX.Direct3D11.Device
+Imports Buffer = SharpDX.Direct3D11.Buffer
+Imports SharpDX.DXGI
+Imports SharpDX.Direct3D11
 
 Public Class Manager
     Friend ServerEntityList As New List(Of Server)
@@ -33,15 +37,50 @@ Public Class Manager
     Friend HasJava As Boolean = False
     Friend Is32BitJava As Boolean = True
     Friend Event CheckRequirement()
+    'DirectX support
+    Dim d As Device
+    Dim sc As SwapChain
+    Dim target As Texture2D
+    Dim targetView As RenderTargetView
     Public Sub New()
 
         ' 設計工具需要此呼叫。
         InitializeComponent()
 
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
-
+        Dim scd As SwapChainDescription = New SwapChainDescription() With {
+                .BufferCount = 1,
+                .Flags = SwapChainFlags.None,
+                .IsWindowed = True,
+                .ModeDescription = New ModeDescription(Me.ClientSize.Width, Me.ClientSize.Height, New Rational(60, 1), Format.R8G8B8A8_UNorm),
+                .OutputHandle = Me.Handle,
+                .SampleDescription = New SampleDescription(1, 0),
+                .SwapEffect = SwapEffect.Discard,
+                .Usage = Usage.RenderTargetOutput
+            }
+        Try
+            Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        Catch ex As SharpDX.SharpDXException
+            scd.ModeDescription.RefreshRate.Numerator = 30 '30 fps
+            Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.None, scd, d, sc)
+        End Try
+        target = Texture2D.FromSwapChain(Of Texture2D)(sc, 0)
+        targetView = New RenderTargetView(d, target)
+        d.ImmediateContext.OutputMerger.SetRenderTargets(targetView)
+    End Sub
+    Protected Overrides Sub OnClosing(ByVal e As CancelEventArgs)
+        d.Dispose()
+        sc.Dispose()
+        target.Dispose()
+        targetView.Dispose()
+        MyBase.OnClosing(e)
     End Sub
 
+    Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+        d.ImmediateContext.ClearRenderTargetView(targetView, New SharpDX.Mathematics.Interop.RawColor4(BackColor.R, BackColor.G, BackColor.B, BackColor.A))
+        sc.Present(0, PresentFlags.None)
+        MyBase.OnPaint(e)
+    End Sub
     Private Sub GetVanillaServerVersionList()
         VanillaGetVersionThread = New Thread(Sub()
                                                  VanillaVersionDict.Clear()
@@ -1107,11 +1146,11 @@ Public Class Manager
                                                                                                                                    HasJava = True
                                                                                                                                    RaiseEvent CheckRequirement()
                                                                                                                                    Try
-                                                                                                                                           process.Kill()
-                                                                                                                                       Catch ex As Exception
-                                                                                                                                       End Try
-                                                                                                                                   End If
+                                                                                                                                       process.Kill()
+                                                                                                                                   Catch ex As Exception
+                                                                                                                                   End Try
                                                                                                                                End If
+                                                                                                                           End If
                                                                                                                        Catch ex As Exception
                                                                                                                        End Try
                                                                                                                    End Sub
@@ -1819,7 +1858,7 @@ Public Class Manager
                                                        BeginInvoke(Sub()
                                                                        If exip <> "(無)" Then
                                                                            ExternalIPLabel.LinkArea = New LinkArea(ExternalIPLabel.Text.IndexOf(exip), exip.Length)
-                                                                           ToolTip.SetToolTip(ExternalIPLabel, "點擊連結複製外部IP位址")
+                                                                           tooltip.SetToolTip(ExternalIPLabel, "點擊連結複製外部IP位址")
                                                                            AddHandler ExternalIPLabel.LinkClicked, Sub(obj, args)
                                                                                                                        If args.Button = MouseButtons.Left Then
                                                                                                                            My.Computer.Clipboard.SetText(exip)

@@ -47,13 +47,13 @@ Partial Class ModpackExplorer
         'ToolStripContainer1.ContentPanel
         '
         Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.LayoutPanel)
-        Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(800, 425)
+        Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(760, 345)
         Me.ToolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ToolStripContainer1.LeftToolStripPanelVisible = False
-        Me.ToolStripContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStripContainer1.Location = New System.Drawing.Point(20, 60)
         Me.ToolStripContainer1.Name = "ToolStripContainer1"
         Me.ToolStripContainer1.RightToolStripPanelVisible = False
-        Me.ToolStripContainer1.Size = New System.Drawing.Size(800, 450)
+        Me.ToolStripContainer1.Size = New System.Drawing.Size(760, 370)
         Me.ToolStripContainer1.TabIndex = 0
         Me.ToolStripContainer1.Text = "ToolStripContainer1"
         '
@@ -72,7 +72,7 @@ Partial Class ModpackExplorer
         Me.LayoutPanel.Name = "LayoutPanel"
         Me.LayoutPanel.RowCount = 1
         Me.LayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.LayoutPanel.Size = New System.Drawing.Size(800, 425)
+        Me.LayoutPanel.Size = New System.Drawing.Size(760, 345)
         Me.LayoutPanel.TabIndex = 0
         '
         'Panel1
@@ -81,7 +81,7 @@ Partial Class ModpackExplorer
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(794, 419)
+        Me.Panel1.Size = New System.Drawing.Size(794, 339)
         Me.Panel1.TabIndex = 2
         '
         'CharcoalEnginePanel
@@ -90,7 +90,7 @@ Partial Class ModpackExplorer
         Me.CharcoalEnginePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CharcoalEnginePanel.Location = New System.Drawing.Point(0, 0)
         Me.CharcoalEnginePanel.Name = "CharcoalEnginePanel"
-        Me.CharcoalEnginePanel.Size = New System.Drawing.Size(794, 419)
+        Me.CharcoalEnginePanel.Size = New System.Drawing.Size(794, 339)
         Me.CharcoalEnginePanel.TabIndex = 3
         '
         'ToolStrip1
@@ -99,7 +99,7 @@ Partial Class ModpackExplorer
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton2, Me.ToolStripButton1, Me.ToolStripSeparator1, Me.ToolStripProgressBar1})
         Me.ToolStrip1.Location = New System.Drawing.Point(3, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(354, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(325, 25)
         Me.ToolStrip1.TabIndex = 0
         '
         'ToolStripButton2
@@ -108,7 +108,7 @@ Partial Class ModpackExplorer
         Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton2.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(112, 21)
+        Me.ToolStripButton2.Size = New System.Drawing.Size(113, 21)
         Me.ToolStripButton2.Text = "Feed The Beast"
         '
         'ToolStripButton1
@@ -117,7 +117,7 @@ Partial Class ModpackExplorer
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(91, 21)
+        Me.ToolStripButton1.Size = New System.Drawing.Size(92, 21)
         Me.ToolStripButton1.Text = "CurseForge"
         '
         'ToolStripSeparator1
@@ -137,6 +137,7 @@ Partial Class ModpackExplorer
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ToolStripContainer1)
         Me.Name = "ModpackExplorer"
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Text = "建立模組包伺服器 - 選擇模組包"
         Me.ToolStripContainer1.ContentPanel.ResumeLayout(False)

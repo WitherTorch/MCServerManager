@@ -171,10 +171,10 @@ Partial Class BungeeCordConsole
         Me.SettingTabPage.HorizontalScrollbarBarColor = True
         Me.SettingTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.SettingTabPage.HorizontalScrollbarSize = 10
-        Me.SettingTabPage.Location = New System.Drawing.Point(4, 38)
+        Me.SettingTabPage.Location = New System.Drawing.Point(4, 36)
         Me.SettingTabPage.Name = "SettingTabPage"
         Me.SettingTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.SettingTabPage.Size = New System.Drawing.Size(752, 378)
+        Me.SettingTabPage.Size = New System.Drawing.Size(752, 380)
         Me.SettingTabPage.TabIndex = 3
         Me.SettingTabPage.Text = "BungeeCord 操作"
         Me.SettingTabPage.UseVisualStyleBackColor = True
@@ -212,10 +212,10 @@ Partial Class BungeeCordConsole
         Me.DataStreamTabPage.HorizontalScrollbarBarColor = True
         Me.DataStreamTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.DataStreamTabPage.HorizontalScrollbarSize = 10
-        Me.DataStreamTabPage.Location = New System.Drawing.Point(4, 38)
+        Me.DataStreamTabPage.Location = New System.Drawing.Point(4, 36)
         Me.DataStreamTabPage.Name = "DataStreamTabPage"
         Me.DataStreamTabPage.Padding = New System.Windows.Forms.Padding(0, 0, 0, 3)
-        Me.DataStreamTabPage.Size = New System.Drawing.Size(752, 378)
+        Me.DataStreamTabPage.Size = New System.Drawing.Size(752, 380)
         Me.DataStreamTabPage.TabIndex = 1
         Me.DataStreamTabPage.Text = "BungeeCord 主資料列表"
         Me.DataStreamTabPage.UseVisualStyleBackColor = True
@@ -230,7 +230,7 @@ Partial Class BungeeCordConsole
         Me.ContentPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ContentPanel.Location = New System.Drawing.Point(0, 0)
         Me.ContentPanel.Name = "ContentPanel"
-        Me.ContentPanel.Size = New System.Drawing.Size(752, 353)
+        Me.ContentPanel.Size = New System.Drawing.Size(752, 355)
         Me.ContentPanel.TabIndex = 13
         '
         'DataListView
@@ -244,7 +244,7 @@ Partial Class BungeeCordConsole
         Me.DataListView.Margin = New System.Windows.Forms.Padding(0, 0, 0, 3)
         Me.DataListView.MultiSelect = False
         Me.DataListView.Name = "DataListView"
-        Me.DataListView.Size = New System.Drawing.Size(752, 327)
+        Me.DataListView.Size = New System.Drawing.Size(752, 329)
         Me.DataListView.TabIndex = 15
         Me.DataListView.UseCompatibleStateImageBehavior = False
         Me.DataListView.View = System.Windows.Forms.View.Details
@@ -315,7 +315,7 @@ Partial Class BungeeCordConsole
         Me.CommandTextBox.CustomButton.Visible = False
         Me.CommandTextBox.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.CommandTextBox.Lines = New String(-1) {}
-        Me.CommandTextBox.Location = New System.Drawing.Point(0, 353)
+        Me.CommandTextBox.Location = New System.Drawing.Point(0, 355)
         Me.CommandTextBox.MaxLength = 32767
         Me.CommandTextBox.Name = "CommandTextBox"
         Me.CommandTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
@@ -361,6 +361,7 @@ Partial Class BungeeCordConsole
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "BungeeCordConsole"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "BungeeCord 控制台"
         Me.MainTabControl.ResumeLayout(False)

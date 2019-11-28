@@ -366,12 +366,12 @@ Partial Class Manager
         '
         Me.ExternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.重新載入外部IPRToolStripMenuItem})
         Me.ExternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
         '
         '重新載入外部IPRToolStripMenuItem
         '
         Me.重新載入外部IPRToolStripMenuItem.Name = "重新載入外部IPRToolStripMenuItem"
-        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.重新載入外部IPRToolStripMenuItem.Text = "重新載入外部IP(&R)"
         '
         'IPALabel
@@ -401,12 +401,12 @@ Partial Class Manager
         '
         Me.InternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
         Me.InternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.InternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
+        Me.InternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(172, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(174, 22)
         Me.ToolStripMenuItem1.Text = "重新載入內部IP(&R)"
         '
         'GroupBox7
@@ -960,7 +960,7 @@ Partial Class Manager
         Me.NoIPAccountBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
         Me.NoIPAccountBox.CustomButton.UseSelectable = True
         Me.NoIPAccountBox.CustomButton.Visible = False
-        Me.NoIPAccountBox.Lines = New String() {"dd"}
+        Me.NoIPAccountBox.Lines = New String(-1) {}
         Me.NoIPAccountBox.Location = New System.Drawing.Point(50, 6)
         Me.NoIPAccountBox.MaxLength = 32767
         Me.NoIPAccountBox.Name = "NoIPAccountBox"
@@ -972,7 +972,6 @@ Partial Class Manager
         Me.NoIPAccountBox.ShortcutsEnabled = True
         Me.NoIPAccountBox.Size = New System.Drawing.Size(193, 22)
         Me.NoIPAccountBox.TabIndex = 1
-        Me.NoIPAccountBox.Text = "dd"
         Me.NoIPAccountBox.UseSelectable = True
         Me.NoIPAccountBox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.NoIPAccountBox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
@@ -1736,10 +1735,10 @@ Partial Class Manager
         Me.AboutPage.HorizontalScrollbarBarColor = True
         Me.AboutPage.HorizontalScrollbarHighlightOnWheel = False
         Me.AboutPage.HorizontalScrollbarSize = 10
-        Me.AboutPage.Location = New System.Drawing.Point(4, 38)
+        Me.AboutPage.Location = New System.Drawing.Point(4, 36)
         Me.AboutPage.Name = "AboutPage"
         Me.AboutPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AboutPage.Size = New System.Drawing.Size(736, 423)
+        Me.AboutPage.Size = New System.Drawing.Size(736, 425)
         Me.AboutPage.TabIndex = 5
         Me.AboutPage.Text = "關於"
         Me.AboutPage.UseVisualStyleBackColor = True
@@ -1759,7 +1758,7 @@ Partial Class Manager
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 417)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 419)
         Me.TableLayoutPanel4.TabIndex = 1
         '
         'GroupBox5
@@ -1769,7 +1768,7 @@ Partial Class Manager
         Me.GroupBox5.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox5.Location = New System.Drawing.Point(368, 3)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(359, 411)
+        Me.GroupBox5.Size = New System.Drawing.Size(359, 413)
         Me.GroupBox5.TabIndex = 5
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "各伺服器軟體官網(按兩下即可開啟)"
@@ -1822,7 +1821,7 @@ Partial Class Manager
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
-        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 389)
+        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 391)
         Me.ServerSoftwareLinkList.StateImageList = Me.ServerSoftwareImageList
         Me.ServerSoftwareLinkList.TabIndex = 0
         Me.ServerSoftwareLinkList.UseCompatibleStateImageBehavior = False
@@ -1858,7 +1857,7 @@ Partial Class Manager
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(3, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(359, 411)
+        Me.Panel3.Size = New System.Drawing.Size(359, 413)
         Me.Panel3.TabIndex = 1
         '
         'LinkLabel2
@@ -1892,7 +1891,7 @@ Partial Class Manager
         Me.GroupBox4.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(3, 159)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(352, 244)
+        Me.GroupBox4.Size = New System.Drawing.Size(352, 246)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "使用的函式庫"
@@ -1906,7 +1905,7 @@ Partial Class Manager
         Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)", "DropDownControls (用於顯示群組項目)", "NBT_Library (用於解析NBT檔案)", "MetroFramework (提供圖形介面)"})
         Me.LibraryListBox.Location = New System.Drawing.Point(3, 19)
         Me.LibraryListBox.Name = "LibraryListBox"
-        Me.LibraryListBox.Size = New System.Drawing.Size(346, 222)
+        Me.LibraryListBox.Size = New System.Drawing.Size(346, 224)
         Me.LibraryListBox.TabIndex = 0
         '
         'Label10
@@ -1988,6 +1987,7 @@ Partial Class Manager
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Manager"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "Minecraft 伺服器管理員"
         Me.MainTabControl.ResumeLayout(False)

@@ -99,7 +99,7 @@ Partial Class ForgeModExplorer
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton2, Me.ToolStripButton1, Me.ToolStripSeparator1, Me.ToolStripProgressBar1})
         Me.ToolStrip1.Location = New System.Drawing.Point(3, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(347, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(318, 25)
         Me.ToolStrip1.TabIndex = 0
         '
         'ToolStripButton2
@@ -107,7 +107,7 @@ Partial Class ForgeModExplorer
         Me.ToolStripButton2.Image = Global.ServerManager.My.Resources.Resources.CFLogo
         Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(91, 22)
+        Me.ToolStripButton2.Size = New System.Drawing.Size(92, 22)
         Me.ToolStripButton2.Text = "CurseForge"
         '
         'ToolStripButton1
@@ -115,7 +115,7 @@ Partial Class ForgeModExplorer
         Me.ToolStripButton1.Image = Global.ServerManager.My.Resources.Resources.Sponge
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(105, 22)
+        Me.ToolStripButton1.Size = New System.Drawing.Size(106, 22)
         Me.ToolStripButton1.Text = "SpongeForge"
         '
         'ToolStripSeparator1
@@ -135,6 +135,7 @@ Partial Class ForgeModExplorer
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ToolStripContainer1)
         Me.Name = "ForgeModExplorer"
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.ShowIcon = False
         Me.Text = "Forge 模組瀏覽器"
         Me.ToolStripContainer1.ContentPanel.ResumeLayout(False)

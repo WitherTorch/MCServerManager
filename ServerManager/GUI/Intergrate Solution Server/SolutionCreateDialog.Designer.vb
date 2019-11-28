@@ -52,7 +52,7 @@ Partial Class SolutionCreateDialog
         '
         '
         Me.SolutionDirBox.CustomButton.Image = Nothing
-        Me.SolutionDirBox.CustomButton.Location = New System.Drawing.Point(220, 2)
+        Me.SolutionDirBox.CustomButton.Location = New System.Drawing.Point(206, 2)
         Me.SolutionDirBox.CustomButton.Name = ""
         Me.SolutionDirBox.CustomButton.Size = New System.Drawing.Size(17, 17)
         Me.SolutionDirBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -138,6 +138,7 @@ Partial Class SolutionCreateDialog
         Me.MinimizeBox = False
         Me.Name = "SolutionCreateDialog"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "建立整合方案"
         Me.Panel1.ResumeLayout(False)

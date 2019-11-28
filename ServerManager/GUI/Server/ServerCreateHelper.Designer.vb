@@ -76,6 +76,7 @@ Partial Class ServerCreateHelper
         Me.Name = "ServerCreateHelper"
         Me.Padding = New System.Windows.Forms.Padding(20, 30, 20, 20)
         Me.Resizable = False
+        Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Style = MetroFramework.MetroColorStyle.Green
         Me.Text = "建立伺服器"
