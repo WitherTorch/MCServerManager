@@ -6,6 +6,7 @@ Public Class ForgeModExplorer
     Friend _server As Server
     Friend index As Integer
     Friend isStart As Boolean = True
+    Friend isError As Boolean = False
 
 
     Sub New(index As Integer)
@@ -33,7 +34,13 @@ Public Class ForgeModExplorer
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
         isStart = False
-        engine.LoadPage("https://www.curseforge.com/minecraft/mc-mods", CharcoalEngine.RenderPageType.CurseForge_ModListPage, CharcoalEnginePanel)
+        isError = False
+        Try
+            engine.LoadPage("https://www.curseforge.com/minecraft/mc-mods", CharcoalEngine.RenderPageType.CurseForge_ModListPage, CharcoalEnginePanel)
+        Catch ex As Exception
+            isError = True
+            CharcoalEnginePanel.Refresh()
+        End Try
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
@@ -82,11 +89,19 @@ Public Class ForgeModExplorer
             Catch ex As Exception
 
             End Try
+        ElseIf IsError Then
+            Try
+                Dim g As Graphics = e.Graphics
+                g.Clear(Color.LightGray)
+                g.DrawString("加載時發生錯誤", New Font(SystemFonts.IconTitleFont.FontFamily, 16, FontStyle.Regular, GraphicsUnit.Pixel), New SolidBrush(Color.DimGray), New RectangleF(CharcoalEnginePanel.Location, CharcoalEnginePanel.Size), New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
+                g.Dispose()
+            Catch ex As Exception
+
+            End Try
         End If
     End Sub
 
-
     Private Sub CharcoalEnginePanel_Resize(sender As Object, e As EventArgs) Handles CharcoalEnginePanel.Resize
-        If isStart Then CharcoalEnginePanel.Refresh()
+        If isStart OrElse isError Then CharcoalEnginePanel.Refresh()
     End Sub
 End Class
