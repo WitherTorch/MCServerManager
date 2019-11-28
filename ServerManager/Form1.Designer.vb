@@ -24,34 +24,11 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
-        Me.DxListView1 = New ServerManager.DXListView()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Timer1
         '
         Me.Timer1.Enabled = True
-        '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(393, 0)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {10000000, 0, 0, 0})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 22)
-        Me.NumericUpDown1.TabIndex = 1
-        '
-        'DxListView1
-        '
-        Me.DxListView1.BackColor = System.Drawing.Color.White
-        Me.DxListView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DxListView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DxListView1.Font = New System.Drawing.Font("Segoe UI", 15.0!)
-        Me.DxListView1.Location = New System.Drawing.Point(0, 0)
-        Me.DxListView1.Margin = New System.Windows.Forms.Padding(6)
-        Me.DxListView1.Name = "DxListView1"
-        Me.DxListView1.Size = New System.Drawing.Size(800, 450)
-        Me.DxListView1.TabIndex = 0
         '
         'Form1
         '
@@ -59,16 +36,11 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.NumericUpDown1)
-        Me.Controls.Add(Me.DxListView1)
         Me.Name = "Form1"
         Me.Text = "Form1"
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents DxListView1 As DXListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
@@ -76,5 +48,4 @@ Partial Class Form1
     Friend WithEvents ColumnHeader5 As ColumnHeader
     Friend WithEvents ColumnHeader6 As ColumnHeader
     Friend WithEvents Timer1 As Timer
-    Friend WithEvents NumericUpDown1 As NumericUpDown
 End Class

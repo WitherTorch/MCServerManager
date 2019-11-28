@@ -20,7 +20,7 @@
         i += 1
     End Sub
 
-    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
+    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) 
         Timer1.Interval = NumericUpDown1.Value
     End Sub
 

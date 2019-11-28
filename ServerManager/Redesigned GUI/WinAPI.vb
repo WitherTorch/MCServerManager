@@ -2,8 +2,8 @@
 
 Public Class WinAPI
     Public Shared Sub MoveForm(handle As IntPtr)
-        WinAPI.ReleaseCapture()
-        WinAPI.SendMessage(handle, WM_NCLBUTTONDOWN, 2, 0)
+        ReleaseCapture()
+        SendMessage(handle, WM_NCLBUTTONDOWN, 2, 0)
     End Sub
     <DllImport("user32.dll")>
     Public Shared Function ReleaseCapture() As Boolean

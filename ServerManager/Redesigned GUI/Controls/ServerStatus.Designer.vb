@@ -29,6 +29,7 @@ Partial Class ServerStatus
         Me.StartServerButton = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.SettingServerButton = New System.Windows.Forms.Button()
+        Me.ShowFolderButton = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -106,11 +107,29 @@ Partial Class ServerStatus
         Me.ToolTip1.SetToolTip(Me.SettingServerButton, "設定伺服器")
         Me.SettingServerButton.UseVisualStyleBackColor = False
         '
+        'ShowFolderButton
+        '
+        Me.ShowFolderButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ShowFolderButton.BackColor = System.Drawing.Color.Transparent
+        Me.ShowFolderButton.BackgroundImage = Global.ServerManager.My.Resources.Resources.showDir
+        Me.ShowFolderButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.ShowFolderButton.FlatAppearance.BorderSize = 0
+        Me.ShowFolderButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.ShowFolderButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.ShowFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ShowFolderButton.Location = New System.Drawing.Point(362, 70)
+        Me.ShowFolderButton.Name = "ShowFolderButton"
+        Me.ShowFolderButton.Size = New System.Drawing.Size(23, 23)
+        Me.ShowFolderButton.TabIndex = 8
+        Me.ToolTip1.SetToolTip(Me.ShowFolderButton, "開啟資料夾")
+        Me.ShowFolderButton.UseVisualStyleBackColor = False
+        '
         'ServerStatus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.ShowFolderButton)
         Me.Controls.Add(Me.SettingServerButton)
         Me.Controls.Add(Me.StartServerButton)
         Me.Controls.Add(Me.ServerVersionLabel)
@@ -130,4 +149,5 @@ Partial Class ServerStatus
     Friend WithEvents StartServerButton As Button
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents SettingServerButton As Button
+    Friend WithEvents ShowFolderButton As Button
 End Class

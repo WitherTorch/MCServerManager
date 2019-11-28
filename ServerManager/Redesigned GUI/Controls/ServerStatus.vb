@@ -60,4 +60,8 @@
             WinAPI.MoveForm(Handle)
         End If
     End Sub
+
+    Private Sub ShowFolderButton_Click(sender As Object, e As EventArgs) Handles ShowFolderButton.Click
+        Shell(_server.ServerPath)
+    End Sub
 End Class
