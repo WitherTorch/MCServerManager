@@ -1,12 +1,18 @@
 ﻿Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
-
+Public Enum BungeeCordType
+    [Nothing]
+    [Error]
+    BungeeCord
+    Waterfall
+End Enum
 Public Class BungeeCordHost
     Public Event BungeeInfoUpdated()
 
     Public ReadOnly Property BungeePath As String
     Public ReadOnly Property BungeePathName As String
     Public ReadOnly Property BungeeVersion As Integer
+    Public ReadOnly Property BungeeType As BungeeCordType
     Public Property CanUpdate As Boolean
     Public ReadOnly Property Servers As New List(Of BungeeServer)
     Public Property IsRunning As Boolean
@@ -41,8 +47,9 @@ Public Class BungeeCordHost
             Return Nothing
         End If
     End Function
-    Sub SetVersion(version As Integer)
+    Sub SetVersion(version As Integer, type As BungeeCordType)
         _BungeeVersion = version
+        _BungeeType = type
         RaiseEvent BungeeInfoUpdated()
     End Sub
     Friend Shared Function GetBungeeCordHost(bungeePath As String) As BungeeCordHost
@@ -63,6 +70,15 @@ Public Class BungeeCordHost
                                 Dim infoText As String = reader.ReadLine
                                 Dim info = infoText.Split("=", 2, StringSplitOptions.None)
                                 Select Case info(0)
+                                    Case "bungee-type"
+                                        Select Case info(1).ToLower
+                                            Case "bungeecord"
+                                                ._BungeeType = BungeeCordType.BungeeCord
+                                            Case "waterfall"
+                                                ._BungeeType = BungeeCordType.Waterfall
+                                            Case Else
+                                                ._BungeeType = BungeeCordType.Error
+                                        End Select
                                     Case "bungee-version"
                                         ._BungeeVersion = info(1)
                                     Case "servers"
@@ -87,10 +103,13 @@ Public Class BungeeCordHost
                                         Next
                                         ._Servers = bungeeServerList
                                 End Select
+                                If .BungeeType = BungeeCordType.Nothing Then ' 向前相容用
+                                    ._BungeeType = BungeeCordType.BungeeCord
+                                End If
                             Loop
                         End Using
                     End If
-                    ._CanUpdate = BungeeCordUpdater.CheckForUpdate(.BungeeVersion)
+                    ._CanUpdate = BungeeCordUpdater.CheckForUpdate(.BungeeVersion, .BungeeType)
                 End With
                 Return host
             Else
@@ -115,8 +134,9 @@ Public Class BungeeCordHost
             writer = New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(BungeePath, "bungee.info"), IO.FileMode.CreateNew, IO.FileAccess.Write), System.Text.Encoding.UTF8)
         End If
         writer.WriteLine("bungee-version=" & BungeeVersion)
+        writer.WriteLine("bungee-type=" & BungeeType.ToString.ToLower)
         Dim jsonArray As New JArray
-            If IsNothing(Servers) = False Then
+        If IsNothing(Servers) = False Then
             For Each server In Servers
                 Dim jsonObject As New JObject
                 jsonObject.Add("alias", server.ServerAlias)
@@ -125,9 +145,9 @@ Public Class BungeeCordHost
                 jsonArray.Add(jsonObject)
             Next
         End If
-            writer.WriteLine("servers=" & JsonConvert.SerializeObject(jsonArray))
-            writer.Flush()
-            writer.Close()
+        writer.WriteLine("servers=" & JsonConvert.SerializeObject(jsonArray))
+        writer.Flush()
+        writer.Close()
 
     End Sub
     Class BungeeServer
