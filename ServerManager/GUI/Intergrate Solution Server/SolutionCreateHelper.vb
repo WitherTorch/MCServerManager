@@ -23,9 +23,9 @@ Public Class SolutionCreateHelper
                                   _host.SaveSolution()
                                   BeginInvoke(Sub()
                                                   ProgressBar.Value = 20
-                                                  StatusLabel.Text = "狀態：" & "下載BungeeCord 主程式..."
+                                                  StatusLabel.Text = "狀態：" & "下載" & _host.BungeeType.ToString & " 主程式..."
                                               End Sub)
-                     Dim client = BungeeCordUpdater.DownloadUpdateAsync(_host)
+                     Dim client = BungeeCordUpdater.DownloadUpdateAsync(_host, _host.BungeeType)
                      If client IsNot Nothing Then
                          AddHandler client.DownloadProgressChanged, Sub(obj, args)
                                                                         BeginInvoke(Sub() ProgressBar.Value = 20 + args.ProgressPercentage * 0.8)
@@ -39,7 +39,7 @@ Public Class SolutionCreateHelper
                                                                                   End Sub)
                                                                   End Sub
                      Else
-                         MsgBox("無法下載BungeeCord!",, Application.ProductName)
+                         MsgBox("無法下載" & _host.BungeeType.ToString & "!",, Application.ProductName)
                          ProgressBar.Value = 100
                          StatusLabel.Text = "狀態：" & "失敗!"
                          Close()

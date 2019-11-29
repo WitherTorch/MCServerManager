@@ -11,14 +11,15 @@
     End Sub
 
     Private Sub BungeeCordCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Label10.Text = "BungeeCord 版本：build #" & BungeeCordUpdater.GetLatestVersionNumber
+        ComboBox1.Items.Add("BungeeCord #" & BungeeCordUpdater.GetLatestVersionNumber(BungeeCordType.BungeeCord))
+        ComboBox1.Items.Add("Waterfall #" & BungeeCordUpdater.GetLatestVersionNumber(BungeeCordType.Waterfall))
     End Sub
 
     Private Sub CreateButton_Click(sender As Object, e As EventArgs) Handles CreateButton.Click
 
-        If SolutionDirBox.Text.Trim <> "" Then
+        If SolutionDirBox.Text.Trim <> "" AndAlso ComboBox1.SelectedIndex > -1 Then
             Dim _host As BungeeCordHost = BungeeCordHost.GetEmptyBungeeCordHost(SolutionDirBox.Text)
-            _host.SetVersion(BungeeCordUpdater.GetLatestVersionNumber)
+            _host.SetVersion(BungeeCordUpdater.GetLatestVersionNumber(ComboBox1.SelectedIndex + 2), ComboBox1.SelectedIndex + 2)
             Dim u As New SolutionCreateHelper(_host)
             u.ShowDialog(Owner)
             Close()

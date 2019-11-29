@@ -51,17 +51,17 @@
     End Sub
     Friend Overloads Sub SetVersionLabel(Optional updating As Boolean = False, Optional updatingPercent As Integer = 0)
         If updating Then
-            BungeeCordVersion.Text = "BungeeCord 版本：#" & Host.BungeeVersion & " [更新進度：" & updatingPercent & " %]"
+            BungeeCordVersion.Text = Host.BungeeType.ToString & " 版本：#" & Host.BungeeVersion & " [更新進度：" & updatingPercent & " %]"
         Else
-            BungeeCordVersion.Text = "BungeeCord 版本：#" & Host.BungeeVersion
+            BungeeCordVersion.Text = Host.BungeeType.ToString & " 版本：#" & Host.BungeeVersion
         End If
 
     End Sub
     Friend Overloads Sub SetVersionLabel(addtionText As String)
         If addtionText <> "" Then
-            BungeeCordVersion.Text = "BungeeCord 版本：#" & Host.BungeeVersion & " " & addtionText
+            BungeeCordVersion.Text = Host.BungeeType.ToString & " 版本：#" & Host.BungeeVersion & " " & addtionText
         Else
-            BungeeCordVersion.Text = "BungeeCord 版本：#" & Host.BungeeVersion
+            BungeeCordVersion.Text = Host.BungeeType.ToString & " 版本：#" & Host.BungeeVersion
         End If
     End Sub
 
@@ -87,17 +87,17 @@
         End If
         Threading.Tasks.Task.Run(Sub()
                                      If Host.CanUpdate Then
-                                         Select Case MsgBox("檢查到BungeeCord有新的版本，要先更新再啟動嗎?", MsgBoxStyle.YesNo, Application.ProductName)
+                                         Select Case MsgBox("檢查到" & Host.BungeeType.ToString & "有新的版本，要先更新再啟動嗎?", MsgBoxStyle.YesNo, Application.ProductName)
                                              Case MsgBoxResult.Yes
                                                  Dim isUpdated As Boolean = False
-                                                 Using w = BungeeCordUpdater.DownloadUpdateAsync(Host)
+                                                 Using w = BungeeCordUpdater.DownloadUpdateAsync(Host, Host.BungeeType)
                                                      Host.CanUpdate = False
                                                      AddHandler w.DownloadProgressChanged, Sub(obj, args)
                                                                                                BeginInvoke(Sub() SetVersionLabel(True, args.ProgressPercentage))
                                                                                            End Sub
                                                      AddHandler w.DownloadFileCompleted, Sub()
                                                                                              BeginInvoke(Sub() SetVersionLabel())
-                                                                                             Host.SetVersion(BungeeCordUpdater.GetLatestVersionNumber)
+                                                                                             Host.SetVersion(BungeeCordUpdater.GetLatestVersionNumber(Host.BungeeType), Host.BungeeType)
                                                                                              isUpdated = True
                                                                                          End Sub
                                                      Do

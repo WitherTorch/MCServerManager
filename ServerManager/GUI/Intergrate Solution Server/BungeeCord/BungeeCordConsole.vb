@@ -79,11 +79,20 @@ Public Class BungeeCordConsole
 
     Private Sub ServerConsole_Load(sender As Object, e As EventArgs) Handles Me.Load
         BeginInvoke(New Action(Sub()
-                                   Text = "BungeeCord 控制台 - " & Host.BungeePathName
+                                   Text = Host.BungeeType.ToString & " 控制台 - " & Host.BungeePathName
+                                   ServerStatusLabel.Text = ServerStatusLabel.Text.Replace("BungeeCord", Host.BungeeType.ToString)
+                                   SettingTabPage.Text = SettingTabPage.Text.Replace("BungeeCord", Host.BungeeType.ToString)
+                                   MainTabPage.Text = MainTabPage.Text.Replace("BungeeCord", Host.BungeeType.ToString)
+                                   DataStreamTabPage.Text = DataStreamTabPage.Text.Replace("BungeeCord", Host.BungeeType.ToString)
                                End Sub))
         TaskTimer.Enabled = True
         TaskTimer.Start()
-        Run(IO.Path.Combine(JavaPath, "java.exe"), "-Djline.terminal=jline.UnsupportedTerminal -Xmx" & BungeeCordMemoryMax & "M -Xms" & BungeeCordMemoryMin & "M " & JavaArguments & " -jar """ & IO.Path.Combine(_Host.BungeePath, "bungeecord.jar") & """", _Host.BungeePath, True, False)
+        Select Case Host.BungeeType
+            Case BungeeCordType.BungeeCord
+                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Djline.terminal=jline.UnsupportedTerminal -Xmx" & BungeeCordMemoryMax & "M -Xms" & BungeeCordMemoryMin & "M " & JavaArguments & " -jar """ & IO.Path.Combine(_Host.BungeePath, "bungeecord.jar") & """", _Host.BungeePath, True, False)
+            Case BungeeCordType.Waterfall
+                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Djline.terminal=jline.UnsupportedTerminal -Xmx" & BungeeCordMemoryMax & "M -Xms" & BungeeCordMemoryMin & "M " & JavaArguments & " -jar """ & IO.Path.Combine(_Host.BungeePath, "waterfall.jar") & """", _Host.BungeePath, True, False)
+        End Select
         DataListView.View = View.Details
         RunOwnedServers()
     End Sub
@@ -793,7 +802,7 @@ Public Class BungeeCordConsole
                                                                                          item.SubItems.Add(e.Data)
                                                                                          Dim nowTime = Now
                                                                                          item.SubItems.Add(String.Format("{0}:{1}:{2}", nowTime.Hour.ToString.PadLeft(2, "0"), nowTime.Minute.ToString.PadLeft(2, "0"), nowTime.Second.ToString.PadLeft(2, "0")))
-
+                                                                                         item.ForeColor = Color.Red
                                                                                          BeginInvokeIfRequired(Me, Sub()
                                                                                                                        SyncLock Me
                                                                                                                            DataListView.Items.Add(item)
@@ -816,8 +825,29 @@ Public Class BungeeCordConsole
                                                                          If IsNothing(e.Data) = False Then
                                                                              Task.Run(Sub()
                                                                                           Dim msg = MinecraftLogParser.ToConsoleMessage(e.Data, Now)
-                                                                                          Dim item As New ListViewItem(msg.BungeeCordMessageType)
+                                                                                          Dim item As New ListViewItem(IIf(String.IsNullOrEmpty(msg.BungeeCordMessageType) = False, msg.BungeeCordMessageType, msg.ServerMessageTypeString).ToString.TrimStart("[").TrimEnd("]"))
                                                                                           item.SubItems.Add(msg.Message)
+                                                                                          If String.IsNullOrEmpty(msg.BungeeCordMessageType) = False Then
+                                                                                              Select Case item.Text
+                                                                                                  Case "警告"
+                                                                                                      item.ForeColor = Color.Orange
+                                                                                                  Case "錯誤"
+                                                                                                      item.ForeColor = Color.Red
+                                                                                              End Select
+                                                                                          Else
+                                                                                              Select Case msg.ServerMessageType
+                                                                                                  Case MCServerMessageType.Warning
+                                                                                                      item.ForeColor = Color.Orange
+                                                                                                  Case MCServerMessageType.Error
+                                                                                                      item.ForeColor = Color.Red
+                                                                                                  Case MCServerMessageType.Debug
+                                                                                                      item.ForeColor = Color.YellowGreen
+                                                                                                  Case MCServerMessageType.Trace
+                                                                                                      item.ForeColor = Color.Green
+                                                                                                  Case MCServerMessageType.Notify
+                                                                                                      item.ForeColor = Color.Blue
+                                                                                              End Select
+                                                                                          End If
                                                                                           item.SubItems.Add(String.Format("{0}:{1}:{2}", msg.Time.Hour.ToString.PadLeft(2, "0"), msg.Time.Minute.ToString.PadLeft(2, "0"), msg.Time.Second.ToString.PadLeft(2, "0")))
 
                                                                                           BeginInvokeIfRequired(Me, Sub()
@@ -837,7 +867,7 @@ Public Class BungeeCordConsole
                                                                  End Try
                                                              End Sub
         End If
-        ServerStatusLabel.Text = "BungeeCord 狀態：啟動"
+        BeginInvokeIfRequired(Me, Sub() ServerStatusLabel.Text = Host.BungeeType.ToString & " 狀態：啟動")
         Host.IsRunning = True
         backgroundProcess.EnableRaisingEvents = True
 
@@ -845,7 +875,7 @@ Public Class BungeeCordConsole
 
                                                  TaskTimer.Enabled = False
                                                  If IsDisposed = False Then
-                                                     Invoke(Sub() ServerStatusLabel.Text = "BungeeCord 狀態：關閉")
+                                                     BeginInvokeIfRequired(Me, Sub() ServerStatusLabel.Text = Host.BungeeType.ToString & " 狀態：關閉")
                                                  End If
                                                  Host.IsRunning = False
                                                  backgroundProcess = Nothing

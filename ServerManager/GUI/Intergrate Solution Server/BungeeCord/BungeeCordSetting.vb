@@ -17,6 +17,7 @@ Public Class BungeeCordSetting
     End Sub
 
     Private Sub BungeeCordSetting_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Text = host.BungeeType.ToString & " 設定"
         For Each server In host.Servers
             Dim index = ServerListPanel.RowStyles.Count
             ServerListPanel.RowStyles.Add(New RowStyle(SizeType.AutoSize))
