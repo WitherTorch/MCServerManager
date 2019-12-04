@@ -13,6 +13,7 @@
     Private Sub BungeeCordCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
         ComboBox1.Items.Add("BungeeCord #" & BungeeCordUpdater.GetLatestVersionNumber(BungeeCordType.BungeeCord))
         ComboBox1.Items.Add("Waterfall #" & BungeeCordUpdater.GetLatestVersionNumber(BungeeCordType.Waterfall))
+        ComboBox1.Items.Add("Travertine #" & BungeeCordUpdater.GetLatestVersionNumber(BungeeCordType.Travertine))
     End Sub
 
     Private Sub CreateButton_Click(sender As Object, e As EventArgs) Handles CreateButton.Click

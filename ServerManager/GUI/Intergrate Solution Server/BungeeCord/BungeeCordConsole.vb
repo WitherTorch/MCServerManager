@@ -996,6 +996,8 @@ Public Class BungeeCordConsole
                                                                                                process.StandardInput.WriteLine("stop")
                                                                                            Catch ex As Exception
                                                                                            End Try
+                                                                                           Dim dog As New Watchdog(process)
+                                                                                           dog.Run()
                                                                                            process.WaitForExit()
                                                                                        End If
                                                                                    End If
