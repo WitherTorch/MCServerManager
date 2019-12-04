@@ -5,6 +5,7 @@ Public Enum BungeeCordType
     [Error]
     BungeeCord
     Waterfall
+    Travertine
 End Enum
 Public Class BungeeCordHost
     Public Event BungeeInfoUpdated()
@@ -76,6 +77,8 @@ Public Class BungeeCordHost
                                                 ._BungeeType = BungeeCordType.BungeeCord
                                             Case "waterfall"
                                                 ._BungeeType = BungeeCordType.Waterfall
+                                            Case "travertine"
+                                                ._BungeeType = BungeeCordType.Travertine
                                             Case Else
                                                 ._BungeeType = BungeeCordType.Error
                                         End Select
