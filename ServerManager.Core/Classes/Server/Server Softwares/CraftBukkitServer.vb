@@ -127,8 +127,8 @@ Public Class CraftBukkitServer
         Return "CraftBukkit"
     End Function
     Public Overrides Function GetAdditionalServerInfo() As String()
-        Return New String() {"server-memory-max=" & ServerMemoryMax,
-                                                  "server-memory-min=" & ServerMemoryMin}
+        Return New String() {"server-memory-max=" & MemoryMax,
+                                                  "server-memory-min=" & MemoryMin}
     End Function
     Public Overrides Function CanUpdate() As Boolean
         Return False
@@ -142,17 +142,17 @@ Public Class CraftBukkitServer
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key
             Case "server-memory-max"
-                ServerMemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+                MemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+                MemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
         End Select
     End Sub
     Public Overrides Function RunServer() As Process
         If ProcessID = 0 Then
             Dim processInfo As New ProcessStartInfo(GetJavaPath(),
                                                 String.Format("-Xms{0}M -Xmx{1}M {2} -jar ""{3}""",
-                                                              IIf(ServerMemoryMin > 0, ServerMemoryMin, GlobalModule.ServerMemoryMin),
-                                                              IIf(ServerMemoryMax > 0, ServerMemoryMin, GlobalModule.ServerMemoryMax),
+                                                              IIf(MemoryMin > 0, MemoryMin, GlobalModule.ServerMemoryMin),
+                                                              IIf(MemoryMax > 0, MemoryMin, GlobalModule.ServerMemoryMax),
                                                                JavaArguments, ServerPath.TrimEnd(seperator) & seperator & GetServerFileName()))
             processInfo.UseShellExecute = False
             processInfo.CreateNoWindow = True

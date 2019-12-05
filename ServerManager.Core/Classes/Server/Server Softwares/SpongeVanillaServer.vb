@@ -91,9 +91,9 @@ Public Class SpongeVanillaServer
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key
             Case "server-memory-max"
-                ServerMemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+                MemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+                MemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "spongeVanilla-version"
                 Server2ndVersion = value
             Case "spongeVanilla-type"
@@ -103,8 +103,8 @@ Public Class SpongeVanillaServer
         End Select
     End Sub
     Public Overrides Function GetAdditionalServerInfo() As String()
-        Return New String() {"server-memory-max=" & ServerMemoryMax,
-                                                  "server-memory-min=" & ServerMemoryMin,
+        Return New String() {"server-memory-max=" & MemoryMax,
+                                                  "server-memory-min=" & MemoryMin,
                                                   "spongeVanilla-version=" & Server2ndVersion,
                                                   "spongeVanilla-type=" & SpongeVersionType,
                                                   "spongeVanilla-build-version=" & Server3rdVersion}
@@ -144,8 +144,8 @@ Public Class SpongeVanillaServer
         If ProcessID = 0 Then
             Dim processInfo As New ProcessStartInfo(GetJavaPath(),
                                                 String.Format("-Xms{0}M -Xmx{1}M {2} -jar ""{3}""",
-                                                              IIf(ServerMemoryMin > 0, ServerMemoryMin, GlobalModule.ServerMemoryMin),
-                                                              IIf(ServerMemoryMax > 0, ServerMemoryMin, GlobalModule.ServerMemoryMax),
+                                                              IIf(MemoryMin > 0, MemoryMin, GlobalModule.ServerMemoryMin),
+                                                              IIf(MemoryMax > 0, MemoryMin, GlobalModule.ServerMemoryMax),
                                                                JavaArguments, ServerPath.TrimEnd(seperator) & seperator & GetServerFileName()))
             processInfo.UseShellExecute = False
             processInfo.CreateNoWindow = True

@@ -5,7 +5,7 @@
     Sub New(process As Process)
         _process = process
     End Sub
-    Sub New(process As Process, delay As Integer)
+    Sub New(process As Process, delay As ULong)
         _process = process
         _delay = delay
     End Sub
@@ -20,7 +20,7 @@
                                                    _process.Kill()
                                                End If
                                            End Sub)
-        thread.Name = "ServerBase Watchdog Thread"
+        thread.Name = "Watchdog Thread"
         thread.IsBackground = False
         thread.Start()
     End Sub

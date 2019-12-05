@@ -15,12 +15,17 @@
 
   <ItemGroup>
     <PackageReference Include="Devsense.PHP.Phar" Version="1.0.15" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.16" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3-beta2" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.17" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="YamlDotNet" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Classes\Server\Server Softwares\Modpack Server Sources\" />
+    <Folder Include="Classes\Solution Target\Target Softwares\Options And Properties\" />
   </ItemGroup>
 
 </Project>

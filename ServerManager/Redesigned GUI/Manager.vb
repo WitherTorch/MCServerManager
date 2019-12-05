@@ -153,11 +153,11 @@ Public Class Manager
             Try
                 Dim item As New ListViewItem(software.Value.ReadableName)
                 LoadingProgressView.Items.Add(item)
-                If VersionListLoader.HasVersionListFunction(software.Value.ClassType) Then
+                If ServerVersionListLoader.HasVersionListFunction(software.Value.ClassType) Then
                     item.SubItems.Add("載入中...")
                     Threading.Tasks.Task.Run(Sub()
                                                  Try
-                                                     VersionListLoader.LoadVersionList(software.Value.ClassType)
+                                                     ServerVersionListLoader.LoadVersionList(software.Value.ClassType)
                                                      BeginInvokeIfRequired(LoadingProgressView, Sub() item.SubItems(1).Text = "載入完成")
                                                  Catch ex As Exception
                                                      BeginInvokeIfRequired(LoadingProgressView, Sub() item.SubItems(1).Text = "載入錯誤")

@@ -2,9 +2,9 @@
 Imports ServerManager
 
 Public MustInherit Class ModpackServerBase
-    Implements Taskable, Memoryable
-    Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
-    Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
+    Implements Taskable, IMemoryChange
+    Public Property MemoryMax As Integer Implements IMemoryChange.MemoryMax
+    Public Property MemoryMin As Integer Implements IMemoryChange.MemoryMin
 #Region "Events"
     Public Event Initallised()
     Public Event ServerInfoUpdated()

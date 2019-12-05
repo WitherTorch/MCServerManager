@@ -5,10 +5,10 @@ Imports ServerManager
 
 Public Class NukkitServer
     Inherits ServerBase
-    Implements Memoryable
+    Implements IMemoryChange
     Implements IBukkit
-    Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
-    Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
+    Public Property MemoryMax As Integer Implements IMemoryChange.MemoryMax
+    Public Property MemoryMin As Integer Implements IMemoryChange.MemoryMin
     Public Property nukkitOptions As NukkitOptions
     Protected pluginList As New List(Of ServerAddons)
     Protected seperator As String = IIf(IsUnixLikeSystem, "/", "\")
@@ -181,8 +181,8 @@ Public Class NukkitServer
         If ProcessID = 0 Then
             Dim processInfo As New ProcessStartInfo(GetJavaPath(),
                                                 String.Format("-Xms{0}M -Xmx{1}M {2} -jar ""{3}""",
-                                                              IIf(ServerMemoryMin > 0, ServerMemoryMin, GlobalModule.ServerMemoryMin),
-                                                              IIf(ServerMemoryMax > 0, ServerMemoryMin, GlobalModule.ServerMemoryMax),
+                                                              IIf(MemoryMin > 0, MemoryMin, GlobalModule.ServerMemoryMin),
+                                                              IIf(MemoryMax > 0, MemoryMin, GlobalModule.ServerMemoryMax),
                                                                JavaArguments, ServerPath.TrimEnd(seperator) & seperator & GetServerFileName()))
             processInfo.UseShellExecute = False
             processInfo.CreateNoWindow = True

@@ -67,9 +67,9 @@ Public Class AkarinServer
     Protected Overrides Sub OnReadServerInfo(key As String, value As String)
         Select Case key
             Case "server-memory-max"
-                ServerMemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+                MemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+                MemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "akarin-build-version"
                 Server2ndVersion = value
             Case "akarin-branch-name"
@@ -77,8 +77,8 @@ Public Class AkarinServer
         End Select
     End Sub
     Public Overrides Function GetAdditionalServerInfo() As String()
-        Return New String() {"server-memory-max=" & ServerMemoryMax,
-                                                  "server-memory-min=" & ServerMemoryMin,
+        Return New String() {"server-memory-max=" & MemoryMax,
+                                                  "server-memory-min=" & MemoryMin,
                                                   "akarin-build-version=" & Server2ndVersion,
                                                   "akarin-branch-name=" & Server3rdVersion}
     End Function

@@ -126,9 +126,9 @@ Public Class ServerConsole
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         If process IsNot Nothing AndAlso process.HasExited = False Then
             Dim memorymax As Decimal = ServerMemoryMax
-            If TypeOf _server Is Memoryable Then
-                If DirectCast(_server, Memoryable).ServerMemoryMax > 0 Then
-                    memorymax = DirectCast(_server, Memoryable).ServerMemoryMax
+            If TypeOf _server Is IMemoryChange Then
+                If DirectCast(_server, IMemoryChange).MemoryMax > 0 Then
+                    memorymax = DirectCast(_server, IMemoryChange).MemoryMax
                 End If
             End If
             BeginInvokeIfRequired(Me, Sub()

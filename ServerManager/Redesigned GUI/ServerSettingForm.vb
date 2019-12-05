@@ -45,19 +45,19 @@ Public Class ServerSettingForm
             Close()
         Else
             SettingFormBindings.Add(_server, Me)
-            If TypeOf _server Is Memoryable Then
-                Dim memoryServer As Memoryable = _server
-                NumericUpDown1.Value = memoryServer.ServerMemoryMax
-                NumericUpDown2.Value = memoryServer.ServerMemoryMin
+            If TypeOf _server Is IMemoryChange Then
+                Dim memoryServer As IMemoryChange = _server
+                NumericUpDown1.Value = memoryServer.MemoryMax
+                NumericUpDown2.Value = memoryServer.MemoryMin
             End If
         End If
     End Sub
 
     Private Sub ServerSettingForm_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        If TypeOf _server Is Memoryable Then
-            Dim memoryServer As Memoryable = _server
-            memoryServer.ServerMemoryMax = NumericUpDown1.Value
-            memoryServer.ServerMemoryMin = NumericUpDown2.Value
+        If TypeOf _server Is IMemoryChange Then
+            Dim memoryServer As IMemoryChange = _server
+            memoryServer.MemoryMax = NumericUpDown1.Value
+            memoryServer.MemoryMin = NumericUpDown2.Value
         End If
         SettingFormBindings.Remove(_server)
     End Sub

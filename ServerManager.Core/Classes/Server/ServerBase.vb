@@ -98,7 +98,7 @@ Public MustInherit Class ServerBase
 #End Region
 #Region "Must Override Function/Sub"
     ''' <summary>
-    ''' 決定伺服器有有無可用的軟體更新。
+    ''' 決定伺服器有無可用的軟體更新。
     ''' </summary>
     ''' <returns></returns>
     Public MustOverride Function CanUpdate() As Boolean

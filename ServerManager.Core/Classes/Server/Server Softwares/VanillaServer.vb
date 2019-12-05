@@ -8,10 +8,10 @@ Imports ServerManager
 ''' </summary>
 Public Class VanillaServer
     Inherits ServerBase
-    Implements Memoryable
+    Implements IMemoryChange
     Protected seperator As String = IIf(IsUnixLikeSystem, "/", "\")
-    Public Property ServerMemoryMax As Integer Implements Memoryable.ServerMemoryMax
-    Public Property ServerMemoryMin As Integer Implements Memoryable.ServerMemoryMin
+    Public Property MemoryMax As Integer Implements IMemoryChange.MemoryMax
+    Public Property MemoryMin As Integer Implements IMemoryChange.MemoryMin
     Friend Property Server2ndVersion As String
     Dim runningProcess As Process
     Protected Shared VanillaVersionDict As New Dictionary(Of String, String)
@@ -114,8 +114,8 @@ Public Class VanillaServer
         If ProcessID = 0 Then
             Dim processInfo As New ProcessStartInfo(GetJavaPath(),
                                                 String.Format("-Dfile.encoding=UTF-8 -Djline.terminal=jline.UnsupportedTerminal -Xms{0}M -Xmx{1}M {2} -jar ""{3}"" nogui",
-                                                              IIf(ServerMemoryMin > 0, ServerMemoryMin, GlobalModule.ServerMemoryMin),
-                                                              IIf(ServerMemoryMax > 0, ServerMemoryMin, GlobalModule.ServerMemoryMax),
+                                                              IIf(MemoryMin > 0, MemoryMin, GlobalModule.ServerMemoryMin),
+                                                              IIf(MemoryMax > 0, MemoryMin, GlobalModule.ServerMemoryMax),
                                                                JavaArguments, ServerPath.TrimEnd(seperator) & seperator & GetServerFileName()))
             processInfo.UseShellExecute = False
             processInfo.CreateNoWindow = True
@@ -173,8 +173,8 @@ Public Class VanillaServer
         End If
     End Function
     Public Overrides Function GetAdditionalServerInfo() As String()
-        Return New String() {"server-memory-max=" & ServerMemoryMax,
-                                                  "server-memory-min=" & ServerMemoryMin,
+        Return New String() {"server-memory-max=" & MemoryMax,
+                                                  "server-memory-min=" & MemoryMin,
                                                   "vanilla-build-version=" & Server2ndVersion}
     End Function
     Protected vanilla_isSnap As Boolean = False
@@ -238,9 +238,9 @@ Public Class VanillaServer
             Case "vanilla-build-version"
                 _Server2ndVersion = value
             Case "server-memory-max"
-                ServerMemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+                MemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
             Case "server-memory-min"
-                ServerMemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+                MemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
         End Select
     End Sub
 
