@@ -64,6 +64,12 @@ Public MustInherit Class SolutionTargetBase
             _SolutionPathName = value
         End Set
     End Property
+    Dim _servers As New List(Of ServerBase)
+    Public ReadOnly Property Servers As ServerBase()
+        Get
+            Return _servers.ToArray()
+        End Get
+    End Property
 #End Region
 #Region "Must Override Function/Sub"
     ''' <summary>
@@ -92,15 +98,10 @@ Public MustInherit Class SolutionTargetBase
     ''' <returns></returns>
     Public MustOverride Function GetOptionObjects() As AbstractSoftwareOptions()
     ''' <summary>
-    ''' 取得目標軟體的可用版本列表
+    ''' 取得目標軟體的最新可用版本
     ''' </summary>
     ''' <returns></returns>
-    Public MustOverride Function GetAvailableVersions() As String()
-    ''' <summary>
-    ''' 取得目標軟體在指定參數下的可用版本列表
-    ''' </summary>
-    ''' <returns></returns>
-    Public MustOverride Function GetAvailableVersions(ParamArray args As (String, String)()) As String()
+    Public MustOverride Function GetAvailableVersion() As String
     Public MustOverride Function GetAdditionalSolutionInfo() As String()
     ''' <summary>
     ''' 在啟動方案前要做的事(通常是檢查項目)
@@ -209,6 +210,15 @@ Public MustInherit Class SolutionTargetBase
         Else
             Throw New GetServerException
         End If
+    End Function
+    Protected Overridable Sub AddServer(ByRef server As ServerBase)
+        _servers.Add(server)
+    End Sub
+    Protected Overridable Sub RemoveServer(ByRef server As ServerBase)
+        _servers.Remove(server)
+    End Sub
+    Protected Overridable Function GetServerFilter(server As ServerBase) As Boolean
+        Return True
     End Function
 #End Region
 End Class

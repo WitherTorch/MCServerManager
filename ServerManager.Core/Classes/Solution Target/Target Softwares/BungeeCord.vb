@@ -3,10 +3,23 @@
 Public Class BungeeCord
     Inherits SolutionTargetBase
     Implements IMemoryChange
+    Protected bungeeOptions As BungeeCordOptions
     Public Property MemoryMax As Integer Implements IMemoryChange.MemoryMax
     Public Property MemoryMin As Integer Implements IMemoryChange.MemoryMin
+    Protected Overrides Sub AddServer(ByRef server As ServerBase)
+        MyBase.AddServer(server)
+    End Sub
+    Protected Overrides Sub RemoveServer(ByRef server As ServerBase)
+        MyBase.RemoveServer(server)
+    End Sub
+    Protected Overrides Function GetServerFilter(server As ServerBase) As Boolean
+        If TypeOf server Is VanillaServer Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
     Public Overrides Sub SaveSolution()
-
     End Sub
 
     Public Overrides Sub ShutdownSolution()
@@ -22,26 +35,22 @@ Public Class BungeeCord
     End Function
 
     Public Overrides Function GetTargetFileName() As String
-
+        Return "BungeeCord.jar"
     End Function
 
     Public Overrides Function GetInternalName() As String
-
+        Return "BungeeCord"
     End Function
 
     Public Overrides Function GetSoftwareVersionString() As String
-
+        Return "BungeeCord #" & SolutionTargetVersion
     End Function
 
     Public Overrides Function GetOptionObjects() As AbstractSoftwareOptions()
-
+        Return {bungeeOptions}
     End Function
 
-    Public Overrides Function GetAvailableVersions() As String()
-
-    End Function
-
-    Public Overrides Function GetAvailableVersions(ParamArray args() As (String, String)) As String()
+    Public Overrides Function GetAvailableVersion() As String
 
     End Function
 

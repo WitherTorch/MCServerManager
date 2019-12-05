@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Classes\Server\Server Softwares\Modpack Server Sources\" />
-    <Folder Include="Classes\Solution Target\Target Softwares\Options And Properties\" />
   </ItemGroup>
 
 </Project>
