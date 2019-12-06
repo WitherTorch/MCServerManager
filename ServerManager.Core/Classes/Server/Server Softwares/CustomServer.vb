@@ -68,11 +68,11 @@ Public Class CustomServer
     Public Overrides Function GetAdditionalServerInfo() As String()
         Return {}
     End Function
-    Public Overrides Function BeforeRunServer() As Boolean
+    Public Overrides Function BeforeRunServer(Optional isMuted As Boolean = False) As Boolean
         Select Case New IO.FileInfo(ServerRunFile).Extension
             Case ".jar"
                 If JavaPath = "" Then
-                    GUIHost.GUIHandler.MsgBox("未安裝Java 或 正在偵測", APP_NAME)
+                    If isMuted = False Then GUIHost.GUIHandler.MsgBox("未安裝Java 或 正在偵測", APP_NAME)
                     Return False
                 End If
         End Select

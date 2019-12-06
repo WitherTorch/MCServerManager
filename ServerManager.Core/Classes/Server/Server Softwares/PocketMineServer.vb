@@ -183,9 +183,9 @@ Public Class PocketMineServer
     Public Overrides Function GetServerFileName() As String
         Return "PocketMine-MP.phar"
     End Function
-    Public Overrides Function BeforeRunServer() As Boolean
+    Public Overrides Function BeforeRunServer(Optional isMuted As Boolean = False) As Boolean
         If String.IsNullOrWhiteSpace(PHPPath) Then
-           GUIHost.GUIHandler.MsgBox("未指定PHP 路徑", APP_NAME)
+            If isMuted = False Then GUIHost.GUIHandler.MsgBox("未指定PHP 路徑", APP_NAME)
             Return False
         End If
         Return True

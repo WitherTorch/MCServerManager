@@ -101,6 +101,13 @@ Public Class NukkitServer
         Catch ex As IO.IOException
         End Try
     End Sub
+    Public Overrides Function BeforeRunServer(Optional isMuted As Boolean = False) As Boolean
+        If JavaPath = "" Then
+            If isMuted = False Then GUIHost.GUIHandler.MsgBox("未安裝Java 或 正在偵測", APP_NAME)
+            Return False
+        End If
+        Return True
+    End Function
     Public Overridable Function GetPlugins() As ServerAddons() Implements IBukkit.GetPlugins
         Return pluginList.ToArray()
     End Function

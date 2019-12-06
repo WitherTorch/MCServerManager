@@ -141,7 +141,7 @@ Public MustInherit Class ServerBase
     ''' <summary>
     ''' 在啟動伺服器要做的事(通常是檢查項目)
     ''' </summary>
-    Public Overridable Function BeforeRunServer() As Boolean
+    Public Overridable Function BeforeRunServer(Optional isMuted As Boolean = False) As Boolean
     End Function
     ''' <summary>
     ''' 啟動伺服器

@@ -70,6 +70,17 @@ Public MustInherit Class SolutionTargetBase
             Return _servers.ToArray()
         End Get
     End Property
+    Private _IsRunning As Boolean
+    Public Property IsRunning As Boolean
+        Get
+            Return _IsRunning
+        End Get
+        Set(value As Boolean)
+            _IsRunning = value
+            RaiseEvent SolutionInfoUpdated()
+        End Set
+    End Property
+    Public Property ProcessID As Long = 0
 #End Region
 #Region "Must Override Function/Sub"
     ''' <summary>
