@@ -172,6 +172,7 @@ Partial Class Manager
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
+        Me.CatServerLoadingLabel = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -415,6 +416,7 @@ Partial Class Manager
         Me.VListLoadingBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.VListLoadingBox.BackColor = System.Drawing.Color.Transparent
+        Me.VListLoadingBox.Controls.Add(Me.CatServerLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.PocketMineLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.ContigoLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.KettleLoadingLabel)
@@ -440,7 +442,7 @@ Partial Class Manager
         '
         'PocketMineLoadingLabel
         '
-        Me.PocketMineLoadingLabel.Location = New System.Drawing.Point(410, 41)
+        Me.PocketMineLoadingLabel.Location = New System.Drawing.Point(410, 64)
         Me.PocketMineLoadingLabel.Name = "PocketMineLoadingLabel"
         Me.PocketMineLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.PocketMineLoadingLabel.TabIndex = 15
@@ -520,7 +522,7 @@ Partial Class Manager
         '
         'VanillaBedrockLoadingLabel
         '
-        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(410, 18)
+        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(410, 41)
         Me.VanillaBedrockLoadingLabel.Name = "VanillaBedrockLoadingLabel"
         Me.VanillaBedrockLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.VanillaBedrockLoadingLabel.TabIndex = 7
@@ -541,7 +543,7 @@ Partial Class Manager
         '
         'NukkitLoadingLabel
         '
-        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(410, 64)
+        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(410, 87)
         Me.NukkitLoadingLabel.Name = "NukkitLoadingLabel"
         Me.NukkitLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.NukkitLoadingLabel.TabIndex = 5
@@ -1783,6 +1785,16 @@ Partial Class Manager
         Me.PerformanceCounter1.CounterName = "% Processor Time"
         Me.PerformanceCounter1.InstanceName = "_Total"
         '
+        'CatServerLoadingLabel
+        '
+        Me.CatServerLoadingLabel.Location = New System.Drawing.Point(410, 18)
+        Me.CatServerLoadingLabel.Name = "CatServerLoadingLabel"
+        Me.CatServerLoadingLabel.Size = New System.Drawing.Size(197, 23)
+        Me.CatServerLoadingLabel.TabIndex = 16
+        Me.CatServerLoadingLabel.Text = "CatServer："
+        Me.CatServerLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.CatServerLoadingLabel, "由Luohuayu 開發的混合式伺服器軟體，能夠同時使用模組及插件。")
+        '
         'Manager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -2000,4 +2012,5 @@ Partial Class Manager
     Friend WithEvents Label27 As Label
     Friend WithEvents Label28 As Label
     Friend WithEvents PocketMineLoadingLabel As Label
+    Friend WithEvents CatServerLoadingLabel As Label
 End Class

@@ -155,6 +155,12 @@ Public Class ServerCreateDialog
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Kettle)
                     VersionBox.Items.AddRange(KettleVersionDict.Keys.ToArray)
                 Case 12
+                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.CatServer)
+                    For Each item In CatServerVersionDict
+                        VersionBox.Items.Add(item.Key & " Universal")
+                        VersionBox.Items.Add(item.Key & " Async")
+                    Next
+                Case 13
                     If Environment.OSVersion.Version.Major < 10 Then
                         If IsUnixLikeSystem Then
                             server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
@@ -175,7 +181,7 @@ Public Class ServerCreateDialog
                         VersionBox.SelectedIndex = 0
                         VersionBox.Enabled = False
                     End If
-                Case 13
+                Case 14
                     If Environment.OSVersion.Version.Major < 10 Then
                         server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
                         VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
@@ -196,7 +202,7 @@ Public Class ServerCreateDialog
                             End If
                         End If
                     End If
-                Case 14
+                Case 15
                     If Environment.OSVersion.Version.Major < 10 Then
                         server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
                         VersionBox.Items.Add("(無)")
@@ -208,7 +214,7 @@ Public Class ServerCreateDialog
                         VersionBox.SelectedIndex = 0
                         VersionBox.Enabled = False
                     End If
-                Case 15
+                Case 16
                     server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
                     VersionBox.Items.Add("(無)")
                     VersionBox.SelectedIndex = 0
@@ -266,14 +272,17 @@ Public Class ServerCreateDialog
 }, New With {
     .Value = 11,
     .Display = "Java 版 - Kettle"
-}, New With {
+    }, New With {
     .Value = 12,
+    .Display = "Java 版 - CatServer"
+}, New With {
+    .Value = 13,
     .Display = "基岩版 - 原版"
  }, New With {
-    .Value = 13,
+    .Value = 14,
     .Display = "基岩版 - PocketMine-MP"
 }, New With {
-    .Value = 14,
+    .Value = 15,
     .Display = "基岩版 - NukkitX"
 }, New With {
     .Value = 255,
