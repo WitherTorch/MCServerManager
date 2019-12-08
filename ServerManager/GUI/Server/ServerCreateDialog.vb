@@ -238,55 +238,72 @@ Public Class ServerCreateDialog
         ipType = ServerIPType.Float
         IPStyleComboBox.SelectedIndex = 0
         Dim groupedItems = {New With {.Value = 0,
-    .Display = "Java 版 - 原版"
+      .Group = "Java 版",
+  .Display = "原版"
 }, New With {
     .Value = 1,
-    .Display = "Java 版 - Forge"
+     .Group = "Java 版",
+   .Display = "Forge"
 }, New With {
     .Value = 2,
-    .Display = "Java 版 - Spigot"
+    .Group = "Java 版",
+    .Display = "Spigot"
 }, New With {
     .Value = 3,
-    .Display = "Java 版 - Spigot (手動建置)"
+      .Group = "Java 版",
+  .Display = "Spigot (手動建置)"
 }, New With {
     .Value = 4,
-    .Display = "Java 版 - CraftBukkit"
+       .Group = "Java 版",
+ .Display = "CraftBukkit"
 }, New With {
     .Value = 5,
-    .Display = "Java 版 - Paper"
+      .Group = "Java 版",
+  .Display = "Paper"
 }, New With {
     .Value = 6,
-    .Display = "Java 版 - Akarin"
+       .Group = "Java 版",
+ .Display = "Akarin"
 }, New With {
     .Value = 7,
-    .Display = "Java 版 - SpongeVanilla"
+      .Group = "Java 版",
+  .Display = "SpongeVanilla"
 }, New With {
     .Value = 8,
-    .Display = "Java 版 - MCPC/Cauldron"
+       .Group = "Java 版",
+ .Display = "MCPC/Cauldron"
 }, New With {
     .Value = 9,
-    .Display = "Java 版 - Thermos"
+     .Group = "Java 版",
+   .Display = "Thermos"
 }, New With {
     .Value = 10,
-    .Display = "Java 版 - Contigo"
+     .Group = "Java 版",
+     .Display = "Contigo"
 }, New With {
     .Value = 11,
-    .Display = "Java 版 - Kettle"
+       .Group = "Java 版",
+ .Display = "Kettle"
     }, New With {
     .Value = 12,
-    .Display = "Java 版 - CatServer"
+    .Group = "Java 版",
+    .Display = "CatServer"
 }, New With {
     .Value = 13,
-    .Display = "基岩版 - 原版"
+         .Group = "基岩版",
+    .Display = "原版"
  }, New With {
     .Value = 14,
-    .Display = "基岩版 - PocketMine-MP"
+           .Group = "基岩版",
+  .Display = "PocketMine-MP"
 }, New With {
     .Value = 15,
-    .Display = "基岩版 - NukkitX"
+             .Group = "基岩版",
+.Display = "NukkitX"
 }, New With {
     .Value = 255,
-    .Display = "自定義"
+                .Group = "其他",
+ .Display = "自定義"
 }}
         If IsUnixLikeSystem Or System.Environment.OSVersion.Version.Major < 10 Then
             For Each item In groupedItems
@@ -298,6 +315,7 @@ Public Class ServerCreateDialog
             Next
         End If
         VersionTypeBox.ValueMember = "Value"
+        VersionTypeBox.GroupMember = "Group"
         VersionTypeBox.DisplayMember = "Display"
         VersionTypeBox.DataSource = groupedItems
 

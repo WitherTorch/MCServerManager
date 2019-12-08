@@ -675,6 +675,14 @@ Public Class Manager
                 End Try
                 PocketMineGetVersionThread = Nothing
             End If
+            If IsNothing(CatServerGetVersionThread) = False AndAlso CatServerGetVersionThread.IsAlive = True Then
+                Try
+                    CatServerGetVersionThread.Abort()
+                Catch ex As Exception
+
+                End Try
+                CatServerGetVersionThread = Nothing
+            End If
             GetVanillaServerVersionList()
             GetForgeServerVersionList()
             GetSpigotServerVersionList()
@@ -687,6 +695,7 @@ Public Class Manager
             GetNukkitServerVersionList()
             GetVanillaBedrockServerVersionList()
             GetPocketMineServerVersionList()
+            GetCatServerServerVersionList()
         Else
             VanillaLoadingLabel.Text = "原版：" & "(無)"
             ForgeLoadingLabel.Text = "Forge：" & "(無)"
@@ -699,6 +708,8 @@ Public Class Manager
             NukkitLoadingLabel.Text = "Nukkit：" & "(無)"
             VanillaBedrockLoadingLabel.Text = "原版(基岩)：" & "(無)"
             KettleLoadingLabel.Text = "Kettle：(無)"
+            PocketMineLoadingLabel.Text = "PocketMine-MP：(無)"
+            CatServerLoadingLabel.Text = "CatServer：(無)"
         End If
         GC.Collect()
     End Sub

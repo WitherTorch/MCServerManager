@@ -57,7 +57,6 @@ Partial Class Manager
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
         Me.PocketMineLoadingLabel = New System.Windows.Forms.Label()
         Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
-        Me.KettleLoadingLabel = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.CauldronLoadingLabel = New System.Windows.Forms.Label()
         Me.SpigotGitLoadingLabel = New System.Windows.Forms.Label()
@@ -173,6 +172,8 @@ Partial Class Manager
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
+        Me.KettleLoadingLabel = New System.Windows.Forms.Label()
+        Me.CatServerLoadingLabel = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -366,12 +367,12 @@ Partial Class Manager
         '
         Me.ExternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.重新載入外部IPRToolStripMenuItem})
         Me.ExternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
+        Me.ExternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
         '
         '重新載入外部IPRToolStripMenuItem
         '
         Me.重新載入外部IPRToolStripMenuItem.Name = "重新載入外部IPRToolStripMenuItem"
-        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.重新載入外部IPRToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
         Me.重新載入外部IPRToolStripMenuItem.Text = "重新載入外部IP(&R)"
         '
         'IPALabel
@@ -401,12 +402,12 @@ Partial Class Manager
         '
         Me.InternalIPContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
         Me.InternalIPContextMenu.Name = "ExternalIPContextMenu"
-        Me.InternalIPContextMenu.Size = New System.Drawing.Size(175, 26)
+        Me.InternalIPContextMenu.Size = New System.Drawing.Size(173, 26)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(174, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(172, 22)
         Me.ToolStripMenuItem1.Text = "重新載入內部IP(&R)"
         '
         'GroupBox7
@@ -426,6 +427,7 @@ Partial Class Manager
         Me.VListLoadingBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.VListLoadingBox.BackColor = System.Drawing.Color.Transparent
+        Me.VListLoadingBox.Controls.Add(Me.CatServerLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.PocketMineLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.ContigoLoadingLabel)
         Me.VListLoadingBox.Controls.Add(Me.KettleLoadingLabel)
@@ -451,7 +453,7 @@ Partial Class Manager
         '
         'PocketMineLoadingLabel
         '
-        Me.PocketMineLoadingLabel.Location = New System.Drawing.Point(410, 41)
+        Me.PocketMineLoadingLabel.Location = New System.Drawing.Point(410, 64)
         Me.PocketMineLoadingLabel.Name = "PocketMineLoadingLabel"
         Me.PocketMineLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.PocketMineLoadingLabel.TabIndex = 15
@@ -468,16 +470,6 @@ Partial Class Manager
         Me.ContigoLoadingLabel.Text = "Contigo：載入完成"
         Me.ContigoLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ToolTip1.SetToolTip(Me.ContigoLoadingLabel, "Thermos 的分支，已經停止開發。")
-        '
-        'KettleLoadingLabel
-        '
-        Me.KettleLoadingLabel.Location = New System.Drawing.Point(207, 133)
-        Me.KettleLoadingLabel.Name = "KettleLoadingLabel"
-        Me.KettleLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.KettleLoadingLabel.TabIndex = 13
-        Me.KettleLoadingLabel.Text = "Kettle："
-        Me.KettleLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.KettleLoadingLabel, "開發中的Minecraft伺服器版本，能夠同時使用模組及插件。")
         '
         'Label17
         '
@@ -531,7 +523,7 @@ Partial Class Manager
         '
         'VanillaBedrockLoadingLabel
         '
-        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(410, 18)
+        Me.VanillaBedrockLoadingLabel.Location = New System.Drawing.Point(410, 41)
         Me.VanillaBedrockLoadingLabel.Name = "VanillaBedrockLoadingLabel"
         Me.VanillaBedrockLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.VanillaBedrockLoadingLabel.TabIndex = 7
@@ -552,7 +544,7 @@ Partial Class Manager
         '
         'NukkitLoadingLabel
         '
-        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(410, 64)
+        Me.NukkitLoadingLabel.Location = New System.Drawing.Point(410, 87)
         Me.NukkitLoadingLabel.Name = "NukkitLoadingLabel"
         Me.NukkitLoadingLabel.Size = New System.Drawing.Size(197, 23)
         Me.NukkitLoadingLabel.TabIndex = 5
@@ -1977,6 +1969,26 @@ Partial Class Manager
         Me.MetroStyleManager1.Owner = Me
         Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
         '
+        'KettleLoadingLabel
+        '
+        Me.KettleLoadingLabel.Location = New System.Drawing.Point(207, 133)
+        Me.KettleLoadingLabel.Name = "KettleLoadingLabel"
+        Me.KettleLoadingLabel.Size = New System.Drawing.Size(197, 23)
+        Me.KettleLoadingLabel.TabIndex = 13
+        Me.KettleLoadingLabel.Text = "Kettle："
+        Me.KettleLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.KettleLoadingLabel, "開發中的Minecraft伺服器版本，能夠同時使用模組及插件。")
+        '
+        'CatServerLoadingLabel
+        '
+        Me.CatServerLoadingLabel.Location = New System.Drawing.Point(410, 18)
+        Me.CatServerLoadingLabel.Name = "CatServerLoadingLabel"
+        Me.CatServerLoadingLabel.Size = New System.Drawing.Size(197, 23)
+        Me.CatServerLoadingLabel.TabIndex = 16
+        Me.CatServerLoadingLabel.Text = "CatServer："
+        Me.CatServerLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.CatServerLoadingLabel, "由Laohuayu 所寫的混核伺服器軟體，可同時使用插件及模組的功能。")
+        '
         'Manager
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2145,7 +2157,6 @@ Partial Class Manager
     Friend WithEvents Button7 As Button
     Friend WithEvents Button8 As Button
     Friend WithEvents ContigoLoadingLabel As Label
-    Friend WithEvents KettleLoadingLabel As Label
     Friend WithEvents GroupBox7 As GroupBox
     Friend WithEvents CheckBox3 As CheckBox
     Friend WithEvents GroupBox8 As GroupBox
@@ -2197,4 +2208,6 @@ Partial Class Manager
     Friend WithEvents PackServerListPage As MetroFramework.Controls.MetroTabPage
     Friend WithEvents TabPage4 As MetroFramework.Controls.MetroTabPage
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
+    Friend WithEvents CatServerLoadingLabel As Label
+    Friend WithEvents KettleLoadingLabel As Label
 End Class
