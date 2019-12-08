@@ -9,7 +9,7 @@ Public Class BungeeCord
     Const BungeeCordDownloadLink = "https://ci.md-5.net/job/BungeeCord/lastStableBuild/artifact/bootstrap/target/BungeeCord.jar"
     Protected bungeeOptions As BungeeCordOptions
     Dim runningProcess As Process
-    Dim serverProcesses As New List(Of Process)
+    Dim serverProcesses As New Dictionary(Of ServerBase, Process)
     Public Property MemoryMax As Integer Implements IMemoryChange.MemoryMax
     Public Property MemoryMin As Integer Implements IMemoryChange.MemoryMin
     Protected Overrides Sub AddServer(ByRef server As ServerBase)
@@ -37,7 +37,16 @@ Public Class BungeeCord
         Next
     End Sub
     Protected Overridable Sub ShutdownServers()
-
+        For Each server In Servers
+            If server.IsRunning Then
+                If serverProcesses.ContainsKey(server) Then
+                    AddHandler serverProcesses(server).Exited, Sub() If serverProcesses.ContainsKey(server) Then serverProcesses.Remove(server)
+                End If
+                server.ShutdownServer()
+            Else
+                If serverProcesses.ContainsKey(server) Then serverProcesses.Remove(server)
+            End If
+        Next
     End Sub
     Public Overrides Sub ShutdownSolution()
         If ProcessID <> 0 Then
@@ -57,6 +66,7 @@ Public Class BungeeCord
             runningProcess = Nothing
             IsRunning = False
         End If
+        ShutdownServers()
     End Sub
 
     Protected Overrides Sub OnReadSolutionInfo(key As String, value As String)
@@ -122,6 +132,7 @@ Public Class BungeeCord
             runningProcess = Process.Start(processInfo) '回傳一個處理序
             ProcessID = runningProcess.Id
             IsRunning = True
+            StartServers()
         End If
         Return runningProcess
     End Function
