@@ -498,6 +498,13 @@ Public Class ServerConsole
                             Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "Contigo-" & Server.ServerVersion & ".jar") & """", Server.ServerPath)
                         Case Server.EServerVersionType.Kettle
                             Run(GetJavaPath(), "-Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "kettle-git-HEAD-" & Server.Server2ndVersion & "-universal.jar") & """", Server.ServerPath)
+                        Case Server.EServerVersionType.CatServer
+                            Select Case Server.Server2ndVersion.ToLower
+                                Case "universal"
+                                    Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -DFile.encoding=UTF-8 -Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "CatServer-" & Server.ServerVersion & "-universal" & ".jar") & """", Server.ServerPath)
+                                Case "async"
+                                    Run(GetJavaPath(), "-Djline.terminal=jline.UnsupportedTerminal -DFile.encoding=UTF-8 -Xms" & IIf(Server.ServerMemoryMin <= 0, ServerMemoryMin, Server.ServerMemoryMin) & "M " & JavaArguments & " -Xmx" & IIf(Server.ServerMemoryMax <= 0, ServerMemoryMax, Server.ServerMemoryMax) & "M -jar " & """" & IO.Path.Combine(Server.ServerPath, "CatServer-" & Server.ServerVersion & "-async" & ".jar") & """", Server.ServerPath)
+                            End Select
                     End Select
                 Case Server.EServerType.Bedrock
                     Select Case Server.ServerVersionType

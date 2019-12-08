@@ -52,6 +52,8 @@ Public Class BungeeCordConsole
                 Run(IO.Path.Combine(JavaPath, "java.exe"), "-Djline.terminal=jline.UnsupportedTerminal -Xmx" & BungeeCordMemoryMax & "M -Xms" & BungeeCordMemoryMin & "M " & JavaArguments & " -jar """ & IO.Path.Combine(_Host.BungeePath, "bungeecord.jar") & """", _Host.BungeePath, True, False)
             Case BungeeCordType.Waterfall
                 Run(IO.Path.Combine(JavaPath, "java.exe"), "-Djline.terminal=jline.UnsupportedTerminal -Xmx" & BungeeCordMemoryMax & "M -Xms" & BungeeCordMemoryMin & "M " & JavaArguments & " -jar """ & IO.Path.Combine(_Host.BungeePath, "waterfall.jar") & """", _Host.BungeePath, True, False)
+            Case BungeeCordType.Travertine
+                Run(IO.Path.Combine(JavaPath, "java.exe"), "-Djline.terminal=jline.UnsupportedTerminal -Xmx" & BungeeCordMemoryMax & "M -Xms" & BungeeCordMemoryMin & "M " & JavaArguments & " -jar """ & IO.Path.Combine(_Host.BungeePath, "travertine.jar") & """", _Host.BungeePath, True, False)
         End Select
         DataListView.View = View.Details
         RunOwnedServers()

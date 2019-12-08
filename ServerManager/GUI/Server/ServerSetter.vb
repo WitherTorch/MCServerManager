@@ -102,7 +102,8 @@ Public Class ServerSetter
         ElseIf server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
                 server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
                 server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
-                server.ServerVersionType = Server.EServerVersionType.Kettle Then
+                server.ServerVersionType = Server.EServerVersionType.Kettle OrElse
+                server.ServerVersionType = Server.EServerVersionType.CatServer Then
             PluginManageButton.Enabled = True
             PluginManageButton.Text = "管理插件/模組"
         Else
@@ -229,6 +230,14 @@ Public Class ServerSetter
                 Dim pocketMineTab As New TabPage("PocketMine-MP 設定")
                 pocketMineTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.PocketMineOptions})
                 SettingTabControl.TabPages.Add(pocketMineTab)
+            Case Server.EServerVersionType.CatServer
+                AdvancedTabPage.Text = "伺服器主設定檔"
+                Dim bukkitTab As New TabPage("Bukkit 設定")
+                bukkitTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.BukkitOptions})
+                SettingTabControl.TabPages.Add(bukkitTab)
+                Dim spigotTab As New TabPage("Spigot 設定")
+                spigotTab.Controls.Add(New PropertyGrid() With {.Dock = DockStyle.Fill, .SelectedObject = server.SpigotOptions})
+                SettingTabControl.TabPages.Add(spigotTab)
             Case Else
                 AdvancedTabPage.Text = "伺服器設定檔"
         End Select
@@ -315,7 +324,8 @@ Public Class ServerSetter
         ElseIf server.ServerVersionType = Server.EServerVersionType.Cauldron OrElse
             server.ServerVersionType = Server.EServerVersionType.Thermos OrElse
             server.ServerVersionType = Server.EServerVersionType.Contigo OrElse
-            server.ServerVersionType = Server.EServerVersionType.Kettle Then
+            server.ServerVersionType = Server.EServerVersionType.Kettle OrElse
+            server.ServerVersionType = Server.EServerVersionType.CatServer Then
             addonManager = New HybridMPManager(GlobalModule.Manager.ServerEntityList.IndexOf(server))
             CType(addonManager, Form).Show()
         End If

@@ -155,6 +155,12 @@ Public Class ServerCreateDialog
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.Kettle)
                     VersionBox.Items.AddRange(KettleVersionDict.Keys.ToArray)
                 Case 12
+                    server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.CatServer)
+                    For Each item In CatServerVersionDict
+                        VersionBox.Items.Add(item.Key & " Universal")
+                        VersionBox.Items.Add(item.Key & " Async")
+                    Next
+                Case 13
                     If Environment.OSVersion.Version.Major < 10 Then
                         If IsUnixLikeSystem Then
                             server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.PocketMine)
@@ -175,7 +181,7 @@ Public Class ServerCreateDialog
                         VersionBox.SelectedIndex = 0
                         VersionBox.Enabled = False
                     End If
-                Case 13
+                Case 14
                     If Environment.OSVersion.Version.Major < 10 Then
                         server.SetVersionType(Server.EServerType.Bedrock, Server.EServerVersionType.Nukkit)
                         VersionBox.Items.Add(String.Format("最新版 ({0})", NukkitVersion))
@@ -196,7 +202,7 @@ Public Class ServerCreateDialog
                             End If
                         End If
                     End If
-                Case 14
+                Case 15
                     If Environment.OSVersion.Version.Major < 10 Then
                         server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
                         VersionBox.Items.Add("(無)")
@@ -208,7 +214,7 @@ Public Class ServerCreateDialog
                         VersionBox.SelectedIndex = 0
                         VersionBox.Enabled = False
                     End If
-                Case 15
+                Case 16
                     server.SetVersionType(Server.EServerType.Custom, Server.EServerVersionType.Custom)
                     VersionBox.Items.Add("(無)")
                     VersionBox.SelectedIndex = 0
@@ -231,67 +237,54 @@ Public Class ServerCreateDialog
         IPAddressComboBox.Items.AddRange(GlobalModule.Manager.ip.ToArray)
         ipType = ServerIPType.Float
         IPStyleComboBox.SelectedIndex = 0
-        Dim groupedItems = {New With {.Group = "Java 版",
-    .Value = 0,
-    .Display = "原版"
+        Dim groupedItems = {New With {.Value = 0,
+    .Display = "Java 版 - 原版"
 }, New With {
-    .Group = "Java 版",
     .Value = 1,
-    .Display = "Forge"
+    .Display = "Java 版 - Forge"
 }, New With {
-    .Group = "Java 版",
     .Value = 2,
-    .Display = "Spigot"
+    .Display = "Java 版 - Spigot"
 }, New With {
-    .Group = "Java 版",
     .Value = 3,
-    .Display = "Spigot (手動建置)"
+    .Display = "Java 版 - Spigot (手動建置)"
 }, New With {
-    .Group = "Java 版",
     .Value = 4,
-    .Display = "CraftBukkit"
+    .Display = "Java 版 - CraftBukkit"
 }, New With {
-    .Group = "Java 版",
     .Value = 5,
-    .Display = "Paper"
+    .Display = "Java 版 - Paper"
 }, New With {
-    .Group = "Java 版",
     .Value = 6,
-    .Display = "Akarin"
+    .Display = "Java 版 - Akarin"
 }, New With {
-    .Group = "Java 版",
     .Value = 7,
-    .Display = "SpongeVanilla"
+    .Display = "Java 版 - SpongeVanilla"
 }, New With {
-    .Group = "Java 版",
     .Value = 8,
-    .Display = "MCPC/Cauldron"
+    .Display = "Java 版 - MCPC/Cauldron"
 }, New With {
-    .Group = "Java 版",
     .Value = 9,
-    .Display = "Thermos"
+    .Display = "Java 版 - Thermos"
 }, New With {
-    .Group = "Java 版",
     .Value = 10,
-    .Display = "Contigo"
+    .Display = "Java 版 - Contigo"
 }, New With {
-    .Group = "Java 版",
     .Value = 11,
-    .Display = "Kettle"
-}, New With {
-    .Group = "基岩版",
+    .Display = "Java 版 - Kettle"
+    }, New With {
     .Value = 12,
-    .Display = "原版"
- }, New With {
-    .Group = "基岩版",
+    .Display = "Java 版 - CatServer"
+}, New With {
     .Value = 13,
-    .Display = "PocketMine-MP"
-}, New With {
-    .Group = "基岩版",
+    .Display = "基岩版 - 原版"
+ }, New With {
     .Value = 14,
-    .Display = "NukkitX"
+    .Display = "基岩版 - PocketMine-MP"
 }, New With {
-    .Group = "其他",
+    .Value = 15,
+    .Display = "基岩版 - NukkitX"
+}, New With {
     .Value = 255,
     .Display = "自定義"
 }}
@@ -304,7 +297,6 @@ Public Class ServerCreateDialog
                 End If
             Next
         End If
-        VersionTypeBox.GroupMember = "Group"
         VersionTypeBox.ValueMember = "Value"
         VersionTypeBox.DisplayMember = "Display"
         VersionTypeBox.DataSource = groupedItems

@@ -79,6 +79,7 @@ Public NotInheritable Class Server
         VanillaBedrock
         Nukkit
         PocketMine
+        CatServer
     End Enum
     Friend Shared Function CreateServer() As Server
         Return New Server
@@ -144,6 +145,9 @@ Public NotInheritable Class Server
                                             Case "pocketmine"
                                                 server._ServerVersionType = EServerVersionType.PocketMine
                                                 server._ServerType = EServerType.Bedrock
+                                            Case "catserver"
+                                                server._ServerVersionType = EServerVersionType.CatServer
+                                                server._ServerType = EServerType.Java
                                             Case "custom"
                                                 server._ServerVersionType = EServerVersionType.Custom
                                                 server._ServerType = EServerType.Custom
@@ -172,6 +176,8 @@ Public NotInheritable Class Server
                                     Case "akarin-branch-name"
                                         server._Server3rdVersion = info(1)
                                     Case "vanilla-build-version"
+                                        server._Server2ndVersion = info(1)
+                                    Case "catserver-type"
                                         server._Server2ndVersion = info(1)
                                     Case "server-file"
                                         server.CustomServerRunFile = info(1)
@@ -429,6 +435,17 @@ Public NotInheritable Class Server
                                                  Else
                                                      PocketMineOptions = PocketMineOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "pocketmine.yml"))
                                                  End If
+                                             Case EServerVersionType.CatServer
+                                                 If IO.File.Exists(IO.Path.Combine(ServerPath, "bukkit.yml")) Then
+                                                     BukkitOptions = BukkitOptions.LoadOptions(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                 Else
+                                                     BukkitOptions = BukkitOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "bukkit.yml"))
+                                                 End If
+                                                 If IO.File.Exists(IO.Path.Combine(ServerPath, "spigot.yml")) Then
+                                                     SpigotOptions = SpigotOptions.LoadOptions(IO.Path.Combine(ServerPath, "spigot.yml"))
+                                                 Else
+                                                     SpigotOptions = SpigotOptions.CreateOptionsWithDefaultSetting(IO.Path.Combine(ServerPath, "spigot.yml"))
+                                                 End If
                                          End Select
                                          CheckForUpdate()
                                          If _ServerVersionType = EServerVersionType.CraftBukkit OrElse
@@ -440,7 +457,8 @@ Public NotInheritable Class Server
                                              _ServerVersionType = EServerVersionType.Thermos OrElse
                                              _ServerVersionType = EServerVersionType.Contigo OrElse
                                              _ServerVersionType = EServerVersionType.Kettle OrElse
-                                             _ServerVersionType = EServerVersionType.PocketMine Then
+                                             _ServerVersionType = EServerVersionType.PocketMine OrElse
+                                             _ServerVersionType = EServerVersionType.CatServer Then
                                              Try
                                                  LoadPlugins()
                                              Catch ex As Exception
@@ -451,7 +469,8 @@ Public NotInheritable Class Server
                                                  _ServerVersionType = EServerVersionType.Cauldron OrElse
                                                  _ServerVersionType = EServerVersionType.Thermos OrElse
                                                  _ServerVersionType = EServerVersionType.Contigo OrElse
-                                                 _ServerVersionType = EServerVersionType.Kettle Then
+                                                 _ServerVersionType = EServerVersionType.Kettle OrElse
+                                                 _ServerVersionType = EServerVersionType.CatServer Then
                                              Try
                                                  LoadMods()
                                              Catch ex As Exception
@@ -1033,6 +1052,8 @@ Public NotInheritable Class Server
                     writer.WriteLine("spongeVanilla-build-version" & Server3rdVersion)
                 Case EServerVersionType.Nukkit
                     writer.WriteLine("nukkit-build-version=" & secondVersion)
+                Case EServerVersionType.CatServer
+                    writer.WriteLine("catserver-type=" & secondVersion)
             End Select
             Dim jsonArray As New JArray
             If IsNothing(ServerTasks) = False Then
@@ -1121,22 +1142,22 @@ Public NotInheritable Class Server
                     SavePlugins()
                     SaveMods()
                     If BukkitOptions IsNot Nothing Then BukkitOptions.SaveOption()
-                    If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(spigotSaveFlag)
+                    If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(False)
                 Case EServerVersionType.Thermos
                     SavePlugins()
                     SaveMods()
                     If BukkitOptions IsNot Nothing Then BukkitOptions.SaveOption()
-                    If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(spigotSaveFlag)
+                    If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(False)
                 Case EServerVersionType.Contigo
                     SavePlugins()
                     SaveMods()
                     If BukkitOptions IsNot Nothing Then BukkitOptions.SaveOption()
-                    If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(spigotSaveFlag)
+                    If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(False)
                 Case EServerVersionType.Kettle
                     SavePlugins()
                     SaveMods()
                     If BukkitOptions IsNot Nothing Then BukkitOptions.SaveOption()
-                    If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(spigotSaveFlag)
+                    If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(True)
                 Case EServerVersionType.Forge
                     SaveMods()
                 Case EServerVersionType.PocketMine
@@ -1145,6 +1166,11 @@ Public NotInheritable Class Server
                 Case EServerVersionType.Nukkit
                     If NukkitOptions IsNot Nothing Then NukkitOptions.SaveOption()
                     SavePlugins()
+                Case EServerVersionType.CatServer
+                    SavePlugins()
+                    SaveMods()
+                    If BukkitOptions IsNot Nothing Then BukkitOptions.SaveOption()
+                    If SpigotOptions IsNot Nothing Then SpigotOptions.SaveOption(True)
             End Select
         End If
         GenerateServerInfo()

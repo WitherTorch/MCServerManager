@@ -26,6 +26,7 @@ Public Class Manager
     Dim AkarinGetVersionThread As Thread
     Dim KettleGetVersionThread As Thread
     Dim PocketMineGetVersionThread As Thread
+    Dim CatServerGetVersionThread As Thread
     Friend ServerPathList As New List(Of String)
     Friend BungeePathList As New List(Of String)
     Friend ModpackServerPathList As New List(Of String)
@@ -530,6 +531,49 @@ Public Class Manager
         PocketMineGetVersionThread.IsBackground = True
         PocketMineGetVersionThread.Start()
     End Sub
+    Private Sub GetCatServerServerVersionList()
+        CatServerGetVersionThread = New Thread(Sub()
+                                                   PocketMineVersionDict.Clear()
+                                                   Dim manifestListURL As String = "https://api.github.com/repos/Luohuayu/CatServer/releases"
+                                                   Try
+                                                       Dim client As New Net.WebClient()
+                                                       client.Encoding = System.Text.Encoding.UTF8
+                                                       client.Headers.Add(Net.HttpRequestHeader.UserAgent, "Minecraft-Server-Manager")
+                                                       BeginInvoke(New Action(Sub() CatServerLoadingLabel.Text = "CatServer：" & "下載列表中..."))
+                                                       Dim docHtml = client.DownloadString(manifestListURL)
+                                                       BeginInvoke(New Action(Sub() CatServerLoadingLabel.Text = "CatServer：" & "載入列表中..."))
+                                                       Dim jsonArray As JArray = JsonConvert.DeserializeObject(Of JArray)(docHtml)
+                                                       For Each jsonObject As JObject In jsonArray
+                                                           Try
+                                                               Dim tag_name As String = jsonObject.GetValue("tag_name")
+                                                               Dim UniversalURL As String = String.Empty
+                                                               Dim AsyncURL As String = String.Empty
+                                                               For Each subJsonObject As JObject In CType(jsonObject.GetValue("assets"), JArray)
+                                                                   If subJsonObject.GetValue("name").ToString Like "CatServer-*-universal" Then
+                                                                       UniversalURL = subJsonObject.GetValue("browser_download_url")
+                                                                   ElseIf subJsonObject.GetValue("name").ToString Like "CatServer-*-async" Then
+                                                                       AsyncURL = subJsonObject.GetValue("browser_download_url")
+                                                                   Else
+                                                                       Continue For
+                                                                   End If
+                                                               Next
+                                                               CatServerVersionDict.Add(tag_name, (UniversalURL, AsyncURL))
+                                                           Catch ex As Exception
+
+                                                           End Try
+                                                       Next
+                                                       docHtml = Nothing
+                                                       client.Dispose()
+                                                       BeginInvoke(New Action(Sub() CatServerLoadingLabel.Text = "CatServer：" & "載入完成"))
+                                                   Catch ex As Exception
+                                                       BeginInvoke(New Action(Sub() CatServerLoadingLabel.Text = "CatServer：" & "(無)"))
+                                                   End Try
+                                               End Sub)
+        CatServerGetVersionThread.Name = "CatServer GetVersion Thread"
+        CatServerGetVersionThread.IsBackground = True
+        CatServerGetVersionThread.Start()
+    End Sub
+
     Private Sub VersionListReloadButton_Click(sender As Object, e As EventArgs) Handles VersionListReloadButton.Click
         UpdateVersionLists()
     End Sub

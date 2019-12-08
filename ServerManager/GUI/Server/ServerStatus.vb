@@ -144,6 +144,13 @@ Public Class ServerStatus
             End If
         ElseIf Server.ServerVersionType = Server.EServerVersionType.Nukkit Then
             ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.ServerVersionType, Server.ServerVersion) & " " & Server.ServerVersion & " (" & Server.Server2ndVersion & ")"
+        ElseIf Server.ServerVersionType = Server.EServerVersionType.CatServer Then
+            Select Case Server.Server2ndVersion.ToLower
+                Case "universal"
+                    ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.ServerVersionType, Server.ServerVersion) & " " & Server.ServerVersion & " Universal"
+                Case "async"
+                    ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.ServerVersionType, Server.ServerVersion) & " " & Server.ServerVersion & " Async"
+            End Select
         Else
             ServerVersion.Text = "伺服器版本：" & GetSimpleVersionName(Server.ServerVersionType, Server.ServerVersion) & " " & Server.ServerVersion
         End If
@@ -240,6 +247,13 @@ Public Class ServerStatus
                                 filename = IO.Path.Combine(Server.ServerPath, "Contigo-" & Server.ServerVersion & ".jar")
                             Case Server.EServerVersionType.Kettle
                                 filename = IO.Path.Combine(Server.ServerPath, "kettle-git-HEAD-" & Server.Server2ndVersion & "-universal.jar")
+                            Case Server.EServerVersionType.CatServer
+                                Select Case Server.Server2ndVersion.ToLower
+                                    Case "universal"
+                                        filename = IO.Path.Combine(Server.ServerPath, "catserver-" & Server.ServerVersion & "-universal.jar")
+                                    Case "async"
+                                        filename = IO.Path.Combine(Server.ServerPath, "catserver-" & Server.ServerVersion & "-async.jar")
+                                End Select
                         End Select
                     Case Server.EServerType.Bedrock
                         Select Case Server.ServerVersionType

@@ -30,6 +30,7 @@ Module GlobalModule
     Friend AkarinVersionList As New List(Of Version)
     Friend KettleVersionDict As New Dictionary(Of String, (String, String, String))
     Friend PocketMineVersionDict As New Dictionary(Of String, String)
+    Friend CatServerVersionDict As New Dictionary(Of String, (String, String))
 #End Region
 #Region "General Settings"
     Friend ServerMemoryMin As Decimal = 1024
@@ -237,6 +238,8 @@ Module GlobalModule
                 Return "Kettle"
             Case Server.EServerVersionType.PocketMine
                 Return "PocketMine-MP"
+            Case Server.EServerVersionType.CatServer
+                Return "CatServer"
             Case Server.EServerVersionType.Custom
                 Return "自定義伺服器"
             Case Else
