@@ -8,10 +8,21 @@ Public Class BungeeCord
     Const BungeeCordApiJson = "https://ci.md-5.net/job/BungeeCord/lastStableBuild/api/json"
     Const BungeeCordDownloadLink = "https://ci.md-5.net/job/BungeeCord/lastStableBuild/artifact/bootstrap/target/BungeeCord.jar"
     Protected bungeeOptions As BungeeCordOptions
-    Dim runningProcess As Process
-    Dim serverProcesses As New Dictionary(Of ServerBase, Process)
+    Protected runningProcess As Process
+    Protected serverProcesses As New Dictionary(Of ServerBase, Process)
     Public Property MemoryMax As Integer Implements IMemoryChange.MemoryMax
     Public Property MemoryMin As Integer Implements IMemoryChange.MemoryMin
+    Shared latestBungeeVersion As Integer = 0
+    Friend Shared Sub GetVersionList()
+        Try
+            Dim client As New Net.WebClient()
+            Dim jsonObject As JObject = Newtonsoft.Json.JsonConvert.DeserializeObject(client.DownloadString(BungeeCordApiJson))
+            latestBungeeVersion = jsonObject.GetValue("id")
+        Catch ex As Exception
+            Throw New GetAvailableVersionsException
+        End Try
+    End Sub
+
     Protected Overrides Sub AddServer(ByRef server As ServerBase)
         MyBase.AddServer(server)
     End Sub
@@ -69,9 +80,6 @@ Public Class BungeeCord
         ShutdownServers()
     End Sub
 
-    Protected Overrides Sub OnReadSolutionInfo(key As String, value As String)
-    End Sub
-
     Public Overrides Function CanUpdate() As Boolean
         Try
             Try
@@ -104,14 +112,20 @@ Public Class BungeeCord
     End Function
 
     Public Overrides Function GetAvailableVersion() As String
-        Dim client As New Net.WebClient()
-        Dim jsonObject As JObject = Newtonsoft.Json.JsonConvert.DeserializeObject(client.DownloadString(BungeeCordApiJson))
-        Dim latestVersion As Integer = jsonObject.GetValue("id")
-        Return latestVersion.ToString
+        Return latestBungeeVersion
     End Function
 
+    Protected Overrides Sub OnReadSolutionInfo(key As String, value As String)
+        Select Case key
+            Case "server-memory-max"
+                MemoryMax = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+            Case "server-memory-min"
+                MemoryMin = IIf(Of Integer)(Integer.TryParse(value, Nothing), value, 0)
+        End Select
+    End Sub
     Public Overrides Function GetAdditionalSolutionInfo() As String()
-        Return {}
+        Return New String() {"server-memory-max=" & MemoryMax,
+                                                  "server-memory-min=" & MemoryMin}
     End Function
 
     Public Overrides Function StartSoluton() As Process
@@ -137,7 +151,7 @@ Public Class BungeeCord
         Return runningProcess
     End Function
     Protected seperator As String = IIf(IsUnixLikeSystem, "/", "\")
-    Public Overrides Function DownloadAndInstallTarget(targetServerVersion As String) As ServerDownloadTask
+    Public Overrides Function DownloadAndInstallTarget(targetSolutionVersion As String) As ServerDownloadTask
         Dim DownloadPath As String = IO.Path.Combine(IIf(SolutionPath.EndsWith(seperator), SolutionPath, SolutionPath & seperator), "BungeeCord.jar")
         Dim task As New ServerDownloadTask
         AddHandler task.DownloadProgressChanged, Sub(percent As Integer)
@@ -148,6 +162,7 @@ Public Class BungeeCord
                                           End Sub
         AddHandler task.DownloadCompleted, Sub()
                                                Call OnTargetDownloadEnd(False)
+                                               SolutionTargetVersion = targetSolutionVersion
                                            End Sub
         AddHandler task.DownloadStarted, Sub()
                                              Call OnTargetDownloadStart()
