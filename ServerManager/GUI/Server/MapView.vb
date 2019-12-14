@@ -19,35 +19,80 @@
             If mapChange.ListBox1.SelectedIndex = 0 Then
                 If mapChange.hasNewMap Then
                     MapNameLabel.Text = mapChange.newMap.Item1
-                    _server.ServerOptions("level-name") = mapChange.newMap.Item1
-                    _server.ServerOptions("level-seed") = mapChange.newMap.Item2
-                    _server.ServerOptions("generator-settings") = mapChange.newMap.Item4
-                    Select Case _server.ServerType
-                        Case Server.EServerType.Java
-                            _server.ServerOptions("level-type") = CType(mapChange.newMap.Item3, Java_Level_Type).ToString
-                        Case Server.EServerType.Bedrock
-                            Select Case _server.ServerVersionType
-                                Case Server.EServerVersionType.Nukkit
-                                    _server.ServerOptions("level-type") = CType(mapChange.newMap.Item3, Bedrock_Level_Type).ToString
-                                Case Server.EServerVersionType.VanillaBedrock
-                                    Select Case CType(mapChange.newMap.Item3, Bedrock_Level_Type)
-                                        Case Bedrock_Level_Type.FLAT
-                                            _server.ServerOptions("level-type") = "FLAT"
-                                        Case Bedrock_Level_Type.OLD
-                                            _server.ServerOptions("level-type") = "LEGACY"
-                                        Case Bedrock_Level_Type.INFINITE
-                                            _server.ServerOptions("level-type") = "DEFAULT"
-                                    End Select
-                            End Select
-                    End Select
+                    If _server.ServerOptions.ContainsKey("level-name") Then
+                        _server.ServerOptions("level-name") = mapChange.newMap.Item1
+                    Else
+                        _server.ServerOptions.Add("level-name", mapChange.newMap.Item1)
+                    End If
+                    If _server.ServerOptions.ContainsKey("level-seed") Then
+                        _server.ServerOptions("level-seed") = mapChange.newMap.Item2
+                    Else
+                        _server.ServerOptions.Add("level-seed", mapChange.newMap.Item2)
+                    End If
+                    If _server.ServerOptions.ContainsKey("generator-settings") Then
+                        _server.ServerOptions("generator-settings") = mapChange.newMap.Item4
+                    Else
+                        _server.ServerOptions.Add("generator-settings", mapChange.newMap.Item4)
+                    End If
+                    If _server.ServerOptions.ContainsKey("level-type") Then
+                        Select Case _server.ServerType
+                            Case Server.EServerType.Java
+                                _server.ServerOptions("level-type") = CType(mapChange.newMap.Item3, Java_Level_Type).ToString
+                            Case Server.EServerType.Bedrock
+                                Select Case _server.ServerVersionType
+                                    Case Server.EServerVersionType.Nukkit
+                                        _server.ServerOptions("level-type") = CType(mapChange.newMap.Item3, Bedrock_Level_Type).ToString
+                                    Case Server.EServerVersionType.VanillaBedrock
+                                        Select Case CType(mapChange.newMap.Item3, Bedrock_Level_Type)
+                                            Case Bedrock_Level_Type.FLAT
+                                                _server.ServerOptions("level-type") = "FLAT"
+                                            Case Bedrock_Level_Type.OLD
+                                                _server.ServerOptions("level-type") = "LEGACY"
+                                            Case Bedrock_Level_Type.INFINITE
+                                                _server.ServerOptions("level-type") = "DEFAULT"
+                                        End Select
+                                End Select
+                        End Select
+                    Else
+                        Select Case _server.ServerType
+                            Case Server.EServerType.Java
+                                _server.ServerOptions.Add("level-type", CType(mapChange.newMap.Item3, Java_Level_Type).ToString)
+                            Case Server.EServerType.Bedrock
+                                Select Case _server.ServerVersionType
+                                    Case Server.EServerVersionType.Nukkit
+                                        _server.ServerOptions.Add("level-type", CType(mapChange.newMap.Item3, Bedrock_Level_Type).ToString)
+                                    Case Server.EServerVersionType.VanillaBedrock
+                                        Select Case CType(mapChange.newMap.Item3, Bedrock_Level_Type)
+                                            Case Bedrock_Level_Type.FLAT
+                                                _server.ServerOptions.Add("level-type", "FLAT")
+                                            Case Bedrock_Level_Type.OLD
+                                                _server.ServerOptions.Add("level-type", "LEGACY")
+                                            Case Bedrock_Level_Type.INFINITE
+                                                _server.ServerOptions.Add("level-type", "DEFAULT")
+                                        End Select
+                                End Select
+                        End Select
+                    End If
                 Else
-                    _server.ServerOptions("level-name") = mapChange.mapList(0)
+                    If _server.ServerOptions.ContainsKey("level-name") Then
+                        _server.ServerOptions("level-name") = mapChange.mapList(0)
+                    Else
+                        _server.ServerOptions.Add("level-name", mapChange.mapList(0))
+                    End If
                 End If
             Else
-                If mapChange.hasNewMap Then
-                    _server.ServerOptions("level-name") = mapChange.mapList(mapChange.ListBox1.SelectedIndex - 1)
+                If _server.ServerOptions.ContainsKey("level-name") Then
+                    If mapChange.hasNewMap Then
+                        _server.ServerOptions("level-name") = mapChange.mapList(mapChange.ListBox1.SelectedIndex - 1)
+                    Else
+                        _server.ServerOptions("level-name") = mapChange.mapList(mapChange.ListBox1.SelectedIndex)
+                    End If
                 Else
-                    _server.ServerOptions("level-name") = mapChange.mapList(mapChange.ListBox1.SelectedIndex)
+                    If mapChange.hasNewMap Then
+                        _server.ServerOptions.Add("level-name", mapChange.mapList(mapChange.ListBox1.SelectedIndex - 1))
+                    Else
+                        _server.ServerOptions.Add("level-name", mapChange.mapList(mapChange.ListBox1.SelectedIndex))
+                    End If
                 End If
             End If
             If mapChange.newMap.Item1.Trim <> "" Then
