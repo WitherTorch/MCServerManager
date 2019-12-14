@@ -34,8 +34,9 @@ Partial Class Manager
         Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
         Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
         Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
+        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CatServer")
+        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
+        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New System.Windows.Forms.TabControl()
         Me.MainPage = New System.Windows.Forms.TabPage()
@@ -55,6 +56,7 @@ Partial Class Manager
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
+        Me.CatServerLoadingLabel = New System.Windows.Forms.Label()
         Me.PocketMineLoadingLabel = New System.Windows.Forms.Label()
         Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
         Me.KettleLoadingLabel = New System.Windows.Forms.Label()
@@ -172,7 +174,6 @@ Partial Class Manager
         Me.NoIPTimer = New System.Windows.Forms.Timer(Me.components)
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
-        Me.CatServerLoadingLabel = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -439,6 +440,16 @@ Partial Class Manager
         Me.VListLoadingBox.TabIndex = 30
         Me.VListLoadingBox.TabStop = False
         Me.VListLoadingBox.Text = "伺服器軟體"
+        '
+        'CatServerLoadingLabel
+        '
+        Me.CatServerLoadingLabel.Location = New System.Drawing.Point(410, 18)
+        Me.CatServerLoadingLabel.Name = "CatServerLoadingLabel"
+        Me.CatServerLoadingLabel.Size = New System.Drawing.Size(197, 23)
+        Me.CatServerLoadingLabel.TabIndex = 16
+        Me.CatServerLoadingLabel.Text = "CatServer："
+        Me.CatServerLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.CatServerLoadingLabel, "由Luohuayu 開發的混合式伺服器軟體，能夠同時使用模組及插件。")
         '
         'PocketMineLoadingLabel
         '
@@ -1624,13 +1635,13 @@ Partial Class Manager
         ListViewItem11.Checked = True
         ListViewItem11.StateImageIndex = 11
         ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem12.Checked = True
-        ListViewItem12.StateImageIndex = 7
-        ListViewItem12.Tag = "https://nukkitx.com/"
         ListViewItem13.Checked = True
-        ListViewItem13.StateImageIndex = 12
-        ListViewItem13.Tag = "https://pmmp.io/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13})
+        ListViewItem13.StateImageIndex = 7
+        ListViewItem13.Tag = "https://nukkitx.com/"
+        ListViewItem14.Checked = True
+        ListViewItem14.StateImageIndex = 12
+        ListViewItem14.Tag = "https://pmmp.io/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13, ListViewItem14})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
@@ -1784,16 +1795,6 @@ Partial Class Manager
         Me.PerformanceCounter1.CategoryName = "Processor"
         Me.PerformanceCounter1.CounterName = "% Processor Time"
         Me.PerformanceCounter1.InstanceName = "_Total"
-        '
-        'CatServerLoadingLabel
-        '
-        Me.CatServerLoadingLabel.Location = New System.Drawing.Point(410, 18)
-        Me.CatServerLoadingLabel.Name = "CatServerLoadingLabel"
-        Me.CatServerLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.CatServerLoadingLabel.TabIndex = 16
-        Me.CatServerLoadingLabel.Text = "CatServer："
-        Me.CatServerLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.CatServerLoadingLabel, "由Luohuayu 開發的混合式伺服器軟體，能夠同時使用模組及插件。")
         '
         'Manager
         '
