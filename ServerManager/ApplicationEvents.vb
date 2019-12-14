@@ -15,17 +15,17 @@ Namespace My
             'WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "peServers.txt"), BedrockServerDirs)
             My.Settings.Save()
         End Sub
-
+        Dim isDebug As Boolean
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) Handles Me.UnhandledException
-            'Dim msg As String = "應用程式發生錯誤!"
-            'msg &= (vbNewLine)
-            'msg &= (vbNewLine & "例外類型：" & e.Exception.GetType.ToString & " (" & e.Exception.InnerException.GetType.ToString & ")")
-            'msg &= (vbNewLine & "內容：" & vbNewLine & e.Exception.InnerException.Message)
-            'msg &= (vbNewLine & "StackTrace：" & e.Exception.InnerException.StackTrace)
-            'If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(My.Application.Info.DirectoryPath, "error-logs")) Then
-            ' My.Application.Log.WriteEntry(msg, TraceEventType.Error)
-            ' My.Application.Log.DefaultFileLogWriter.Flush()
-            'End If
+            Dim msg As String = "應用程式發生錯誤!"
+            msg &= (vbNewLine)
+            msg &= (vbNewLine & "例外類型：" & e.Exception.GetType.ToString & " (" & e.Exception.InnerException.GetType.ToString & ")")
+            msg &= (vbNewLine & "內容：" & vbNewLine & e.Exception.InnerException.Message)
+            msg &= (vbNewLine & "StackTrace：" & e.Exception.InnerException.StackTrace)
+            If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(My.Application.Info.DirectoryPath, "error-logs")) Then
+                My.Application.Log.WriteEntry(msg, TraceEventType.Error)
+                My.Application.Log.DefaultFileLogWriter.Flush()
+            End If
             'e.ExitApplication = False
         End Sub
 
@@ -34,6 +34,11 @@ Namespace My
             Runtime.ProfileOptimization.SetProfileRoot(My.Application.Info.DirectoryPath)
             Runtime.ProfileOptimization.StartProfile("startup_cache.profile")
 
+            If e.CommandLine.Contains("-debug") Then
+                isDebug = True
+            Else
+                isDebug = False
+            End If
             Dim exePath As String = System.Windows.Forms.Application.ExecutablePath
             If IO.File.Exists(exePath & ".old") Then IO.File.Delete(exePath & ".old")
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12

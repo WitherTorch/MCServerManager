@@ -34,8 +34,9 @@ Partial Class Manager
         Dim ListViewItem9 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Thermos")
         Dim ListViewItem10 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Contigo")
         Dim ListViewItem11 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Kettle")
-        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
-        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
+        Dim ListViewItem12 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("CatServer")
+        Dim ListViewItem13 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("NukkitX")
+        Dim ListViewItem14 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("PocketMine-MP")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Manager))
         Me.MainTabControl = New MetroFramework.Controls.MetroTabControl()
         Me.MainPage = New MetroFramework.Controls.MetroTabPage()
@@ -55,8 +56,10 @@ Partial Class Manager
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.VListLoadingBox = New System.Windows.Forms.GroupBox()
+        Me.CatServerLoadingLabel = New System.Windows.Forms.Label()
         Me.PocketMineLoadingLabel = New System.Windows.Forms.Label()
         Me.ContigoLoadingLabel = New System.Windows.Forms.Label()
+        Me.KettleLoadingLabel = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.CauldronLoadingLabel = New System.Windows.Forms.Label()
         Me.SpigotGitLoadingLabel = New System.Windows.Forms.Label()
@@ -172,8 +175,6 @@ Partial Class Manager
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
-        Me.KettleLoadingLabel = New System.Windows.Forms.Label()
-        Me.CatServerLoadingLabel = New System.Windows.Forms.Label()
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -238,7 +239,7 @@ Partial Class Manager
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 0
+        Me.MainTabControl.SelectedIndex = 6
         Me.MainTabControl.Size = New System.Drawing.Size(744, 465)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
@@ -451,6 +452,16 @@ Partial Class Manager
         Me.VListLoadingBox.TabStop = False
         Me.VListLoadingBox.Text = "伺服器軟體"
         '
+        'CatServerLoadingLabel
+        '
+        Me.CatServerLoadingLabel.Location = New System.Drawing.Point(410, 18)
+        Me.CatServerLoadingLabel.Name = "CatServerLoadingLabel"
+        Me.CatServerLoadingLabel.Size = New System.Drawing.Size(197, 23)
+        Me.CatServerLoadingLabel.TabIndex = 16
+        Me.CatServerLoadingLabel.Text = "CatServer："
+        Me.CatServerLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.CatServerLoadingLabel, "由Laohuayu 所寫的混核伺服器軟體，可同時使用插件及模組的功能。")
+        '
         'PocketMineLoadingLabel
         '
         Me.PocketMineLoadingLabel.Location = New System.Drawing.Point(410, 64)
@@ -470,6 +481,16 @@ Partial Class Manager
         Me.ContigoLoadingLabel.Text = "Contigo：載入完成"
         Me.ContigoLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ToolTip1.SetToolTip(Me.ContigoLoadingLabel, "Thermos 的分支，已經停止開發。")
+        '
+        'KettleLoadingLabel
+        '
+        Me.KettleLoadingLabel.Location = New System.Drawing.Point(207, 133)
+        Me.KettleLoadingLabel.Name = "KettleLoadingLabel"
+        Me.KettleLoadingLabel.Size = New System.Drawing.Size(197, 23)
+        Me.KettleLoadingLabel.TabIndex = 13
+        Me.KettleLoadingLabel.Text = "Kettle："
+        Me.KettleLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolTip1.SetToolTip(Me.KettleLoadingLabel, "開發中的Minecraft伺服器版本，能夠同時使用模組及插件。")
         '
         'Label17
         '
@@ -1727,10 +1748,10 @@ Partial Class Manager
         Me.AboutPage.HorizontalScrollbarBarColor = True
         Me.AboutPage.HorizontalScrollbarHighlightOnWheel = False
         Me.AboutPage.HorizontalScrollbarSize = 10
-        Me.AboutPage.Location = New System.Drawing.Point(4, 36)
+        Me.AboutPage.Location = New System.Drawing.Point(4, 38)
         Me.AboutPage.Name = "AboutPage"
         Me.AboutPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.AboutPage.Size = New System.Drawing.Size(736, 425)
+        Me.AboutPage.Size = New System.Drawing.Size(736, 423)
         Me.AboutPage.TabIndex = 5
         Me.AboutPage.Text = "關於"
         Me.AboutPage.UseVisualStyleBackColor = True
@@ -1750,7 +1771,7 @@ Partial Class Manager
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 419)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(730, 417)
         Me.TableLayoutPanel4.TabIndex = 1
         '
         'GroupBox5
@@ -1760,7 +1781,7 @@ Partial Class Manager
         Me.GroupBox5.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox5.Location = New System.Drawing.Point(368, 3)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(359, 413)
+        Me.GroupBox5.Size = New System.Drawing.Size(359, 411)
         Me.GroupBox5.TabIndex = 5
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "各伺服器軟體官網(按兩下即可開啟)"
@@ -1803,17 +1824,18 @@ Partial Class Manager
         ListViewItem11.Checked = True
         ListViewItem11.StateImageIndex = 11
         ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
-        ListViewItem12.Checked = True
-        ListViewItem12.StateImageIndex = 7
-        ListViewItem12.Tag = "https://nukkitx.com/"
+        ListViewItem12.Tag = "http://catserver.moe/"
         ListViewItem13.Checked = True
-        ListViewItem13.StateImageIndex = 12
-        ListViewItem13.Tag = "https://pmmp.io/"
-        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13})
+        ListViewItem13.StateImageIndex = 7
+        ListViewItem13.Tag = "https://nukkitx.com/"
+        ListViewItem14.Checked = True
+        ListViewItem14.StateImageIndex = 12
+        ListViewItem14.Tag = "https://pmmp.io/"
+        Me.ServerSoftwareLinkList.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3, ListViewItem4, ListViewItem5, ListViewItem6, ListViewItem7, ListViewItem8, ListViewItem9, ListViewItem10, ListViewItem11, ListViewItem12, ListViewItem13, ListViewItem14})
         Me.ServerSoftwareLinkList.Location = New System.Drawing.Point(3, 19)
         Me.ServerSoftwareLinkList.MultiSelect = False
         Me.ServerSoftwareLinkList.Name = "ServerSoftwareLinkList"
-        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 391)
+        Me.ServerSoftwareLinkList.Size = New System.Drawing.Size(353, 389)
         Me.ServerSoftwareLinkList.StateImageList = Me.ServerSoftwareImageList
         Me.ServerSoftwareLinkList.TabIndex = 0
         Me.ServerSoftwareLinkList.UseCompatibleStateImageBehavior = False
@@ -1849,7 +1871,7 @@ Partial Class Manager
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(3, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(359, 413)
+        Me.Panel3.Size = New System.Drawing.Size(359, 411)
         Me.Panel3.TabIndex = 1
         '
         'LinkLabel2
@@ -1883,7 +1905,7 @@ Partial Class Manager
         Me.GroupBox4.Font = New System.Drawing.Font("微軟正黑體", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(3, 159)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(352, 246)
+        Me.GroupBox4.Size = New System.Drawing.Size(352, 244)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "使用的函式庫"
@@ -1897,7 +1919,7 @@ Partial Class Manager
         Me.LibraryListBox.Items.AddRange(New Object() {"Newtonsoft.Json (用於解析JSON)", "HtmlAgilityPack (用於提取HTML 元素)", "HtmlRenderer (用於顯示簡單HTML 網頁)", "NATUPnP (提供UPnP 支援)", "NoIP.DDNS (提供No-IP 連接支援)", "YamlDotNet (用於解析YAML)", "DropDownControls (用於顯示群組項目)", "NBT_Library (用於解析NBT檔案)", "MetroFramework (提供圖形介面)"})
         Me.LibraryListBox.Location = New System.Drawing.Point(3, 19)
         Me.LibraryListBox.Name = "LibraryListBox"
-        Me.LibraryListBox.Size = New System.Drawing.Size(346, 224)
+        Me.LibraryListBox.Size = New System.Drawing.Size(346, 222)
         Me.LibraryListBox.TabIndex = 0
         '
         'Label10
@@ -1968,26 +1990,6 @@ Partial Class Manager
         '
         Me.MetroStyleManager1.Owner = Me
         Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
-        '
-        'KettleLoadingLabel
-        '
-        Me.KettleLoadingLabel.Location = New System.Drawing.Point(207, 133)
-        Me.KettleLoadingLabel.Name = "KettleLoadingLabel"
-        Me.KettleLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.KettleLoadingLabel.TabIndex = 13
-        Me.KettleLoadingLabel.Text = "Kettle："
-        Me.KettleLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.KettleLoadingLabel, "開發中的Minecraft伺服器版本，能夠同時使用模組及插件。")
-        '
-        'CatServerLoadingLabel
-        '
-        Me.CatServerLoadingLabel.Location = New System.Drawing.Point(410, 18)
-        Me.CatServerLoadingLabel.Name = "CatServerLoadingLabel"
-        Me.CatServerLoadingLabel.Size = New System.Drawing.Size(197, 23)
-        Me.CatServerLoadingLabel.TabIndex = 16
-        Me.CatServerLoadingLabel.Text = "CatServer："
-        Me.CatServerLoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ToolTip1.SetToolTip(Me.CatServerLoadingLabel, "由Laohuayu 所寫的混核伺服器軟體，可同時使用插件及模組的功能。")
         '
         'Manager
         '
