@@ -151,7 +151,8 @@ Public MustInherit Class ServerBase
     ''' 生成伺服器資訊文件(server.info)
     ''' </summary>
     Public Sub GenerateServerInfo()
-        Using writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.info"), IO.FileMode.Truncate, IO.FileAccess.Write), System.Text.Encoding.UTF8)
+        If IO.File.Exists(IO.Path.Combine(ServerPath, "server.info")) Then IO.File.Delete(IO.Path.Combine(ServerPath, "server.info"))
+        Using writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.info"), IO.FileMode.CreateNew, IO.FileAccess.Write), System.Text.Encoding.UTF8)
             writer.AutoFlush = True
             writer.WriteLine("server-version=" & ServerVersion)
             writer.WriteLine("server-version-type=" & GetInternalName())

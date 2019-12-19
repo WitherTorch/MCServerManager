@@ -132,7 +132,8 @@ Public Class VanillaServer
         Return runningProcess
     End Function
     Public Overrides Sub SaveServer()
-        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.Truncate, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
+        If IO.File.Exists(IO.Path.Combine(ServerPath, "server.properties")) Then IO.File.Delete(IO.Path.Combine(ServerPath, "server.properties"))
+        Dim writer As New IO.StreamWriter(New IO.FileStream(IO.Path.Combine(ServerPath, "server.properties"), IO.FileMode.CreateNew, IO.FileAccess.Write), New System.Text.UTF8Encoding(False))
         writer.WriteLine("# Minecraft server properties")
         writer.WriteLine("#" & Date.Now.ToString("ddd MMM dd HH:mm:ss K yyyy", System.Globalization.CultureInfo.CurrentUICulture))
         For Each [option] In ServerOptions.OutputOption

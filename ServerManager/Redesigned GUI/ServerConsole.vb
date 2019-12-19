@@ -52,8 +52,12 @@ Public Class ServerConsole
                 _server.IsRunning = False
                 _server.ProcessID = 0
             Else
-                AddHandler process.OutputDataReceived, Sub(obj, args) hub.AddMessage(args.Data)
-                AddHandler process.ErrorDataReceived, Sub(obj, args) hub.AddMessage(args.Data)
+                AddHandler process.OutputDataReceived, Sub(obj, args)
+                                                           hub.AddMessage(args.Data)
+                                                       End Sub
+                AddHandler process.ErrorDataReceived, Sub(obj, args)
+                                                          hub.AddErrorMessage(args.Data)
+                                                      End Sub
                 AddHandler process.Exited, Sub()
                                                _server.IsRunning = False
                                                _server.ProcessID = 0

@@ -197,13 +197,13 @@ Public Class Manager
             ControlPanel.BringToFront()
             Dim ani As New MetroFramework.Animation.MoveAnimation()
             MoveAnimationDictionary.Add(sender, (label, ani, True))
-            ani.Start(label, New Point(sender.Left + sender.Width, sender.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 20)
+            ani.Start(label, New Point(sender.Left + sender.Width, sender.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 25)
         Else
             Dim item As (Label, MetroFramework.Animation.MoveAnimation, Boolean) = MoveAnimationDictionary(sender)
             If item.Item3 = False Then
                 item.Item2.Cancel()
                 item.Item3 = True
-                item.Item2.Start(item.Item1, New Point(sender.Left + sender.Width, sender.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 20)
+                item.Item2.Start(item.Item1, New Point(sender.Left + sender.Width, sender.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 25)
                 MoveAnimationDictionary(sender) = item
             End If
         End If
@@ -215,7 +215,7 @@ Public Class Manager
             If item.Item3 Then
                 item.Item2.Cancel()
                 item.Item3 = False
-                item.Item2.Start(item.Item1, New Point(-20 - item.Item1.Size.Width, sender.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 20)
+                item.Item2.Start(item.Item1, New Point(-20 - item.Item1.Size.Width, sender.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 25)
                 MoveAnimationDictionary(sender) = item
                 AddHandler item.Item2.AnimationCompleted, Sub()
                                                               If MoveAnimationDictionary.ContainsKey(sender) Then
@@ -243,13 +243,13 @@ Public Class Manager
             ControlPanel.BringToFront()
             Dim ani As New MetroFramework.Animation.MoveAnimation()
             MoveAnimationDictionary.Add(sender, (label, ani, True))
-            ani.Start(label, New Point(sender.Parent.Left + sender.Parent.Width, sender.Parent.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 20)
+            ani.Start(label, New Point(sender.Parent.Left + sender.Parent.Width, sender.Parent.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 25)
         Else
             Dim item As (Label, MetroFramework.Animation.MoveAnimation, Boolean) = MoveAnimationDictionary(sender)
             If item.Item3 = False Then
                 item.Item2.Cancel()
                 item.Item3 = True
-                item.Item2.Start(item.Item1, New Point(sender.Parent.Left + sender.Parent.Width, sender.Parent.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 20)
+                item.Item2.Start(item.Item1, New Point(sender.Parent.Left + sender.Parent.Width, sender.Parent.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 25)
                 MoveAnimationDictionary(sender) = item
             End If
         End If
@@ -260,7 +260,7 @@ Public Class Manager
             If item.Item3 Then
                 item.Item2.Cancel()
                 item.Item3 = False
-                item.Item2.Start(item.Item1, New Point(-20 - item.Item1.Size.Width, sender.Parent.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 20)
+                item.Item2.Start(item.Item1, New Point(-20 - item.Item1.Size.Width, sender.Parent.Top + ControlPanel.Top), MetroFramework.Animation.TransitionType.Linear, 25)
                 MoveAnimationDictionary(sender) = item
                 AddHandler item.Item2.AnimationCompleted, Sub()
                                                               If MoveAnimationDictionary.ContainsKey(sender) Then

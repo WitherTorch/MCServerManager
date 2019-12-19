@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>ServerManager</RootNamespace>
-    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp2.1</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <OptionCompare>Text</OptionCompare>
     <Version>1.7.0.0</Version>

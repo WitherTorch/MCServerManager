@@ -1,6 +1,6 @@
 ﻿Public Class CreateServerDialog
     Dim ViewIndex As Integer = 0
-    Dim softwares As Dictionary(Of String, ServerMaker.SoftwareInfo) = ServerMaker.SoftwareDictionary
+    Dim softwares As Dictionary(Of String, SoftwareInfo) = ServerMaker.SoftwareDictionary
     Dim server As ServerBase
     Dim targetVersion As String
     Dim Manager As Manager
@@ -60,7 +60,7 @@
                                                          MetroProgressBar1.Value = percent
                                                      End Sub
                 AddHandler server.ServerDownloadEnd, Sub(isCanceled As Boolean)
-                                                         If isCanceled Then
+                                                         If isCanceled = False Then
                                                              server.SaveServer()
                                                              server.GetServer(server.ServerPath)
                                                              Dim status As New ServerStatus(server)
