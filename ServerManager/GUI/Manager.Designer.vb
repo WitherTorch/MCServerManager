@@ -252,10 +252,10 @@ Partial Class Manager
         Me.MainPage.HorizontalScrollbarBarColor = True
         Me.MainPage.HorizontalScrollbarHighlightOnWheel = False
         Me.MainPage.HorizontalScrollbarSize = 10
-        Me.MainPage.Location = New System.Drawing.Point(4, 38)
+        Me.MainPage.Location = New System.Drawing.Point(4, 36)
         Me.MainPage.Name = "MainPage"
         Me.MainPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.MainPage.Size = New System.Drawing.Size(736, 423)
+        Me.MainPage.Size = New System.Drawing.Size(736, 425)
         Me.MainPage.TabIndex = 0
         Me.MainPage.Text = "概觀 "
         Me.MainPage.VerticalScrollbarBarColor = True
@@ -276,7 +276,7 @@ Partial Class Manager
         Me.MainPanel.RowCount = 2
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.MainPanel.Size = New System.Drawing.Size(730, 417)
+        Me.MainPanel.Size = New System.Drawing.Size(730, 419)
         Me.MainPanel.TabIndex = 5
         '
         'GroupBox8
@@ -1824,6 +1824,8 @@ Partial Class Manager
         ListViewItem11.Checked = True
         ListViewItem11.StateImageIndex = 11
         ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem12.Checked = True
+        ListViewItem12.StateImageIndex = 13
         ListViewItem12.Tag = "http://catserver.moe/"
         ListViewItem13.Checked = True
         ListViewItem13.StateImageIndex = 7
@@ -1858,6 +1860,7 @@ Partial Class Manager
         Me.ServerSoftwareImageList.Images.SetKeyName(10, "Contigo.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(11, "kettle.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(12, "PocketMine.jpg")
+        Me.ServerSoftwareImageList.Images.SetKeyName(13, "catServer.jpg")
         '
         'Panel3
         '
