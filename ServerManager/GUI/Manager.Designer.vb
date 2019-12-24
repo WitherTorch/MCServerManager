@@ -1635,6 +1635,8 @@ Partial Class Manager
         ListViewItem11.Checked = True
         ListViewItem11.StateImageIndex = 11
         ListViewItem11.Tag = "https://github.com/KettleFoundation/Kettle"
+        ListViewItem12.Checked = True
+        ListViewItem12.StateImageIndex = 13
         ListViewItem12.Tag = "http://catserver.moe/"
         ListViewItem13.Checked = True
         ListViewItem13.StateImageIndex = 7
@@ -1669,6 +1671,7 @@ Partial Class Manager
         Me.ServerSoftwareImageList.Images.SetKeyName(10, "Contigo.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(11, "kettle.png")
         Me.ServerSoftwareImageList.Images.SetKeyName(12, "PocketMine.jpg")
+        Me.ServerSoftwareImageList.Images.SetKeyName(13, "catServer.png")
         '
         'Panel3
         '
