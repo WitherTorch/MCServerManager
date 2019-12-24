@@ -9,8 +9,8 @@ Module GlobalModule
     Public Const SERVER_MANAGER_ARCH As String = "Windows_Edge"
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
-    Friend ConsoleBindings As New Dictionary(Of ServerBase, ServerConsole)
-    Friend SettingFormBindings As New Dictionary(Of ServerBase, ServerSettingForm)
+    Friend ServerConsoleBindings As New Dictionary(Of ServerBase, ServerConsole)
+    Friend ServerSettingFormBindings As New Dictionary(Of ServerBase, ServerSettingForm)
 #Region "Server/Solution List"
     Friend ServerList As New List(Of String)
     Friend SolutionDirs As String = ReadAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"))

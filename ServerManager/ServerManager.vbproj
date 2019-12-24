@@ -235,12 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordHost.vb" />
-    <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordOptions.vb" />
-    <Compile Include="Classes\Intergrate Solution Server\BungeeCord\BungeeCordUpdater.vb" />
-    <Compile Include="Classes\Intergrate Solution Server\SubServer\SubServerHost.vb" />
     <Compile Include="Classes\JavaPathsProvider.vb" />
-    <Compile Include="Classes\MinecraftLogParser.vb" />
     <Compile Include="Classes\MinecraftUUIDProvider.vb" />
     <Compile Include="Classes\ModPack Server\ModPackServer.vb" />
     <Compile Include="Classes\Watchdog.vb" />
@@ -261,6 +256,12 @@
       <DependentUpon>ServerStatus.vb</DependentUpon>
     </Compile>
     <Compile Include="Redesigned GUI\Controls\ServerStatus.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Redesigned GUI\Controls\SolutionStatus.Designer.vb">
+      <DependentUpon>SolutionStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Redesigned GUI\Controls\SolutionStatus.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Redesigned GUI\CreateServerDialog.Designer.vb">
@@ -335,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Redesigned GUI\Controls\ServerStatus.resx">
       <DependentUpon>ServerStatus.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Redesigned GUI\Controls\SolutionStatus.resx">
+      <DependentUpon>SolutionStatus.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Redesigned GUI\CreateServerDialog.resx">
       <DependentUpon>CreateServerDialog.vb</DependentUpon>

@@ -41,10 +41,10 @@ Public Class ServerSettingForm
     End Sub
 
     Private Sub ServerSettingForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If SettingFormBindings.ContainsKey(_server) Then
+        If ServerSettingFormBindings.ContainsKey(_server) Then
             Close()
         Else
-            SettingFormBindings.Add(_server, Me)
+            ServerSettingFormBindings.Add(_server, Me)
             If TypeOf _server Is IMemoryChange Then
                 Dim memoryServer As IMemoryChange = _server
                 NumericUpDown1.Value = memoryServer.MemoryMax
@@ -59,7 +59,7 @@ Public Class ServerSettingForm
             memoryServer.MemoryMax = NumericUpDown1.Value
             memoryServer.MemoryMin = NumericUpDown2.Value
         End If
-        SettingFormBindings.Remove(_server)
+        ServerSettingFormBindings.Remove(_server)
     End Sub
 
     Private Sub MetroButton1_Click(sender As Object, e As EventArgs) Handles MetroButton1.Click

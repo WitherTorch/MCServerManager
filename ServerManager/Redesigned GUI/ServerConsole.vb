@@ -45,7 +45,7 @@ Public Class ServerConsole
     End Sub
 
     Private Sub ServerConsole_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        If _server.BeforeRunServer() AndAlso ConsoleBindings(_server) Is Me Then
+        If _server.BeforeRunServer() AndAlso ServerConsoleBindings(_server) Is Me Then
             process = _server.RunServer()
             process.EnableRaisingEvents = True
             If process.HasExited Then
@@ -108,7 +108,7 @@ Public Class ServerConsole
         t.IsBackground = False
         t.Start()
         hub.Dispose()
-        If ConsoleBindings.ContainsKey(_server) Then ConsoleBindings.Remove(_server)
+        If ServerConsoleBindings.ContainsKey(_server) Then ServerConsoleBindings.Remove(_server)
         GC.Collect()
         d.Dispose()
         sc.Dispose()
@@ -181,10 +181,10 @@ Public Class ServerConsole
     End Function
 
     Private Sub ServerConsole_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If ConsoleBindings.ContainsKey(_server) Then
+        If ServerConsoleBindings.ContainsKey(_server) Then
             Close()
         Else
-            ConsoleBindings.Add(_server, Me)
+            ServerConsoleBindings.Add(_server, Me)
         End If
     End Sub
 
