@@ -549,9 +549,9 @@ Public Class Manager
                                                                Dim UniversalURL As String = String.Empty
                                                                Dim AsyncURL As String = String.Empty
                                                                For Each subJsonObject As JObject In CType(jsonObject.GetValue("assets"), JArray)
-                                                                   If subJsonObject.GetValue("name").ToString Like "CatServer-*-universal" Then
+                                                                   If subJsonObject.GetValue("name").ToString Like "CatServer-*-universal.jar" Then
                                                                        UniversalURL = subJsonObject.GetValue("browser_download_url")
-                                                                   ElseIf subJsonObject.GetValue("name").ToString Like "CatServer-*-async" Then
+                                                                   ElseIf subJsonObject.GetValue("name").ToString Like "CatServer-*-async.jar" Then
                                                                        AsyncURL = subJsonObject.GetValue("browser_download_url")
                                                                    Else
                                                                        Continue For

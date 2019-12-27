@@ -239,7 +239,7 @@ Partial Class Manager
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 6
+        Me.MainTabControl.SelectedIndex = 0
         Me.MainTabControl.Size = New System.Drawing.Size(744, 465)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
@@ -252,10 +252,10 @@ Partial Class Manager
         Me.MainPage.HorizontalScrollbarBarColor = True
         Me.MainPage.HorizontalScrollbarHighlightOnWheel = False
         Me.MainPage.HorizontalScrollbarSize = 10
-        Me.MainPage.Location = New System.Drawing.Point(4, 36)
+        Me.MainPage.Location = New System.Drawing.Point(4, 38)
         Me.MainPage.Name = "MainPage"
         Me.MainPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.MainPage.Size = New System.Drawing.Size(736, 425)
+        Me.MainPage.Size = New System.Drawing.Size(736, 423)
         Me.MainPage.TabIndex = 0
         Me.MainPage.Text = "概觀 "
         Me.MainPage.VerticalScrollbarBarColor = True
@@ -276,7 +276,7 @@ Partial Class Manager
         Me.MainPanel.RowCount = 2
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.MainPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.MainPanel.Size = New System.Drawing.Size(730, 419)
+        Me.MainPanel.Size = New System.Drawing.Size(730, 417)
         Me.MainPanel.TabIndex = 5
         '
         'GroupBox8
