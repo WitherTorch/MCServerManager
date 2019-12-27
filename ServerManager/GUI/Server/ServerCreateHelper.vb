@@ -482,9 +482,9 @@ Public Class ServerCreateHelper
                 DownloadFile(PocketMineVersionDict(server.ServerVersion), IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "PocketMine-MP.phar"), Server.EServerVersionType.PocketMine, server.ServerVersion)
             Case Server.EServerVersionType.CatServer
                 If server.ServerVersion.EndsWith("Universal") Then
-                    DownloadFile(CatServerVersionDict(server.ServerVersion).Item1, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "CatServer-" & server.ServerVersion.Substring(0, server.ServerVersion.Length - 10) & "-universal"), Server.EServerVersionType.CatServer, server.ServerVersion)
+                    DownloadFile(CatServerVersionDict(server.ServerVersion.Substring(0, server.ServerVersion.Length - 10)).Item1, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "CatServer-" & server.ServerVersion.Substring(0, server.ServerVersion.Length - 10) & "-universal.jar"), Server.EServerVersionType.CatServer, server.ServerVersion)
                 ElseIf server.ServerVersion.EndsWith("Async") Then
-                    DownloadFile(CatServerVersionDict(server.ServerVersion).Item2, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "CatServer-" & server.ServerVersion.Substring(0, server.ServerVersion.Length - 6) & "-async"), Server.EServerVersionType.CatServer, server.ServerVersion)
+                    DownloadFile(CatServerVersionDict(server.ServerVersion.Substring(0, server.ServerVersion.Length - 6)).Item2, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "CatServer-" & server.ServerVersion.Substring(0, server.ServerVersion.Length - 6) & "-async.jar"), Server.EServerVersionType.CatServer, server.ServerVersion)
                 End If
         End Select
     End Sub
