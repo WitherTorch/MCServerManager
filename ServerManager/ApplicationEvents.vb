@@ -59,6 +59,7 @@ Namespace My
                 Next
             End If
         End Sub
+
     End Class
     Class GUIHandler
         Implements IGUIHandler

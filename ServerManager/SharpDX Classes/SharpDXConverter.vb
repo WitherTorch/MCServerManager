@@ -31,4 +31,20 @@ Public Class SharpDXConverter
     Public Shared Function ConvertRectangleF(rectangle As RectangleF) As Mathematics.Interop.RawRectangleF
         Return New Mathematics.Interop.RawRectangleF(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom)
     End Function
+    Public Shared Function ConvertBitmap(image As Bitmap, device As Direct2D1.Device) As Direct2D1.Bitmap
+        Dim deviceContext As New Direct2D1.DeviceContext(device, Direct2D1.DeviceContextOptions.None)
+        Dim bit As New Direct2D1.Bitmap1(deviceContext, SharpDXConverter.ConvertSize(image.Size), New Direct2D1.BitmapProperties1() With {.PixelFormat = New Direct2D1.PixelFormat(DXGI.Format.B8G8R8A8_UNorm, Direct2D1.AlphaMode.Premultiplied), .BitmapOptions = Direct2D1.BitmapOptions.Target})
+        deviceContext.Target = bit
+        deviceContext.BeginDraw()
+        For x As Integer = 0 To image.Width - 1
+            For y As Integer = 0 To image.Height - 1
+                Dim brush = SharpDXConverter.ConvertSolidBrush(New SolidBrush(image.GetPixel(x, y)), deviceContext)
+                deviceContext.DrawRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(x, y, 1, 1)), brush)
+                Utilities.Dispose(brush)
+            Next
+        Next
+        deviceContext.EndDraw()
+        Utilities.Dispose(deviceContext)
+        Return bit
+    End Function
 End Class

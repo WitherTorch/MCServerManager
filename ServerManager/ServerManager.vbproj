@@ -276,6 +276,12 @@
     <Compile Include="Redesigned GUI\DXListView.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Redesigned GUI\DXManager.Designer.vb">
+      <DependentUpon>DXManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Redesigned GUI\DXManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Redesigned GUI\Manager.Designer.vb">
       <DependentUpon>Manager.vb</DependentUpon>
     </Compile>
@@ -346,6 +352,9 @@
     <EmbeddedResource Include="Redesigned GUI\DXListView.resx">
       <DependentUpon>DXListView.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Redesigned GUI\DXManager.resx">
+      <DependentUpon>DXManager.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Redesigned GUI\Manager.resx">
       <DependentUpon>Manager.vb</DependentUpon>
     </EmbeddedResource>
@@ -375,6 +384,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\modServerListICO.png" />
+    <None Include="Resources\serverListICO.png" />
     <None Include="Resources\server.png" />
     <None Include="Resources\chest.png" />
     <None Include="Resources\add.png" />
