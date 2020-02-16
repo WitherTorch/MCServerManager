@@ -42,33 +42,45 @@ Public Class DXManager
     Dim MenuItems As New List(Of DXMenuItem)
     Dim isClickedMenuItem As Boolean = False
     Dim isShowInnerWindow As Boolean = True
-    Dim UICPUvalue As Integer = -1
-    Dim UIRAMvalue As Integer = -1
-    Dim UIVirtualRAMvalue As Integer = -1
-    Dim UINetworkValue As Integer = -1
-    Dim CPUvalue As Integer = -1
-    Dim RAMvalue As Integer = -1
-    Dim VirtualRAMvalue As Integer = -1
-    Dim networkValue As Integer = -1
+    Dim UICPUvalue(2) As Integer
+    Dim UIRAMvalue(2) As Integer
+    Dim UIVirtualRAMvalue(2) As Integer
+    Dim UINetworkValue As Integer
+    Dim CPUvalue(2) As Integer
+    Dim RAMvalue(2) As Integer
+    Dim VirtualRAMvalue(2) As Integer
+    Dim networkValue As Integer
     Dim searcher As New Management.ManagementObjectSearcher(New Management.ObjectQuery("SELECT * FROM CIM_OperatingSystem"))
     Dim PCStatusCheckingTimer As New Timer() With {.Enabled = False, .Interval = 10}
     Dim requestFlags As FormEventFlags = FormEventFlags.Empty
     Dim VersionLoadTabIndex As Integer = 0
+    Dim isInputing As Boolean = False
+    Dim InputWords As String = String.Empty
+    Dim _inputTarget As InputTarget = DXManager.InputTarget.None
 #End Region
 #Region "Drawing Variants"
     Dim AppIcon As Bitmap
+    Dim CreateServerIcon As Bitmap
+    Dim AddServerIcon As Bitmap
 #End Region
     Dim minBtnRect As RectangleF
     Dim maxBtnRect As RectangleF
     Dim closeBtnRect As RectangleF
-    Dim VersionLoadTabRects As Rectangle() = New Rectangle() {New Rectangle(400, 45, 100, 25), New Rectangle(500, 45, 100, 25), New Rectangle(600, 45, 100, 25)}
+    Dim VersionLoadTabRects As Rectangle() = New Rectangle() {New Rectangle(355, 45, 100, 25), New Rectangle(455, 45, 100, 25), New Rectangle(555, 45, 100, 25)}
+    Dim SearchingTextAreaRect As RectangleF
     Const RegionSize As Integer = 4
     Dim innerWindowRect As RectangleF
+    Dim UICpuCounter As New PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName)
 #Region "Enums"
     Enum ControlButtonStatus
         Unchecked = 0
         Entered = 1
         Pressed = 2
+    End Enum
+    Enum InputTarget
+        None = 0
+        ServerSearchBox = 1
+        ModpackServerSearchBox = 2
     End Enum
     <Flags>
     Enum FormEventFlags
@@ -128,6 +140,8 @@ Public Class DXManager
         ' 在 InitializeComponent() 呼叫之後加入所有初始設定。
         InitDeviceContext()
         AppIcon = SharpDXConverter.ConvertBitmap(My.Resources.IconTemplate, d2DDevice)
+        CreateServerIcon = SharpDXConverter.ConvertBitmap(My.Resources.add, d2DDevice)
+        AddServerIcon = SharpDXConverter.ConvertBitmap(My.Resources.chest, d2DDevice)
         MenuItems.Add(New DXMenuItem() With {.Icon = SharpDXConverter.ConvertBitmap(My.Resources.home, d2DDevice), .Text = "主頁", .RenderFunc = AddressOf RenderMainPage})
         Dim serverBMPDC As New DeviceContext(d2DDevice, DeviceContextOptions.None)
         Dim serverBitmap As New Bitmap1(serverBMPDC, New Size2(40, 40), New BitmapProperties1() With {.PixelFormat = D2PixelFormat, .BitmapOptions = BitmapOptions.Target})
@@ -141,7 +155,6 @@ Public Class DXManager
         serverBMPDC.DrawLine(New RawVector2(35, 29), New RawVector2(19, 36), lineBrush, 3.5, lineStrokeStyle)
         serverBMPDC.DrawLine(New RawVector2(19, 36), New RawVector2(5, 29), lineBrush, 3.5, lineStrokeStyle)
         serverBMPDC.DrawLine(New RawVector2(5, 29), New RawVector2(5, 10), lineBrush, 3.5, lineStrokeStyle)
-
         serverBMPDC.DrawLine(New RawVector2(6, 11), New RawVector2(19, 18), lineBrush, 3.5, lineStrokeStyle)
         serverBMPDC.DrawLine(New RawVector2(19, 18), New RawVector2(34, 11), lineBrush, 3.5, lineStrokeStyle)
         serverBMPDC.DrawLine(New RawVector2(19, 18), New RawVector2(19, 35), lineBrush, 3.5, lineStrokeStyle)
@@ -155,8 +168,9 @@ Public Class DXManager
         maxBtnRect = New RectangleF(Width - 29, 5, 10, 10)
         closeBtnRect = New RectangleF(Width - 15, 5, 10, 10)
         innerWindowRect = New RectangleF(40, 37, Width - 43, Height - 40)
+        SearchingTextAreaRect = New RectangleF(46, 43, innerWindowRect.Width - 67, 22)
         requestFlags = requestFlags Or FormEventFlags.RefreshAll
-        Timer1.Enabled = True
+        DisplayTimer.Enabled = True
         OnPageChanged(0)
     End Sub
     ''' <summary>
@@ -204,7 +218,16 @@ Public Class DXManager
             If thread1 IsNot Nothing AndAlso thread1.IsAlive Then thread1.Abort()
             thread1 = New Threading.Thread(Sub()
                                                Try
-                                                   CPUvalue = CPUPerformanceCounter.NextValue
+                                                   CPUvalue(0) = CPUPerformanceCounter.NextValue
+                                                   CPUvalue(1) = UICpuCounter.NextValue
+                                                   Dim processResult As Integer = 0
+                                                   If ServerProcessBindings.Count > 0 Then
+                                                       For Each process In ServerProcessBindings.Values
+                                                           Dim counter As New PerformanceCounter("Process", "% Processor Time", process.ProcessName)
+                                                           processResult += counter.NextValue()
+                                                       Next
+                                                   End If
+                                                   CPUvalue(2) = processResult
                                                Catch ex As Exception
 
                                                End Try
@@ -215,12 +238,12 @@ Public Class DXManager
             thread2 = New Threading.Thread(Sub()
                                                For Each item In searcher.Get()
                                                    Try
-                                                       RAMvalue = 100 - item("FreePhysicalMemory") / item("TotalVisibleMemorySize") * 100
+                                                       RAMvalue(0) = 100 - item("FreePhysicalMemory") / item("TotalVisibleMemorySize") * 100
                                                    Catch ex As Exception
                                                        Continue For
                                                    End Try
                                                    Try
-                                                       VirtualRAMvalue = 100 - item("FreeVirtualMemory") / item("TotalVirtualMemorySize") * 100
+                                                       VirtualRAMvalue(0) = 100 - item("FreeVirtualMemory") / item("TotalVirtualMemorySize") * 100
                                                    Catch ex As Exception
                                                        Continue For
                                                    End Try
@@ -247,17 +270,19 @@ Public Class DXManager
             thread3.Start()
             waitTime += 1
         Else
-            If CPUvalue - UICPUvalue <> 0 Then
-                UICPUvalue += (CPUvalue - UICPUvalue) / (15 - waitTime)
-            End If
-            If RAMvalue - UIRAMvalue <> 0 Then
-                UIRAMvalue += (RAMvalue - UIRAMvalue) / (15 - waitTime)
-            End If
-            If VirtualRAMvalue - UIVirtualRAMvalue <> 0 Then
-                UIVirtualRAMvalue += (VirtualRAMvalue - UIVirtualRAMvalue) / (15 - waitTime)
-            End If
+            For i As Integer = 0 To 2
+                If CPUvalue(i) - UICPUvalue(i) <> 0 Then
+                    UICPUvalue(i) += (CPUvalue(i) - UICPUvalue(i)) / (35 - waitTime)
+                End If
+                If RAMvalue(i) - UIRAMvalue(i) <> 0 Then
+                    UIRAMvalue(i) += (RAMvalue(i) - UIRAMvalue(i)) / (35 - waitTime)
+                End If
+                If VirtualRAMvalue(i) - UIVirtualRAMvalue(i) <> 0 Then
+                    UIVirtualRAMvalue(i) += (VirtualRAMvalue(i) - UIVirtualRAMvalue(i)) / (35 - waitTime)
+                End If
+            Next
             If networkValue - UINetworkValue <> 0 Then
-                UINetworkValue += (networkValue - UINetworkValue) / (15 - waitTime)
+                UINetworkValue += (networkValue - UINetworkValue) / (35 - waitTime)
             End If
             If waitTime >= 35 Then
                 waitTime = 0
@@ -276,8 +301,12 @@ Public Class DXManager
         Utilities.Dispose(backBuffer)
         Utilities.Dispose(targetBitmap)
         Utilities.Dispose(AppIcon)
+        Utilities.Dispose(CreateServerIcon)
+        Utilities.Dispose(AddServerIcon)
         If IsNothing(Layer1DC) = False Then Utilities.Dispose(Layer1DC)
         If IsNothing(Layer1Bitmap) = False Then Utilities.Dispose(Layer1Bitmap)
+        If IsNothing(Layer2DC) = False Then Utilities.Dispose(Layer2DC)
+        If IsNothing(Layer2Bitmap) = False Then Utilities.Dispose(Layer2Bitmap)
     End Sub
     ''' <summary>
     ''' 主繪圖程式
@@ -508,87 +537,121 @@ Public Class DXManager
             MainPageDC.Target = MainPageBitmap
             MainPageDC.BeginDraw()
             Dim backBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.DimGray))
+            Dim backBrush2 As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(233, 233, 233)))
             Dim foreBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.LightGray))
             Dim foreBrush2 As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.White))
             Dim textBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(80, 80, 80)))
             Dim percentTextBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.Gray))
-            Dim textFormat = SharpDXConverter.ConvertFont(New Font("Segoe UI", 30, FontStyle.Bold))
-            Dim percentTextFormat = SharpDXConverter.ConvertFont(New Font("Segoe UI", 14))
+            Dim textFormat = SharpDXConverter.ConvertFont(New Font("Segoe UI", 25, FontStyle.Bold))
+            Dim textFormat2 = SharpDXConverter.ConvertFont(New Font("Segoe UI", 14))
+            Dim percentTextFormat = SharpDXConverter.ConvertFont(New Font("Segoe UI", 12))
             Dim geo As Geometry = Nothing
+            Dim DCType As Type = GetType(DeviceContext)
 #Region "CPU 儀表繪製"
+            DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 5, .RadiusY = 5, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(5, 5, 300, 107.5))}, backBrush2})
             Dim cpuBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(185, 29, 71)))
-            If (UICPUvalue >= 100) Then
-                MainPageDC.FillEllipse(New Ellipse(New RawVector2(80, 80), 75, 75), cpuBrush)
+            Dim cpuBrush_GUI As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(238, 17, 17)))
+            Dim cpuBrush_Server As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(218, 83, 44)))
+            If (UICPUvalue(0) >= 100) Then
+                MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 60), 50, 50), cpuBrush)
+                If (UICPUvalue(2) > 0) Then
+                    geo = DrawArc(MainPageDC.Factory, (UICPUvalue(1) + UICPUvalue(2)) * 3.6, New RawVector2(60, 60), 50)
+                    MainPageDC.FillGeometry(geo, cpuBrush_Server)
+                End If
+                If (UICPUvalue(1) > 0) Then
+                    If geo IsNot Nothing AndAlso geo.IsDisposed = False Then geo.Dispose()
+                    geo = DrawArc(MainPageDC.Factory, UICPUvalue(1) * 3.6, New RawVector2(60, 60), 50)
+                    MainPageDC.FillGeometry(geo, cpuBrush_GUI)
+                End If
             Else
-                MainPageDC.FillEllipse(New Ellipse(New RawVector2(80, 80), 75, 75), backBrush)
-                geo = DrawArc(MainPageDC.Factory, UICPUvalue * 3.6, New RawVector2(80, 80), 75)
+                MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 60), 50, 50), backBrush)
+                geo = DrawArc(MainPageDC.Factory, UICPUvalue(0) * 3.6, New RawVector2(60, 60), 50)
                 MainPageDC.FillGeometry(geo, cpuBrush)
+                If (UICPUvalue(2) > 0) Then
+                    If geo IsNot Nothing AndAlso geo.IsDisposed = False Then geo.Dispose()
+                    geo = DrawArc(MainPageDC.Factory, (UICPUvalue(1) + UICPUvalue(2)) * 3.6, New RawVector2(60, 60), 50)
+                    MainPageDC.FillGeometry(geo, cpuBrush_Server)
+                End If
+                If (UICPUvalue(1) > 0) Then
+                    If geo IsNot Nothing AndAlso geo.IsDisposed = False Then geo.Dispose()
+                    geo = DrawArc(MainPageDC.Factory, UICPUvalue(1) * 3.6, New RawVector2(60, 60), 50)
+                    MainPageDC.FillGeometry(geo, cpuBrush_GUI)
+                End If
             End If
-            MainPageDC.FillEllipse(New Ellipse(New RawVector2(80, 80), 60, 60), foreBrush)
+            MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 60), 35, 35), foreBrush)
             textFormat.WordWrapping = False
             textFormat.TextAlignment = DirectWrite.TextAlignment.Center
             percentTextFormat.WordWrapping = False
-            MainPageDC.DrawText(CPUvalue, textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(40, 56), New Size(80, 24))), textBrush)
-            MainPageDC.DrawText("%", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(66 + (TextRenderer.MeasureText(CPUvalue, New Font("Segoe UI", 30, FontStyle.Bold)).Width) / 2, 75), New Size(16, 16))), percentTextBrush)
+            MainPageDC.DrawText(CPUvalue(0), textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(20, 36), New Size(80, 24))), textBrush)
+            'MainPageDC.DrawText("%", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(42 + (TextRenderer.MeasureText(CPUvalue, New Font("Segoe UI", 25, FontStyle.Bold)).Width) / 2, 45), New Size(16, 16))), percentTextBrush)
             percentTextFormat.TextAlignment = DirectWrite.TextAlignment.Center
-            MainPageDC.DrawText("CPU", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(40, 100), New Size(80, 24))), percentTextBrush)
+            MainPageDC.DrawText("CPU", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(20, 70), New Size(80, 24))), percentTextBrush)
+            MainPageDC.DrawText("　　總使用量：" & CPUvalue(0) & "%", textFormat2, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(131, 33), New Size(200, 20))), textBrush)
+            MainPageDC.DrawText("　介面使用量：" & CPUvalue(1) & "%", textFormat2, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(131, 50), New Size(200, 20))), textBrush)
+            MainPageDC.DrawText("伺服器使用量：" & CPUvalue(2) & "%", textFormat2, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(131, 67), New Size(200, 20))), textBrush)
+            MainPageDC.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(115, 36.5), New Size(14, 14))), cpuBrush)
+            MainPageDC.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(115, 53), New Size(14, 14))), cpuBrush_GUI)
+            MainPageDC.FillRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(115, 69.5), New Size(14, 14))), cpuBrush_Server)
 #End Region
 #Region "RAM 儀表繪製"
+            DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 5, .RadiusY = 5, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(5, 116.5, 300, 107.5))}, backBrush2})
             Dim ramBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(153, 180, 51)))
-            If (UIRAMvalue >= 100) Then
-                MainPageDC.FillEllipse(New Ellipse(New RawVector2(80, 240), 75, 75), ramBrush)
+            If (UIRAMvalue(0) >= 100) Then
+                MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 170), 50, 50), ramBrush)
             Else
-                MainPageDC.FillEllipse(New Ellipse(New RawVector2(80, 240), 75, 75), backBrush)
+                MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 170), 50, 50), backBrush)
                 If IsNothing(geo) = False AndAlso geo.IsDisposed = False Then geo.Dispose()
-                geo = DrawArc(MainPageDC.Factory, UIRAMvalue * 3.6, New RawVector2(80, 240), 75)
+                geo = DrawArc(MainPageDC.Factory, UIRAMvalue(0) * 3.6, New RawVector2(60, 170), 50)
                 MainPageDC.FillGeometry(geo, ramBrush)
             End If
-            MainPageDC.FillEllipse(New Ellipse(New RawVector2(80, 240), 60, 60), foreBrush)
+            MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 170), 35, 35), foreBrush)
             textFormat.WordWrapping = False
             textFormat.TextAlignment = DirectWrite.TextAlignment.Center
             percentTextFormat.WordWrapping = False
-            MainPageDC.DrawText(RAMvalue, textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(40, 216), New Size(80, 24))), textBrush)
-            MainPageDC.DrawText("%", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(66 + (TextRenderer.MeasureText(RAMvalue, New Font("Segoe UI", 30, FontStyle.Bold)).Width) / 2, 235), New Size(16, 16))), percentTextBrush)
+            MainPageDC.DrawText(RAMvalue(0), textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(20, 146), New Size(80, 24))), textBrush)
+            'MainPageDC.DrawText("%", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(42 + (TextRenderer.MeasureText(RAMvalue, New Font("Segoe UI", 25, FontStyle.Bold)).Width) / 2, 155), New Size(16, 16))), percentTextBrush)
             percentTextFormat.TextAlignment = DirectWrite.TextAlignment.Center
-            MainPageDC.DrawText("記憶體", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(40, 260), New Size(80, 24))), percentTextBrush)
+            MainPageDC.DrawText("記憶體", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(20, 180), New Size(80, 24))), percentTextBrush)
 #End Region
 #Region "Virtual RAM 儀表繪製"
+            DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 5, .RadiusY = 5, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(5, 228, 300, 107.5))}, backBrush2})
             Dim VirtualRAMBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(255, 196, 13)))
-            If (UIVirtualRAMvalue >= 100) Then
-                MainPageDC.FillEllipse(New Ellipse(New RawVector2(240, 80), 75, 75), VirtualRAMBrush)
+            If (UIVirtualRAMvalue(0) >= 100) Then
+                MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 282.5), 50, 50), VirtualRAMBrush)
             Else
-                MainPageDC.FillEllipse(New Ellipse(New RawVector2(240, 80), 75, 75), backBrush)
+                MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 282.5), 50, 50), backBrush)
                 If IsNothing(geo) = False AndAlso geo.IsDisposed = False Then geo.Dispose()
-                geo = DrawArc(MainPageDC.Factory, UIVirtualRAMvalue * 3.6, New RawVector2(240, 80), 75)
+                geo = DrawArc(MainPageDC.Factory, UIVirtualRAMvalue(0) * 3.6, New RawVector2(60, 282.5), 50)
                 MainPageDC.FillGeometry(geo, VirtualRAMBrush)
             End If
-            MainPageDC.FillEllipse(New Ellipse(New RawVector2(240, 80), 60, 60), foreBrush)
+            MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 282.5), 35, 35), foreBrush)
             textFormat.WordWrapping = False
             textFormat.TextAlignment = DirectWrite.TextAlignment.Center
             percentTextFormat.WordWrapping = False
-            MainPageDC.DrawText(VirtualRAMvalue, textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(200, 56), New Size(80, 24))), textBrush)
-            MainPageDC.DrawText("%", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(226 + (TextRenderer.MeasureText(VirtualRAMvalue, New Font("Segoe UI", 30, FontStyle.Bold)).Width) / 2, 75), New Size(16, 16))), percentTextBrush)
+            MainPageDC.DrawText(VirtualRAMvalue(0), textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(20, 259.5), New Size(80, 24))), textBrush)
+            'MainPageDC.DrawText("%", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(42 + (TextRenderer.MeasureText(VirtualRAMvalue, New Font("Segoe UI", 25, FontStyle.Bold)).Width) / 2, 265), New Size(16, 16))), percentTextBrush)
             percentTextFormat.TextAlignment = DirectWrite.TextAlignment.Center
-            MainPageDC.DrawText("虛擬記憶體", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(200, 100), New Size(80, 24))), percentTextBrush)
+            MainPageDC.DrawText("虛擬記憶體", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(20, 292.5), New Size(80, 24))), percentTextBrush)
 #End Region
 #Region "網路儀表繪製"
+            DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 5, .RadiusY = 5, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(5, 339.5, 300, 107.5))}, backBrush2})
             Dim NetworkBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(45, 137, 239)))
             If (UINetworkValue >= 100) Then
-                MainPageDC.FillEllipse(New Ellipse(New RawVector2(240, 240), 75, 75), NetworkBrush)
+                MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 395), 50, 50), NetworkBrush)
             Else
-                MainPageDC.FillEllipse(New Ellipse(New RawVector2(240, 240), 75, 75), backBrush)
+                MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 395), 50, 50), backBrush)
                 If IsNothing(geo) = False AndAlso geo.IsDisposed = False Then geo.Dispose()
-                geo = DrawArc(MainPageDC.Factory, UINetworkValue * 3.6, New RawVector2(240, 240), 75)
+                geo = DrawArc(MainPageDC.Factory, UINetworkValue * 3.6, New RawVector2(60, 395), 50)
                 MainPageDC.FillGeometry(geo, NetworkBrush)
             End If
-            MainPageDC.FillEllipse(New Ellipse(New RawVector2(240, 240), 60, 60), foreBrush)
+            MainPageDC.FillEllipse(New Ellipse(New RawVector2(60, 395), 35, 35), foreBrush)
             textFormat.WordWrapping = False
             textFormat.TextAlignment = DirectWrite.TextAlignment.Center
             percentTextFormat.WordWrapping = False
-            MainPageDC.DrawText(networkValue, textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(200, 216), New Size(80, 24))), textBrush)
-            MainPageDC.DrawText("%", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(226 + (TextRenderer.MeasureText(networkValue, New Font("Segoe UI", 30, FontStyle.Bold)).Width) / 2, 235), New Size(16, 16))), percentTextBrush)
+            MainPageDC.DrawText(networkValue, textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(20, 371), New Size(80, 24))), textBrush)
+            'MainPageDC.DrawText("%", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(42 + (TextRenderer.MeasureText(networkValue, New Font("Segoe UI", 30, FontStyle.Bold)).Width) / 2, 375), New Size(16, 16))), percentTextBrush)
             percentTextFormat.TextAlignment = DirectWrite.TextAlignment.Center
-            MainPageDC.DrawText("網路", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(200, 260), New Size(80, 24))), percentTextBrush)
+            MainPageDC.DrawText("網路", percentTextFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(New Point(20, 405), New Size(80, 24))), percentTextBrush)
 #End Region
 #Region "版本載入分頁繪製"
             Dim javaTabColorBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(227, 162, 26)))
@@ -597,31 +660,30 @@ Public Class DXManager
             Dim bedrockTabColorBrushD As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(117, 117, 117)))
             Dim solutionTabColorBrush As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(45, 137, 239)))
             Dim solutionTabColorBrushD As New SolidColorBrush(MainPageDC, SharpDXConverter.ConvertColor(Color.DimGray))
-            Dim DCType As Type = GetType(DeviceContext)
-            DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(355, 5, 396, 355))}, foreBrush})
+            DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(310, 5, 375, 445))}, foreBrush})
             If VersionLoadTabIndex = 0 Then
-                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(360, 8, 120, 75))}, javaTabColorBrush})
+                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(315, 8, 120, 75))}, javaTabColorBrush})
             Else
-                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(360, 8, 120, 75))}, javaTabColorBrushD})
+                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(315, 8, 120, 75))}, javaTabColorBrushD})
             End If
             If VersionLoadTabIndex = 1 Then
-                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(460, 8, 120, 75))}, bedrockTabColorBrush})
+                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(415, 8, 120, 75))}, bedrockTabColorBrush})
             Else
-                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(460, 8, 120, 75))}, bedrockTabColorBrushD})
+                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(415, 8, 120, 75))}, bedrockTabColorBrushD})
             End If
             If VersionLoadTabIndex = 2 Then
-                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(560, 8, 120, 75))}, solutionTabColorBrush})
+                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(515, 8, 120, 75))}, solutionTabColorBrush})
             Else
-                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(560, 8, 120, 75))}, solutionTabColorBrushD})
+                DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(515, 8, 120, 75))}, solutionTabColorBrushD})
             End If
-            DCType.InvokeMember("FillRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {SharpDXConverter.ConvertRectangleF(New RectangleF(660, 8, 50, 75)), foreBrush})
-            DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(360, 33, 386, 322))}, foreBrush2})
-            DCType.InvokeMember("FillRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {SharpDXConverter.ConvertRectangleF(New RectangleF(360, 33, 350, 7)), foreBrush2})
+            DCType.InvokeMember("FillRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {SharpDXConverter.ConvertRectangleF(New RectangleF(615, 8, 50, 75)), foreBrush})
+            DCType.InvokeMember("FillRoundedRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {New RoundedRectangle() With {.RadiusX = 10, .RadiusY = 7, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(315, 33, 365, 410))}, foreBrush2})
+            DCType.InvokeMember("FillRectangle", Reflection.BindingFlags.Public Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.InvokeMethod, Nothing, MainPageDC, New Object() {SharpDXConverter.ConvertRectangleF(New RectangleF(315, 33, 350, 7)), foreBrush2})
             textFormat = SharpDXConverter.ConvertFont(New Font("微軟正黑體", 16))
             textFormat.TextAlignment = DirectWrite.TextAlignment.Center
-            MainPageDC.DrawText("Java", textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(360, 9, 100, 25)), foreBrush2)
-            MainPageDC.DrawText("Bedrock", textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(460, 9, 100, 25)), foreBrush2)
-            MainPageDC.DrawText("方案", textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(560, 9, 100, 25)), foreBrush2)
+            MainPageDC.DrawText("Java", textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(315, 9, 100, 25)), foreBrush2)
+            MainPageDC.DrawText("Bedrock", textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(415, 9, 100, 25)), foreBrush2)
+            MainPageDC.DrawText("方案", textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(515, 9, 100, 25)), foreBrush2)
             javaTabColorBrush.Dispose()
             bedrockTabColorBrush.Dispose()
             solutionTabColorBrush.Dispose()
@@ -639,6 +701,9 @@ Public Class DXManager
             foreBrush.Dispose()
             foreBrush2.Dispose()
             textBrush.Dispose()
+            textFormat.Dispose()
+            textFormat2.Dispose()
+            percentTextFormat.Dispose()
             MainPageDC.Dispose()
         End If
         Return MainPageBitmap
@@ -646,21 +711,55 @@ Public Class DXManager
     Private Function RenderServerListPage(forceUpdate As Boolean) As Bitmap1
         If IsNothing(ServerListPageBitmap) OrElse forceUpdate Then
             Dim ServerListPageDC As New DeviceContext(d2DDevice, DeviceContextOptions.None)
+            Dim borderBrush As New SolidColorBrush(ServerListPageDC, SharpDXConverter.ConvertColor(Color.DimGray))
+            Dim watermarkBrush As New SolidColorBrush(ServerListPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(109, 109, 109)))
+            Dim textBrush As New SolidColorBrush(ServerListPageDC, SharpDXConverter.ConvertColor(Color.DarkGray))
+            Dim textFormat As New DirectWrite.TextFormat(DirectWriteFactory, "微軟正黑體", DirectWrite.FontWeight.Regular, DirectWrite.FontStyle.Italic, 13.0F)
             If IsNothing(ServerListPageBitmap) = False Then Utilities.Dispose(ServerListPageBitmap)
             ServerListPageBitmap = New Bitmap1(ServerListPageDC, New Size2(innerWindowRect.Width, innerWindowRect.Height), New BitmapProperties1() With {.PixelFormat = D2PixelFormat, .BitmapOptions = BitmapOptions.Target})
+            ServerListPageDC.Target = ServerListPageBitmap
+            ServerListPageDC.BeginDraw()
+            ServerListPageDC.DrawRoundedRectangle(New RoundedRectangle() With {.RadiusX = 1, .RadiusY = 1, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(4.5, 4.5, innerWindowRect.Width - 70, 24))}, borderBrush, 0.5F)
+            If isInputing AndAlso _inputTarget = InputTarget.ServerSearchBox Then
+                Dim text As String = WinAPI.CurrentCompStr(Handle)
+                ServerListPageDC.DrawText(text, textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(6, 6, innerWindowRect.Width - 67, 22)), textBrush)
+            Else
+                ServerListPageDC.DrawText("輸入伺服器的資料夾名稱", textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(6, 6, innerWindowRect.Width - 67, 22)), watermarkBrush)
+            End If
+            ServerListPageDC.DrawBitmap(CreateServerIcon, SharpDXConverter.ConvertRectangleF(New RectangleF(innerWindowRect.Width - 60.5, 4.5, 24, 24)), 1.0, Direct2D1.InterpolationMode.Linear)
+            ServerListPageDC.DrawBitmap(AddServerIcon, SharpDXConverter.ConvertRectangleF(New RectangleF(innerWindowRect.Width - 31.5, 4.5, 24, 24)), 1.0, Direct2D1.InterpolationMode.Linear)
+            ServerListPageDC.EndDraw()
+            borderBrush.Dispose()
+            watermarkBrush.Dispose()
+            textBrush.Dispose()
+            textFormat.Dispose()
+            ServerListPageDC.Dispose()
         End If
         Return ServerListPageBitmap
     End Function
     Private Function RenderModpackServerListPage(forceUpdate As Boolean) As Bitmap1
         If IsNothing(ModpackServerListPageBitmap) OrElse forceUpdate Then
             Dim ModpackServerListPageDC As New DeviceContext(d2DDevice, DeviceContextOptions.None)
+            Dim borderBrush As New SolidColorBrush(ModpackServerListPageDC, SharpDXConverter.ConvertColor(Color.DimGray))
+            Dim watermarkBrush As New SolidColorBrush(ModpackServerListPageDC, SharpDXConverter.ConvertColor(Color.FromArgb(109, 109, 109)))
+            Dim textFormat As New DirectWrite.TextFormat(DirectWriteFactory, "微軟正黑體", DirectWrite.FontWeight.Regular, DirectWrite.FontStyle.Italic, 13.0F)
             If IsNothing(ModpackServerListPageBitmap) = False Then Utilities.Dispose(ModpackServerListPageBitmap)
             ModpackServerListPageBitmap = New Bitmap1(ModpackServerListPageDC, New Size2(innerWindowRect.Width, innerWindowRect.Height), New BitmapProperties1() With {.PixelFormat = D2PixelFormat, .BitmapOptions = BitmapOptions.Target})
+            ModpackServerListPageDC.Target = ModpackServerListPageBitmap
+            ModpackServerListPageDC.BeginDraw()
+            ModpackServerListPageDC.DrawRoundedRectangle(New RoundedRectangle() With {.RadiusX = 1, .RadiusY = 1, .Rect = SharpDXConverter.ConvertRectangleF(New RectangleF(4.5, 4.5, innerWindowRect.Width - 70, 24))}, borderBrush, 0.5F)
+            ModpackServerListPageDC.DrawText("輸入模組包伺服器的資料夾名稱", textFormat, SharpDXConverter.ConvertRectangleF(New RectangleF(6, 6, innerWindowRect.Width - 67, 22)), watermarkBrush)
+            ModpackServerListPageDC.DrawBitmap(CreateServerIcon, SharpDXConverter.ConvertRectangleF(New RectangleF(innerWindowRect.Width - 60.5, 4.5, 24, 24)), 1.0, Direct2D1.InterpolationMode.Linear)
+            ModpackServerListPageDC.DrawBitmap(AddServerIcon, SharpDXConverter.ConvertRectangleF(New RectangleF(innerWindowRect.Width - 31.5, 4.5, 24, 24)), 1.0, Direct2D1.InterpolationMode.Linear)
+            ModpackServerListPageDC.EndDraw()
+            borderBrush.Dispose()
+            watermarkBrush.Dispose()
+            textFormat.Dispose()
+            ModpackServerListPageDC.Dispose()
         End If
         Return ModpackServerListPageBitmap
     End Function
 #End Region
-
     Private Sub RenderControl1_Paint(sender As Object, e As PaintEventArgs) Handles RenderControl1.Paint
         requestFlags = FormEventFlags.RefreshAll
     End Sub
@@ -684,6 +783,7 @@ Public Class DXManager
         maxBtnRect = New RectangleF(Width - 29, 5, 10, 10)
         closeBtnRect = New RectangleF(Width - 15, 5, 10, 10)
         innerWindowRect = New RectangleF(40, 37, Width - 43, Height - 40)
+        SearchingTextAreaRect = New RectangleF(46, 43, innerWindowRect.Width - 67, 22)
         If WindowState = FormWindowState.Normal Then
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 6, 6))
         Else
@@ -786,6 +886,7 @@ Public Class DXManager
                         maxBtnRect = New RectangleF(Width - 29, 5, 10, 10)
                         closeBtnRect = New RectangleF(Width - 15, 5, 10, 10)
                         innerWindowRect = New RectangleF(40, 37, Width - 43, Height - 40)
+                        SearchingTextAreaRect = New RectangleF(46, 43, innerWindowRect.Width - 67, 22)
                     End If
                 End If
             End If
@@ -811,6 +912,16 @@ Public Class DXManager
                             i += 1
                         Next
                         If checkVersionLoadingTabHeader Then requestFlags = requestFlags Or FormEventFlags.MouseMove Or FormEventFlags.RefreshLayer3
+                    Case 1
+                        If SearchingTextAreaRect.Contains(e.Location) Then
+                            isInputing = True
+                            ImeMode = ImeMode.On
+                            _inputTarget = InputTarget.ServerSearchBox
+                        Else
+                            isInputing = False
+                            ImeMode = ImeMode.Off
+                            _inputTarget = InputTarget.None
+                        End If
                 End Select
             End If
         End If
@@ -860,7 +971,11 @@ Public Class DXManager
             ElseIf (e.Y <= RegionSize AndAlso e.X >= Width - RegionSize) OrElse (e.Y >= Height - RegionSize AndAlso e.X <= RegionSize) Then
                 Cursor = Cursors.SizeNESW
             Else
-                Cursor = Cursors.Default
+                If SearchingTextAreaRect.Contains(e.Location) AndAlso (checkedMenuItemIndex = 1 OrElse checkedMenuItemIndex = 2) Then
+                    Cursor = Cursors.IBeam
+                Else
+                    Cursor = Cursors.Default
+                End If
             End If
             Dim eventFlags = FormEventFlags.MouseMove
             If e.Y < 25 AndAlso e.X >= Width - 43 Then '標題列
@@ -989,10 +1104,6 @@ Public Class DXManager
         requestFlags = requestFlags Or eventFlags
     End Sub
 
-    Private Sub RenderControl1_MouseClick(sender As Object, e As MouseEventArgs) Handles RenderControl1.MouseClick
-
-    End Sub
-
     Protected Overrides ReadOnly Property CreateParams As CreateParams
         Get
             Const CS_DROPSHADOW As Integer = &H20000
@@ -1001,8 +1112,7 @@ Public Class DXManager
             Return cp
         End Get
     End Property
-
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles DisplayTimer.Tick
         XPaint(requestFlags)
     End Sub
 #End Region

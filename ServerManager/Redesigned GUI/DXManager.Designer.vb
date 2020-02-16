@@ -26,7 +26,8 @@ Partial Class DXManager
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DXManager))
         Me.RenderControl1 = New SharpDX.Windows.RenderControl()
         Me.CPUPerformanceCounter = New System.Diagnostics.PerformanceCounter()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.DisplayTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.InputTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.CPUPerformanceCounter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -35,7 +36,7 @@ Partial Class DXManager
         Me.RenderControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.RenderControl1.Location = New System.Drawing.Point(0, 0)
         Me.RenderControl1.Name = "RenderControl1"
-        Me.RenderControl1.Size = New System.Drawing.Size(800, 450)
+        Me.RenderControl1.Size = New System.Drawing.Size(800, 500)
         Me.RenderControl1.TabIndex = 0
         '
         'CPUPerformanceCounter
@@ -44,15 +45,20 @@ Partial Class DXManager
         Me.CPUPerformanceCounter.CounterName = "% Processor Time"
         Me.CPUPerformanceCounter.InstanceName = "_Total"
         '
-        'Timer1
+        'DisplayTimer
         '
-        Me.Timer1.Interval = 16
+        Me.DisplayTimer.Interval = 16
+        '
+        'InputTimer
+        '
+        Me.InputTimer.Enabled = True
+        Me.InputTimer.Interval = 10
         '
         'DXManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(800, 500)
         Me.Controls.Add(Me.RenderControl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -66,5 +72,6 @@ Partial Class DXManager
 
     Friend WithEvents RenderControl1 As SharpDX.Windows.RenderControl
     Friend WithEvents CPUPerformanceCounter As PerformanceCounter
-    Friend WithEvents Timer1 As Timer
+    Friend WithEvents DisplayTimer As Timer
+    Friend WithEvents InputTimer As Timer
 End Class

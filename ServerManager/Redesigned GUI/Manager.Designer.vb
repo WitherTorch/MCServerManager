@@ -591,9 +591,9 @@ Partial Class Manager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
         Me.Controls.Add(Me.ControlPanel)
-        Me.Controls.Add(Me.OverviewPanel)
         Me.Controls.Add(Me.ServerPanel)
         Me.Controls.Add(Me.ModpackServerPanel)
+        Me.Controls.Add(Me.OverviewPanel)
         Me.DisplayHeader = False
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Manager"

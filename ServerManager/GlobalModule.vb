@@ -5,10 +5,11 @@ Imports System
 Imports ServerManager
 
 Module GlobalModule
-    Public Const SERVER_MANAGER_VER As String = "1.7 Edge Alpha 2"
+    Public Const SERVER_MANAGER_VER As String = "1.7 Edge Alpha 3"
     Public Const SERVER_MANAGER_ARCH As String = "Windows_Edge"
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False
+    Friend ServerProcessBindings As New Dictionary(Of ServerBase, Process)
     Friend ServerConsoleBindings As New Dictionary(Of ServerBase, ServerConsole)
     Friend ServerSettingFormBindings As New Dictionary(Of ServerBase, ServerSettingForm)
 #Region "Server/Solution List"

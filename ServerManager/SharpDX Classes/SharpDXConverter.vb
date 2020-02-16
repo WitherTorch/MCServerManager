@@ -32,19 +32,31 @@ Public Class SharpDXConverter
         Return New Mathematics.Interop.RawRectangleF(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom)
     End Function
     Public Shared Function ConvertBitmap(image As Bitmap, device As Direct2D1.Device) As Direct2D1.Bitmap
-        Dim deviceContext As New Direct2D1.DeviceContext(device, Direct2D1.DeviceContextOptions.None)
-        Dim bit As New Direct2D1.Bitmap1(deviceContext, SharpDXConverter.ConvertSize(image.Size), New Direct2D1.BitmapProperties1() With {.PixelFormat = New Direct2D1.PixelFormat(DXGI.Format.B8G8R8A8_UNorm, Direct2D1.AlphaMode.Premultiplied), .BitmapOptions = Direct2D1.BitmapOptions.Target})
-        deviceContext.Target = bit
-        deviceContext.BeginDraw()
-        For x As Integer = 0 To image.Width - 1
-            For y As Integer = 0 To image.Height - 1
-                Dim brush = SharpDXConverter.ConvertSolidBrush(New SolidBrush(image.GetPixel(x, y)), deviceContext)
-                deviceContext.DrawRectangle(SharpDXConverter.ConvertRectangleF(New RectangleF(x, y, 1, 1)), brush)
-                Utilities.Dispose(brush)
-            Next
-        Next
-        deviceContext.EndDraw()
-        Utilities.Dispose(deviceContext)
-        Return bit
+        Dim desBitmap As System.Drawing.Bitmap
+
+        If image.PixelFormat <> System.Drawing.Imaging.PixelFormat.Format32bppPArgb Then
+            desBitmap = New System.Drawing.Bitmap(image.Width, image.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb)
+
+            Using g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(desBitmap)
+                g.DrawImage(image, 0, 0)
+            End Using
+        Else
+            desBitmap = image
+        End If
+
+        Dim bmpData As System.Drawing.Imaging.BitmapData = desBitmap.LockBits(New System.Drawing.Rectangle(0, 0, desBitmap.Width, desBitmap.Height), System.Drawing.Imaging.ImageLockMode.[ReadOnly], desBitmap.PixelFormat)
+        Dim numBytes As Integer = bmpData.Stride * desBitmap.Height
+        Dim byteData As Byte() = New Byte(numBytes - 1) {}
+        Dim ptr As IntPtr = bmpData.Scan0
+        System.Runtime.InteropServices.Marshal.Copy(ptr, byteData, 0, numBytes)
+        desBitmap.UnlockBits(bmpData)
+        Dim bp As Direct2D1.BitmapProperties1
+        Dim pixelFormat As Direct2D1.PixelFormat = New Direct2D1.PixelFormat(DXGI.Format.B8G8R8A8_UNorm, Direct2D1.AlphaMode.Premultiplied)
+        bp = New Direct2D1.BitmapProperties1(pixelFormat, desBitmap.HorizontalResolution, desBitmap.VerticalResolution)
+        Dim dc As New Direct2D1.DeviceContext(device, Direct2D1.DeviceContextOptions.None)
+        Dim tempBitmap As Direct2D1.Bitmap = New Direct2D1.Bitmap1(dc, New Size2(desBitmap.Width, desBitmap.Height), bp)
+        tempBitmap.CopyFromMemory(byteData, bmpData.Stride)
+        dc.Dispose()
+        Return tempBitmap
     End Function
 End Class
