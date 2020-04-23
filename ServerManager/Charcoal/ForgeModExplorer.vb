@@ -1,4 +1,5 @@
-﻿Imports System.Threading
+﻿Imports System.ComponentModel
+Imports System.Threading
 
 Public Class ForgeModExplorer
     Dim engine As CharcoalEngine
@@ -21,6 +22,8 @@ Public Class ForgeModExplorer
     End Sub
 
     Private Sub BukkitForm_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
 
         AddHandler engine.DownloadProgressChanged, Sub(obj, args)
                                                        ToolStripProgressBar1.Value = args.ProgressPercentage
@@ -89,7 +92,7 @@ Public Class ForgeModExplorer
             Catch ex As Exception
 
             End Try
-        ElseIf IsError Then
+        ElseIf isError Then
             Try
                 Dim g As Graphics = e.Graphics
                 g.Clear(Color.LightGray)
@@ -103,5 +106,10 @@ Public Class ForgeModExplorer
 
     Private Sub CharcoalEnginePanel_Resize(sender As Object, e As EventArgs) Handles CharcoalEnginePanel.Resize
         If isStart OrElse isError Then CharcoalEnginePanel.Refresh()
+    End Sub
+
+    Private Sub ForgeModExplorer_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

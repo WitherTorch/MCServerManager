@@ -422,7 +422,7 @@ Public Class Manager
                                                         If versionString.StartsWith("ver/") AndAlso Version.TryParse(versionString.Substring(4), New Version()) Then
                                                             AkarinVersionList.Add(Version.Parse(versionString.Substring(4)))
                                                         ElseIf versionString = "master" Then
-                                                            AkarinVersionList.Add(New Version(100, 100))
+                                                            AkarinVersionList.Add(New Version(1, 13, 2))
                                                         End If
                                                     Next
                                                     AkarinVersionList.Sort()
@@ -991,6 +991,18 @@ Public Class Manager
                                     ComboBox2.SelectedIndex = Math.Max(Math.Min(CInt(info(1)), ComboBox2.Items.Count - 1), 0)
                                     UpdateChannel = Math.Max(Math.Min(CInt(info(1)), ComboBox2.Items.Count - 1), 0)
                                 End If
+                            Case "mini-state"
+                                If IsNumeric(info(1)) Then
+                                    Select Case info(1)
+                                        Case "0"
+                                            RadioButton1.Checked = True
+                                            RadioButton2.Checked = False
+                                        Case "1"
+                                            RadioButton1.Checked = False
+                                            RadioButton2.Checked = True
+                                    End Select
+                                    MiniState = info(1)
+                                End If
                         End Select
                     End If
                 Loop
@@ -1036,10 +1048,12 @@ Public Class Manager
         Else
             GetJava()
         End If
+        Dim index1 = ComboBox1.SelectedIndex
+        Dim index2 = ComboBox2.SelectedIndex
         Dim thread As New Thread(Sub()
                                      Dim channelName As String = ""
-                                     If ManagerUpdater.CheckForUpdate(ComboBox2.SelectedIndex, channelName) Then
-                                         Select Case ComboBox1.SelectedIndex
+                                     If ManagerUpdater.CheckForUpdate(index2, channelName) Then
+                                         Select Case index1
                                              Case 0
                                                  BeginInvokeIfRequired(Me, Sub() Text = Text & "(自動更新中...)")
                                                  ManagerUpdater.UpdateProgram(channelName)
@@ -1443,7 +1457,8 @@ Public Class Manager
   "server-console-msgs=" & ToZeroAndOne(ServerConsoleMessages) & vbNewLine &
   "bungeecord-console-msgs=" & ToZeroAndOne(BungeeConsoleMessages) & vbNewLine &
   "auto-update-state=" & Math.Max(UpdateState, 0) & vbNewLine &
-  "auto-update-channel=" & Math.Max(UpdateChannel, 0), False, System.Text.Encoding.UTF8)
+  "auto-update-channel=" & Math.Max(UpdateChannel, 0) & vbNewLine &
+  "mini-state=" & IIf(RadioButton1.Checked, 0, 1), False, System.Text.Encoding.UTF8)
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "servers.txt"), JsonConvert.SerializeObject(ServerPathList))
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "solutions.txt"), JsonConvert.SerializeObject(BungeePathList))
                                          WriteAllText(IO.Path.Combine(My.Application.Info.DirectoryPath, "modPackServer.txt"), JsonConvert.SerializeObject(ModpackServerPathList))
@@ -2055,4 +2070,61 @@ Public Class Manager
             PHPPathBox.Text = openFileDialog.FileName
         End If
     End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged, RadioButton2.CheckedChanged
+        ShowInTaskbar = RadioButton1.Checked
+        MiniState = IIf(RadioButton1.Checked, 0, 1)
+        Dim windows = CreatedForm.ToArray
+        For Each window As Form In windows
+            window.ShowInTaskbar = MiniState = 0
+        Next
+    End Sub
+
+    Private Sub NotifyIcon1_MouseClick(sender As Object, e As EventArgs) Handles NotifyIcon1.Click
+        ContextMenuStrip1.Show(MousePosition)
+    End Sub
+
+    Private Sub ContextMenuStrip1_Opening(sender As Object, e As CancelEventArgs) Handles ContextMenuStrip1.Opening
+        ContextMenuStrip1.Items.Clear()
+        Dim item As ToolStripMenuItem = ContextMenuStrip1.Items.Add("視窗")
+        ContextMenuStrip1.Items.Add(New ToolStripSeparator)
+        ContextMenuStrip1.Items.Add("關閉程式")
+        ContextMenuStrip1.Items.Add("關閉選單")
+        item.DropDownItems.Add("主頁").Tag = Me
+        For Each window As Form In CreatedForm.ToArray
+            If (window.GetType IsNot GetType(Manager)) Then
+                item.DropDownItems.Add(window.Text).Tag = window
+            End If
+        Next
+        AddHandler item.DropDownItemClicked, Sub(obj, args)
+                                                 Try
+                                                     args.ClickedItem.Tag.WindowState = FormWindowState.Normal
+                                                 Catch ex As Exception
+
+                                                 End Try
+                                             End Sub
+
+    End Sub
+
+    Private Sub ContextMenuStrip1_Closing(sender As Object, e As ToolStripDropDownClosingEventArgs) Handles ContextMenuStrip1.Closing
+        ContextMenuStrip1.Items.Clear()
+    End Sub
+
+    Private Sub ContextMenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ContextMenuStrip1.ItemClicked
+        If e.ClickedItem.Text = "關閉程式" Then
+            Try
+                NotifyIcon1.Visible = False
+                Me.Close()
+            Catch ex As Exception
+
+            End Try
+        ElseIf e.ClickedItem.Text = "關閉選單" Then
+            Try
+                ContextMenuStrip1.Close()
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
 End Class

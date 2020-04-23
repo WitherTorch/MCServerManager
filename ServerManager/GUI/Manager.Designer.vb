@@ -108,6 +108,9 @@ Partial Class Manager
         Me.SettingTabPage = New MetroFramework.Controls.MetroTabPage()
         Me.SettingTabControl = New MetroFramework.Controls.MetroTabControl()
         Me.TabPage4 = New MetroFramework.Controls.MetroTabPage()
+        Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
         Me.Label22 = New System.Windows.Forms.Label()
@@ -175,6 +178,7 @@ Partial Class Manager
         Me.CheckingTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PerformanceCounter1 = New System.Diagnostics.PerformanceCounter()
         Me.MetroStyleManager1 = New MetroFramework.Components.MetroStyleManager(Me.components)
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.MainTabControl.SuspendLayout()
         Me.MainPage.SuspendLayout()
         Me.MainPanel.SuspendLayout()
@@ -200,6 +204,7 @@ Partial Class Manager
         Me.SettingTabPage.SuspendLayout()
         Me.SettingTabControl.SuspendLayout()
         Me.TabPage4.SuspendLayout()
+        Me.GroupBox11.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -630,10 +635,10 @@ Partial Class Manager
         Me.ServerListPage.HorizontalScrollbarBarColor = True
         Me.ServerListPage.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerListPage.HorizontalScrollbarSize = 10
-        Me.ServerListPage.Location = New System.Drawing.Point(4, 36)
+        Me.ServerListPage.Location = New System.Drawing.Point(4, 38)
         Me.ServerListPage.Name = "ServerListPage"
         Me.ServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerListPage.Size = New System.Drawing.Size(736, 425)
+        Me.ServerListPage.Size = New System.Drawing.Size(736, 423)
         Me.ServerListPage.TabIndex = 1
         Me.ServerListPage.Text = "伺服器列表"
         Me.ServerListPage.VerticalScrollbarBarColor = True
@@ -650,7 +655,7 @@ Partial Class Manager
         Me.ServerListPanel.Name = "ServerListPanel"
         Me.ServerListPanel.RowCount = 1
         Me.ServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ServerListPanel.Size = New System.Drawing.Size(730, 383)
+        Me.ServerListPanel.Size = New System.Drawing.Size(730, 381)
         Me.ServerListPanel.TabIndex = 6
         '
         'BottomButtons
@@ -664,7 +669,7 @@ Partial Class Manager
         Me.BottomButtons.Controls.Add(Me.Button1, 0, 0)
         Me.BottomButtons.Controls.Add(Me.Button2, 1, 0)
         Me.BottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BottomButtons.Location = New System.Drawing.Point(3, 386)
+        Me.BottomButtons.Location = New System.Drawing.Point(3, 384)
         Me.BottomButtons.Name = "BottomButtons"
         Me.BottomButtons.RowCount = 1
         Me.BottomButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -1106,6 +1111,7 @@ Partial Class Manager
         '
         'TabPage4
         '
+        Me.TabPage4.Controls.Add(Me.GroupBox11)
         Me.TabPage4.Controls.Add(Me.GroupBox6)
         Me.TabPage4.HorizontalScrollbarBarColor = True
         Me.TabPage4.HorizontalScrollbarHighlightOnWheel = False
@@ -1120,6 +1126,42 @@ Partial Class Manager
         Me.TabPage4.VerticalScrollbarBarColor = True
         Me.TabPage4.VerticalScrollbarHighlightOnWheel = False
         Me.TabPage4.VerticalScrollbarSize = 10
+        '
+        'GroupBox11
+        '
+        Me.GroupBox11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox11.Controls.Add(Me.RadioButton2)
+        Me.GroupBox11.Controls.Add(Me.RadioButton1)
+        Me.GroupBox11.Location = New System.Drawing.Point(6, 92)
+        Me.GroupBox11.Name = "GroupBox11"
+        Me.GroupBox11.Size = New System.Drawing.Size(710, 80)
+        Me.GroupBox11.TabIndex = 7
+        Me.GroupBox11.TabStop = False
+        Me.GroupBox11.Text = "最小化方式"
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(9, 48)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(134, 20)
+        Me.RadioButton2.TabIndex = 1
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.Text = "最小化至右側狀態列"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Checked = True
+        Me.RadioButton1.Location = New System.Drawing.Point(9, 22)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(110, 20)
+        Me.RadioButton1.TabIndex = 0
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Text = "最小化至工作列"
+        Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'GroupBox6
         '
@@ -1188,7 +1230,7 @@ Partial Class Manager
         Me.TabPage1.Location = New System.Drawing.Point(4, 36)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(722, 379)
+        Me.TabPage1.Size = New System.Drawing.Size(722, 377)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Java"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -1538,7 +1580,7 @@ Partial Class Manager
         Me.TabPage2.Location = New System.Drawing.Point(4, 36)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(722, 379)
+        Me.TabPage2.Size = New System.Drawing.Size(722, 377)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "伺服器"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -1576,7 +1618,7 @@ Partial Class Manager
         Me.TabPage3.Location = New System.Drawing.Point(4, 36)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(722, 379)
+        Me.TabPage3.Size = New System.Drawing.Size(722, 377)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "外部工具"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -1943,9 +1985,9 @@ Partial Class Manager
         Me.Label9.Location = New System.Drawing.Point(159, 34)
         Me.Label9.Margin = New System.Windows.Forms.Padding(3, 5, 3, 3)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(129, 19)
+        Me.Label9.Size = New System.Drawing.Size(159, 19)
         Me.Label9.TabIndex = 2
-        Me.Label9.Text = "版本：<Version>"
+        Me.Label9.Text = "版本：1.7 LTS Patch 1"
         '
         'PictureBox1
         '
@@ -1994,6 +2036,11 @@ Partial Class Manager
         Me.MetroStyleManager1.Owner = Me
         Me.MetroStyleManager1.Style = MetroFramework.MetroColorStyle.Green
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
+        '
         'Manager
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2041,6 +2088,8 @@ Partial Class Manager
         Me.SettingTabPage.ResumeLayout(False)
         Me.SettingTabControl.ResumeLayout(False)
         Me.TabPage4.ResumeLayout(False)
+        Me.GroupBox11.ResumeLayout(False)
+        Me.GroupBox11.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
         Me.TabPage1.ResumeLayout(False)
@@ -2215,4 +2264,8 @@ Partial Class Manager
     Friend WithEvents MetroStyleManager1 As MetroFramework.Components.MetroStyleManager
     Friend WithEvents CatServerLoadingLabel As Label
     Friend WithEvents KettleLoadingLabel As Label
+    Friend WithEvents GroupBox11 As GroupBox
+    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
 End Class

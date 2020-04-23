@@ -6,8 +6,10 @@ Imports ServerManager
 
 Module GlobalModule
     Friend TestForm As ServerCheckingForm
-    Public Const SERVER_MANAGER_VER As String = "1.7.0.1"
+    Public Const SERVER_MANAGER_VER As String = "1.7.0.2"
     Public Const SERVER_MANAGER_ARCH As String = "Windows"
+    Friend CreatedForm As New List(Of Form)
+    Friend MiniState As Integer = 0
     Friend Manager As Manager
     Friend IsUnixLikeSystem As Boolean
     Friend RunningBungeeCord As Boolean = False

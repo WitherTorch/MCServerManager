@@ -1,4 +1,6 @@
-﻿Public Class PocketMinePluginManager
+﻿Imports System.ComponentModel
+
+Public Class PocketMinePluginManager
     Implements IManagerGUI
     Dim server As Server
     Sub New(index As Integer)
@@ -30,10 +32,16 @@
     End Sub
 
     Private Sub BukkitPluginManager_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(server.ServerPath, "plugins")) = False Then
             My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(server.ServerPath, "plugins"))
         End If
         BeginInvoke(New Action(Sub() LoadPlugins()))
     End Sub
 
+    Private Sub PocketMinePluginManager_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
+    End Sub
 End Class

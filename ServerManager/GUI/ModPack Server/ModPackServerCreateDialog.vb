@@ -1,4 +1,5 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.ComponentModel
+Imports System.Text.RegularExpressions
 Imports System.Threading.Tasks
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
@@ -84,9 +85,16 @@ Public Class ModPackServerCreateDialog
     End Sub
 
     Private Sub ModPackServerCreateDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         IPAddressComboBox.Items.AddRange(GlobalModule.Manager.ip.ToArray)
         ipType = ServerIPType.Float
         IPStyleComboBox.SelectedIndex = 0
+    End Sub
+
+    Private Sub ModPackServerCreateDialog_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class
 

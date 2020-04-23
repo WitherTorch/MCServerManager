@@ -1,4 +1,5 @@
-﻿Imports System.IO.Compression
+﻿Imports System.ComponentModel
+Imports System.IO.Compression
 Imports System.Text.RegularExpressions
 Imports System.Threading.Tasks
 
@@ -23,6 +24,8 @@ Public Class ModPackServerCreateHelper
         End Select
     End Sub
     Private Sub ModPackServerCreateHelper_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
 
         If My.Computer.FileSystem.DirectoryExists(path) = False Then
             BeginInvoke(New Action(Sub()
@@ -285,18 +288,23 @@ Public Class ModPackServerCreateHelper
             Dim process As Process = Process.Start(processInfo)
             process.EnableRaisingEvents = True
             Dim flag As Boolean = False
-                AddHandler process.OutputDataReceived, Sub(sender, e)
-                                                           Console.WriteLine(IIf(String.IsNullOrEmpty(e.Data), "", e.Data))
-                                                       End Sub
-                AddHandler process.ErrorDataReceived, Sub(sender, e)
-                                                          Console.WriteLine(IIf(String.IsNullOrEmpty(e.Data), "", "[Batch Error] " & e.Data))
-                                                      End Sub
-                AddHandler process.Exited, Sub()
-                                               flag = True
-                                           End Sub
-                Do Until flag
+            AddHandler process.OutputDataReceived, Sub(sender, e)
+                                                       Console.WriteLine(IIf(String.IsNullOrEmpty(e.Data), "", e.Data))
+                                                   End Sub
+            AddHandler process.ErrorDataReceived, Sub(sender, e)
+                                                      Console.WriteLine(IIf(String.IsNullOrEmpty(e.Data), "", "[Batch Error] " & e.Data))
+                                                  End Sub
+            AddHandler process.Exited, Sub()
+                                           flag = True
+                                       End Sub
+            Do Until flag
 
-                Loop
-            End If
+            Loop
+        End If
+    End Sub
+
+    Private Sub ModPackServerCreateHelper_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

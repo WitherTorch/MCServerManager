@@ -1,4 +1,6 @@
-﻿Public Class GeneratorMapping
+﻿Imports System.ComponentModel
+
+Public Class GeneratorMapping
     Shared Function GetSolutionCode(index As Integer) As String
         Try
             Return GeneratorSolutionCodes(index)
@@ -48,5 +50,16 @@
                     info.IconBox.Image = My.Resources.Luck
             End Select
         End If
+    End Sub
+
+    Private Sub GeneratorMapping_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
+
+    End Sub
+
+    Private Sub GeneratorMapping_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

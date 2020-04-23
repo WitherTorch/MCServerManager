@@ -1,4 +1,5 @@
-﻿Imports System.Threading.Tasks
+﻿Imports System.ComponentModel
+Imports System.Threading.Tasks
 
 Public Class MapChangeForm
     Friend mapList As New List(Of String)
@@ -40,6 +41,8 @@ Public Class MapChangeForm
         End Try
     End Function
     Private Sub MapChangeForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ShowInTaskbar = MiniState = 0
+        CreatedForm.Add(Me)
         SearchMaps()
         Task.Run(Sub()
                      Do Until isLoaded
@@ -238,5 +241,10 @@ Public Class MapChangeForm
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         DialogResult = DialogResult.Cancel
         Close()
+    End Sub
+
+    Private Sub MapChangeForm_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

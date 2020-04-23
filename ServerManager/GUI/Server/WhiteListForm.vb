@@ -24,6 +24,7 @@
     End Sub
 
     Private Sub WhiteListForm_Load(sender As Object, e As EventArgs) Handles Me.Load
+        ShowInTaskbar = MiniState = 0
         Try
             Dim array = Newtonsoft.Json.JsonConvert.DeserializeObject(Of Newtonsoft.Json.Linq.JArray)(ReadAllText(IO.Path.Combine(sPath, "whitelist.json")))
             For Each token In array

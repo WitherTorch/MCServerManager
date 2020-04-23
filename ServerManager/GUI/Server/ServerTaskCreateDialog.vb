@@ -45,6 +45,8 @@ Public Class ServerTaskCreateDialog
     End Sub
 
     Private Sub ServerTaskCreateDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ShowInTaskbar = MiniState = 0
+        CreatedForm.Add(Me)
 
     End Sub
 
@@ -173,6 +175,7 @@ Public Class ServerTaskCreateDialog
     End Sub
 
     Private Sub ServerTaskCreateDialog_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
 
     End Sub
 

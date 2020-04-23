@@ -72,5 +72,13 @@ Public Class ForgeInstallWindow
             End If
         Catch ex As Exception
         End Try
+        CreatedForm.Remove(Me)
+
+    End Sub
+
+    Private Sub ForgeInstallWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ShowInTaskbar = MiniState = 0
+        CreatedForm.Add(Me)
+
     End Sub
 End Class

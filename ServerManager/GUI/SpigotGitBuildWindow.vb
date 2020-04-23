@@ -71,5 +71,12 @@ Public Class SpigotGitBuildWindow
             End If
         Catch ex As Exception
         End Try
+        CreatedForm.Remove(Me)
+
+    End Sub
+
+    Private Sub SpigotGitBuildWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ShowInTaskbar = MiniState = 0
+        CreatedForm.Add(Me)
     End Sub
 End Class

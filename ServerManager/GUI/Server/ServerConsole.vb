@@ -165,6 +165,8 @@ Public Class ServerConsole
         backgroundProcess.StandardInput.WriteLine(command)
     End Sub
     Private Sub ServerConsole_Load(sender As Object, e As EventArgs) Handles Me.Load
+        ShowInTaskbar = MiniState = 0
+        CreatedForm.Add(Me)
         If isInBungee = False Then
             ConnectUPnP()
         End If
@@ -1200,6 +1202,7 @@ Public Class ServerConsole
     End Sub
 
     Private Sub ServerConsole_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
         If isInBungee = False Then
             Dim notifySettings As New List(Of Boolean)
             For i As Integer = 0 To NotifyChooseListBox.Items.Count - 1

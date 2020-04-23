@@ -1,4 +1,5 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.ComponentModel
+Imports System.Text.RegularExpressions
 Imports System.Threading.Tasks
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
@@ -127,12 +128,13 @@ Public Class ServerCreateDialog
                         If buildVer = "-1" Then
                             buildVer = "x"
                         End If
-                        If item.Major = 100 And item.Minor = 100 Then
-                            VersionBox.Items.Add("最新建置版本")
+                        If item.Major = 1 And item.Minor = 13 And item.Revision = 2 Then
+                            VersionBox.Items.Add("1.13.2")
                         Else
                             VersionBox.Items.Add(String.Format("{0}.{1}.{2}", item.Major, item.Minor, buildVer))
                         End If
                     Next
+                    VersionBox.Items.Add("1.14.4")
                 Case 7
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.SpongeVanilla)
                     Dim l = SpongeVanillaVersionList.Keys.ToList
@@ -234,6 +236,8 @@ Public Class ServerCreateDialog
         MapPanel.Enabled = (VersionBox.SelectedIndex <> -1 And VersionTypeBox.SelectedIndex <> -1 And ServerDirBox.Text.Trim <> "")
     End Sub
     Private Sub ServerCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         IPAddressComboBox.Items.AddRange(GlobalModule.Manager.ip.ToArray)
         ipType = ServerIPType.Float
         IPStyleComboBox.SelectedIndex = 0
@@ -486,6 +490,11 @@ Public Class ServerCreateDialog
                 Label5.Enabled = False
                 IPAddressComboBox.Enabled = False
         End Select
+    End Sub
+
+    Private Sub ServerCreateDialog_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class
 Enum ServerIPType

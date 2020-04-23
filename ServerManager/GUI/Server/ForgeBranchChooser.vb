@@ -1,4 +1,5 @@
-﻿Imports System.Xml
+﻿Imports System.ComponentModel
+Imports System.Xml
 
 Public Class ForgeBranchChooser
     Const manifestListURL As String = "https://files.minecraftforge.net/maven/net/minecraftforge/forge/maven-metadata.xml"
@@ -15,6 +16,8 @@ Public Class ForgeBranchChooser
     End Sub
 
     Private Sub ForgeBranchChooser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         ComboBox1.Enabled = False
         Threading.Tasks.Task.Run(Sub()
                                      Try
@@ -51,5 +54,10 @@ Public Class ForgeBranchChooser
             helper.Show()
             Close()
         End If
+    End Sub
+
+    Private Sub ForgeBranchChooser_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

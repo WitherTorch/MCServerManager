@@ -1,4 +1,6 @@
-﻿Public Class HybridMPExplorer
+﻿Imports System.ComponentModel
+
+Public Class HybridMPExplorer
     Dim engine As CharcoalEngine
     Friend index As Integer
     Friend isStart As Boolean = True
@@ -17,6 +19,8 @@
 
 
     Private Sub BukkitForm_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         Dim server = GlobalModule.Manager.ServerEntityList(index)
         Me.Text = Me.Text.Replace("Cauldron", GetSimpleVersionName(server.ServerVersionType, server.ServerVersion))
         AddHandler engine.DownloadProgressChanged, Sub(obj, args)
@@ -88,5 +92,10 @@
 
     Private Sub CharcoalEnginePanel_Resize(sender As Object, e As EventArgs) Handles CharcoalEnginePanel.Resize
         If isStart OrElse isError Then CharcoalEnginePanel.Refresh()
+    End Sub
+
+    Private Sub HybridMPExplorer_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

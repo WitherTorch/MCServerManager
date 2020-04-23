@@ -2,6 +2,9 @@
     Private JavaList As List(Of JavaPathsProvider.JavaInfo)
     Friend Property ChoosedJava As JavaPathsProvider.JavaInfo = Nothing
     Private Sub JavaChooseForm_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+
+        ShowInTaskbar = MiniState = 0
         JavaList = JavaPathsProvider.GetJavaList()
         For Each java In JavaList
             Dim item As New ListViewItem(java.Name)
@@ -36,6 +39,7 @@
     End Sub
 
     Private Sub JavaChooseForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        CreatedForm.Remove(Me)
         If DialogResult <> DialogResult.OK Then DialogResult = DialogResult.Cancel
     End Sub
 End Class

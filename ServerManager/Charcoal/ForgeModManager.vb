@@ -1,4 +1,6 @@
-﻿Public Class ForgeModManager
+﻿Imports System.ComponentModel
+
+Public Class ForgeModManager
     Implements IManagerGUI
     Dim server As Server
 
@@ -35,9 +37,16 @@
     End Sub
 
     Private Sub ForgeModManager_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(server.ServerPath, "mods")) = False Then
             My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(server.ServerPath, "mods"))
         End If
         BeginInvoke(New Action(Sub() LoadMods()))
+    End Sub
+
+    Private Sub ForgeModManager_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

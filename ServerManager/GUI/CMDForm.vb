@@ -1,4 +1,6 @@
-﻿Public Class CMDForm
+﻿Imports System.ComponentModel
+
+Public Class CMDForm
     Dim _writer As IO.StreamWriter
     Sub New(ByRef outputWriter As IO.StreamWriter, Optional consoleText As String = "")
 
@@ -24,5 +26,16 @@
 
             End Try
         End If
+    End Sub
+
+    Private Sub CMDForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ShowInTaskbar = MiniState = 0
+        CreatedForm.Add(Me)
+
+    End Sub
+
+    Private Sub CMDForm_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

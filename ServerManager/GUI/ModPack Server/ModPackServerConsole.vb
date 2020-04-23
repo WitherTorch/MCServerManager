@@ -79,6 +79,8 @@ Public Class ModPackServerConsole
         backgroundProcess.StandardInput.WriteLine(command)
     End Sub
     Private Sub ServerConsole_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         ConnectUPnP()
         TaskTimer.Enabled = True
         TaskTimer.Start()
@@ -462,6 +464,7 @@ Public Class ModPackServerConsole
     End Function
 
     Private Sub ServerConsole_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
         Dim notifySettings As New List(Of Boolean)
         For i As Integer = 0 To NotifyChooseListBox.Items.Count - 1
             notifySettings.Add(NotifyChooseListBox.GetItemChecked(i))

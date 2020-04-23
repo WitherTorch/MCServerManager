@@ -32,6 +32,8 @@ Public Class ServerSetter
                                   End Sub)
     End Sub
     Private Sub ServerSetter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         MapPanel.Controls.Add(New MapView(server) With {.Dock = DockStyle.Fill})
         SetUpdateInfo()
         If server.ServerVersionType = Server.EServerVersionType.Forge OrElse
@@ -273,6 +275,7 @@ Public Class ServerSetter
     End Sub
 
     Private Sub ServerSetter_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
         server.ServerTasks = TaskList.ToArray
         If IsNothing(serverOptions) = False Then
             server.ServerOptions = serverOptions.OutputOption

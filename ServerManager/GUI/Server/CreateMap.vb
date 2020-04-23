@@ -1,4 +1,6 @@
-﻿Public Class CreateMap
+﻿Imports System.ComponentModel
+
+Public Class CreateMap
     Dim server As Server
     Friend mapping As GeneratorMapping
     Dim editMode As Boolean
@@ -90,6 +92,8 @@
     End Sub
 
     Private Sub CreateMap_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         Select Case server.ServerType
             Case Server.EServerType.Java
                 LevelTypeBox.Items.AddRange(New String() {"預設", "超平坦(1.13 後可配合生成器設置)", "巨大生態系", "巨大化世界", "自定義(配合生成器設置,1.13 後不可用)", "自選世界類型(1.13 後可用,需配合生成器設置,否則與預設相同)"})
@@ -119,5 +123,10 @@
             GeneratorSettingBox.Enabled = True
             Button1.Enabled = True
         End If
+    End Sub
+
+    Private Sub CreateMap_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

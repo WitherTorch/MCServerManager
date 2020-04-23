@@ -44,11 +44,34 @@ Partial Class CMDForm
         '
         'TextBox2
         '
+        '
+        '
+        '
+        Me.TextBox2.CustomButton.Image = Nothing
+        Me.TextBox2.CustomButton.Location = New System.Drawing.Point(564, 2)
+        Me.TextBox2.CustomButton.Name = ""
+        Me.TextBox2.CustomButton.Size = New System.Drawing.Size(17, 17)
+        Me.TextBox2.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.TextBox2.CustomButton.TabIndex = 1
+        Me.TextBox2.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.TextBox2.CustomButton.UseSelectable = True
+        Me.TextBox2.CustomButton.Visible = False
         Me.TextBox2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TextBox2.Lines = New String(-1) {}
         Me.TextBox2.Location = New System.Drawing.Point(0, 389)
+        Me.TextBox2.MaxLength = 32767
         Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.TextBox2.SelectedText = ""
+        Me.TextBox2.SelectionLength = 0
+        Me.TextBox2.SelectionStart = 0
+        Me.TextBox2.ShortcutsEnabled = True
         Me.TextBox2.Size = New System.Drawing.Size(584, 22)
         Me.TextBox2.TabIndex = 1
+        Me.TextBox2.UseSelectable = True
+        Me.TextBox2.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.TextBox2.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'CMDForm
         '

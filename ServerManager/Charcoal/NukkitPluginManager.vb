@@ -1,4 +1,6 @@
-﻿Public Class NukkitPluginManager
+﻿Imports System.ComponentModel
+
+Public Class NukkitPluginManager
     Implements IManagerGUI
     Dim index As Integer
     Dim server As Server
@@ -12,7 +14,7 @@
         Me.server = GlobalModule.Manager.ServerEntityList(index)
         Me.index = index
     End Sub
-    Private Sub 瀏覽插件ToolStripMenuItem_Click(sender As Object, e As EventArgs) 
+    Private Sub 瀏覽插件ToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim explorer As New NukkitPluginExplorer(index)
         explorer.Show()
     End Sub
@@ -38,6 +40,8 @@
     End Sub
 
     Private Sub BukkitPluginManager_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(server.ServerPath, "plugins")) = False Then
             My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(server.ServerPath, "plugins"))
         End If
@@ -45,5 +49,10 @@
 
     Private Sub NukkitPluginManager_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         LoadPlugins()
+    End Sub
+
+    Private Sub NukkitPluginManager_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

@@ -1,4 +1,6 @@
-﻿Public Class NukkitPluginExplorer
+﻿Imports System.ComponentModel
+
+Public Class NukkitPluginExplorer
     Dim engine As CharcoalEngine
     Friend index As Integer
 
@@ -15,6 +17,8 @@
 
 
     Private Sub NukkitForm_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
 
         AddHandler engine.DownloadProgressChanged, Sub(obj, args)
                                                        ToolStripProgressBar1.Value = args.ProgressPercentage
@@ -28,5 +32,10 @@
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         GoHome()
+    End Sub
+
+    Private Sub NukkitPluginExplorer_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
+
     End Sub
 End Class

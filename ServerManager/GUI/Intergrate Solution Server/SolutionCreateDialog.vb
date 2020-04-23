@@ -1,4 +1,6 @@
-﻿Public Class SolutionCreateDialog
+﻿Imports System.ComponentModel
+
+Public Class SolutionCreateDialog
     Private Sub SolutionDirBrowseBtn_Click(sender As Object, e As EventArgs) Handles SolutionDirBrowseBtn.Click
         Static dir As New FolderBrowserDialog
         dir = New FolderBrowserDialog
@@ -11,6 +13,8 @@
     End Sub
 
     Private Sub BungeeCordCreateDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
+        CreatedForm.Add(Me)
+        ShowInTaskbar = MiniState = 0
         ComboBox1.Items.Add("BungeeCord #" & BungeeCordUpdater.GetLatestVersionNumber(BungeeCordType.BungeeCord))
         ComboBox1.Items.Add("Waterfall #" & BungeeCordUpdater.GetLatestVersionNumber(BungeeCordType.Waterfall))
     End Sub
@@ -30,5 +34,8 @@
 
     End Sub
 
+    Private Sub SolutionCreateDialog_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        CreatedForm.Remove(Me)
 
+    End Sub
 End Class
