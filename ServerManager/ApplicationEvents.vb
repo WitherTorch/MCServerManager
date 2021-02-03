@@ -22,6 +22,7 @@ Namespace My
             msg &= (vbNewLine & "例外類型：" & e.Exception.GetType.ToString & " (" & e.Exception.InnerException.GetType.ToString & ")")
             msg &= (vbNewLine & "內容：" & vbNewLine & e.Exception.InnerException.Message)
             msg &= (vbNewLine & "StackTrace：" & e.Exception.InnerException.StackTrace)
+            MsgBox(msg)
             If My.Computer.FileSystem.DirectoryExists(IO.Path.Combine(My.Application.Info.DirectoryPath, "error-logs")) Then
                 My.Application.Log.WriteEntry(msg, TraceEventType.Error)
                 My.Application.Log.DefaultFileLogWriter.Flush()

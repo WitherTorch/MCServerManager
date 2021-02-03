@@ -298,40 +298,10 @@ Public Class ServerCreateHelper
                 'request.UserAgent = "Mozilla/5.0 (Windows NT " & OSVersion.Major & "." & OSVersion.Minor & ") ServerManager/" & Application.ProductVersion
                 DownloadFile(targetURL, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "paper-" & server.ServerVersion & ".jar"), Server.EServerVersionType.Paper, server.ServerVersion)
             Case Server.EServerVersionType.Akarin
-                BeginInvoke(New Action(Sub()
-                                           StatusLabel.Text = "狀態：正在擷取安裝檔案 ……"
-                                       End Sub))
-                If server.ServerVersion = "1.14.4" Then
-                    DownloadFile("http://josephworks.ddns.net:8080/job/Akarin-project/job/Akarin-Master/lastSuccessfulBuild/artifact/akarin-1.14.4.jar", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "akarin-1.14.4.jar"), Server.EServerVersionType.Akarin, "1.14.4")
+                If server.ServerVersion = "1.15.2" Then
+                    DownloadFile("http://josephworks.ddns.net:8080/job/Akarin/job/ver%252F" + server.ServerVersion + "/lastSuccessfulBuild/artifact/akarin-" + server.ServerVersion + "-launcher.jar", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "akarin-" + server.ServerVersion + ".jar"), Server.EServerVersionType.Akarin, server.ServerVersion)
                 Else
-                    Dim subClient As New Net.WebClient
-                    subClient.Headers.Add(Net.HttpRequestHeader.Accept, "application/json")
-                    Dim downloadURL As String
-                    If server.ServerVersion = "master" Then
-                        downloadURL = "https://circleci.com/api/v1.1/project/github/Akarin-project/Akarin/tree/master" & "?filter=%22successful%22&limit=1"
-                    Else
-                        downloadURL = "https://circleci.com/api/v1.1/project/github/Akarin-project/Akarin/tree/ver/" & server.ServerVersion & "?filter=%22successful%22&limit=1"
-                        server.SetVersion("ver/" & server.ServerVersion)
-                    End If
-                    Dim subDocHtml = subClient.DownloadString(downloadURL)
-                    Dim subJsonObject As JObject = JsonConvert.DeserializeObject(Of JArray)(subDocHtml)(0)
-                    Dim buildNum As Integer = subJsonObject.GetValue("build_num")
-                    subClient.Headers.Add(Net.HttpRequestHeader.Accept, "application/json")
-                    Dim anotherDocHTML = subClient.DownloadString("https://circleci.com/api/v1.1/project/github/Akarin-project/Akarin/" & buildNum & "/artifacts")
-                    Dim regex As New Regex("akarin-[0-9].[0-9]{1,2}.[0-9]{1,2}.jar")
-                    For Each anotherJSONObject As JObject In JsonConvert.DeserializeObject(Of JArray)(anotherDocHTML)
-                        Dim targetURL As String = anotherJSONObject.GetValue("url")
-                        If regex.IsMatch(targetURL) Then
-                            Dim matchString As String = regex.Match(targetURL).Value
-                            matchString = matchString.Remove(0, 7)
-                            matchString = matchString.Substring(0, matchString.Length - 4)
-                            If Version.TryParse(matchString, Nothing) Then
-                                server.SetVersion(matchString, buildNum, server.ServerVersion)
-                                DownloadFile(targetURL, IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "akarin-" & matchString & ".jar"), Server.EServerVersionType.Akarin, matchString)
-                                Exit For
-                            End If
-                        End If
-                    Next
+                    DownloadFile("http://josephworks.ddns.net:8080/job/Akarin/job/ver%252F" + server.ServerVersion + "/lastSuccessfulBuild/artifact/akarin-" + server.ServerVersion + ".jar", IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "akarin-" + server.ServerVersion + "..jar"), Server.EServerVersionType.Akarin, server.ServerVersion)
                 End If
             Case Server.EServerVersionType.Nukkit
                 DownloadFile(GetNukkitDownloadURL(NukkitVersionUrl), IO.Path.Combine(IIf(path.EndsWith(seperator), path, path & seperator), "nukkit-" & server.Server2ndVersion & ".jar"), Server.EServerVersionType.Nukkit, "#" & server.Server2ndVersion)

@@ -409,7 +409,7 @@ Public Class ServerSetter
                     taskDialog.Label4.Enabled = False
                     taskDialog.EventComboBox.Enabled = False
                     taskDialog.Label5.Enabled = False
-                    taskDialog.TaskPeriodUnitCombo.SelectedIndex = task.RepeatingPeriodUnit - 1
+                    taskDialog.TaskPeriodUnitCombo.SelectedIndex = task.RepeatingPeriodUnit
                     taskDialog.TaskPeriodUpDown.Value = task.RepeatingPeriod
                 Case ServerTask.TaskMode.QuickLaunch
                     taskDialog.TaskTypeComboBox.SelectedIndex = 2
