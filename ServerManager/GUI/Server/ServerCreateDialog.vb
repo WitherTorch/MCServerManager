@@ -128,13 +128,12 @@ Public Class ServerCreateDialog
                         If buildVer = "-1" Then
                             buildVer = "x"
                         End If
-                        If item.Major = 1 And item.Minor = 13 And item.Revision = 2 Then
-                            VersionBox.Items.Add("1.13.2")
+                        If item.Major = 1 And item.Minor = 13 And item.Build <> 2 Then
                         Else
                             VersionBox.Items.Add(String.Format("{0}.{1}.{2}", item.Major, item.Minor, buildVer))
                         End If
                     Next
-                    VersionBox.Items.Add("1.14.4")
+                    VersionBox.Items.Remove("1.16.4") 'JosephWork's Akarin 1.16.4 is 1.15.2 ver ---2021/02/03
                 Case 7
                     server.SetVersionType(Server.EServerType.Java, Server.EServerVersionType.SpongeVanilla)
                     Dim l = SpongeVanillaVersionList.Keys.ToList

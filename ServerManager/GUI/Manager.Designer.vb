@@ -1230,7 +1230,7 @@ Partial Class Manager
         Me.TabPage1.Location = New System.Drawing.Point(4, 36)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage1.Size = New System.Drawing.Size(722, 379)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Java"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -1580,7 +1580,7 @@ Partial Class Manager
         Me.TabPage2.Location = New System.Drawing.Point(4, 36)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage2.Size = New System.Drawing.Size(722, 379)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "伺服器"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -1618,7 +1618,7 @@ Partial Class Manager
         Me.TabPage3.Location = New System.Drawing.Point(4, 36)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(722, 377)
+        Me.TabPage3.Size = New System.Drawing.Size(722, 379)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "外部工具"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -1976,7 +1976,7 @@ Partial Class Manager
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(213, 81)
         Me.Label10.TabIndex = 3
-        Me.Label10.Text = "作者：Error 404、冰霜、asd7766zxc"
+        Me.Label10.Text = "作者：米茶、冰霜、asd7766zxc"
         '
         'Label9
         '
@@ -1987,7 +1987,7 @@ Partial Class Manager
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(159, 19)
         Me.Label9.TabIndex = 2
-        Me.Label9.Text = "版本：1.7 LTS Patch 1"
+        Me.Label9.Text = "版本：1.7 LTS Patch 2"
         '
         'PictureBox1
         '
