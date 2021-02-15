@@ -1302,14 +1302,28 @@ Public Class Manager
                                                         End Try
                                                     Else
                                                         Try
-                                                            Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
-                                                                Case MsgBoxResult.Yes
-                                                                    If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) Then
-                                                                        My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                                                                    End If
-                                                                Case MsgBoxResult.Cancel
-                                                                    Exit Sub
-                                                            End Select
+                                                            Dim IsSpecialFolder As Boolean = False
+                                                            For Each folder As Environment.SpecialFolder In [Enum].GetValues(GetType(Environment.SpecialFolder))
+                                                                IsSpecialFolder = (status.Server.ServerPath = Environment.GetFolderPath(folder))
+                                                                If IsSpecialFolder Then
+                                                                    Exit For
+                                                                End If
+                                                            Next
+                                                            If My.Computer.FileSystem.DirectoryExists(status.Server.ServerPath) And Not IsSpecialFolder Then
+                                                                Select Case MsgBox("要刪除伺服器的資料夾嗎？", MsgBoxStyle.YesNoCancel, "移除伺服器")
+                                                                    Case MsgBoxResult.Yes
+                                                                        Select Case MsgBox("是否將刪除的伺服器資料夾移入資源回收桶？", MsgBoxStyle.YesNoCancel, "移除伺服器")
+                                                                            Case MsgBoxResult.Yes
+                                                                                My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents, FileIO.RecycleOption.SendToRecycleBin)
+                                                                            Case MsgBoxResult.No
+                                                                                My.Computer.FileSystem.DeleteDirectory(status.Server.ServerPath, FileIO.DeleteDirectoryOption.DeleteAllContents, FileIO.RecycleOption.DeletePermanently)
+                                                                            Case MsgBoxResult.Cancel
+                                                                                Exit Sub
+                                                                        End Select
+                                                                    Case MsgBoxResult.Cancel
+                                                                        Exit Sub
+                                                                End Select
+                                                            End If
                                                         Catch ex As Exception
                                                         End Try
                                                         Try
