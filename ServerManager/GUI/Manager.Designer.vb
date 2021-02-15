@@ -244,7 +244,7 @@ Partial Class Manager
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 0
+        Me.MainTabControl.SelectedIndex = 6
         Me.MainTabControl.Size = New System.Drawing.Size(744, 465)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
@@ -635,10 +635,10 @@ Partial Class Manager
         Me.ServerListPage.HorizontalScrollbarBarColor = True
         Me.ServerListPage.HorizontalScrollbarHighlightOnWheel = False
         Me.ServerListPage.HorizontalScrollbarSize = 10
-        Me.ServerListPage.Location = New System.Drawing.Point(4, 38)
+        Me.ServerListPage.Location = New System.Drawing.Point(4, 36)
         Me.ServerListPage.Name = "ServerListPage"
         Me.ServerListPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.ServerListPage.Size = New System.Drawing.Size(736, 423)
+        Me.ServerListPage.Size = New System.Drawing.Size(736, 425)
         Me.ServerListPage.TabIndex = 1
         Me.ServerListPage.Text = "伺服器列表"
         Me.ServerListPage.VerticalScrollbarBarColor = True
@@ -655,7 +655,7 @@ Partial Class Manager
         Me.ServerListPanel.Name = "ServerListPanel"
         Me.ServerListPanel.RowCount = 1
         Me.ServerListPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.ServerListPanel.Size = New System.Drawing.Size(730, 381)
+        Me.ServerListPanel.Size = New System.Drawing.Size(730, 383)
         Me.ServerListPanel.TabIndex = 6
         '
         'BottomButtons
@@ -669,7 +669,7 @@ Partial Class Manager
         Me.BottomButtons.Controls.Add(Me.Button1, 0, 0)
         Me.BottomButtons.Controls.Add(Me.Button2, 1, 0)
         Me.BottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BottomButtons.Location = New System.Drawing.Point(3, 384)
+        Me.BottomButtons.Location = New System.Drawing.Point(3, 386)
         Me.BottomButtons.Name = "BottomButtons"
         Me.BottomButtons.RowCount = 1
         Me.BottomButtons.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
