@@ -352,7 +352,7 @@ Public Class Manager
     Private Sub GetVanillaBedrockServerVersionList()
         VanillaBedrockGetVersionThread = New Thread(Sub()
                                                         VanillaBedrockVersion = Nothing
-                                                        Dim listURL As String = "https://minecraft.net/zh-hant/download/server/bedrock/"
+                                                        Dim listURL As String = "https://minecraft.net/en-us/download/server/bedrock/"
                                                         Try
                                                             BeginInvoke(New Action(Sub() VanillaBedrockLoadingLabel.Text = "原版(基岩)：" & "下載列表中..."))
                                                             Dim versionNode = (New HtmlAgilityPack.HtmlWeb).Load(listURL).DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[3]/main[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/a[1]")

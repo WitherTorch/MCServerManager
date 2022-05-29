@@ -102,7 +102,7 @@ Partial Class ServerConsole
         Me.MainTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular
         Me.MainTabControl.Location = New System.Drawing.Point(20, 30)
         Me.MainTabControl.Name = "MainTabControl"
-        Me.MainTabControl.SelectedIndex = 2
+        Me.MainTabControl.SelectedIndex = 0
         Me.MainTabControl.Size = New System.Drawing.Size(760, 456)
         Me.MainTabControl.Style = MetroFramework.MetroColorStyle.Green
         Me.MainTabControl.TabIndex = 0
@@ -118,10 +118,10 @@ Partial Class ServerConsole
         Me.MainTabPage.HorizontalScrollbarBarColor = True
         Me.MainTabPage.HorizontalScrollbarHighlightOnWheel = False
         Me.MainTabPage.HorizontalScrollbarSize = 10
-        Me.MainTabPage.Location = New System.Drawing.Point(4, 36)
+        Me.MainTabPage.Location = New System.Drawing.Point(4, 38)
         Me.MainTabPage.Name = "MainTabPage"
         Me.MainTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.MainTabPage.Size = New System.Drawing.Size(752, 416)
+        Me.MainTabPage.Size = New System.Drawing.Size(752, 414)
         Me.MainTabPage.TabIndex = 0
         Me.MainTabPage.Text = "伺服器資訊"
         Me.MainTabPage.UseVisualStyleBackColor = True
@@ -157,7 +157,7 @@ Partial Class ServerConsole
         Me.PlayerGroupBox.Controls.Add(Me.PlayerListBox)
         Me.PlayerGroupBox.Location = New System.Drawing.Point(8, 108)
         Me.PlayerGroupBox.Name = "PlayerGroupBox"
-        Me.PlayerGroupBox.Size = New System.Drawing.Size(736, 307)
+        Me.PlayerGroupBox.Size = New System.Drawing.Size(736, 305)
         Me.PlayerGroupBox.TabIndex = 36
         Me.PlayerGroupBox.TabStop = False
         Me.PlayerGroupBox.Text = "玩家"
@@ -170,53 +170,53 @@ Partial Class ServerConsole
         Me.PlayerListBox.ItemHeight = 16
         Me.PlayerListBox.Location = New System.Drawing.Point(3, 19)
         Me.PlayerListBox.Name = "PlayerListBox"
-        Me.PlayerListBox.Size = New System.Drawing.Size(730, 285)
+        Me.PlayerListBox.Size = New System.Drawing.Size(730, 283)
         Me.PlayerListBox.TabIndex = 0
         '
         'UserContextMenu
         '
         Me.UserContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.封禁ToolStripMenuItem, Me.踢出ToolStripMenuItem, Me.ToolStripSeparator1, Me.設定OPToolStripMenuItem, Me.解除OPToolStripMenuItem, Me.ToolStripSeparator2, Me.更新列表用listToolStripMenuItem})
         Me.UserContextMenu.Name = "UserContextMenu"
-        Me.UserContextMenu.Size = New System.Drawing.Size(125, 126)
+        Me.UserContextMenu.Size = New System.Drawing.Size(123, 126)
         '
         '封禁ToolStripMenuItem
         '
         Me.封禁ToolStripMenuItem.Name = "封禁ToolStripMenuItem"
-        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.封禁ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.封禁ToolStripMenuItem.Text = "封禁"
         '
         '踢出ToolStripMenuItem
         '
         Me.踢出ToolStripMenuItem.Name = "踢出ToolStripMenuItem"
-        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.踢出ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.踢出ToolStripMenuItem.Text = "踢出"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(121, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(119, 6)
         '
         '設定OPToolStripMenuItem
         '
         Me.設定OPToolStripMenuItem.Name = "設定OPToolStripMenuItem"
-        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.設定OPToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.設定OPToolStripMenuItem.Text = "設定OP"
         '
         '解除OPToolStripMenuItem
         '
         Me.解除OPToolStripMenuItem.Name = "解除OPToolStripMenuItem"
-        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.解除OPToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.解除OPToolStripMenuItem.Text = "解除OP"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(121, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(119, 6)
         '
         '更新列表用listToolStripMenuItem
         '
         Me.更新列表用listToolStripMenuItem.Name = "更新列表用listToolStripMenuItem"
-        Me.更新列表用listToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.更新列表用listToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.更新列表用listToolStripMenuItem.Text = "更新列表"
         '
         'SystemGroupBox
